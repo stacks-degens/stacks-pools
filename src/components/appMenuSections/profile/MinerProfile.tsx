@@ -24,10 +24,12 @@ import {
 import AboutContainer from '../../reusableComponents/profile/AboutContainer';
 import ActivityContainer from '../../reusableComponents/profile/ActivityContainer';
 import ActionsContainer from '../../reusableComponents/profile/ActionsContainer';
+import RoleIntro from '../../reusableComponents/profile/RoleIntro';
 
 interface IMinerProfileProps {
   connectedWallet: string | null;
   explorerLink: string | undefined;
+  // currentBalance: number;
 }
 
 const MinerProfile = ({ connectedWallet, explorerLink }: IMinerProfileProps) => {
@@ -144,16 +146,18 @@ const MinerProfile = ({ connectedWallet, explorerLink }: IMinerProfileProps) => 
   }, [currentBalance, totalWithdrawals]);
 
   return (
-    <Box
-      sx={{
-        minHeight: 'calc(100vh - 60px)',
-        backgroundColor: colors[currentTheme].accent2,
-        color: colors[currentTheme].secondary,
-        marginTop: -2.5,
-      }}
-    >
-      <div>
-        <ul>
+    // <Box
+    //   sx={{
+    //     // minHeight: 'calc(100vh - 60px)',
+    //     height: 'calc(100vh - 60px)',
+    //     backgroundColor: colors[currentTheme].accent2,
+    //     color: colors[currentTheme].secondary,
+    //     // marginTop: -2.5,
+    //   }}
+    // >
+    <div>
+      {/* <div> */}
+      {/* <ul>
           <li>
             current role: <div>{currentRole}</div>
           </li>
@@ -272,13 +276,25 @@ const MinerProfile = ({ connectedWallet, explorerLink }: IMinerProfileProps) => 
             You are currently the notifier and you can not leave pool. Just a simple miner can leave the pool.
           </Alert>
         </div>
-      )}
-
-      <AboutContainer currentRole={currentRole} connectedWallet={connectedWallet} explorerLink={explorerLink} />
-      <ActivityContainer />
-      <ActionsContainer />
-    </Box>
+      )} */}
+      <div className="principal-content-profile-page">
+        <RoleIntro currentRole={currentRole} />
+        <div className={currentRole === 'Miner' ? 'main-info-container' : 'main-info-container-normal-user'}>
+          <AboutContainer
+            currentRole={currentRole}
+            connectedWallet={connectedWallet}
+            explorerLink={explorerLink}
+            currentBalance={currentBalance}
+            totalWithdrawals={totalWithdrawals}
+          />
+          {currentRole === 'Miner' && <ActionsContainer />}
+        </div>
+      </div>
+    </div>
   );
+  {
+    /* </Box> */
+  }
 };
 
 export default MinerProfile;
