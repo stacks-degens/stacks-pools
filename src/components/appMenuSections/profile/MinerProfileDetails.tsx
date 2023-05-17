@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
-import colors from '../../../consts/colorPallete';
 import useCurrentTheme from '../../../consts/theme';
-import { Box } from '@mui/material';
 import {
   ReadOnlyAllDataWaitingMiners,
   readOnlyAddressStatus,
@@ -10,6 +8,9 @@ import {
 } from '../../../consts/readOnly';
 import { getExplorerUrl, network } from '../../../consts/network';
 import { cvToJSON, listCV, principalCV } from '@stacks/transactions';
+import MinerDetailsContainer from '../../reusableComponents/profile/profileDetails/MinerDetailsContainer';
+import RoleIntroMinerDetails from '../../reusableComponents/profile/profileDetails/RoleIntroMinerDetails';
+import colors from '../../../consts/colorPallete';
 
 interface MinerDataProps {
   balance: string;
@@ -94,82 +95,29 @@ const Voting = () => {
     }
   }, [minerData]);
 
-  if (status === null) {
-    return (
-      <Box
-        sx={{
-          minHeight: 'calc(100vh - 60px)',
-          backgroundColor: colors[currentTheme].accent2,
-          color: colors[currentTheme].secondary,
-          marginTop: -2.5,
-        }}
-      >
-        <div>
-          <h2>Miner Profile - Details</h2>
-          <ul>
-            <li>Address: {address}</li>
-            <li>Wrong Address!</li>
-          </ul>
-        </div>
-      </Box>
-    );
-  }
-
   return (
-    <Box
-      sx={{
-        minHeight: 'calc(100vh - 60px)',
-        backgroundColor: colors[currentTheme].accent2,
-        color: colors[currentTheme].secondary,
-        marginTop: -2.5,
-      }}
-    >
-      <div>
-        <h2>Miner Profile - Details</h2>
-        <ul>
-          <li>Address: {address}</li>
-          <li>Status: {status === 'NormalUser' ? 'Not Asked To Join Yet' : status}</li>
-          {status === 'Waiting' && (
-            <li>
-              positive votes for this address:{' '}
-              {positiveVotes !== null && positiveVotesThreshold !== null
-                ? positiveVotes + '/' + positiveVotesThreshold
-                : '0'}
-            </li>
-          )}
-          {status === 'Waiting' && (
-            <li>
-              negative votes for this address:{' '}
-              {negativeVotes !== null && negativeVotesThreshold !== null
-                ? negativeVotes + '/' + negativeVotesThreshold
-                : '0'}
-            </li>
-          )}
-          {status === 'Pending' && (
-            <li>Blocks until can join: {blocksLeftUntilJoin !== null ? blocksLeftUntilJoin : 0}</li>
-          )}
-          {status === 'Miner' && (
-            <li>Was Blacklisted: {wasBlacklisted !== null ? (wasBlacklisted === false ? 'No' : 'Yes') : ''}</li>
-          )}
-          {status === 'Miner' && <li>Warnings: {warnings !== null ? warnings : ''}</li>}
-          {status === 'Miner' && <li>Number of Blocks as Miner: {blocksAsMiner !== null ? blocksAsMiner : ''}</li>}
-          {status === 'Miner' && <li>Balance: {balance !== null ? balance : ''}</li>}
-          {status === 'Miner' && <li>Total Withdrawals: {totalWithdrawals !== null ? totalWithdrawals : ''}</li>}
-          <li>
-            <button style={{ backgroundColor: colors[currentTheme].accent2, color: colors[currentTheme].secondary }}>
-              <a
-                style={{ backgroundColor: colors[currentTheme].accent2, color: colors[currentTheme].secondary }}
-                target="_blank"
-                rel="noreferrer"
-                href={explorerLink !== undefined ? explorerLink : ''}
-              >
-                Check Address on Explorer
-              </a>
-            </button>
-          </li>
-        </ul>
+    <div className="page-heading-title">
+      <h2>Decentralized Mining Pool</h2>
+      <h2>Miner Details</h2>
+      <div className="principal-content-profile-page">
+        <RoleIntroMinerDetails currentRole={status} />
+        <div className={'main-info-container-normal-user'}>
+          <MinerDetailsContainer
+            currentRole={status}
+            address={address}
+            explorerLink={explorerLink}
+            currentBalance={balance}
+            totalWithdrawals={totalWithdrawals}
+            wasBlacklisted={wasBlacklisted}
+            warnings={warnings}
+            blocksAsMiner={blocksAsMiner}
+            blocksUntilJoin={blocksLeftUntilJoin}
+            positiveVotes={positiveVotes + '/' + positiveVotesThreshold}
+            negativeVotes={negativeVotes + '/' + negativeVotesThreshold}
+          />
+        </div>
       </div>
-    </Box>
+    </div>
   );
 };
 
