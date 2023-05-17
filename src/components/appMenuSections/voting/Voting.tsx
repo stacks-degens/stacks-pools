@@ -38,7 +38,7 @@ const Voting = () => {
       <h2>Voting - Status</h2>
       <div className="principal-content-profile-page">
         <div className={'main-info-container-normal-user'}>
-          <VotingStatusContainer notifier={currentNotifier} votingStatus={notifierVoteStatus} />;
+          <VotingStatusContainer notifier={currentNotifier} votingStatus={notifierVoteStatus} />
         </div>
       </div>
     </div>

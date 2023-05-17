@@ -83,7 +83,6 @@ const Dashboard = () => {
             userAddress={userAddress}
             currentRole={currentRole}
           />
-          ;
         </div>
       </div>
     </div>

@@ -159,7 +159,6 @@ const VotingNotifier = () => {
               electedNotifier={currentNotifier}
               voteStatus={notifierVoteStatus}
             />
-            ;
           </div>
         </div>
       </div>

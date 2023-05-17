@@ -67,7 +67,6 @@ const MiningPoolStatus = () => {
             blocksWon={blocksWon}
             votingStatus={notifierVoteStatus}
           />
-          ;
         </div>
       </div>
     </div>
