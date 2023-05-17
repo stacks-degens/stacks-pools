@@ -2,29 +2,22 @@ import './styles.css';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import colors from '../../../consts/colorPallete';
 import useCurrentTheme from '../../../consts/theme';
-import { ContractAskToJoin } from '../../../consts/smartContractFunctions';
-import { UserRole } from '../../../redux/reducers/user-state';
+import { ContractEndVoteNotifier } from '../../../consts/smartContractFunctions';
 
-interface DashboardInfoContainerProps {
+interface MiningStatusContainerProps {
   notifier: string | null;
-  minersList: Array<string>;
+  currentBlock: number | null;
   blocksWon: number | null;
-  stacksRewards: number | null;
-  userAddress: string | null;
-  currentRole: UserRole;
+  votingStatus: string | null;
 }
-const DashboardInfoContainer = ({
-  notifier,
-  minersList,
-  blocksWon,
-  stacksRewards,
-  userAddress,
-  currentRole,
-}: DashboardInfoContainerProps) => {
+const MiningPoolStatusContainer = ({ notifier, currentBlock, blocksWon, votingStatus }: MiningStatusContainerProps) => {
   const { currentTheme } = useCurrentTheme();
 
   return (
-    <div style={{ backgroundColor: colors[currentTheme].defaultYellow }} className="info-container-dashboard-page">
+    <div
+      style={{ backgroundColor: colors[currentTheme].defaultYellow }}
+      className="info-container-mining-pool-status-page"
+    >
       <div className="heading-info-container">
         <div className="heading-title-info-container">
           <div className="heading-icon-info-container">
@@ -39,33 +32,31 @@ const DashboardInfoContainer = ({
           <div>{notifier !== null ? notifier : ''}</div>
         </div>
         <div className="content-sections-title-info-container">
-          <span className="bold-font">Miners List: </span>
-          {minersList.length !== 0 && minersList.map((data: string, index: number) => <div key={index}>{data}</div>)}
+          <span className="bold-font">Ongoing Block: </span>
+          {currentBlock !== null ? currentBlock : ''}
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Number of Blocks Won: </span>
           <span>{blocksWon !== null ? blocksWon : ''}</span>
         </div>
         <div className="content-sections-title-info-container">
-          <span className="bold-font">Stacks Rewards: </span>
-          <span>{stacksRewards !== null ? stacksRewards : ''}</span>
+          <span className="bold-font">Notifier Voting Status: </span>
+          <span>{votingStatus !== null ? votingStatus : ''}</span>
         </div>
       </div>
-      {currentRole === 'NormalUser' && (
-        <div className="footer-join-button-container">
+      {votingStatus === 'Ended by time!' && (
+        <div className="footer-end-vote-button-container">
           <button
             className="customButton"
             onClick={() => {
-              if (userAddress !== null) {
-                ContractAskToJoin(`${userAddress}`);
-              }
+              ContractEndVoteNotifier();
             }}
           >
-            Join Pool
+            End Vote
           </button>
         </div>
       )}
     </div>
   );
 };
-export default DashboardInfoContainer;
+export default MiningPoolStatusContainer;

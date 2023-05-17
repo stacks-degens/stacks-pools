@@ -206,7 +206,7 @@ export const readOnlyGetNotifierElectionProcessData = async () => {
 export const readOnlyGetAllDataNotifierVoterMiners = async (voterMinersList: ClarityValue) => {
   const votedNotifier = await ReadOnlyFunctions([voterMinersList], 'get-all-data-notifier-voter-miners');
   return cvToJSON(votedNotifier).value[0].value.value === '133'
-    ? "you haven't voted yet"
+    ? "You haven't voted yet!"
     : cvToJSON(votedNotifier).value[0].value.value['voted-notifier'].value;
 };
 
