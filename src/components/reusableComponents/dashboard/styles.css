@@ -1,0 +1,102 @@
+.info-container-dashboard-page {
+  background-color: #f9b11c;
+  width: 470px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 2px solid #f9b11c;
+  box-shadow: 1px 1px 4px #ed693c, -1px -1px 4px #fdc60b;
+}
+
+.heading-info-container {
+  height: 50px;
+  padding: 5px 15px;
+  background-color: #f9b11c;
+  background-color: #feeaa7;
+  background-color: #fef9f7;
+  border-bottom: 1px #2f2f2f solid;
+}
+
+.heading-title-info-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.heading-icon-info-container {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px;
+}
+
+.icon-info-container {
+  font-size: 35px !important;
+  color: #2f2f2f;
+}
+
+.title-info-container {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.content-info-container-normal-user {
+  padding: 10px 20px 20px 20px;
+  background-color: #f9b11c;
+  background-color: #fef9f7;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.content-sections-title-info-container {
+  padding-block: 3px;
+}
+
+.footer-join-button-container {
+  height: 50px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9b11c;
+  background-color: #feeaa7;
+  background-color: #fef9f7;
+  border-top: 1px #2f2f2f solid;
+}
+
+/* ********************************** BUTTONS **********************************  */
+
+.customButton {
+  color: #2f2f2f;
+  width: 140px;
+  cursor: pointer;
+  font-size: 15px;
+  border: 1px solid #ed693c;
+  border-radius: 10px;
+  padding: 10px;
+  font-weight: bold;
+  background: linear-gradient(135deg, #fdc60b 30%, #ed693c 100%);
+}
+
+.customButton:hover {
+  box-shadow: 2px 2px 7px #fdc60b, -2px -2px 7px #fdc60b;
+  background: none;
+  background-color: #fef9f7;
+  transition: background-color 2s linear, box-shadow 0.5s;
+  color: #5f2a18;
+}
+
+.customButton:disabled {
+  background-color: #cdcdcd !important;
+  border: 1px solid #737373 !important;
+  box-shadow: none;
+  background: none;
+  color: #2f2f2f;
+  cursor: auto;
+}
