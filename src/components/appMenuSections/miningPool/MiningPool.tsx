@@ -1,3 +1,4 @@
+import './styles.css';
 import * as React from 'react';
 import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
@@ -38,6 +39,7 @@ const MiningPool = () => {
             sx={{
               color: colors[currentTheme].secondary,
             }}
+            className="table-row"
           >
             {column.dataKey === 'proposeRemoval' ? (
               <Box>
@@ -62,19 +64,24 @@ const MiningPool = () => {
   };
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'column',
-        width: '100%',
-        minHeight: 'calc(100vh - 60px)',
-      }}
-      style={{
-        backgroundColor: colors[currentTheme].accent2,
-        color: colors[currentTheme].secondary,
-      }}
-    >
+    <div className="page-heading-title">
+      <h2>Decentralized Mining Pool</h2>
+      <h2>Mining Pool - Miners</h2>
+      <div className="principal-content-profile-page"></div>
+
+      {/* // <Box
+    //   sx={{
+    //     display: 'flex',
+    //     alignItems: 'center',
+    //     flexDirection: 'column',
+    //     width: '100%',
+    //     minHeight: 'calc(100vh - 60px)',
+    //   }}
+    //   style={{
+    //     backgroundColor: colors[currentTheme].accent2,
+    //     color: colors[currentTheme].secondary,
+    //   }}
+    // > */}
       <TableCreation
         rows={minersRows}
         rowContent={minersRowContent}
@@ -82,7 +89,8 @@ const MiningPool = () => {
         tableId="miners"
         customTableWidth="75%"
       />
-    </Box>
+    </div>
+    // </Box>
   );
 };
 

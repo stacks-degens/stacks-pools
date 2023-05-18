@@ -4,6 +4,7 @@ import ConnectWallet from './ConnectWallet';
 import LeftPanel from './LeftPanel';
 import colors from '../consts/colorPallete';
 import useCurrentTheme from '../consts/theme';
+import './styles.css';
 
 const HeaderBar = () => {
   const { currentTheme, setTheme } = useCurrentTheme();

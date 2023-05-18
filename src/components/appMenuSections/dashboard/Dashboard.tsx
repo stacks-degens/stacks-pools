@@ -10,6 +10,7 @@ import {
 import useCurrentTheme from '../../../consts/theme';
 import DashboardInfoContainer from '../../reusableComponents/dashboard/DashboardInfoContainer';
 import colors from '../../../consts/colorPallete';
+import './styles.css';
 
 const Dashboard = () => {
   const { currentTheme } = useCurrentTheme();

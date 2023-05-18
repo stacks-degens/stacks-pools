@@ -21,7 +21,7 @@ const MiningPoolStatusContainer = ({ notifier, currentBlock, blocksWon, votingSt
       <div className="heading-info-container">
         <div className="heading-title-info-container">
           <div className="heading-icon-info-container">
-            <AccountCircleIcon className="icon-info-container" />
+            <AccountCircleIcon className="icon-info-container yellow-icon" />
           </div>
           <div className="title-info-container">INFO</div>
         </div>

@@ -1,0 +1,52 @@
+.css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked {
+  color: red !important;
+  background-color: green !important;
+}
+
+/* loginButtonIconHeader */
+button.Connect .css-i4bv87-MuiSvgIcon-root {
+  color: #f9b11c !important;
+}
+
+#loginIconHeader {
+  color: green !important;
+  background-color: blue !important;
+}
+
+/* switch theme icon button light theme */
+.css-decirt-MuiSwitch-root .MuiSwitch-thumb {
+  background-color: #f9b11c !important;
+}
+
+/* switch theme icon button dark theme */
+.css-1fq2vw5-MuiSwitch-root .MuiSwitch-thumb {
+  background-color: #f9b11c !important;
+}
+
+/* open side bar button when it's closed  */
+
+.MuiCardHeader-action .css-i4bv87-MuiSvgIcon-root {
+  color: #f9b11c !important;
+}
+
+.active-custom .css-i4bv87-MuiSvgIcon-root,
+.active-custom .css-tlelie-MuiListItemText-root {
+  color: #f9b11c !important;
+}
+
+/* open side bar button when it's open  */
+#open-menu-icon {
+  color: #f9b11c !important;
+}
+
+/* .MuiListItem-root .MuiListItem-gutters .css-1nxmd3h-MuiListItem-root .css-i4bv87-MuiSvgIcon-root {
+  background-color: red !important;
+  color: blue !important;
+} */
+
+.css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked .css-8je8zh-MuiTouchRipple-root {
+  /* background-color: #f9b11c !important;
+  color: white !important; */
+}
+
+/* .css-i4bv87-MuiSvgIcon-root */

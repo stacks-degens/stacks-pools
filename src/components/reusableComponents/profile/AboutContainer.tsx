@@ -67,7 +67,7 @@ const AboutContainer = ({
       <div className="heading-info-container">
         <div className="heading-title-info-container">
           <div className="heading-icon-info-container">
-            <AccountCircleIcon className="icon-info-container" />
+            <AccountCircleIcon className="icon-info-container yellow-icon" />
           </div>
           <div className="title-info-continer">ABOUT</div>
         </div>

@@ -1,4 +1,5 @@
 .info-container-dashboard-page {
+  color: #2f2f2f;
   background-color: #f9b11c;
   width: 470px;
   border-radius: 20px;
@@ -68,6 +69,10 @@
   background-color: #feeaa7;
   background-color: #fef9f7;
   border-top: 1px #2f2f2f solid;
+}
+
+.yellow-icon {
+  color: #f9b11c !important;
 }
 
 /* ********************************** BUTTONS **********************************  */

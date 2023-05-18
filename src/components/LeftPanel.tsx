@@ -13,7 +13,7 @@ import MenuOpen from '@mui/icons-material/MenuOpenRounded';
 import HomeIcon from '@mui/icons-material/Home';
 import Hardware from '@mui/icons-material/Hardware';
 import Poll from '@mui/icons-material/Poll';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import colors from '../consts/colorPallete';
 import Home from '@mui/icons-material/Home';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -22,6 +22,7 @@ import { selectCurrentUserRole, UserRole } from '../redux/reducers/user-state';
 import { useState } from 'react';
 import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material';
 import { Collapse } from '@mui/material';
+import './styles.css';
 
 type Anchor = 'top' | 'left' | 'bottom' | 'right';
 
@@ -39,6 +40,8 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
 
   const [openMiningPoolMenu, setOpenMiningPoolMenu] = useState<boolean>(true);
   const [openVotingMenu, setOpenVotingMenu] = useState<boolean>(true);
+
+  const location = useLocation();
 
   const handleClickMiningPoolMenuItem = () => {
     setOpenMiningPoolMenu(!openMiningPoolMenu);
@@ -83,7 +86,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
             }}
           >
             <ListItemButton>
-              <MenuOpen fontSize="medium" style={{ color: colors[currentTheme].buttons }} />
+              <MenuOpen id="open-menu-icon" fontSize="medium" style={{ color: colors[currentTheme].buttons }} />
             </ListItemButton>
           </div>
         </ListItem>
@@ -111,7 +114,11 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
         aria-labelledby="nested-list-subheader"
       > */}
         <div>
-          <ListItem onClick={toggleDrawer(anchor, false)} onKeyDown={toggleDrawer(anchor, false)}>
+          <ListItem
+            className={location.pathname === '/dashboard' ? 'active-custom' : ''}
+            onClick={toggleDrawer(anchor, false)}
+            onKeyDown={toggleDrawer(anchor, false)}
+          >
             <ListItemButton component={Link} to={'/dashboard'}>
               <ListItemIcon>
                 <Home style={{ color: colors[currentTheme].secondary }} />
@@ -123,7 +130,11 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
         </div>
         {currentRole !== 'Viewer' && (
           <div>
-            <ListItem onClick={toggleDrawer(anchor, false)} onKeyDown={toggleDrawer(anchor, false)}>
+            <ListItem
+              className={location.pathname === '/myProfile' ? 'active-custom' : ''}
+              onClick={toggleDrawer(anchor, false)}
+              onKeyDown={toggleDrawer(anchor, false)}
+            >
               <ListItemButton component={Link} to={'/myProfile'}>
                 <ListItemIcon>
                   <AccountCircleIcon style={{ color: colors[currentTheme].secondary }} />
@@ -157,7 +168,11 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                   timeout="auto"
                   unmountOnExit
                 >
-                  <List component="div" disablePadding>
+                  <List
+                    className={location.pathname === '/miningPool/status' ? 'active-custom' : ''}
+                    component="div"
+                    disablePadding
+                  >
                     <ListItemButton sx={{ pl: 4 }} component={Link} to={'/miningPool/status'}>
                       <ListItemIcon>
                         <StarBorder style={{ color: colors[currentTheme].secondary }} />
@@ -165,7 +180,11 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                       <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Status" />
                     </ListItemButton>
                   </List>
-                  <List component="div" disablePadding>
+                  <List
+                    className={location.pathname === '/miningPool/miners' ? 'active-custom' : ''}
+                    component="div"
+                    disablePadding
+                  >
                     <ListItemButton sx={{ pl: 4 }} component={Link} to={'/miningPool/miners'}>
                       <ListItemIcon>
                         <StarBorder style={{ color: colors[currentTheme].secondary }} />
@@ -198,7 +217,11 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                   timeout="auto"
                   unmountOnExit
                 >
-                  <List component="div" disablePadding>
+                  <List
+                    className={location.pathname === '/voting' ? 'active-custom' : ''}
+                    component="div"
+                    disablePadding
+                  >
                     <ListItemButton sx={{ pl: 4 }} component={Link} to={'/voting'}>
                       <ListItemIcon>
                         <StarBorder style={{ color: colors[currentTheme].secondary }} />
@@ -206,7 +229,11 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                       <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Status" />
                     </ListItemButton>
                   </List>
-                  <List component="div" disablePadding>
+                  <List
+                    className={location.pathname === '/voting/joiners' ? 'active-custom' : ''}
+                    component="div"
+                    disablePadding
+                  >
                     <ListItemButton sx={{ pl: 4 }} component={Link} to={'/voting/joiners'}>
                       <ListItemIcon>
                         <StarBorder style={{ color: colors[currentTheme].secondary }} />
@@ -214,7 +241,11 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                       <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Joiners" />
                     </ListItemButton>
                   </List>
-                  <List component="div" disablePadding>
+                  <List
+                    className={location.pathname === '/voting/removals' ? 'active-custom' : ''}
+                    component="div"
+                    disablePadding
+                  >
                     <ListItemButton sx={{ pl: 4 }} component={Link} to={'/voting/removals'}>
                       <ListItemIcon>
                         <StarBorder style={{ color: colors[currentTheme].secondary }} />
@@ -222,7 +253,11 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                       <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Removals" />
                     </ListItemButton>
                   </List>
-                  <List component="div" disablePadding>
+                  <List
+                    className={location.pathname === '/voting/notifier' ? 'active-custom' : ''}
+                    component="div"
+                    disablePadding
+                  >
                     <ListItemButton sx={{ pl: 4 }} component={Link} to={'/voting/notifier'}>
                       <ListItemIcon>
                         <StarBorder style={{ color: colors[currentTheme].secondary }} />

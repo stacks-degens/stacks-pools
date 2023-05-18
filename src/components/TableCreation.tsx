@@ -13,6 +13,7 @@ import { TableSortLabel } from '@mui/material';
 import useCurrentTheme from '../consts/theme';
 import colors from '../consts/colorPallete';
 import { AllTableData } from '../consts/tableData';
+import '../components/appMenuSections/miningPool/styles.css';
 
 const VirtuosoTableComponents: TableComponents<any /*don't know the type here*/> = {
   Scroller: React.forwardRef<HTMLDivElement>((props, ref) => <TableContainer component={Paper} {...props} ref={ref} />),
@@ -74,6 +75,7 @@ const TableCreation = ({ rows, rowContent, columns, tableId, customTableWidth }:
               backgroundColor: colors[currentTheme].primary,
               color: colors[currentTheme].secondary,
             }}
+            className="test"
           >
             <TableSortLabel
               sx={{

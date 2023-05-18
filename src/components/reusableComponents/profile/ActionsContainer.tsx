@@ -18,6 +18,7 @@ import {
 import { useAppSelector } from '../../../redux/store';
 import { selectUserSessionState } from '../../../redux/reducers/user-state';
 import { Alert, TextField } from '@mui/material';
+import { ElectricBolt } from '@mui/icons-material';
 
 const ActionsContainer = () => {
   const { currentTheme } = useCurrentTheme();
@@ -115,7 +116,7 @@ const ActionsContainer = () => {
       <div className="heading-info-container">
         <div className="heading-title-info-container">
           <div className="heading-icon-info-container">
-            <AccountCircleIcon className="icon-info-container" />
+            <ElectricBolt className="icon-info-container yellow-icon" />
           </div>
           <div className="title-info-continer">ACTIONS</div>
         </div>

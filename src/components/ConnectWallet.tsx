@@ -7,6 +7,7 @@ import { selectCurrentUserRole, selectUserSessionState } from '../redux/reducers
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { readOnlyAddressStatus } from '../consts/readOnly';
+import './styles.css';
 
 interface ConnectWalletProps {
   currentTheme: string;
