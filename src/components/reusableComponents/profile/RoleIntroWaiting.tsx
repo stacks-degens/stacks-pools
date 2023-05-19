@@ -38,7 +38,7 @@ const RoleIntroWaiting = ({ currentRole }: IRoleIntroWaiting) => {
       className="intro-container-profile-page"
       style={{
         background: `linear-gradient(135deg, ${colors[currentTheme].defaultYellow} 30%, ${colors[currentTheme].defaultOrange}) 60%`,
-        color: colors[currentTheme].secondary,
+        color: colors[currentTheme].introRoleWriting,
       }}
     >
       <filter id="round">

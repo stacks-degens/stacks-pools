@@ -33,7 +33,7 @@ const Voting = () => {
   }, []);
 
   return (
-    <div className="page-heading-title">
+    <div style={{ color: colors[currentTheme].colorWriting }} className="page-heading-title">
       <h2>Decentralized Mining Pool</h2>
       <h2>Voting - Status</h2>
       <div className="principal-content-profile-page">

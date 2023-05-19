@@ -12,16 +12,29 @@ const VotingStatusContainer = ({ notifier, votingStatus }: VotingStatusContainer
   const { currentTheme } = useCurrentTheme();
 
   return (
-    <div style={{ backgroundColor: colors[currentTheme].defaultYellow }} className="info-container-voting-status-page">
-      <div className="heading-info-container">
+    <div
+      style={{ backgroundColor: colors[currentTheme].infoContainers, color: colors[currentTheme].colorWriting }}
+      className="info-container-voting-status-page"
+    >
+      <div
+        style={{
+          backgroundColor: colors[currentTheme].infoContainers,
+          color: colors[currentTheme].colorWriting,
+          borderBottom: `1px solid ${colors[currentTheme].colorWriting}`,
+        }}
+        className="heading-info-container"
+      >
         <div className="heading-title-info-container">
-          <div className="heading-icon-info-container">
+          <div style={{ color: colors[currentTheme].defaultYellow }} className="heading-icon-info-container">
             <AccountCircleIcon className="icon-info-container yellow-icon" />
           </div>
           <div className="title-info-container">INFO</div>
         </div>
       </div>
-      <div className="content-info-container-normal-user">
+      <div
+        style={{ backgroundColor: colors[currentTheme].infoContainers, color: colors[currentTheme].colorWriting }}
+        className="content-info-container-normal-user"
+      >
         <div className="content-sections-title-info-container">
           <span className="bold-font">Current Notifier: </span>
           <div>{notifier !== null ? notifier : ''}</div>

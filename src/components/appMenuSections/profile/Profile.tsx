@@ -84,7 +84,7 @@ const Profile = () => {
     <div>
       <div>
         {/* <div style={{ color: colors[currentTheme].lightYellow }} className="page-heading-title"> */}
-        <div className="page-heading-title">
+        <div style={{ color: colors[currentTheme].colorWriting }} className="page-heading-title">
           <h2>Decentralized Mining Pool</h2>
           <h2>Profile</h2>
         </div>

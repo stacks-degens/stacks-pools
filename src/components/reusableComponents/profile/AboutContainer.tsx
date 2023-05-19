@@ -63,16 +63,29 @@ const AboutContainer = ({
 
   console.log('conn', connectedWallet);
   return (
-    <div style={{ backgroundColor: colors[currentTheme].defaultYellow }} className="info-container-profile-page">
-      <div className="heading-info-container">
+    <div
+      style={{ backgroundColor: colors[currentTheme].infoContainers, color: colors[currentTheme].colorWriting }}
+      className="info-container-profile-page"
+    >
+      <div
+        style={{
+          backgroundColor: colors[currentTheme].infoContainers,
+          color: colors[currentTheme].colorWriting,
+          borderBottom: `1px solid ${colors[currentTheme].colorWriting}`,
+        }}
+        className="heading-info-container"
+      >
         <div className="heading-title-info-container">
-          <div className="heading-icon-info-container">
+          <div style={{ color: colors[currentTheme].defaultYellow }} className="heading-icon-info-container">
             <AccountCircleIcon className="icon-info-container yellow-icon" />
           </div>
           <div className="title-info-continer">ABOUT</div>
         </div>
       </div>
-      <div className={currentRole === 'Miner' ? 'content-info-container' : 'content-info-container-normal-user'}>
+      <div
+        style={{ backgroundColor: colors[currentTheme].infoContainers, color: colors[currentTheme].colorWriting }}
+        className={currentRole === 'Miner' ? 'content-info-container' : 'content-info-container-normal-user'}
+      >
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Connected wallet:</span>
           <div className="write-just-on-one-line">{connectedWallet !== null ? connectedWallet : ''}</div>
@@ -85,7 +98,10 @@ const AboutContainer = ({
           <span className="bold-font">Link to explorer: </span>
           <button
             className="button-with-no-style"
-            style={{ backgroundColor: colors[currentTheme].accent2, color: colors[currentTheme].secondary }}
+            style={{
+              backgroundColor: colors[currentTheme].accent2,
+              color: colors[currentTheme].secondary,
+            }}
           >
             <a
               className="custom-link"

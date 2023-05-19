@@ -37,14 +37,15 @@ const MiningPool = () => {
             key={column.dataKey}
             align={column.dataKey === 'address' ? 'left' : 'right'}
             sx={{
-              color: colors[currentTheme].secondary,
+              color: colors[currentTheme].colorWriting,
+              backgroundColor: colors[currentTheme].infoContainers,
             }}
-            className="table-row"
+            // className="table-row"
           >
             {column.dataKey === 'proposeRemoval' ? (
               <Box>
                 <Button sx={{ marginRight: 3 }} onClick={() => handleMinerRemoveButtonClick(minersRow['address'])}>
-                  <PersonRemoveIcon fontSize="small" sx={{ color: 'red' }} />
+                  <PersonRemoveIcon fontSize="small" sx={{ color: colors[currentTheme].defaultOrange }} />
                 </Button>
               </Box>
             ) : (
@@ -53,7 +54,7 @@ const MiningPool = () => {
             {column.dataKey === 'generalInfo' && (
               <Box>
                 <Button onClick={() => handleMinerInfoButtonClick(minersRow['address'])}>
-                  <InfoIcon fontSize="small" sx={{ color: colors[currentTheme].secondary }} />
+                  <InfoIcon fontSize="small" sx={{ color: colors[currentTheme].defaultYellow }} />
                 </Button>
               </Box>
             )}

@@ -68,7 +68,8 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
     <Box
       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250, height: '100%' }}
       role="presentation"
-      style={{ backgroundColor: colors[currentTheme].accent2 }}
+      style={{ backgroundColor: colors[currentTheme].accent2, color: colors[currentTheme].colorWriting }}
+      // style={{ backgroundColor: colors[currentTheme].accent2, color: colors[currentTheme].colorWriting }}
     >
       <List
         onClick={toggleDrawer(anchor, false)}

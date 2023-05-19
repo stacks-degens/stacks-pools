@@ -112,17 +112,30 @@ const ActionsContainer = () => {
   }, [currentNotifier]);
 
   return (
-    <div className="info-container-profile-page">
-      <div className="heading-info-container">
+    <div
+      style={{ backgroundColor: colors[currentTheme].infoContainers, color: colors[currentTheme].colorWriting }}
+      className="info-container-profile-page"
+    >
+      <div
+        style={{
+          backgroundColor: colors[currentTheme].infoContainers,
+          color: colors[currentTheme].colorWriting,
+          borderBottom: `1px solid ${colors[currentTheme].colorWriting}`,
+        }}
+        className="heading-info-container"
+      >
         <div className="heading-title-info-container">
-          <div className="heading-icon-info-container">
+          <div style={{ color: colors[currentTheme].defaultYellow }} className="heading-icon-info-container">
             <ElectricBolt className="icon-info-container yellow-icon" />
           </div>
           <div className="title-info-continer">ACTIONS</div>
         </div>
       </div>
 
-      <div className="content-info-container justify-content-between">
+      <div
+        style={{ backgroundColor: colors[currentTheme].infoContainers, color: colors[currentTheme].colorWriting }}
+        className="content-info-container justify-content-between"
+      >
         <div>
           <div className="flex-container align-items-center">
             <div className="width-55">
@@ -142,7 +155,7 @@ const ActionsContainer = () => {
             </div>
             <div>
               <button
-                className="customButton"
+                className={currentTheme === 'light' ? 'customButton' : 'customDarkButton'}
                 onClick={() => {
                   claimRewards();
                   setClaimRewardsInputAmount(null);
@@ -160,7 +173,10 @@ const ActionsContainer = () => {
               </div>
             </div>
             <div>
-              <button className="customButton" onClick={changeBtcAddress}>
+              <button
+                className={currentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+                onClick={changeBtcAddress}
+              >
                 change address
               </button>
             </div>
@@ -182,7 +198,10 @@ const ActionsContainer = () => {
               </div>
             </div>
             <div>
-              <button className="customButton" onClick={depositAmount}>
+              <button
+                className={currentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+                onClick={depositAmount}
+              >
                 deposit
               </button>
             </div>
@@ -204,7 +223,10 @@ const ActionsContainer = () => {
               </div>
             </div>
             <div>
-              <button className="customButton" onClick={withdrawAmount}>
+              <button
+                className={currentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+                onClick={withdrawAmount}
+              >
                 withdraw
               </button>
             </div>
@@ -319,7 +341,11 @@ const ActionsContainer = () => {
 
         <div className="content-sections-title-info-container">
           <div className="flex-right">
-            <button className="customButton" onClick={leavePool} disabled={disableLeavePoolButton}>
+            <button
+              className={currentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+              onClick={leavePool}
+              disabled={disableLeavePoolButton}
+            >
               LEAVE POOL
             </button>
           </div>

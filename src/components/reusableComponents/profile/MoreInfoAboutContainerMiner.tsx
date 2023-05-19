@@ -3,6 +3,8 @@ import { readOnlyExchangeToggle } from '../../../consts/readOnly';
 import { ContractSetAutoExchange } from '../../../consts/smartContractFunctions';
 import { selectUserSessionState } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
+import colors from '../../../consts/colorPallete';
+import useCurrentTheme from '../../../consts/theme';
 
 interface IMinerMoreInfoAboutContainer {
   currentBalance: number;
@@ -11,6 +13,7 @@ interface IMinerMoreInfoAboutContainer {
 
 const MoreInfoAboutContainerMiner = ({ currentBalance, totalWithdrawals }: IMinerMoreInfoAboutContainer) => {
   const [exchange, setExchange] = useState<boolean | null>(false);
+  const { currentTheme } = useCurrentTheme();
 
   const userSession = useAppSelector(selectUserSessionState);
   const userAddress = userSession.loadUserData().profile.stxAddress.testnet;
@@ -46,7 +49,10 @@ const MoreInfoAboutContainerMiner = ({ currentBalance, totalWithdrawals }: IMine
         <span>{exchange === null || exchange === false ? 'No' : 'Yes'}</span>
       </div>
       <div>
-        <button className="customButton" onClick={setAutoExchange}>
+        <button
+          className={currentTheme === 'light' ? 'customButton width-100' : 'customDarkButton width-100'}
+          onClick={setAutoExchange}
+        >
           {exchange === null || exchange === false ? 'Change to yes' : 'Change to no'}
         </button>
       </div>

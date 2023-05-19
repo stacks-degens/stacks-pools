@@ -41,26 +41,27 @@ const VotingJoiners = () => {
             key={column.dataKey}
             align={column.dataKey === 'address' ? 'left' : 'right'}
             sx={{
-              color: colors[currentTheme].secondary,
+              color: colors[currentTheme].colorWriting,
+              backgroundColor: colors[currentTheme].infoContainers,
             }}
           >
             {column.dataKey === 'generalInfo' && (
               <Box>
                 <Button onClick={() => handleMinerInfoButtonClick(waitingRow['address'])}>
-                  <InfoIcon fontSize="small" sx={{ color: colors[currentTheme].secondary }} />
+                  <InfoIcon fontSize="small" sx={{ color: colors[currentTheme].defaultOrange }} />
                 </Button>
               </Box>
             )}
             {column.dataKey === 'vote' ? (
               <Box>
                 <Button onClick={() => handlePendingVoteButtonClick('voteYes', waitingRow['address'])}>
-                  <ThumbUpAltIcon fontSize="small" sx={{ color: 'green' }} />
+                  <ThumbUpAltIcon fontSize="small" sx={{ color: colors[currentTheme].defaultOrange }} />
                 </Button>
                 <Button
                   style={{ marginRight: -52 }}
                   onClick={() => handlePendingVoteButtonClick('voteNo', waitingRow['address'])}
                 >
-                  <ThumbDownAltIcon fontSize="small" sx={{ color: 'red' }} />
+                  <ThumbDownAltIcon fontSize="small" sx={{ color: colors[currentTheme].colorWriting }} />
                 </Button>
               </Box>
             ) : (
@@ -73,19 +74,23 @@ const VotingJoiners = () => {
   };
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'column',
-        width: '100%',
-        minHeight: 'calc(100vh - 60px)',
-      }}
-      style={{
-        backgroundColor: colors[currentTheme].accent2,
-        color: colors[currentTheme].secondary,
-      }}
-    >
+    // <Box
+    //   sx={{
+    //     display: 'flex',
+    //     alignItems: 'center',
+    //     flexDirection: 'column',
+    //     width: '100%',
+    //     minHeight: 'calc(100vh - 60px)',
+    //   }}
+    //   style={{
+    //     backgroundColor: colors[currentTheme].accent2,
+    //     color: colors[currentTheme].secondary,
+    //   }}
+    // >
+    <div className="page-heading-title">
+      <h2>Decentralized Mining Pool</h2>
+      <h2>Voting - Joiners</h2>
+      <div className="principal-content-profile-page"></div>
       <TableCreation
         rows={waitingRows}
         rowContent={waitingRowContent}
@@ -93,8 +98,11 @@ const VotingJoiners = () => {
         tableId="waiting"
         customTableWidth="75%"
       />
-    </Box>
+    </div>
   );
+  {
+    /* </Box> */
+  }
 };
 
 export default VotingJoiners;

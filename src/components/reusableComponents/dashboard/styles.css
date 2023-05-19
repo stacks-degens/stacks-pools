@@ -1,6 +1,6 @@
 .info-container-dashboard-page {
-  color: #2f2f2f;
-  background-color: #f9b11c;
+  /* color: #2f2f2f; */
+  /* background-color: #f9b11c; */
   width: 470px;
   border-radius: 20px;
   display: flex;
@@ -13,8 +13,8 @@
 .heading-info-container {
   height: 50px;
   padding: 5px 15px;
-  background-color: #f9b11c;
-  background-color: #feeaa7;
+  /* background-color: #f9b11c; */
+  /* background-color: #feeaa7; */
   background-color: #fef9f7;
   border-bottom: 1px #2f2f2f solid;
 }
@@ -38,7 +38,7 @@
 
 .icon-info-container {
   font-size: 35px !important;
-  color: #2f2f2f;
+  /* color: #2f2f2f; */
 }
 
 .title-info-container {
@@ -48,8 +48,8 @@
 
 .content-info-container-normal-user {
   padding: 10px 20px 20px 20px;
-  background-color: #f9b11c;
-  background-color: #fef9f7;
+  /* background-color: #f9b11c; */
+  /* background-color: #fef9f7; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -65,14 +65,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f9b11c;
-  background-color: #feeaa7;
-  background-color: #fef9f7;
+  /* background-color: #f9b11c; */
+  /* background-color: #feeaa7; */
+  /* background-color: #fef9f7; */
   border-top: 1px #2f2f2f solid;
 }
 
 .yellow-icon {
-  color: #f9b11c !important;
+  /* color: #f9b11c !important; */
 }
 
 /* ********************************** BUTTONS **********************************  */

@@ -41,19 +41,20 @@ const VotingRemovals = () => {
             key={column.dataKey}
             align={column.dataKey === 'address' ? 'left' : 'right'}
             sx={{
-              color: colors[currentTheme].secondary,
+              color: colors[currentTheme].colorWriting,
+              backgroundColor: colors[currentTheme].infoContainers,
             }}
           >
             {column.dataKey === 'vote' ? (
               <Box>
                 <Button onClick={() => handleRemovalVoteButtonClick('voteYes', removalsRow['address'])}>
-                  <ThumbUpAltIcon fontSize="small" sx={{ color: 'green' }} />
+                  <ThumbUpAltIcon sx={{ color: colors[currentTheme].defaultOrange }} />
                 </Button>
                 <Button
                   style={{ marginRight: -52 }}
                   onClick={() => handleRemovalVoteButtonClick('voteNo', removalsRow['address'])}
                 >
-                  <ThumbDownAltIcon fontSize="small" sx={{ color: 'red' }} />
+                  <ThumbDownAltIcon fontSize="small" sx={{ color: colors[currentTheme].colorWriting }} />
                 </Button>
               </Box>
             ) : (
@@ -62,7 +63,7 @@ const VotingRemovals = () => {
             {column.dataKey === 'generalInfo' && (
               <Box>
                 <Button onClick={() => handleMinerInfoButtonClick(removalsRow['address'])}>
-                  <InfoIcon fontSize="small" sx={{ color: colors[currentTheme].secondary }} />
+                  <InfoIcon fontSize="small" sx={{ color: colors[currentTheme].defaultOrange }} />
                 </Button>
               </Box>
             )}
@@ -73,19 +74,23 @@ const VotingRemovals = () => {
   };
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'column',
-        width: '100%',
-        minHeight: 'calc(100vh - 60px)',
-      }}
-      style={{
-        backgroundColor: colors[currentTheme].accent2,
-        color: colors[currentTheme].secondary,
-      }}
-    >
+    // <Box
+    //   sx={{
+    //     display: 'flex',
+    //     alignItems: 'center',
+    //     flexDirection: 'column',
+    //     width: '100%',
+    //     minHeight: 'calc(100vh - 60px)',
+    //   }}
+    //   style={{
+    //     backgroundColor: colors[currentTheme].accent2,
+    //     color: colors[currentTheme].secondary,
+    //   }}
+    // >
+    <div className="page-heading-title">
+      <h2>Decentralized Mining Pool</h2>
+      <h2>Voting - Removals</h2>
+      <div className="principal-content-profile-page"></div>
       <TableCreation
         rows={removalsRows}
         rowContent={removalsRowContent}
@@ -93,8 +98,9 @@ const VotingRemovals = () => {
         tableId="removals"
         customTableWidth="75%"
       />
-    </Box>
+    </div>
   );
+  // </Box>
 };
 
 export default VotingRemovals;

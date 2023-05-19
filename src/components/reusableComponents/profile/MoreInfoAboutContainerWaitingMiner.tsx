@@ -5,6 +5,8 @@ import { useAppSelector } from '../../../redux/store';
 import { principalCV, ClarityValue, listCV, cvToJSON } from '@stacks/transactions';
 import { ReadOnlyAllDataWaitingMiners } from '../../../consts/readOnly';
 import { ContractTryEnterPool } from '../../../consts/smartContractFunctions';
+import colors from '../../../consts/colorPallete';
+import useCurrentTheme from '../../../consts/theme';
 
 const MoreInfoAboutContainerWaitingMiner = () => {
   const userSession = useAppSelector(selectUserSessionState);
@@ -14,6 +16,7 @@ const MoreInfoAboutContainerWaitingMiner = () => {
   const [positiveVotesThreshold, setPositiveVotesThreshold] = useState<number | null>(null);
   const [negativeVotes, setNegativeVotes] = useState<number | null>(null);
   const [negativeVotesThreshold, setNegativeVotesThreshold] = useState<number | null>(null);
+  const { currentTheme } = useCurrentTheme();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,6 +55,11 @@ const MoreInfoAboutContainerWaitingMiner = () => {
       </div>
       <div className="content-sections-title-info-container">
         <button
+          style={{
+            background: `linear-gradient(135deg, ${colors[currentTheme].defaultYellow} 30%, ${colors[currentTheme].defaultOrange}) 60%`,
+            color: colors[currentTheme].buttonWriting,
+            border: `1px solid ${colors[currentTheme].defaultOrange}`,
+          }}
           className="customButton"
           // style={{
           //   backgroundColor: colors[currentTheme].accent2,

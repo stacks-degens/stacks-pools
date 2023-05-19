@@ -73,7 +73,7 @@ const TableCreation = ({ rows, rowContent, columns, tableId, customTableWidth }:
             style={{ width: column.width }}
             sx={{
               backgroundColor: colors[currentTheme].primary,
-              color: colors[currentTheme].secondary,
+              color: colors[currentTheme].colorWriting,
             }}
             className="test"
           >
@@ -162,7 +162,7 @@ const TableCreation = ({ rows, rowContent, columns, tableId, customTableWidth }:
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: colors[currentTheme].secondary,
+          color: colors[currentTheme].colorWriting,
         }}
       />
       <Paper style={{ height: tableHeight, width: '100%' }} elevation={6}>
