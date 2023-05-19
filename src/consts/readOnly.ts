@@ -218,7 +218,7 @@ export const readOnlyGetAllDataNotifierVoterMiners = async (voterMinersList: Cla
 export const readOnlyClaimedBlockStatus = async (blockHeight: number) => {
   const convertedArgs = [uintCV(blockHeight)];
   const blockStatus = await ReadOnlyFunctions(convertedArgs, 'was-block-claimed');
-  return cvToJSON(blockStatus).value.value.value.value;
+  return cvToJSON(blockStatus).value;
 };
 
 // get-balance

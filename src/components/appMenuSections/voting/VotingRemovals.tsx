@@ -48,7 +48,7 @@ const VotingRemovals = () => {
             {column.dataKey === 'vote' ? (
               <Box>
                 <Button onClick={() => handleRemovalVoteButtonClick('voteYes', removalsRow['address'])}>
-                  <ThumbUpAltIcon sx={{ color: colors[currentTheme].defaultOrange }} />
+                  <ThumbUpAltIcon fontSize="small" sx={{ color: colors[currentTheme].defaultOrange }} />
                 </Button>
                 <Button
                   style={{ marginRight: -52 }}

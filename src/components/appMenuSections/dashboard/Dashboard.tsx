@@ -68,8 +68,6 @@ const Dashboard = () => {
     getStacksRewards();
   }, [stacksRewards]);
 
-  console.log(minersList);
-
   return (
     <div style={{ color: colors[currentTheme].colorWriting }} className="page-heading-title">
       <h2>Decentralized Mining Pool</h2>

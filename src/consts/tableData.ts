@@ -287,18 +287,18 @@ const createNotifiersData = (id: number, address: string, notifierVotes: string)
 
 export const notifierColumns: NotifiersColumnData[] = [
   {
-    width: 400,
+    width: 280,
     label: 'Address',
     dataKey: 'address',
   },
   {
-    width: 150,
+    width: 140,
     label: 'Votes/Threshold',
     dataKey: 'notifierVotes',
     numeric: true,
   },
   {
-    width: 150,
+    width: 140,
     label: 'Vote',
     dataKey: 'vote',
     numeric: true,

@@ -151,7 +151,10 @@ const VotingNotifier = () => {
       <div className="page-heading-title">
         <h2>Decentralized Mining Pool</h2>
         <h2>Voting - Notifier</h2>
-        <div className="principal-content-profile-page">
+        <div
+          className="principal-content-profile-page"
+          style={{ marginTop: electionBlocksRemaining !== 0 && electionBlocksRemaining !== null ? -11 : 90 }}
+        >
           <div className={'main-info-container-normal-user'}>
             <VotingNotifierInfoContainer
               votedFor={votedNotifier}

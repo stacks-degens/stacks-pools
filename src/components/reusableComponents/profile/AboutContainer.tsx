@@ -92,7 +92,9 @@ const AboutContainer = ({
         </div>
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Role: </span>
-          <span>{currentNotifier === userAddress ? 'Notifier' : currentRole}</span>
+          <span>
+            {currentNotifier === userAddress ? 'Notifier' : currentRole === 'NormalUser' ? 'Normal User' : currentRole}
+          </span>
         </div>
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Link to explorer: </span>

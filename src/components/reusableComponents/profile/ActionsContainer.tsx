@@ -37,7 +37,6 @@ const ActionsContainer = () => {
   const changeBtcAddress = () => {
     if (btcAddress !== '') {
       ContractChangeBtcAddress(btcAddress);
-      setBtcAddress('');
     }
   };
 
@@ -47,7 +46,7 @@ const ActionsContainer = () => {
       if (wasBlockClaimed === false) {
         ContractRewardDistribution(claimRewardsInputAmount);
       } else {
-        console.log('Block already claimed');
+        alert('Block already claimed');
       }
     }
   };
@@ -158,7 +157,6 @@ const ActionsContainer = () => {
                 className={currentTheme === 'light' ? 'customButton' : 'customDarkButton'}
                 onClick={() => {
                   claimRewards();
-                  setClaimRewardsInputAmount(null);
                 }}
               >
                 claim rewards

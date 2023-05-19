@@ -130,7 +130,7 @@ const TableCreation = ({ rows, rowContent, columns, tableId, customTableWidth }:
 
   const rowHeight =
     tableId === 'waiting' || tableId === 'miners' || tableId === 'notifier' || tableId === 'removals' ? 64.8 : 52.813;
-  const headerHeight = 57.9;
+  const headerHeight = 58;
   const tableHeight =
     rowsPerPage < totalRows
       ? (page + 1) * rowsPerPage < totalRows

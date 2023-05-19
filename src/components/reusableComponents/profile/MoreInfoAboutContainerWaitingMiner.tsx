@@ -53,23 +53,25 @@ const MoreInfoAboutContainerWaitingMiner = () => {
             : '0'}
         </span>
       </div>
-      <div className="content-sections-title-info-container">
-        <button
-          style={{
-            background: `linear-gradient(135deg, ${colors[currentTheme].defaultYellow} 30%, ${colors[currentTheme].defaultOrange}) 60%`,
-            color: colors[currentTheme].buttonWriting,
-            border: `1px solid ${colors[currentTheme].defaultOrange}`,
-          }}
-          className="customButton"
-          // style={{
-          //   backgroundColor: colors[currentTheme].accent2,
-          //   color: colors[currentTheme].secondary,
-          // }}
-          onClick={() => ContractTryEnterPool()}
-        >
-          Try Enter
-        </button>
-      </div>
+      {positiveVotes !== null && positiveVotesThreshold !== null && positiveVotes >= positiveVotesThreshold && (
+        <div className="content-sections-title-info-container">
+          <button
+            style={{
+              background: `linear-gradient(135deg, ${colors[currentTheme].defaultYellow} 30%, ${colors[currentTheme].defaultOrange}) 60%`,
+              color: colors[currentTheme].buttonWriting,
+              border: `1px solid ${colors[currentTheme].defaultOrange}`,
+            }}
+            className="customButton"
+            // style={{
+            //   backgroundColor: colors[currentTheme].accent2,
+            //   color: colors[currentTheme].secondary,
+            // }}
+            onClick={() => ContractTryEnterPool()}
+          >
+            Try Enter
+          </button>
+        </div>
+      )}
     </>
   );
 };

@@ -61,7 +61,7 @@ const DashboardInfoContainer = ({
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Stacks Rewards: </span>
-          <span>{stacksRewards !== null ? stacksRewards : ''}</span>
+          <span>{stacksRewards !== null ? stacksRewards / 1000000 + ' STX' : ''}</span>
         </div>
       </div>
       {currentRole === 'NormalUser' && (
