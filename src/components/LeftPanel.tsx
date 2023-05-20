@@ -18,7 +18,7 @@ import colors from '../consts/colorPallete';
 import Home from '@mui/icons-material/Home';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useAppSelector } from '../redux/store';
-import { selectCurrentUserRole, UserRole } from '../redux/reducers/user-state';
+import { selectCurrentTheme, selectCurrentUserRole, UserRole } from '../redux/reducers/user-state';
 import { useState } from 'react';
 import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material';
 import { Collapse } from '@mui/material';
@@ -37,6 +37,8 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
     bottom: false,
     right: false,
   });
+
+  const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   const [openMiningPoolMenu, setOpenMiningPoolMenu] = useState<boolean>(true);
   const [openVotingMenu, setOpenVotingMenu] = useState<boolean>(true);
@@ -68,13 +70,13 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
     <Box
       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250, height: '100%' }}
       role="presentation"
-      style={{ backgroundColor: colors[currentTheme].accent2, color: colors[currentTheme].colorWriting }}
+      style={{ backgroundColor: colors[appCurrentTheme].accent2, color: colors[appCurrentTheme].colorWriting }}
       // style={{ backgroundColor: colors[currentTheme].accent2, color: colors[currentTheme].colorWriting }}
     >
       <List
         onClick={toggleDrawer(anchor, false)}
         onKeyDown={toggleDrawer(anchor, false)}
-        style={{ backgroundColor: colors[currentTheme].primary }}
+        style={{ backgroundColor: colors[appCurrentTheme].primary }}
       >
         <ListItem disablePadding>
           <div
@@ -87,26 +89,26 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
             }}
           >
             <ListItemButton>
-              <MenuOpen id="open-menu-icon" fontSize="medium" style={{ color: colors[currentTheme].buttons }} />
+              <MenuOpen id="open-menu-icon" fontSize="medium" style={{ color: colors[appCurrentTheme].buttons }} />
             </ListItemButton>
           </div>
         </ListItem>
       </List>
-      <Divider style={{ backgroundColor: colors[currentTheme].accent2 }} />
-      <List style={{ backgroundColor: colors[currentTheme].accent2 }}>
+      <Divider style={{ backgroundColor: colors[appCurrentTheme].accent2 }} />
+      <List style={{ backgroundColor: colors[appCurrentTheme].accent2 }}>
         {/* TODO: keep what fits best, this */}
         <div style={{ marginTop: -10 }}>
           <ListItem onClick={toggleDrawer(anchor, false)} onKeyDown={toggleDrawer(anchor, false)}>
             <ListItemButton component={Link} to={'/'}>
               <ListItemIcon>
-                <HomeIcon style={{ color: colors[currentTheme].secondary }} />
+                <HomeIcon style={{ color: colors[appCurrentTheme].secondary }} />
               </ListItemIcon>
-              <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Home" />
+              <ListItemText style={{ color: colors[appCurrentTheme].secondary }} primary="Home" />
             </ListItemButton>
           </ListItem>
-          <Divider style={{ backgroundColor: colors[currentTheme].secondary }} />
-          <Divider style={{ backgroundColor: colors[currentTheme].secondary }} />
-          <Divider style={{ backgroundColor: colors[currentTheme].secondary }} />
+          <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
+          <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
+          <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
         </div>
         {/* TODO: or this  */}
         {/* <List
@@ -122,12 +124,12 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
           >
             <ListItemButton component={Link} to={'/dashboard'}>
               <ListItemIcon>
-                <Home style={{ color: colors[currentTheme].secondary }} />
+                <Home style={{ color: colors[appCurrentTheme].secondary }} />
               </ListItemIcon>
-              <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Dashboard" />
+              <ListItemText style={{ color: colors[appCurrentTheme].secondary }} primary="Dashboard" />
             </ListItemButton>
           </ListItem>
-          <Divider variant="middle" style={{ backgroundColor: colors[currentTheme].secondary }} />
+          <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
         </div>
         {currentRole !== 'Viewer' && (
           <div>
@@ -138,12 +140,12 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
             >
               <ListItemButton component={Link} to={'/myProfile'}>
                 <ListItemIcon>
-                  <AccountCircleIcon style={{ color: colors[currentTheme].secondary }} />
+                  <AccountCircleIcon style={{ color: colors[appCurrentTheme].secondary }} />
                 </ListItemIcon>
-                <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Profile" />
+                <ListItemText style={{ color: colors[appCurrentTheme].secondary }} primary="Profile" />
               </ListItemButton>
             </ListItem>
-            <Divider variant="middle" style={{ backgroundColor: colors[currentTheme].secondary }} />
+            <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
           </div>
         )}
         {currentRole === 'Miner' && (
@@ -152,13 +154,13 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
               <ListItem className="liMenuMiningPool">
                 <ListItemButton onClick={handleClickMiningPoolMenuItem}>
                   <ListItemIcon>
-                    <Hardware style={{ color: colors[currentTheme].secondary }} />
+                    <Hardware style={{ color: colors[appCurrentTheme].secondary }} />
                   </ListItemIcon>
-                  <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Mining Pool" />
+                  <ListItemText style={{ color: colors[appCurrentTheme].secondary }} primary="Mining Pool" />
                   {openMiningPoolMenu ? (
-                    <ExpandLess style={{ color: colors[currentTheme].secondary }} />
+                    <ExpandLess style={{ color: colors[appCurrentTheme].secondary }} />
                   ) : (
-                    <ExpandMore style={{ color: colors[currentTheme].secondary }} />
+                    <ExpandMore style={{ color: colors[appCurrentTheme].secondary }} />
                   )}
                 </ListItemButton>
 
@@ -176,9 +178,9 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                   >
                     <ListItemButton sx={{ pl: 4 }} component={Link} to={'/miningPool/status'}>
                       <ListItemIcon>
-                        <StarBorder style={{ color: colors[currentTheme].secondary }} />
+                        <StarBorder style={{ color: colors[appCurrentTheme].secondary }} />
                       </ListItemIcon>
-                      <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Status" />
+                      <ListItemText style={{ color: colors[appCurrentTheme].secondary }} primary="Status" />
                     </ListItemButton>
                   </List>
                   <List
@@ -188,26 +190,26 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                   >
                     <ListItemButton sx={{ pl: 4 }} component={Link} to={'/miningPool/miners'}>
                       <ListItemIcon>
-                        <StarBorder style={{ color: colors[currentTheme].secondary }} />
+                        <StarBorder style={{ color: colors[appCurrentTheme].secondary }} />
                       </ListItemIcon>
-                      <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Miners" />
+                      <ListItemText style={{ color: colors[appCurrentTheme].secondary }} primary="Miners" />
                     </ListItemButton>
                   </List>
                 </Collapse>
               </ListItem>
-              <Divider variant="middle" style={{ backgroundColor: colors[currentTheme].secondary }} />
+              <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
             </div>
             <div>
               <ListItem className="liMenuMiningPool">
                 <ListItemButton onClick={handleClickVotingMenuItem}>
                   <ListItemIcon>
-                    <Poll style={{ color: colors[currentTheme].secondary }} />
+                    <Poll style={{ color: colors[appCurrentTheme].secondary }} />
                   </ListItemIcon>
-                  <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Voting" />
+                  <ListItemText style={{ color: colors[appCurrentTheme].secondary }} primary="Voting" />
                   {openVotingMenu ? (
-                    <ExpandLess style={{ color: colors[currentTheme].secondary }} />
+                    <ExpandLess style={{ color: colors[appCurrentTheme].secondary }} />
                   ) : (
-                    <ExpandMore style={{ color: colors[currentTheme].secondary }} />
+                    <ExpandMore style={{ color: colors[appCurrentTheme].secondary }} />
                   )}
                 </ListItemButton>
 
@@ -225,9 +227,9 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                   >
                     <ListItemButton sx={{ pl: 4 }} component={Link} to={'/voting'}>
                       <ListItemIcon>
-                        <StarBorder style={{ color: colors[currentTheme].secondary }} />
+                        <StarBorder style={{ color: colors[appCurrentTheme].secondary }} />
                       </ListItemIcon>
-                      <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Status" />
+                      <ListItemText style={{ color: colors[appCurrentTheme].secondary }} primary="Status" />
                     </ListItemButton>
                   </List>
                   <List
@@ -237,9 +239,9 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                   >
                     <ListItemButton sx={{ pl: 4 }} component={Link} to={'/voting/joiners'}>
                       <ListItemIcon>
-                        <StarBorder style={{ color: colors[currentTheme].secondary }} />
+                        <StarBorder style={{ color: colors[appCurrentTheme].secondary }} />
                       </ListItemIcon>
-                      <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Joiners" />
+                      <ListItemText style={{ color: colors[appCurrentTheme].secondary }} primary="Joiners" />
                     </ListItemButton>
                   </List>
                   <List
@@ -249,9 +251,9 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                   >
                     <ListItemButton sx={{ pl: 4 }} component={Link} to={'/voting/removals'}>
                       <ListItemIcon>
-                        <StarBorder style={{ color: colors[currentTheme].secondary }} />
+                        <StarBorder style={{ color: colors[appCurrentTheme].secondary }} />
                       </ListItemIcon>
-                      <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Removals" />
+                      <ListItemText style={{ color: colors[appCurrentTheme].secondary }} primary="Removals" />
                     </ListItemButton>
                   </List>
                   <List
@@ -261,14 +263,14 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                   >
                     <ListItemButton sx={{ pl: 4 }} component={Link} to={'/voting/notifier'}>
                       <ListItemIcon>
-                        <StarBorder style={{ color: colors[currentTheme].secondary }} />
+                        <StarBorder style={{ color: colors[appCurrentTheme].secondary }} />
                       </ListItemIcon>
-                      <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Notifier" />
+                      <ListItemText style={{ color: colors[appCurrentTheme].secondary }} primary="Notifier" />
                     </ListItemButton>
                   </List>
                 </Collapse>
               </ListItem>
-              <Divider variant="middle" style={{ backgroundColor: colors[currentTheme].secondary }} />
+              <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
             </div>
           </>
         )}
@@ -279,7 +281,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
   return (
     <div>
       <React.Fragment key={'left'}>
-        <Button onClick={toggleDrawer('left', true)} style={{ color: colors[currentTheme].buttons }}>
+        <Button onClick={toggleDrawer('left', true)} style={{ color: colors[appCurrentTheme].buttons }}>
           <Menu fontSize="medium" />
         </Button>
         <Drawer anchor={'left'} open={state['left']} onClose={toggleDrawer('left', false)}>

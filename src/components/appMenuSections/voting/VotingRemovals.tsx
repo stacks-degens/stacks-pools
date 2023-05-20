@@ -11,11 +11,15 @@ import Button from '@mui/material/Button';
 import TableCreation from '../../../components/TableCreation';
 import { removalsColumns, GetRemovalsRows, AllTableData } from '../../../consts/tableData';
 import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../../redux/store';
+import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 
 const VotingRemovals = () => {
   const { currentTheme } = useCurrentTheme();
   const removalsRows = GetRemovalsRows();
   const navigate = useNavigate();
+
+  const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   const handleRemovalVoteButtonClick = (data: string, address: string | undefined) => {
     if (address !== undefined) {
@@ -41,20 +45,20 @@ const VotingRemovals = () => {
             key={column.dataKey}
             align={column.dataKey === 'address' ? 'left' : 'right'}
             sx={{
-              color: colors[currentTheme].colorWriting,
-              backgroundColor: colors[currentTheme].infoContainers,
+              color: colors[appCurrentTheme].colorWriting,
+              backgroundColor: colors[appCurrentTheme].infoContainers,
             }}
           >
             {column.dataKey === 'vote' ? (
               <Box>
                 <Button onClick={() => handleRemovalVoteButtonClick('voteYes', removalsRow['address'])}>
-                  <ThumbUpAltIcon fontSize="small" sx={{ color: colors[currentTheme].defaultOrange }} />
+                  <ThumbUpAltIcon fontSize="small" sx={{ color: colors[appCurrentTheme].defaultOrange }} />
                 </Button>
                 <Button
                   style={{ marginRight: -52 }}
                   onClick={() => handleRemovalVoteButtonClick('voteNo', removalsRow['address'])}
                 >
-                  <ThumbDownAltIcon fontSize="small" sx={{ color: colors[currentTheme].colorWriting }} />
+                  <ThumbDownAltIcon fontSize="small" sx={{ color: colors[appCurrentTheme].colorWriting }} />
                 </Button>
               </Box>
             ) : (
@@ -63,7 +67,7 @@ const VotingRemovals = () => {
             {column.dataKey === 'generalInfo' && (
               <Box>
                 <Button onClick={() => handleMinerInfoButtonClick(removalsRow['address'])}>
-                  <InfoIcon fontSize="small" sx={{ color: colors[currentTheme].defaultOrange }} />
+                  <InfoIcon fontSize="small" sx={{ color: colors[appCurrentTheme].defaultOrange }} />
                 </Button>
               </Box>
             )}

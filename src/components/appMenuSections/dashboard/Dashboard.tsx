@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react';
-import { selectCurrentUserRole, selectUserSessionState, UserRole } from '../../../redux/reducers/user-state';
+import {
+  selectCurrentTheme,
+  selectCurrentUserRole,
+  selectUserSessionState,
+  UserRole,
+} from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
 import {
   readOnlyGetBlocksWon,
@@ -21,6 +26,8 @@ const Dashboard = () => {
   const [blocksWon, setBlocksWon] = useState<number | null>(null);
   const [stacksRewards, setStacksRewards] = useState<number | null>(null);
   const userSession = useAppSelector(selectUserSessionState);
+
+  const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   useEffect(() => {
     const getCurrentNotifier = async () => {
@@ -69,7 +76,7 @@ const Dashboard = () => {
   }, [stacksRewards]);
 
   return (
-    <div style={{ color: colors[currentTheme].colorWriting }} className="page-heading-title">
+    <div style={{ color: colors[appCurrentTheme].colorWriting }} className="page-heading-title">
       <h2>Decentralized Mining Pool</h2>
       <h2>Dashboard</h2>
       <div className="principal-content-profile-page">

@@ -3,7 +3,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import colors from '../../../consts/colorPallete';
 import useCurrentTheme from '../../../consts/theme';
 import { ContractAskToJoin } from '../../../consts/smartContractFunctions';
-import { UserRole } from '../../../redux/reducers/user-state';
+import { selectCurrentTheme, UserRole } from '../../../redux/reducers/user-state';
+import { useAppSelector } from '../../../redux/store';
 
 interface DashboardInfoContainerProps {
   notifier: string | null;
@@ -23,28 +24,30 @@ const DashboardInfoContainer = ({
 }: DashboardInfoContainerProps) => {
   const { currentTheme } = useCurrentTheme();
 
+  const appCurrentTheme = useAppSelector(selectCurrentTheme);
+
   return (
     <div
-      style={{ backgroundColor: colors[currentTheme].infoContainers, color: colors[currentTheme].colorWriting }}
+      style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting }}
       className="info-container-dashboard-page"
     >
       <div
         style={{
-          backgroundColor: colors[currentTheme].infoContainers,
-          color: colors[currentTheme].colorWriting,
-          borderBottom: `1px solid ${colors[currentTheme].colorWriting}`,
+          backgroundColor: colors[appCurrentTheme].infoContainers,
+          color: colors[appCurrentTheme].colorWriting,
+          borderBottom: `1px solid ${colors[appCurrentTheme].colorWriting}`,
         }}
         className="heading-info-container"
       >
         <div className="heading-title-info-container">
-          <div style={{ color: colors[currentTheme].defaultYellow }} className="heading-icon-info-container">
+          <div style={{ color: colors[appCurrentTheme].defaultYellow }} className="heading-icon-info-container">
             <AccountCircleIcon className="icon-info-container yellow-icon" />
           </div>
           <div className="title-info-container">INFO</div>
         </div>
       </div>
       <div
-        style={{ backgroundColor: colors[currentTheme].infoContainers, color: colors[currentTheme].colorWriting }}
+        style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting }}
         className="content-info-container-normal-user"
       >
         <div className="content-sections-title-info-container">
@@ -67,7 +70,7 @@ const DashboardInfoContainer = ({
       {currentRole === 'NormalUser' && (
         <div
           style={{
-            borderTop: `1px solid ${colors[currentTheme].colorWriting}`,
+            borderTop: `1px solid ${colors[appCurrentTheme].colorWriting}`,
           }}
           className="footer-join-button-container"
         >

@@ -11,11 +11,14 @@ import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import InfoIcon from '@mui/icons-material/Info';
 import { AllTableData, GetMinersRows, minerColumns } from '../../../consts/tableData';
 import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../../redux/store';
+import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 
 const MiningPool = () => {
   const navigate = useNavigate();
   const { currentTheme } = useCurrentTheme();
   const minersRows = GetMinersRows();
+  const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   const handleMinerRemoveButtonClick = (address: string | undefined) => {
     if (address !== undefined) {
@@ -37,15 +40,15 @@ const MiningPool = () => {
             key={column.dataKey}
             align={column.dataKey === 'address' ? 'left' : 'right'}
             sx={{
-              color: colors[currentTheme].colorWriting,
-              backgroundColor: colors[currentTheme].infoContainers,
+              color: colors[appCurrentTheme].colorWriting,
+              backgroundColor: colors[appCurrentTheme].infoContainers,
             }}
             // className="table-row"
           >
             {column.dataKey === 'proposeRemoval' ? (
               <Box>
                 <Button sx={{ marginRight: 3 }} onClick={() => handleMinerRemoveButtonClick(minersRow['address'])}>
-                  <PersonRemoveIcon fontSize="small" sx={{ color: colors[currentTheme].defaultOrange }} />
+                  <PersonRemoveIcon fontSize="small" sx={{ color: colors[appCurrentTheme].defaultOrange }} />
                 </Button>
               </Box>
             ) : (
@@ -54,7 +57,7 @@ const MiningPool = () => {
             {column.dataKey === 'generalInfo' && (
               <Box>
                 <Button onClick={() => handleMinerInfoButtonClick(minersRow['address'])}>
-                  <InfoIcon fontSize="small" sx={{ color: colors[currentTheme].defaultYellow }} />
+                  <InfoIcon fontSize="small" sx={{ color: colors[appCurrentTheme].defaultYellow }} />
                 </Button>
               </Box>
             )}

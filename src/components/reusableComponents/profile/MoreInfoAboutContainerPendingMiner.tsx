@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react';
-import { selectCurrentUserRole, selectUserSessionState, UserRole } from '../../../redux/reducers/user-state';
+import {
+  selectCurrentTheme,
+  selectCurrentUserRole,
+  selectUserSessionState,
+  UserRole,
+} from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
 import { readOnlyGetRemainingBlocksJoin } from '../../../consts/readOnly';
 import { ContractAddPending } from '../../../consts/smartContractFunctions';
@@ -12,6 +17,9 @@ const MoreInfoAboutContainerPendingMiner = () => {
   const userAddress = userSession.loadUserData().profile.stxAddress.testnet;
   const [blocksLeftUntilJoin, setBlocksLeftUntilJoin] = useState<number | null>(null);
   const { currentTheme } = useCurrentTheme();
+
+  const appCurrentTheme = useAppSelector(selectCurrentTheme);
+
   useEffect(() => {
     const fetchBlocksLeft = async () => {
       const blocksLeft = await readOnlyGetRemainingBlocksJoin();
@@ -32,15 +40,15 @@ const MoreInfoAboutContainerPendingMiner = () => {
       </div>
       <div
         style={{
-          borderTop: `1px solid ${colors[currentTheme].colorWriting}`,
+          borderTop: `1px solid ${colors[appCurrentTheme].colorWriting}`,
         }}
         className="footer-button-container"
       >
         <button
           style={{
-            background: `linear-gradient(135deg, ${colors[currentTheme].defaultYellow} 30%, ${colors[currentTheme].defaultOrange}) 60%`,
-            color: colors[currentTheme].buttonWriting,
-            border: `1px solid ${colors[currentTheme].defaultOrange}`,
+            background: `linear-gradient(135deg, ${colors[appCurrentTheme].defaultYellow} 30%, ${colors[appCurrentTheme].defaultOrange}) 60%`,
+            color: colors[appCurrentTheme].buttonWriting,
+            border: `1px solid ${colors[appCurrentTheme].defaultOrange}`,
           }}
           disabled={blocksLeftUntilJoin === 0 && currentRole === 'Pending' ? false : true}
           className="customButton width-100"

@@ -2,7 +2,7 @@ import colors from '../../../consts/colorPallete';
 import useCurrentTheme from '../../../consts/theme';
 import { Box, Button } from '@mui/material';
 import { useAppSelector } from '../../../redux/store';
-import { selectCurrentUserRole, selectUserSessionState } from '../../../redux/reducers/user-state';
+import { selectCurrentTheme, selectCurrentUserRole, selectUserSessionState } from '../../../redux/reducers/user-state';
 import { ContractTryEnterPool } from '../../../consts/smartContractFunctions';
 import { ReadOnlyAllDataWaitingMiners } from '../../../consts/readOnly';
 import { useState, useEffect } from 'react';
@@ -17,6 +17,8 @@ const WaitingMinerProfile = () => {
   const [positiveVotesThreshold, setPositiveVotesThreshold] = useState<number | null>(null);
   const [negativeVotes, setNegativeVotes] = useState<number | null>(null);
   const [negativeVotesThreshold, setNegativeVotesThreshold] = useState<number | null>(null);
+
+  const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,8 +36,8 @@ const WaitingMinerProfile = () => {
     <Box
       sx={{
         minHeight: 'calc(100vh - 60px)',
-        backgroundColor: colors[currentTheme].accent2,
-        color: colors[currentTheme].secondary,
+        backgroundColor: colors[appCurrentTheme].accent2,
+        color: colors[appCurrentTheme].secondary,
         marginTop: -2.5,
       }}
     >
@@ -48,8 +50,8 @@ const WaitingMinerProfile = () => {
             <Button
               sx={{ border: 0.2 }}
               style={{
-                backgroundColor: colors[currentTheme].accent2,
-                color: colors[currentTheme].secondary,
+                backgroundColor: colors[appCurrentTheme].accent2,
+                color: colors[appCurrentTheme].secondary,
               }}
               onClick={() => ContractTryEnterPool()}
             >

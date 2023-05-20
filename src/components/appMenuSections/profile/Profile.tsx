@@ -1,6 +1,11 @@
 import './styles.css';
 
-import { selectCurrentUserRole, selectUserSessionState, UserRole } from '../../../redux/reducers/user-state';
+import {
+  selectCurrentTheme,
+  selectCurrentUserRole,
+  selectUserSessionState,
+  UserRole,
+} from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
 import CommonInfoProfile from './CommonInfoProfile';
 import MinerProfile from './MinerProfile';
@@ -23,6 +28,8 @@ const Profile = () => {
   const [totalWithdrawals, setTotalWithdrawals] = useState<number | null>(null);
   const userSession = useAppSelector(selectUserSessionState);
   const { currentTheme } = useCurrentTheme();
+
+  const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   const profileMapping: Record<UserRole, React.ReactElement> = {
     // Viewer: <CommonInfoProfile />,
@@ -84,7 +91,7 @@ const Profile = () => {
     <div>
       <div>
         {/* <div style={{ color: colors[currentTheme].lightYellow }} className="page-heading-title"> */}
-        <div style={{ color: colors[currentTheme].colorWriting }} className="page-heading-title">
+        <div style={{ color: colors[appCurrentTheme].colorWriting }} className="page-heading-title">
           <h2>Decentralized Mining Pool</h2>
           <h2>Profile</h2>
         </div>

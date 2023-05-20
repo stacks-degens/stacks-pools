@@ -11,11 +11,15 @@ import InfoIcon from '@mui/icons-material/Info';
 import TableCreation from '../../../components/TableCreation';
 import { waitingColumns, GetWaitingRows, AllTableData } from '../../../consts/tableData';
 import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../../redux/store';
+import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 
 const VotingJoiners = () => {
   const { currentTheme } = useCurrentTheme();
   const waitingRows = GetWaitingRows();
   const navigate = useNavigate();
+
+  const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   const handlePendingVoteButtonClick = (data: string, address: string | undefined) => {
     if (address !== undefined) {
@@ -41,27 +45,27 @@ const VotingJoiners = () => {
             key={column.dataKey}
             align={column.dataKey === 'address' ? 'left' : 'right'}
             sx={{
-              color: colors[currentTheme].colorWriting,
-              backgroundColor: colors[currentTheme].infoContainers,
+              color: colors[appCurrentTheme].colorWriting,
+              backgroundColor: colors[appCurrentTheme].infoContainers,
             }}
           >
             {column.dataKey === 'generalInfo' && (
               <Box>
                 <Button onClick={() => handleMinerInfoButtonClick(waitingRow['address'])}>
-                  <InfoIcon fontSize="small" sx={{ color: colors[currentTheme].defaultOrange }} />
+                  <InfoIcon fontSize="small" sx={{ color: colors[appCurrentTheme].defaultOrange }} />
                 </Button>
               </Box>
             )}
             {column.dataKey === 'vote' ? (
               <Box>
                 <Button onClick={() => handlePendingVoteButtonClick('voteYes', waitingRow['address'])}>
-                  <ThumbUpAltIcon fontSize="small" sx={{ color: colors[currentTheme].defaultOrange }} />
+                  <ThumbUpAltIcon fontSize="small" sx={{ color: colors[appCurrentTheme].defaultOrange }} />
                 </Button>
                 <Button
                   style={{ marginRight: -52 }}
                   onClick={() => handlePendingVoteButtonClick('voteNo', waitingRow['address'])}
                 >
-                  <ThumbDownAltIcon fontSize="small" sx={{ color: colors[currentTheme].colorWriting }} />
+                  <ThumbDownAltIcon fontSize="small" sx={{ color: colors[appCurrentTheme].colorWriting }} />
                 </Button>
               </Box>
             ) : (

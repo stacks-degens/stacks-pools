@@ -5,7 +5,7 @@ import useCurrentTheme from '../../../consts/theme';
 import { useEffect, useState } from 'react';
 import { ContractSetAutoExchange } from '../../../consts/smartContractFunctions';
 import { useAppSelector } from '../../../redux/store';
-import { selectUserSessionState } from '../../../redux/reducers/user-state';
+import { selectCurrentTheme, selectUserSessionState } from '../../../redux/reducers/user-state';
 import { readOnlyExchangeToggle, readOnlyGetNotifier } from '../../../consts/readOnly';
 import { CallMade } from '@mui/icons-material';
 import MinerMoreInfoAboutContainer from './MoreInfoAboutContainerMiner';
@@ -32,6 +32,8 @@ const AboutContainer = ({
   const [exchange, setExchange] = useState<boolean | null>(false);
   const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);
   const userSession = useAppSelector(selectUserSessionState);
+
+  const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   const userAddress = userSession.loadUserData().profile.stxAddress.testnet;
 
@@ -64,26 +66,26 @@ const AboutContainer = ({
   console.log('conn', connectedWallet);
   return (
     <div
-      style={{ backgroundColor: colors[currentTheme].infoContainers, color: colors[currentTheme].colorWriting }}
+      style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting }}
       className="info-container-profile-page"
     >
       <div
         style={{
-          backgroundColor: colors[currentTheme].infoContainers,
-          color: colors[currentTheme].colorWriting,
-          borderBottom: `1px solid ${colors[currentTheme].colorWriting}`,
+          backgroundColor: colors[appCurrentTheme].infoContainers,
+          color: colors[appCurrentTheme].colorWriting,
+          borderBottom: `1px solid ${colors[appCurrentTheme].colorWriting}`,
         }}
         className="heading-info-container"
       >
         <div className="heading-title-info-container">
-          <div style={{ color: colors[currentTheme].defaultYellow }} className="heading-icon-info-container">
+          <div style={{ color: colors[appCurrentTheme].defaultYellow }} className="heading-icon-info-container">
             <AccountCircleIcon className="icon-info-container yellow-icon" />
           </div>
           <div className="title-info-continer">ABOUT</div>
         </div>
       </div>
       <div
-        style={{ backgroundColor: colors[currentTheme].infoContainers, color: colors[currentTheme].colorWriting }}
+        style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting }}
         className={currentRole === 'Miner' ? 'content-info-container' : 'content-info-container-normal-user'}
       >
         <div className="content-sections-title-info-container bottom-margins">
@@ -101,13 +103,13 @@ const AboutContainer = ({
           <button
             className="button-with-no-style"
             style={{
-              backgroundColor: colors[currentTheme].accent2,
-              color: colors[currentTheme].secondary,
+              backgroundColor: colors[appCurrentTheme].accent2,
+              color: colors[appCurrentTheme].secondary,
             }}
           >
             <a
               className="custom-link"
-              style={{ backgroundColor: colors[currentTheme].accent2, color: colors[currentTheme].secondary }}
+              style={{ backgroundColor: colors[appCurrentTheme].accent2, color: colors[appCurrentTheme].secondary }}
               target="_blank"
               rel="noreferrer"
               href={explorerLink !== undefined ? explorerLink : ''}

@@ -16,7 +16,7 @@ import {
   readOnlyGetNotifier,
 } from '../../../consts/readOnly';
 import { useAppSelector } from '../../../redux/store';
-import { selectUserSessionState } from '../../../redux/reducers/user-state';
+import { selectCurrentTheme, selectUserSessionState } from '../../../redux/reducers/user-state';
 import { Alert, TextField } from '@mui/material';
 import { ElectricBolt } from '@mui/icons-material';
 
@@ -33,6 +33,8 @@ const ActionsContainer = () => {
   const [btcAddress, setBtcAddress] = useState<string>('');
   const userSession = useAppSelector(selectUserSessionState);
   const userAddress = userSession.loadUserData().profile.stxAddress.testnet;
+
+  const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   const changeBtcAddress = () => {
     if (btcAddress !== '') {
@@ -112,19 +114,19 @@ const ActionsContainer = () => {
 
   return (
     <div
-      style={{ backgroundColor: colors[currentTheme].infoContainers, color: colors[currentTheme].colorWriting }}
+      style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting }}
       className="info-container-profile-page"
     >
       <div
         style={{
-          backgroundColor: colors[currentTheme].infoContainers,
-          color: colors[currentTheme].colorWriting,
-          borderBottom: `1px solid ${colors[currentTheme].colorWriting}`,
+          backgroundColor: colors[appCurrentTheme].infoContainers,
+          color: colors[appCurrentTheme].colorWriting,
+          borderBottom: `1px solid ${colors[appCurrentTheme].colorWriting}`,
         }}
         className="heading-info-container"
       >
         <div className="heading-title-info-container">
-          <div style={{ color: colors[currentTheme].defaultYellow }} className="heading-icon-info-container">
+          <div style={{ color: colors[appCurrentTheme].defaultYellow }} className="heading-icon-info-container">
             <ElectricBolt className="icon-info-container yellow-icon" />
           </div>
           <div className="title-info-continer">ACTIONS</div>
@@ -132,7 +134,7 @@ const ActionsContainer = () => {
       </div>
 
       <div
-        style={{ backgroundColor: colors[currentTheme].infoContainers, color: colors[currentTheme].colorWriting }}
+        style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting }}
         className="content-info-container justify-content-between"
       >
         <div>
@@ -154,7 +156,7 @@ const ActionsContainer = () => {
             </div>
             <div>
               <button
-                className={currentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+                className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
                 onClick={() => {
                   claimRewards();
                 }}
@@ -172,7 +174,7 @@ const ActionsContainer = () => {
             </div>
             <div>
               <button
-                className={currentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+                className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
                 onClick={changeBtcAddress}
               >
                 change address
@@ -197,7 +199,7 @@ const ActionsContainer = () => {
             </div>
             <div>
               <button
-                className={currentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+                className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
                 onClick={depositAmount}
               >
                 deposit
@@ -222,7 +224,7 @@ const ActionsContainer = () => {
             </div>
             <div>
               <button
-                className={currentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+                className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
                 onClick={withdrawAmount}
               >
                 withdraw
@@ -340,12 +342,12 @@ const ActionsContainer = () => {
         <div className="content-sections-title-info-container">
           <div
             style={{
-              borderTop: `1px solid ${colors[currentTheme].colorWriting}`,
+              borderTop: `1px solid ${colors[appCurrentTheme].colorWriting}`,
             }}
             className="footer-button-container"
           >
             <button
-              className={currentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+              className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
               onClick={leavePool}
               disabled={disableLeavePoolButton}
             >

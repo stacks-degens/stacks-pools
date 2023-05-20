@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { selectUserSessionState } from '../../../redux/reducers/user-state';
+import { selectCurrentTheme, selectUserSessionState } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
 import { principalCV, ClarityValue, listCV, cvToJSON } from '@stacks/transactions';
 import { ReadOnlyAllDataWaitingMiners } from '../../../consts/readOnly';
@@ -17,6 +17,8 @@ const MoreInfoAboutContainerWaitingMiner = () => {
   const [negativeVotes, setNegativeVotes] = useState<number | null>(null);
   const [negativeVotesThreshold, setNegativeVotesThreshold] = useState<number | null>(null);
   const { currentTheme } = useCurrentTheme();
+
+  const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,15 +58,15 @@ const MoreInfoAboutContainerWaitingMiner = () => {
       {positiveVotes !== null && positiveVotesThreshold !== null && positiveVotes >= positiveVotesThreshold && (
         <div
           style={{
-            borderTop: `1px solid ${colors[currentTheme].colorWriting}`,
+            borderTop: `1px solid ${colors[appCurrentTheme].colorWriting}`,
           }}
           className="footer-button-container"
         >
           <button
             style={{
-              background: `linear-gradient(135deg, ${colors[currentTheme].defaultYellow} 30%, ${colors[currentTheme].defaultOrange}) 60%`,
-              color: colors[currentTheme].buttonWriting,
-              border: `1px solid ${colors[currentTheme].defaultOrange}`,
+              background: `linear-gradient(135deg, ${colors[appCurrentTheme].defaultYellow} 30%, ${colors[appCurrentTheme].defaultOrange}) 60%`,
+              color: colors[appCurrentTheme].buttonWriting,
+              border: `1px solid ${colors[appCurrentTheme].defaultOrange}`,
             }}
             className="customButton"
             // style={{

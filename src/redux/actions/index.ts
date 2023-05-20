@@ -5,6 +5,7 @@ import { AppDispatch } from '../store';
 export const DISCONNECT_USER_SESSION = 'DISCONNECT_USER_SESSION';
 export const CONNECT_USER_SESSION = 'CONNECT_USER_SESSION';
 export const UPDATE_USER_ROLE = 'UPDATE_USER_ROLE';
+export const UPDATE_APP_THEME = 'UPDATE_APP_THEME';
 
 export const disconnectAction = () => {
   return { type: DISCONNECT_USER_SESSION };
@@ -28,4 +29,8 @@ export const updateUserRoleAction = (newRole: string) => {
       console.error('Failed to grab user role');
     }
   };
+};
+
+export const updateAppThemeAction = (newTheme: string) => {
+  return { type: UPDATE_APP_THEME, payload: newTheme };
 };

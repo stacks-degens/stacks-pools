@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { readOnlyExchangeToggle } from '../../../consts/readOnly';
 import { ContractSetAutoExchange } from '../../../consts/smartContractFunctions';
-import { selectUserSessionState } from '../../../redux/reducers/user-state';
+import { selectCurrentTheme, selectUserSessionState } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
 import colors from '../../../consts/colorPallete';
 import useCurrentTheme from '../../../consts/theme';
@@ -17,6 +17,8 @@ const MoreInfoAboutContainerMiner = ({ currentBalance, totalWithdrawals }: IMine
 
   const userSession = useAppSelector(selectUserSessionState);
   const userAddress = userSession.loadUserData().profile.stxAddress.testnet;
+
+  const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   const setAutoExchange = () => {
     if (userAddress !== null) {
@@ -50,12 +52,12 @@ const MoreInfoAboutContainerMiner = ({ currentBalance, totalWithdrawals }: IMine
       </div>
       <div
         style={{
-          borderTop: `1px solid ${colors[currentTheme].colorWriting}`,
+          borderTop: `1px solid ${colors[appCurrentTheme].colorWriting}`,
         }}
         className="footer-button-container"
       >
         <button
-          className={currentTheme === 'light' ? 'customButton width-100' : 'customDarkButton width-100'}
+          className={appCurrentTheme === 'light' ? 'customButton width-100' : 'customDarkButton width-100'}
           onClick={setAutoExchange}
         >
           {exchange === null || exchange === false ? 'Change to yes' : 'Change to no'}

@@ -11,6 +11,8 @@ import { cvToJSON, listCV, principalCV } from '@stacks/transactions';
 import MinerDetailsContainer from '../../reusableComponents/profile/profileDetails/MinerDetailsContainer';
 import RoleIntroMinerDetails from '../../reusableComponents/profile/profileDetails/RoleIntroMinerDetails';
 import colors from '../../../consts/colorPallete';
+import { useAppSelector } from '../../../redux/store';
+import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 
 interface MinerDataProps {
   balance: string;

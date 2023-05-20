@@ -5,8 +5,13 @@ import LeftPanel from './LeftPanel';
 import colors from '../consts/colorPallete';
 import useCurrentTheme from '../consts/theme';
 import './styles.css';
+import { useAppDispatch, useAppSelector } from '../redux/store';
+import { selectCurrentTheme } from '../redux/reducers/user-state';
+import { updateAppThemeAction } from '../redux/actions';
 
 const HeaderBar = () => {
+  const appCurrentTheme = useAppSelector(selectCurrentTheme);
+  const dispatch = useAppDispatch();
   const { currentTheme, setTheme } = useCurrentTheme();
 
   const changeTheme = () => {
@@ -14,7 +19,8 @@ const HeaderBar = () => {
     setTheme(newTheme);
   };
 
-  const isButtonChecked = currentTheme === 'light' ? true : false;
+  // const isButtonChecked = currentTheme === 'light' ? true : false;
+  const isButtonChecked = appCurrentTheme === 'light' ? true : false;
 
   return (
     <Container
@@ -37,7 +43,18 @@ const HeaderBar = () => {
             <Grid item>
               <Box>
                 <FormControlLabel
-                  control={<DarkModeButton currentTheme={currentTheme} checked={isButtonChecked} />}
+                  control={
+                    <DarkModeButton
+                      onClick={() => {
+                        appCurrentTheme === 'light'
+                          ? dispatch(updateAppThemeAction('dark'))
+                          : dispatch(updateAppThemeAction('light'));
+                      }}
+                      // currentTheme={currentTheme}
+                      currentTheme={appCurrentTheme}
+                      checked={isButtonChecked}
+                    />
+                  }
                   onChange={changeTheme}
                   label=""
                 />

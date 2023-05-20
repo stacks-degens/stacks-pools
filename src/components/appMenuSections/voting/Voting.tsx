@@ -3,11 +3,15 @@ import useCurrentTheme from '../../../consts/theme';
 import { useState, useEffect } from 'react';
 import VotingStatusContainer from '../../reusableComponents/voting/VotingStatusContainer';
 import colors from '../../../consts/colorPallete';
+import { useAppSelector } from '../../../redux/store';
+import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 
 const Voting = () => {
   const { currentTheme } = useCurrentTheme();
   const [notifierVoteStatus, setNotifierVoteStatus] = useState<string | null>(null);
   const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);
+
+  const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   useEffect(() => {
     const getCurrentNotifier = async () => {
@@ -33,7 +37,7 @@ const Voting = () => {
   }, []);
 
   return (
-    <div style={{ color: colors[currentTheme].colorWriting }} className="page-heading-title">
+    <div style={{ color: colors[appCurrentTheme].colorWriting }} className="page-heading-title">
       <h2>Decentralized Mining Pool</h2>
       <h2>Voting - Status</h2>
       <div className="principal-content-profile-page">

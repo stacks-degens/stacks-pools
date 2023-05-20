@@ -10,7 +10,7 @@ import {
   readOnlyGetNotifierElectionProcessData,
 } from '../../../consts/readOnly';
 import { useAppSelector } from '../../../redux/store';
-import { selectUserSessionState } from '../../../redux/reducers/user-state';
+import { selectCurrentTheme, selectUserSessionState } from '../../../redux/reducers/user-state';
 import { ContractVoteForNotifier } from '../../../consts/smartContractFunctions';
 import { principalCV, listCV } from '@stacks/transactions';
 import { AllTableData, GetNotifiersRows, notifierColumns } from '../../../consts/tableData';
@@ -32,6 +32,8 @@ const VotingNotifier = () => {
   const [notifiersRows, setNotifiersRows] = useState<{ id: number; address: string; notifierVotes: string }[]>([]);
   const navigate = useNavigate();
 
+  const appCurrentTheme = useAppSelector(selectCurrentTheme);
+
   const handleMinerInfoButtonClick = (address: string | undefined) => {
     if (address !== undefined) {
       navigate(`/profile/${address}`);
@@ -52,15 +54,15 @@ const VotingNotifier = () => {
             key={column.dataKey}
             align={column.dataKey === 'address' ? 'left' : 'right'}
             sx={{
-              color: colors[currentTheme].colorWriting,
-              backgroundColor: colors[currentTheme].infoContainers,
+              color: colors[appCurrentTheme].colorWriting,
+              backgroundColor: colors[appCurrentTheme].infoContainers,
             }}
           >
             {notifiersRow[column.dataKey]}
             {column.dataKey === 'generalInfo' && (
               <Box>
                 <Button onClick={() => handleMinerInfoButtonClick(notifiersRow['address'])}>
-                  <InfoIcon fontSize="small" sx={{ color: colors[currentTheme].defaultYellow }} />
+                  <InfoIcon fontSize="small" sx={{ color: colors[appCurrentTheme].defaultYellow }} />
                 </Button>
               </Box>
             )}
@@ -71,7 +73,7 @@ const VotingNotifier = () => {
                   disabled={votedNotifier !== "You haven't voted yet!"}
                   onClick={() => handlePendingVoteButtonClick(notifiersRow['address'])}
                 >
-                  <ThumbUpAltIcon fontSize="small" sx={{ color: colors[currentTheme].defaultOrange }} />
+                  <ThumbUpAltIcon fontSize="small" sx={{ color: colors[appCurrentTheme].defaultOrange }} />
                 </Button>
               </Box>
             )}
@@ -174,8 +176,8 @@ const VotingNotifier = () => {
             alignItems: 'center',
             flexDirection: 'column',
             width: '100%',
-            backgroundColor: colors[currentTheme].accent2,
-            color: colors[currentTheme].secondary,
+            backgroundColor: colors[appCurrentTheme].accent2,
+            color: colors[appCurrentTheme].secondary,
           }}
         >
           <TableCreation

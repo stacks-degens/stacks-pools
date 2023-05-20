@@ -4,6 +4,8 @@ import useCurrentTheme from '../../../consts/theme';
 import { SelfImprovement } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
 import { readOnlyGetRemainingBlocksJoin } from '../../../consts/readOnly';
+import { useAppSelector } from '../../../redux/store';
+import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 
 interface IRoleIntroPending {
   currentRole: string;
@@ -21,12 +23,14 @@ const RoleIntroPending = ({ currentRole }: IRoleIntroPending) => {
 
   const { currentTheme } = useCurrentTheme();
 
+  const appCurrentTheme = useAppSelector(selectCurrentTheme);
+
   return (
     <div
       className="intro-container-profile-page"
       style={{
-        background: `linear-gradient(135deg, ${colors[currentTheme].defaultYellow} 30%, ${colors[currentTheme].defaultOrange}) 60%`,
-        color: colors[currentTheme].introRoleWriting,
+        background: `linear-gradient(135deg, ${colors[appCurrentTheme].defaultYellow} 30%, ${colors[appCurrentTheme].defaultOrange}) 60%`,
+        color: colors[appCurrentTheme].introRoleWriting,
       }}
     >
       <filter id="round">

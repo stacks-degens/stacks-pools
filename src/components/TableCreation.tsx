@@ -14,6 +14,8 @@ import useCurrentTheme from '../consts/theme';
 import colors from '../consts/colorPallete';
 import { AllTableData } from '../consts/tableData';
 import '../components/appMenuSections/miningPool/styles.css';
+import { useAppSelector } from '../redux/store';
+import { selectCurrentTheme } from '../redux/reducers/user-state';
 
 const VirtuosoTableComponents: TableComponents<any /*don't know the type here*/> = {
   Scroller: React.forwardRef<HTMLDivElement>((props, ref) => <TableContainer component={Paper} {...props} ref={ref} />),
@@ -47,6 +49,7 @@ const TableCreation = ({ rows, rowContent, columns, tableId, customTableWidth }:
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState<number>(5);
   const [orderBy, setOrderBy] = React.useState<keyof AllTableData>();
+  const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   const totalRows = rows.length;
 
@@ -72,21 +75,21 @@ const TableCreation = ({ rows, rowContent, columns, tableId, customTableWidth }:
             align={column.dataKey === 'address' ? 'left' : 'right'}
             style={{ width: column.width }}
             sx={{
-              backgroundColor: colors[currentTheme].primary,
-              color: colors[currentTheme].colorWriting,
+              backgroundColor: colors[appCurrentTheme].primary,
+              color: colors[appCurrentTheme].colorWriting,
             }}
             className="test"
           >
             <TableSortLabel
               sx={{
                 ':hover': {
-                  color: colors[currentTheme].secondary,
+                  color: colors[appCurrentTheme].secondary,
                 },
                 ':focus': {
-                  color: colors[currentTheme].secondary,
+                  color: colors[appCurrentTheme].secondary,
                 },
                 ':active': {
-                  color: colors[currentTheme].secondary,
+                  color: colors[appCurrentTheme].secondary,
                 },
               }}
               active={orderBy === column.dataKey}
@@ -162,7 +165,7 @@ const TableCreation = ({ rows, rowContent, columns, tableId, customTableWidth }:
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: colors[currentTheme].colorWriting,
+          color: colors[appCurrentTheme].colorWriting,
         }}
       />
       <Paper style={{ height: tableHeight, width: '100%' }} elevation={6}>
@@ -171,7 +174,7 @@ const TableCreation = ({ rows, rowContent, columns, tableId, customTableWidth }:
           components={VirtuosoTableComponents}
           fixedHeaderContent={fixedHeaderContent}
           itemContent={rowContent}
-          style={{ backgroundColor: colors[currentTheme].accent2 }}
+          style={{ backgroundColor: colors[appCurrentTheme].accent2 }}
         />
       </Paper>
     </Box>

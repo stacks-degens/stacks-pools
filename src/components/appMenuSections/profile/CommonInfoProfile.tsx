@@ -1,4 +1,4 @@
-import { selectCurrentUserRole, selectUserSessionState } from '../../../redux/reducers/user-state';
+import { selectCurrentTheme, selectCurrentUserRole, selectUserSessionState } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
 import colors from '../../../consts/colorPallete';
 import useCurrentTheme from '../../../consts/theme';
@@ -13,6 +13,7 @@ const CommonInfoProfile = () => {
   const [explorerLink, setExplorerLink] = useState<string | undefined>(undefined);
   const { currentTheme } = useCurrentTheme();
   const userSession = useAppSelector(selectUserSessionState);
+  const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   useEffect(() => {
     if (userSession.isUserSignedIn()) {
@@ -38,8 +39,8 @@ const CommonInfoProfile = () => {
     <Box
       sx={{
         minHeight: 'calc(100vh - 60px)',
-        backgroundColor: colors[currentTheme].accent2,
-        color: colors[currentTheme].secondary,
+        backgroundColor: colors[appCurrentTheme].accent2,
+        color: colors[appCurrentTheme].secondary,
         marginTop: -2.5,
       }}
     >
@@ -54,9 +55,11 @@ const CommonInfoProfile = () => {
           <div>{currentRole === 'NormalUser' ? 'not asked to join yet' : currentRole}</div>
         </li>
         <li>
-          <button style={{ backgroundColor: colors[currentTheme].accent2, color: colors[currentTheme].secondary }}>
+          <button
+            style={{ backgroundColor: colors[appCurrentTheme].accent2, color: colors[appCurrentTheme].secondary }}
+          >
             <a
-              style={{ backgroundColor: colors[currentTheme].accent2, color: colors[currentTheme].secondary }}
+              style={{ backgroundColor: colors[appCurrentTheme].accent2, color: colors[appCurrentTheme].secondary }}
               target="_blank"
               rel="noreferrer"
               href={explorerLink !== undefined ? explorerLink : ''}

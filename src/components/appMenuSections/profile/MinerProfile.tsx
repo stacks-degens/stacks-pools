@@ -7,7 +7,7 @@ import {
   readOnlyGetAllTotalWithdrawals,
   readOnlyClaimedBlockStatus,
 } from '../../../consts/readOnly';
-import { selectCurrentUserRole, selectUserSessionState } from '../../../redux/reducers/user-state';
+import { selectCurrentTheme, selectCurrentUserRole, selectUserSessionState } from '../../../redux/reducers/user-state';
 import '../style.css';
 import colors from '../../../consts/colorPallete';
 import useCurrentTheme from '../../../consts/theme';
