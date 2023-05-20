@@ -175,6 +175,19 @@
   display: flex;
 }
 
+.footer-button-container {
+  height: 50px;
+  margin-top: 5px;
+  margin-bottom: -15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #f9b11c; */
+  /* background-color: #feeaa7; */
+  /* background-color: #fef9f7; */
+  /* border-top: 1px #2f2f2f solid; */
+}
+
 /* ********************************** HELPERS **********************************  */
 
 .align-center {

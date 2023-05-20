@@ -338,7 +338,12 @@ const ActionsContainer = () => {
         )}
 
         <div className="content-sections-title-info-container">
-          <div className="flex-right">
+          <div
+            style={{
+              borderTop: `1px solid ${colors[currentTheme].colorWriting}`,
+            }}
+            className="footer-button-container"
+          >
             <button
               className={currentTheme === 'light' ? 'customButton' : 'customDarkButton'}
               onClick={leavePool}

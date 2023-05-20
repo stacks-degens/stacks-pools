@@ -55,7 +55,12 @@ const MiningPoolStatusContainer = ({ notifier, currentBlock, blocksWon, votingSt
         </div>
       </div>
       {votingStatus === 'Ended by time!' && (
-        <div className="footer-end-vote-button-container">
+        <div
+          style={{
+            borderTop: `1px solid ${colors[currentTheme].colorWriting}`,
+          }}
+          className="footer-end-vote-button-container"
+        >
           <button
             className="customButton"
             onClick={() => {

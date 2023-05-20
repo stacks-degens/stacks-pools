@@ -54,7 +54,12 @@ const MoreInfoAboutContainerWaitingMiner = () => {
         </span>
       </div>
       {positiveVotes !== null && positiveVotesThreshold !== null && positiveVotes >= positiveVotesThreshold && (
-        <div className="content-sections-title-info-container">
+        <div
+          style={{
+            borderTop: `1px solid ${colors[currentTheme].colorWriting}`,
+          }}
+          className="footer-button-container"
+        >
           <button
             style={{
               background: `linear-gradient(135deg, ${colors[currentTheme].defaultYellow} 30%, ${colors[currentTheme].defaultOrange}) 60%`,

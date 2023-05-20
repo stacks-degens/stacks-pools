@@ -46,16 +46,25 @@ const MinerDetailsContainer = ({
 
   if (currentRole === null) {
     return (
-      <div style={{ backgroundColor: colors[currentTheme].defaultYellow }} className="info-container-profile-page">
-        <div className="heading-info-container">
+      <div
+        style={{ backgroundColor: colors[currentTheme].infoContainers, color: colors[currentTheme].colorWriting }}
+        className="info-container-profile-page"
+      >
+        <div
+          style={{ backgroundColor: colors[currentTheme].infoContainers, color: colors[currentTheme].colorWriting }}
+          className="heading-info-container"
+        >
           <div className="heading-title-info-container">
-            <div className="heading-icon-info-container">
-              <AccountCircleIcon className="icon-info-container" />
+            <div style={{ color: colors[currentTheme].defaultYellow }} className="heading-icon-info-container">
+              <AccountCircleIcon className="icon-info-container yellow-icon" />
             </div>
             <div className="title-info-continer">ABOUT</div>
           </div>
         </div>
-        <div className={'content-info-container-normal-user'}>
+        <div
+          style={{ backgroundColor: colors[currentTheme].infoContainers, color: colors[currentTheme].colorWriting }}
+          className={'content-info-container-normal-user'}
+        >
           <div className="content-sections-title-info-container bottom-margins">
             <span className="bold-font">Address:</span>
             <div className="write-just-on-one-line">{address !== null ? address : ''}</div>
@@ -69,16 +78,25 @@ const MinerDetailsContainer = ({
   }
 
   return (
-    <div style={{ backgroundColor: colors[currentTheme].defaultYellow }} className="info-container-profile-page">
-      <div className="heading-info-container">
+    <div
+      style={{ backgroundColor: colors[currentTheme].infoContainers, color: colors[currentTheme].colorWriting }}
+      className="info-container-profile-page"
+    >
+      <div
+        style={{ backgroundColor: colors[currentTheme].infoContainers, color: colors[currentTheme].colorWriting }}
+        className="heading-info-container"
+      >
         <div className="heading-title-info-container">
-          <div className="heading-icon-info-container">
-            <AccountCircleIcon className="icon-info-container" />
+          <div style={{ color: colors[currentTheme].defaultYellow }} className="heading-icon-info-container">
+            <AccountCircleIcon className="icon-info-container yellow-icon" />
           </div>
           <div className="title-info-continer">ABOUT</div>
         </div>
       </div>
-      <div className={'content-info-container-normal-user'}>
+      <div
+        style={{ backgroundColor: colors[currentTheme].infoContainers, color: colors[currentTheme].colorWriting }}
+        className={'content-info-container-normal-user'}
+      >
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Address:</span>
           <div className="write-just-on-one-line">{address !== null ? address : ''}</div>

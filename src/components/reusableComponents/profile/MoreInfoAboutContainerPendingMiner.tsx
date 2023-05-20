@@ -30,7 +30,12 @@ const MoreInfoAboutContainerPendingMiner = () => {
         <span className="bold-font">Blocks until you join pool: </span>
         <span>{blocksLeftUntilJoin !== null && blocksLeftUntilJoin}</span>
       </div>
-      <div className="content-sections-title-info-container">
+      <div
+        style={{
+          borderTop: `1px solid ${colors[currentTheme].colorWriting}`,
+        }}
+        className="footer-button-container"
+      >
         <button
           style={{
             background: `linear-gradient(135deg, ${colors[currentTheme].defaultYellow} 30%, ${colors[currentTheme].defaultOrange}) 60%`,

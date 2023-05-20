@@ -52,14 +52,15 @@ const VotingNotifier = () => {
             key={column.dataKey}
             align={column.dataKey === 'address' ? 'left' : 'right'}
             sx={{
-              color: colors[currentTheme].secondary,
+              color: colors[currentTheme].colorWriting,
+              backgroundColor: colors[currentTheme].infoContainers,
             }}
           >
             {notifiersRow[column.dataKey]}
             {column.dataKey === 'generalInfo' && (
               <Box>
                 <Button onClick={() => handleMinerInfoButtonClick(notifiersRow['address'])}>
-                  <InfoIcon fontSize="small" sx={{ color: colors[currentTheme].secondary }} />
+                  <InfoIcon fontSize="small" sx={{ color: colors[currentTheme].defaultYellow }} />
                 </Button>
               </Box>
             )}
@@ -70,7 +71,7 @@ const VotingNotifier = () => {
                   disabled={votedNotifier !== "You haven't voted yet!"}
                   onClick={() => handlePendingVoteButtonClick(notifiersRow['address'])}
                 >
-                  <ThumbUpAltIcon fontSize="small" sx={{ color: 'green' }} />
+                  <ThumbUpAltIcon fontSize="small" sx={{ color: colors[currentTheme].defaultOrange }} />
                 </Button>
               </Box>
             )}
