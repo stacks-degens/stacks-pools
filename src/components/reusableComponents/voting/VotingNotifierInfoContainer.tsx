@@ -61,12 +61,7 @@ const VotingNotifierInfoContainer = ({
         </div>
       </div>
       {blocksRemaining === 0 && (
-        <div
-          style={{
-            borderTop: `1px solid ${colors[appCurrentTheme].colorWriting}`,
-          }}
-          className="footer-join-button-container"
-        >
+        <div className="footer-end-vote-button-container">
           <button
             className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
             onClick={() => {

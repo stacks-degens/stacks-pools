@@ -42,13 +42,13 @@ const RoleIntroPending = ({ currentRole }: IRoleIntroPending) => {
         <div className="intro-sides">
           <>
             <h5 className="margin-block-0 width-100 align-left">Status</h5>
-            <div className="top-margins width-100">waiting to join pool</div>
+            <div className="top-margins width-100">Waiting to join pool</div>
           </>
         </div>
         <h3 className="intro-center-side ">{currentRole}</h3>
         <div className="intro-sides">
           <>
-            <h5 className="margin-block-0 align-right width-100">Blocks until you join pool</h5>
+            <h5 className="margin-block-0 align-right width-100">Blocks until you can join</h5>
             <div className="flex-right top-margins width-100">
               {blocksLeftUntilJoin !== null && blocksLeftUntilJoin}
             </div>

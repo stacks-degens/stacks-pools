@@ -12,14 +12,7 @@ import { updateAppThemeAction } from '../redux/actions';
 const HeaderBar = () => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
   const dispatch = useAppDispatch();
-  const { currentTheme, setTheme } = useCurrentTheme();
 
-  const changeTheme = () => {
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-  };
-
-  // const isButtonChecked = currentTheme === 'light' ? true : false;
   const isButtonChecked = appCurrentTheme === 'light' ? true : false;
 
   return (
@@ -27,18 +20,20 @@ const HeaderBar = () => {
       maxWidth={false}
       disableGutters={true}
       style={{
-        backgroundColor: colors[currentTheme].primary,
+        backgroundColor: colors[appCurrentTheme].primary,
       }}
     >
       <div className="App">
         <Card
           style={{
-            backgroundColor: colors[currentTheme].primary,
+            backgroundColor: colors[appCurrentTheme].primary,
           }}
         >
           <Grid container justifyContent="space-between" alignItems="center">
             <Grid item>
-              <CardHeader action={<FormControlLabel control={<LeftPanel currentTheme={currentTheme} />} label="" />} />
+              <CardHeader
+                action={<FormControlLabel control={<LeftPanel currentTheme={appCurrentTheme} />} label="" />}
+              />
             </Grid>
             <Grid item>
               <Box>
@@ -50,15 +45,13 @@ const HeaderBar = () => {
                           ? dispatch(updateAppThemeAction('dark'))
                           : dispatch(updateAppThemeAction('light'));
                       }}
-                      // currentTheme={currentTheme}
                       currentTheme={appCurrentTheme}
                       checked={isButtonChecked}
                     />
                   }
-                  onChange={changeTheme}
                   label=""
                 />
-                <FormControlLabel control={<ConnectWallet currentTheme={currentTheme} />} label="" />
+                <FormControlLabel control={<ConnectWallet currentTheme={appCurrentTheme} />} label="" />
               </Box>
             </Grid>
           </Grid>

@@ -68,12 +68,7 @@ const DashboardInfoContainer = ({
         </div>
       </div>
       {currentRole === 'NormalUser' && (
-        <div
-          style={{
-            borderTop: `1px solid ${colors[appCurrentTheme].colorWriting}`,
-          }}
-          className="footer-join-button-container"
-        >
+        <div className="footer-join-button-container">
           <button
             className="customButton"
             onClick={() => {

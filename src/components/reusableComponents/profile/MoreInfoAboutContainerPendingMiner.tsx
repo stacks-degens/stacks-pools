@@ -38,12 +38,7 @@ const MoreInfoAboutContainerPendingMiner = () => {
         <span className="bold-font">Blocks until you join pool: </span>
         <span>{blocksLeftUntilJoin !== null && blocksLeftUntilJoin}</span>
       </div>
-      <div
-        style={{
-          borderTop: `1px solid ${colors[appCurrentTheme].colorWriting}`,
-        }}
-        className="footer-button-container"
-      >
+      <div className="footer-button-container">
         <button
           style={{
             background: `linear-gradient(135deg, ${colors[appCurrentTheme].defaultYellow} 30%, ${colors[appCurrentTheme].defaultOrange}) 60%`,
@@ -51,12 +46,12 @@ const MoreInfoAboutContainerPendingMiner = () => {
             border: `1px solid ${colors[appCurrentTheme].defaultOrange}`,
           }}
           disabled={blocksLeftUntilJoin === 0 && currentRole === 'Pending' ? false : true}
-          className="customButton width-100"
+          className="customButton width-50"
           onClick={() => {
             ContractAddPending();
           }}
         >
-          join pool from pending to miners
+          Enter Pool
         </button>
       </div>
     </>

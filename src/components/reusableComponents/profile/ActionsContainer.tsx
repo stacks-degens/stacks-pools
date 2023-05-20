@@ -161,7 +161,7 @@ const ActionsContainer = () => {
                   claimRewards();
                 }}
               >
-                claim rewards
+                Claim rewards
               </button>
             </div>
           </div>
@@ -177,13 +177,13 @@ const ActionsContainer = () => {
                 className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
                 onClick={changeBtcAddress}
               >
-                change address
+                Change address
               </button>
             </div>
           </div>
           <div className="flex-container align-items-center">
             <div className="width-55">
-              <label className="custom-label">Insert stx amount</label>
+              <label className="custom-label">Insert STX amount</label>
               <div className="bottom-margins">
                 <input
                   className="custom-input"
@@ -202,13 +202,13 @@ const ActionsContainer = () => {
                 className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
                 onClick={depositAmount}
               >
-                deposit
+                Deposit
               </button>
             </div>
           </div>
           <div className="flex-container align-items-center">
             <div className="width-55">
-              <label className="custom-label">Insert stx amount</label>
+              <label className="custom-label">Insert STX amount</label>
               <div className="bottom-margins">
                 <input
                   className="custom-input width-100"
@@ -227,7 +227,7 @@ const ActionsContainer = () => {
                 className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
                 onClick={withdrawAmount}
               >
-                withdraw
+                Withdraw
               </button>
             </div>
           </div>
@@ -334,24 +334,19 @@ const ActionsContainer = () => {
                 setDisableLeavePoolButton(false);
               }}
             >
-              You are currently the notifier and you can not leave pool. Just a simple miner can leave the pool.
+              You are currently the notifier and you can not leave pool. Only a simple miner can leave the pool.
             </Alert>
           </div>
         )}
 
         <div className="content-sections-title-info-container">
-          <div
-            style={{
-              borderTop: `1px solid ${colors[appCurrentTheme].colorWriting}`,
-            }}
-            className="footer-button-container"
-          >
+          <div className="flex-right">
             <button
               className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
               onClick={leavePool}
               disabled={disableLeavePoolButton}
             >
-              LEAVE POOL
+              Leave Pool
             </button>
           </div>
         </div>

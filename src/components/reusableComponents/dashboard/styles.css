@@ -61,6 +61,7 @@
 
 .footer-join-button-container {
   height: 50px;
+  margin-top: -25px;
   padding: 5px;
   display: flex;
   justify-content: center;
@@ -68,7 +69,7 @@
   /* background-color: #f9b11c; */
   /* background-color: #feeaa7; */
   /* background-color: #fef9f7; */
-  border-top: 1px #2f2f2f solid;
+  /* border-top: 1px #2f2f2f solid; */
 }
 
 .yellow-icon {

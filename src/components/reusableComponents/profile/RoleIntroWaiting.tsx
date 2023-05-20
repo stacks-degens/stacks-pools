@@ -52,7 +52,11 @@ const RoleIntroWaiting = ({ currentRole }: IRoleIntroWaiting) => {
         <div className="intro-sides">
           <>
             <h5 className="margin-block-0">Status</h5>
-            <div className="top-margins">waiting to be voted</div>
+            <div className="top-margins">
+              {positiveVotes !== null && positiveVotesThreshold !== null && positiveVotes < positiveVotesThreshold
+                ? 'Waiting to be voted'
+                : 'You have enough votes'}
+            </div>
           </>
         </div>
         <h3 className="intro-center-side ">{currentRole}</h3>

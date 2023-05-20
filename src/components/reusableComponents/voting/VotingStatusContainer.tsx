@@ -49,14 +49,9 @@ const VotingStatusContainer = ({ notifier, votingStatus }: VotingStatusContainer
         </div>
       </div>
       {votingStatus === 'Ended by time!' && (
-        <div
-          style={{
-            borderTop: `1px solid ${colors[appCurrentTheme].colorWriting}`,
-          }}
-          className="footer-end-vote-button-container"
-        >
+        <div className="footer-end-vote-button-container">
           <button
-            className="customButton"
+            className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
             onClick={() => {
               ContractEndVoteNotifier();
             }}
