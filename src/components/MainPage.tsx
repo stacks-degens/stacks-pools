@@ -3,7 +3,7 @@ import HeaderBar from './HeaderBar';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import MiningPool from './appMenuSections/miningPool/MiningPool';
 import Voting from './appMenuSections/voting/Voting';
-import Home from '../pages/Home';
+import Home from '../components/appMenuSections/home/Home';
 import Dashboard from './appMenuSections/dashboard/Dashboard';
 import Profile from './appMenuSections/profile/Profile';
 import MiningPoolStatus from './appMenuSections/miningPool/MiningPoolStatus';
@@ -19,7 +19,7 @@ const MainPage = () => {
         <HeaderBar />
       </div>
       <Routes>
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/dashboard" index element={<Dashboard />} />
         <Route path="/miningPool/miners" element={<MiningPool />} />
         <Route path="/voting" element={<Voting />} />
@@ -29,7 +29,7 @@ const MainPage = () => {
         <Route path="/voting/removals" element={<VotingRemovals />} />
         <Route path="/voting/notifier" element={<VotingNotifier />} />
         <Route path="/profile/:address" element={<MinerProfileDetails />} />
-        <Route path="*" element={<Navigate to="/dashboard" />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </div>
   );

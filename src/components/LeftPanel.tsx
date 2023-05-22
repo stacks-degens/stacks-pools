@@ -98,7 +98,11 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
       <List style={{ backgroundColor: colors[appCurrentTheme].accent2 }}>
         {/* TODO: keep what fits best, this */}
         <div style={{ marginTop: -10 }}>
-          <ListItem onClick={toggleDrawer(anchor, false)} onKeyDown={toggleDrawer(anchor, false)}>
+          <ListItem
+            className={location.pathname === '/' ? 'active-custom' : ''}
+            onClick={toggleDrawer(anchor, false)}
+            onKeyDown={toggleDrawer(anchor, false)}
+          >
             <ListItemButton component={Link} to={'/'}>
               <ListItemIcon>
                 <HomeIcon style={{ color: colors[appCurrentTheme].secondary }} />
