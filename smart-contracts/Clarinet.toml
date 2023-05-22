@@ -1,0 +1,61 @@
+[project]
+name = 'smart-contracts'
+description = ''
+authors = []
+telemetry = false
+cache_dir = './.cache'
+
+[[project.requirements]]
+contract_id = 'SP3DX3H4FEYZJZ586MFBS25ZW3HZDMEW92260R2PR.Wrapped-Bitcoin'
+[contracts.alex-vault-v1-1]
+path = 'contracts/alex-vault-v1-1.clar'
+clarity_version = 2
+epoch = 2.1
+
+[contracts.amm-swap-pool-v1-1]
+path = 'contracts/amm-swap-pool-v1-1.clar'
+clarity_version = 2
+epoch = 2.1
+
+[contracts.token-amm-swap-pool-v1-1]
+path = 'contracts/token-amm-swap-pool-v1-1.clar'
+clarity_version = 2
+epoch = 2.1
+
+[contracts.token-wbtc]
+path = 'contracts/token-wbtc.clar'
+clarity_version = 2
+epoch = 2.1
+
+[contracts.token-wstx]
+path = 'contracts/token-wstx.clar'
+clarity_version = 2
+epoch = 2.1
+
+[contracts.trait-flash-loan-user]
+path = 'contracts/trait-flash-loan-user.clar'
+clarity_version = 2
+epoch = 2.1
+
+[contracts.trait-ownable]
+path = 'contracts/trait-ownable.clar'
+clarity_version = 2
+epoch = 2.1
+
+[contracts.trait-semi-fungible]
+path = 'contracts/trait-semi-fungible.clar'
+clarity_version = 2
+epoch = 2.1
+
+[contracts.trait-sip-010]
+path = 'contracts/trait-sip-010.clar'
+clarity_version = 2
+epoch = 2.1
+[repl.analysis]
+passes = ['check_checker']
+
+[repl.analysis.check_checker]
+strict = false
+trusted_sender = false
+trusted_caller = false
+callee_filter = false
