@@ -21,7 +21,7 @@
 
 ;; public to check return btc-to-stx amount
 ;; input: 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.token-wbtc 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.token-wstx 5000
-(define-public (swap-stx-to-xbtc (token-x-trait <ft-trait>) (token-y-trait <ft-trait>) (sats-amount uint)) 
+(define-public (swap-xbtc-to-stx (token-x-trait <ft-trait>) (token-y-trait <ft-trait>) (sats-amount uint)) 
   (let (
     ;; (btc-formatted-amount (to-one-8 sats-amount))
     (token-x (contract-of token-x-trait))
