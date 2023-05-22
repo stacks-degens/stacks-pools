@@ -98,7 +98,7 @@ const Home = () => {
           <div style={{ marginTop: -30, textAlign: 'match-parent' }}>
             - You need to have 'npm' command installed to your local machine's terminal.<br></br>
             <div style={{ marginTop: 10 }}></div>- Run 'npm install -g @stacks/cli' command in order to install the
-            'stx' command to your terminal.<br></br>For more info, visit
+            'stx' command to your terminal.<br></br>For more info, visit{' '}
             <a
               href="https://docs.hiro.so/get-started/command-line-interface"
               target="_blank"
