@@ -92,7 +92,7 @@
 ;; @params account
 ;; @returns (response uint)
 (define-read-only (get-balance (account principal))
-  (ok (/ (* (unwrap-panic (contract-call? 'SP3DX3H4FEYZJZ586MFBS25ZW3HZDMEW92260R2PR.Wrapped-Bitcoin get-balance account)) (pow-decimals)) (pow u10 u8)))
+  (ok (/ (* (unwrap-panic (contract-call? .Wrapped-Bitcoin get-balance account)) (pow-decimals)) (pow u10 u8)))
 )
 
 ;; @desc get-token-uri
@@ -111,7 +111,7 @@
 (define-public (transfer (amount uint) (sender principal) (recipient principal) (memo (optional (buff 34))))
   (begin
     (asserts! (is-eq sender tx-sender) ERR-NOT-AUTHORIZED)
-    (contract-call? 'SP3DX3H4FEYZJZ586MFBS25ZW3HZDMEW92260R2PR.Wrapped-Bitcoin transfer (/ (* amount (pow u10 u8)) (pow-decimals)) sender recipient memo)
+    (contract-call? .Wrapped-Bitcoin transfer (/ (* amount (pow u10 u8)) (pow-decimals)) sender recipient memo)
   )
 )
 

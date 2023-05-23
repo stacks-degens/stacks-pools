@@ -4,9 +4,12 @@ description = ''
 authors = []
 telemetry = false
 cache_dir = './.cache'
+requirements = []
+[contracts.Wrapped-Bitcoin]
+path = 'contracts/Wrapped-Bitcoin.clar'
+clarity_version = 2
+epoch = 2.1
 
-[[project.requirements]]
-contract_id = 'SP3DX3H4FEYZJZ586MFBS25ZW3HZDMEW92260R2PR.Wrapped-Bitcoin'
 [contracts.alex-vault-v1-1]
 path = 'contracts/alex-vault-v1-1.clar'
 clarity_version = 2
@@ -19,6 +22,16 @@ epoch = 2.1
 
 [contracts.bridge-contract]
 path = 'contracts/bridge-contract.clar'
+clarity_version = 2
+epoch = 2.1
+
+[contracts.ft-trait]
+path = 'contracts/ft-trait.clar'
+clarity_version = 2
+epoch = 2.1
+
+[contracts.restricted-token-trait]
+path = 'contracts/restricted-token-trait.clar'
 clarity_version = 2
 epoch = 2.1
 
