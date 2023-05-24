@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import useCurrentTheme from '../../../consts/theme';
 import {
   ReadOnlyAllDataWaitingMiners,
   readOnlyAddressStatus,
@@ -10,9 +9,6 @@ import { getExplorerUrl, network } from '../../../consts/network';
 import { cvToJSON, listCV, principalCV } from '@stacks/transactions';
 import MinerDetailsContainer from '../../reusableComponents/profile/profileDetails/MinerDetailsContainer';
 import RoleIntroMinerDetails from '../../reusableComponents/profile/profileDetails/RoleIntroMinerDetails';
-import colors from '../../../consts/colorPallete';
-import { useAppSelector } from '../../../redux/store';
-import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 
 interface MinerDataProps {
   balance: string;
@@ -23,7 +19,6 @@ interface MinerDataProps {
 }
 
 const Voting = () => {
-  const { currentTheme } = useCurrentTheme();
   const currentLink = window.location.href;
   const addressParts = currentLink.split('/');
   const address = addressParts[addressParts.length - 1];

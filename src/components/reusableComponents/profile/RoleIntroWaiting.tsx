@@ -1,38 +1,24 @@
 import './styles.css';
 import colors from '../../../consts/colorPallete';
-import useCurrentTheme from '../../../consts/theme';
 import { AddCircleOutline, RemoveCircleOutline, SelfImprovement } from '@mui/icons-material';
-import { useEffect, useState } from 'react';
-import { principalCV, ClarityValue, listCV, cvToJSON } from '@stacks/transactions';
 import { useAppSelector } from '../../../redux/store';
-import { selectCurrentTheme, selectUserSessionState } from '../../../redux/reducers/user-state';
-import { ReadOnlyAllDataWaitingMiners } from '../../../consts/readOnly';
+import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 
 interface IRoleIntroWaiting {
   currentRole: string;
+  positiveVotes: number | null;
+  positiveVotesThreshold: number | null;
+  negativeVotes: number | null;
+  negativeVotesThreshold: number | null;
 }
 
-const RoleIntroWaiting = ({ currentRole }: IRoleIntroWaiting) => {
-  const userSession = useAppSelector(selectUserSessionState);
-  const userAddressAsCV: ClarityValue = listCV([principalCV(userSession.loadUserData().profile.stxAddress.testnet)]);
-  const [positiveVotes, setPositiveVotes] = useState<number | null>(null);
-  const [positiveVotesThreshold, setPositiveVotesThreshold] = useState<number | null>(null);
-  const [negativeVotes, setNegativeVotes] = useState<number | null>(null);
-  const [negativeVotesThreshold, setNegativeVotesThreshold] = useState<number | null>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const waitingList = await ReadOnlyAllDataWaitingMiners(userAddressAsCV);
-      const newWaitingList = cvToJSON(waitingList.newResultList[0]);
-      setPositiveVotes(newWaitingList.value[0].value.value['pos-votes'].value);
-      setPositiveVotesThreshold(newWaitingList.value[0].value.value['pos-thr'].value);
-      setNegativeVotes(newWaitingList.value[0].value.value['neg-votes'].value);
-      setNegativeVotesThreshold(newWaitingList.value[0].value.value['neg-thr'].value);
-    };
-    fetchData();
-  }, [userAddressAsCV]);
-  const { currentTheme } = useCurrentTheme();
-
+const RoleIntroWaiting = ({
+  currentRole,
+  positiveVotes,
+  positiveVotesThreshold,
+  negativeVotes,
+  negativeVotesThreshold,
+}: IRoleIntroWaiting) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   return (

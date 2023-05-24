@@ -1,7 +1,6 @@
 import './styles.css';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import colors from '../../../consts/colorPallete';
-import useCurrentTheme from '../../../consts/theme';
 import { ContractEndVoteNotifier } from '../../../consts/smartContractFunctions';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
@@ -13,8 +12,6 @@ interface MiningStatusContainerProps {
   votingStatus: string | null;
 }
 const MiningPoolStatusContainer = ({ notifier, currentBlock, blocksWon, votingStatus }: MiningStatusContainerProps) => {
-  const { currentTheme } = useCurrentTheme();
-
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   return (

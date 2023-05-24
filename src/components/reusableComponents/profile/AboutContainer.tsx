@@ -1,15 +1,9 @@
 import './styles.css';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import colors from '../../../consts/colorPallete';
-import useCurrentTheme from '../../../consts/theme';
-import { useEffect, useState } from 'react';
-import { ContractSetAutoExchange } from '../../../consts/smartContractFunctions';
 import { useAppSelector } from '../../../redux/store';
-import { selectCurrentTheme, selectUserSessionState } from '../../../redux/reducers/user-state';
-import { readOnlyExchangeToggle, readOnlyGetNotifier } from '../../../consts/readOnly';
+import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 import { CallMade } from '@mui/icons-material';
-import MinerMoreInfoAboutContainer from './MoreInfoAboutContainerMiner';
-import WaitingMoreInfoAboutContainer from './MoreInfoAboutContainerWaitingMiner';
 import MoreInfoAboutContainerMiner from './MoreInfoAboutContainerMiner';
 import MoreInfoAboutContainerWaitingMiner from './MoreInfoAboutContainerWaitingMiner';
 import MoreInfoAboutContainerPendingMiner from './MoreInfoAboutContainerPendingMiner';
@@ -20,6 +14,13 @@ interface IAboutContainerProps {
   explorerLink: string | undefined;
   currentBalance: number;
   totalWithdrawals: number | null;
+  currentNotifier: string | null;
+  userAddress: string | null;
+  positiveVotes: number | null;
+  positiveVotesThreshold: number | null;
+  negativeVotes: number | null;
+  negativeVotesThreshold: number | null;
+  blocksLeftUntilJoin: number | null;
 }
 const AboutContainer = ({
   currentRole,
@@ -27,43 +28,16 @@ const AboutContainer = ({
   explorerLink,
   currentBalance,
   totalWithdrawals,
+  currentNotifier,
+  userAddress,
+  positiveVotes,
+  positiveVotesThreshold,
+  negativeVotes,
+  negativeVotesThreshold,
+  blocksLeftUntilJoin,
 }: IAboutContainerProps) => {
-  const { currentTheme } = useCurrentTheme();
-  const [exchange, setExchange] = useState<boolean | null>(false);
-  const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);
-  const userSession = useAppSelector(selectUserSessionState);
-
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
-  const userAddress = userSession.loadUserData().profile.stxAddress.testnet;
-
-  const setAutoExchange = () => {
-    if (userAddress !== null) {
-      ContractSetAutoExchange(!exchange);
-    }
-  };
-
-  useEffect(() => {
-    const getCurrentNotifier = async () => {
-      const notifier = await readOnlyGetNotifier();
-      setCurrentNotifier(notifier);
-    };
-
-    getCurrentNotifier();
-  }, [currentNotifier]);
-
-  useEffect(() => {
-    const getExchangeState = async () => {
-      if (userAddress !== null) {
-        const newExchange = await readOnlyExchangeToggle(userAddress);
-        setExchange(newExchange);
-      }
-    };
-
-    getExchangeState();
-  }, [userAddress]);
-
-  console.log('conn', connectedWallet);
   return (
     <div
       style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting }}
@@ -124,27 +98,21 @@ const AboutContainer = ({
           </button>
         </div>
         {currentRole === 'Miner' && (
-          <MoreInfoAboutContainerMiner currentBalance={currentBalance} totalWithdrawals={totalWithdrawals} />
+          <MoreInfoAboutContainerMiner
+            currentBalance={currentBalance}
+            totalWithdrawals={totalWithdrawals}
+            userAddress={userAddress}
+          />
         )}
-        {currentRole === 'Waiting' && <MoreInfoAboutContainerWaitingMiner />}
-        {currentRole === 'Pending' && <MoreInfoAboutContainerPendingMiner />}
-        {/* <div className="content-sections-title-info-container bottom-margins">
-          <span className="bold-font">Balance SC: </span>
-          <span>{currentBalance / 1000000 + ' STX'}</span>
-        </div>
-        <div className="content-sections-title-info-container bottom-margins">
-          <span className="bold-font">Total withdrawl of SC: </span>
-          <span> {totalWithdrawals !== null ? totalWithdrawals / 1000000 + ' STX' : '0 STX'}</span>
-        </div>
-        <div className="content-sections-title-info-container">
-          <span className="bold-font">Autoexchange stx to btc: </span>
-          <span>{exchange === null || exchange === false ? 'No' : 'Yes'}</span>
-        </div>
-        <div>
-          <button className="customButton" onClick={setAutoExchange}>
-            {exchange === null || exchange === false ? 'Change to yes' : 'Change to no'}
-          </button>
-        </div> */}
+        {currentRole === 'Waiting' && (
+          <MoreInfoAboutContainerWaitingMiner
+            positiveVotes={positiveVotes}
+            positiveVotesThreshold={positiveVotesThreshold}
+            negativeVotes={negativeVotes}
+            negativeVotesThreshold={negativeVotesThreshold}
+          />
+        )}
+        {currentRole === 'Pending' && <MoreInfoAboutContainerPendingMiner blocksLeftUntilJoin={blocksLeftUntilJoin} />}
       </div>
     </div>
   );

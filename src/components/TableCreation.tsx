@@ -10,7 +10,6 @@ import Box from '@mui/material/Box';
 import TablePagination from '@mui/material/TablePagination';
 import { TableVirtuoso, TableComponents } from 'react-virtuoso';
 import { TableSortLabel } from '@mui/material';
-import useCurrentTheme from '../consts/theme';
 import colors from '../consts/colorPallete';
 import { AllTableData } from '../consts/tableData';
 import '../components/appMenuSections/miningPool/styles.css';
@@ -45,7 +44,6 @@ interface TableCreationProps {
 }
 
 const TableCreation = ({ rows, rowContent, columns, tableId, customTableWidth }: TableCreationProps) => {
-  const { currentTheme } = useCurrentTheme();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState<number>(5);
   const [orderBy, setOrderBy] = React.useState<keyof AllTableData>();

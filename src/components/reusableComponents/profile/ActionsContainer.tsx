@@ -1,7 +1,5 @@
 import './styles.css';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import colors from '../../../consts/colorPallete';
-import useCurrentTheme from '../../../consts/theme';
 import { useEffect, useState } from 'react';
 import {
   ContractWithdrawSTX,
@@ -10,21 +8,20 @@ import {
   ContractRewardDistribution,
   ContractChangeBtcAddress,
 } from '../../../consts/smartContractFunctions';
-import {
-  readOnlyClaimedBlockStatus,
-  readOnlyGetAllTotalWithdrawals,
-  readOnlyGetNotifier,
-} from '../../../consts/readOnly';
+import { readOnlyClaimedBlockStatus, readOnlyGetAllTotalWithdrawals } from '../../../consts/readOnly';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme, selectUserSessionState } from '../../../redux/reducers/user-state';
-import { Alert, TextField } from '@mui/material';
+import { Alert } from '@mui/material';
 import { ElectricBolt } from '@mui/icons-material';
 
-const ActionsContainer = () => {
-  const { currentTheme } = useCurrentTheme();
+interface IActionsContainerProps {
+  currentNotifier: string | null;
+  userAddress: string | null;
+}
+
+const ActionsContainer = ({ currentNotifier, userAddress }: IActionsContainerProps) => {
   const [withdrawAmountInput, setWithdrawAmountInput] = useState<number | null>(null);
   const [totalWithdrawals, setTotalWithdrawals] = useState<number | null>(null);
-  const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);
   const [showAlertLeavePool, setShowAlertLeavePool] = useState<boolean>(false);
   const [leavePoolButtonClicked, setLeavePoolButtonClicked] = useState<boolean>(false);
   const [disableLeavePoolButton, setDisableLeavePoolButton] = useState<boolean>(false);
@@ -32,8 +29,6 @@ const ActionsContainer = () => {
   const [claimRewardsInputAmount, setClaimRewardsInputAmount] = useState<number | null>(null);
   const [btcAddress, setBtcAddress] = useState<string>('');
   const userSession = useAppSelector(selectUserSessionState);
-  const userAddress = userSession.loadUserData().profile.stxAddress.testnet;
-
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   const changeBtcAddress = () => {
@@ -69,7 +64,7 @@ const ActionsContainer = () => {
         alert('You need to input more');
       } else {
         console.log(depositAmountInput);
-        ContractDepositSTX(depositAmountInput, userAddress);
+        if (userAddress !== null) ContractDepositSTX(depositAmountInput, userAddress);
       }
     }
   };
@@ -87,30 +82,18 @@ const ActionsContainer = () => {
   };
 
   useEffect(() => {
-    const getUserBalance = async () => {
+    const getUserTotalWithdrawls = async () => {
       const principalAddress = userSession.loadUserData().profile.stxAddress.testnet;
-
       const getTotalWithdrawals = await readOnlyGetAllTotalWithdrawals(principalAddress);
-      // const balance = await readOnlyGetBalance(principalAddress);
       setTotalWithdrawals(getTotalWithdrawals);
-      // setCurrentBalance(balance);
     };
 
-    getUserBalance();
+    getUserTotalWithdrawls();
   }, [totalWithdrawals]);
 
   useEffect(() => {
     if (leavePoolButtonClicked && showAlertLeavePool) setDisableLeavePoolButton(true);
   }, [leavePoolButtonClicked, showAlertLeavePool]);
-
-  useEffect(() => {
-    const getCurrentNotifier = async () => {
-      const notifier = await readOnlyGetNotifier();
-      setCurrentNotifier(notifier);
-    };
-
-    getCurrentNotifier();
-  }, [currentNotifier]);
 
   return (
     <div
@@ -232,98 +215,6 @@ const ActionsContainer = () => {
             </div>
           </div>
         </div>
-
-        {/* <div className="content-sections-title-info-container flex-container big-bottom-margins">
-          <div className="flex-left">
-            <label className="custom-label">Insert stacks block height to be claimed</label>
-            <div className="bottom-margins">
-              <input
-                className="custom-input"
-                type="number"
-                onChange={(e) => {
-                  const inputAmount = e.target.value;
-                  const inputAmountToInt = parseInt(inputAmount);
-                  setClaimRewardsInputAmount(inputAmountToInt);
-                  console.log('claim rewards input', inputAmount);
-                }}
-              ></input>
-            </div>
-            <div className="flex-center width-100">
-              <button
-                className="customButton"
-                onClick={() => {
-                  claimRewards();
-                  setClaimRewardsInputAmount(null);
-                }}
-              >
-                claim rewards
-              </button>
-            </div>
-          </div>
-          <div className="flex-right">
-            <label className="custom-label">Insert your new btc address</label>
-            <div className="bottom-margins">
-              <input className="custom-input" type="text" onChange={(e) => setBtcAddress(e.target.value)}></input>
-            </div>
-            <div className="flex-center width-100">
-              <button className="customButton" onClick={changeBtcAddress}>
-                change address
-              </button>
-            </div>
-          </div>
-        </div> */}
-        {/* <div className="content-sections-title-info-container flex-container big-bottom-margins">
-          <div className="flex-left">
-            <label className="custom-label">Enter stx amount</label>
-            <div className="bottom-margins">
-              <input
-                className="custom-input"
-                type="number"
-                onChange={(e) => {
-                  const inputAmount = e.target.value;
-                  const inputAmountToInt = parseFloat(inputAmount);
-                  setDepositAmountInput(inputAmountToInt);
-                  console.log('deposit input', inputAmount);
-                }}
-              ></input>
-            </div>
-            <div className="flex-center width-100">
-              <button
-                className="customButton"
-                onClick={() => {
-                  depositAmount();
-                }}
-              >
-                DEPOSIT
-              </button>
-            </div>
-          </div>
-          <div className="flex-right">
-            <label className="custom-label">Enter stx amount</label>
-            <div className="bottom-margins">
-              <input
-                className="custom-input"
-                type="number"
-                onChange={(e) => {
-                  const inputAmount = e.target.value;
-                  const inputAmountToInt = parseFloat(inputAmount);
-                  setWithdrawAmountInput(inputAmountToInt);
-                  console.log('withdraw input', inputAmount);
-                }}
-              ></input>
-            </div>
-            <div className="flex-center width-100">
-              <button
-                className="customButton"
-                onClick={() => {
-                  withdrawAmount();
-                }}
-              >
-                WITHDRAW
-              </button>
-            </div>
-          </div>
-        </div> */}
         {leavePoolButtonClicked && showAlertLeavePool && (
           <div className="block-margins-auto">
             <Alert

@@ -39,7 +39,6 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
   });
 
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
-
   const [openMiningPoolMenu, setOpenMiningPoolMenu] = useState<boolean>(true);
   const [openVotingMenu, setOpenVotingMenu] = useState<boolean>(true);
 
@@ -71,7 +70,6 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250, height: '100%' }}
       role="presentation"
       style={{ backgroundColor: colors[appCurrentTheme].accent2, color: colors[appCurrentTheme].colorWriting }}
-      // style={{ backgroundColor: colors[currentTheme].accent2, color: colors[currentTheme].colorWriting }}
     >
       <List
         onClick={toggleDrawer(anchor, false)}

@@ -1,15 +1,11 @@
 import MainPage from './MainPage';
-
 import { Connect } from '@stacks/connect-react';
 import { useAppSelector } from '../redux/store';
 import { selectCurrentTheme, selectUserSessionState } from '../redux/reducers/user-state';
 import colors from '../consts/colorPallete';
-import useCurrentTheme from '../consts/theme';
 
 const Authenticate = () => {
-  const { currentTheme } = useCurrentTheme();
   const userSession = useAppSelector(selectUserSessionState);
-
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   return (

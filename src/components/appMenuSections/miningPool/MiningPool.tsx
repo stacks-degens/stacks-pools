@@ -2,7 +2,6 @@ import './styles.css';
 import * as React from 'react';
 import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
-import useCurrentTheme from '../../../consts/theme';
 import colors from '../../../consts/colorPallete';
 import { ContractProposeRemoval } from '../../../consts/smartContractFunctions';
 import Button from '@mui/material/Button';
@@ -16,7 +15,6 @@ import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 
 const MiningPool = () => {
   const navigate = useNavigate();
-  const { currentTheme } = useCurrentTheme();
   const minersRows = GetMinersRows();
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
@@ -43,7 +41,6 @@ const MiningPool = () => {
               color: colors[appCurrentTheme].colorWriting,
               backgroundColor: colors[appCurrentTheme].infoContainers,
             }}
-            // className="table-row"
           >
             {column.dataKey === 'proposeRemoval' ? (
               <Box>
@@ -73,19 +70,6 @@ const MiningPool = () => {
       <h2>Mining Pool - Miners</h2>
       <div className="principal-content-profile-page"></div>
 
-      {/* // <Box
-    //   sx={{
-    //     display: 'flex',
-    //     alignItems: 'center',
-    //     flexDirection: 'column',
-    //     width: '100%',
-    //     minHeight: 'calc(100vh - 60px)',
-    //   }}
-    //   style={{
-    //     backgroundColor: colors[currentTheme].accent2,
-    //     color: colors[currentTheme].secondary,
-    //   }}
-    // > */}
       <TableCreation
         rows={minersRows}
         rowContent={minersRowContent}
@@ -94,7 +78,6 @@ const MiningPool = () => {
         customTableWidth="75%"
       />
     </div>
-    // </Box>
   );
 };
 

@@ -1,284 +1,84 @@
-import Button from '@mui/material/Button';
 import { useEffect, useState } from 'react';
 import {
   readOnlyExchangeToggle,
-  readOnlyGetBalance,
-  readOnlyGetNotifier,
   readOnlyGetAllTotalWithdrawals,
-  readOnlyClaimedBlockStatus,
+  ReadOnlyAllDataWaitingMiners,
+  readOnlyGetRemainingBlocksJoin,
 } from '../../../consts/readOnly';
-import { selectCurrentTheme, selectCurrentUserRole, selectUserSessionState } from '../../../redux/reducers/user-state';
+import { selectCurrentUserRole, selectUserSessionState } from '../../../redux/reducers/user-state';
 import '../style.css';
-import colors from '../../../consts/colorPallete';
-import useCurrentTheme from '../../../consts/theme';
-import { Alert, Box, TextField } from '@mui/material';
 import { useAppSelector } from '../../../redux/store';
-import {
-  ContractChangeBtcAddress,
-  ContractRewardDistribution,
-  ContractDepositSTX,
-  ContractLeavePool,
-  ContractWithdrawSTX,
-  ContractSetAutoExchange,
-} from '../../../consts/smartContractFunctions';
 import AboutContainer from '../../reusableComponents/profile/AboutContainer';
-import ActivityContainer from '../../reusableComponents/profile/ActivityContainer';
 import ActionsContainer from '../../reusableComponents/profile/ActionsContainer';
 import RoleIntro from '../../reusableComponents/profile/RoleIntro';
+import { principalCV, ClarityValue, listCV, cvToJSON } from '@stacks/transactions';
 
 interface IMinerProfileProps {
   connectedWallet: string | null;
   explorerLink: string | undefined;
-  // currentBalance: number;
+  currentBalance: number;
+  currentNotifier: string | null;
+  userAddress: string | null;
 }
 
-const MinerProfile = ({ connectedWallet, explorerLink }: IMinerProfileProps) => {
-  const [currentBalance, setCurrentBalance] = useState<number>(0);
-  const { currentTheme } = useCurrentTheme();
-  const currentRole = useAppSelector(selectCurrentUserRole);
-  const [depositAmountInput, setDepositAmountInput] = useState<number | null>(null);
-  const [withdrawAmountInput, setWithdrawAmountInput] = useState<number | null>(null);
-  const [exchange, setExchange] = useState<boolean | null>(false);
-  const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);
-  const [showAlertLeavePool, setShowAlertLeavePool] = useState<boolean>(false);
-  const [leavePoolButtonClicked, setLeavePoolButtonClicked] = useState<boolean>(false);
-  const [disableLeavePoolButton, setDisableLeavePoolButton] = useState<boolean>(false);
-  const [claimRewardsInputAmount, setClaimRewardsInputAmount] = useState<number | null>(null);
-  const [totalWithdrawals, setTotalWithdrawals] = useState<number | null>(null);
-  const [btcAddress, setBtcAddress] = useState<string>('');
+const MinerProfile = ({
+  connectedWallet,
+  explorerLink,
+  currentBalance,
+  currentNotifier,
+  userAddress,
+}: IMinerProfileProps) => {
   const userSession = useAppSelector(selectUserSessionState);
-
-  const userAddress = userSession.loadUserData().profile.stxAddress.testnet;
-  console.log('user address', userAddress);
-
-  const setAutoExchange = () => {
-    if (userAddress !== null) {
-      ContractSetAutoExchange(!exchange);
-    }
-  };
-
-  const changeBtcAddress = () => {
-    if (btcAddress !== '') {
-      ContractChangeBtcAddress(btcAddress);
-      setBtcAddress('');
-    }
-  };
-
-  const claimRewards = async () => {
-    if (claimRewardsInputAmount !== null) {
-      const wasBlockClaimed = await readOnlyClaimedBlockStatus(claimRewardsInputAmount);
-      if (wasBlockClaimed === false) {
-        ContractRewardDistribution(claimRewardsInputAmount);
-      } else {
-        console.log('Block already claimed');
-      }
-    }
-  };
-
-  const leavePool = () => {
-    setLeavePoolButtonClicked(true);
-    if (currentNotifier !== null && currentNotifier !== userAddress) {
-      ContractLeavePool();
-    } else if (currentNotifier !== null && currentNotifier === userAddress) {
-      console.log("you art the notifier, you can't leave pool");
-
-      setShowAlertLeavePool(true);
-      setDisableLeavePoolButton(true);
-    }
-  };
-
-  const depositAmount = () => {
-    if (depositAmountInput !== null && !isNaN(depositAmountInput)) {
-      if (depositAmountInput < 0.000001) {
-        alert('You need to input more');
-      } else {
-        console.log(depositAmountInput);
-        ContractDepositSTX(depositAmountInput, userAddress);
-      }
-    }
-  };
-
-  const withdrawAmount = () => {
-    if (withdrawAmountInput !== null && !isNaN(withdrawAmountInput)) {
-      if (withdrawAmountInput < 0.000001) {
-        alert('You need to input more');
-      } else {
-        ContractWithdrawSTX(withdrawAmountInput);
-      }
-    }
-  };
+  const currentRole = useAppSelector(selectCurrentUserRole);
+  const [totalWithdrawals, setTotalWithdrawals] = useState<number | null>(null);
+  const userAddressAsCV: ClarityValue = listCV([principalCV(userSession.loadUserData().profile.stxAddress.testnet)]);
+  const [positiveVotes, setPositiveVotes] = useState<number | null>(null);
+  const [positiveVotesThreshold, setPositiveVotesThreshold] = useState<number | null>(null);
+  const [negativeVotes, setNegativeVotes] = useState<number | null>(null);
+  const [negativeVotesThreshold, setNegativeVotesThreshold] = useState<number | null>(null);
+  const [blocksLeftUntilJoin, setBlocksLeftUntilJoin] = useState<number | null>(null);
 
   useEffect(() => {
-    if (leavePoolButtonClicked && showAlertLeavePool) setDisableLeavePoolButton(true);
-  }, [leavePoolButtonClicked, showAlertLeavePool]);
-
-  useEffect(() => {
-    const getCurrentNotifier = async () => {
-      const notifier = await readOnlyGetNotifier();
-      setCurrentNotifier(notifier);
+    const fetchBlocksLeft = async () => {
+      const blocksLeft = await readOnlyGetRemainingBlocksJoin();
+      setBlocksLeftUntilJoin(blocksLeft);
     };
-
-    getCurrentNotifier();
-  }, [currentNotifier]);
-
-  useEffect(() => {
-    const getExchangeState = async () => {
-      if (userAddress !== null) {
-        const newExchange = await readOnlyExchangeToggle(userAddress);
-        setExchange(newExchange);
-      }
-    };
-
-    getExchangeState();
-  }, [userAddress]);
+    fetchBlocksLeft();
+  }, [blocksLeftUntilJoin]);
 
   useEffect(() => {
-    const getUserBalance = async () => {
+    const getUserTotalWithdrawls = async () => {
       const principalAddress = userSession.loadUserData().profile.stxAddress.testnet;
-
       const getTotalWithdrawals = await readOnlyGetAllTotalWithdrawals(principalAddress);
-      const balance = await readOnlyGetBalance(principalAddress);
       setTotalWithdrawals(getTotalWithdrawals);
-      setCurrentBalance(balance);
     };
 
-    getUserBalance();
-  }, [currentBalance, totalWithdrawals]);
+    getUserTotalWithdrawls();
+  }, [totalWithdrawals]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const waitingList = await ReadOnlyAllDataWaitingMiners(userAddressAsCV);
+      const newWaitingList = cvToJSON(waitingList.newResultList[0]);
+      setPositiveVotes(newWaitingList.value[0].value.value['pos-votes'].value);
+      setPositiveVotesThreshold(newWaitingList.value[0].value.value['pos-thr'].value);
+      setNegativeVotes(newWaitingList.value[0].value.value['neg-votes'].value);
+      setNegativeVotesThreshold(newWaitingList.value[0].value.value['neg-thr'].value);
+    };
+    fetchData();
+  }, [userAddressAsCV]);
 
   return (
-    // <Box
-    //   sx={{
-    //     // minHeight: 'calc(100vh - 60px)',
-    //     height: 'calc(100vh - 60px)',
-    //     backgroundColor: colors[currentTheme].accent2,
-    //     color: colors[currentTheme].secondary,
-    //     // marginTop: -2.5,
-    //   }}
-    // >
     <div>
-      {/* <div> */}
-      {/* <ul>
-          <li>
-            current role: <div>{currentRole}</div>
-          </li>
-          <li>balance SC: {currentBalance / 1000000 + ' STX'}</li>
-          <li>total withdrawal of SC: {totalWithdrawals !== null ? totalWithdrawals / 1000000 + ' STX' : '0 STX'}</li>
-          <li>
-            autoexchange stx to btc: {exchange === null || exchange === false ? 'No' : 'Yes'}
-            <div>
-              <button onClick={setAutoExchange}>
-                {exchange === null || exchange === false ? 'Change to yes' : 'Change to no'}
-              </button>
-            </div>
-          </li>
-          <li>
-            change btc address
-            <div>
-              <TextField
-                id="outlined-basic"
-                label="btc-address"
-                variant="outlined"
-                onChange={(e) => setBtcAddress(e.target.value)}
-              />
-            </div>
-            <div>
-              <button onClick={changeBtcAddress}>change btc address</button>
-            </div>
-          </li>
-
-          <li>
-            claim rewards for block (block_id)
-            <div>
-              <input
-                type="number"
-                onChange={(e) => {
-                  const inputAmount = e.target.value;
-                  const inputAmountToInt = parseInt(inputAmount);
-                  setClaimRewardsInputAmount(inputAmountToInt);
-                  console.log('claim rewards input', inputAmount);
-                }}
-              ></input>
-            </div>
-            <div>
-              <button
-                onClick={() => {
-                  claimRewards();
-                  setClaimRewardsInputAmount(null);
-                }}
-              >
-                claim rewards
-              </button>
-            </div>
-          </li>
-        </ul>
-
-        <div>
-          <input
-            type="number"
-            onChange={(e) => {
-              const inputAmount = e.target.value;
-              const inputAmountToInt = parseFloat(inputAmount);
-              setDepositAmountInput(inputAmountToInt);
-              console.log('deposit input', inputAmount);
-            }}
-          ></input>
-          <Button
-            variant="contained"
-            className="minerProfileButtons"
-            onClick={() => {
-              depositAmount();
-            }}
-          >
-            Deposit
-          </Button>
-        </div>
-        <div>
-          <input
-            type="number"
-            onChange={(e) => {
-              const inputAmount = e.target.value;
-              const inputAmountToInt = parseFloat(inputAmount);
-              setWithdrawAmountInput(inputAmountToInt);
-              console.log('withdraw input', inputAmount);
-            }}
-          ></input>
-          <Button
-            variant="contained"
-            className="minerProfileButtons"
-            onClick={() => {
-              withdrawAmount();
-            }}
-          >
-            Withdraw
-          </Button>
-        </div>
-        <div>
-          <Button
-            disabled={disableLeavePoolButton}
-            variant="contained"
-            className="minerProfileButtons"
-            onClick={leavePool}
-          >
-            Leave pool
-          </Button>
-        </div>
-      </div>
-      {leavePoolButtonClicked && showAlertLeavePool && (
-        <div>
-          <Alert
-            severity="warning"
-            onClose={() => {
-              setLeavePoolButtonClicked(false);
-              setShowAlertLeavePool(false);
-              setDisableLeavePoolButton(false);
-            }}
-          >
-            You are currently the notifier and you can not leave pool. Just a simple miner can leave the pool.
-          </Alert>
-        </div>
-      )} */}
       <div className="principal-content-profile-page">
-        <RoleIntro currentRole={currentRole} />
+        <RoleIntro
+          currentRole={currentRole}
+          positiveVotes={positiveVotes}
+          positiveVotesThreshold={positiveVotesThreshold}
+          negativeVotes={negativeVotes}
+          negativeVotesThreshold={negativeVotesThreshold}
+          blocksLeftUntilJoin={blocksLeftUntilJoin}
+        />
         <div className={currentRole === 'Miner' ? 'main-info-container' : 'main-info-container-normal-user'}>
           <AboutContainer
             currentRole={currentRole}
@@ -286,15 +86,19 @@ const MinerProfile = ({ connectedWallet, explorerLink }: IMinerProfileProps) => 
             explorerLink={explorerLink}
             currentBalance={currentBalance}
             totalWithdrawals={totalWithdrawals}
+            currentNotifier={currentNotifier}
+            userAddress={userAddress}
+            positiveVotes={positiveVotes}
+            positiveVotesThreshold={positiveVotesThreshold}
+            negativeVotes={negativeVotes}
+            negativeVotesThreshold={negativeVotesThreshold}
+            blocksLeftUntilJoin={blocksLeftUntilJoin}
           />
-          {currentRole === 'Miner' && <ActionsContainer />}
+          {currentRole === 'Miner' && <ActionsContainer currentNotifier={currentNotifier} userAddress={userAddress} />}
         </div>
       </div>
     </div>
   );
-  {
-    /* </Box> */
-  }
 };
 
 export default MinerProfile;
