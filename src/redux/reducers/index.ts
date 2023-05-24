@@ -5,10 +5,14 @@ import { showConnect } from '@stacks/connect';
 
 export interface IinitialState {
   userState: IUserState;
+  theme: Theme;
 }
+
+export type Theme = 'light' | 'dark';
 
 const initialState: IinitialState = {
   userState: defaultUserState,
+  theme: 'light',
 };
 
 interface IreduxAction {
@@ -40,7 +44,7 @@ const mainReducer = (state = initialState, action: IreduxAction) => {
       return { ...state, userState: { ...state.userState, userRole: action.payload } };
 
     case UPDATE_APP_THEME:
-      return { ...state, userState: { ...state.userState, theme: action.payload } };
+      return { ...state, theme: action.payload };
     default:
       return state;
   }
