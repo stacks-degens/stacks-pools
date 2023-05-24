@@ -50,7 +50,7 @@ const MoreInfoAboutContainerMiner = ({ currentBalance, totalWithdrawals }: IMine
         <span className="bold-font">Autoexchange stx to btc: </span>
         <span>{exchange === null || exchange === false ? 'No' : 'Yes'}</span>
       </div>
-      <div className="footer-button-container">
+      <div className="content-sections-title-info-container">
         <button
           className={appCurrentTheme === 'light' ? 'customButton width-100' : 'customDarkButton width-100'}
           onClick={setAutoExchange}
