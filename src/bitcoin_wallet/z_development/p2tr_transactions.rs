@@ -61,7 +61,7 @@ fn create_transaction(
         input: vec![TxIn {
             previous_output: vec_tx_in[tx_index].previous_output.clone(),
             script_sig: Script::new(),
-            sequence: Sequence(0xFFFFFFFF),
+            sequence: Sequence(0xFFFFFFFE),
             witness: Witness::default(),
         }],
         output: vec![TxOut {
