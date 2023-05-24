@@ -20,8 +20,9 @@ use bitcoin::{
         sighash::{ScriptPath, SighashCache},
         taproot::{ControlBlock, LeafVersion, TaprootBuilder, TaprootSpendInfo},
     },
-    Address, KeyPair, LockTime, Network, OutPoint, PackedLockTime, SchnorrSig, SchnorrSighashType,
-    Script, Sequence, Transaction, TxIn, TxOut, Witness, XOnlyPublicKey,
+    Address, KeyPair, LockTime, Network, OutPoint, PackedLockTime, PrivateKey, PublicKey,
+    SchnorrSig, SchnorrSighashType, Script, Sequence, Transaction, TxIn, TxOut, Witness,
+    XOnlyPublicKey,
 };
 use bitcoin_hashes::{hex::FromHex, Hash};
 use electrum_client::{Client, ElectrumApi};
@@ -77,7 +78,7 @@ fn sign_tx(
     script: &Script,
     user_key_pair: &KeyPair,
     tap_info: &TaprootSpendInfo,
-    internal: &KeyPair,
+    key_pair_internal: &KeyPair,
 ) -> Transaction {
     let mut tx = tx_ref.clone();
     let sighash_sig = SighashCache::new(&mut tx.clone())
@@ -99,7 +100,9 @@ fn sign_tx(
     // println!("actual_control: {:#?}", actual_control);
 
     // verify commitment
-    let tweak_key_pair = internal.tap_tweak(&secp, tap_info.merkle_root()).to_inner();
+    let tweak_key_pair = key_pair_internal
+        .tap_tweak(&secp, tap_info.merkle_root())
+        .to_inner();
     let (tweak_key_pair_public_key, _) = tweak_key_pair.x_only_public_key();
     assert!(actual_control.verify_taproot_commitment(&secp, tweak_key_pair_public_key, script));
 
@@ -123,13 +126,13 @@ fn sign_tx(
 pub fn test_main() {
     let secp = Secp256k1::new();
     // predefined data
-    let alice_secret =
+    let secret_key_source =
         SecretKey::from_str("2bd806c97f0e00af1a1fc3328fa763a9269723c8db8fac4f93af71db186d6e90")
             .unwrap();
-    let bob_secret =
+    let secret_key_pox =
         SecretKey::from_str("81b637d8fcd2c6da6359e6963113a1170de795e4b725b84d1e0b4cfd9ec58ce9")
             .unwrap();
-    let internal_secret =
+    let secret_key_internal =
         SecretKey::from_str("1229101a0fcf2104e8808dab35661134aa5903867d44deb73ce1c7e4eb925be8")
             .unwrap();
     // let preimage =
@@ -137,17 +140,33 @@ pub fn test_main() {
 
     // data extracted from predefined
     // TODO: will use directly the public key for FORST, no access to its private key before hand
-    let alice = KeyPair::from_secret_key(&secp, &alice_secret);
-    let (alice_public_key, _) = alice.x_only_public_key();
-    let bob = KeyPair::from_secret_key(&secp, &bob_secret);
-    let (bob_public_key, _) = bob.x_only_public_key();
-    let internal = KeyPair::from_secret_key(&secp, &internal_secret);
-    let (internal_public_key, _) = internal.x_only_public_key();
+    let key_pair_source = KeyPair::from_secret_key(&secp, &secret_key_source);
+    let (xonly_public_key_source, _) = key_pair_source.x_only_public_key();
+    let key_pair_pox = KeyPair::from_secret_key(&secp, &secret_key_pox);
+    let (xonly_public_key_pox, _) = key_pair_pox.x_only_public_key();
+    let key_pair_internal = KeyPair::from_secret_key(&secp, &secret_key_internal);
+    let (xonly_public_key_internal, _) = key_pair_internal.x_only_public_key();
     // let preimage_hash = bitcoin::hashes::sha256::Hash::hash(&preimage);
 
-    println!("alice public key {}", alice.public_key());
-    println!("bob public key {}", bob.public_key());
-    println!("internal public key {}", internal.public_key());
+    // let public_key_source = key_pair_source.public_key();
+    // let public_key_pox = key_pair_pox.public_key();
+    // let public_key_internal = key_pair_internal.public_key();
+
+    let public_key_source =
+        PublicKey::from_private_key(&secp, &PrivateKey::new(secret_key_source, Network::Testnet));
+    let public_key_pox =
+        PublicKey::from_private_key(&secp, &PrivateKey::new(secret_key_pox, Network::Testnet));
+    let public_key_internal = PublicKey::from_private_key(
+        &secp,
+        &PrivateKey::new(secret_key_internal, Network::Testnet),
+    );
+
+    println!(
+        "key_pair_source public key {}",
+        key_pair_source.public_key()
+    );
+    println!("bob public key {}", key_pair_pox.public_key());
+    println!("internal public key {}", key_pair_internal.public_key());
 
     // println!("preimage {}", preimage_hash.to_string());
 
@@ -164,15 +183,18 @@ pub fn test_main() {
     println!("unlock block {}", unlock_block);
 
     // scripts construction
-    let alice_script = helpers::create_script_refund(&alice_public_key, unlock_block);
-    let bob_script = helpers::create_script_pox(&bob_public_key);
+    let refund_script = helpers::create_script_refund(&xonly_public_key_source, unlock_block);
+    let pox_script = helpers::create_script_pox(&xonly_public_key_pox);
 
-    println!("alice script {}", alice_script);
-    println!("bob script {}", bob_script);
+    println!("alice script {}", refund_script);
+    println!("bob script {}", pox_script);
 
-    let (tap_info, address) = helpers::create_tree(&secp, &internal, &alice_script, &bob_script);
+    let (tap_info, address) =
+        helpers::create_tree(&secp, &key_pair_internal, &refund_script, &pox_script);
 
     println!("address {:?}", address);
+
+    // return;
 
     println!("current block heigh {}", block_height);
     let (vec_tx_in, prev_tx) = helpers::get_prev_txs(&client, &address);
@@ -223,10 +245,10 @@ pub fn test_main() {
         secp,
         &tx,
         &prevouts,
-        &alice_script,
-        &alice,
+        &refund_script,
+        &key_pair_source,
         &tap_info,
-        &internal,
+        &key_pair_internal,
     );
 
     // bob signing method
@@ -234,10 +256,10 @@ pub fn test_main() {
     //     secp,
     //     &tx,
     //     &prevouts,
-    //     &bob_script,
-    //     &bob,
+    //     &pox_script,
+    //     &key_pair_pox,
     //     &tap_info,
-    //     &internal,
+    //     &key_pair_internal,
     // );
 
     // broadcast tx
