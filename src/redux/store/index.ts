@@ -12,22 +12,24 @@ const UserSesssionPersistTransform = createTransform(
     console.log('inbount', key, inboundState);
     const appConfig = new AppConfig(['store_write', 'publish_data']);
     const userSession = new UserSession({ appConfig });
-    return { ...inboundState, userSession };
+    return inboundState;
+    // return { ...inboundState, userSession };
   },
   (outboundState: IinitialState, key: string | number) => {
     console.log('outbound', key);
     const appConfig = new AppConfig(['store_write', 'publish_data']);
     const userSession = new UserSession({ appConfig });
-    return { ...outboundState, userSession };
+    // return { ...outboundState, userSession };
+    return outboundState;
   },
-  { whitelist: ['userState'] }
+  { whitelist: ['theme'] }
 );
 
 const persistConfig = {
   key: 'root',
   storage: storage,
   transforms: [
-    UserSesssionPersistTransform,
+    // UserSesssionPersistTransform,
     encryptTransform({
       secretKey: 'somekey',
       onError: function (error) {
@@ -35,6 +37,7 @@ const persistConfig = {
       },
     }),
   ],
+  whitelist: ['theme'],
   // blacklist: [''],
 };
 
@@ -42,6 +45,7 @@ const persistedReducer = persistReducer(persistConfig, mainReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
+  // reducer: mainReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,

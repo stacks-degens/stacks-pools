@@ -32,10 +32,12 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
   };
   useEffect(() => {
     const fetchStatus = async () => {
-      const args = userSession.loadUserData().profile.stxAddress.testnet;
-      const status = await readOnlyAddressStatus(args);
-      setFinalStatus(status);
-      updateUserRoleAction(finalStatus);
+      if (userSession.isUserSignedIn()) {
+        const args = userSession.loadUserData().profile.stxAddress.testnet;
+        const status = await readOnlyAddressStatus(args);
+        setFinalStatus(status);
+        updateUserRoleAction(finalStatus);
+      }
     };
 
     fetchStatus();
