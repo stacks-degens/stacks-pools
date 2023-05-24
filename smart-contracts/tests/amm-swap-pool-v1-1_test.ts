@@ -9,14 +9,18 @@ import { assertEquals } from "https://deno.land/std@0.170.0/testing/asserts.ts";
 
 const ammSwapPoolContract = "amm-swap-pool-v1-1";
 const wrappedBitcoinContract = "Wrapped-Bitcoin";
+const alexVaultContract = "alex-vault-v1-1";
 const bridgeContract = "bridge-contract";
 const createPool = "create-pool";
 const initializeWrappedBitcoinSC = "initialize";
 const addLiquidity = "add-to-position";
 const setMaxInRatio = "set-max-in-ratio";
 const setMaxOutRatio = "set-max-out-ratio";
+const setPoolStartBlock = "set-start-block";
 const getPoolDetails = "get-pool-details";
 const addPrincipalToRole = "add-principal-to-role";
+const setApprovedSC = "set-approved-contract";
+const setApprovedToken = " set-approved-token";
 const bridgeSwapFn = "swap-xbtc-to-stx";
 const ownerRole = 0;
 const minterRole = 1;
@@ -28,12 +32,14 @@ const wrappedBitcoinDecimals = 8;
 const to_one_8 = (amount) => {
   return amount * 100_000_000;
 };
+const div_one_8 = (amount) => {
+  return amount / 100_000_000;
+};
 
 Clarinet.test({
   name: "Creating a trading pool",
   async fn(chain: Chain, accounts: Map<string, Account>) {
     let deployer = accounts.get("deployer")!;
-    let wallet_1 = accounts.get("wallet_1")!;
 
     // Prerequirements
     // 1. Wrapped-Bitcoin
@@ -81,11 +87,45 @@ Clarinet.test({
     assertEquals(block.height, 3);
     block.receipts[0].result.expectOk().expectBool(true);
 
+    // 2. alex-vault-v1-1
+    // a. Set Approved Contract: amm-swap-pool-v1-1
+    // b. Approve tokens: .wbtc, .wstx
+    block = chain.mineBlock([
+      Tx.contractCall(
+        alexVaultContract,
+        setApprovedSC,
+        [
+          types.principal(`${deployer.address}.amm-swap-pool-v1-1`),
+          types.bool(true),
+        ],
+        deployer.address
+      ),
+      Tx.contractCall(
+        alexVaultContract,
+        setApprovedToken,
+        [types.principal(`${deployer.address}.token-wbtc`), types.bool(true)],
+        deployer.address
+      ),
+      Tx.contractCall(
+        alexVaultContract,
+        setApprovedToken,
+        [types.principal(`${deployer.address}.token-wstx`), types.bool(true)],
+        deployer.address
+      ),
+    ]);
+
+    assertEquals(block.receipts.length, 3);
+    assertEquals(block.height, 4);
+    block.receipts[0].result.expectOk().expectBool(true);
+    block.receipts[1].result.expectOk().expectBool(true);
+    block.receipts[2].result.expectOk().expectBool(true);
+
     // 2. amm-swap-pool-v1-1
     // a. Create the xBTC - STX trading pool
     // b. Set Max In Ratio
     // c. Set Max Out Ratio
-    // d. check pool details to be correct
+    // d. Set Start Block
+    // e. check pool details to be correct
     block = chain.mineBlock([
       Tx.contractCall(
         ammSwapPoolContract,
@@ -124,6 +164,17 @@ Clarinet.test({
       ),
       Tx.contractCall(
         ammSwapPoolContract,
+        setPoolStartBlock,
+        [
+          types.principal(`${deployer.address}.token-wbtc`),
+          types.principal(`${deployer.address}.token-wstx`),
+          types.uint(100_000_000),
+          types.uint(1), //start block
+        ],
+        deployer.address
+      ),
+      Tx.contractCall(
+        ammSwapPoolContract,
         getPoolDetails,
         [
           types.principal(`${deployer.address}.token-wbtc`),
@@ -134,12 +185,13 @@ Clarinet.test({
       ),
     ]);
 
-    assertEquals(block.receipts.length, 4);
-    assertEquals(block.height, 4);
+    assertEquals(block.receipts.length, 5);
+    assertEquals(block.height, 5);
     block.receipts[0].result.expectOk().expectBool(true);
     block.receipts[1].result.expectOk().expectBool(true);
     block.receipts[2].result.expectOk().expectBool(true);
-    console.log("Trading Pool details: ", block.receipts[3].result);
+    block.receipts[3].result.expectOk().expectBool(true);
+    console.log("Trading Pool details: ", block.receipts[4].result);
 
     // 3. bridge-contract
     // a. swap 10_000 sats using the exchange function
@@ -150,16 +202,17 @@ Clarinet.test({
         [
           types.principal(`${deployer.address}.token-wbtc`),
           types.principal(`${deployer.address}.token-wstx`),
-          types.uint(10000), //10k sats
+          types.uint(to_one_8(1)), //1 xBTC
+          types.uint(5),
         ],
         deployer.address
       ),
     ]);
 
     assertEquals(block.receipts.length, 1);
-    assertEquals(block.height, 5);
+    assertEquals(block.height, 6);
     block.receipts[0].result.expectOk();
     let StxExchangeResult = block.receipts[0].result.expectOk();
-    console.log("10k SATS == ", StxExchangeResult);
+    console.log("1 xBTC == ", StxExchangeResult);
   },
 });
