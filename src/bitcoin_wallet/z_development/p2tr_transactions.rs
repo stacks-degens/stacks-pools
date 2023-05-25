@@ -24,7 +24,10 @@ use bitcoin::{
     SchnorrSig, SchnorrSighashType, Script, Sequence, Transaction, TxIn, TxOut, Witness,
     XOnlyPublicKey,
 };
-use bitcoin_hashes::{hex::FromHex, Hash};
+use bitcoin_hashes::{
+    hex::{FromHex, ToHex},
+    Hash,
+};
 use electrum_client::{Client, ElectrumApi};
 
 use crate::bitcoin_wallet::z_development::helpers;
@@ -61,7 +64,12 @@ fn create_transaction(
         input: vec![TxIn {
             previous_output: vec_tx_in[tx_index].previous_output.clone(),
             script_sig: Script::new(),
-            sequence: Sequence(0xFFFFFFFE),
+            // format for sequence to work accordingly to bip-068 (https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki)
+            // 0xMNOPQRST
+            // M >= 8
+            // O is [0, 3] or [8, B]
+            // QRST represents relative lock-time ( works with anything ), but should be lock_time converted to hex
+            sequence: Sequence(0x8030FFFF),
             witness: Witness::default(),
         }],
         output: vec![TxOut {
@@ -178,6 +186,7 @@ pub fn test_main() {
     // new address is this
     // new object is this
     let unlock_block = 2427365;
+    // 2435040;
     //  2424648 + 2; //2427237
 
     println!("unlock block {}", unlock_block);
@@ -186,8 +195,8 @@ pub fn test_main() {
     let refund_script = helpers::create_script_refund(&xonly_public_key_source, unlock_block);
     let pox_script = helpers::create_script_pox(&xonly_public_key_pox);
 
-    println!("alice script {}", refund_script);
-    println!("bob script {}", pox_script);
+    println!("alice script {}", refund_script.to_hex());
+    println!("bob script {}", pox_script.to_hex());
 
     let (tap_info, address) =
         helpers::create_tree(&secp, &key_pair_internal, &refund_script, &pox_script);
