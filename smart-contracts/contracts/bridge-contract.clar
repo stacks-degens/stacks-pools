@@ -27,9 +27,10 @@
     (token-y (contract-of token-y-trait))
     (fee-amount 
       (contract-call? .amm-swap-pool-v1-1 fee-helper token-x token-y ONE_8))
+    (get-helper-result (try! (contract-call? .amm-swap-pool-v1-1 get-helper token-x token-y ONE_8 multiplied-amount)))
     (stx-amount 
       (mul-down 
-        (unwrap-panic (contract-call? .amm-swap-pool-v1-1 get-helper token-x token-y ONE_8 multiplied-amount)) 
+        get-helper-result 
         (- ONE_8 (unwrap-panic fee-amount))))
     (stx-amount-slippeage (minus-percent stx-amount slippeage)))
     (try! (contract-call? 
