@@ -13,7 +13,6 @@ const alexVaultContract = "alex-vault-v1-1";
 const bridgeContract = "bridge-contract";
 const createPool = "create-pool";
 const initializeWrappedBitcoinSC = "initialize";
-const addLiquidity = "add-to-position";
 const setMaxInRatio = "set-max-in-ratio";
 const setMaxOutRatio = "set-max-out-ratio";
 const setPoolStartBlock = "set-start-block";
@@ -21,8 +20,7 @@ const getPoolDetails = "get-pool-details";
 const addPrincipalToRole = "add-principal-to-role";
 const setApprovedSC = "set-approved-contract";
 const setApprovedToken = " set-approved-token";
-const bridgeSwapFn = "swap-xbtc-to-stx";
-const ownerRole = 0;
+const bridgeSwapFn = "swap-helper";
 const minterRole = 1;
 const mintWrappedBitcoin = "mint-tokens";
 const wrappedBitcoinTokenName = "Wrapped Bitcoin";
@@ -33,6 +31,9 @@ const xBtcStxTransferResults = {
     417032098765, 406860584161, 397056714663, 387602983362, 378482913165,
     369680984952, 361182571504, 352973876697,
   ],
+};
+const StxXbtcTransferResults = {
+  100: [286470, 286283, 286097, 285911, 285725, 285539, 285354, 285168],
 };
 
 const to_one_8 = (amount) => {
@@ -52,8 +53,11 @@ Clarinet.test({
     let wallet_4 = accounts.get("wallet_4")!;
     let wallet_5 = accounts.get("wallet_5")!;
     let wallet_6 = accounts.get("wallet_6")!;
+
     // Prerequirements
+
     // 1. Wrapped-Bitcoin
+
     // a. Initialize the Wrapped-Bitcoin contract (token-name, symbol, decimals, owner)
     // b. Add minter role for deployer in order to mint
     let block = chain.mineBlock([
@@ -126,6 +130,7 @@ Clarinet.test({
     }
 
     // 2. alex-vault-v1-1
+
     // a. Set Approved Contract: amm-swap-pool-v1-1
     // b. Approve tokens: .wbtc, .wstx
     block = chain.mineBlock([
@@ -159,6 +164,7 @@ Clarinet.test({
     block.receipts[2].result.expectOk().expectBool(true);
 
     // 3. amm-swap-pool-v1-1
+
     // a. Create the xBTC - STX trading pool
     // b. Set Max In Ratio
     // c. Set Max Out Ratio
@@ -185,7 +191,7 @@ Clarinet.test({
           types.principal(`${deployer.address}.token-wbtc`),
           types.principal(`${deployer.address}.token-wstx`),
           types.uint(100_000_000),
-          types.uint(to_one_8(4)),
+          types.uint(to_one_8(0.5)), // in ratio == 0.5 == 50% of balance
         ],
         deployer.address
       ),
@@ -196,7 +202,7 @@ Clarinet.test({
           types.principal(`${deployer.address}.token-wbtc`),
           types.principal(`${deployer.address}.token-wstx`),
           types.uint(100_000_000),
-          types.uint(to_one_8(300_000)),
+          types.uint(to_one_8(0.5)), // out ratio == 0.5 == 50% of balance
         ],
         deployer.address
       ),
@@ -232,6 +238,7 @@ Clarinet.test({
     console.log("Trading Pool details: ", block.receipts[4].result);
 
     // 4. bridge-contract
+
     // a. swap 10_000 sats using the exchange function
     console.log("8 SWAPS 0.1 xBTC to STX:");
     for (let i = 1; i <= 8; i++) {
@@ -242,7 +249,7 @@ Clarinet.test({
           [
             types.principal(`${deployer.address}.token-wbtc`),
             types.principal(`${deployer.address}.token-wstx`),
-            types.uint(to_one_8(0.1)), //0.1 xBTC
+            types.uint(to_one_8(0.1)), //0.1 xBTC, we have to parse amount in xBTC * 10^8 (sats)
             types.uint(5),
           ],
           accounts.get(`wallet_${i}`).address
@@ -263,6 +270,32 @@ Clarinet.test({
 
         div_one_8(parseFloat(StxExchangeResult)),
         "STX"
+      );
+    }
+    for (let i = 1; i <= 8; i++) {
+      block = chain.mineBlock([
+        Tx.contractCall(
+          bridgeContract,
+          bridgeSwapFn,
+          [
+            types.principal(`${deployer.address}.token-wstx`),
+            types.principal(`${deployer.address}.token-wbtc`),
+            types.uint(to_one_8(100)), //100 STX, we have to parse amount in STX * 10^8
+            types.uint(5),
+          ],
+          accounts.get(`wallet_${i}`).address
+        ),
+      ]);
+
+      assertEquals(block.receipts.length, 1);
+      assertEquals(block.height, i + 17);
+      let StxExchangeResult = block.receipts[0].result
+        .expectOk()
+        .expectUint(StxXbtcTransferResults[100][i - 1]);
+      console.log(
+        "100 STX == ",
+        div_one_8(parseFloat(StxExchangeResult)),
+        "xBTC"
       );
     }
   },

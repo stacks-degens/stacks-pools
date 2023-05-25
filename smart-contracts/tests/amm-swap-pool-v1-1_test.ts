@@ -13,7 +13,6 @@ const alexVaultContract = "alex-vault-v1-1";
 const bridgeContract = "bridge-contract";
 const createPool = "create-pool";
 const initializeWrappedBitcoinSC = "initialize";
-const addLiquidity = "add-to-position";
 const setMaxInRatio = "set-max-in-ratio";
 const setMaxOutRatio = "set-max-out-ratio";
 const setPoolStartBlock = "set-start-block";
@@ -21,8 +20,7 @@ const getPoolDetails = "get-pool-details";
 const addPrincipalToRole = "add-principal-to-role";
 const setApprovedSC = "set-approved-contract";
 const setApprovedToken = " set-approved-token";
-const bridgeSwapFn = "swap-xbtc-to-stx";
-const ownerRole = 0;
+const bridgeSwapFn = "swap-helper";
 const minterRole = 1;
 const mintWrappedBitcoin = "mint-tokens";
 const wrappedBitcoinTokenName = "Wrapped Bitcoin";
@@ -147,7 +145,7 @@ Clarinet.test({
           types.principal(`${deployer.address}.token-wbtc`),
           types.principal(`${deployer.address}.token-wstx`),
           types.uint(100_000_000),
-          types.uint(to_one_8(4)),
+          types.uint(to_one_8(0.5)), // in ratio == 0.5 == 50% of balance
         ],
         deployer.address
       ),
@@ -158,7 +156,7 @@ Clarinet.test({
           types.principal(`${deployer.address}.token-wbtc`),
           types.principal(`${deployer.address}.token-wstx`),
           types.uint(100_000_000),
-          types.uint(to_one_8(300_000)),
+          types.uint(to_one_8(0.5)), // out ratio == 0.5 == 50% of balance
         ],
         deployer.address
       ),
