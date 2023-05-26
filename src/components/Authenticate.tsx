@@ -16,9 +16,10 @@ const Authenticate = () => {
       <Connect
         authOptions={{
           appDetails: {
-            name: 'Stacks React Template',
+            name: 'Stacks Decentralized',
             // todo:
-            icon: window.location.origin + '/logo.png',
+            // icon: window.location.origin + '/logo.png',
+            icon: 'https://res.cloudinary.com/dc0esmagg/image/upload/v1685115982/Degens/appLogo_qwhdc4.png',
           },
           redirectTo: '/',
           onFinish: () => {
