@@ -6,6 +6,7 @@ import { selectCurrentTheme } from '../../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../../redux/store';
 import { readOnlyGetNotifier } from '../../../../consts/readOnly';
 import { CallMade } from '@mui/icons-material';
+import { useLocation, useParams } from 'react-router-dom';
 
 interface MinerDetailsContainerProps {
   currentRole: string | null;
@@ -35,6 +36,11 @@ const MinerDetailsContainer = ({
 }: MinerDetailsContainerProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
   const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);
+
+  const location = useLocation();
+  const params = useParams();
+  console.log('loc', location);
+  console.log('params', params);
 
   useEffect(() => {
     const getCurrentNotifier = async () => {
