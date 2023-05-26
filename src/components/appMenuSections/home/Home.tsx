@@ -1,6 +1,7 @@
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
 import colors from '../../../consts/colorPallete';
+import './styles.css';
 
 const Home = () => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
@@ -35,9 +36,10 @@ const Home = () => {
             - Open your browser. You can either do this on a new browser profile, or on your main one.<br></br>
             <div style={{ marginTop: 10 }}></div>- Navigate to{' '}
             <a
+              className="homePageLink"
               href="https://wallet.hiro.so/wallet/install-web"
               target="_blank"
-              style={{ color: colors[appCurrentTheme].defaultOrange, textDecoration: 'none' }}
+              style={{ color: colors[appCurrentTheme].defaultOrange }}
             >
               https://wallet.hiro.so/wallet/install-web
             </a>
@@ -47,9 +49,10 @@ const Home = () => {
             <div style={{ marginTop: 10 }}></div>- Copy the secret key (mnemonic) that corresponds to the account
             address you want to sign in with, from{' '}
             <a
+              className="homePageLink"
               href="https://github.com/stacks-degens/starters-front-end/tree/profile-pages-design#accounts-in-mining-pool"
               target="_blank"
-              style={{ color: colors[appCurrentTheme].defaultOrange, textDecoration: 'none' }}
+              style={{ color: colors[appCurrentTheme].defaultOrange }}
             >
               here
             </a>
@@ -73,9 +76,10 @@ const Home = () => {
           <div style={{ marginTop: -30, textAlign: 'match-parent' }}>
             - Navigate to{' '}
             <a
+              className="homePageLink"
               href="https://explorer.hiro.so/?chain=testnet"
               target="_blank"
-              style={{ color: colors[appCurrentTheme].defaultOrange, textDecoration: 'none' }}
+              style={{ color: colors[appCurrentTheme].defaultOrange }}
             >
               https://explorer.hiro.so/?chain=testnet
             </a>
@@ -100,9 +104,10 @@ const Home = () => {
             <div style={{ marginTop: 10 }}></div>- Run 'npm install -g @stacks/cli' command in order to install the
             'stx' command to your terminal.<br></br>For more info, visit{' '}
             <a
+              className="homePageLink"
               href="https://docs.hiro.so/get-started/command-line-interface"
               target="_blank"
-              style={{ color: colors[appCurrentTheme].defaultOrange, textDecoration: 'none' }}
+              style={{ color: colors[appCurrentTheme].defaultOrange }}
             >
               https://docs.hiro.so/get-started/command-line-interface
             </a>

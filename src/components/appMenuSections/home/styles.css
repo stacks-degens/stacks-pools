@@ -1,0 +1,10 @@
+.homePageLink {
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.homePageLink:hover {
+  border-bottom: 1px solid #ab4c2b;
+  color: #ab4c2b !important;
+  transition: color 0.3s ease-in, border 0.3s ease-in;
+}
