@@ -1,6 +1,5 @@
 import '../styles.css';
 import colors from '../../../../consts/colorPallete';
-// import useCurrentTheme from '../../../../consts/theme';
 import { SelfImprovement } from '@mui/icons-material';
 import { useAppSelector } from '../../../../redux/store';
 import { selectCurrentTheme } from '../../../../redux/reducers/user-state';
@@ -10,7 +9,6 @@ interface RoleIntroMinerDetailsProps {
 }
 
 const RoleIntroMinerDetails = ({ currentRole }: RoleIntroMinerDetailsProps) => {
-  // const { currentTheme } = useCurrentTheme();
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   return (

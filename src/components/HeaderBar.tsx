@@ -3,7 +3,6 @@ import DarkModeButton from '../consts/lightModeButton';
 import ConnectWallet from './ConnectWallet';
 import LeftPanel from './LeftPanel';
 import colors from '../consts/colorPallete';
-import './styles.css';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { selectCurrentTheme } from '../redux/reducers/user-state';
 import { updateAppThemeAction } from '../redux/actions';

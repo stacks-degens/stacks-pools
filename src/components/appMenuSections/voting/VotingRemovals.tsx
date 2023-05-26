@@ -1,7 +1,6 @@
 import * as React from 'react';
 import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
-import useCurrentTheme from '../../../consts/theme';
 import colors from '../../../consts/colorPallete';
 import { ContractVotePositiveRemove, ContractVoteNegativeRemove } from '../../../consts/smartContractFunctions';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
@@ -15,7 +14,6 @@ import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 
 const VotingRemovals = () => {
-  const { currentTheme } = useCurrentTheme();
   const removalsRows = GetRemovalsRows();
   const navigate = useNavigate();
 

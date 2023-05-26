@@ -1,0 +1,38 @@
+.customButton,
+.customDarkButton {
+  color: #2f2f2f;
+  width: 140px;
+  cursor: pointer;
+  font-size: 15px;
+  border: 1px solid #ed693c;
+  border-radius: 10px;
+  padding: 10px;
+  font-weight: bold;
+  background: linear-gradient(135deg, #fdc60b 30%, #ed693c 100%);
+}
+
+.customDarkButton:hover {
+  box-shadow: 2px 2px 7px #fdc60b, -2px -2px 7px #fdc60b;
+  background: none;
+  background-color: transparent;
+  transition: background-color 2s linear, box-shadow 0.5s;
+  color: #fdc60b;
+}
+
+.customButton:hover {
+  box-shadow: 2px 2px 7px #fdc60b, -2px -2px 7px #fdc60b;
+  background: none;
+  background-color: #fef9f7;
+  transition: background-color 2s linear, box-shadow 0.5s;
+  color: #5f2a18;
+}
+
+.customButton:disabled,
+.customDarkButton:disabled {
+  background-color: #cdcdcd !important;
+  border: 1px solid #737373 !important;
+  box-shadow: none;
+  background: none;
+  color: #2f2f2f;
+  cursor: auto;
+}

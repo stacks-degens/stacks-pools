@@ -1,4 +1,8 @@
-import './styles.css';
+import '../../../css/buttons/styles.css';
+import '../../../css/helpers/styles.css';
+import '../../../css/inputs/styles.css';
+import '../../../css/links/styles.css';
+import '../../../css/common-page-alignments/styles.css';
 import {
   selectCurrentTheme,
   selectCurrentUserRole,
@@ -6,10 +10,7 @@ import {
   UserRole,
 } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
-// import CommonInfoProfile from './CommonInfoProfile';
 import MinerProfile from './MinerProfile';
-// import PendingMinerProfile from './PendingMinerProfile';
-// import WaitingMinerProfile from './WaitingMinerProfile';
 import colors from '../../../consts/colorPallete';
 import { useEffect, useState } from 'react';
 import { network, getExplorerUrl } from '../../../consts/network';
@@ -27,10 +28,6 @@ const Profile = () => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   const profileMapping: Record<UserRole, React.ReactElement> = {
-    // Viewer: <CommonInfoProfile />,
-    // NormalUser: <CommonInfoProfile />,
-    // Waiting: <WaitingMinerProfile />,
-    // Pending: <PendingMinerProfile />,
     Viewer: <div></div>,
     NormalUser: (
       <MinerProfile

@@ -1,5 +1,4 @@
 import { readOnlyGetNotifier, readOnlyGetNotifierElectionProcessData } from '../../../consts/readOnly';
-import useCurrentTheme from '../../../consts/theme';
 import { useState, useEffect } from 'react';
 import VotingStatusContainer from '../../reusableComponents/voting/VotingStatusContainer';
 import colors from '../../../consts/colorPallete';
@@ -7,7 +6,6 @@ import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 
 const Voting = () => {
-  const { currentTheme } = useCurrentTheme();
   const [notifierVoteStatus, setNotifierVoteStatus] = useState<string | null>(null);
   const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);
 

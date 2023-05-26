@@ -19,7 +19,6 @@ const UserSesssionPersistTransform = createTransform(
     console.log('outbound', key);
     const appConfig = new AppConfig(['store_write', 'publish_data']);
     const userSession = new UserSession({ appConfig });
-    // return { ...outboundState, userSession };
     return outboundState;
   },
   { whitelist: ['theme'] }

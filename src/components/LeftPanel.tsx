@@ -22,7 +22,7 @@ import { selectCurrentTheme, selectCurrentUserRole, UserRole } from '../redux/re
 import { useState } from 'react';
 import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material';
 import { Collapse } from '@mui/material';
-import './styles.css';
+import '../css/navbars/styles.css';
 
 type Anchor = 'top' | 'left' | 'bottom' | 'right';
 

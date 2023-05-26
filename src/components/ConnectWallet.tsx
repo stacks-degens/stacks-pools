@@ -7,7 +7,6 @@ import { selectCurrentTheme, selectCurrentUserRole, selectUserSessionState } fro
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { readOnlyAddressStatus } from '../consts/readOnly';
-import './styles.css';
 
 interface ConnectWalletProps {
   currentTheme: string;
@@ -66,7 +65,7 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
     return (
       <div>
         <button className="Connect" style={{ backgroundColor: colors[appCurrentTheme].primary }} onClick={disconnect}>
-          <LogoutIcon style={{ color: colors[appCurrentTheme].buttons }} fontSize="medium" />
+          <LogoutIcon style={{ color: colors[appCurrentTheme].headerIcon }} fontSize="medium" />
         </button>
       </div>
     );
@@ -74,7 +73,7 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
 
   return (
     <button className="Connect" style={{ backgroundColor: colors[appCurrentTheme].primary }} onClick={authenticate}>
-      <LoginIcon style={{ color: colors[appCurrentTheme].buttons }} fontSize="medium" />
+      <LoginIcon style={{ color: colors[appCurrentTheme].headerIcon }} fontSize="medium" />
     </button>
   );
 };

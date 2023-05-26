@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import {
-  readOnlyExchangeToggle,
   readOnlyGetAllTotalWithdrawals,
   ReadOnlyAllDataWaitingMiners,
   readOnlyGetRemainingBlocksJoin,
 } from '../../../consts/readOnly';
 import { selectCurrentUserRole, selectUserSessionState } from '../../../redux/reducers/user-state';
-import '../style.css';
+// import '../style.css';
 import { useAppSelector } from '../../../redux/store';
 import AboutContainer from '../../reusableComponents/profile/AboutContainer';
 import ActionsContainer from '../../reusableComponents/profile/ActionsContainer';
