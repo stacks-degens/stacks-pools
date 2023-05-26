@@ -39,8 +39,8 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
   });
 
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
-  const [openMiningPoolMenu, setOpenMiningPoolMenu] = useState<boolean>(true);
-  const [openVotingMenu, setOpenVotingMenu] = useState<boolean>(true);
+  const [openMiningPoolMenu, setOpenMiningPoolMenu] = useState<boolean>(false);
+  const [openVotingMenu, setOpenVotingMenu] = useState<boolean>(false);
 
   const location = useLocation();
 
@@ -191,7 +191,6 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                         ? 'active-custom'
                         : ''
                     }
-                    // className={location.pathname === '/profile' ? 'active-custom' : ''}
                     component="div"
                     disablePadding
                   >
