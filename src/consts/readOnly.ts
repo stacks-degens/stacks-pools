@@ -328,7 +328,6 @@ export const readOnlyGetCurrentBlock = async () => {
 
 //exchange toggle for miners
 //get-auto-exchange
-//done by Alexis with Suciu
 
 export const readOnlyExchangeToggle = async (args: string) => {
   const exchangeArgs = convertPrincipalToArg(args);
