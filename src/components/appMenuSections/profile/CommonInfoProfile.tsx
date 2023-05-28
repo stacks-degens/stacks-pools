@@ -49,7 +49,7 @@ const CommonInfoProfile = () => {
           display connected wallet:
           {connectedWallet !== null && <div>{connectedWallet}</div>}
         </li>
-        <li>option to change wallet: postponed by Suciu</li>
+        <li>option to change wallet: postponed, use same functionallity as authenticate with `connect wallet`</li>
         <li>
           current role:
           <div>{currentRole === 'NormalUser' ? 'not asked to join yet' : currentRole}</div>
