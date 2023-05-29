@@ -76,17 +76,20 @@ const VotingJoiners = () => {
   };
 
   return (
-    <div className="page-heading-title">
-      <h2>Decentralized Mining Pool</h2>
-      <h2>Voting - Joiners</h2>
-      <div className="principal-content-profile-page"></div>
-      <TableCreation
-        rows={waitingRows}
-        rowContent={waitingRowContent}
-        columns={waitingColumns}
-        tableId="waiting"
-        customTableWidth="75%"
-      />
+    <div className="voting-joiners-page-main-container">
+      <div className="page-heading-title">
+        <h2>Decentralized Mining Pool</h2>
+        <h2>Voting - Joiners</h2>
+      </div>
+      <div className="principal-content-profile-page">
+        <TableCreation
+          rows={waitingRows}
+          rowContent={waitingRowContent}
+          columns={waitingColumns}
+          tableId="waiting"
+          customTableWidth="75%"
+        />
+      </div>
     </div>
   );
 };

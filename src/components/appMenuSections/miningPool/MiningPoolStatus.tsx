@@ -5,7 +5,7 @@ import {
   readOnlyGetNotifier,
   readOnlyGetNotifierElectionProcessData,
 } from '../../../consts/readOnly';
-import MiningPoolStatusContainer from '../../reusableComponents/miningPool/MiningStatusContainer';
+import MiningPoolStatusContainer from '../../reusableComponents/miningPool/MiningPoolStatusContainer';
 import colors from '../../../consts/colorPallete';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
@@ -57,9 +57,11 @@ const MiningPoolStatus = () => {
   }, []);
 
   return (
-    <div style={{ color: colors[appCurrentTheme].colorWriting }} className="page-heading-title">
-      <h2>Decentralized Mining Pool</h2>
-      <h2>Mining Pool - Status</h2>
+    <div className="miningpool-status-page-main-container">
+      <div style={{ color: colors[appCurrentTheme].colorWriting }} className="page-heading-title">
+        <h2>Decentralized Mining Pool</h2>
+        <h2>Mining Pool - Status</h2>
+      </div>
       <div className="principal-content-profile-page">
         <div className={'main-info-container-normal-user'}>
           <MiningPoolStatusContainer

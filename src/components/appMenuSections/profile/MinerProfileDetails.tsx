@@ -9,6 +9,10 @@ import { getExplorerUrl, network } from '../../../consts/network';
 import { cvToJSON, listCV, principalCV } from '@stacks/transactions';
 import MinerDetailsContainer from '../../reusableComponents/profile/profileDetails/MinerDetailsContainer';
 import RoleIntroMinerDetails from '../../reusableComponents/profile/profileDetails/RoleIntroMinerDetails';
+import './styles.css';
+import colors from '../../../consts/colorPallete';
+import { useAppSelector } from '../../../redux/store';
+import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 
 interface MinerDataProps {
   balance: string;
@@ -35,6 +39,8 @@ const Voting = () => {
   const [negativeVotes, setNegativeVotes] = useState<number | null>(null);
   const [negativeVotesThreshold, setNegativeVotesThreshold] = useState<number | null>(null);
   const [blocksLeftUntilJoin, setBlocksLeftUntilJoin] = useState<number | null>(null);
+
+  const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   useEffect(() => {
     if (status === 'Pending') {
@@ -93,9 +99,14 @@ const Voting = () => {
   }, [minerData]);
 
   return (
-    <div className="page-heading-title">
-      <h2>Decentralized Mining Pool</h2>
-      <h2>Miner Details</h2>
+    <div
+      style={{ backgroundColor: colors[appCurrentTheme].infoContainers }}
+      className="single-miner-page-main-container"
+    >
+      <div className="page-heading-title">
+        <h2>Decentralized Mining Pool</h2>
+        <h2>Miner Details</h2>
+      </div>
       <div className="principal-content-profile-page">
         <RoleIntroMinerDetails currentRole={status} />
         <div className={'main-info-container-normal-user'}>
