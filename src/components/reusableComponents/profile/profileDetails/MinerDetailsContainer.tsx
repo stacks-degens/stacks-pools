@@ -61,6 +61,7 @@ const MinerDetailsContainer = ({
           style={{
             backgroundColor: colors[appCurrentTheme].infoContainers,
             color: colors[appCurrentTheme].colorWriting,
+            borderBottom: `1px solid ${colors[appCurrentTheme].colorWriting}`,
           }}
           className="heading-info-container"
         >
@@ -68,7 +69,7 @@ const MinerDetailsContainer = ({
             <div style={{ color: colors[appCurrentTheme].defaultYellow }} className="heading-icon-info-container">
               <AccountCircleIcon className="icon-info-container yellow-icon" />
             </div>
-            <div className="title-info-continer">ABOUT</div>
+            <div className="title-info-container">ABOUT</div>
           </div>
         </div>
         <div
@@ -80,10 +81,10 @@ const MinerDetailsContainer = ({
         >
           <div className="content-sections-title-info-container bottom-margins">
             <span className="bold-font">Address:</span>
-            <div className="write-just-on-one-line">{address !== null ? address : ''}</div>
+            <div className="write-just-on-one-line result-of-content-section">{address !== null ? address : ''}</div>
           </div>
           <div className="content-sections-title-info-container bottom-margins">
-            <span className="bold-font">Wrong Address!</span>
+            <span className="bold-font result-of-content-section">Wrong Address!</span>
           </div>
         </div>
       </div>
@@ -96,14 +97,18 @@ const MinerDetailsContainer = ({
       className="info-container-profile-page"
     >
       <div
-        style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting }}
+        style={{
+          backgroundColor: colors[appCurrentTheme].infoContainers,
+          color: colors[appCurrentTheme].colorWriting,
+          borderBottom: `1px solid ${colors[appCurrentTheme].colorWriting}`,
+        }}
         className="heading-info-container"
       >
         <div className="heading-title-info-container">
           <div style={{ color: colors[appCurrentTheme].defaultYellow }} className="heading-icon-info-container">
             <AccountCircleIcon className="icon-info-container yellow-icon" />
           </div>
-          <div className="title-info-continer">ABOUT</div>
+          <div className="title-info-container">ABOUT</div>
         </div>
       </div>
       <div
@@ -112,11 +117,11 @@ const MinerDetailsContainer = ({
       >
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Address:</span>
-          <div className="write-just-on-one-line">{address !== null ? address : ''}</div>
+          <div className="write-just-on-one-line result-of-content-section">{address !== null ? address : ''}</div>
         </div>
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Role: </span>
-          <span>
+          <span className="result-of-content-section">
             {currentNotifier === address ? 'Notifier' : currentRole === 'NormalUser' ? 'Normal User' : currentRole}
           </span>
         </div>
@@ -124,41 +129,43 @@ const MinerDetailsContainer = ({
           <div>
             <div className="content-sections-title-info-container bottom-margins">
               <span className="bold-font">Was Blacklisted: </span>
-              <span>{wasBlacklisted !== null ? (wasBlacklisted === true ? 'Yes' : 'No') : ''}</span>
+              <span className="result-of-content-section">
+                {wasBlacklisted !== null ? (wasBlacklisted === true ? 'Yes' : 'No') : ''}
+              </span>
             </div>
             <div className="content-sections-title-info-container bottom-margins">
               <span className="bold-font">Warnings: </span>
-              <span>{warnings !== null ? warnings : ''}</span>
+              <span className="result-of-content-section">{warnings !== null ? warnings : ''}</span>
             </div>
             <div className="content-sections-title-info-container bottom-margins">
               <span className="bold-font">Blocks as Miner: </span>
-              <span>{blocksAsMiner !== null ? blocksAsMiner : ''}</span>
+              <span className="result-of-content-section">{blocksAsMiner !== null ? blocksAsMiner : ''}</span>
             </div>
             <div className="content-sections-title-info-container bottom-margins">
               <span className="bold-font">Balance: </span>
-              <span>{currentBalance !== null ? currentBalance : ''}</span>
+              <span className="result-of-content-section">{currentBalance !== null ? currentBalance : ''}</span>
             </div>
             <div className="content-sections-title-info-container bottom-margins">
               <span className="bold-font">Total Withdrawn: </span>
-              <span>{totalWithdrawals !== null ? totalWithdrawals : ''}</span>
+              <span className="result-of-content-section">{totalWithdrawals !== null ? totalWithdrawals : ''}</span>
             </div>
           </div>
         )}
         {currentRole === 'Pending' && (
           <div className="content-sections-title-info-container bottom-margins">
             <span className="bold-font">Blocks Left Until Join: </span>
-            <span>{blocksUntilJoin !== null ? blocksUntilJoin : ''}</span>
+            <span className="result-of-content-section">{blocksUntilJoin !== null ? blocksUntilJoin : ''}</span>
           </div>
         )}
         {currentRole === 'Waiting' && (
           <div>
             <div className="content-sections-title-info-container bottom-margins">
               <span className="bold-font">Positive Votes: </span>
-              <span>{positiveVotes !== null ? positiveVotes : ''}</span>
+              <span className="result-of-content-section">{positiveVotes !== null ? positiveVotes : ''}</span>
             </div>
             <div className="content-sections-title-info-container bottom-margins">
               <span className="bold-font">Negative Votes: </span>
-              <span>{negativeVotes !== null ? negativeVotes : ''}</span>
+              <span className="result-of-content-section">{negativeVotes !== null ? negativeVotes : ''}</span>
             </div>
           </div>
         )}
@@ -169,15 +176,15 @@ const MinerDetailsContainer = ({
             style={{ backgroundColor: colors[appCurrentTheme].accent2, color: colors[appCurrentTheme].secondary }}
           >
             <a
-              className="custom-link"
+              className="custom-link result-of-content-section"
               style={{ backgroundColor: colors[appCurrentTheme].accent2, color: colors[appCurrentTheme].secondary }}
               target="_blank"
               rel="noreferrer"
               href={explorerLink !== undefined ? explorerLink : ''}
             >
-              <span className="flex-center">
+              <span className="flex-center result-of-content-section">
                 Visit
-                <span className="flex-center left-margins">
+                <span className="flex-center left-margins result-of-content-section">
                   <CallMade className="custom-icon" />
                 </span>
               </span>

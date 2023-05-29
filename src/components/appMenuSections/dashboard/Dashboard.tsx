@@ -14,6 +14,7 @@ import {
 } from '../../../consts/readOnly';
 import DashboardInfoContainer from '../../reusableComponents/dashboard/DashboardInfoContainer';
 import colors from '../../../consts/colorPallete';
+import './styles.css';
 
 const Dashboard = () => {
   const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);
@@ -73,9 +74,11 @@ const Dashboard = () => {
   }, [stacksRewards]);
 
   return (
-    <div style={{ color: colors[appCurrentTheme].colorWriting }} className="page-heading-title">
-      <h2>Decentralized Mining Pool</h2>
-      <h2>Dashboard</h2>
+    <div className="dashboard-page-main-container">
+      <div style={{ color: colors[appCurrentTheme].colorWriting }} className="page-heading-title">
+        <h2>Decentralized Mining Pool</h2>
+        <h2>Dashboard</h2>
+      </div>
       <div className="principal-content-profile-page">
         <div className={'main-info-container-normal-user'}>
           <DashboardInfoContainer

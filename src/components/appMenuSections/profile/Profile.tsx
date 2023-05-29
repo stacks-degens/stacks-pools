@@ -1,3 +1,4 @@
+import './styles.css';
 import '../../../css/buttons/styles.css';
 import '../../../css/helpers/styles.css';
 import '../../../css/inputs/styles.css';
@@ -110,15 +111,21 @@ const Profile = () => {
   }, [currentBalance, totalWithdrawals]);
 
   return (
-    <div>
-      <div>
-        <div style={{ color: colors[appCurrentTheme].colorWriting }} className="page-heading-title">
-          <h2>Decentralized Mining Pool</h2>
-          <h2>Profile</h2>
-        </div>
-        {profileMapping[currentRole]}
+    // <div>
+    <div
+      className="profile-page-main-container"
+      style={{
+        backgroundColor: colors[appCurrentTheme].accent2,
+        color: colors[appCurrentTheme].colorWriting,
+      }}
+    >
+      <div style={{ color: colors[appCurrentTheme].colorWriting }} className="page-heading-title">
+        <h2>Decentralized Mining Pool</h2>
+        <h2>Profile</h2>
       </div>
+      {profileMapping[currentRole]}
     </div>
+    // </div>
   );
 };
 

@@ -22,12 +22,12 @@ const MoreInfoAboutContainerWaitingMiner = ({
     <>
       <div className="content-sections-title-info-container bottom-margins">
         <span className="bold-font">Status: </span>
-        <span>waiting to be voted </span>
+        <span className="result-of-content-section">waiting to be voted </span>
       </div>
 
       <div className="content-sections-title-info-container">
         <span className="bold-font">Positive votes: </span>
-        <span>
+        <span className="result-of-content-section">
           {positiveVotes !== null && positiveVotesThreshold !== null
             ? positiveVotes + '/' + positiveVotesThreshold
             : '0'}
@@ -35,7 +35,7 @@ const MoreInfoAboutContainerWaitingMiner = ({
       </div>
       <div className="content-sections-title-info-container">
         <span className="bold-font">Negative votes: </span>
-        <span>
+        <span className="result-of-content-section">
           {negativeVotes !== null && negativeVotesThreshold !== null
             ? negativeVotes + '/' + negativeVotesThreshold
             : '0'}
