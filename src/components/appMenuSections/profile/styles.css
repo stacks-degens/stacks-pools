@@ -159,3 +159,101 @@
     margin-top: 20px !important;
   }
 }
+
+@media screen and (min-width: 576px) and (max-width: 991px) {
+  .profile-page-main-container .page-heading-title,
+  .single-miner-page-main-container .page-heading-title {
+    height: 120px;
+  }
+
+  .profile-page-main-container .page-heading-title h2,
+  .single-miner-page-main-container .page-heading-title h2 {
+    font-size: 30px;
+  }
+
+  .profile-page-main-container .main-info-container,
+  .single-miner-page-main-container .main-info-container-normal-user {
+    width: 89%;
+    flex-direction: column;
+    margin-inline: auto;
+    justify-content: start;
+    align-items: center;
+    margin-top: 60px;
+  }
+
+  .profile-page-main-container .info-container-profile-page,
+  .single-miner-page-main-container .info-container-profile-page {
+    width: 80%;
+    margin-bottom: 60px;
+    height: auto !important;
+  }
+
+  .profile-page-main-container .title-info-container,
+  .single-miner-page-main-container .title-info-container {
+    font-size: 20px;
+  }
+
+  .profile-page-main-container .content-sections-title-info-container span,
+  .single-miner-page-main-container .content-sections-title-info-container span {
+    font-size: 22px;
+  }
+
+  .profile-page-main-container .content-sections-title-info-container .result-of-content-section,
+  .single-miner-page-main-container .content-sections-title-info-container .result-of-content-section {
+    font-size: 20px;
+  }
+
+  /* profile page intro lateral information */
+  .profile-page-main-container .intro-sides {
+    font-size: 16px;
+  }
+
+  /* profile page intro central information (current role) */
+  .profile-page-main-container .intro-center-side,
+  .single-miner-page-main-container .intro-center-side {
+    font-size: 22px;
+  }
+
+  /* autoexchange button container */
+  .profile-page-main-container .autoexchange-button-container {
+    width: 80%;
+    margin-inline: auto;
+    margin-top: 10px;
+  }
+
+  .leave-pool-button-action-container {
+    margin-top: 20px;
+  }
+
+  /* autoexchange button from about container on profile page */
+  .profile-page-main-container .autoexchange-button-container button,
+  .leave-pool-button-action-container button,
+  .button-container-action-container button {
+    font-size: 20px;
+    width: 180px;
+    height: 45px;
+  }
+
+  .button-container-action-container button {
+    margin-bottom: 5px;
+  }
+
+  /* the input line from actions container on profile page */
+  .custom-input {
+    box-sizing: border-box;
+    /* height: 30px; */
+    height: 45px;
+  }
+
+  .input-line-actions-container {
+    align-items: end !important;
+  }
+  .alert-container-actions-container {
+    margin-top: 20px !important;
+  }
+
+  .profile-page-main-container .content-info-container,
+  .single-miner-page-main-container .principal-content-profile-page {
+    height: auto;
+  }
+}

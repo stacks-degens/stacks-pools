@@ -54,3 +54,9 @@
     font-size: 14px !important;
   }
 }
+
+@media screen and (min-width: 576px) and (max-width: 991px) {
+  .navbar-sections-font-size span {
+    font-size: 18px !important;
+  }
+}

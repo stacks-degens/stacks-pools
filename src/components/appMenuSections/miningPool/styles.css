@@ -86,3 +86,57 @@ table th {
     width: auto !important;
   } */
 }
+
+@media screen and (min-width: 576px) and (max-width: 991px) {
+  .single-miner-page-main-container .info-container-profile-page {
+    margin-bottom: 0 !important;
+  }
+  .miningpool-status-page-main-container .main-info-container-normal-user {
+    margin-bottom: 0 !important;
+    /* padding-bottom: 30px; */
+  }
+
+  .miningpool-status-page-main-container .page-heading-title,
+  .miningpool-miners-page-main-container .page-heading-title {
+    height: 120px;
+  }
+
+  .miningpool-status-page-main-container .page-heading-title h2,
+  .miningpool-miners-page-main-container .page-heading-title h2 {
+    font-size: 30px;
+  }
+
+  .miningpool-status-page-main-container .main-info-container-normal-user,
+  .miningpool-miners-page-main-container .principal-content-profile-page {
+    /* width: 90%; */
+    margin-top: 80px;
+    /* background-color: red !important; */
+  }
+
+  .miningpool-status-page-main-container .info-container-mining-pool-status-page {
+    width: 500px;
+  }
+
+  .miningpool-status-page-main-container .title-info-container {
+    font-size: 20px;
+  }
+
+  .miningpool-status-page-main-container .content-sections-title-info-container span {
+    font-size: 22px;
+  }
+
+  .result-of-content-section {
+    font-size: 17.5px;
+  }
+
+  table th {
+    font-size: 14px !important;
+    font-weight: bold !important;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  table td {
+    font-size: 15px !important;
+  }
+}

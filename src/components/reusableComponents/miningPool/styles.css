@@ -16,3 +16,15 @@
   justify-content: center;
   align-items: center;
 }
+
+@media screen and (min-width: 576px) and (max-width: 991px) {
+  .info-container-mining-pool-status-page .footer-end-vote-button-container {
+    margin-top: -15px;
+    margin-bottom: 10px;
+  }
+
+  .info-container-mining-pool-status-page.footer-end-vote-button-container button {
+    font-size: 20px;
+    padding-block: 15px;
+  }
+}

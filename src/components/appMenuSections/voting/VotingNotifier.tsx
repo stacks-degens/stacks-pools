@@ -19,6 +19,7 @@ import TableCreation from '../../TableCreation';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import { useNavigate } from 'react-router-dom';
 import VotingNotifierInfoContainer from '../../reusableComponents/voting/VotingNotifierInfoContainer';
+import './styles.css';
 
 const VotingNotifier = () => {
   const [userAddress, setUserAddress] = useState<string | null>(null);

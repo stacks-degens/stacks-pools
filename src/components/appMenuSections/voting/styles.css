@@ -60,3 +60,57 @@
     font-size: 10.6px;
   }
 }
+
+@media screen and (min-width: 576px) and (max-width: 991px) {
+  .voting-status-page-main-container .page-heading-title,
+  .voting-notifier-page-main-container .page-heading-title,
+  .voting-joiners-page-main-container .page-heading-title,
+  .voting-removals-page-main-container .page-heading-title {
+    height: 120px;
+  }
+
+  .voting-status-page-main-container .page-heading-title h2,
+  .voting-notifier-page-main-container .page-heading-title h2,
+  .voting-joiners-page-main-container .page-heading-title h2,
+  .voting-removals-page-main-container .page-heading-title h2 {
+    font-size: 30px;
+  }
+
+  .voting-status-page-main-container .main-info-container-normal-user,
+  .voting-notifier-page-main-container .main-info-container-normal-user,
+  .voting-joiners-page-main-container .principal-content-profile-page,
+  .voting-removals-page-main-container .principal-content-profile-page {
+    /* width: 90%; */
+    margin-top: 80px;
+    /* background-color: red !important; */
+  }
+
+  .voting-status-page-main-container .info-container-voting-status-page,
+  .voting-notifier-page-main-container .info-container-voting-status-page {
+    width: 500px;
+  }
+
+  .voting-status-page-main-container .title-info-container,
+  .voting-notifier-page-main-container .title-info-container {
+    font-size: 20px;
+  }
+
+  .voting-status-page-main-container .content-sections-title-info-container span,
+  .voting-notifier-page-main-container .content-sections-title-info-container span {
+    font-size: 22px;
+  }
+
+  .voting-notifier-page-main-container .footer-end-vote-button-container {
+    margin-top: -15px;
+    margin-bottom: 10px;
+  }
+
+  .voting-notifier-page-main-container .footer-end-vote-button-container button {
+    font-size: 20px;
+    padding-block: 15px;
+  }
+
+  .result-of-content-section {
+    font-size: 17.5px !important;
+  }
+}
