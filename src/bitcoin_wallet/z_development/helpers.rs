@@ -47,6 +47,11 @@ pub fn create_script_pox(bob_public_key: &XOnlyPublicKey) -> bitcoin::Script {
         .into_script()
 }
 
+// unspendable script
+pub fn create_script_unspendable() -> bitcoin::Script {
+    Builder::new().push_opcode(all::OP_RETURN).into_script()
+}
+
 // working
 // function that creates tree
 // in: scripts for branches
