@@ -14,7 +14,11 @@ import MinerProfileDetails from './appMenuSections/profile/MinerProfileDetails';
 
 const MainPage = () => {
   return (
-    <div>
+    <div
+      style={{
+        backgroundColor: 'inherit',
+      }}
+    >
       <div>
         <HeaderBar />
       </div>

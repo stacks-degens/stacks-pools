@@ -76,7 +76,7 @@ const DashboardInfoContainer = ({
       {currentRole === 'NormalUser' && (
         <div className="footer-join-button-container">
           <button
-            className="customButton"
+            className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
             onClick={() => {
               if (userAddress !== null) {
                 ContractAskToJoin(`${userAddress}`);

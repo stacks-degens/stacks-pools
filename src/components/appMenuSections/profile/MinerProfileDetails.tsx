@@ -99,7 +99,12 @@ const Voting = () => {
   }, [minerData]);
 
   return (
-    <div className="single-miner-page-main-container">
+    <div
+      style={{
+        backgroundColor: 'inherit',
+      }}
+      className="single-miner-page-main-container"
+    >
       <div className="page-heading-title">
         <h2>Decentralized Mining Pool</h2>
         <h2>Miner Details</h2>
