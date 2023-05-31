@@ -91,3 +91,23 @@
     width: 560px;
   }
 }
+
+@media screen and (min-width: 1181px) {
+  .dashboard-page-main-container .main-info-container-normal-user {
+    margin-top: 90px;
+  }
+
+  .dashboard-page-main-container .page-heading-title h2 {
+    font-size: 28px;
+  }
+
+  .dashboard-page-main-container .content-sections-title-info-container span,
+  .dashboard-page-main-container .title-info-container,
+  .result-of-content-section {
+    font-size: 20px;
+  }
+
+  .dashboard-page-main-container .info-container-dashboard-page {
+    width: 560px;
+  }
+}

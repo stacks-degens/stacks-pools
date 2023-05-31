@@ -176,3 +176,39 @@ table th {
     font-size: 15px !important;
   }
 }
+
+@media screen and (min-width: 1181px) {
+  .miningpool-status-page-main-container .main-info-container-normal-user {
+    margin-top: 90px;
+  }
+
+  .miningpool-miners-page-main-container .page-heading-title {
+    margin-bottom: 40px;
+  }
+
+  .miningpool-status-page-main-container .page-heading-title h2,
+  .miningpool-miners-page-main-container .page-heading-title h2 {
+    font-size: 28px;
+  }
+
+  .miningpool-status-page-main-container .title-info-container,
+  .miningpool-status-page-main-container .content-sections-title-info-container span,
+  .result-of-content-section {
+    font-size: 20px;
+  }
+
+  .miningpool-status-page-main-container .info-container-mining-pool-status-page {
+    width: 560px;
+  }
+
+  table th {
+    font-size: 14px !important;
+    font-weight: bold !important;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  table td {
+    font-size: 15px !important;
+  }
+}

@@ -45,3 +45,13 @@
     font-size: 28px;
   }
 }
+
+@media screen and (min-width: 1181px) {
+  .home-page-main-container .page-heading-title {
+    margin-bottom: 60px;
+  }
+
+  .home-page-main-container .page-heading-title h2 {
+    font-size: 28px;
+  }
+}
