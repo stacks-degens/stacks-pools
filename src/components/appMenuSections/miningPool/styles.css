@@ -16,7 +16,6 @@ table th {
 
 .miningpool-status-page-main-container,
 .miningpool-miners-page-main-container {
-  /* background-color: red !important; */
   height: calc(100vh - 60px);
   display: flex;
   flex-direction: column;
@@ -25,13 +24,11 @@ table th {
 
 .miningpool-status-page-main-container .page-heading-title,
 .miningpool-miners-page-main-container .page-heading-title {
-  /* background-color: green !important; */
   height: 100px;
 }
 
 /* the main page where I am displaying the table */
 .miningpool-miners-page-main-container .principal-content-profile-page {
-  /* background-color: yellow !important; */
   height: calc(100vh - 160px);
   margin: 0;
   width: 100%;
@@ -40,7 +37,6 @@ table th {
 }
 
 .miningpool-status-page-main-container .principal-content-profile-page {
-  /* background-color: yellow !important; */
   height: calc(100vh - 160px);
   margin: 0;
   width: 100%;
@@ -93,7 +89,6 @@ table th {
   }
   .miningpool-status-page-main-container .main-info-container-normal-user {
     margin-bottom: 0 !important;
-    /* padding-bottom: 30px; */
   }
 
   .miningpool-status-page-main-container .page-heading-title,
@@ -108,9 +103,7 @@ table th {
 
   .miningpool-status-page-main-container .main-info-container-normal-user,
   .miningpool-miners-page-main-container .principal-content-profile-page {
-    /* width: 90%; */
     margin-top: 80px;
-    /* background-color: red !important; */
   }
 
   .miningpool-status-page-main-container .info-container-mining-pool-status-page {

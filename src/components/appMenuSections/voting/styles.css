@@ -2,7 +2,6 @@
 .voting-notifier-page-main-container,
 .voting-joiners-page-main-container,
 .voting-removals-page-main-container {
-  /* background-color: red !important; */
   height: calc(100vh - 60px);
   display: flex;
   flex-direction: column;
@@ -13,13 +12,11 @@
 .voting-notifier-page-main-container .page-heading-title,
 .voting-joiners-page-main-container .page-heading-title,
 .voting-removals-page-main-container .page-heading-title {
-  /* background-color: green !important; */
   height: 100px;
 }
 
 .voting-joiners-page-main-container .principal-content-profile-page,
 .voting-removals-page-main-container .principal-content-profile-page {
-  /* background-color: yellow !important; */
   height: calc(100vh - 160px);
   margin: 0;
   width: 100%;
@@ -30,7 +27,6 @@
 /* the main page where I am displaying the table */
 .voting-status-page-main-container .principal-content-profile-page,
 .voting-notifier-page-main-container .principal-content-profile-page {
-  /* background-color: yellow !important; */
   height: calc(100vh - 160px);
   margin: 0 !important;
   width: 100%;

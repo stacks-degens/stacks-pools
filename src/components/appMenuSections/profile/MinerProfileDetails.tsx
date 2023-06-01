@@ -22,7 +22,7 @@ interface MinerDataProps {
   wasBlacklisted: boolean;
 }
 
-const Voting = () => {
+const MinerProfileDetails = () => {
   const currentLink = window.location.href;
   const addressParts = currentLink.split('/');
   const address = addressParts[addressParts.length - 1];
@@ -136,4 +136,4 @@ const Voting = () => {
   );
 };
 
-export default Voting;
+export default MinerProfileDetails;

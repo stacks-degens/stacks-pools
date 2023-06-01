@@ -1,12 +1,6 @@
-/* .profile-page-main-container {
-  height: auto;
-} */
-
 .profile-page-main-container,
 .single-miner-page-main-container {
-  /* background-color: red !important; */
   height: auto;
-  /* height: calc(100vh - 60px); */
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -14,15 +8,11 @@
 
 .profile-page-main-container .page-heading-title,
 .single-miner-page-main-container .page-heading-title {
-  /* background-color: green !important; */
   height: 100px;
 }
 
 .profile-page-main-container .principal-content-profile-page,
 .single-miner-page-main-container .principal-content-profile-page {
-  /* background-color: yellow !important; */
-  /* height: calc(100vh - 160px);
-  margin: 0; */
   width: 100%;
 }
 
@@ -110,7 +100,6 @@
     .actions-container-profile-page
     .content-info-container
     .input-line-actions-container {
-    /* background-color: blue !important; */
     display: flex;
     flex-direction: column;
   }
@@ -368,7 +357,7 @@
   }
 
   .profile-page-main-container .intro-container-profile-page {
-    width: 75%;
+    width: 90%;
   }
 
   .single-miner-page-main-container .principal-content-profile-page {
@@ -392,18 +381,17 @@
   }
 
   .profile-page-main-container .main-info-container {
-    width: 80%;
-    flex-direction: column;
-    margin-inline: auto;
+    width: 85%;
+    flex-direction: row;
     justify-content: space-between;
-    align-items: center;
-    margin-top: 60px;
+    margin-top: 50px;
   }
 
   .profile-page-main-container .info-container-profile-page {
-    width: 70%;
-    margin-bottom: 60px;
+    width: 47%;
+    margin-bottom: 50px;
     height: auto !important;
+    height: 510px !important;
   }
 
   .single-miner-page-main-container .info-container-profile-page {
@@ -422,28 +410,25 @@
     font-size: 20px;
   }
 
-  .profile-page-main-container .content-sections-title-info-container .result-of-content-section,
+  .profile-page-main-container .content-sections-title-info-container .result-of-content-section {
+    font-size: 17px;
+  }
+
   .single-miner-page-main-container .content-sections-title-info-container .result-of-content-section {
     font-size: 20px;
   }
 
   /* autoexchange button container */
   .profile-page-main-container .autoexchange-button-container {
-    width: 85%;
-    margin-inline: auto;
-    margin-top: 10px;
-  }
-
-  .leave-pool-button-action-container {
-    margin-top: 20px;
+    width: 170px;
   }
 
   /* autoexchange button from about container on profile page */
   .profile-page-main-container .autoexchange-button-container button,
   .leave-pool-button-action-container button,
   .button-container-action-container button {
-    font-size: 20px;
-    width: 180px;
+    font-size: 18px;
+    width: 170px;
     height: 45px;
   }
 
@@ -460,11 +445,11 @@
   .input-line-actions-container {
     align-items: end !important;
   }
-  .alert-container-actions-container {
-    margin-top: 20px !important;
+
+  .profile-page-main-container .content-info-container {
+    height: 100%;
   }
 
-  .profile-page-main-container .content-info-container,
   .single-miner-page-main-container .principal-content-profile-page {
     height: auto;
   }

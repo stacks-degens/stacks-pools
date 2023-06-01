@@ -111,7 +111,6 @@ const Profile = () => {
   }, [currentBalance, totalWithdrawals]);
 
   return (
-    // <div>
     <div
       className="profile-page-main-container"
       style={{
@@ -125,7 +124,6 @@ const Profile = () => {
       </div>
       {profileMapping[currentRole]}
     </div>
-    // </div>
   );
 };
 

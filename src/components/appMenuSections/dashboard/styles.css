@@ -1,5 +1,4 @@
 .dashboard-page-main-container {
-  /* background-color: red !important; */
   height: calc(100vh - 60px);
   display: flex;
   flex-direction: column;
@@ -7,12 +6,10 @@
 }
 
 .dashboard-page-main-container .page-heading-title {
-  /* background-color: green !important; */
   height: 100px;
 }
 
 .dashboard-page-main-container .principal-content-profile-page {
-  /* background-color: yellow !important; */
   height: calc(100vh - 160px);
   margin: 0;
   width: 100%;
@@ -50,9 +47,7 @@
   }
 
   .dashboard-page-main-container .main-info-container-normal-user {
-    /* width: 90%; */
     margin-top: 80px;
-    /* background-color: red !important; */
   }
 
   .dashboard-page-main-container .info-container-dashboard-page {

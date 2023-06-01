@@ -47,17 +47,19 @@ const MoreInfoAboutContainerMiner = ({
           {totalWithdrawals !== null ? totalWithdrawals / 1000000 + ' STX' : '0 STX'}
         </span>
       </div>
-      <div className="content-sections-title-info-container">
-        <span className="bold-font">Autoexchange stx to btc: </span>
-        <span className="result-of-content-section">{exchange === null || exchange === false ? 'No' : 'Yes'}</span>
-      </div>
-      <div className="content-sections-title-info-container autoexchange-button-container">
-        <button
-          className={appCurrentTheme === 'light' ? 'customButton width-100' : 'customDarkButton width-100'}
-          onClick={setAutoExchange}
-        >
-          {exchange === null || exchange === false ? 'Change to Yes' : 'Change to No'}
-        </button>
+      <div>
+        <div className="content-sections-title-info-container">
+          <span className="bold-font">Autoexchange stx to btc: </span>
+          <span className="result-of-content-section">{exchange === null || exchange === false ? 'No' : 'Yes'}</span>
+        </div>
+        <div className="content-sections-title-info-container autoexchange-button-container">
+          <button
+            className={appCurrentTheme === 'light' ? 'customButton width-100' : 'customDarkButton width-100'}
+            onClick={setAutoExchange}
+          >
+            {exchange === null || exchange === false ? 'Change to Yes' : 'Change to No'}
+          </button>
+        </div>
       </div>
     </>
   );
