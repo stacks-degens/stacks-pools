@@ -4,25 +4,29 @@
 //   Chain,
 //   Account,
 //   types,
-// } from "https://deno.land/x/clarinet@v1.6.1/index.ts";
+// } from "https://deno.land/x/clarinet@v1.5.4/index.ts";
 // import { assertEquals } from "https://deno.land/std@0.170.0/testing/asserts.ts";
+
+// const bridgeContract = "bridge";
+// const registerSupplier = "registerSupplier";
 
 // Clarinet.test({
 //   name: "Ensure that <...>",
 //   async fn(chain: Chain, accounts: Map<string, Account>) {
 //     // arrange: set up the chain, state, and other required elements
+//     let deployer = accounts.get("deployer")!;
 //     let wallet_1 = accounts.get("wallet_1")!;
 
 //     // act: perform actions related to the current test
 //     let block = chain.mineBlock([
-//       /*
-//        * Add transactions with:
-//        * Tx.contractCall(...)
-//        */
+//       Tx.contractCall(bridgeContract,registerSupplier,[])
 //     ]);
 
 //     // assert: review returned data, contract state, and other requirements
 //     assertEquals(block.receipts.length, 0);
 //     assertEquals(block.height, 2);
+
+//     // TODO
+//     assertEquals("TODO", "a complete test");
 //   },
 // });

@@ -4,7 +4,9 @@ description = ''
 authors = []
 telemetry = false
 cache_dir = './.cache'
-requirements = []
+
+[[project.requirements]]
+contract_id = 'ST3VRQJMS69354J6DTPKG5W67XP31D4E6HJW708W4.Wrapped-Bitcoin'
 [contracts.Wrapped-Bitcoin]
 path = 'contracts/Wrapped-Bitcoin.clar'
 clarity_version = 2
@@ -20,8 +22,18 @@ path = 'contracts/amm-swap-pool-v1-1.clar'
 clarity_version = 2
 epoch = 2.1
 
+[contracts.bridge]
+path = 'contracts/bridge.clar'
+clarity_version = 2
+epoch = 2.1
+
 [contracts.bridge-contract]
 path = 'contracts/bridge-contract.clar'
+clarity_version = 2
+epoch = 2.1
+
+[contracts.clarity-bitcoin]
+path = 'contracts/clarity-bitcoin.clar'
 clarity_version = 2
 epoch = 2.1
 

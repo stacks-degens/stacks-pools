@@ -44,7 +44,7 @@ const div_one_8 = (amount) => {
 };
 
 Clarinet.test({
-  name: "Creating a trading pool",
+  name: "Exchanging both STX to xBTC and xBTC to STX with 8 users",
   async fn(chain: Chain, accounts: Map<string, Account>) {
     let deployer = accounts.get("deployer")!;
     let wallet_1 = accounts.get("wallet_1")!;
