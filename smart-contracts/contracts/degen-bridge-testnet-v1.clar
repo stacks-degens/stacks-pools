@@ -315,7 +315,7 @@
       (output-script (get scriptPubKey output))
       (supplier (unwrap! (map-get? supplier-by-id supplier-id) ERR_INVALID_SUPPLIER))
       (sats (get value output))
-      (fee-rate (unwrap! (get inbound-fee supplier) ERR_INVALID_SUPPLIER))
+      (fee-rate (default-to 0 (get inbound-fee supplier)))
       (xbtc (try! (get-swap-amount sats fee-rate (get inbound-base-fee supplier))))
       (funds (get-funds supplier-id))
       (funds-ok (asserts! (>= funds xbtc) ERR_INSUFFICIENT_FUNDS))
@@ -450,7 +450,7 @@
   (let
     (
       (supplier (unwrap! (map-get? supplier-by-id supplier-id) ERR_INVALID_SUPPLIER))
-      (fee-rate (unwrap! (get outbound-fee supplier) ERR_INVALID_SUPPLIER))
+      (fee-rate (default-to 0 (get outbound-fee supplier)))
       (sats (try! (get-swap-amount xbtc fee-rate (get outbound-base-fee supplier))))
       (swap {
         sats: sats,

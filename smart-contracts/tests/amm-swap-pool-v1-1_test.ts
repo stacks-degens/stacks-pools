@@ -64,7 +64,7 @@ Clarinet.test({
     ]);
 
     assertEquals(block.receipts.length, 2);
-    assertEquals(block.height, 2);
+    assertEquals(block.height, 3);
     block.receipts[0].result.expectOk().expectBool(true);
     block.receipts[1].result.expectOk().expectBool(true);
 
@@ -82,7 +82,7 @@ Clarinet.test({
     ]);
 
     assertEquals(block.receipts.length, 1);
-    assertEquals(block.height, 3);
+    assertEquals(block.height, 4);
     block.receipts[0].result.expectOk().expectBool(true);
 
     // 2. alex-vault-v1-1
@@ -113,7 +113,7 @@ Clarinet.test({
     ]);
 
     assertEquals(block.receipts.length, 3);
-    assertEquals(block.height, 4);
+    assertEquals(block.height, 5);
     block.receipts[0].result.expectOk().expectBool(true);
     block.receipts[1].result.expectOk().expectBool(true);
     block.receipts[2].result.expectOk().expectBool(true);
@@ -184,7 +184,7 @@ Clarinet.test({
     ]);
 
     assertEquals(block.receipts.length, 5);
-    assertEquals(block.height, 5);
+    assertEquals(block.height, 6);
     block.receipts[0].result.expectOk().expectBool(true);
     block.receipts[1].result.expectOk().expectBool(true);
     block.receipts[2].result.expectOk().expectBool(true);
@@ -208,7 +208,7 @@ Clarinet.test({
     ]);
 
     assertEquals(block.receipts.length, 1);
-    assertEquals(block.height, 6);
+    assertEquals(block.height, 7);
     block.receipts[0].result.expectOk();
     let StxExchangeResult = block.receipts[0].result.expectOk();
     console.log("1 xBTC == ", StxExchangeResult);

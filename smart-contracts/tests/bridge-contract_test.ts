@@ -81,7 +81,7 @@ Clarinet.test({
     ]);
 
     assertEquals(block.receipts.length, 2);
-    assertEquals(block.height, 2);
+    assertEquals(block.height, 3);
     block.receipts[0].result.expectOk().expectBool(true);
     block.receipts[1].result.expectOk().expectBool(true);
 
@@ -99,7 +99,7 @@ Clarinet.test({
     ]);
 
     assertEquals(block.receipts.length, 1);
-    assertEquals(block.height, 3);
+    assertEquals(block.height, 4);
     block.receipts[0].result.expectOk().expectBool(true);
 
     for (let i = 1; i <= 4; i++) {
@@ -125,7 +125,7 @@ Clarinet.test({
       ]);
 
       assertEquals(block.receipts.length, 2);
-      assertEquals(block.height, i + 3);
+      assertEquals(block.height, i + 4);
       block.receipts[0].result.expectOk().expectBool(true);
     }
 
@@ -158,7 +158,7 @@ Clarinet.test({
     ]);
 
     assertEquals(block.receipts.length, 3);
-    assertEquals(block.height, 8);
+    assertEquals(block.height, 9);
     block.receipts[0].result.expectOk().expectBool(true);
     block.receipts[1].result.expectOk().expectBool(true);
     block.receipts[2].result.expectOk().expectBool(true);
@@ -230,7 +230,7 @@ Clarinet.test({
     ]);
 
     assertEquals(block.receipts.length, 5);
-    assertEquals(block.height, 9);
+    assertEquals(block.height, 10);
     block.receipts[0].result.expectOk().expectBool(true);
     block.receipts[1].result.expectOk().expectBool(true);
     block.receipts[2].result.expectOk().expectBool(true);
@@ -257,7 +257,7 @@ Clarinet.test({
       ]);
 
       assertEquals(block.receipts.length, 1);
-      assertEquals(block.height, i + 9);
+      assertEquals(block.height, i + 10);
 
       block.receipts[0].result
         .expectOk()
@@ -288,7 +288,7 @@ Clarinet.test({
       ]);
 
       assertEquals(block.receipts.length, 1);
-      assertEquals(block.height, i + 17);
+      assertEquals(block.height, i + 18);
       let StxExchangeResult = block.receipts[0].result
         .expectOk()
         .expectUint(StxXbtcTransferResults[100][i - 1]);

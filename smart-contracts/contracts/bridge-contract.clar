@@ -28,16 +28,60 @@
     (fee-amount 
       (contract-call? .amm-swap-pool-v1-1 fee-helper token-x token-y ONE_8))
     (get-helper-result (try! (contract-call? .amm-swap-pool-v1-1 get-helper token-x token-y ONE_8 multiplied-amount)))
-    (stx-amount 
+    (converted-amount 
       (mul-down 
         get-helper-result 
         (- ONE_8 (unwrap-panic fee-amount))))
-    (stx-amount-slippeage (minus-percent stx-amount slippeage)))
+    (converted-amount-slippeage (minus-percent converted-amount slippeage)))
     (try! (contract-call? 
         .amm-swap-pool-v1-1 swap-helper
           token-x-trait
           token-y-trait
           ONE_8
           multiplied-amount
-        (some stx-amount-slippeage)))
-    (ok stx-amount)))
+        (some converted-amount-slippeage)))
+    (ok converted-amount)))
+
+(define-public (swap-bridge-stx-btc 
+                  (token-x-trait <ft-trait>) 
+                  (token-y-trait <ft-trait>) 
+                  (multiplied-amount uint) 
+                  (slippeage uint) 
+                  (btc-version (buff 1)) 
+                  (btc-hash (buff 20)) 
+                  (supplier-id uint)) 
+  (let (
+    (token-x (contract-of token-x-trait))
+    (token-y (contract-of token-y-trait))
+    (fee-amount 
+      (contract-call? .amm-swap-pool-v1-1 fee-helper token-x token-y ONE_8))
+    (get-helper-result (try! (contract-call? .amm-swap-pool-v1-1 get-helper token-x token-y ONE_8 multiplied-amount)))
+    (xbtc-amount 
+      (mul-down 
+        get-helper-result 
+        (- ONE_8 (unwrap-panic fee-amount))))
+    (xbtc-amount-slippeage (minus-percent xbtc-amount slippeage))
+    (xbtc-to-bridge (/ (* xbtc-amount u90) u100)))
+    (try! (contract-call? 
+        .amm-swap-pool-v1-1 swap-helper
+          token-x-trait
+          token-y-trait
+          ONE_8
+          multiplied-amount
+        (some xbtc-amount-slippeage)))
+    (try! (contract-call? .degen-bridge-testnet-v1 initiate-outbound-swap xbtc-to-bridge btc-version btc-hash supplier-id))
+    (ok xbtc-amount)))
+
+(define-public (swap-preview (token-x-trait <ft-trait>) (token-y-trait <ft-trait>) (multiplied-amount uint) (slippeage uint)) 
+  (let (
+    (token-x (contract-of token-x-trait))
+    (token-y (contract-of token-y-trait))
+    (fee-amount 
+      (contract-call? .amm-swap-pool-v1-1 fee-helper token-x token-y ONE_8))
+    (get-helper-result (try! (contract-call? .amm-swap-pool-v1-1 get-helper token-x token-y ONE_8 multiplied-amount)))
+    (converted-amount 
+      (mul-down 
+        get-helper-result 
+        (- ONE_8 (unwrap-panic fee-amount))))
+    (converted-amount-slippeage (minus-percent converted-amount slippeage)))
+      (ok converted-amount)))

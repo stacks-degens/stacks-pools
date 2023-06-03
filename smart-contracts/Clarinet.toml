@@ -7,6 +7,9 @@ cache_dir = './.cache'
 
 [[project.requirements]]
 contract_id = 'ST3VRQJMS69354J6DTPKG5W67XP31D4E6HJW708W4.Wrapped-Bitcoin'
+
+[[project.requirements]]
+contract_id = 'ST19F1KWRKRF2BZMPW7MWV463K11WED2M39X1HR3A.clarity-bitcoin'
 [contracts.Wrapped-Bitcoin]
 path = 'contracts/Wrapped-Bitcoin.clar'
 clarity_version = 2
@@ -22,8 +25,8 @@ path = 'contracts/amm-swap-pool-v1-1.clar'
 clarity_version = 2
 epoch = 2.1
 
-[contracts.bridge]
-path = 'contracts/bridge.clar'
+[contracts.degen-bridge-testnet-v1]
+path = 'contracts/degen-bridge-testnet-v1.clar'
 clarity_version = 2
 epoch = 2.1
 
