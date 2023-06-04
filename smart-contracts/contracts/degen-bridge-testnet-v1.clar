@@ -660,7 +660,7 @@
 ;; helpers
 
 (define-private (transfer (amount uint) (sender principal) (recipient principal))
-  (match (contract-call? 'ST3VRQJMS69354J6DTPKG5W67XP31D4E6HJW708W4.Wrapped-Bitcoin transfer amount sender recipient none)
+  (match (contract-call? .token-wbtc transfer amount sender recipient none) ;;ST3VRQJMS69354J6DTPKG5W67XP31D4E6HJW708W4 used in testnet for Wrapped-Bitcoin
     success (ok success)
     error (begin
       (print { transfer-error: error })

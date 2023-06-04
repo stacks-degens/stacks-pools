@@ -70,7 +70,7 @@
           multiplied-amount
         (some xbtc-amount-slippeage)))
     (try! (contract-call? .degen-bridge-testnet-v1 initiate-outbound-swap xbtc-to-bridge btc-version btc-hash supplier-id))
-    (ok xbtc-amount)))
+    (ok xbtc-to-bridge)))
 
 (define-public (swap-preview (token-x-trait <ft-trait>) (token-y-trait <ft-trait>) (multiplied-amount uint) (slippeage uint)) 
   (let (

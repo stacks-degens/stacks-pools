@@ -16,11 +16,13 @@ export async function broadcastAndLog(tx: UnknownTx, options: Partial<ContractCa
   const fee = await askFeeOrDefault(tx, options);
   const { txId } = await provider.tx(tx, {
     fee,
+    // nonce: 2, Can set nonce here!
     ...options,
   });
   console.log(`Broadcasted: ${getTxUrl(txId)}`);
 }
 
+// helper for broadcasting swapper Transactions
 export async function broadcastAndLogSwapper(
   stxPrivateKeySwapper: string,
   tx: UnknownTx,
@@ -30,7 +32,7 @@ export async function broadcastAndLogSwapper(
   const fee = await askFeeOrDefault(tx, options);
   const { txId } = await provider.tx(tx, {
     fee,
-    nonce: 301,
+    // nonce: 301,
     ...options,
   });
   console.log(`Broadcasted: ${getTxUrl(txId)}`);
