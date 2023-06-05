@@ -3980,7 +3980,7 @@ export const deployments = {
   bridge: {
     devnet: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bridge',
     simnet: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bridge',
-    testnet: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.degen-bridge-testnet-v1',
+    testnet: 'ST2QTSJYZF2ZTQPC574HFNGTQAEM2ZX8GHQEYDNT6.degen-bridge-testnet-v1',
     mainnet: 'SP1WN90HKT0E1FWCJT9JFPMC8YP7XGBGFNZGHRVZX.bridge',
   },
   ftTrait: {

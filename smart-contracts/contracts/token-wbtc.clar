@@ -203,4 +203,4 @@
 )
 
 ;; contract initialisation
-(set-contract-owner .executor-dao)
+(set-contract-owner tx-sender)

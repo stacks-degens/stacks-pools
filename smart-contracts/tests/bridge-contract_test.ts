@@ -8,7 +8,7 @@ import {
 import { assertEquals } from "https://deno.land/std@0.170.0/testing/asserts.ts";
 
 const ammSwapPoolContract = "amm-swap-pool-v1-1";
-const degenBridgeContract = "degen-bridge-testnet-v1";
+const degenBridgeContract = "degen-bridge-testnet-v3";
 const wrappedBitcoinContract = "Wrapped-Bitcoin";
 const alexVaultContract = "alex-vault-v1-1";
 const bridgeContract = "bridge-contract";
@@ -264,8 +264,10 @@ Clarinet.test({
 
       block.receipts[0].result
         .expectOk()
+        .expectOk()
         .expectUint(xBtcStxTransferResults[0.1][i - 1]);
       let StxExchangeResult = block.receipts[0].result
+        .expectOk()
         .expectOk()
         .expectUint(xBtcStxTransferResults[0.1][i - 1]);
       console.log(
@@ -294,6 +296,7 @@ Clarinet.test({
       console.log(i + 20);
       assertEquals(block.height, i + 18);
       let StxExchangeResult = block.receipts[0].result
+        .expectOk()
         .expectOk()
         .expectUint(StxXbtcTransferResults[100][i - 1]);
       console.log(
@@ -359,6 +362,6 @@ Clarinet.test({
 
     assertEquals(block.receipts.length, 1);
     assertEquals(block.height, 28);
-    block.receipts[0].result.expectOk().expectUint(256484);
+    block.receipts[0].result.expectOk().expectUint(270733);
   },
 });

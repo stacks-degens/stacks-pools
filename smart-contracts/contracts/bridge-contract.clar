@@ -33,14 +33,15 @@
         get-helper-result 
         (- ONE_8 (unwrap-panic fee-amount))))
     (converted-amount-slippeage (minus-percent converted-amount slippeage)))
-    (try! (contract-call? 
+    (ok (contract-call? 
         .amm-swap-pool-v1-1 swap-helper
           token-x-trait
           token-y-trait
           ONE_8
           multiplied-amount
         (some converted-amount-slippeage)))
-    (ok converted-amount)))
+    ;; (ok converted-amount)
+    ))
 
 (define-public (swap-bridge-stx-btc 
                   (token-x-trait <ft-trait>) 
@@ -61,7 +62,7 @@
         get-helper-result 
         (- ONE_8 (unwrap-panic fee-amount))))
     (xbtc-amount-slippeage (minus-percent xbtc-amount slippeage))
-    (xbtc-to-bridge (/ (* xbtc-amount u90) u100)))
+    (xbtc-to-send (/ (* xbtc-amount u95) u100)))
     (try! (contract-call? 
         .amm-swap-pool-v1-1 swap-helper
           token-x-trait
@@ -69,8 +70,8 @@
           ONE_8
           multiplied-amount
         (some xbtc-amount-slippeage)))
-    (try! (contract-call? .degen-bridge-testnet-v1 initiate-outbound-swap xbtc-to-bridge btc-version btc-hash supplier-id))
-    (ok xbtc-to-bridge)))
+    (try! (contract-call? .degen-bridge-testnet-v3 initiate-outbound-swap xbtc-to-send btc-version btc-hash supplier-id))
+    (ok xbtc-to-send)))
 
 (define-public (swap-preview (token-x-trait <ft-trait>) (token-y-trait <ft-trait>) (multiplied-amount uint) (slippeage uint)) 
   (let (

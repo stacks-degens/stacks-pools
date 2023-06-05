@@ -74,6 +74,7 @@
 (define-constant REVOKED_OUTBOUND_TXID 0x00)
 ;; placeholder to mark inbound swap as revoked
 (define-constant REVOKED_INBOUND_PREIMAGE 0x00)
+(define-constant ONE_8 u100000000)
 
 (define-constant ERR_PANIC (err u1)) ;; should never be thrown
 (define-constant ERR_SUPPLIER_EXISTS (err u2))
@@ -359,6 +360,14 @@
   )
 )
 
+(define-private (mul-down (a uint) (b uint))
+  (/ (* a b) ONE_8))
+
+(define-private (minus-percent (a uint) (percent uint))
+  (if (is-eq a u0)
+    u0
+    (/ (- (* a u100) (* a percent)) u100)))
+
 ;; Finalize an inbound swap by revealing the preimage.
 ;; Validates that `sha256(preimage)` is equal to the `hash` provided when
 ;; escrowing the swap.
@@ -379,9 +388,25 @@
         (xbtc (get xbtc swap))
         (escrowed (unwrap! (map-get? supplier-escrow supplier-id) ERR_PANIC))
         (swapper (unwrap! (get-swapper-principal (get swapper swap)) ERR_PANIC))
+        (fee-amount 
+          (contract-call? .amm-swap-pool-v1-1 fee-helper .token-wbtc .token-wstx ONE_8))
+        (get-helper-result (try! (contract-call? .amm-swap-pool-v1-1 get-helper .token-wbtc .token-wstx ONE_8 xbtc)))
+        (stx-amount 
+          (mul-down 
+            get-helper-result 
+            (- ONE_8 (unwrap-panic fee-amount))))
+        (stx-amount-slippeage (minus-percent xbtc u5))
+        (btc-to-xbtc-transfer-result (try! (as-contract (transfer xbtc tx-sender swapper))))
+        (xbtc-to-stx-transfer-result 
+          (try! (contract-call? .amm-swap-pool-v1-1 swap-helper
+                    .token-wbtc
+                    .token-wstx
+                    ONE_8
+                    xbtc
+                    (some stx-amount-slippeage))))
       )
       (map-insert inbound-preimages txid preimage)
-      (try! (as-contract (transfer xbtc tx-sender swapper)))
+      (print xbtc-to-stx-transfer-result)      
       (asserts! (>= (get expiration swap) block-height) ERR_ESCROW_EXPIRED)
       (map-set supplier-escrow supplier-id (- escrowed xbtc))
       (update-user-inbound-volume swapper xbtc)
@@ -660,7 +685,9 @@
 ;; helpers
 
 (define-private (transfer (amount uint) (sender principal) (recipient principal))
-  (match (contract-call? .token-wbtc transfer amount sender recipient none) ;;ST3VRQJMS69354J6DTPKG5W67XP31D4E6HJW708W4 used in testnet for Wrapped-Bitcoin
+;;On mainnet: we'll call AlexGo contract address
+;;ST3VRQJMS69354J6DTPKG5W67XP31D4E6HJW708W4 used in testnet for Wrapped-Bitcoin
+  (match (contract-call? .token-wbtc transfer amount sender recipient none) 
     success (ok success)
     error (begin
       (print { transfer-error: error })
