@@ -20,6 +20,7 @@ const contractNetwork =
   network === 'mainnet' ? new StacksMainnet() : network === 'testnet' ? new StacksTestnet() : new StacksMocknet();
 
 const CallFunctions = (
+  type: 'mining' | 'stacking',
   function_args: ClarityValue[],
   contractFunctionName: string,
   post_condition_args: STXPostCondition[]
@@ -27,8 +28,8 @@ const CallFunctions = (
   const options = {
     network: contractNetwork,
     anchorMode: AnchorMode.Any,
-    contractAddress: contractMapping[network].contractAddress,
-    contractName: contractMapping[network].contractName,
+    contractAddress: contractMapping[type][network].contractAddress,
+    contractName: contractMapping[type][network].contractName,
     functionName: contractFunctionName,
     functionArgs: function_args,
     postConditionMode: PostConditionMode.Deny,
@@ -52,9 +53,9 @@ const createPostConditionSTXTransferToContract = (userAddress: string, condition
   return makeStandardSTXPostCondition(postConditionAddress, postConditionCode, postConditionAmount);
 };
 
-const createPostConditionSTXTransferFromContract = (conditionAmount: number) => {
-  const postConditionAddress = contractMapping[network].contractAddress;
-  const postConditionContract = contractMapping[network].contractName;
+const createPostConditionSTXTransferFromContract = (conditionAmount: number, type: 'mining' | 'stacking') => {
+  const postConditionAddress = contractMapping[type][network].contractAddress;
+  const postConditionContract = contractMapping[type][network].contractName;
   const postConditionCode = FungibleConditionCode.Equal;
   const postConditionAmount = conditionAmount;
 
@@ -73,7 +74,8 @@ const createPostConditionSTXTransferFromContract = (conditionAmount: number) => 
 
 export const ContractVotePositiveJoin = (args: string) => {
   const convertedArgs = [convertPrincipalToArg(args)];
-  CallFunctions(convertedArgs, functionMapping.publicFunctions.votePositiveJoinRequest, []);
+  const type = 'mining';
+  CallFunctions(type, convertedArgs, functionMapping.publicFunctions.votePositiveJoinRequest, []);
 };
 
 // vote-negative-join-request
@@ -83,7 +85,8 @@ export const ContractVotePositiveJoin = (args: string) => {
 
 export const ContractVoteNegativeJoin = (args: string) => {
   const convertedArgs = [convertPrincipalToArg(args)];
-  CallFunctions(convertedArgs, functionMapping.publicFunctions.voteNegativeJoinRequest, []);
+  const type = 'mining';
+  CallFunctions(type, convertedArgs, functionMapping.publicFunctions.voteNegativeJoinRequest, []);
 };
 
 // try-enter-pool
@@ -92,7 +95,8 @@ export const ContractVoteNegativeJoin = (args: string) => {
 //                  (the user needs to pass the positive votes threshold)
 
 export const ContractTryEnterPool = () => {
-  CallFunctions([], functionMapping.publicFunctions.tryEnterPool, []);
+  const type = 'mining';
+  CallFunctions(type, [], functionMapping.publicFunctions.tryEnterPool, []);
 };
 
 // ask-to-join
@@ -101,7 +105,8 @@ export const ContractTryEnterPool = () => {
 
 export const ContractAskToJoin = (args: string) => {
   const convertedArgs = [stringCV(args, 'ascii')];
-  CallFunctions(convertedArgs, functionMapping.publicFunctions.askToJoin, []);
+  const type = 'mining';
+  CallFunctions(type, convertedArgs, functionMapping.publicFunctions.askToJoin, []);
 };
 
 // deposit-stx
@@ -109,9 +114,10 @@ export const ContractAskToJoin = (args: string) => {
 // what does it do: deposits stx into user's account
 
 export const ContractDepositSTX = (amount: number, userAddress: string) => {
+  const type = 'mining';
   const convertedArgs = [uintCV(amount * 1000000)];
   const postConditions = createPostConditionSTXTransferToContract(userAddress, amount * 1000000);
-  CallFunctions(convertedArgs, functionMapping.publicFunctions.depositStx, [postConditions]);
+  CallFunctions(type, convertedArgs, functionMapping.publicFunctions.depositStx, [postConditions]);
 };
 
 // withdraw-stx
@@ -119,9 +125,10 @@ export const ContractDepositSTX = (amount: number, userAddress: string) => {
 // what does it do: withdraws stx from user's account
 
 export const ContractWithdrawSTX = (amount: number) => {
+  const type = 'mining';
   const convertedArgs = [uintCV(amount * 1000000)];
-  const postConditions = createPostConditionSTXTransferFromContract(amount * 1000000);
-  CallFunctions(convertedArgs, functionMapping.publicFunctions.withdrawStx, [postConditions]);
+  const postConditions = createPostConditionSTXTransferFromContract(amount * 1000000, type);
+  CallFunctions(type, convertedArgs, functionMapping.publicFunctions.withdrawStx, [postConditions]);
 };
 
 // reward-distribution
@@ -129,8 +136,9 @@ export const ContractWithdrawSTX = (amount: number) => {
 // what does it do: distributes rewards for a given block
 
 export const ContractRewardDistribution = (blockHeight: number) => {
+  const type = 'mining';
   const convertedArgs = [uintCV(blockHeight)];
-  CallFunctions(convertedArgs, functionMapping.publicFunctions.rewardDistribution, []);
+  CallFunctions(type, convertedArgs, functionMapping.publicFunctions.rewardDistribution, []);
 };
 
 // add-pending-miners-to-pool
@@ -138,7 +146,8 @@ export const ContractRewardDistribution = (blockHeight: number) => {
 // what does it do: It adds all the pending miners from pending list to pool
 
 export const ContractAddPending = () => {
-  CallFunctions([], functionMapping.publicFunctions.addPendingMinersToPool, []);
+  const type = 'mining';
+  CallFunctions(type, [], functionMapping.publicFunctions.addPendingMinersToPool, []);
 };
 
 // leave-pool
@@ -146,7 +155,8 @@ export const ContractAddPending = () => {
 // what does it do: makes the user leave the mining pool
 
 export const ContractLeavePool = () => {
-  CallFunctions([], functionMapping.publicFunctions.leavePool, []);
+  const type = 'mining';
+  CallFunctions(type, [], functionMapping.publicFunctions.leavePool, []);
 };
 
 // propose-removal
@@ -154,8 +164,9 @@ export const ContractLeavePool = () => {
 // what does it do: propose a miner to be removed from the pool
 
 export const ContractProposeRemoval = (args: string) => {
+  const type = 'mining';
   const convertedArgs = [convertPrincipalToArg(args)];
-  CallFunctions(convertedArgs, functionMapping.publicFunctions.proposeRemoval, []);
+  CallFunctions(type, convertedArgs, functionMapping.publicFunctions.proposeRemoval, []);
 };
 
 // vote-positive-remove-request
@@ -163,8 +174,9 @@ export const ContractProposeRemoval = (args: string) => {
 // what does it do: add 1 to the positive votes to remove the user passed as argument
 
 export const ContractVotePositiveRemove = (args: string) => {
+  const type = 'mining';
   const convertedArgs = [convertPrincipalToArg(args)];
-  CallFunctions(convertedArgs, functionMapping.publicFunctions.votePositiveRemoveRequest, []);
+  CallFunctions(type, convertedArgs, functionMapping.publicFunctions.votePositiveRemoveRequest, []);
 };
 
 // vote-negative-remove-request
@@ -172,8 +184,9 @@ export const ContractVotePositiveRemove = (args: string) => {
 // what does it do: add 1 to the negative votes to remove the user passed as argument
 
 export const ContractVoteNegativeRemove = (args: string) => {
+  const type = 'mining';
   const convertedArgs = [convertPrincipalToArg(args)];
-  CallFunctions(convertedArgs, functionMapping.publicFunctions.voteNegativeRemoveRequest, []);
+  CallFunctions(type, convertedArgs, functionMapping.publicFunctions.voteNegativeRemoveRequest, []);
 };
 
 // start-vote-notifier
@@ -181,7 +194,8 @@ export const ContractVoteNegativeRemove = (args: string) => {
 // what does it do: starts the vote to elect a notifier
 
 export const ContractStartVoteNotifier = () => {
-  CallFunctions([], functionMapping.publicFunctions.startVoteNotifier, []);
+  const type = 'mining';
+  CallFunctions(type, [], functionMapping.publicFunctions.startVoteNotifier, []);
 };
 
 // end-vote-notifier
@@ -189,7 +203,8 @@ export const ContractStartVoteNotifier = () => {
 // what does it do: ends the vote for the notifier election
 
 export const ContractEndVoteNotifier = () => {
-  CallFunctions([], functionMapping.publicFunctions.endVoteNotifier, []);
+  const type = 'mining';
+  CallFunctions(type, [], functionMapping.publicFunctions.endVoteNotifier, []);
 };
 
 // vote-notifier
@@ -197,8 +212,9 @@ export const ContractEndVoteNotifier = () => {
 // what does it do: adds a vote to the given notifier
 
 export const ContractVoteForNotifier = (votedNotifier: string) => {
+  const type = 'mining';
   const convertedArgs = [convertPrincipalToArg(votedNotifier)];
-  CallFunctions(convertedArgs, functionMapping.publicFunctions.voteNotifier, []);
+  CallFunctions(type, convertedArgs, functionMapping.publicFunctions.voteNotifier, []);
 };
 
 // warn-miner
@@ -206,8 +222,9 @@ export const ContractVoteForNotifier = (votedNotifier: string) => {
 // what does it do: warns the user passed as argument
 
 export const ContractWarnMiner = (warnedMiner: string) => {
+  const type = 'mining';
   const convertedArgs = [convertPrincipalToArg(warnedMiner)];
-  CallFunctions(convertedArgs, functionMapping.publicFunctions.warnMiner, []);
+  CallFunctions(type, convertedArgs, functionMapping.publicFunctions.warnMiner, []);
 };
 
 // set-my-btc-address
@@ -215,8 +232,9 @@ export const ContractWarnMiner = (warnedMiner: string) => {
 // what does it do: changed the btc address to the one given as arg
 
 export const ContractChangeBtcAddress = (args: string) => {
+  const type = 'mining';
   const convertedArgs = [convertStringToArg(args)];
-  CallFunctions(convertedArgs, functionMapping.publicFunctions.setMyBtcAddress, []);
+  CallFunctions(type, convertedArgs, functionMapping.publicFunctions.setMyBtcAddress, []);
 };
 
 // set-auto-exchange
@@ -224,6 +242,7 @@ export const ContractChangeBtcAddress = (args: string) => {
 // what does it do: switches the state of auto-exchange to the given value
 
 export const ContractSetAutoExchange = (value: boolean) => {
+  const type = 'mining';
   const convertedArgs = [boolCV(value)];
-  CallFunctions(convertedArgs, functionMapping.publicFunctions.setAutoExchange, []);
+  CallFunctions(type, convertedArgs, functionMapping.publicFunctions.setAutoExchange, []);
 };
