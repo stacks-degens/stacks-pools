@@ -1,4 +1,4 @@
-import { selectCurrentTheme, selectCurrentUserRole, selectUserSessionState } from '../../../redux/reducers/user-state';
+import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
 import { UserRole } from '../../../redux/reducers/user-state';
 import './styles.css';
