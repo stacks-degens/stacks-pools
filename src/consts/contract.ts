@@ -1,6 +1,15 @@
 import { networkType } from './network';
 
-type ContractMapping = Record<
+// type ContractMapping = Record<
+//   networkType,
+//   {
+//     contractAddress: string;
+//     contractName: string;
+//     owner: string;
+//   }
+// >;
+
+type NetworkTypeMiningAndStacking = Record<
   networkType,
   {
     contractAddress: string;
@@ -8,22 +17,44 @@ type ContractMapping = Record<
     owner: string;
   }
 >;
+type contractTypes = 'mining' | 'stacking';
+type ContractMapping = Record<contractTypes, NetworkTypeMiningAndStacking>;
 
 export const contractMapping: ContractMapping = {
-  mainnet: {
-    contractAddress: '', // TODO: complete when deployed
-    contractName: '', // TODO: complete when deployed
-    owner: '', // TODO: complete when deployed
+  mining: {
+    mainnet: {
+      contractAddress: '', // TODO: complete when deployed
+      contractName: '', // TODO: complete when deployed
+      owner: '', // TODO: complete when deployed
+    },
+    testnet: {
+      contractAddress: 'ST02D2KP0630FS1BCJ7YM4TYMDH6NS9QKR0B57R3',
+      contractName: 'main-contract-5-blocks-v2',
+      owner: 'ST02D2KP0630FS1BCJ7YM4TYMDH6NS9QKR0B57R3',
+    },
+    devnet: {
+      contractAddress: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
+      contractName: 'main-contract-5-blocks',
+      owner: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
+    },
   },
-  testnet: {
-    contractAddress: 'ST02D2KP0630FS1BCJ7YM4TYMDH6NS9QKR0B57R3',
-    contractName: 'main-contract-5-blocks-v2',
-    owner: 'ST02D2KP0630FS1BCJ7YM4TYMDH6NS9QKR0B57R3',
-  },
-  devnet: {
-    contractAddress: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
-    contractName: 'main-contract-5-blocks',
-    owner: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
+
+  stacking: {
+    mainnet: {
+      contractAddress: '', // TODO: complete when deployed
+      contractName: '', // TODO: complete when deployed
+      owner: '', // TODO: complete when deployed
+    },
+    testnet: {
+      contractAddress: 'ST02D2KP0630FS1BCJ7YM4TYMDH6NS9QKR0B57R3',
+      contractName: 'main-contract-5-blocks-v2',
+      owner: 'ST02D2KP0630FS1BCJ7YM4TYMDH6NS9QKR0B57R3',
+    },
+    devnet: {
+      contractAddress: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
+      contractName: 'main-contract-5-blocks',
+      owner: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
+    },
   },
 };
 
