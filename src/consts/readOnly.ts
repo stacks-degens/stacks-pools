@@ -41,7 +41,7 @@ export const readOnlyAddressStatus = async (args: string) => {
   const type = 'mining';
   const statusArgs = convertPrincipalToArg(args);
 
-  const status = await ReadOnlyFunctions(type, [statusArgs], functionMapping.readOnlyFunctions.getAddressStatus);
+  const status = await ReadOnlyFunctions(type, [statusArgs], functionMapping[type].readOnlyFunctions.getAddressStatus);
 
   const statusInfo = cvToJSON(status).value.value;
 
@@ -74,7 +74,7 @@ export const ReadOnlyAllDataWaitingMiners = async (fullWaitingList: ClarityValue
     const newResult = await ReadOnlyFunctions(
       type,
       [newWaitingList],
-      functionMapping.readOnlyFunctions.getAllDataWaitingMiners
+      functionMapping[type].readOnlyFunctions.getAllDataWaitingMiners
     );
 
     if (newResult) {
@@ -95,7 +95,7 @@ export const ReadOnlyGetProposedRemovalList = async () => {
   const removalList: ClarityValue = await ReadOnlyFunctions(
     type,
     [],
-    functionMapping.readOnlyFunctions.getProposedRemovalList
+    functionMapping[type].readOnlyFunctions.getProposedRemovalList
   );
   return removalList;
 };
@@ -134,7 +134,7 @@ export const ReadOnlyAllDataProposedRemovalMiners = async () => {
     const newResult = await ReadOnlyFunctions(
       type,
       [newRemovalsList],
-      functionMapping.readOnlyFunctions.getAllDataMinersProposedForRemoval
+      functionMapping[type].readOnlyFunctions.getAllDataMinersProposedForRemoval
     );
 
     if (newResult) {
@@ -165,7 +165,7 @@ export const readOnlyGetAllDataMinersPendingAccept = async () => {
     const newResult = await ReadOnlyFunctions(
       type,
       [newWaitingList],
-      functionMapping.readOnlyFunctions.getAllDataMinersPendingAccept
+      functionMapping[type].readOnlyFunctions.getAllDataMinersPendingAccept
     );
 
     if (newResult) {
@@ -186,7 +186,7 @@ export const readOnlyGetAllDataMinersInPool = async (address: string) => {
   const minerData = await ReadOnlyFunctions(
     type,
     convertedArgs,
-    functionMapping.readOnlyFunctions.getAllDataMinersInPool
+    functionMapping[type].readOnlyFunctions.getAllDataMinersInPool
   );
   const withdraws = await readOnlyGetAllTotalWithdrawals(address);
   const rawBalance = await readOnlyGetBalance(address);
@@ -215,7 +215,11 @@ export const readOnlyGetAllDataMinersInPool = async (address: string) => {
 
 export const readOnlyGetRemainingBlocksJoin = async () => {
   const type = 'mining';
-  const blocksLeft = await ReadOnlyFunctions(type, [], functionMapping.readOnlyFunctions.getRemainingBlocksUntilJoin);
+  const blocksLeft = await ReadOnlyFunctions(
+    type,
+    [],
+    functionMapping[type].readOnlyFunctions.getRemainingBlocksUntilJoin
+  );
   return Number(convertCVToValue(blocksLeft));
 };
 
@@ -229,7 +233,7 @@ export const readOnlyGetNotifierElectionProcessData = async () => {
   const notifierData = await ReadOnlyFunctions(
     type,
     [],
-    functionMapping.readOnlyFunctions.getDataNotifierElectionProcess
+    functionMapping[type].readOnlyFunctions.getDataNotifierElectionProcess
   );
   return cvToJSON(notifierData).value;
 };
@@ -244,7 +248,7 @@ export const readOnlyGetAllDataNotifierVoterMiners = async (voterMinersList: Cla
   const votedNotifier = await ReadOnlyFunctions(
     type,
     [voterMinersList],
-    functionMapping.readOnlyFunctions.getAllDataNotifierVoterMiners
+    functionMapping[type].readOnlyFunctions.getAllDataNotifierVoterMiners
   );
   return cvToJSON(votedNotifier).value[0].value.value === '133'
     ? "You haven't voted yet!"
@@ -259,7 +263,11 @@ export const readOnlyGetAllDataNotifierVoterMiners = async (voterMinersList: Cla
 export const readOnlyClaimedBlockStatus = async (blockHeight: number) => {
   const type = 'mining';
   const convertedArgs = [uintCV(blockHeight)];
-  const blockStatus = await ReadOnlyFunctions(type, convertedArgs, functionMapping.readOnlyFunctions.wasBlockClaimed);
+  const blockStatus = await ReadOnlyFunctions(
+    type,
+    convertedArgs,
+    functionMapping[type].readOnlyFunctions.wasBlockClaimed
+  );
   return cvToJSON(blockStatus).value;
 };
 
@@ -271,7 +279,7 @@ export const readOnlyClaimedBlockStatus = async (blockHeight: number) => {
 export const readOnlyGetBalance = async (principalAddress: string) => {
   const type = 'mining';
   const balanceArgs = convertPrincipalToArg(principalAddress);
-  const balance = await ReadOnlyFunctions(type, [balanceArgs], functionMapping.readOnlyFunctions.getBalance);
+  const balance = await ReadOnlyFunctions(type, [balanceArgs], functionMapping[type].readOnlyFunctions.getBalance);
   return cvToJSON(balance).value !== null ? Number(cvToJSON(balance).value.value) : 0;
 };
 
@@ -282,7 +290,7 @@ export const readOnlyGetBalance = async (principalAddress: string) => {
 
 export const readOnlyGetK = async () => {
   const type = 'mining';
-  const k = await ReadOnlyFunctions(type, [], functionMapping.readOnlyFunctions.getK);
+  const k = await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getK);
   return Number(cvToJSON(k).value);
 };
 
@@ -293,7 +301,7 @@ export const readOnlyGetK = async () => {
 
 export const readOnlyGetNotifier = async () => {
   const type = 'mining';
-  const currentNotifier = await ReadOnlyFunctions(type, [], functionMapping.readOnlyFunctions.getNotifier);
+  const currentNotifier = await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getNotifier);
   return cvToJSON(currentNotifier).value;
 };
 
@@ -304,7 +312,11 @@ export const readOnlyGetNotifier = async () => {
 
 export const ReadOnlyGetWaitingList = async () => {
   const type = 'mining';
-  const waitingList: ClarityValue = await ReadOnlyFunctions(type, [], functionMapping.readOnlyFunctions.getWaitingList);
+  const waitingList: ClarityValue = await ReadOnlyFunctions(
+    type,
+    [],
+    functionMapping[type].readOnlyFunctions.getWaitingList
+  );
   return waitingList;
 };
 
@@ -315,7 +327,7 @@ export const ReadOnlyGetWaitingList = async () => {
 
 export const ReadOnlyGetMinersList = async () => {
   const type = 'mining';
-  const minersList = cvToJSON(await ReadOnlyFunctions(type, [], functionMapping.readOnlyFunctions.getMinersList));
+  const minersList = cvToJSON(await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getMinersList));
   return minersList;
 };
 
@@ -326,7 +338,7 @@ export const ReadOnlyGetMinersList = async () => {
 
 export const readOnlyGetPendingAcceptList = async () => {
   const type = 'mining';
-  const pendingAccept = await ReadOnlyFunctions(type, [], functionMapping.readOnlyFunctions.getPendingAcceptList);
+  const pendingAccept = await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getPendingAcceptList);
   return pendingAccept;
 };
 
@@ -338,7 +350,7 @@ export const readOnlyGetPendingAcceptList = async () => {
 export const readOnlyGetNotifierVoteNumber = async (address: string) => {
   const type = 'mining';
   const principal = [convertPrincipalToArg(address)];
-  const votes = await ReadOnlyFunctions(type, principal, functionMapping.readOnlyFunctions.getNotifierVoteNumber);
+  const votes = await ReadOnlyFunctions(type, principal, functionMapping[type].readOnlyFunctions.getNotifierVoteNumber);
   return cvToJSON(votes).value === null ? 0 : Number(cvToJSON(votes).value.value);
 };
 
@@ -349,7 +361,11 @@ export const readOnlyGetNotifierVoteNumber = async (address: string) => {
 
 export const readOnlyGetNotifierVoteStatus = async () => {
   const type = 'mining';
-  const notifierVoteStatus = await ReadOnlyFunctions(type, [], functionMapping.readOnlyFunctions.getNotifierVoteStatus);
+  const notifierVoteStatus = await ReadOnlyFunctions(
+    type,
+    [],
+    functionMapping[type].readOnlyFunctions.getNotifierVoteStatus
+  );
   return notifierVoteStatus;
 };
 
@@ -360,7 +376,7 @@ export const readOnlyGetNotifierVoteStatus = async () => {
 
 export const readOnlyGetCurrentBlock = async () => {
   const type = 'mining';
-  const currentBlock = await ReadOnlyFunctions(type, [], functionMapping.readOnlyFunctions.getCurrentBlock);
+  const currentBlock = await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getCurrentBlock);
   return cvToJSON(currentBlock).value.value;
 };
 
@@ -372,7 +388,11 @@ export const readOnlyGetCurrentBlock = async () => {
 export const readOnlyExchangeToggle = async (args: string) => {
   const type = 'mining';
   const exchangeArgs = convertPrincipalToArg(args);
-  const exchange = await ReadOnlyFunctions(type, [exchangeArgs], functionMapping.readOnlyFunctions.getCurrentExchange);
+  const exchange = await ReadOnlyFunctions(
+    type,
+    [exchangeArgs],
+    functionMapping[type].readOnlyFunctions.getCurrentExchange
+  );
 
   return cvToJSON(exchange).value === null ? cvToJSON(exchange).value : cvToJSON(exchange).value.value.value.value;
 };
@@ -384,7 +404,7 @@ export const readOnlyExchangeToggle = async (args: string) => {
 
 export const readOnlyGetBlocksWon = async () => {
   const type = 'mining';
-  const wonBlocks = await ReadOnlyFunctions(type, [], functionMapping.readOnlyFunctions.getBlocksWon);
+  const wonBlocks = await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getBlocksWon);
   return cvToJSON(wonBlocks).value;
 };
 
@@ -395,7 +415,11 @@ export const readOnlyGetBlocksWon = async () => {
 
 export const readOnlyGetStacksRewards = async () => {
   const type = 'mining';
-  const stacksRewards = await ReadOnlyFunctions(type, [], functionMapping.readOnlyFunctions.getTotalRewardsDistributed);
+  const stacksRewards = await ReadOnlyFunctions(
+    type,
+    [],
+    functionMapping[type].readOnlyFunctions.getTotalRewardsDistributed
+  );
   return cvToJSON(stacksRewards).value;
 };
 
@@ -410,7 +434,7 @@ export const readOnlyGetAllTotalWithdrawals = async (address: string) => {
   const totalWithdrawals = await ReadOnlyFunctions(
     type,
     [convertedArgs],
-    functionMapping.readOnlyFunctions.getAllDataTotalWithdrawals
+    functionMapping[type].readOnlyFunctions.getAllDataTotalWithdrawals
   );
 
   return cvToJSON(totalWithdrawals).value[0].value.value;

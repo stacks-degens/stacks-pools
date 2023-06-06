@@ -75,7 +75,7 @@ const createPostConditionSTXTransferFromContract = (conditionAmount: number, typ
 export const ContractVotePositiveJoin = (args: string) => {
   const convertedArgs = [convertPrincipalToArg(args)];
   const type = 'mining';
-  CallFunctions(type, convertedArgs, functionMapping.publicFunctions.votePositiveJoinRequest, []);
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.votePositiveJoinRequest, []);
 };
 
 // vote-negative-join-request
@@ -86,7 +86,7 @@ export const ContractVotePositiveJoin = (args: string) => {
 export const ContractVoteNegativeJoin = (args: string) => {
   const convertedArgs = [convertPrincipalToArg(args)];
   const type = 'mining';
-  CallFunctions(type, convertedArgs, functionMapping.publicFunctions.voteNegativeJoinRequest, []);
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.voteNegativeJoinRequest, []);
 };
 
 // try-enter-pool
@@ -96,7 +96,7 @@ export const ContractVoteNegativeJoin = (args: string) => {
 
 export const ContractTryEnterPool = () => {
   const type = 'mining';
-  CallFunctions(type, [], functionMapping.publicFunctions.tryEnterPool, []);
+  CallFunctions(type, [], functionMapping[type].publicFunctions.tryEnterPool, []);
 };
 
 // ask-to-join
@@ -106,7 +106,7 @@ export const ContractTryEnterPool = () => {
 export const ContractAskToJoin = (args: string) => {
   const convertedArgs = [stringCV(args, 'ascii')];
   const type = 'mining';
-  CallFunctions(type, convertedArgs, functionMapping.publicFunctions.askToJoin, []);
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.askToJoin, []);
 };
 
 // deposit-stx
@@ -117,7 +117,7 @@ export const ContractDepositSTX = (amount: number, userAddress: string) => {
   const type = 'mining';
   const convertedArgs = [uintCV(amount * 1000000)];
   const postConditions = createPostConditionSTXTransferToContract(userAddress, amount * 1000000);
-  CallFunctions(type, convertedArgs, functionMapping.publicFunctions.depositStx, [postConditions]);
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.depositStx, [postConditions]);
 };
 
 // withdraw-stx
@@ -128,7 +128,7 @@ export const ContractWithdrawSTX = (amount: number) => {
   const type = 'mining';
   const convertedArgs = [uintCV(amount * 1000000)];
   const postConditions = createPostConditionSTXTransferFromContract(amount * 1000000, type);
-  CallFunctions(type, convertedArgs, functionMapping.publicFunctions.withdrawStx, [postConditions]);
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.withdrawStx, [postConditions]);
 };
 
 // reward-distribution
@@ -138,7 +138,7 @@ export const ContractWithdrawSTX = (amount: number) => {
 export const ContractRewardDistribution = (blockHeight: number) => {
   const type = 'mining';
   const convertedArgs = [uintCV(blockHeight)];
-  CallFunctions(type, convertedArgs, functionMapping.publicFunctions.rewardDistribution, []);
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.rewardDistribution, []);
 };
 
 // add-pending-miners-to-pool
@@ -147,7 +147,7 @@ export const ContractRewardDistribution = (blockHeight: number) => {
 
 export const ContractAddPending = () => {
   const type = 'mining';
-  CallFunctions(type, [], functionMapping.publicFunctions.addPendingMinersToPool, []);
+  CallFunctions(type, [], functionMapping[type].publicFunctions.addPendingMinersToPool, []);
 };
 
 // leave-pool
@@ -156,7 +156,7 @@ export const ContractAddPending = () => {
 
 export const ContractLeavePool = () => {
   const type = 'mining';
-  CallFunctions(type, [], functionMapping.publicFunctions.leavePool, []);
+  CallFunctions(type, [], functionMapping[type].publicFunctions.leavePool, []);
 };
 
 // propose-removal
@@ -166,7 +166,7 @@ export const ContractLeavePool = () => {
 export const ContractProposeRemoval = (args: string) => {
   const type = 'mining';
   const convertedArgs = [convertPrincipalToArg(args)];
-  CallFunctions(type, convertedArgs, functionMapping.publicFunctions.proposeRemoval, []);
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.proposeRemoval, []);
 };
 
 // vote-positive-remove-request
@@ -176,7 +176,7 @@ export const ContractProposeRemoval = (args: string) => {
 export const ContractVotePositiveRemove = (args: string) => {
   const type = 'mining';
   const convertedArgs = [convertPrincipalToArg(args)];
-  CallFunctions(type, convertedArgs, functionMapping.publicFunctions.votePositiveRemoveRequest, []);
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.votePositiveRemoveRequest, []);
 };
 
 // vote-negative-remove-request
@@ -186,7 +186,7 @@ export const ContractVotePositiveRemove = (args: string) => {
 export const ContractVoteNegativeRemove = (args: string) => {
   const type = 'mining';
   const convertedArgs = [convertPrincipalToArg(args)];
-  CallFunctions(type, convertedArgs, functionMapping.publicFunctions.voteNegativeRemoveRequest, []);
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.voteNegativeRemoveRequest, []);
 };
 
 // start-vote-notifier
@@ -195,7 +195,7 @@ export const ContractVoteNegativeRemove = (args: string) => {
 
 export const ContractStartVoteNotifier = () => {
   const type = 'mining';
-  CallFunctions(type, [], functionMapping.publicFunctions.startVoteNotifier, []);
+  CallFunctions(type, [], functionMapping[type].publicFunctions.startVoteNotifier, []);
 };
 
 // end-vote-notifier
@@ -204,7 +204,7 @@ export const ContractStartVoteNotifier = () => {
 
 export const ContractEndVoteNotifier = () => {
   const type = 'mining';
-  CallFunctions(type, [], functionMapping.publicFunctions.endVoteNotifier, []);
+  CallFunctions(type, [], functionMapping[type].publicFunctions.endVoteNotifier, []);
 };
 
 // vote-notifier
@@ -214,7 +214,7 @@ export const ContractEndVoteNotifier = () => {
 export const ContractVoteForNotifier = (votedNotifier: string) => {
   const type = 'mining';
   const convertedArgs = [convertPrincipalToArg(votedNotifier)];
-  CallFunctions(type, convertedArgs, functionMapping.publicFunctions.voteNotifier, []);
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.voteNotifier, []);
 };
 
 // warn-miner
@@ -224,7 +224,7 @@ export const ContractVoteForNotifier = (votedNotifier: string) => {
 export const ContractWarnMiner = (warnedMiner: string) => {
   const type = 'mining';
   const convertedArgs = [convertPrincipalToArg(warnedMiner)];
-  CallFunctions(type, convertedArgs, functionMapping.publicFunctions.warnMiner, []);
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.warnMiner, []);
 };
 
 // set-my-btc-address
@@ -234,7 +234,7 @@ export const ContractWarnMiner = (warnedMiner: string) => {
 export const ContractChangeBtcAddress = (args: string) => {
   const type = 'mining';
   const convertedArgs = [convertStringToArg(args)];
-  CallFunctions(type, convertedArgs, functionMapping.publicFunctions.setMyBtcAddress, []);
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.setMyBtcAddress, []);
 };
 
 // set-auto-exchange
@@ -244,5 +244,5 @@ export const ContractChangeBtcAddress = (args: string) => {
 export const ContractSetAutoExchange = (value: boolean) => {
   const type = 'mining';
   const convertedArgs = [boolCV(value)];
-  CallFunctions(type, convertedArgs, functionMapping.publicFunctions.setAutoExchange, []);
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.setAutoExchange, []);
 };
