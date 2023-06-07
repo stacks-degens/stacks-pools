@@ -9,8 +9,9 @@ interface DashboardStackingInfoProps {
   currentRole: UserRoleMining;
   liquidityProvider: string | null;
   stackersList: Array<string>;
-  blocksRewarded: number | null;
+  blocksRewarded: number | null; //this is for the slots won
   bitcoinRewards: number | null;
+  stacksAmountThisCycle: number | null;
 }
 
 const DashboardStackingInfo = ({
@@ -19,6 +20,7 @@ const DashboardStackingInfo = ({
   stackersList,
   blocksRewarded,
   bitcoinRewards,
+  stacksAmountThisCycle,
 }: DashboardStackingInfoProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
   return (
@@ -70,7 +72,9 @@ const DashboardStackingInfo = ({
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Total stacked this cycle: </span>
-          <span className="result-of-content-section"></span>
+          <span className="result-of-content-section">
+            {stacksAmountThisCycle !== null ? stacksAmountThisCycle / 1000000 + ' STX' : ''}
+          </span>
         </div>
       </div>
       {currentRole === 'NormalUser' && (
