@@ -7,9 +7,10 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 interface DashboardStackingInfoProps {
   currentRole: UserRoleMining;
+  liquidityProvider: string | null;
 }
 
-const DashboardStackingInfo = ({ currentRole }: DashboardStackingInfoProps) => {
+const DashboardStackingInfo = ({ currentRole, liquidityProvider }: DashboardStackingInfoProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
   return (
     <div
@@ -37,7 +38,7 @@ const DashboardStackingInfo = ({ currentRole }: DashboardStackingInfoProps) => {
       >
         <div className="content-sections-title-info-container">
           <span className="bold-font">Liquidity Provider: </span>
-          <div className="result-of-content-section"></div>
+          <div className="result-of-content-section">{liquidityProvider !== null ? liquidityProvider : ''} </div>
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">List of stackers: </span>

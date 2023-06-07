@@ -46,13 +46,13 @@ export const contractMapping: ContractMapping = {
       owner: '', // TODO: complete when deployed
     },
     testnet: {
-      contractAddress: 'ST02D2KP0630FS1BCJ7YM4TYMDH6NS9QKR0B57R3',
-      contractName: 'main-contract-5-blocks-v2',
-      owner: 'ST02D2KP0630FS1BCJ7YM4TYMDH6NS9QKR0B57R3',
+      contractAddress: '',
+      contractName: '',
+      owner: '',
     },
     devnet: {
       contractAddress: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
-      contractName: 'main-contract-5-blocks',
+      contractName: 'main',
       owner: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
     },
   },
@@ -107,7 +107,7 @@ interface IFunctionMapping {
     };
   };
   stacking: {
-    readOnlyFunctions: {};
+    readOnlyFunctions: { getLiquidityProvider: string };
     publicFunctions: {};
   };
 }
@@ -160,5 +160,5 @@ export const functionMapping: IFunctionMapping = {
       setAutoExchange: 'set-auto-exchange',
     },
   },
-  stacking: { readOnlyFunctions: {}, publicFunctions: {} },
+  stacking: { readOnlyFunctions: { getLiquidityProvider: 'get-liquidity-provider' }, publicFunctions: {} },
 };
