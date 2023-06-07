@@ -10,6 +10,7 @@ interface DashboardStackingInfoProps {
   liquidityProvider: string | null;
   stackersList: Array<string>;
   blocksRewarded: number | null;
+  bitcoinRewards: number | null;
 }
 
 const DashboardStackingInfo = ({
@@ -17,6 +18,7 @@ const DashboardStackingInfo = ({
   liquidityProvider,
   stackersList,
   blocksRewarded,
+  bitcoinRewards,
 }: DashboardStackingInfoProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
   return (
@@ -62,7 +64,9 @@ const DashboardStackingInfo = ({
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Bitcoin Rewards: </span>
-          <span className="result-of-content-section"></span>
+          <span className="result-of-content-section">
+            {bitcoinRewards !== null ? bitcoinRewards / 1000000 + ' BTC' : ''}
+          </span>
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Total stacked this cycle: </span>
