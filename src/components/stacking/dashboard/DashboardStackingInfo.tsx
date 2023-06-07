@@ -9,9 +9,15 @@ interface DashboardStackingInfoProps {
   currentRole: UserRoleMining;
   liquidityProvider: string | null;
   stackersList: Array<string>;
+  blocksRewarded: number | null;
 }
 
-const DashboardStackingInfo = ({ currentRole, liquidityProvider, stackersList }: DashboardStackingInfoProps) => {
+const DashboardStackingInfo = ({
+  currentRole,
+  liquidityProvider,
+  stackersList,
+  blocksRewarded,
+}: DashboardStackingInfoProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
   return (
     <div
@@ -52,7 +58,7 @@ const DashboardStackingInfo = ({ currentRole, liquidityProvider, stackersList }:
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Number of Slots Won: </span>
-          <span className="result-of-content-section"></span>
+          <span className="result-of-content-section">{blocksRewarded !== null ? blocksRewarded : ''}</span>
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Bitcoin Rewards: </span>
