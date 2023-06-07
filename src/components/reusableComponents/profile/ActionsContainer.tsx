@@ -2,13 +2,13 @@ import './styles.css';
 import colors from '../../../consts/colorPallete';
 import { useEffect, useState } from 'react';
 import {
-  ContractWithdrawSTX,
-  ContractLeavePool,
-  ContractDepositSTX,
-  ContractRewardDistribution,
-  ContractChangeBtcAddress,
+  ContractWithdrawSTXMining,
+  ContractLeavePoolMining,
+  ContractDepositSTXMining,
+  ContractRewardDistributionMining,
+  ContractChangeBtcAddressMining,
 } from '../../../consts/smartContractFunctions';
-import { readOnlyClaimedBlockStatus, readOnlyGetAllTotalWithdrawals } from '../../../consts/readOnly';
+import { readOnlyClaimedBlockStatusMining, readOnlyGetAllTotalWithdrawalsMining } from '../../../consts/readOnly';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme, selectUserSessionState } from '../../../redux/reducers/user-state';
 import { Alert } from '@mui/material';
@@ -33,15 +33,15 @@ const ActionsContainer = ({ currentNotifier, userAddress }: IActionsContainerPro
 
   const changeBtcAddress = () => {
     if (btcAddress !== '') {
-      ContractChangeBtcAddress(btcAddress);
+      ContractChangeBtcAddressMining(btcAddress);
     }
   };
 
   const claimRewards = async () => {
     if (claimRewardsInputAmount !== null) {
-      const wasBlockClaimed = await readOnlyClaimedBlockStatus(claimRewardsInputAmount);
+      const wasBlockClaimed = await readOnlyClaimedBlockStatusMining(claimRewardsInputAmount);
       if (wasBlockClaimed === false) {
-        ContractRewardDistribution(claimRewardsInputAmount);
+        ContractRewardDistributionMining(claimRewardsInputAmount);
       } else {
         alert('Block already claimed');
       }
@@ -53,7 +53,7 @@ const ActionsContainer = ({ currentNotifier, userAddress }: IActionsContainerPro
       if (withdrawAmountInput < 0.000001) {
         alert('You need to input more');
       } else {
-        ContractWithdrawSTX(withdrawAmountInput);
+        ContractWithdrawSTXMining(withdrawAmountInput);
       }
     }
   };
@@ -64,7 +64,7 @@ const ActionsContainer = ({ currentNotifier, userAddress }: IActionsContainerPro
         alert('You need to input more');
       } else {
         console.log(depositAmountInput);
-        if (userAddress !== null) ContractDepositSTX(depositAmountInput, userAddress);
+        if (userAddress !== null) ContractDepositSTXMining(depositAmountInput, userAddress);
       }
     }
   };
@@ -72,7 +72,7 @@ const ActionsContainer = ({ currentNotifier, userAddress }: IActionsContainerPro
   const leavePool = () => {
     setLeavePoolButtonClicked(true);
     if (currentNotifier !== null && currentNotifier !== userAddress) {
-      ContractLeavePool();
+      ContractLeavePoolMining();
     } else if (currentNotifier !== null && currentNotifier === userAddress) {
       console.log("you art the notifier, you can't leave pool");
 
@@ -84,7 +84,7 @@ const ActionsContainer = ({ currentNotifier, userAddress }: IActionsContainerPro
   useEffect(() => {
     const getUserTotalWithdrawls = async () => {
       const principalAddress = userSession.loadUserData().profile.stxAddress.testnet;
-      const getTotalWithdrawals = await readOnlyGetAllTotalWithdrawals(principalAddress);
+      const getTotalWithdrawals = await readOnlyGetAllTotalWithdrawalsMining(principalAddress);
       setTotalWithdrawals(getTotalWithdrawals);
     };
 

@@ -6,7 +6,7 @@ import { connectAction, disconnectAction, updateUserRoleAction } from '../redux/
 import { selectCurrentTheme, selectCurrentUserRole, selectUserSessionState } from '../redux/reducers/user-state';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { readOnlyAddressStatus } from '../consts/readOnly';
+import { readOnlyAddressStatusMining } from '../consts/readOnly';
 
 interface ConnectWalletProps {
   currentTheme: string;
@@ -33,7 +33,7 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
     const fetchStatus = async () => {
       if (userSession.isUserSignedIn()) {
         const args = userSession.loadUserData().profile.stxAddress.testnet;
-        const status = await readOnlyAddressStatus(args);
+        const status = await readOnlyAddressStatusMining(args);
         setFinalStatus(status);
         updateUserRoleAction(finalStatus);
       }

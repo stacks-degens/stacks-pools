@@ -1,6 +1,6 @@
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
-import { ContractTryEnterPool } from '../../../consts/smartContractFunctions';
+import { ContractTryEnterPoolMining } from '../../../consts/smartContractFunctions';
 import colors from '../../../consts/colorPallete';
 
 interface IMoreInfoAboutContainerWaitingMinerProps {
@@ -50,7 +50,7 @@ const MoreInfoAboutContainerWaitingMiner = ({
               border: `1px solid ${colors[appCurrentTheme].defaultOrange}`,
             }}
             className="customButton"
-            onClick={() => ContractTryEnterPool()}
+            onClick={() => ContractTryEnterPoolMining()}
           >
             Try Enter
           </button>

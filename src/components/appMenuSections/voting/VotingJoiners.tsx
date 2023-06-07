@@ -2,7 +2,7 @@ import * as React from 'react';
 import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
 import colors from '../../../consts/colorPallete';
-import { ContractVotePositiveJoin, ContractVoteNegativeJoin } from '../../../consts/smartContractFunctions';
+import { ContractVotePositiveJoinMining, ContractVoteNegativeJoinMining } from '../../../consts/smartContractFunctions';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import Button from '@mui/material/Button';
@@ -22,9 +22,9 @@ const VotingJoiners = () => {
   const handlePendingVoteButtonClick = (data: string, address: string | undefined) => {
     if (address !== undefined) {
       if (data === 'voteYes') {
-        ContractVotePositiveJoin(address);
+        ContractVotePositiveJoinMining(address);
       } else if (data === 'voteNo') {
-        ContractVoteNegativeJoin(address);
+        ContractVoteNegativeJoinMining(address);
       }
     }
   };

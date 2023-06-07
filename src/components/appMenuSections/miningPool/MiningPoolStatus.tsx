@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import {
-  readOnlyGetBlocksWon,
-  readOnlyGetCurrentBlock,
+  readOnlyGetBlocksWonMining,
+  readOnlyGetCurrentBlockMining,
   readOnlyGetNotifier,
   readOnlyGetNotifierElectionProcessData,
 } from '../../../consts/readOnly';
@@ -19,7 +19,7 @@ const MiningPoolStatus = () => {
 
   useEffect(() => {
     const getBlocksWon = async () => {
-      const blocks = await readOnlyGetBlocksWon();
+      const blocks = await readOnlyGetBlocksWonMining();
       setBlocksWon(blocks);
     };
     getBlocksWon();
@@ -50,7 +50,7 @@ const MiningPoolStatus = () => {
 
   useEffect(() => {
     const getCurrentBlock = async () => {
-      const block = await readOnlyGetCurrentBlock();
+      const block = await readOnlyGetCurrentBlockMining();
       setCurrentBlock(block);
     };
     getCurrentBlock();

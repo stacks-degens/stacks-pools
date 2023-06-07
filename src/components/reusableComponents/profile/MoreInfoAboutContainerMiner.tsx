@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { readOnlyExchangeToggle } from '../../../consts/readOnly';
-import { ContractSetAutoExchange } from '../../../consts/smartContractFunctions';
+import { readOnlyExchangeToggleMining } from '../../../consts/readOnly';
+import { ContractSetAutoExchangeMining } from '../../../consts/smartContractFunctions';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
 
@@ -20,14 +20,14 @@ const MoreInfoAboutContainerMiner = ({
 
   const setAutoExchange = () => {
     if (userAddress !== null) {
-      ContractSetAutoExchange(!exchange);
+      ContractSetAutoExchangeMining(!exchange);
     }
   };
 
   useEffect(() => {
     const getExchangeState = async () => {
       if (userAddress !== null) {
-        const newExchange = await readOnlyExchangeToggle(userAddress);
+        const newExchange = await readOnlyExchangeToggleMining(userAddress);
         setExchange(newExchange);
       }
     };

@@ -72,7 +72,7 @@ const createPostConditionSTXTransferFromContract = (conditionAmount: number, typ
 // what does it do: When an user asks to join, they will be placed in a waiting list. With this function, you can vote for him to
 //                  join the miners list.
 
-export const ContractVotePositiveJoin = (args: string) => {
+export const ContractVotePositiveJoinMining = (args: string) => {
   const convertedArgs = [convertPrincipalToArg(args)];
   const type = 'mining';
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.votePositiveJoinRequest, []);
@@ -83,7 +83,7 @@ export const ContractVotePositiveJoin = (args: string) => {
 // what does it do: When an user asks to join, they will be placed in a waiting list. With this function, you can vote against him
 //                  joining the miners list.
 
-export const ContractVoteNegativeJoin = (args: string) => {
+export const ContractVoteNegativeJoinMining = (args: string) => {
   const convertedArgs = [convertPrincipalToArg(args)];
   const type = 'mining';
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.voteNegativeJoinRequest, []);
@@ -94,7 +94,7 @@ export const ContractVoteNegativeJoin = (args: string) => {
 // what does it do: It tries moving the user that called the function from waiting to pending list
 //                  (the user needs to pass the positive votes threshold)
 
-export const ContractTryEnterPool = () => {
+export const ContractTryEnterPoolMining = () => {
   const type = 'mining';
   CallFunctions(type, [], functionMapping[type].publicFunctions.tryEnterPool, []);
 };
@@ -103,7 +103,7 @@ export const ContractTryEnterPool = () => {
 // args: (btc-address principal)
 // what does it do: This function adds the user passed as argument to the waiting list
 
-export const ContractAskToJoin = (args: string) => {
+export const ContractAskToJoinMining = (args: string) => {
   const convertedArgs = [stringCV(args, 'ascii')];
   const type = 'mining';
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.askToJoin, []);
@@ -113,7 +113,7 @@ export const ContractAskToJoin = (args: string) => {
 // args: (amount uint)
 // what does it do: deposits stx into user's account
 
-export const ContractDepositSTX = (amount: number, userAddress: string) => {
+export const ContractDepositSTXMining = (amount: number, userAddress: string) => {
   const type = 'mining';
   const convertedArgs = [uintCV(amount * 1000000)];
   const postConditions = createPostConditionSTXTransferToContract(userAddress, amount * 1000000);
@@ -124,7 +124,7 @@ export const ContractDepositSTX = (amount: number, userAddress: string) => {
 // args: (amount uint)
 // what does it do: withdraws stx from user's account
 
-export const ContractWithdrawSTX = (amount: number) => {
+export const ContractWithdrawSTXMining = (amount: number) => {
   const type = 'mining';
   const convertedArgs = [uintCV(amount * 1000000)];
   const postConditions = createPostConditionSTXTransferFromContract(amount * 1000000, type);
@@ -135,7 +135,7 @@ export const ContractWithdrawSTX = (amount: number) => {
 // args: (block-number uint)
 // what does it do: distributes rewards for a given block
 
-export const ContractRewardDistribution = (blockHeight: number) => {
+export const ContractRewardDistributionMining = (blockHeight: number) => {
   const type = 'mining';
   const convertedArgs = [uintCV(blockHeight)];
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.rewardDistribution, []);
@@ -154,7 +154,7 @@ export const ContractAddPending = () => {
 // args: none
 // what does it do: makes the user leave the mining pool
 
-export const ContractLeavePool = () => {
+export const ContractLeavePoolMining = () => {
   const type = 'mining';
   CallFunctions(type, [], functionMapping[type].publicFunctions.leavePool, []);
 };
@@ -163,7 +163,7 @@ export const ContractLeavePool = () => {
 // args: (miner-to-remove principal)
 // what does it do: propose a miner to be removed from the pool
 
-export const ContractProposeRemoval = (args: string) => {
+export const ContractProposeRemovalMining = (args: string) => {
   const type = 'mining';
   const convertedArgs = [convertPrincipalToArg(args)];
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.proposeRemoval, []);
@@ -173,7 +173,7 @@ export const ContractProposeRemoval = (args: string) => {
 // args: (miner-to-vote principal)
 // what does it do: add 1 to the positive votes to remove the user passed as argument
 
-export const ContractVotePositiveRemove = (args: string) => {
+export const ContractVotePositiveRemoveMining = (args: string) => {
   const type = 'mining';
   const convertedArgs = [convertPrincipalToArg(args)];
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.votePositiveRemoveRequest, []);
@@ -183,7 +183,7 @@ export const ContractVotePositiveRemove = (args: string) => {
 // args: (miner-to-vote principal)
 // what does it do: add 1 to the negative votes to remove the user passed as argument
 
-export const ContractVoteNegativeRemove = (args: string) => {
+export const ContractVoteNegativeRemoveMining = (args: string) => {
   const type = 'mining';
   const convertedArgs = [convertPrincipalToArg(args)];
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.voteNegativeRemoveRequest, []);
@@ -231,7 +231,7 @@ export const ContractWarnMiner = (warnedMiner: string) => {
 // args: (new-btc-address  (string-ascii 42))
 // what does it do: changed the btc address to the one given as arg
 
-export const ContractChangeBtcAddress = (args: string) => {
+export const ContractChangeBtcAddressMining = (args: string) => {
   const type = 'mining';
   const convertedArgs = [convertStringToArg(args)];
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.setMyBtcAddress, []);
@@ -241,7 +241,7 @@ export const ContractChangeBtcAddress = (args: string) => {
 // args: bool value
 // what does it do: switches the state of auto-exchange to the given value
 
-export const ContractSetAutoExchange = (value: boolean) => {
+export const ContractSetAutoExchangeMining = (value: boolean) => {
   const type = 'mining';
   const convertedArgs = [boolCV(value)];
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.setAutoExchange, []);

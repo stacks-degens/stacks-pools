@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme, selectCurrentUserRole } from '../../../redux/reducers/user-state';
 import { useEffect, useState } from 'react';
-import { readOnlyGetRemainingBlocksJoin } from '../../../consts/readOnly';
+import { readOnlyGetRemainingBlocksJoinMining } from '../../../consts/readOnly';
 import { ContractAddPending } from '../../../consts/smartContractFunctions';
 
 const PendingMinerProfile = () => {

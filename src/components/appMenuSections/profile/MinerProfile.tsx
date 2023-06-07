@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import {
-  readOnlyGetAllTotalWithdrawals,
+  readOnlyGetAllTotalWithdrawalsMining,
   ReadOnlyAllDataWaitingMiners,
-  readOnlyGetRemainingBlocksJoin,
+  readOnlyGetRemainingBlocksJoinMining,
 } from '../../../consts/readOnly';
 import { selectCurrentUserRole, selectUserSessionState } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
@@ -39,7 +39,7 @@ const MinerProfile = ({
 
   useEffect(() => {
     const fetchBlocksLeft = async () => {
-      const blocksLeft = await readOnlyGetRemainingBlocksJoin();
+      const blocksLeft = await readOnlyGetRemainingBlocksJoinMining();
       setBlocksLeftUntilJoin(blocksLeft);
     };
     fetchBlocksLeft();
@@ -48,7 +48,7 @@ const MinerProfile = ({
   useEffect(() => {
     const getUserTotalWithdrawls = async () => {
       const principalAddress = userSession.loadUserData().profile.stxAddress.testnet;
-      const getTotalWithdrawals = await readOnlyGetAllTotalWithdrawals(principalAddress);
+      const getTotalWithdrawals = await readOnlyGetAllTotalWithdrawalsMining(principalAddress);
       setTotalWithdrawals(getTotalWithdrawals);
     };
 

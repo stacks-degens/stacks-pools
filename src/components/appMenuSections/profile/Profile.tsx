@@ -15,7 +15,11 @@ import MinerProfile from './MinerProfile';
 import colors from '../../../consts/colorPallete';
 import { useEffect, useState } from 'react';
 import { network, getExplorerUrl } from '../../../consts/network';
-import { readOnlyGetAllTotalWithdrawals, readOnlyGetBalance, readOnlyGetNotifier } from '../../../consts/readOnly';
+import {
+  readOnlyGetAllTotalWithdrawalsMining,
+  readOnlyGetBalanceMining,
+  readOnlyGetNotifier,
+} from '../../../consts/readOnly';
 
 const Profile = () => {
   const currentRole: UserRole = useAppSelector(selectCurrentUserRole);
@@ -101,8 +105,8 @@ const Profile = () => {
   useEffect(() => {
     const getUserBalance = async () => {
       const principalAddress = userSession.loadUserData().profile.stxAddress.testnet;
-      const getTotalWithdrawals = await readOnlyGetAllTotalWithdrawals(principalAddress);
-      const balance = await readOnlyGetBalance(principalAddress);
+      const getTotalWithdrawals = await readOnlyGetAllTotalWithdrawalsMining(principalAddress);
+      const balance = await readOnlyGetBalanceMining(principalAddress);
       setTotalWithdrawals(getTotalWithdrawals);
       setCurrentBalance(balance);
     };

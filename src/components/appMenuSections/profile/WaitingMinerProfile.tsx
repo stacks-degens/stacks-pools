@@ -2,7 +2,7 @@ import colors from '../../../consts/colorPallete';
 import { Box, Button } from '@mui/material';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme, selectCurrentUserRole, selectUserSessionState } from '../../../redux/reducers/user-state';
-import { ContractTryEnterPool } from '../../../consts/smartContractFunctions';
+import { ContractTryEnterPoolMining } from '../../../consts/smartContractFunctions';
 import { ReadOnlyAllDataWaitingMiners } from '../../../consts/readOnly';
 import { useState, useEffect } from 'react';
 import { principalCV, ClarityValue, listCV, cvToJSON } from '@stacks/transactions';

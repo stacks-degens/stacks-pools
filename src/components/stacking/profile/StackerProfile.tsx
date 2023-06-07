@@ -1,14 +1,6 @@
-import { useEffect, useState } from 'react';
-import {
-  readOnlyGetAllTotalWithdrawals,
-  ReadOnlyAllDataWaitingMiners,
-  readOnlyGetRemainingBlocksJoin,
-} from '../../../consts/readOnly';
+import { useState } from 'react';
 import { selectCurrentUserRole, selectUserSessionState } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
-import AboutContainer from '../../reusableComponents/profile/AboutContainer';
-import ActionsContainer from '../../reusableComponents/profile/ActionsContainer';
-import RoleIntro from '../../reusableComponents/profile/RoleIntro';
 import { principalCV, ClarityValue, listCV, cvToJSON } from '@stacks/transactions';
 import './styles.css';
 import RoleIntroStacking from './RoleIntroStacking';
