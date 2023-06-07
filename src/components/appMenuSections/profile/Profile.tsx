@@ -6,9 +6,9 @@ import '../../../css/links/styles.css';
 import '../../../css/common-page-alignments/styles.css';
 import {
   selectCurrentTheme,
-  selectCurrentUserRole,
+  selectCurrentUserRoleMining,
   selectUserSessionState,
-  UserRole,
+  UserRoleMining,
 } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
 import MinerProfile from './MinerProfile';
@@ -22,7 +22,7 @@ import {
 } from '../../../consts/readOnly';
 
 const Profile = () => {
-  const currentRole: UserRole = useAppSelector(selectCurrentUserRole);
+  const currentRole: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
   const [connectedWallet, setConnectedWallet] = useState<string | null>(null);
   const [explorerLink, setExplorerLink] = useState<string | undefined>(undefined);
   const [userAddress, setUserAddress] = useState<string | null>(null);
@@ -32,7 +32,7 @@ const Profile = () => {
   const userSession = useAppSelector(selectUserSessionState);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
-  const profileMapping: Record<UserRole, React.ReactElement> = {
+  const profileMapping: Record<UserRoleMining, React.ReactElement> = {
     Viewer: <div></div>,
     NormalUser: (
       <MinerProfile

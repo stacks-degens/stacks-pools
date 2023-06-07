@@ -1,7 +1,7 @@
 import colors from '../../../consts/colorPallete';
 import { Box } from '@mui/material';
 import { useAppSelector } from '../../../redux/store';
-import { selectCurrentTheme, selectCurrentUserRole } from '../../../redux/reducers/user-state';
+import { selectCurrentTheme, selectCurrentUserRoleMining } from '../../../redux/reducers/user-state';
 import { useEffect, useState } from 'react';
 import { readOnlyGetRemainingBlocksJoinMining } from '../../../consts/readOnly';
 import { ContractAddPending } from '../../../consts/smartContractFunctions';

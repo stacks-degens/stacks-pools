@@ -1,19 +1,23 @@
 import { useEffect, useState } from 'react';
-import { selectCurrentTheme, selectCurrentUserRole, selectUserSessionState } from '../../../redux/reducers/user-state';
+import {
+  selectCurrentTheme,
+  selectCurrentUserRoleMining,
+  selectUserSessionState,
+} from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
-import { UserRole } from '../../../redux/reducers/user-state';
+import { UserRoleMining } from '../../../redux/reducers/user-state';
 import './styles.css';
 import colors from '../../../consts/colorPallete';
 import DashboardStackingInfo from './DashboardStackingInfo';
 
 const DashboardStacking = () => {
-  const currentRole: UserRole = useAppSelector(selectCurrentUserRole);
+  const currentRole: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
   const [userAddress, setUserAddress] = useState<string | null>(null);
   const userSession = useAppSelector(selectUserSessionState);
 
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
-  const dashboardStackingMapping: Record<UserRole, React.ReactElement> = {
+  const dashboardStackingMapping: Record<UserRoleMining, React.ReactElement> = {
     Viewer: <div></div>,
     NormalUser: <div></div>,
     Waiting: <div></div>,

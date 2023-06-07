@@ -1,4 +1,4 @@
-import { selectCurrentTheme, selectCurrentUserRole, UserRole } from '../../../redux/reducers/user-state';
+import { selectCurrentTheme, selectCurrentUserRoleMining, UserRoleMining } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
 import { ContractAddPending } from '../../../consts/smartContractFunctions';
 import colors from '../../../consts/colorPallete';
@@ -8,7 +8,7 @@ interface IMoreInfoAboutContainerPendingProps {
 }
 
 const MoreInfoAboutContainerPendingMiner = ({ blocksLeftUntilJoin }: IMoreInfoAboutContainerPendingProps) => {
-  const currentRole: UserRole = useAppSelector(selectCurrentUserRole);
+  const currentRole: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   return (

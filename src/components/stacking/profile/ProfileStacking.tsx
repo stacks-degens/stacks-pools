@@ -1,6 +1,10 @@
-import { selectCurrentTheme, selectCurrentUserRole, selectUserSessionState } from '../../../redux/reducers/user-state';
+import {
+  selectCurrentTheme,
+  selectCurrentUserRoleMining,
+  selectUserSessionState,
+} from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
-import { UserRole } from '../../../redux/reducers/user-state';
+import { UserRoleMining } from '../../../redux/reducers/user-state';
 import './styles.css';
 import colors from '../../../consts/colorPallete';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -11,7 +15,7 @@ import StackerProfile from './StackerProfile';
 const ProfileStacking = () => {
   // I will need the currentRole, the connectedWallet and linkToExplorer
 
-  const currentRole: UserRole = useAppSelector(selectCurrentUserRole);
+  const currentRole: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
   const [userAddress, setUserAddress] = useState<string | null>(null);
   const userSession = useAppSelector(selectUserSessionState);
 

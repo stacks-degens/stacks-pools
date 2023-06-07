@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { selectCurrentUserRole, selectUserSessionState } from '../../../redux/reducers/user-state';
+import { selectCurrentUserRoleMining, selectUserSessionState } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
 import { principalCV, ClarityValue, listCV, cvToJSON } from '@stacks/transactions';
 import './styles.css';
