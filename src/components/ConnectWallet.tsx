@@ -2,11 +2,25 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import colors from '../consts/colorPallete';
 import { useAppDispatch, useAppSelector } from '../redux/store';
-import { connectAction, disconnectAction, updateUserRoleActionMining } from '../redux/actions';
-import { selectCurrentTheme, selectCurrentUserRoleMining, selectUserSessionState } from '../redux/reducers/user-state';
+import {
+  connectAction,
+  disconnectAction,
+  updateUserRoleActionMining,
+  updateUserRoleActionStacking,
+} from '../redux/actions';
+import {
+  selectCurrentTheme,
+  selectCurrentUserRoleMining,
+  selectCurrentUserRoleStacking,
+  selectUserSessionState,
+} from '../redux/reducers/user-state';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { readOnlyAddressStatusMining } from '../consts/readOnly';
+import {
+  readOnlyAddressStatusMining,
+  readOnlyAddressStatusStacking,
+  readOnlyGetLiquidityProvider,
+} from '../consts/readOnly';
 
 interface ConnectWalletProps {
   currentTheme: string;
@@ -15,12 +29,15 @@ interface ConnectWalletProps {
 const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
   const [finalStatusMining, setFinalStatusMining] = useState<string>('Viewer');
   const [finalStatusStacking, setFinalStatusStacking] = useState<string>('Viewer');
+  const [currentLiquidityProvider, setCurrentLiquidityProvider] = useState<string | null>(null);
+  const [connectedWallet, setConnectedWallet] = useState<string | null>(null);
   const userSession = useAppSelector(selectUserSessionState);
   const dispatch = useAppDispatch();
 
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   const currentRoleMining = useAppSelector(selectCurrentUserRoleMining);
+  const currentRoleStacking = useAppSelector(selectCurrentUserRoleStacking);
   const location = useLocation();
 
   const controlAccessRoutes = () => {
@@ -30,18 +47,48 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
       }
     }
   };
+
+  useEffect(() => {
+    if (userSession.isUserSignedIn()) {
+      const wallet = userSession.loadUserData().profile.stxAddress.testnet;
+      setConnectedWallet(wallet);
+    }
+  }, [connectedWallet]);
+
   useEffect(() => {
     const fetchStatus = async () => {
       if (userSession.isUserSignedIn()) {
         const args = userSession.loadUserData().profile.stxAddress.testnet;
-        const status = await readOnlyAddressStatusMining(args);
-        setFinalStatusMining(status);
+        const statusMining = await readOnlyAddressStatusMining(args);
+        setFinalStatusMining(statusMining);
         updateUserRoleActionMining(finalStatusMining);
       }
     };
 
     fetchStatus();
   }, [finalStatusMining]);
+
+  // useEffect(() => {
+  //   const getCurrentLiquidityProvider = async () => {
+  //     const liquidityProvider = await readOnlyGetLiquidityProvider();
+  //     setCurrentLiquidityProvider(liquidityProvider);
+  //   };
+
+  //   getCurrentLiquidityProvider();
+  // }, [currentLiquidityProvider]);
+
+  useEffect(() => {
+    const fetchStatusStacking = async () => {
+      if (userSession.isUserSignedIn()) {
+        const args = userSession.loadUserData().profile.stxAddress.testnet;
+        const statusStacking = await readOnlyAddressStatusStacking(args);
+        setFinalStatusStacking(statusStacking);
+        updateUserRoleActionStacking(finalStatusStacking);
+      }
+    };
+
+    fetchStatusStacking();
+  }, [finalStatusStacking]);
 
   useEffect(() => {
     controlAccessRoutes();
@@ -59,6 +106,9 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
     if (currentRoleMining === 'Viewer') {
       dispatch(updateUserRoleActionMining(finalStatusMining));
       return <div>Loading ...</div>;
+    }
+    if (currentRoleStacking === 'Viewer') {
+      dispatch(updateUserRoleActionStacking(finalStatusStacking));
     }
     return (
       <div>

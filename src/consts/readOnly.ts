@@ -506,3 +506,20 @@ export const readOnlyGetStackAmounThisCycleStacking = async () => {
   );
   return cvToJSON(stacksRewards).value;
 };
+
+// get-address-status
+// args: (principal: address)
+// what does it do: It returns the formatted status of the logged in user
+// return:
+
+export const readOnlyAddressStatusStacking = async (args: string) => {
+  const type = 'stacking';
+  const statusArgs = convertPrincipalToArg(args);
+
+  const status = await ReadOnlyFunctions(type, [statusArgs], functionMapping[type].readOnlyFunctions.getAddressStatus);
+
+  // const statusInfo = cvToJSON(status).value.value;
+  const statusInfo = cvToJSON(status).value.value;
+  console.log('something', statusInfo);
+  return statusInfo === 'is-provider' ? 'Provider' : statusInfo === 'is-stacker' ? 'Stacker' : 'NormalUserStacking';
+};

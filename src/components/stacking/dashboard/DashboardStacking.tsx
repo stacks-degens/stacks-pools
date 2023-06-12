@@ -31,16 +31,6 @@ const DashboardStacking = () => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   useEffect(() => {
-    if (userSession.isUserSignedIn()) {
-      const args = userSession.loadUserData().profile.stxAddress.testnet;
-      console.log('address', args);
-      setUserAddress(args);
-    } else {
-      console.log('not signed in');
-    }
-  }, [userAddress]);
-
-  useEffect(() => {
     const getCurrentLiquidityProvider = async () => {
       const liquidityProvider = await readOnlyGetLiquidityProvider();
       setCurrentLiquidityProvider(liquidityProvider);

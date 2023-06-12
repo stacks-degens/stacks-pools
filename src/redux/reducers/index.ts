@@ -1,5 +1,11 @@
 import { IUserState, defaultUserState, selectUserSessionState } from './user-state';
-import { DISCONNECT_USER_SESSION, CONNECT_USER_SESSION, UPDATE_USER_ROLE_MINING, UPDATE_APP_THEME } from '../actions';
+import {
+  DISCONNECT_USER_SESSION,
+  CONNECT_USER_SESSION,
+  UPDATE_USER_ROLE_MINING,
+  UPDATE_APP_THEME,
+  UPDATE_USER_ROLE_STACKING,
+} from '../actions';
 
 import { showConnect } from '@stacks/connect';
 import logo from './../../logo.png';
@@ -46,6 +52,9 @@ const mainReducer = (state = initialState, action: IreduxAction) => {
 
     case UPDATE_APP_THEME:
       return { ...state, theme: action.payload };
+
+    case UPDATE_USER_ROLE_STACKING:
+      return { ...state, userState: { ...state.userState, stackingUserRole: action.payload } };
     default:
       return state;
   }
