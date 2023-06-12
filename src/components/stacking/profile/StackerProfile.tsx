@@ -5,14 +5,16 @@ import { principalCV, ClarityValue, listCV, cvToJSON } from '@stacks/transaction
 import './styles.css';
 import RoleIntroStacking from './RoleIntroStacking';
 import AboutContainerStacking from './AboutContainerStacking';
+import ActionsContainerStacking from './ActionsContainerStacking';
 
 interface IStackerProfileProps {
   currentRole: string;
   connectedWallet: string | null;
   explorerLink: string | undefined;
+  userAddress: string | null;
 }
 
-const StackerProfile = ({ currentRole, connectedWallet, explorerLink }: IStackerProfileProps) => {
+const StackerProfile = ({ currentRole, connectedWallet, explorerLink, userAddress }: IStackerProfileProps) => {
   const userSession = useAppSelector(selectUserSessionState);
   const [totalWithdrawals, setTotalWithdrawals] = useState<number | null>(null);
 
@@ -26,7 +28,7 @@ const StackerProfile = ({ currentRole, connectedWallet, explorerLink }: IStacker
             connectedWallet={connectedWallet}
             explorerLink={explorerLink}
           />
-          {/* {currentRole === 'Miner' && <ActionsContainer currentNotifier={currentNotifier} userAddress={userAddress} />} */}
+          {currentRole === 'Provider' && <ActionsContainerStacking userAddress={userAddress} />}
         </div>
       </div>
     </div>
