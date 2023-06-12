@@ -8,10 +8,10 @@ import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 interface IAboutContainerStackingProps {
   currentRole: string;
   connectedWallet: string | null;
-  // explorerLink: string | undefined;
+  explorerLink: string | undefined;
 }
 
-const AboutContainerStacking = ({ currentRole, connectedWallet }: IAboutContainerStackingProps) => {
+const AboutContainerStacking = ({ currentRole, connectedWallet, explorerLink }: IAboutContainerStackingProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
   return (
     <div
@@ -61,8 +61,7 @@ const AboutContainerStacking = ({ currentRole, connectedWallet }: IAboutContaine
               style={{ backgroundColor: colors[appCurrentTheme].accent2, color: colors[appCurrentTheme].secondary }}
               target="_blank"
               rel="noreferrer"
-              href=""
-              // href={explorerLink !== undefined ? explorerLink : ''}
+              href={explorerLink !== undefined ? explorerLink : ''}
             >
               <span className="flex-center">
                 Visit

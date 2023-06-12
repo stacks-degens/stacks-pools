@@ -9,10 +9,10 @@ import AboutContainerStacking from './AboutContainerStacking';
 interface IStackerProfileProps {
   currentRole: string;
   connectedWallet: string | null;
-  // explorerLink: string | undefined;
+  explorerLink: string | undefined;
 }
 
-const StackerProfile = ({ currentRole, connectedWallet }: IStackerProfileProps) => {
+const StackerProfile = ({ currentRole, connectedWallet, explorerLink }: IStackerProfileProps) => {
   const userSession = useAppSelector(selectUserSessionState);
   const [totalWithdrawals, setTotalWithdrawals] = useState<number | null>(null);
 
@@ -21,7 +21,11 @@ const StackerProfile = ({ currentRole, connectedWallet }: IStackerProfileProps) 
       <div className="principal-content-profile-page">
         <RoleIntroStacking currentRole={currentRole} />
         <div className={currentRole === 'Provider' ? 'main-info-container' : 'main-info-container-normal-user'}>
-          <AboutContainerStacking currentRole={currentRole} connectedWallet={connectedWallet} />
+          <AboutContainerStacking
+            currentRole={currentRole}
+            connectedWallet={connectedWallet}
+            explorerLink={explorerLink}
+          />
           {/* {currentRole === 'Miner' && <ActionsContainer currentNotifier={currentNotifier} userAddress={userAddress} />} */}
         </div>
       </div>
