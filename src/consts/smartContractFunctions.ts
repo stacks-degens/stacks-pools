@@ -257,3 +257,12 @@ export const ContractDelegateSTXStacking = (amount: number) => {
   // const postConditions = createPostConditionSTXTransferToContract("", amount * 1000000);
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.delegateStx, []);
 };
+
+// leave-pool
+// args: none
+// what does it do: makes the user leave the stacking pool
+
+export const ContractLeavePoolStacking = () => {
+  const type = 'stacking';
+  CallFunctions(type, [], functionMapping[type].publicFunctions.leavePool, []);
+};

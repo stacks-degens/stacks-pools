@@ -117,6 +117,7 @@ interface IFunctionMapping {
     };
     publicFunctions: {
       delegateStx: string;
+      leavePool: string;
     };
   };
 }
@@ -178,6 +179,6 @@ export const functionMapping: IFunctionMapping = {
       getTotalStackedThisCycle: 'get-stacked-this-cycle',
       getAddressStatus: 'get-address-status',
     },
-    publicFunctions: { delegateStx: 'delegate-stx' },
+    publicFunctions: { delegateStx: 'delegate-stx', leavePool: 'leave-pool' },
   },
 };

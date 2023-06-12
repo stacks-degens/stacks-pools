@@ -1,7 +1,7 @@
 import './styles.css';
 import colors from '../../../consts/colorPallete';
 import { useEffect, useState } from 'react';
-import { ContractDelegateSTXStacking } from '../../../consts/smartContractFunctions';
+import { ContractDelegateSTXStacking, ContractLeavePoolStacking } from '../../../consts/smartContractFunctions';
 import { readOnlyGetLiquidityProvider } from '../../../consts/readOnly';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme, selectUserSessionState } from '../../../redux/reducers/user-state';
@@ -84,7 +84,7 @@ const ActionsContainerStacking = ({ userAddress }: IActionsContainerStackingProp
     setLeavePoolButtonClicked(true);
     if (currentLiquidityProvider !== null && currentLiquidityProvider !== userAddress) {
       console.log('test');
-      // ContractLeavePoolMining();
+      ContractLeavePoolStacking();
     } else if (currentLiquidityProvider !== null && currentLiquidityProvider === userAddress) {
       console.log("you art the provider, you can't leave pool");
 
@@ -246,9 +246,6 @@ const ActionsContainerStacking = ({ userAddress }: IActionsContainerStackingProp
             <button
               className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
               onClick={leavePool}
-              // onClick={() => {
-              //   console.log('leave pool button for stacking clicked');
-              // }}
               disabled={disableLeavePoolButton}
             >
               Leave Pool
