@@ -523,3 +523,19 @@ export const readOnlyAddressStatusStacking = async (args: string) => {
   console.log('something', statusInfo);
   return statusInfo === 'is-provider' ? 'Provider' : statusInfo === 'is-stacker' ? 'Stacker' : 'NormalUserStacking';
 };
+
+// was-block-claimed
+// args: (given-block-height uint)
+// what does it do: true/false if rewards on the block were claimed
+// return: true or false
+
+export const readOnlyClaimedBlockStatusStacking = async (blockHeight: number) => {
+  const type = 'stacking';
+  const convertedArgs = [uintCV(blockHeight)];
+  const blockStatus = await ReadOnlyFunctions(
+    type,
+    convertedArgs,
+    functionMapping[type].readOnlyFunctions.wasBlockClaimed
+  );
+  return cvToJSON(blockStatus).value;
+};

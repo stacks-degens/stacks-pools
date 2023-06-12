@@ -114,10 +114,12 @@ interface IFunctionMapping {
       getBitcoinRewards: string;
       getTotalStackedThisCycle: string;
       getAddressStatus: string;
+      wasBlockClaimed: string;
     };
     publicFunctions: {
       delegateStx: string;
       leavePool: string;
+      rewardDistribution: string;
     };
   };
 }
@@ -178,7 +180,12 @@ export const functionMapping: IFunctionMapping = {
       getBitcoinRewards: 'get-amount-rewarded',
       getTotalStackedThisCycle: 'get-stacked-this-cycle',
       getAddressStatus: 'get-address-status',
+      wasBlockClaimed: 'was-block-claimed',
     },
-    publicFunctions: { delegateStx: 'delegate-stx', leavePool: 'leave-pool' },
+    publicFunctions: {
+      delegateStx: 'delegate-stx',
+      leavePool: 'leave-pool',
+      rewardDistribution: 'reward-distribution',
+    },
   },
 };
