@@ -246,3 +246,14 @@ export const ContractSetAutoExchangeMining = (value: boolean) => {
   const convertedArgs = [boolCV(value)];
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.setAutoExchange, []);
 };
+
+// delegate-stx
+// args: (amount uint)
+// what does it do: delegtae stx
+
+export const ContractDelegateSTXStacking = (amount: number) => {
+  const type = 'stacking';
+  const convertedArgs = [uintCV(amount * 1000000)];
+  // const postConditions = createPostConditionSTXTransferToContract("", amount * 1000000);
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.delegateStx, []);
+};

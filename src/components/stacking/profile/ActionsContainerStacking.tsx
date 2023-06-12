@@ -1,7 +1,7 @@
 import './styles.css';
 import colors from '../../../consts/colorPallete';
 import { useEffect, useState } from 'react';
-import {} from '../../../consts/smartContractFunctions';
+import { ContractDelegateSTXStacking } from '../../../consts/smartContractFunctions';
 import { readOnlyGetLiquidityProvider } from '../../../consts/readOnly';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme, selectUserSessionState } from '../../../redux/reducers/user-state';
@@ -52,7 +52,7 @@ const ActionsContainerStacking = ({ userAddress }: IActionsContainerStackingProp
       } else {
         console.log(delegateAmountInput);
         if (userAddress !== null) {
-          // ContractDepositSTXMining(depositAmountInput, userAddress);
+          ContractDelegateSTXStacking(delegateAmountInput);
         }
       }
     }
