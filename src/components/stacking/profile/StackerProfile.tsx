@@ -28,7 +28,9 @@ const StackerProfile = ({ currentRole, connectedWallet, explorerLink, userAddres
             connectedWallet={connectedWallet}
             explorerLink={explorerLink}
           />
-          {currentRole === 'Provider' && <ActionsContainerStacking userAddress={userAddress} />}
+          {currentRole === 'Provider' && (
+            <ActionsContainerStacking userAddress={userAddress} currentRole={currentRole} />
+          )}
         </div>
       </div>
     </div>
