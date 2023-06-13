@@ -72,7 +72,7 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
             ></input>
           </div>
         </div>
-        <div className="button-container-action-container">
+        <div className="button-container-stacking-action-container-stacking">
           <button
             className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
             onClick={() => {
@@ -99,7 +99,7 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
             ></input>
           </div>
         </div>
-        <div className="button-container-action-container">
+        <div className="button-container-stacking-action-container-stacking">
           <button className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'} onClick={lockInPool}>
             Lock in pool
           </button>
@@ -126,7 +126,7 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
             ></input>
           </div>
         </div>
-        <div className="button-container-action-container">
+        <div className="button-container-stacking-action-container-stacking">
           <button
             className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
             onClick={() => {
@@ -145,7 +145,7 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
             <input className="custom-input" type="text" onChange={() => {}}></input>
           </div>
         </div>
-        <div className="button-container-action-container">
+        <div className="button-container-stacking-action-container-stacking">
           <button
             className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
             // onClick={changeBtcAddress}

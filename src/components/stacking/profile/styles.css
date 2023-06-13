@@ -2,7 +2,7 @@
   color: #f9b11c !important;
 }
 
-.info-container-profile-page {
+.info-container-stacking-profile-page {
   background-color: #f9b11c;
   width: 470px;
   border-radius: 20px;
@@ -13,7 +13,7 @@
   box-shadow: 1px 1px 4px #ed693c, -1px -1px 4px #fdc60b;
 }
 
-.content-info-container {
+.content-info-container-stacking {
   padding: 10px 20px 20px 20px;
   background-color: #f9b11c;
   background-color: #fef9f7;
@@ -23,7 +23,7 @@
   height: 300px;
 }
 
-.intro-container-profile-page {
+.intro-container-stacking-profile-page {
   height: 60px;
   border-radius: 3px;
   padding: 10px;
@@ -38,7 +38,7 @@
   margin-inline: auto;
 }
 
-.intro-icon-container {
+.intro-icon-container-stacking {
   border-radius: 10% 10% 30% 30% / 10% 10% 45% 45%;
   box-shadow: 1px 1px 4px #ed693c, -1px -1px 4px #ed693c;
   background-color: #fdc60b;
@@ -66,7 +66,7 @@
   height: 100%;
 }
 
-.main-info-container {
+.main-info-container-stacking {
   margin-top: 40px;
   display: flex;
   justify-content: space-between;
@@ -74,7 +74,7 @@
   margin-inline: auto;
 }
 
-.main-info-container-normal-user {
+.main-info-container-stacking-normal-user {
   margin-top: 40px;
   display: flex;
   justify-content: center;
@@ -113,7 +113,7 @@
   display: flex;
 }
 
-.footer-button-container {
+.footer-button-container-stacking {
   height: 50px;
   margin-top: 5px;
   margin-bottom: -15px;
@@ -126,10 +126,410 @@
   width: 270px !important;
 }
 
+.profile-page-main-container-stacking {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.profile-page-main-container-stacking .page-heading-title {
+  height: 100px;
+}
+
+.profile-page-main-container-stacking .principal-content-profile-page {
+  width: 100%;
+}
+
+@media screen and (max-width: 575px) {
+  /* the introduction container-stacking (the orange rectangle)  */
+  .profile-page-main-container-stacking .intro-container-stacking-profile-page {
+    width: 90%;
+  }
+
+  /* the container-stacking which hold the about and actions containers */
+  .profile-page-main-container-stacking .main-info-container-stacking {
+    width: 89%;
+    flex-direction: column;
+    margin-inline: auto;
+    justify-content: start;
+    align-items: center;
+    margin-top: 30px;
+  }
+
+  /* the about and actions containers */
+  .profile-page-main-container-stacking .info-container-stacking-profile-page {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+  /* profile page intro lateral information */
+  .profile-page-main-container-stacking .intro-sides {
+    font-size: 13px;
+  }
+
+  /* profile page intro central information (current role) */
+  .profile-page-main-container-stacking .intro-center-side {
+    font-size: 15px;
+  }
+
+  .profile-page-main-container-stacking .intro-icon-container-stacking {
+    width: 90px;
+    height: 90px;
+  }
+
+  /* about and actions heading title */
+  .profile-page-main-container-stacking .title-info-container-stacking {
+    font-size: 14px;
+  }
+
+  /* the about and actions containers */
+  .profile-page-main-container-stacking .content-info-container-stacking {
+    height: auto;
+  }
+
+  /* the sections I'm displaying in the main container-stacking */
+  .profile-page-main-container-stacking .content-sections-title-info-container-stacking span {
+    font-size: 14px;
+  }
+
+  /* the result of the section above */
+  .result-of-content-section {
+    font-size: 10.6px;
+  }
+
+  /* autoexchange button container-stacking */
+  .profile-page-main-container-stacking .autoexchange-button-container-stacking {
+    width: 80%;
+    margin-inline: auto;
+    margin-top: 10px;
+  }
+
+  /* autoexchange button from about container-stacking on profile page */
+  .profile-page-main-container-stacking .autoexchange-button-container-stacking button {
+    font-size: 14px;
+  }
+
+  /*every input container-stacking in the actions container-stacking on profile page */
+  .profile-page-main-container-stacking
+    .principal-content-profile-page
+    .main-info-container-stacking
+    .actions-container-stacking-profile-page
+    .content-info-container-stacking
+    .input-line-actions-container-stacking {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* the label and input container-stacking from actions container-stacking on profile page */
+  .input-line-actions-container-stacking .label-and-input-container-stacking-actions-container-stacking {
+    width: 100% !important;
+  }
+
+  /* the input line from actions container-stacking on profile page */
+  .custom-input {
+    box-sizing: border-box;
+    height: 38px;
+  }
+
+  /* the input button container-stacking from actions container-stacking on profile page */
+  .button-container-stacking-action-container-stacking {
+    width: 80%;
+  }
+
+  /* the input button from actions container-stacking on profile page */
+  .button-container-stacking-action-container-stacking button {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  /* leave pool button container-stacking from actions container-stacking */
+  .leave-pool-button-action-container-stacking {
+    width: 65%;
+    margin-inline: auto;
+  }
+
+  /* the leave pool button */
+  .leave-pool-button-action-container-stacking button {
+    font-size: 14px !important;
+  }
+
+  /* the alignment of the leave pool button */
+  .leave-pool-button-action-container-stacking div.flex-right {
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  /* the alert container-stacking when clicking the leave pool button when you are the notifier */
+  .alert-container-stacking-actions-container-stacking {
+    margin-top: 20px !important;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 991px) {
+  .profile-page-main-container-stacking .page-heading-title {
+    height: 120px;
+  }
+
+  .profile-page-main-container-stacking .page-heading-title h2 {
+    font-size: 30px;
+  }
+
+  .profile-page-main-container-stacking .main-info-container-stacking {
+    width: 89%;
+    flex-direction: column;
+    margin-inline: auto;
+    justify-content: start;
+    align-items: center;
+    margin-top: 60px;
+  }
+
+  .profile-page-main-container-stacking .info-container-stacking-profile-page {
+    width: 80%;
+    margin-bottom: 60px;
+    height: auto !important;
+  }
+
+  .profile-page-main-container-stacking .title-info-container-stacking {
+    font-size: 20px;
+  }
+
+  .profile-page-main-container-stacking .content-sections-title-info-container-stacking span {
+    font-size: 22px;
+  }
+
+  .profile-page-main-container-stacking .content-sections-title-info-container-stacking .result-of-content-section {
+    font-size: 20px;
+  }
+
+  /* profile page intro lateral information */
+  .profile-page-main-container-stacking .intro-sides {
+    font-size: 16px;
+  }
+
+  /* profile page intro central information (current role) */
+  .profile-page-main-container-stacking .intro-center-side {
+    font-size: 22px;
+  }
+
+  /* autoexchange button container-stacking */
+  .profile-page-main-container-stacking .autoexchange-button-container-stacking {
+    width: 80%;
+    margin-inline: auto;
+    margin-top: 10px;
+  }
+
+  .leave-pool-button-action-container-stacking {
+    margin-top: 20px;
+  }
+
+  /* autoexchange button from about container-stacking on profile page */
+  .profile-page-main-container-stacking .autoexchange-button-container-stacking button,
+  .leave-pool-button-action-container-stacking button,
+  .button-container-stacking-action-container-stacking button {
+    font-size: 20px;
+    width: 180px;
+    height: 45px;
+  }
+
+  .button-container-stacking-action-container-stacking button {
+    margin-bottom: 5px;
+  }
+
+  /* the input line from actions container-stacking on profile page */
+  .custom-input {
+    box-sizing: border-box;
+    height: 45px;
+  }
+
+  .input-line-actions-container-stacking {
+    align-items: end !important;
+  }
+  .alert-container-stacking-actions-container-stacking {
+    margin-top: 20px !important;
+  }
+
+  .profile-page-main-container-stacking .content-info-container-stacking {
+    height: auto;
+  }
+}
+
 @media screen and (min-width: 992px) and (max-width: 1180px) {
-  .profile-page-main-container .button-container-action-container button {
+  .profile-page-main-container-stacking .page-heading-title h2 {
+    font-size: 28px;
+  }
+
+  /* profile page intro lateral information */
+  .profile-page-main-container-stacking .intro-sides {
+    font-size: 16px;
+  }
+
+  /* profile page intro central information (current role) */
+  .profile-page-main-container-stacking .intro-center-side {
+    font-size: 22px;
+  }
+
+  .profile-page-main-container-stacking .main-info-container-stacking {
+    width: 89%;
+    flex-direction: column;
+    margin-inline: auto;
+    justify-content: start;
+    align-items: center;
+    margin-top: 60px;
+  }
+
+  .profile-page-main-container-stacking .info-container-stacking-profile-page {
+    width: 80%;
+    margin-bottom: 60px;
+    height: auto !important;
+  }
+
+  .profile-page-main-container-stacking .title-info-container-stacking {
+    font-size: 20px;
+  }
+
+  .profile-page-main-container-stacking .content-sections-title-info-container-stacking span {
+    font-size: 20px;
+  }
+
+  .profile-page-main-container-stacking .content-sections-title-info-container-stacking .result-of-content-section {
+    font-size: 20px;
+  }
+
+  /* autoexchange button container-stacking */
+  .profile-page-main-container-stacking .autoexchange-button-container-stacking {
+    width: 70%;
+    margin-inline: auto;
+    margin-top: 10px;
+  }
+
+  .leave-pool-button-action-container-stacking {
+    margin-top: 20px;
+  }
+
+  /* autoexchange button from about container-stacking on profile page */
+  .profile-page-main-container-stacking .autoexchange-button-container-stacking button,
+  .leave-pool-button-action-container-stacking button,
+  .button-container-stacking-action-container-stacking button {
     font-size: 18px;
     width: 270px;
     height: 45px;
+  }
+
+  .button-container-stacking-action-container-stacking button {
+    margin-bottom: 5px;
+  }
+
+  /* the input line from actions container-stacking on profile page */
+  .custom-input {
+    box-sizing: border-box;
+    height: 45px;
+  }
+
+  .input-line-actions-container-stacking {
+    align-items: end !important;
+  }
+  .alert-container-stacking-actions-container-stacking {
+    margin-top: 20px !important;
+  }
+
+  .profile-page-main-container-stacking .content-info-container-stacking {
+    height: auto;
+  }
+
+  .custom-label {
+    font-size: 13px !important;
+  }
+}
+
+@media screen and (min-width: 1181px) {
+  .profile-page-main-container-stacking .intro-container-stacking-profile-page {
+    width: 90%;
+  }
+
+  .profile-page-main-container-stacking .page-heading-title h2 {
+    font-size: 28px;
+  }
+
+  /* profile page intro lateral information */
+  .profile-page-main-container-stacking .intro-sides {
+    font-size: 16px;
+  }
+
+  /* profile page intro central information (current role) */
+  .profile-page-main-container-stacking .intro-center-side {
+    font-size: 22px;
+  }
+
+  .profile-page-main-container-stacking .main-info-container-stacking {
+    width: 89%;
+    flex-direction: column;
+    margin-inline: auto;
+    justify-content: start;
+    align-items: center;
+    margin-top: 50px;
+  }
+
+  .profile-page-main-container-stacking .info-container-stacking-profile-page {
+    width: 80%;
+    margin-bottom: 50px;
+    height: auto !important;
+  }
+
+  .profile-page-main-container-stacking .title-info-container-stacking {
+    font-size: 20px;
+  }
+
+  .profile-page-main-container-stacking .content-sections-title-info-container-stacking span {
+    font-size: 20px;
+  }
+
+  .profile-page-main-container-stacking .content-sections-title-info-container-stacking .result-of-content-section {
+    font-size: 17px;
+  }
+
+  /* autoexchange button container-stacking */
+  .profile-page-main-container-stacking .autoexchange-button-container-stacking {
+    width: 170px;
+  }
+
+  .leave-pool-button-action-container-stacking {
+    margin-top: 20px;
+  }
+
+  /* autoexchange button from about container-stacking on profile page */
+  .profile-page-main-container-stacking .autoexchange-button-container-stacking button,
+  .leave-pool-button-action-container-stacking button,
+  .button-container-stacking-action-container-stacking button {
+    font-size: 18px;
+    width: 270px;
+    height: 45px;
+  }
+
+  .button-container-stacking-action-container-stacking button {
+    margin-bottom: 5px;
+  }
+
+  /* the input line from actions container-stacking on profile page */
+  .custom-input {
+    box-sizing: border-box;
+    height: 45px;
+  }
+
+  .input-line-actions-container-stacking {
+    align-items: end !important;
+  }
+
+  .profile-page-main-container-stacking .content-info-container-stacking {
+    height: 100%;
+  }
+
+  .custom-label {
+    font-size: 12px !important;
+  }
+
+  /* the alert container-stacking when clicking the leave pool button when you are the notifier */
+  .alert-container-stacking-actions-container-stacking {
+    margin-top: 20px !important;
   }
 }
