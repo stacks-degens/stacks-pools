@@ -1,0 +1,10 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@stacks/transactions": "^6.1.1",
+    "@stacks/wallet-sdk": "^6.1.1"
+  },
+  "devDependencies": {
+    "prettier": "2.8.4"
+  }
+}

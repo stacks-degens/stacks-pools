@@ -1,0 +1,6 @@
+#V2
+(contract-call .alex-go-swap swap-stx-to-xbtc 10 4)
+(contract-call? .alex-go-swap swap-stx-to-xbtc 10 4)
+(contract-call? .alex-go-swap swap-stx-to-xbtc u10 u4)
+(contract-call? .mining-pool-5-blocks update-threshold)
+(contract-call? .mining-pool-5-blocks get-k)

@@ -1,0 +1,12 @@
+{
+  "name": "general-contract-call",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "make any type of SC call without post conditions",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@stacks/network": "^6.1.1",
+    "@stacks/transactions": "^6.2.0"
+  }
+}

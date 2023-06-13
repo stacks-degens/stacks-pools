@@ -8,10 +8,13 @@ Main Structure
 - Front End Pools
   - Mining
   - Stacking
-- Smart Contract
-  - Mining
-  - Stacking
-  - Bridge
+- Smart Contracts
+  - Smart Contract
+    - Mining Pool
+    - Stacking Pool
+    - Bridge
+  - Utils
+    - Auxiliary SC snippet examples that can be useful
 - Bridge
   - Front End
   - Back End

@@ -1,0 +1,33 @@
+[project]
+name = 'exchange-stx-to-btc'
+description = ''
+authors = []
+telemetry = false
+cache_dir = './.cache'
+
+[[project.requirements]]
+contract_id = 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.swap-helper-v1-03'
+
+[[project.requirements]]
+contract_id = 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.token-wbtc'
+
+[[project.requirements]]
+contract_id = 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.token-wstx'
+
+[[project.requirements]]
+contract_id = 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.trait-sip-010'
+
+[[project.requirements]]
+contract_id = 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.amm-swap-pool-v1-1'
+[contracts.alex-go-swap]
+path = 'contracts/alex-go-swap.clar'
+clarity_version = 2
+epoch = 2.1
+[repl.analysis]
+passes = ['check_checker']
+
+[repl.analysis.check_checker]
+strict = false
+trusted_sender = false
+trusted_caller = false
+callee_filter = false
