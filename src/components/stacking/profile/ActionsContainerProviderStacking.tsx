@@ -1,6 +1,10 @@
 import './styles.css';
 import { useEffect, useState } from 'react';
-import { ContractDepositSTXStacking, ContractLeavePoolStacking } from '../../../consts/smartContractFunctions';
+import {
+  ContractDepositSTXStacking,
+  ContractLeavePoolStacking,
+  ContractSetNewLiquidityProvider,
+} from '../../../consts/smartContractFunctions';
 import { readOnlyGetLiquidityProvider } from '../../../consts/readOnly';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
@@ -10,8 +14,6 @@ interface IActionsContainerStackingProps {
 }
 
 const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStackingProps) => {
-  const [showAlertLeavePool, setShowAlertLeavePool] = useState<boolean>(false);
-  const [leavePoolButtonClicked, setLeavePoolButtonClicked] = useState<boolean>(false);
   const [disableLeavePoolButton, setDisableLeavePoolButton] = useState<boolean>(false);
   const [depositAmountInput, setDepositAmountInput] = useState<number | null>(null);
   const [extendDelegateAmountInput, setExtendDelegateAmountInput] = useState<number | null>(null);
@@ -52,33 +54,6 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
 
     getCurrentLiquidityProvider();
   }, [currentLiquidityProvider]);
-
-  const leavePool = () => {
-    setLeavePoolButtonClicked(true);
-    if (currentLiquidityProvider !== null && currentLiquidityProvider !== userAddress) {
-      console.log('test');
-      ContractLeavePoolStacking();
-    } else if (currentLiquidityProvider !== null && currentLiquidityProvider === userAddress) {
-      console.log("you art the provider, you can't leave pool");
-
-      setShowAlertLeavePool(true);
-      setDisableLeavePoolButton(true);
-    }
-  };
-
-  // useEffect(() => {
-  //   const getUserTotalWithdrawls = async () => {
-  //     const principalAddress = userSession.loadUserData().profile.stxAddress.testnet;
-  //     const getTotalWithdrawals = await readOnlyGetAllTotalWithdrawalsMining(principalAddress);
-  //     setTotalWithdrawals(getTotalWithdrawals);
-  //   };
-
-  //   getUserTotalWithdrawls();
-  // }, [totalWithdrawals]);
-
-  useEffect(() => {
-    if (leavePoolButtonClicked && showAlertLeavePool) setDisableLeavePoolButton(true);
-  }, [leavePoolButtonClicked, showAlertLeavePool]);
 
   return (
     <div>
@@ -141,8 +116,6 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
         <div className="flex-center">
           <button
             className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
-            // onClick={leavePool}
-
             disabled={disableLeavePoolButton}
           >
             Unlock extra STX locked
@@ -153,13 +126,19 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
         <div className="width-55 label-and-input-container-actions-container">
           <label className="custom-label">Insert your new btc address</label>
           <div className="bottom-margins">
-            <input className="custom-input" type="text" onChange={() => {}}></input>
+            <input
+              className="custom-input"
+              type="text"
+              onChange={(e) => setCurrentLiquidityProvider(e.target.value)}
+            ></input>
           </div>
         </div>
         <div className="button-container-action-container">
           <button
             className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
-            // onClick={changeBtcAddress}
+            onClick={() => {
+              if (currentLiquidityProvider !== null) ContractSetNewLiquidityProvider(currentLiquidityProvider);
+            }}
           >
             Set new provider
           </button>
