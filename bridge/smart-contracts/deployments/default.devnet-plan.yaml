@@ -1,0 +1,101 @@
+---
+id: 0
+name: Devnet deployment
+network: devnet
+stacks-node: "http://localhost:20443"
+bitcoin-node: "http://devnet:devnet@localhost:18443"
+plan:
+  batches:
+    - id: 0
+      transactions:
+        - requirement-publish:
+            contract-id: SP3DX3H4FEYZJZ586MFBS25ZW3HZDMEW92260R2PR.ft-trait
+            remap-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            remap-principals:
+              SP3DX3H4FEYZJZ586MFBS25ZW3HZDMEW92260R2PR: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 8350
+            path: "./.cache/requirements/SP3DX3H4FEYZJZ586MFBS25ZW3HZDMEW92260R2PR.ft-trait.clar"
+            clarity-version: 1
+        - requirement-publish:
+            contract-id: SP3DX3H4FEYZJZ586MFBS25ZW3HZDMEW92260R2PR.restricted-token-trait
+            remap-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            remap-principals:
+              SP3DX3H4FEYZJZ586MFBS25ZW3HZDMEW92260R2PR: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 5480
+            path: "./.cache/requirements/SP3DX3H4FEYZJZ586MFBS25ZW3HZDMEW92260R2PR.restricted-token-trait.clar"
+            clarity-version: 1
+        - requirement-publish:
+            contract-id: SP3DX3H4FEYZJZ586MFBS25ZW3HZDMEW92260R2PR.Wrapped-Bitcoin
+            remap-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            remap-principals:
+              SP3DX3H4FEYZJZ586MFBS25ZW3HZDMEW92260R2PR: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 104220
+            path: "./.cache/requirements/SP3DX3H4FEYZJZ586MFBS25ZW3HZDMEW92260R2PR.Wrapped-Bitcoin.clar"
+            clarity-version: 1
+      epoch: "2.0"
+    - id: 1
+      transactions:
+        - contract-publish:
+            contract-name: trait-sip-010
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 13450
+            path: contracts/trait-sip-010.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: trait-flash-loan-user
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 1700
+            path: contracts/trait-flash-loan-user.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: trait-semi-fungible
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 16920
+            path: contracts/trait-semi-fungible.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: alex-vault-v1-1
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 63750
+            path: contracts/alex-vault-v1-1.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: trait-ownable
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 1430
+            path: contracts/trait-ownable.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: token-amm-swap-pool-v1-1
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 117150
+            path: contracts/token-amm-swap-pool-v1-1.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: amm-swap-pool-v1-1
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 467440
+            path: contracts/amm-swap-pool-v1-1.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: token-wbtc
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 53820
+            path: contracts/token-wbtc.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: token-wstx
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 45960
+            path: contracts/token-wstx.clar
+            anchor-block-only: true
+            clarity-version: 2
+      epoch: "2.1"

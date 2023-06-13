@@ -1,0 +1,6 @@
+
+**/settings/Mainnet.toml
+**/settings/Testnet.toml
+node_modules/**
+history.txt
+**\node_modules
