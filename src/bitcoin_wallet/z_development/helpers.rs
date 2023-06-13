@@ -29,11 +29,6 @@ pub fn create_script_refund(
     // the x blocks are relative to the deployment moment
     // to make scripts different, can be used the fixed time and provided the exact block when to unlock
     // will be needed a method to communicate between miners so that the notifier knows which scripts it should include
-
-    // Script::from_hex(
-    //     "029000b275209997a497d964fc1a62885b05a51166a65a90df00492c8d7cf61d6accf54803beac",
-    // )
-    // .unwrap()
 }
 
 // working
@@ -59,19 +54,16 @@ pub fn create_script_unspendable() -> bitcoin::Script {
 pub fn create_tree(
     secp: &Secp256k1<All>,
     internal: &KeyPair,
-    branch_1: &Script,
-    branch_2: &Script,
+    script_1: &Script,
+    script_2: &Script,
 ) -> (bitcoin::util::taproot::TaprootSpendInfo, bitcoin::Address) {
     let builder =
-        TaprootBuilder::with_huffman_tree(vec![(1, branch_1.clone()), (1, branch_2.clone())])
+        TaprootBuilder::with_huffman_tree(vec![(1, script_1.clone()), (1, script_2.clone())])
             .unwrap();
 
     let (internal_public_key, _) = internal.x_only_public_key();
 
-    // let tap_tree = TapTree::try_from(builder).unwrap();
     let tap_info = builder.finalize(secp, internal_public_key).unwrap();
-
-    // let merkle_root = tap_info.merkle_root(); // not used here
 
     let address = Address::p2tr(
         secp,
