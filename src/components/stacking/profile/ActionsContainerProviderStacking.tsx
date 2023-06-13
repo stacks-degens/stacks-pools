@@ -1,52 +1,31 @@
 import './styles.css';
-import colors from '../../../consts/colorPallete';
 import { useEffect, useState } from 'react';
-import {
-  ContractDelegateSTXStacking,
-  ContractLeavePoolStacking,
-  ContractRewardDistributionStacking,
-} from '../../../consts/smartContractFunctions';
-import { readOnlyClaimedBlockStatusStacking, readOnlyGetLiquidityProvider } from '../../../consts/readOnly';
+import { ContractDepositSTXStacking, ContractLeavePoolStacking } from '../../../consts/smartContractFunctions';
+import { readOnlyGetLiquidityProvider } from '../../../consts/readOnly';
 import { useAppSelector } from '../../../redux/store';
-import { selectCurrentTheme, selectUserSessionState } from '../../../redux/reducers/user-state';
-import { Alert } from '@mui/material';
-import { ElectricBolt } from '@mui/icons-material';
+import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 
 interface IActionsContainerStackingProps {
   userAddress: string | null;
 }
 
 const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStackingProps) => {
-  // const [withdrawAmountInput, setWithdrawAmountInput] = useState<number | null>(null);
-  // const [totalWithdrawals, setTotalWithdrawals] = useState<number | null>(null);
   const [showAlertLeavePool, setShowAlertLeavePool] = useState<boolean>(false);
   const [leavePoolButtonClicked, setLeavePoolButtonClicked] = useState<boolean>(false);
   const [disableLeavePoolButton, setDisableLeavePoolButton] = useState<boolean>(false);
-  const [delegateAmountInput, setDelegateAmountInput] = useState<number | null>(null);
+  const [depositAmountInput, setDepositAmountInput] = useState<number | null>(null);
   const [extendDelegateAmountInput, setExtendDelegateAmountInput] = useState<number | null>(null);
-  const [claimRewardsInputAmount, setClaimRewardsInputAmount] = useState<number | null>(null);
   const [currentLiquidityProvider, setCurrentLiquidityProvider] = useState<string | null>(null);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
-  const claimRewards = async () => {
-    if (claimRewardsInputAmount !== null) {
-      const wasBlockClaimed = await readOnlyClaimedBlockStatusStacking(claimRewardsInputAmount);
-      if (wasBlockClaimed === false) {
-        ContractRewardDistributionStacking(claimRewardsInputAmount);
-      } else {
-        alert('Block already claimed');
-      }
-    }
-  };
-
-  const delegateAmount = () => {
-    if (delegateAmountInput !== null && !isNaN(delegateAmountInput)) {
-      if (delegateAmountInput < 0.000001) {
+  const depositAmount = () => {
+    if (depositAmountInput !== null && !isNaN(depositAmountInput)) {
+      if (depositAmountInput < 0.000001) {
         alert('You need to input more');
       } else {
-        console.log(delegateAmountInput);
+        console.log(depositAmountInput);
         if (userAddress !== null) {
-          ContractDelegateSTXStacking(delegateAmountInput);
+          ContractDepositSTXStacking(depositAmountInput);
         }
       }
     }
@@ -111,10 +90,10 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
               className="custom-input"
               type="number"
               onChange={(e) => {
-                // const inputAmount = e.target.value;
-                // const inputAmountToInt = parseInt(inputAmount);
-                // setDelegateAmountInput(inputAmountToInt);
-                // console.log('deposit input', inputAmount);
+                const inputAmount = e.target.value;
+                const inputAmountToInt = parseInt(inputAmount);
+                setDepositAmountInput(inputAmountToInt);
+                console.log('deposit input', inputAmount);
               }}
             ></input>
           </div>
@@ -123,7 +102,7 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
           <button
             className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
             onClick={() => {
-              delegateAmount();
+              depositAmount();
             }}
           >
             Deposit

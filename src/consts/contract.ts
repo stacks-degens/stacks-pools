@@ -120,6 +120,7 @@ interface IFunctionMapping {
       delegateStx: string;
       leavePool: string;
       rewardDistribution: string;
+      depositStx: string;
     };
   };
 }
@@ -186,6 +187,7 @@ export const functionMapping: IFunctionMapping = {
       delegateStx: 'delegate-stx',
       leavePool: 'leave-pool',
       rewardDistribution: 'reward-distribution',
+      depositStx: 'deposit-stx-SC-owner',
     },
   },
 };
