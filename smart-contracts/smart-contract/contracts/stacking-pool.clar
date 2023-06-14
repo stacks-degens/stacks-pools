@@ -147,7 +147,7 @@
 (begin
   (asserts! (not (check-pool-SC-pox-2-allowance)) err-disallow-pool-in-pox-2-first)
   (asserts! (is-some (map-get? user-data {address: tx-sender})) err-not-in-pool)
-  (asserts! (is-eq tx-sender (var-get liquidity-provider)) err-liquidity-provider-not-permitted)
+  (asserts! (not (is-eq tx-sender (var-get liquidity-provider))) err-liquidity-provider-not-permitted)
   (let ((result-revoke
           ;; calls revoke and ignores result
           (contract-call? 'ST000000000000000000002AMW42H.pox-2 revoke-delegate-stx)))
