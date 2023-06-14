@@ -275,14 +275,14 @@ Clarinet.test({
     block = chain.mineBlock([
       allowContractCaller(mainContract, undefined, wallet_2),
       joinStackingPool(wallet_2),
-      mainDelegateStx(124_000_000_000, wallet_2), // < 50_000_000_000 uSTX
+      mainDelegateStx(10_000_000_000_000, wallet_2), // > 50_000_000_000 uSTX
     ]);
     block.receipts[0].result.expectOk().expectBool(true);
     block.receipts[1].result.expectOk().expectBool(true);
     block.receipts[2].result.expectOk().expectBool(true);
 
     expectPartialStackedByCycle(poxAddrFP, 1, 0, chain, deployer); // does not commit partially
-    expectTotalStackedByCycle(1, 0, 125_000_000_000, chain, deployer); // commits totally the amount wallet_1 + wallet_2 delegated
+    expectTotalStackedByCycle(1, 0, 10_001_000_000_000, chain, deployer); // commits totally the amount wallet_1 + wallet_2 delegated
 
     block = chain.mineBlock([
       getUserData(wallet_1, deployer),
@@ -303,11 +303,11 @@ Clarinet.test({
     block.receipts[1].result
       .expectSome()
       .expectTuple()
-      ["delegated-balance"].expectUint(124_000_000_000);
+      ["delegated-balance"].expectUint(10_000_000_000_000);
     block.receipts[1].result
       .expectSome()
       .expectTuple()
-      ["locked-balance"].expectUint(124_000_000_000);
+      ["locked-balance"].expectUint(10_000_000_000_000);
   },
 });
 
@@ -505,7 +505,7 @@ Clarinet.test({
     block = chain.mineBlock([
       allowContractCaller(mainContract, undefined, wallet_4),
       joinStackingPool(wallet_4),
-      mainDelegateStx(122_000_000_000, wallet_4), // < 125_000_000_000 uSTX
+      mainDelegateStx(3_780_000_000_000, wallet_4), // approximate threshold
     ]);
     block.receipts[0].result.expectOk().expectBool(true);
     block.receipts[1].result.expectOk().expectBool(true);
@@ -513,7 +513,7 @@ Clarinet.test({
     // no print, returns ok true => amount commited
 
     expectPartialStackedByCycle(poxAddrFP, 1, 0, chain, deployer); // does not commit partially
-    expectTotalStackedByCycle(1, 0, 125_000_000_000, chain, deployer); // commits totally the amount wallet_1 + wallet_2 delegated
+    expectTotalStackedByCycle(1, 0, 3783000000000, chain, deployer); // commits totally the amount wallet_1 + wallet_2 delegated
 
     for (let i = 5; i <= 7; i++) {
       let stacker = accounts.get(`wallet_${i}`)!;
@@ -546,7 +546,7 @@ Clarinet.test({
     }
 
     expectPartialStackedByCycle(poxAddrFP, 1, 0, chain, deployer); // does not commit partially
-    expectTotalStackedByCycle(1, 0, 128_000_000_000, chain, deployer); // does not commit totally
+    expectTotalStackedByCycle(1, 0, 3786000000000, chain, deployer); // does not commit totally
 
     // Allow pool SC in pox-2, join stacking pool and delegate with wallet_8
     block = chain.mineBlock([
@@ -560,7 +560,7 @@ Clarinet.test({
     // no print, returns ok true => amount commited
 
     expectPartialStackedByCycle(poxAddrFP, 1, 0, chain, deployer); // does not commit partially
-    expectTotalStackedByCycle(1, 0, 250_000_000_000, chain, deployer); // commits totally the amount wallet_1, wallet_2, ... wallet_8 delegated
+    expectTotalStackedByCycle(1, 0, 3908000000000, chain, deployer); // commits totally the amount wallet_1, wallet_2, ... wallet_8 delegated
 
     block = chain.mineBlock([getUserData(wallet_8, deployer)]);
 
