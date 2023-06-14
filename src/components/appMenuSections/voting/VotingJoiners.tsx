@@ -12,19 +12,11 @@ import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import Button from '@mui/material/Button';
 import TableCreation from '../../../components/TableCreation';
-import {
-  WaitingData,
-  waitingColumns,
-  GetWaitingRows,
-} from '../../../consts/tableData';
+import { WaitingData, waitingColumns, GetWaitingRows } from '../../../consts/tableData';
 
 const VotingJoiners = () => {
   const { currentTheme } = useCurrentTheme();
   const waitingRows = GetWaitingRows();
-
-  const tryEnterPool = () => {
-    ContractTryEnterPool();
-  };
 
   const handlePendingVoteButtonClick = (data: string, address: string) => {
     if (data === 'voteYes') {
@@ -48,16 +40,13 @@ const VotingJoiners = () => {
             {column.dataKey === 'vote' ? (
               <Box>
                 <Button onClick={() => handlePendingVoteButtonClick('voteYes', waitingRow['address'])}>
-                  <ThumbUpAltIcon
-                    fontSize="small"
-                    sx={{ color: 'green' }}
-                  />
+                  <ThumbUpAltIcon fontSize="small" sx={{ color: 'green' }} />
                 </Button>
-                <Button style={{ marginRight: -52 }} onClick={() => handlePendingVoteButtonClick('voteNo', waitingRow['address'])}>
-                  <ThumbDownAltIcon
-                    fontSize="small"
-                    sx={{ color: 'red' }}
-                  />
+                <Button
+                  style={{ marginRight: -52 }}
+                  onClick={() => handlePendingVoteButtonClick('voteNo', waitingRow['address'])}
+                >
+                  <ThumbDownAltIcon fontSize="small" sx={{ color: 'red' }} />
                 </Button>
               </Box>
             ) : (
@@ -83,19 +72,6 @@ const VotingJoiners = () => {
         color: colors[currentTheme].secondary,
       }}
     >
-        {/* if user not waiting, don't show this button */}
-        <Button
-          sx={{ border: 1 }}
-          style={{
-            backgroundColor: colors[currentTheme].accent2,
-            color: colors[currentTheme].secondary,
-            marginTop: 10,
-            marginBottom: -20,
-          }}
-          onClick={() => tryEnterPool()}
-        >
-          Try Enter
-        </Button>
       <TableCreation
         rows={waitingRows}
         rowContent={waitingRowContent}

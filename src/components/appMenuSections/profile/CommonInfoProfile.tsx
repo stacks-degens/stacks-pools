@@ -9,9 +9,27 @@ import { network, getExplorerUrl } from '../../../consts/network';
 const CommonInfoProfile = () => {
   const currentRole = useAppSelector(selectCurrentUserRole);
   const [connectedWallet, setConnectedWallet] = useState<string | null>(null);
+  const [userAddress, setUserAddress] = useState<string | null>(null);
+  const [explorerLink, setExplorerLink] = useState<string | undefined>(undefined);
   const { currentTheme } = useCurrentTheme();
-  const explorerLink = getExplorerUrl[network]().explorerUrl;
+  // const explorerLink = getExplorerUrl[network](userAddress).explorerUrl;
   const userSession = useAppSelector(selectUserSessionState);
+
+  useEffect(() => {
+    if (userSession.isUserSignedIn()) {
+      const args = userSession.loadUserData().profile.stxAddress.testnet;
+      console.log('address', args);
+      setUserAddress(args);
+    } else {
+      console.log('not signed in');
+    }
+  }, [userAddress]);
+
+  useEffect(() => {
+    if (userAddress !== null) {
+      setExplorerLink(getExplorerUrl[network](userAddress).explorerUrl);
+    }
+  }, [explorerLink, userAddress]);
 
   useEffect(() => {
     const wallet = userSession.loadUserData().profile.stxAddress.testnet;
@@ -31,7 +49,7 @@ const CommonInfoProfile = () => {
           display connected wallet:
           {connectedWallet !== null && <div>{connectedWallet}</div>}
         </li>
-        <li>option to change wallet</li>
+        <li>option to change wallet: postponed, use same functionallity as authenticate with `connect wallet`</li>
         <li>
           current role:
           <div>{currentRole === 'NormalUser' ? 'not asked to join yet' : currentRole}</div>
@@ -42,7 +60,7 @@ const CommonInfoProfile = () => {
               style={{ backgroundColor: colors[currentTheme].accent2, color: colors[currentTheme].secondary }}
               target="_blank"
               rel="noreferrer"
-              href={explorerLink}
+              href={explorerLink !== undefined ? explorerLink : ''}
             >
               link to explorer
             </a>

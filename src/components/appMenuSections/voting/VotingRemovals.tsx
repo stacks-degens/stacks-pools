@@ -3,42 +3,36 @@ import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
 import useCurrentTheme from '../../../consts/theme';
 import colors from '../../../consts/colorPallete';
-import {
-  ContractVotePositiveJoin,
-  ContractVoteNegativeJoin,
-  ContractTryEnterPool,
-} from '../../../consts/smartContractFunctions';
+import { ContractVotePositiveRemove, ContractVoteNegativeRemove } from '../../../consts/smartContractFunctions';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
+import InfoIcon from '@mui/icons-material/Info';
 import Button from '@mui/material/Button';
 import TableCreation from '../../../components/TableCreation';
-import {
-  WaitingData,
-  waitingColumns,
-  GetWaitingRows,
-  GetRemovalsRows,
-} from '../../../consts/tableData';
+import { removalsColumns, GetRemovalsRows, RemovalsData } from '../../../consts/tableData';
 
-const VotingJoiners = () => {
+const VotingRemovals = () => {
   const { currentTheme } = useCurrentTheme();
-  const waitingRows = GetRemovalsRows();
+  const removalsRows = GetRemovalsRows();
 
-  const tryEnterPool = () => {
-    ContractTryEnterPool();
-  };
-
-  const handlePendingVoteButtonClick = (data: string, address: string) => {
+  const handleRemovalVoteButtonClick = (data: string, address: string) => {
     if (data === 'voteYes') {
-      ContractVotePositiveJoin(address);
+      ContractVotePositiveRemove(address);
     } else if (data === 'voteNo') {
-      ContractVoteNegativeJoin(address);
+      ContractVoteNegativeRemove(address);
     }
   };
 
-  const waitingRowContent = (_index: number, waitingRow: WaitingData) => {
+  const handleMinerInfoButtonClick = (address: string) => {
+    // change this call to redirect the one who clicked to a new tab, or make a popup with the info of the given miner
+    // the call is named 'readOnlyGetAllDataMinersInPool', but for now it gives read_length error (@deployer needs to fix it)
+    // ContractVotePositiveJoin(address);
+  };
+
+  const removalsRowContent = (_index: number, removalsRow: RemovalsData) => {
     return (
       <React.Fragment>
-        {waitingColumns.map((column) => (
+        {removalsColumns.map((column) => (
           <TableCell
             key={column.dataKey}
             align={column.dataKey === 'address' ? 'left' : 'right'}
@@ -48,21 +42,25 @@ const VotingJoiners = () => {
           >
             {column.dataKey === 'vote' ? (
               <Box>
-                <Button onClick={() => handlePendingVoteButtonClick('voteYes', waitingRow['address'])}>
-                  <ThumbUpAltIcon
-                    fontSize="small"
-                    sx={{ color: 'green' }}
-                  />
+                <Button onClick={() => handleRemovalVoteButtonClick('voteYes', removalsRow['address'])}>
+                  <ThumbUpAltIcon fontSize="small" sx={{ color: 'green' }} />
                 </Button>
-                <Button style={{ marginRight: -52 }} onClick={() => handlePendingVoteButtonClick('voteNo', waitingRow['address'])}>
-                  <ThumbDownAltIcon
-                    fontSize="small"
-                    sx={{ color: 'red' }}
-                  />
+                <Button
+                  style={{ marginRight: -52 }}
+                  onClick={() => handleRemovalVoteButtonClick('voteNo', removalsRow['address'])}
+                >
+                  <ThumbDownAltIcon fontSize="small" sx={{ color: 'red' }} />
                 </Button>
               </Box>
             ) : (
-              waitingRow[column.dataKey]
+              removalsRow[column.dataKey]
+            )}
+            {column.dataKey === 'generalInfo' && (
+              <Box>
+                <Button onClick={() => handleMinerInfoButtonClick(removalsRow['address'])}>
+                  <InfoIcon fontSize="small" sx={{ color: colors[currentTheme].secondary }} />
+                </Button>
+              </Box>
             )}
           </TableCell>
         ))}
@@ -84,23 +82,10 @@ const VotingJoiners = () => {
         color: colors[currentTheme].secondary,
       }}
     >
-        {/* if user not waiting, don't show this button */}
-        <Button
-          sx={{ border: 1 }}
-          style={{
-            backgroundColor: colors[currentTheme].accent2,
-            color: colors[currentTheme].secondary,
-            marginTop: 10,
-            marginBottom: -20,
-          }}
-          onClick={() => tryEnterPool()}
-        >
-          Try Enter
-        </Button>
       <TableCreation
-        rows={waitingRows}
-        rowContent={waitingRowContent}
-        columns={waitingColumns}
+        rows={removalsRows}
+        rowContent={removalsRowContent}
+        columns={removalsColumns}
         tableId="waiting"
         customTableWidth="75%"
       />
@@ -108,4 +93,4 @@ const VotingJoiners = () => {
   );
 };
 
-export default VotingJoiners;
+export default VotingRemovals;

@@ -64,16 +64,17 @@ export const postApiUrl: PostApiUrl = {
     `http://localhost:3999/v2/contracts/call-read/${contractAddress}/${contractName}/${functionName}`,
 };
 
-type ExplorerUrl = Record<networkType, () => { explorerUrl: string }>;
+type ExplorerUrl = Record<networkType, (userAddress: string) => { explorerUrl: string }>;
 
 export const getExplorerUrl: ExplorerUrl = {
-  mainnet: () => ({
-    explorerUrl: `https://explorer.hiro.so?chain=mainnet`,
+  mainnet: (userAddress: string) => ({
+    explorerUrl: `https://explorer.hiro.so/address/${userAddress}?chain=mainnet`,
   }),
-  testnet: () => ({
-    explorerUrl: `https://explorer.hiro.so?chain=testnet`,
+  testnet: (userAddress: string) => ({
+    // explorerUrl: `https://explorer.hiro.so?chain=testnet`,
+    explorerUrl: `https://explorer.hiro.so/address/${userAddress}?chain=testnet`,
   }),
-  devnet: () => ({
-    explorerUrl: `http://localhost:8000?chain=mainnet`,
+  devnet: (userAddress: string) => ({
+    explorerUrl: `http://localhost:8000/address/${userAddress}?chain=mainnet`,
   }),
 };

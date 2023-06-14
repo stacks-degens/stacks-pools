@@ -67,10 +67,11 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
       role="presentation"
       style={{ backgroundColor: colors[currentTheme].accent2 }}
     >
-      <List 
+      <List
         onClick={toggleDrawer(anchor, false)}
         onKeyDown={toggleDrawer(anchor, false)}
-        style={{ backgroundColor: colors[currentTheme].primary }}>
+        style={{ backgroundColor: colors[currentTheme].primary }}
+      >
         <ListItem disablePadding>
           <div
             style={{
@@ -90,10 +91,8 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
       <Divider style={{ backgroundColor: colors[currentTheme].accent2 }} />
       <List style={{ backgroundColor: colors[currentTheme].accent2 }}>
         {/* TODO: keep what fits best, this */}
-        <div  style={{ marginTop: -10 }}>
-          <ListItem 
-            onClick={toggleDrawer(anchor, false)}
-            onKeyDown={toggleDrawer(anchor, false)}>
+        <div style={{ marginTop: -10 }}>
+          <ListItem onClick={toggleDrawer(anchor, false)} onKeyDown={toggleDrawer(anchor, false)}>
             <ListItemButton component={Link} to={'/'}>
               <ListItemIcon>
                 <HomeIcon style={{ color: colors[currentTheme].secondary }} />
@@ -112,9 +111,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
         aria-labelledby="nested-list-subheader"
       > */}
         <div>
-          <ListItem 
-            onClick={toggleDrawer(anchor, false)}
-            onKeyDown={toggleDrawer(anchor, false)}>
+          <ListItem onClick={toggleDrawer(anchor, false)} onKeyDown={toggleDrawer(anchor, false)}>
             <ListItemButton component={Link} to={'/dashboard'}>
               <ListItemIcon>
                 <Home style={{ color: colors[currentTheme].secondary }} />
@@ -126,9 +123,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
         </div>
         {currentRole !== 'Viewer' && (
           <div>
-            <ListItem
-              onClick={toggleDrawer(anchor, false)}
-              onKeyDown={toggleDrawer(anchor, false)}>
+            <ListItem onClick={toggleDrawer(anchor, false)} onKeyDown={toggleDrawer(anchor, false)}>
               <ListItemButton component={Link} to={'/myProfile'}>
                 <ListItemIcon>
                   <AccountCircleIcon style={{ color: colors[currentTheme].secondary }} />
@@ -148,23 +143,20 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                     <Hardware style={{ color: colors[currentTheme].secondary }} />
                   </ListItemIcon>
                   <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Mining Pool" />
-                  {openMiningPoolMenu ? <ExpandLess style={{ color: colors[currentTheme].secondary }}/> : <ExpandMore style={{ color: colors[currentTheme].secondary }}/>}
+                  {openMiningPoolMenu ? (
+                    <ExpandLess style={{ color: colors[currentTheme].secondary }} />
+                  ) : (
+                    <ExpandMore style={{ color: colors[currentTheme].secondary }} />
+                  )}
                 </ListItemButton>
 
                 <Collapse
-                  in={openMiningPoolMenu} 
+                  in={openMiningPoolMenu}
                   onClick={toggleDrawer(anchor, false)}
                   onKeyDown={toggleDrawer(anchor, false)}
-                  timeout="auto" 
-                  unmountOnExit>
-                  <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }} component={Link} to={'/miningPool'}>
-                      <ListItemIcon>
-                        <StarBorder style={{ color: colors[currentTheme].secondary }} />
-                      </ListItemIcon>
-                      <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Info" />
-                    </ListItemButton>
-                  </List>
+                  timeout="auto"
+                  unmountOnExit
+                >
                   <List component="div" disablePadding>
                     <ListItemButton sx={{ pl: 4 }} component={Link} to={'/miningPool/status'}>
                       <ListItemIcon>
@@ -192,21 +184,26 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                     <Poll style={{ color: colors[currentTheme].secondary }} />
                   </ListItemIcon>
                   <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Voting" />
-                  {openVotingMenu ? <ExpandLess style={{ color: colors[currentTheme].secondary }}/> : <ExpandMore style={{ color: colors[currentTheme].secondary }}/>}
+                  {openVotingMenu ? (
+                    <ExpandLess style={{ color: colors[currentTheme].secondary }} />
+                  ) : (
+                    <ExpandMore style={{ color: colors[currentTheme].secondary }} />
+                  )}
                 </ListItemButton>
 
                 <Collapse
-                in={openVotingMenu}
-                onClick={toggleDrawer(anchor, false)}
-                onKeyDown={toggleDrawer(anchor, false)}
-                timeout="auto"
-                unmountOnExit>
+                  in={openVotingMenu}
+                  onClick={toggleDrawer(anchor, false)}
+                  onKeyDown={toggleDrawer(anchor, false)}
+                  timeout="auto"
+                  unmountOnExit
+                >
                   <List component="div" disablePadding>
                     <ListItemButton sx={{ pl: 4 }} component={Link} to={'/voting'}>
                       <ListItemIcon>
                         <StarBorder style={{ color: colors[currentTheme].secondary }} />
                       </ListItemIcon>
-                      <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Info" />
+                      <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Status" />
                     </ListItemButton>
                   </List>
                   <List component="div" disablePadding>

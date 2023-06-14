@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react';
-import { ReadOnlyAllDataProposedRemovalMiners, ReadOnlyAllDataWaitingMiners, ReadOnlyGetMinersList } from './readOnly';
+import {
+  ReadOnlyAllDataProposedRemovalMiners,
+  ReadOnlyAllDataWaitingMiners,
+  ReadOnlyGetMinersList,
+  ReadOnlyGetWaitingList,
+} from './readOnly';
 
 // data interface for all tables, used as type in TableCreation
 
@@ -93,24 +98,26 @@ export const GetWaitingRows = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const newWaitingList = await ReadOnlyAllDataWaitingMiners();
+      const fullWaitingList = await ReadOnlyGetWaitingList();
+      const newWaitingList = await ReadOnlyAllDataWaitingMiners(fullWaitingList);
       setWaitingList(newWaitingList);
     };
     fetchData();
   }, [setWaitingList]);
 
-  const rows = waitingList
-    ? waitingList.map((miner: WaitingListProps, index: number) => {
-        const waitingValue = miner.value[0].value.value;
-        return createWaitingData(
-          index,
-          waitingValue.miner.value,
-          waitingValue['negative-votes'].value + '/' + waitingValue['negative-threshold'].value,
-          waitingValue['positive-votes'].value + '/' + waitingValue['positive-threshold'].value,
-          !waitingValue['was-blacklist'].value ? 'No' : 'Yes'
-        );
-      })
-    : [];
+  const rows =
+    waitingList.length !== 0
+      ? waitingList.map((miner: WaitingListProps, index: number) => {
+          const waitingValue = miner.value[0].value.value;
+          return createWaitingData(
+            index,
+            waitingValue.miner.value,
+            waitingValue['negative-votes'].value + '/' + waitingValue['negative-threshold'].value,
+            waitingValue['positive-votes'].value + '/' + waitingValue['positive-threshold'].value,
+            !waitingValue['was-blacklist'].value ? 'No' : 'Yes'
+          );
+        })
+      : [];
 
   return rows;
 };
@@ -166,12 +173,13 @@ export const GetMinersRows = () => {
     fetchData();
   }, [setMinersList]);
 
-  const rows = minersList
-    ? minersList.map((miner: { value: string }, index: number) => {
-        const minerValue = miner.value;
-        return createMinersData(index, minerValue);
-      })
-    : [];
+  const rows =
+    minersList.length !== 0
+      ? minersList.map((miner: { value: string }, index: number) => {
+          const minerValue = miner.value;
+          return createMinersData(index, minerValue);
+        })
+      : [];
 
   return rows;
 };
@@ -184,8 +192,7 @@ export interface RemovalsData {
   negativeVotes: string;
   vote: string;
   positiveVotes: string;
-  warnings: number;
-  minerBlocks: number;
+  generalInfo: string;
 }
 
 interface RemovalsColumnData {
@@ -195,15 +202,8 @@ interface RemovalsColumnData {
   width: number;
 }
 
-const createRemovalsData = (
-  id: number,
-  address: string,
-  negativeVotes: string,
-  positiveVotes: string,
-  warnings: number,
-  minerBlocks: number
-) => {
-  return { id, address, negativeVotes, positiveVotes, warnings, minerBlocks };
+const createRemovalsData = (id: number, address: string, negativeVotes: string, positiveVotes: string) => {
+  return { id, address, negativeVotes, positiveVotes };
 };
 
 export const removalsColumns: RemovalsColumnData[] = [
@@ -232,15 +232,25 @@ export const removalsColumns: RemovalsColumnData[] = [
   },
   {
     width: 120,
-    label: 'Warnings',
-    dataKey: 'warnings',
-  },
-  {
-    width: 120,
-    label: 'Blocks as Miner',
-    dataKey: 'minerBlocks',
+    label: 'Miner Info',
+    dataKey: 'generalInfo',
+    numeric: true,
   },
 ];
+
+interface RemovalsListProps {
+  value: {
+    value: {
+      value: {
+        miner: { value: string };
+        'negative-threshold': { value: string };
+        'positive-threshold': { value: string };
+        'votes-against-removal': { value: string };
+        'votes-for-removal': { value: string };
+      };
+    };
+  }[];
+}
 
 export const GetRemovalsRows = () => {
   const [removalsList, setRemovalsList] = useState<any>([]);
@@ -253,13 +263,18 @@ export const GetRemovalsRows = () => {
     fetchData();
   }, [setRemovalsList]);
 
-  const rows = removalsList
-    ? removalsList.map((miner: any, index: number) => {
-        // have to change type of miner after the call works
-        const removalsValue = miner;
-        return createRemovalsData(index, '', '', '', 0, 0);
-      })
-    : [];
+  const rows =
+    removalsList.length !== 0
+      ? removalsList.map((miner: RemovalsListProps, index: number) => {
+          const removalsValue = miner.value[0].value.value;
+          return createRemovalsData(
+            index,
+            removalsValue.miner.value,
+            removalsValue['votes-against-removal'].value + '/' + removalsValue['negative-threshold'].value,
+            removalsValue['votes-for-removal'].value + '/' + removalsValue['positive-threshold'].value
+          );
+        })
+      : [];
 
   return rows;
 };

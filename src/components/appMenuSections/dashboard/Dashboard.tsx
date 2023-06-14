@@ -7,7 +7,13 @@ import { useAppDispatch, useAppSelector } from '../../../redux/store';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SaveIcon from '@mui/icons-material/Save';
 import { ContractAskToJoin } from '../../../consts/smartContractFunctions';
-import { readOnlyAddressStatus, ReadOnlyGetMinersList, readOnlyGetNotifier } from '../../../consts/readOnly';
+import {
+  readOnlyAddressStatus,
+  readOnlyGetBlocksWon,
+  ReadOnlyGetMinersList,
+  readOnlyGetNotifier,
+  readOnlyGetStacksRewards,
+} from '../../../consts/readOnly';
 import colors from '../../../consts/colorPallete';
 import useCurrentTheme from '../../../consts/theme';
 import { Box } from '@mui/material';
@@ -15,11 +21,13 @@ import { Box } from '@mui/material';
 const Dashboard = () => {
   const [authenticatedSuccessfully, setAuthenticatedSuccessfully] = useState<boolean>(false);
   const [clickedJoinPoolButtonByViewer, setClickedJoinPoolButtonByViewer] = useState<boolean>(false);
-  const [currentNotifier, setCurrentNotifier] = useState<string>();
+  const [currentNotifier, setCurrentNotifier] = useState<string>('');
   const [minersList, setMinersList] = useState<any>([]);
   const { currentTheme } = useCurrentTheme();
   const currentRole: UserRole = useAppSelector(selectCurrentUserRole);
-  const [userAddress, setUserAddress] = useState<number | null>(null);
+  const [userAddress, setUserAddress] = useState<string | null>(null);
+  const [blocksWon, setBlocksWon] = useState<number | null>(null);
+  const [stacksRewards, setStacksRewards] = useState<number | null>(null);
   const userSession = useAppSelector(selectUserSessionState);
 
   const dispatch = useAppDispatch();
@@ -43,7 +51,7 @@ const Dashboard = () => {
   };
 
   const handleJoinPoolButtonByNormalUser = () => {
-    alert('I am a normal user and now the join pool button should do something accordingly to my role');
+    // alert('I am a normal user and now the join pool button should do something accordingly to my role');
     // TODO: change navigate with the corresponding join pool function as a normal user
   };
 
@@ -89,6 +97,22 @@ const Dashboard = () => {
     }
   }, [currentRole]);
 
+  useEffect(() => {
+    const getBlocksWon = async () => {
+      const blocks = await readOnlyGetBlocksWon();
+      setBlocksWon(blocks);
+    };
+    getBlocksWon();
+  }, [blocksWon]);
+
+  useEffect(() => {
+    const getStacksRewards = async () => {
+      const stacks = await readOnlyGetStacksRewards();
+      setStacksRewards(stacks);
+    };
+    getStacksRewards();
+  }, [stacksRewards]);
+
   return (
     <Box
       sx={{
@@ -100,12 +124,6 @@ const Dashboard = () => {
     >
       <div>
         <h2>Dashboard</h2>
-        {/* <h4>General info about Stacks - widgets/statistics</h4>
-        <ul>
-          <li>stacks rewards</li>
-          <li>miners</li>
-          <li>blocks</li>
-        </ul> */}
         <h4>General info about mining pool</h4>
         <ul>
           <li>
@@ -118,9 +136,8 @@ const Dashboard = () => {
             ))}
           </li>
           {currentRole === 'NormalUser' && <li>winner block id</li>}
-
-          <li>number of blocks won</li>
-          <li>stacks rewards</li>
+          {blocksWon !== null && <li>number of blocks won:{blocksWon} </li>}
+          {stacksRewards !== null && <li>stacks rewards:{stacksRewards} </li>}
         </ul>
         {currentRole !== 'Miner' && !clickedJoinPoolButtonByViewer && (
           <Button
@@ -129,9 +146,8 @@ const Dashboard = () => {
               if (currentRole === 'Viewer') {
                 handleJoinPoolButtonByViewer();
               } else if (currentRole === 'NormalUser' || 'Miner') {
-                // ContractAskToJoin('ST2ST2H80NP5C9SPR4ENJ1Z9CDM9PKAJVPYWPQZ50');
                 ContractAskToJoin(`${userAddress}`);
-                handleJoinPoolButtonByNormalUser();
+                // handleJoinPoolButtonByNormalUser();
               }
             }}
           >
