@@ -63,3 +63,17 @@ export const postApiUrl: PostApiUrl = {
   devnet: (contractAddress: string, contractName: string, functionName: string) =>
     `http://localhost:3999/v2/contracts/call-read/${contractAddress}/${contractName}/${functionName}`,
 };
+
+type ExplorerUrl = Record<networkType, () => { explorerUrl: string }>;
+
+export const getExplorerUrl: ExplorerUrl = {
+  mainnet: () => ({
+    explorerUrl: `https://explorer.hiro.so?chain=mainnet`,
+  }),
+  testnet: () => ({
+    explorerUrl: `https://explorer.hiro.so?chain=testnet`,
+  }),
+  devnet: () => ({
+    explorerUrl: `http://localhost:8000?chain=mainnet`,
+  }),
+};

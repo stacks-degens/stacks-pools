@@ -2,7 +2,7 @@ import { StacksMocknet, StacksMainnet, StacksTestnet } from '@stacks/network';
 import { network, transactionUrl } from './network';
 import { contractMapping } from './contract';
 import { openContractCall, FinishedTxData } from '@stacks/connect';
-import { AnchorMode, PostConditionMode, ClarityValue } from '@stacks/transactions';
+import { AnchorMode, PostConditionMode, ClarityValue, stringCV } from '@stacks/transactions';
 import { convertPrincipalToArg } from './converter';
 
 const contractNetwork =
@@ -63,13 +63,18 @@ export const ContractTryEnterPool = () => {
 // what does it do: This function adds the user passed as argument to the waiting list
 
 export const ContractAskToJoin = (args: string) => {
-  const convertedArgs = [convertPrincipalToArg(args)];
+  const convertedArgs = [stringCV(args, 'ascii')];
   CallFunctions(convertedArgs, 'ask-to-join');
 };
 
 // deposit-stx
 // args: (amount uint)
 // what does it do: deposits stx into user's account
+
+export const ContractDepositSTX = (amount: any) => {
+  // const
+  CallFunctions(amount, 'deposit-stx');
+};
 //
 // withdraw-stx
 // args: (amount uint)

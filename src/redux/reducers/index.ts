@@ -1,4 +1,4 @@
-import { IUserState, defaultUserState, selectUsereSessionState } from './user-state';
+import { IUserState, defaultUserState, selectUserSessionState } from './user-state';
 import { DISCONNECT_USER_SESSION, CONNECT_USER_SESSION, UPDATE_USER_ROLE } from '../actions';
 
 import { showConnect } from '@stacks/connect';
@@ -17,7 +17,7 @@ interface IreduxAction {
 }
 
 const mainReducer = (state = initialState, action: IreduxAction) => {
-  const userSession = selectUsereSessionState(state);
+  const userSession = selectUserSessionState(state);
   switch (action.type) {
     case CONNECT_USER_SESSION:
       showConnect({

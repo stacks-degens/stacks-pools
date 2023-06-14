@@ -18,6 +18,11 @@
     "allowImportingTsExtensions": true
   },
   "include": [
-    "src/components", "src/custom.d.ts"
-, "src/index.tsx", "src/consts/lightModeButton.ts", "src/pages/Cinema.tsx", "src/pages/MiningPool.tsx"  ]
+    "src/components",
+    "src/custom.d.ts",
+    "src/index.tsx",
+    "src/consts/lightModeButton.ts",
+    "src/pages/Cinema.tsx",
+    "src/pages/MiningPool.tsx"
+  ]
 }

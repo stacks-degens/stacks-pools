@@ -65,11 +65,12 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
     <Box
       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250, height: '100%' }}
       role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
       style={{ backgroundColor: colors[currentTheme].accent2 }}
     >
-      <List style={{ backgroundColor: colors[currentTheme].primary }}>
+      <List 
+        onClick={toggleDrawer(anchor, false)}
+        onKeyDown={toggleDrawer(anchor, false)}
+        style={{ backgroundColor: colors[currentTheme].primary }}>
         <ListItem disablePadding>
           <div
             style={{
@@ -89,8 +90,10 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
       <Divider style={{ backgroundColor: colors[currentTheme].accent2 }} />
       <List style={{ backgroundColor: colors[currentTheme].accent2 }}>
         {/* TODO: keep what fits best, this */}
-        <div style={{ marginTop: -10 }}>
-          <ListItem>
+        <div  style={{ marginTop: -10 }}>
+          <ListItem 
+            onClick={toggleDrawer(anchor, false)}
+            onKeyDown={toggleDrawer(anchor, false)}>
             <ListItemButton component={Link} to={'/'}>
               <ListItemIcon>
                 <HomeIcon style={{ color: colors[currentTheme].secondary }} />
@@ -109,7 +112,9 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
         aria-labelledby="nested-list-subheader"
       > */}
         <div>
-          <ListItem>
+          <ListItem 
+            onClick={toggleDrawer(anchor, false)}
+            onKeyDown={toggleDrawer(anchor, false)}>
             <ListItemButton component={Link} to={'/dashboard'}>
               <ListItemIcon>
                 <Home style={{ color: colors[currentTheme].secondary }} />
@@ -117,10 +122,13 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
               <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Dashboard" />
             </ListItemButton>
           </ListItem>
+          <Divider variant="middle" style={{ backgroundColor: colors[currentTheme].secondary }} />
         </div>
         {currentRole !== 'Viewer' && (
           <div>
-            <ListItem>
+            <ListItem
+              onClick={toggleDrawer(anchor, false)}
+              onKeyDown={toggleDrawer(anchor, false)}>
               <ListItemButton component={Link} to={'/myProfile'}>
                 <ListItemIcon>
                   <AccountCircleIcon style={{ color: colors[currentTheme].secondary }} />
@@ -128,35 +136,49 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                 <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Profile" />
               </ListItemButton>
             </ListItem>
+            <Divider variant="middle" style={{ backgroundColor: colors[currentTheme].secondary }} />
           </div>
         )}
         {currentRole === 'Miner' && (
           <>
             <div>
               <ListItem className="liMenuMiningPool">
-                <ListItemButton component={Link} to={'/miningPool'} onClick={handleClickMiningPoolMenuItem}>
+                <ListItemButton onClick={handleClickMiningPoolMenuItem}>
                   <ListItemIcon>
                     <Hardware style={{ color: colors[currentTheme].secondary }} />
                   </ListItemIcon>
                   <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Mining Pool" />
-                  {openMiningPoolMenu ? <ExpandLess /> : <ExpandMore />}
+                  {openMiningPoolMenu ? <ExpandLess style={{ color: colors[currentTheme].secondary }}/> : <ExpandMore style={{ color: colors[currentTheme].secondary }}/>}
                 </ListItemButton>
 
-                <Collapse in={openMiningPoolMenu} timeout="auto" unmountOnExit>
+                <Collapse
+                  in={openMiningPoolMenu} 
+                  onClick={toggleDrawer(anchor, false)}
+                  onKeyDown={toggleDrawer(anchor, false)}
+                  timeout="auto" 
+                  unmountOnExit>
+                  <List component="div" disablePadding>
+                    <ListItemButton sx={{ pl: 4 }} component={Link} to={'/miningPool'}>
+                      <ListItemIcon>
+                        <StarBorder style={{ color: colors[currentTheme].secondary }} />
+                      </ListItemIcon>
+                      <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Info" />
+                    </ListItemButton>
+                  </List>
                   <List component="div" disablePadding>
                     <ListItemButton sx={{ pl: 4 }} component={Link} to={'/miningPool/status'}>
                       <ListItemIcon>
-                        <StarBorder />
+                        <StarBorder style={{ color: colors[currentTheme].secondary }} />
                       </ListItemIcon>
-                      <ListItemText primary="Status" />
+                      <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Status" />
                     </ListItemButton>
                   </List>
                   <List component="div" disablePadding>
                     <ListItemButton sx={{ pl: 4 }} component={Link} to={'/miningPool/miners'}>
                       <ListItemIcon>
-                        <StarBorder />
+                        <StarBorder style={{ color: colors[currentTheme].secondary }} />
                       </ListItemIcon>
-                      <ListItemText primary="Miners" />
+                      <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Miners" />
                     </ListItemButton>
                   </List>
                 </Collapse>
@@ -165,37 +187,50 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
             </div>
             <div>
               <ListItem className="liMenuMiningPool">
-                <ListItemButton component={Link} to={'/voting'} onClick={handleClickVotingMenuItem}>
+                <ListItemButton onClick={handleClickVotingMenuItem}>
                   <ListItemIcon>
                     <Poll style={{ color: colors[currentTheme].secondary }} />
                   </ListItemIcon>
                   <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Voting" />
-                  {openVotingMenu ? <ExpandLess /> : <ExpandMore />}
+                  {openVotingMenu ? <ExpandLess style={{ color: colors[currentTheme].secondary }}/> : <ExpandMore style={{ color: colors[currentTheme].secondary }}/>}
                 </ListItemButton>
 
-                <Collapse in={openVotingMenu} timeout="auto" unmountOnExit>
+                <Collapse
+                in={openVotingMenu}
+                onClick={toggleDrawer(anchor, false)}
+                onKeyDown={toggleDrawer(anchor, false)}
+                timeout="auto"
+                unmountOnExit>
+                  <List component="div" disablePadding>
+                    <ListItemButton sx={{ pl: 4 }} component={Link} to={'/voting'}>
+                      <ListItemIcon>
+                        <StarBorder style={{ color: colors[currentTheme].secondary }} />
+                      </ListItemIcon>
+                      <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Info" />
+                    </ListItemButton>
+                  </List>
                   <List component="div" disablePadding>
                     <ListItemButton sx={{ pl: 4 }} component={Link} to={'/voting/joiners'}>
                       <ListItemIcon>
-                        <StarBorder />
+                        <StarBorder style={{ color: colors[currentTheme].secondary }} />
                       </ListItemIcon>
-                      <ListItemText primary="Joiners" />
+                      <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Joiners" />
                     </ListItemButton>
                   </List>
                   <List component="div" disablePadding>
                     <ListItemButton sx={{ pl: 4 }} component={Link} to={'/voting/removals'}>
                       <ListItemIcon>
-                        <StarBorder />
+                        <StarBorder style={{ color: colors[currentTheme].secondary }} />
                       </ListItemIcon>
-                      <ListItemText primary="Removals" />
+                      <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Removals" />
                     </ListItemButton>
                   </List>
                   <List component="div" disablePadding>
                     <ListItemButton sx={{ pl: 4 }} component={Link} to={'/voting/notifier'}>
                       <ListItemIcon>
-                        <StarBorder />
+                        <StarBorder style={{ color: colors[currentTheme].secondary }} />
                       </ListItemIcon>
-                      <ListItemText primary="Notifier" />
+                      <ListItemText style={{ color: colors[currentTheme].secondary }} primary="Notifier" />
                     </ListItemButton>
                   </List>
                 </Collapse>

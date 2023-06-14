@@ -4,9 +4,10 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import colors from '../consts/colorPallete';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { connectAction, disconnectAction, updateUserRoleAction } from '../redux/actions';
-import { selectCurrentUserRole, selectUsereSessionState } from '../redux/reducers/user-state';
+import { selectCurrentUserRole, selectUserSessionState } from '../redux/reducers/user-state';
 import { useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { readOnlyAddressStatus } from '../consts/readOnly';
 
 const appConfig = new AppConfig(['store_write', 'publish_data']);
 
@@ -15,7 +16,8 @@ interface ConnectWalletProps {
 }
 
 const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
-  const userSession = useAppSelector(selectUsereSessionState);
+  const [finalStatus, setFinalStatus] = useState<string>('Viewer');
+  const userSession = useAppSelector(selectUserSessionState);
   const dispatch = useAppDispatch();
 
   const currentRole = useAppSelector(selectCurrentUserRole);
@@ -23,11 +25,24 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
 
   const controlAccessRoutes = () => {
     if (location.pathname !== '/') {
-      if (location.pathname.substring(1).toLowerCase() !== currentRole.toLowerCase()) {
+      if (location.pathname.substring(1)?.toLowerCase() !== currentRole.toLowerCase()) {
         console.log('Seems like you got lost, click here to go back to the main page');
       }
     }
   };
+  useEffect(() => {
+    const fetchStatus = async () => {
+      const args = userSession.loadUserData().profile.stxAddress.testnet;
+      const status = await readOnlyAddressStatus(args);
+      console.log('args', args);
+      setFinalStatus(status);
+
+      updateUserRoleAction(finalStatus);
+      console.log('status', finalStatus);
+    };
+
+    fetchStatus();
+  }, [finalStatus]);
 
   useEffect(() => {
     controlAccessRoutes();
@@ -43,7 +58,8 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
 
   if (userSession.isUserSignedIn()) {
     if (currentRole === 'Viewer') {
-      dispatch(updateUserRoleAction());
+      dispatch(updateUserRoleAction(finalStatus));
+      // dispatch(updateUserRoleAction());
       return <div>Loading role...</div>;
     }
     return (
