@@ -4,6 +4,7 @@ import {
   ContractDepositSTXStacking,
   ContractReserveFundsFutureRewardsStacking,
   ContractSetNewLiquidityProvider,
+  ContractUnlockExtraReserveFundsStacking,
 } from '../../../consts/smartContractFunctions';
 import { readOnlyGetLiquidityProvider } from '../../../consts/readOnly';
 import { useAppSelector } from '../../../redux/store';
@@ -17,6 +18,8 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
   const [depositAmountInput, setDepositAmountInput] = useState<number | null>(null);
   const [lockInPoolAmountInput, setLockInPoolAmountInput] = useState<number | null>(null);
   const [currentLiquidityProvider, setCurrentLiquidityProvider] = useState<string | null>(null);
+  const [lockInPoolButtonDisabled, setLockInPoolButtonDisabled] = useState<boolean>(true);
+  const [unlockInPoolButtonDisabled, setUnlockInPoolButtonDisabled] = useState<boolean>(false);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   const depositAmount = () => {
@@ -32,7 +35,7 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
     }
   };
 
-  const lockInPool = () => {
+  const lockInPool = (callback?: () => void) => {
     if (lockInPoolAmountInput !== null && !isNaN(lockInPoolAmountInput)) {
       if (lockInPoolAmountInput < 0.000001) {
         alert('You need to input more');
@@ -43,6 +46,10 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
         }
       }
     }
+  };
+
+  const unlockExtraStx = (callback?: () => void) => {
+    ContractUnlockExtraReserveFundsStacking();
   };
 
   useEffect(() => {
@@ -100,7 +107,13 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
           </div>
         </div>
         <div className="button-container-stacking-action-container-stacking">
-          <button className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'} onClick={lockInPool}>
+          <button
+            className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+            disabled={unlockInPoolButtonDisabled}
+            onClick={() => {
+              lockInPool();
+            }}
+          >
             Lock in pool
           </button>
         </div>
@@ -110,7 +123,12 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
         className="content-sections-title-info-container leave-pool-button-action-container"
       >
         <div className="flex-center">
-          <button className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}>
+          <button
+            className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+            onClick={() => {
+              unlockExtraStx();
+            }}
+          >
             Unlock extra STX locked
           </button>
         </div>
