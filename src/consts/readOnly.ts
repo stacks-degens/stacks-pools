@@ -32,6 +32,27 @@ const ReadOnlyFunctions = async (
   return callReadOnlyFunction(readOnlyResults);
 };
 
+const ReadOnlyFunctionsPox = async (contractFunctionName: string, function_args: ClarityValue[]) => {
+  const type = 'pox';
+  const userAddress =
+    network === 'mainnet'
+      ? userSession.loadUserData().profile.stxAddress.mainnet
+      : userSession.isUserSignedIn()
+      ? userSession.loadUserData().profile.stxAddress.testnet
+      : contractMapping[type][network].owner;
+
+  const readOnlyResults = {
+    contractAddress: contractMapping[type][network].contractAddress,
+    contractName: contractMapping[type][network].contractName,
+    functionName: contractFunctionName,
+    network: contractNetwork,
+    functionArgs: function_args,
+    senderAddress: userAddress,
+  };
+
+  return callReadOnlyFunction(readOnlyResults);
+};
+
 // get-address-status
 // args: (address principal)
 // what does it do: It returns the formatted status of the given address

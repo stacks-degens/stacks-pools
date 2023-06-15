@@ -17,7 +17,7 @@ type NetworkTypeMiningAndStacking = Record<
     owner: string;
   }
 >;
-type contractTypes = 'mining' | 'stacking';
+type contractTypes = 'mining' | 'stacking' | 'pox';
 type ContractMapping = Record<contractTypes, NetworkTypeMiningAndStacking>;
 
 export const contractMapping: ContractMapping = {
@@ -54,6 +54,23 @@ export const contractMapping: ContractMapping = {
       contractAddress: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
       contractName: 'main',
       owner: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
+    },
+  },
+  pox: {
+    mainnet: {
+      contractAddress: 'SP000000000000000000002Q6VF78.pox2',
+      contractName: '', // TODO: complete when deployed
+      owner: '', // TODO: complete when deployed
+    },
+    testnet: {
+      contractAddress: 'ST000000000000000000002AMW42H.pox2',
+      contractName: 'pox-2-fake',
+      owner: '',
+    },
+    devnet: {
+      contractAddress: 'ST000000000000000000002AMW42H.pox2',
+      contractName: 'pox-2-fake',
+      owner: 'ST000000000000000000002AMW42H',
     },
   },
 };
@@ -128,6 +145,12 @@ interface IFunctionMapping {
       unlockExtraStxInPool: string;
     };
   };
+  pox: {
+    readOnlyFunction: {};
+    publicFunctions: {
+      allowContractCaller: string;
+    };
+  };
 }
 
 export const functionMapping: IFunctionMapping = {
@@ -200,4 +223,5 @@ export const functionMapping: IFunctionMapping = {
       unlockExtraStxInPool: 'unlock-extra-reserved-funds',
     },
   },
+  pox: { readOnlyFunction: {}, publicFunctions: { allowContractCaller: 'allow-contract-caller' } },
 };

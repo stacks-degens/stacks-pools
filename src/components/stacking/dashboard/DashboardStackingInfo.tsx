@@ -1,12 +1,12 @@
-import { selectCurrentTheme } from '../../../redux/reducers/user-state';
+import { UserRoleStacking, selectCurrentTheme } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
-import { UserRoleMining } from '../../../redux/reducers/user-state';
 import './styles.css';
 import colors from '../../../consts/colorPallete';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { ContractDelegatePoxStacking } from '../../../consts/smartContractFunctions';
 
 interface DashboardStackingInfoProps {
-  currentRole: UserRoleMining;
+  currentRole: UserRoleStacking;
   liquidityProvider: string | null;
   stackersList: Array<string>;
   blocksRewarded: number | null; //this is for the slots won
@@ -14,6 +14,7 @@ interface DashboardStackingInfoProps {
   stacksAmountThisCycle: number | null;
   returnCovered: number | null;
   minimumDepositProvider: number | null;
+  userAddress: string | null;
 }
 
 const DashboardStackingInfo = ({
@@ -25,8 +26,10 @@ const DashboardStackingInfo = ({
   stacksAmountThisCycle,
   returnCovered,
   minimumDepositProvider,
+  userAddress,
 }: DashboardStackingInfoProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
+
   return (
     <div
       style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting }}
@@ -93,21 +96,20 @@ const DashboardStackingInfo = ({
           </span>
         </div>
       </div>
-      {currentRole === 'NormalUser' && (
+      {currentRole === 'NormalUserStacking' && (
         // <div>
         <div className="footer-join-button-container">
           <button
             className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
             onClick={() => {
-              // if (userAddress !== null) {
-              // }
+              if (userAddress !== null) ContractDelegatePoxStacking(userAddress);
             }}
           >
             Delegate pox-2
           </button>
         </div>
       )}
-      {currentRole === 'NormalUser' && (
+      {currentRole === 'NormalUserStacking' && (
         <div className="footer-join-button-container margin-top-10">
           <button
             className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}

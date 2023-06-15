@@ -20,7 +20,7 @@ const contractNetwork =
   network === 'mainnet' ? new StacksMainnet() : network === 'testnet' ? new StacksTestnet() : new StacksMocknet();
 
 const CallFunctions = (
-  type: 'mining' | 'stacking',
+  type: 'mining' | 'stacking' | 'pox',
   function_args: ClarityValue[],
   contractFunctionName: string,
   post_condition_args: STXPostCondition[],
@@ -316,4 +316,14 @@ export const ContractReserveFundsFutureRewardsStacking = (amount: number, callba
 export const ContractUnlockExtraReserveFundsStacking = (callback?: () => void) => {
   const type = 'stacking';
   CallFunctions(type, [], functionMapping[type].publicFunctions.unlockExtraStxInPool, [], callback);
+};
+
+//allow-contract-caller
+// args: (principal address)
+// what does it do: allows to join pool for stacking
+
+export const ContractDelegatePoxStacking = (address: string) => {
+  const type = 'pox';
+  const convertedArgs = [convertPrincipalToArg(address)];
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.allowContractCaller, []);
 };
