@@ -115,6 +115,7 @@ interface IFunctionMapping {
       getTotalStackedThisCycle: string;
       getAddressStatus: string;
       wasBlockClaimed: string;
+      getReturnCovered: string;
     };
     publicFunctions: {
       delegateStx: string;
@@ -184,6 +185,7 @@ export const functionMapping: IFunctionMapping = {
       getTotalStackedThisCycle: 'get-stacked-this-cycle',
       getAddressStatus: 'get-address-status',
       wasBlockClaimed: 'was-block-claimed',
+      getReturnCovered: 'get-return',
     },
     publicFunctions: {
       delegateStx: 'delegate-stx',

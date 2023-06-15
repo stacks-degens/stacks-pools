@@ -12,6 +12,7 @@ interface DashboardStackingInfoProps {
   blocksRewarded: number | null; //this is for the slots won
   bitcoinRewards: number | null;
   stacksAmountThisCycle: number | null;
+  returnCovered: number | null;
 }
 
 const DashboardStackingInfo = ({
@@ -21,6 +22,7 @@ const DashboardStackingInfo = ({
   blocksRewarded,
   bitcoinRewards,
   stacksAmountThisCycle,
+  returnCovered,
 }: DashboardStackingInfoProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
   return (
@@ -75,6 +77,10 @@ const DashboardStackingInfo = ({
           <span className="result-of-content-section">
             {stacksAmountThisCycle !== null ? stacksAmountThisCycle / 1000000 + ' STX' : ''}
           </span>
+        </div>
+        <div className="content-sections-title-info-container">
+          <span className="bold-font">Return covered: </span>
+          <span className="result-of-content-section">{returnCovered !== null ? 1 / returnCovered : ''}</span>
         </div>
       </div>
       {currentRole === 'NormalUser' && (

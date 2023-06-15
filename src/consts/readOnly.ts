@@ -539,3 +539,14 @@ export const readOnlyClaimedBlockStatusStacking = async (blockHeight: number) =>
   );
   return cvToJSON(blockStatus).value;
 };
+
+//get-return
+// args: none
+// what does it do: return the return covered
+// returns: number
+
+export const readOnlyGetReturnStacking = async () => {
+  const type = 'stacking';
+  const returnCovered = await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getReturnCovered);
+  return cvToJSON(returnCovered).value;
+};
