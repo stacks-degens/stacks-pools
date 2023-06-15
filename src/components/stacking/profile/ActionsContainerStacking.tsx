@@ -117,7 +117,7 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
         className="content-info-container-stacking justify-content-between"
       >
         <div>
-          <div className="flex-container align-items-center input-line-actions-container">
+          <div className="flex-container align-items-center input-line-actions-container-stacking">
             <div className="width-55 label-and-input-container-actions-container">
               <label className="custom-label">Insert amount of STX to delegate</label>
               <div className="bottom-margins">
@@ -159,7 +159,7 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
               </button>
             </div>
           </div>
-          <div className="flex-container align-items-center input-line-actions-container">
+          <div className="flex-container align-items-center input-line-actions-container-stacking">
             <div className="width-55 label-and-input-container-actions-container">
               <label className="custom-label">Insert amount of STX</label>
               <div className="bottom-margins">
@@ -184,7 +184,7 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
               </button>
             </div>
           </div>
-          <div className="flex-container align-items-center input-line-actions-container">
+          <div className="flex-container align-items-center input-line-actions-container-stacking">
             <div className="width-55 label-and-input-container-actions-container">
               <label className="custom-label">Insert block height</label>
               <div className="bottom-margins">

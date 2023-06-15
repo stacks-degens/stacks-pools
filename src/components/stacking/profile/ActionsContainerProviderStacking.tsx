@@ -56,7 +56,7 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
 
   return (
     <div>
-      <div className="flex-container align-items-center input-line-actions-container">
+      <div className="flex-container align-items-center input-line-actions-container-stacking">
         <div className="width-55 label-and-input-container-actions-container">
           <label className="custom-label">Insert amount of micro-STX</label>
           <div className="bottom-margins">
@@ -83,7 +83,7 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
           </button>
         </div>
       </div>
-      <div className="flex-container align-items-center input-line-actions-container">
+      <div className="flex-container align-items-center input-line-actions-container-stacking">
         <div className="width-55 label-and-input-container-actions-container">
           <label className="custom-label">Insert amount of STX</label>
           <div className="bottom-margins">
@@ -115,7 +115,7 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
           </button>
         </div>
       </div>
-      <div className="flex-container align-items-center input-line-actions-container">
+      <div className="flex-container align-items-center input-line-actions-container-stacking">
         <div className="width-55 label-and-input-container-actions-container">
           <label className="custom-label">Insert your new btc address</label>
           <div className="bottom-margins">
@@ -137,7 +137,7 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
           </button>
         </div>
       </div>
-      <div className="flex-container align-items-center input-line-actions-container">
+      <div className="flex-container align-items-center input-line-actions-container-stacking">
         <div className="width-55 label-and-input-container-actions-container">
           <label className="custom-label">Insert your new btc address</label>
           <div className="bottom-margins">

@@ -211,14 +211,17 @@
   }
 
   /*every input container-stacking in the actions container-stacking on profile page */
-  .profile-page-main-container-stacking
-    .principal-content-profile-page
-    .main-info-container-stacking
-    .actions-container-stacking-profile-page
+
+  .main-info-container-stacking
+    .info-container-stacking-profile-page
     .content-info-container-stacking
     .input-line-actions-container-stacking {
     display: flex;
-    flex-direction: column;
+    flex-direction: column !important;
+  }
+
+  .main-info-container-stacking .info-container-stacking-profile-page .width-55 {
+    width: 80% !important;
   }
 
   /* the label and input container-stacking from actions container-stacking on profile page */
@@ -352,6 +355,22 @@
   .profile-page-main-container-stacking .content-info-container-stacking {
     height: auto;
   }
+
+  /* .main-info-container-stacking .info-container-stacking-profile-page .width-55 {
+    width: 50% !important;
+  } */
+
+  /* .main-info-container-stacking
+    .info-container-stacking-profile-page
+    .content-info-container-stacking
+    .input-line-actions-container-stacking {
+    display: flex;
+    flex-direction: column !important;
+  }
+
+  .main-info-container-stacking .info-container-stacking-profile-page .width-55 {
+    width: 80% !important;
+  } */
 }
 
 @media screen and (min-width: 992px) and (max-width: 1180px) {
