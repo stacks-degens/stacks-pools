@@ -4,6 +4,9 @@ import './styles.css';
 import colors from '../../../consts/colorPallete';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { ContractDelegatePoxStacking } from '../../../consts/smartContractFunctions';
+// import { readOnlyCheckJoinPoolStacking } from '../../../consts/readOnly';
+import { useEffect, useState } from 'react';
+import { readOnlyCheckJoinPoolStacking } from '../../../consts/readOnly';
 
 interface DashboardStackingInfoProps {
   currentRole: UserRoleStacking;
@@ -28,7 +31,17 @@ const DashboardStackingInfo = ({
   minimumDepositProvider,
   userAddress,
 }: DashboardStackingInfoProps) => {
+  const [joinPoolStatus, setJoinPoolStatus] = useState<boolean>(false);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
+
+  useEffect(() => {
+    const getJoinPoolState = async () => {
+      const joinPoolStatus = await readOnlyCheckJoinPoolStacking();
+      console.log('========', joinPoolStatus);
+      // setJoinPoolStatus(joinPoolStatus);
+    };
+    getJoinPoolState();
+  }, []);
 
   return (
     <div

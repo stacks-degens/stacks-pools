@@ -9,7 +9,7 @@ const contractNetwork =
   network === 'mainnet' ? new StacksMainnet() : network === 'testnet' ? new StacksTestnet() : new StacksMocknet();
 
 const ReadOnlyFunctions = async (
-  type: 'mining' | 'stacking',
+  type: 'mining' | 'stacking' | 'pox',
   function_args: ClarityValue[],
   contractFunctionName: string
 ) => {
@@ -581,4 +581,18 @@ export const readOnlyGetMinimumDepositLiquidityProviderStacking = async () => {
   const type = 'stacking';
   const minimumDeposit = await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getMinimumDeposit);
   return cvToJSON(minimumDeposit).value;
+};
+
+//check-caller-allowed
+// args: none
+// what does it do: return true/false if you delegated the pox 2 contract and you are allowed to join pool for stacking
+// returns: number
+
+export const readOnlyCheckJoinPoolStacking = async () => {
+  const type = 'pox';
+  const joinPoolState = await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getJoinPoolStatus);
+
+  // const joinPoolState = await ReadOnlyFunctionsPox([], functionMapping[type].ReadOnlyFunctionsPox.getJoinPoolStatus);
+  console.log('status', joinPoolState);
+  return joinPoolState;
 };
