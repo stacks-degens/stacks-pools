@@ -116,6 +116,7 @@ interface IFunctionMapping {
       getAddressStatus: string;
       wasBlockClaimed: string;
       getReturnCovered: string;
+      getMinimumDeposit: string;
     };
     publicFunctions: {
       delegateStx: string;
@@ -186,6 +187,7 @@ export const functionMapping: IFunctionMapping = {
       getAddressStatus: 'get-address-status',
       wasBlockClaimed: 'was-block-claimed',
       getReturnCovered: 'get-return',
+      getMinimumDeposit: 'get-minimum-deposit-liquidity-provider',
     },
     publicFunctions: {
       delegateStx: 'delegate-stx',

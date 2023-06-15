@@ -13,6 +13,7 @@ interface DashboardStackingInfoProps {
   bitcoinRewards: number | null;
   stacksAmountThisCycle: number | null;
   returnCovered: number | null;
+  minimumDepositProvider: number | null;
 }
 
 const DashboardStackingInfo = ({
@@ -23,6 +24,7 @@ const DashboardStackingInfo = ({
   bitcoinRewards,
   stacksAmountThisCycle,
   returnCovered,
+  minimumDepositProvider,
 }: DashboardStackingInfoProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
   return (
@@ -80,7 +82,15 @@ const DashboardStackingInfo = ({
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Return covered: </span>
-          <span className="result-of-content-section">{returnCovered !== null ? 1 / returnCovered : ''}</span>
+          <span className="result-of-content-section">
+            {returnCovered !== null ? (1 / returnCovered) * 100 + '%' : ''}
+          </span>
+        </div>
+        <div className="content-sections-title-info-container">
+          <span className="bold-font">Minimum return Liquidity Provider: </span>
+          <span className="result-of-content-section">
+            {minimumDepositProvider !== null ? minimumDepositProvider / 1000000 + ' STX' : ''}
+          </span>
         </div>
       </div>
       {currentRole === 'NormalUser' && (
