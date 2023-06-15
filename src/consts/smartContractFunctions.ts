@@ -277,14 +277,13 @@ export const ContractRewardDistributionStacking = (blockHeight: number) => {
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.rewardDistribution, []);
 };
 
-// deposit-stx-SC-owner
+//deposit-stx-liquidity-provider
 // args: (amount uint)
 // what does it do: deposits stx into user's account
 
 export const ContractDepositSTXStacking = (amount: number) => {
   const type = 'stacking';
   const convertedArgs = [uintCV(amount * 1000000)];
-  // const postConditions = createPostConditionSTXTransferToContract(userAddress, amount * 1000000);
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.depositStx, []);
 };
 
@@ -305,6 +304,5 @@ export const ContractSetNewLiquidityProvider = (newProvider: string) => {
 export const ContractReserveFundsFutureRewardsStacking = (amount: number) => {
   const type = 'stacking';
   const convertedArgs = [uintCV(amount * 1000000)];
-  // const postConditions = createPostConditionSTXTransferToContract(userAddress, amount * 1000000);
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.lockInPool, []);
 };
