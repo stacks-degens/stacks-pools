@@ -336,3 +336,12 @@ export const ContractJoinPoolStacking = () => {
   const type = 'stacking';
   CallFunctions(type, [], functionMapping[type].publicFunctions.tryEnterPool, []);
 };
+
+//revoke-delegate-stx
+// args: none
+// what does it do: ??
+
+export const ContractRevokeDelegateStacking = () => {
+  const type = 'pox';
+  CallFunctions(type, [], functionMapping[type].publicFunctions.revokeDelegate, []);
+};

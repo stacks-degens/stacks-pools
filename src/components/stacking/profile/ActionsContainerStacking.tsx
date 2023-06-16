@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import {
   ContractDelegateSTXStacking,
   ContractLeavePoolStacking,
+  ContractRevokeDelegateStacking,
   ContractRewardDistributionStacking,
 } from '../../../consts/smartContractFunctions';
 import { readOnlyClaimedBlockStatusStacking, readOnlyGetLiquidityProvider } from '../../../consts/readOnly';
@@ -73,6 +74,10 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
     }
   };
 
+  const revokeDelegate = () => {
+    ContractRevokeDelegateStacking();
+  };
+
   useEffect(() => {
     if (leavePoolButtonClicked && showAlertLeavePool) setDisableLeavePoolButton(true);
   }, [leavePoolButtonClicked, showAlertLeavePool]);
@@ -137,9 +142,7 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
             <div className="flex-center">
               <button
                 className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
-                // onClick={leavePool}
-
-                disabled={disableLeavePoolButton}
+                onClick={revokeDelegate}
               >
                 Revoke delegate
               </button>
