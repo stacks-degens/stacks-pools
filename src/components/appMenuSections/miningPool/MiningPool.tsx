@@ -3,7 +3,7 @@ import * as React from 'react';
 import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
 import colors from '../../../consts/colorPallete';
-import { ContractProposeRemoval } from '../../../consts/smartContractFunctions';
+import { ContractProposeRemovalMining } from '../../../consts/smartContractFunctions';
 import Button from '@mui/material/Button';
 import TableCreation from '../../../components/TableCreation';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
@@ -20,7 +20,7 @@ const MiningPool = () => {
 
   const handleMinerRemoveButtonClick = (address: string | undefined) => {
     if (address !== undefined) {
-      ContractProposeRemoval(address);
+      ContractProposeRemovalMining(address);
     }
   };
 

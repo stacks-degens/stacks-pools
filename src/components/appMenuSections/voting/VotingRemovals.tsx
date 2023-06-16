@@ -2,7 +2,10 @@ import * as React from 'react';
 import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
 import colors from '../../../consts/colorPallete';
-import { ContractVotePositiveRemove, ContractVoteNegativeRemove } from '../../../consts/smartContractFunctions';
+import {
+  ContractVotePositiveRemoveMining,
+  ContractVoteNegativeRemoveMining,
+} from '../../../consts/smartContractFunctions';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import InfoIcon from '@mui/icons-material/Info';
@@ -22,9 +25,9 @@ const VotingRemovals = () => {
   const handleRemovalVoteButtonClick = (data: string, address: string | undefined) => {
     if (address !== undefined) {
       if (data === 'voteYes') {
-        ContractVotePositiveRemove(address);
+        ContractVotePositiveRemoveMining(address);
       } else if (data === 'voteNo') {
-        ContractVoteNegativeRemove(address);
+        ContractVoteNegativeRemoveMining(address);
       }
     }
   };

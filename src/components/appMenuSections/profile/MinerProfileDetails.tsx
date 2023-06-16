@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import {
   ReadOnlyAllDataWaitingMiners,
-  readOnlyAddressStatus,
+  readOnlyAddressStatusMining,
   readOnlyGetAllDataMinersInPool,
-  readOnlyGetRemainingBlocksJoin,
+  readOnlyGetRemainingBlocksJoinMining,
 } from '../../../consts/readOnly';
 import { getExplorerUrl, network } from '../../../consts/network';
 import { cvToJSON, listCV, principalCV } from '@stacks/transactions';
@@ -45,7 +45,7 @@ const MinerProfileDetails = () => {
   useEffect(() => {
     if (status === 'Pending') {
       const fetchBlocksLeft = async () => {
-        const blocksLeft = await readOnlyGetRemainingBlocksJoin();
+        const blocksLeft = await readOnlyGetRemainingBlocksJoinMining();
         setBlocksLeftUntilJoin(blocksLeft);
       };
       fetchBlocksLeft();
@@ -71,7 +71,7 @@ const MinerProfileDetails = () => {
       setExplorerLink(getExplorerUrl[network](address).explorerUrl);
 
       const getAddressStatus = async () => {
-        const newStatus = await readOnlyAddressStatus(address);
+        const newStatus = await readOnlyAddressStatusMining(address);
         setStatus(newStatus);
       };
       getAddressStatus();

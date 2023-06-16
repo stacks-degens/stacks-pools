@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import {
   ReadOnlyGetMinersList,
   readOnlyGetAllDataNotifierVoterMiners,
-  readOnlyGetK,
+  readOnlyGetKMining,
   readOnlyGetNotifier,
   readOnlyGetNotifierElectionProcessData,
 } from '../../../consts/readOnly';
@@ -98,7 +98,7 @@ const VotingNotifier = () => {
 
   useEffect(() => {
     const getNotifierVotesThreshold = async () => {
-      const threshold = await readOnlyGetK();
+      const threshold = await readOnlyGetKMining();
       setNotifierVoteThreshold(threshold);
       setFetchedVotesThreshold(true);
     };

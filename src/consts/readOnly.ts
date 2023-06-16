@@ -37,7 +37,7 @@ const ReadOnlyFunctions = async (
 // what does it do: It returns the formatted status of the given address
 // return: 'Miner', 'Waiting', 'Pending', or 'Not Asked to Join'
 
-export const readOnlyAddressStatus = async (args: string) => {
+export const readOnlyAddressStatusMining = async (args: string) => {
   const type = 'mining';
   const statusArgs = convertPrincipalToArg(args);
 
@@ -90,7 +90,7 @@ export const ReadOnlyAllDataWaitingMiners = async (fullWaitingList: ClarityValue
 // what does it do: returns a list of miners that are proposed for removal
 // return: proposed for removal miners list
 
-export const ReadOnlyGetProposedRemovalList = async () => {
+export const ReadOnlyGetProposedRemovalListMining = async () => {
   const type = 'mining';
   const removalList: ClarityValue = await ReadOnlyFunctions(
     type,
@@ -122,7 +122,7 @@ export const ReadOnlyAllDataProposedRemovalMiners = async () => {
   const type = 'mining';
   const newResultList: RemovalsListProps[] = [];
   const newAddressList: { value: { type: string; value: string }[] }[] = [];
-  const fullRemovalsList: ClarityValue = await ReadOnlyGetProposedRemovalList();
+  const fullRemovalsList: ClarityValue = await ReadOnlyGetProposedRemovalListMining();
   const step = 1;
 
   for (
@@ -188,8 +188,8 @@ export const readOnlyGetAllDataMinersInPool = async (address: string) => {
     convertedArgs,
     functionMapping[type].readOnlyFunctions.getAllDataMinersInPool
   );
-  const withdraws = await readOnlyGetAllTotalWithdrawals(address);
-  const rawBalance = await readOnlyGetBalance(address);
+  const withdraws = await readOnlyGetAllTotalWithdrawalsMining(address);
+  const rawBalance = await readOnlyGetBalanceMining(address);
 
   if (cvToJSON(minerData).value[0].value.value === '104') {
     return 'not-a-miner';
@@ -213,7 +213,7 @@ export const readOnlyGetAllDataMinersInPool = async (address: string) => {
 // what does it do: Gets the number of blocks left until a miner can accept the users that are in pending list
 // return: Remaining blocks, number
 
-export const readOnlyGetRemainingBlocksJoin = async () => {
+export const readOnlyGetRemainingBlocksJoinMining = async () => {
   const type = 'mining';
   const blocksLeft = await ReadOnlyFunctions(
     type,
@@ -260,7 +260,7 @@ export const readOnlyGetAllDataNotifierVoterMiners = async (voterMinersList: Cla
 // what does it do: true/false if rewards on the block were claimed
 // return: true or false
 
-export const readOnlyClaimedBlockStatus = async (blockHeight: number) => {
+export const readOnlyClaimedBlockStatusMining = async (blockHeight: number) => {
   const type = 'mining';
   const convertedArgs = [uintCV(blockHeight)];
   const blockStatus = await ReadOnlyFunctions(
@@ -276,7 +276,7 @@ export const readOnlyClaimedBlockStatus = async (blockHeight: number) => {
 // what does it do: returns balance for given address
 // return: balance
 
-export const readOnlyGetBalance = async (principalAddress: string) => {
+export const readOnlyGetBalanceMining = async (principalAddress: string) => {
   const type = 'mining';
   const balanceArgs = convertPrincipalToArg(principalAddress);
   const balance = await ReadOnlyFunctions(type, [balanceArgs], functionMapping[type].readOnlyFunctions.getBalance);
@@ -288,7 +288,7 @@ export const readOnlyGetBalance = async (principalAddress: string) => {
 // what does it do: threshold for notifier votes
 // return: number
 
-export const readOnlyGetK = async () => {
+export const readOnlyGetKMining = async () => {
   const type = 'mining';
   const k = await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getK);
   return Number(cvToJSON(k).value);
@@ -374,7 +374,7 @@ export const readOnlyGetNotifierVoteStatus = async () => {
 // what does it do: get the current block height of the Stacks blockchain
 // returns: current block
 
-export const readOnlyGetCurrentBlock = async () => {
+export const readOnlyGetCurrentBlockMining = async () => {
   const type = 'mining';
   const currentBlock = await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getCurrentBlock);
   return cvToJSON(currentBlock).value.value;
@@ -386,7 +386,7 @@ export const readOnlyGetCurrentBlock = async () => {
 // what does it do: get the state of auto-exchange function
 // returns: boolean
 
-export const readOnlyExchangeToggle = async (args: string) => {
+export const readOnlyExchangeToggleMining = async (args: string) => {
   const type = 'mining';
   const exchangeArgs = convertPrincipalToArg(args);
   const exchange = await ReadOnlyFunctions(
@@ -403,7 +403,7 @@ export const readOnlyExchangeToggle = async (args: string) => {
 // what does it do: number of blocks won
 // returns: number
 
-export const readOnlyGetBlocksWon = async () => {
+export const readOnlyGetBlocksWonMining = async () => {
   const type = 'mining';
   const wonBlocks = await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getBlocksWon);
   return cvToJSON(wonBlocks).value;
@@ -414,7 +414,7 @@ export const readOnlyGetBlocksWon = async () => {
 // what does it do: stacks rewards
 // returns: number
 
-export const readOnlyGetStacksRewards = async () => {
+export const readOnlyGetStacksRewardsMining = async () => {
   const type = 'mining';
   const stacksRewards = await ReadOnlyFunctions(
     type,
@@ -429,7 +429,7 @@ export const readOnlyGetStacksRewards = async () => {
 // what does it do: gets how much each address in the list has withdrawn from the sc
 // returns: number, amount
 
-export const readOnlyGetAllTotalWithdrawals = async (address: string) => {
+export const readOnlyGetAllTotalWithdrawalsMining = async (address: string) => {
   const type = 'mining';
   const convertedArgs: ClarityValue = listCV([convertPrincipalToArg(address)]);
   const totalWithdrawals = await ReadOnlyFunctions(

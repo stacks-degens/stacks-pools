@@ -3,7 +3,7 @@ import '../../../css/buttons/styles.css';
 import '../../../css/common-page-alignments/styles.css';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import colors from '../../../consts/colorPallete';
-import { ContractAskToJoin } from '../../../consts/smartContractFunctions';
+import { ContractAskToJoinMining } from '../../../consts/smartContractFunctions';
 import { selectCurrentTheme, UserRole } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
 
@@ -79,7 +79,7 @@ const DashboardInfoContainer = ({
             className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
             onClick={() => {
               if (userAddress !== null) {
-                ContractAskToJoin(`${userAddress}`);
+                ContractAskToJoinMining(`${userAddress}`);
               }
             }}
           >

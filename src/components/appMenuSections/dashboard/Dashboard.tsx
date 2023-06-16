@@ -7,10 +7,10 @@ import {
 } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
 import {
-  readOnlyGetBlocksWon,
+  readOnlyGetBlocksWonMining,
   ReadOnlyGetMinersList,
   readOnlyGetNotifier,
-  readOnlyGetStacksRewards,
+  readOnlyGetStacksRewardsMining,
 } from '../../../consts/readOnly';
 import DashboardInfoContainer from '../../reusableComponents/dashboard/DashboardInfoContainer';
 import colors from '../../../consts/colorPallete';
@@ -59,7 +59,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     const getBlocksWon = async () => {
-      const blocks = await readOnlyGetBlocksWon();
+      const blocks = await readOnlyGetBlocksWonMining();
       setBlocksWon(blocks);
     };
     getBlocksWon();
@@ -67,7 +67,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     const getStacksRewards = async () => {
-      const stacks = await readOnlyGetStacksRewards();
+      const stacks = await readOnlyGetStacksRewardsMining();
       setStacksRewards(stacks);
     };
     getStacksRewards();
