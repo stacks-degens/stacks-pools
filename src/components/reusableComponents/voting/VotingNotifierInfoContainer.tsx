@@ -38,7 +38,7 @@ const VotingNotifierInfoContainer = ({
           <div style={{ color: colors[appCurrentTheme].defaultYellow }} className="heading-icon-info-container">
             <AccountCircleIcon className="icon-info-container yellow-icon" />
           </div>
-          <div className="title-info-container">NOTIFIER</div>
+          <div className="title-info-container">INFO</div>
         </div>
       </div>
       <div
@@ -47,18 +47,16 @@ const VotingNotifierInfoContainer = ({
       >
         <div className="content-sections-title-info-container">
           <span className="bold-font">Who I voted for: </span>
-          <span className="result-of-content-section">{votedFor !== null ? votedFor : ''}</span>
+          <span>{votedFor !== null ? votedFor : ''}</span>
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Voting Blocks Remaining: </span>
-          <span className="result-of-content-section">{blocksRemaining !== null ? blocksRemaining : ''}</span>
+          <span>{blocksRemaining !== null ? blocksRemaining : ''}</span>
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Elected Notifier: </span>
           {voteStatus && <span>Voting is still open!</span>}
-          {!voteStatus && (
-            <div className="result-of-content-section">{electedNotifier !== null ? electedNotifier : ''}</div>
-          )}
+          {!voteStatus && <div>{electedNotifier !== null ? electedNotifier : ''}</div>}
         </div>
       </div>
       {blocksRemaining === 0 && (

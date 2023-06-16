@@ -16,9 +16,3 @@
   justify-content: center;
   align-items: center;
 }
-
-@media screen and (max-width: 575px) {
-  .result-of-content-section {
-    font-size: 10.6px !important;
-  }
-}

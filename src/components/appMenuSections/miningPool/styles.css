@@ -4,75 +4,8 @@ table {
   border-right: 2px solid #f9b11c;
 }
 
-table th {
-  font-weight: bold !important;
-}
-
 .css-11xur9t-MuiPaper-root-MuiTableContainer-root {
   border: 1px solid #f9b11c;
   box-shadow: 1px 3px 4px #ed693c, -1px 0px 4px #fdc60b !important;
   background-color: #fef9f7 !important;
-}
-
-.miningpool-status-page-main-container,
-.miningpool-miners-page-main-container {
-  /* background-color: red !important; */
-  height: calc(100vh - 60px);
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-}
-
-.miningpool-status-page-main-container .page-heading-title,
-.miningpool-miners-page-main-container .page-heading-title {
-  /* background-color: green !important; */
-  height: 100px;
-}
-
-/* the main page where I am displaying the table */
-.miningpool-miners-page-main-container .principal-content-profile-page {
-  /* background-color: yellow !important; */
-  height: calc(100vh - 160px);
-  margin: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.miningpool-status-page-main-container .principal-content-profile-page {
-  /* background-color: yellow !important; */
-  height: calc(100vh - 160px);
-  margin: 0;
-  width: 100%;
-}
-
-@media screen and (max-width: 575px) {
-  /* the container with the information */
-  .miningpool-status-page-main-container .main-info-container-normal-user {
-    width: 90%;
-  }
-
-  /* the sections I'm displaying in the main container */
-  .miningpool-status-page-main-container .content-sections-title-info-container span {
-    font-size: 14px;
-  }
-
-  /* the result of the section above */
-  .miningpool-status-page-main-container .title-info-container {
-    font-size: 14px;
-  }
-
-  /* the result of the section above */
-  .result-of-content-section {
-    font-size: 10.6px;
-  }
-
-  table th {
-    font-size: 13px !important;
-    font-weight: bold !important;
-  }
-
-  table td {
-    font-size: 11px !important;
-  }
 }

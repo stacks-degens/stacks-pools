@@ -43,9 +43,3 @@
 .content-sections-title-info-container {
   padding-block: 3px;
 }
-
-@media screen and (max-width: 575px) {
-  .page-heading-title h2 {
-    font-size: 20px;
-  }
-}

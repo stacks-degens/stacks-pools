@@ -51,26 +51,19 @@ const DashboardInfoContainer = ({
       >
         <div className="content-sections-title-info-container">
           <span className="bold-font">Current Notifier: </span>
-          <div className="result-of-content-section">{notifier !== null ? notifier : ''}</div>
+          <div>{notifier !== null ? notifier : ''}</div>
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Miners List: </span>
-          {minersList.length !== 0 &&
-            minersList.map((data: string, index: number) => (
-              <div className="result-of-content-section" key={index}>
-                {data}
-              </div>
-            ))}
+          {minersList.length !== 0 && minersList.map((data: string, index: number) => <div key={index}>{data}</div>)}
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Number of Blocks Won: </span>
-          <span className="result-of-content-section">{blocksWon !== null ? blocksWon : ''}</span>
+          <span>{blocksWon !== null ? blocksWon : ''}</span>
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Stacks Rewards: </span>
-          <span className="result-of-content-section">
-            {stacksRewards !== null ? stacksRewards / 1000000 + ' STX' : ''}
-          </span>
+          <span>{stacksRewards !== null ? stacksRewards / 1000000 + ' STX' : ''}</span>
         </div>
       </div>
       {currentRole === 'NormalUser' && (

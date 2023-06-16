@@ -89,20 +89,17 @@ const VotingRemovals = () => {
     //     color: colors[currentTheme].secondary,
     //   }}
     // >
-    <div className="voting-removals-page-main-container">
-      <div className="page-heading-title">
-        <h2>Decentralized Mining Pool</h2>
-        <h2>Voting - Removals</h2>
-      </div>
-      <div className="principal-content-profile-page">
-        <TableCreation
-          rows={removalsRows}
-          rowContent={removalsRowContent}
-          columns={removalsColumns}
-          tableId="removals"
-          customTableWidth="75%"
-        />
-      </div>
+    <div className="page-heading-title">
+      <h2>Decentralized Mining Pool</h2>
+      <h2>Voting - Removals</h2>
+      <div className="principal-content-profile-page"></div>
+      <TableCreation
+        rows={removalsRows}
+        rowContent={removalsRowContent}
+        columns={removalsColumns}
+        tableId="removals"
+        customTableWidth="75%"
+      />
     </div>
   );
   // </Box>

@@ -8,17 +8,14 @@ const Home = () => {
 
   return (
     <div
-      className="home-page-main-container"
       style={{
         backgroundColor: colors[appCurrentTheme].accent2,
         color: colors[appCurrentTheme].colorWriting,
         textAlign: 'center',
       }}
     >
-      <div style={{ color: colors[appCurrentTheme].colorWriting }} className="page-heading-title">
-        <h2>Decentralized Mining Pool</h2>
-        <h2>Home</h2>
-      </div>
+      <h2>Decentralized Mining Pool</h2>
+      <h2>Home</h2>
       <div style={{ marginTop: 0 }}>
         <div>
           <b>In order to connect to the pool with your main Stacks account, follow these steps:</b>

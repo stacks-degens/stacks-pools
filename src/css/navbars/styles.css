@@ -37,7 +37,6 @@
 
 .default-page-container {
   height: 100vh;
-  /* height: auto; */
   /* width: 100vw; - Do not add this, because if there's vertical scroll, the page will also have horizontal scroll. without it,
                      the page width will be automatically adjusted for the contents. You only need the height. */
   /* background-color: #eeeeee; */
@@ -47,10 +46,4 @@
 
 .liMenuMiningPool {
   display: block !important;
-}
-
-@media screen and (max-width: 575px) {
-  .navbar-sections-font-size span {
-    font-size: 14px !important;
-  }
 }

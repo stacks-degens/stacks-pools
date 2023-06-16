@@ -33,7 +33,7 @@ const MiningPoolStatusContainer = ({ notifier, currentBlock, blocksWon, votingSt
           <div style={{ color: colors[appCurrentTheme].defaultYellow }} className="heading-icon-info-container">
             <AccountCircleIcon className="icon-info-container yellow-icon" />
           </div>
-          <div className="title-info-container">STATUS</div>
+          <div className="title-info-container">INFO</div>
         </div>
       </div>
       <div
@@ -42,19 +42,19 @@ const MiningPoolStatusContainer = ({ notifier, currentBlock, blocksWon, votingSt
       >
         <div className="content-sections-title-info-container">
           <span className="bold-font">Current Notifier: </span>
-          <div className="result-of-content-section">{notifier !== null ? notifier : ''}</div>
+          <div>{notifier !== null ? notifier : ''}</div>
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Ongoing Block: </span>
-          <span className="result-of-content-section">{currentBlock !== null ? currentBlock : ''}</span>
+          {currentBlock !== null ? currentBlock : ''}
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Number of Blocks Won: </span>
-          <span className="result-of-content-section">{blocksWon !== null ? blocksWon : ''}</span>
+          <span>{blocksWon !== null ? blocksWon : ''}</span>
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Notifier Voting Status: </span>
-          <span className="result-of-content-section">{votingStatus !== null ? votingStatus : ''}</span>
+          <span>{votingStatus !== null ? votingStatus : ''}</span>
         </div>
       </div>
       {votingStatus === 'Ended by time!' && (

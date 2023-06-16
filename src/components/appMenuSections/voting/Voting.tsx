@@ -4,7 +4,6 @@ import VotingStatusContainer from '../../reusableComponents/voting/VotingStatusC
 import colors from '../../../consts/colorPallete';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
-import './styles.css';
 
 const Voting = () => {
   const [notifierVoteStatus, setNotifierVoteStatus] = useState<string | null>(null);
@@ -36,11 +35,9 @@ const Voting = () => {
   }, []);
 
   return (
-    <div className="voting-status-page-main-container">
-      <div style={{ color: colors[appCurrentTheme].colorWriting }} className="page-heading-title">
-        <h2>Decentralized Mining Pool</h2>
-        <h2>Voting - Status</h2>
-      </div>
+    <div style={{ color: colors[appCurrentTheme].colorWriting }} className="page-heading-title">
+      <h2>Decentralized Mining Pool</h2>
+      <h2>Voting - Status</h2>
       <div className="principal-content-profile-page">
         <div className={'main-info-container-normal-user'}>
           <VotingStatusContainer notifier={currentNotifier} votingStatus={notifierVoteStatus} />

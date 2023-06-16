@@ -98,7 +98,7 @@ const ActionsContainer = ({ currentNotifier, userAddress }: IActionsContainerPro
   return (
     <div
       style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting }}
-      className="info-container-profile-page actions-container-profile-page"
+      className="info-container-profile-page"
     >
       <div
         style={{
@@ -112,7 +112,7 @@ const ActionsContainer = ({ currentNotifier, userAddress }: IActionsContainerPro
           <div style={{ color: colors[appCurrentTheme].defaultYellow }} className="heading-icon-info-container">
             <ElectricBolt className="icon-info-container yellow-icon" />
           </div>
-          <div className="title-info-container bold-font">ACTIONS</div>
+          <div className="title-info-continer">ACTIONS</div>
         </div>
       </div>
 
@@ -121,8 +121,8 @@ const ActionsContainer = ({ currentNotifier, userAddress }: IActionsContainerPro
         className="content-info-container justify-content-between"
       >
         <div>
-          <div className="flex-container align-items-center input-line-actions-container">
-            <div className="width-55 label-and-input-container-actions-container">
+          <div className="flex-container align-items-center">
+            <div className="width-55">
               <label className="custom-label">Insert stacks block height to be claimed</label>
               <div className="bottom-margins">
                 <input
@@ -137,7 +137,7 @@ const ActionsContainer = ({ currentNotifier, userAddress }: IActionsContainerPro
                 ></input>
               </div>
             </div>
-            <div className="button-container-action-container">
+            <div>
               <button
                 className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
                 onClick={() => {
@@ -148,14 +148,14 @@ const ActionsContainer = ({ currentNotifier, userAddress }: IActionsContainerPro
               </button>
             </div>
           </div>
-          <div className="flex-container align-items-center input-line-actions-container">
-            <div className="width-55 label-and-input-container-actions-container">
+          <div className="flex-container align-items-center">
+            <div className="width-55">
               <label className="custom-label">Insert your new btc address</label>
               <div className="bottom-margins">
                 <input className="custom-input" type="text" onChange={(e) => setBtcAddress(e.target.value)}></input>
               </div>
             </div>
-            <div className="button-container-action-container">
+            <div>
               <button
                 className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
                 onClick={changeBtcAddress}
@@ -164,8 +164,8 @@ const ActionsContainer = ({ currentNotifier, userAddress }: IActionsContainerPro
               </button>
             </div>
           </div>
-          <div className="flex-container align-items-center input-line-actions-container">
-            <div className="width-55 label-and-input-container-actions-container">
+          <div className="flex-container align-items-center">
+            <div className="width-55">
               <label className="custom-label">Insert STX amount</label>
               <div className="bottom-margins">
                 <input
@@ -180,7 +180,7 @@ const ActionsContainer = ({ currentNotifier, userAddress }: IActionsContainerPro
                 ></input>
               </div>
             </div>
-            <div className="button-container-action-container">
+            <div>
               <button
                 className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
                 onClick={depositAmount}
@@ -189,8 +189,8 @@ const ActionsContainer = ({ currentNotifier, userAddress }: IActionsContainerPro
               </button>
             </div>
           </div>
-          <div className="flex-container align-items-center input-line-actions-container">
-            <div className="width-55 label-and-input-container-actions-container">
+          <div className="flex-container align-items-center">
+            <div className="width-55">
               <label className="custom-label">Insert STX amount</label>
               <div className="bottom-margins">
                 <input
@@ -205,7 +205,7 @@ const ActionsContainer = ({ currentNotifier, userAddress }: IActionsContainerPro
                 ></input>
               </div>
             </div>
-            <div className="button-container-action-container">
+            <div>
               <button
                 className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
                 onClick={withdrawAmount}
@@ -216,7 +216,7 @@ const ActionsContainer = ({ currentNotifier, userAddress }: IActionsContainerPro
           </div>
         </div>
         {leavePoolButtonClicked && showAlertLeavePool && (
-          <div className="block-margins-auto alert-container-actions-container">
+          <div className="block-margins-auto">
             <Alert
               severity="warning"
               onClose={() => {
@@ -230,7 +230,7 @@ const ActionsContainer = ({ currentNotifier, userAddress }: IActionsContainerPro
           </div>
         )}
 
-        <div className="content-sections-title-info-container leave-pool-button-action-container">
+        <div className="content-sections-title-info-container">
           <div className="flex-right">
             <button
               className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}

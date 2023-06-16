@@ -15,11 +15,11 @@ const MoreInfoAboutContainerPendingMiner = ({ blocksLeftUntilJoin }: IMoreInfoAb
     <>
       <div className="content-sections-title-info-container bottom-margins">
         <span className="bold-font">Status: </span>
-        <span className="result-of-content-section">waiting to join pool </span>
+        <span>waiting to join pool </span>
       </div>
       <div className="content-sections-title-info-container">
         <span className="bold-font">Blocks until you join pool: </span>
-        <span className="result-of-content-section">{blocksLeftUntilJoin !== null && blocksLeftUntilJoin}</span>
+        <span>{blocksLeftUntilJoin !== null && blocksLeftUntilJoin}</span>
       </div>
       <div className="footer-button-container">
         <button

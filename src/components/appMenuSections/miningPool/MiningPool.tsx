@@ -65,20 +65,18 @@ const MiningPool = () => {
   };
 
   return (
-    <div className="miningpool-miners-page-main-container">
-      <div className="page-heading-title">
-        <h2>Decentralized Mining Pool</h2>
-        <h2>Mining Pool - Miners</h2>
-      </div>
-      <div className="principal-content-profile-page">
-        <TableCreation
-          rows={minersRows}
-          rowContent={minersRowContent}
-          columns={minerColumns}
-          tableId="miners"
-          customTableWidth="75%"
-        />
-      </div>
+    <div className="page-heading-title">
+      <h2>Decentralized Mining Pool</h2>
+      <h2>Mining Pool - Miners</h2>
+      <div className="principal-content-profile-page"></div>
+
+      <TableCreation
+        rows={minersRows}
+        rowContent={minersRowContent}
+        columns={minerColumns}
+        tableId="miners"
+        customTableWidth="75%"
+      />
     </div>
   );
 };

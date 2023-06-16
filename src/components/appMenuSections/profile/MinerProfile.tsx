@@ -11,7 +11,6 @@ import AboutContainer from '../../reusableComponents/profile/AboutContainer';
 import ActionsContainer from '../../reusableComponents/profile/ActionsContainer';
 import RoleIntro from '../../reusableComponents/profile/RoleIntro';
 import { principalCV, ClarityValue, listCV, cvToJSON } from '@stacks/transactions';
-import './styles.css';
 
 interface IMinerProfileProps {
   connectedWallet: string | null;

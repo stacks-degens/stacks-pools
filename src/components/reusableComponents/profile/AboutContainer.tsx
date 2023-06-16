@@ -55,7 +55,7 @@ const AboutContainer = ({
           <div style={{ color: colors[appCurrentTheme].defaultYellow }} className="heading-icon-info-container">
             <AccountCircleIcon className="icon-info-container yellow-icon" />
           </div>
-          <div className="title-info-container bold-font">ABOUT</div>
+          <div className="title-info-continer">ABOUT</div>
         </div>
       </div>
       <div
@@ -64,13 +64,11 @@ const AboutContainer = ({
       >
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Connected wallet:</span>
-          <div className="write-just-on-one-line result-of-content-section">
-            {connectedWallet !== null ? connectedWallet : ''}
-          </div>
+          <div className="write-just-on-one-line">{connectedWallet !== null ? connectedWallet : ''}</div>
         </div>
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Role: </span>
-          <span className="result-of-content-section">
+          <span>
             {currentNotifier === userAddress ? 'Notifier' : currentRole === 'NormalUser' ? 'Normal User' : currentRole}
           </span>
         </div>
@@ -84,7 +82,7 @@ const AboutContainer = ({
             }}
           >
             <a
-              className="custom-link result-of-content-section"
+              className="custom-link"
               style={{ backgroundColor: colors[appCurrentTheme].accent2, color: colors[appCurrentTheme].secondary }}
               target="_blank"
               rel="noreferrer"
@@ -92,7 +90,7 @@ const AboutContainer = ({
             >
               <span className="flex-center">
                 Visit
-                <span className="flex-center left-margins result-of-content-section">
+                <span className="flex-center left-margins">
                   <CallMade className="custom-icon" />
                 </span>
               </span>

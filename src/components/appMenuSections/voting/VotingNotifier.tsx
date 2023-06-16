@@ -148,22 +148,22 @@ const VotingNotifier = () => {
   }, [userAddress]);
 
   return (
-    <div className="voting-notifier-page-main-container">
+    <div>
       <div className="page-heading-title">
         <h2>Decentralized Mining Pool</h2>
         <h2>Voting - Notifier</h2>
-      </div>
-      <div
-        className="principal-content-profile-page"
-        style={{ marginTop: electionBlocksRemaining !== 0 && electionBlocksRemaining !== null ? -11 : 90 }}
-      >
-        <div className="main-info-container-normal-user">
-          <VotingNotifierInfoContainer
-            votedFor={votedNotifier}
-            blocksRemaining={electionBlocksRemaining}
-            electedNotifier={currentNotifier}
-            voteStatus={notifierVoteStatus}
-          />
+        <div
+          className="principal-content-profile-page"
+          style={{ marginTop: electionBlocksRemaining !== 0 && electionBlocksRemaining !== null ? -11 : 90 }}
+        >
+          <div className={'main-info-container-normal-user'}>
+            <VotingNotifierInfoContainer
+              votedFor={votedNotifier}
+              blocksRemaining={electionBlocksRemaining}
+              electedNotifier={currentNotifier}
+              voteStatus={notifierVoteStatus}
+            />
+          </div>
         </div>
       </div>
 

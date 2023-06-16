@@ -8,18 +8,3 @@
   color: #ab4c2b !important;
   transition: color 0.3s ease-in, border 0.3s ease-in;
 }
-
-.home-page-main-container {
-  height: auto;
-  padding-inline: 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-}
-
-@media screen and (max-width: 575px) {
-  .home-page-main-container .page-heading-title {
-    margin-bottom: 20px;
-    height: 100px;
-  }
-}
