@@ -1,7 +1,8 @@
 import './styles.css';
+import '../../../css/buttons/styles.css';
+import '../../../css/common-page-alignments/styles.css';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import colors from '../../../consts/colorPallete';
-import useCurrentTheme from '../../../consts/theme';
 import { ContractAskToJoin } from '../../../consts/smartContractFunctions';
 import { selectCurrentTheme, UserRole } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
@@ -22,8 +23,6 @@ const DashboardInfoContainer = ({
   userAddress,
   currentRole,
 }: DashboardInfoContainerProps) => {
-  const { currentTheme } = useCurrentTheme();
-
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   return (

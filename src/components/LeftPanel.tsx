@@ -13,16 +13,16 @@ import MenuOpen from '@mui/icons-material/MenuOpenRounded';
 import HomeIcon from '@mui/icons-material/Home';
 import Hardware from '@mui/icons-material/Hardware';
 import Poll from '@mui/icons-material/Poll';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import colors from '../consts/colorPallete';
 import Home from '@mui/icons-material/Home';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useAppSelector } from '../redux/store';
 import { selectCurrentTheme, selectCurrentUserRole, UserRole } from '../redux/reducers/user-state';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material';
 import { Collapse } from '@mui/material';
-import './styles.css';
+import '../css/navbars/styles.css';
 
 type Anchor = 'top' | 'left' | 'bottom' | 'right';
 
@@ -39,8 +39,8 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
   });
 
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
-  const [openMiningPoolMenu, setOpenMiningPoolMenu] = useState<boolean>(true);
-  const [openVotingMenu, setOpenVotingMenu] = useState<boolean>(true);
+  const [openMiningPoolMenu, setOpenMiningPoolMenu] = useState<boolean>(false);
+  const [openVotingMenu, setOpenVotingMenu] = useState<boolean>(false);
 
   const location = useLocation();
 
@@ -186,7 +186,11 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                     </ListItemButton>
                   </List>
                   <List
-                    className={location.pathname === '/miningPool/miners' ? 'active-custom' : ''}
+                    className={
+                      location.pathname === '/miningPool/miners' || location.pathname.slice(0, 8) === '/profile'
+                        ? 'active-custom'
+                        : ''
+                    }
                     component="div"
                     disablePadding
                   >

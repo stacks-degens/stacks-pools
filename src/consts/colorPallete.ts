@@ -14,6 +14,7 @@ interface Theme {
     introRoleWriting: string;
     buttonWriting: string;
     borderButton: string;
+    headerIcon: string;
   };
 }
 
@@ -33,7 +34,9 @@ const theme: Theme = {
     introRoleWriting: '#2f2f2f',
     buttonWriting: '#2f2f2f',
     borderButton: '#ed693c',
+    headerIcon: 'f9b11c',
   },
+
   dark: {
     primary: '#000000',
     secondary: '#dddddd',
@@ -49,6 +52,7 @@ const theme: Theme = {
     introRoleWriting: '#2f2f2f',
     buttonWriting: '#2f2f2f',
     borderButton: '#fdc60b',
+    headerIcon: 'f9b11c',
   },
 };
 

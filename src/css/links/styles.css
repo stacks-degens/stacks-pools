@@ -1,0 +1,12 @@
+.custom-link {
+  background-color: transparent !important;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.custom-link:hover {
+  cursor: pointer;
+  color: #da6137 !important;
+  text-decoration: underline;
+  transition: font-size 0.5s, color 1s, text-decoration 1s;
+}

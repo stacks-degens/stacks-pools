@@ -1,4 +1,6 @@
 import './styles.css';
+import '../../../css/common-page-alignments/styles.css';
+import '../../../css/buttons/styles.css';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import colors from '../../../consts/colorPallete';
 import { ContractStartVoteNotifier } from '../../../consts/smartContractFunctions';

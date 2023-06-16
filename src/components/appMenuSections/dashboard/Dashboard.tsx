@@ -12,13 +12,10 @@ import {
   readOnlyGetNotifier,
   readOnlyGetStacksRewards,
 } from '../../../consts/readOnly';
-import useCurrentTheme from '../../../consts/theme';
 import DashboardInfoContainer from '../../reusableComponents/dashboard/DashboardInfoContainer';
 import colors from '../../../consts/colorPallete';
-import './styles.css';
 
 const Dashboard = () => {
-  const { currentTheme } = useCurrentTheme();
   const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);
   const [minersList, setMinersList] = useState<Array<string>>([]);
   const currentRole: UserRole = useAppSelector(selectCurrentUserRole);

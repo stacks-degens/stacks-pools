@@ -1,5 +1,4 @@
 import colors from '../../../consts/colorPallete';
-import useCurrentTheme from '../../../consts/theme';
 import { Box, Button, TableCell } from '@mui/material';
 import { useEffect, useState } from 'react';
 import {
@@ -22,7 +21,6 @@ import { useNavigate } from 'react-router-dom';
 import VotingNotifierInfoContainer from '../../reusableComponents/voting/VotingNotifierInfoContainer';
 
 const VotingNotifier = () => {
-  const { currentTheme } = useCurrentTheme();
   const [userAddress, setUserAddress] = useState<string | null>(null);
   const [electionBlocksRemaining, setElectionBlocksRemaining] = useState<number | null>(null);
   const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);

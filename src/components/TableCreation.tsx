@@ -76,7 +76,6 @@ const TableCreation = ({ rows, rowContent, columns, tableId, customTableWidth }:
               backgroundColor: colors[appCurrentTheme].primary,
               color: colors[appCurrentTheme].colorWriting,
             }}
-            className="test"
           >
             <TableSortLabel
               sx={{
