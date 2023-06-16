@@ -322,7 +322,7 @@ export const ContractUnlockExtraReserveFundsStacking = (callback?: () => void) =
 // args: (principal address)
 // what does it do: allows to join pool for stacking
 
-export const ContractDelegatePoxStacking = (address: string) => {
+export const ContractAllowInPoolPoxScStacking = (address: string) => {
   const type = 'pox';
   const convertedArgs = [convertPrincipalToArg(address)];
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.allowContractCaller, []);

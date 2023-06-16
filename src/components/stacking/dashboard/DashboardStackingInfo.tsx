@@ -3,7 +3,7 @@ import { useAppSelector } from '../../../redux/store';
 import './styles.css';
 import colors from '../../../consts/colorPallete';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { ContractDelegatePoxStacking, ContractJoinPoolStacking } from '../../../consts/smartContractFunctions';
+import { ContractAllowInPoolPoxScStacking, ContractJoinPoolStacking } from '../../../consts/smartContractFunctions';
 import { useEffect, useState } from 'react';
 import { readOnlyGetAllowanceStacking } from '../../../consts/readOnly';
 import { Alert } from '@mui/material';
@@ -39,7 +39,7 @@ const DashboardStackingInfo = ({
   const [showAlertJoinPool, setShowAlertJoinPool] = useState<boolean>(false);
   const [joinPoolButtonClicked, setJoinPoolButtonClicked] = useState<boolean>(false);
   const [disableJoinPoolButton, setDisableJoinPoolButton] = useState<boolean>(false);
-  const [delegatePoxButtonClicked, setDelegatePoxButtonClicked] = useState<boolean>(false);
+  const [allowPoolInPoxScButtonClicked, setAllowPoolInPoxScButtonClicked] = useState<boolean>(false);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   useEffect(() => {
@@ -52,16 +52,16 @@ const DashboardStackingInfo = ({
     };
 
     getAllowance();
-  }, [delegatePoxButtonClicked]);
+  }, [allowPoolInPoxScButtonClicked]);
 
   useEffect(() => {
     if (joinPoolButtonClicked && showAlertJoinPool) setDisableJoinPoolButton(true);
   }, [joinPoolButtonClicked, showAlertJoinPool]);
 
-  const delegatePox = () => {
+  const allowPoolInPoxSc = () => {
     if (userAddress !== null) {
-      setDelegatePoxButtonClicked(true);
-      ContractDelegatePoxStacking(userAddress);
+      setAllowPoolInPoxScButtonClicked(true);
+      ContractAllowInPoolPoxScStacking(userAddress);
     }
   };
 
@@ -73,7 +73,7 @@ const DashboardStackingInfo = ({
       else {
         setShowAlertJoinPool(true);
         setDisableJoinPoolButton(true);
-        setDelegatePoxButtonClicked(false);
+        setAllowPoolInPoxScButtonClicked(false);
       }
     }
   };
@@ -146,7 +146,10 @@ const DashboardStackingInfo = ({
       </div>
       {currentRole === 'NormalUserStacking' && (
         <div className="footer-join-button-container">
-          <button className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'} onClick={delegatePox}>
+          <button
+            className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+            onClick={allowPoolInPoxSc}
+          >
             Allow Pool in Pox-2 SC
           </button>
         </div>
