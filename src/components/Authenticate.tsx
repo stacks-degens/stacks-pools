@@ -3,6 +3,7 @@ import { Connect } from '@stacks/connect-react';
 import { useAppSelector } from '../redux/store';
 import { selectCurrentTheme, selectUserSessionState } from '../redux/reducers/user-state';
 import colors from '../consts/colorPallete';
+import logo from './../logo.png';
 
 const Authenticate = () => {
   const userSession = useAppSelector(selectUserSessionState);
@@ -16,9 +17,8 @@ const Authenticate = () => {
       <Connect
         authOptions={{
           appDetails: {
-            name: 'Stacks React Template',
-            // todo:
-            icon: window.location.origin + '/logo.png',
+            name: 'Stacks Decentralized Pools',
+            icon: logo,
           },
           redirectTo: '/',
           onFinish: () => {

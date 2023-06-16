@@ -2,6 +2,7 @@ import { IUserState, defaultUserState, selectUserSessionState } from './user-sta
 import { DISCONNECT_USER_SESSION, CONNECT_USER_SESSION, UPDATE_USER_ROLE, UPDATE_APP_THEME } from '../actions';
 
 import { showConnect } from '@stacks/connect';
+import logo from './../../logo.png';
 
 export interface IinitialState {
   userState: IUserState;
@@ -26,8 +27,8 @@ const mainReducer = (state = initialState, action: IreduxAction) => {
     case CONNECT_USER_SESSION:
       showConnect({
         appDetails: {
-          name: 'Stacks React Starter',
-          icon: window.location.origin + '/logo512.png',
+          name: 'Stacks Decentralized Pools',
+          icon: logo,
         },
         redirectTo: '/',
         onFinish: () => {

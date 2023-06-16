@@ -38,17 +38,20 @@ const MoreInfoAboutContainerMiner = ({
     <>
       <div className="content-sections-title-info-container bottom-margins">
         <span className="bold-font">Balance SC: </span>
-        <span>{currentBalance / 1000000 + ' STX'}</span>
+        <span className="result-of-content-section">{currentBalance / 1000000 + ' STX'}</span>
       </div>
       <div className="content-sections-title-info-container bottom-margins">
         <span className="bold-font">Total withdrawl of SC: </span>
-        <span> {totalWithdrawals !== null ? totalWithdrawals / 1000000 + ' STX' : '0 STX'}</span>
+        <span className="result-of-content-section">
+          {' '}
+          {totalWithdrawals !== null ? totalWithdrawals / 1000000 + ' STX' : '0 STX'}
+        </span>
       </div>
       <div className="content-sections-title-info-container">
         <span className="bold-font">Autoexchange stx to btc: </span>
-        <span>{exchange === null || exchange === false ? 'No' : 'Yes'}</span>
+        <span className="result-of-content-section">{exchange === null || exchange === false ? 'No' : 'Yes'}</span>
       </div>
-      <div className="content-sections-title-info-container">
+      <div className="content-sections-title-info-container autoexchange-button-container">
         <button
           className={appCurrentTheme === 'light' ? 'customButton width-100' : 'customDarkButton width-100'}
           onClick={setAutoExchange}

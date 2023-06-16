@@ -47,19 +47,16 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
   }, [location]);
 
   const disconnect = () => {
-    // dispatch(updateAppThemeAction(appCurrentTheme));
     dispatch(disconnectAction());
   };
 
   const authenticate = () => {
     dispatch(connectAction());
-    // dispatch(updateAppThemeAction(appCurrentTheme));
   };
 
   if (userSession.isUserSignedIn()) {
     if (currentRole === 'Viewer') {
       dispatch(updateUserRoleAction(finalStatus));
-      // dispatch(updateUserRoleAction());
       return <div>Loading role...</div>;
     }
     return (

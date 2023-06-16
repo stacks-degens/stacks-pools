@@ -105,7 +105,11 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
               <ListItemIcon>
                 <HomeIcon style={{ color: colors[appCurrentTheme].secondary }} />
               </ListItemIcon>
-              <ListItemText style={{ color: colors[appCurrentTheme].secondary }} primary="Home" />
+              <ListItemText
+                className="navbar-sections-font-size"
+                style={{ color: colors[appCurrentTheme].secondary }}
+                primary="Home"
+              />
             </ListItemButton>
           </ListItem>
           <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
@@ -128,7 +132,11 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
               <ListItemIcon>
                 <Home style={{ color: colors[appCurrentTheme].secondary }} />
               </ListItemIcon>
-              <ListItemText style={{ color: colors[appCurrentTheme].secondary }} primary="Dashboard" />
+              <ListItemText
+                className="navbar-sections-font-size"
+                style={{ color: colors[appCurrentTheme].secondary }}
+                primary="Dashboard"
+              />
             </ListItemButton>
           </ListItem>
           <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
@@ -144,7 +152,11 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                 <ListItemIcon>
                   <AccountCircleIcon style={{ color: colors[appCurrentTheme].secondary }} />
                 </ListItemIcon>
-                <ListItemText style={{ color: colors[appCurrentTheme].secondary }} primary="Profile" />
+                <ListItemText
+                  className="navbar-sections-font-size"
+                  style={{ color: colors[appCurrentTheme].secondary }}
+                  primary="Profile"
+                />
               </ListItemButton>
             </ListItem>
             <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
@@ -158,7 +170,11 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                   <ListItemIcon>
                     <Hardware style={{ color: colors[appCurrentTheme].secondary }} />
                   </ListItemIcon>
-                  <ListItemText style={{ color: colors[appCurrentTheme].secondary }} primary="Mining Pool" />
+                  <ListItemText
+                    className="navbar-sections-font-size"
+                    style={{ color: colors[appCurrentTheme].secondary }}
+                    primary="Mining Pool"
+                  />
                   {openMiningPoolMenu ? (
                     <ExpandLess style={{ color: colors[appCurrentTheme].secondary }} />
                   ) : (
@@ -182,7 +198,11 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                       <ListItemIcon>
                         <StarBorder style={{ color: colors[appCurrentTheme].secondary }} />
                       </ListItemIcon>
-                      <ListItemText style={{ color: colors[appCurrentTheme].secondary }} primary="Status" />
+                      <ListItemText
+                        className="navbar-sections-font-size"
+                        style={{ color: colors[appCurrentTheme].secondary }}
+                        primary="Status"
+                      />
                     </ListItemButton>
                   </List>
                   <List
@@ -198,7 +218,11 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                       <ListItemIcon>
                         <StarBorder style={{ color: colors[appCurrentTheme].secondary }} />
                       </ListItemIcon>
-                      <ListItemText style={{ color: colors[appCurrentTheme].secondary }} primary="Miners" />
+                      <ListItemText
+                        className="navbar-sections-font-size"
+                        style={{ color: colors[appCurrentTheme].secondary }}
+                        primary="Miners"
+                      />
                     </ListItemButton>
                   </List>
                 </Collapse>
@@ -211,7 +235,11 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                   <ListItemIcon>
                     <Poll style={{ color: colors[appCurrentTheme].secondary }} />
                   </ListItemIcon>
-                  <ListItemText style={{ color: colors[appCurrentTheme].secondary }} primary="Voting" />
+                  <ListItemText
+                    className="navbar-sections-font-size"
+                    style={{ color: colors[appCurrentTheme].secondary }}
+                    primary="Voting"
+                  />
                   {openVotingMenu ? (
                     <ExpandLess style={{ color: colors[appCurrentTheme].secondary }} />
                   ) : (
@@ -235,7 +263,11 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                       <ListItemIcon>
                         <StarBorder style={{ color: colors[appCurrentTheme].secondary }} />
                       </ListItemIcon>
-                      <ListItemText style={{ color: colors[appCurrentTheme].secondary }} primary="Status" />
+                      <ListItemText
+                        className="navbar-sections-font-size"
+                        style={{ color: colors[appCurrentTheme].secondary }}
+                        primary="Status"
+                      />
                     </ListItemButton>
                   </List>
                   <List
@@ -247,7 +279,11 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                       <ListItemIcon>
                         <StarBorder style={{ color: colors[appCurrentTheme].secondary }} />
                       </ListItemIcon>
-                      <ListItemText style={{ color: colors[appCurrentTheme].secondary }} primary="Joiners" />
+                      <ListItemText
+                        className="navbar-sections-font-size"
+                        style={{ color: colors[appCurrentTheme].secondary }}
+                        primary="Joiners"
+                      />
                     </ListItemButton>
                   </List>
                   <List
@@ -259,7 +295,11 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                       <ListItemIcon>
                         <StarBorder style={{ color: colors[appCurrentTheme].secondary }} />
                       </ListItemIcon>
-                      <ListItemText style={{ color: colors[appCurrentTheme].secondary }} primary="Removals" />
+                      <ListItemText
+                        className="navbar-sections-font-size"
+                        style={{ color: colors[appCurrentTheme].secondary }}
+                        primary="Removals"
+                      />
                     </ListItemButton>
                   </List>
                   <List
@@ -271,7 +311,11 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                       <ListItemIcon>
                         <StarBorder style={{ color: colors[appCurrentTheme].secondary }} />
                       </ListItemIcon>
-                      <ListItemText style={{ color: colors[appCurrentTheme].secondary }} primary="Notifier" />
+                      <ListItemText
+                        className="navbar-sections-font-size"
+                        style={{ color: colors[appCurrentTheme].secondary }}
+                        primary="Notifier"
+                      />
                     </ListItemButton>
                   </List>
                 </Collapse>

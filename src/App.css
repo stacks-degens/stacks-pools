@@ -21,3 +21,14 @@
 .App-link {
   color: #bc93f9;
 }
+
+@media screen and (max-width: 575px) {
+}
+
+@media screen and (min-width: 576px) and (max-width: 991px) {
+}
+@media screen and (min-width: 992px) and (max-width: 1180px) {
+}
+
+@media screen and (min-width: 1181px) {
+}
