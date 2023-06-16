@@ -1,15 +1,6 @@
 import './styles.css';
-
-import colors from '../../../consts/colorPallete';
-import useCurrentTheme from '../../../consts/theme';
-// import { selectCurrentUserRole, selectUserSessionState, UserRole } from '../../../redux/reducers/user-state';
-
-import { AddCircleOutline, RemoveCircleOutline, SelfImprovement } from '@mui/icons-material';
-import { useEffect, useState } from 'react';
-import { principalCV, ClarityValue, listCV, cvToJSON } from '@stacks/transactions';
 import { useAppSelector } from '../../../redux/store';
-import { selectCurrentUserRole, selectUserSessionState, UserRole } from '../../../redux/reducers/user-state';
-import { ReadOnlyAllDataWaitingMiners, readOnlyGetRemainingBlocksJoin } from '../../../consts/readOnly';
+import { selectCurrentUserRole, UserRole } from '../../../redux/reducers/user-state';
 import RoleIntroMiner from './RoleIntroMiner';
 import RoleIntroWaiting from './RoleIntroWaiting';
 import RoleIntroPending from './RoleIntroPending';
@@ -17,16 +8,36 @@ import RoleIntroNormalUser from './RoleIntroNormalUser';
 
 interface IRoleIntro {
   currentRole: string;
+  positiveVotes: number | null;
+  positiveVotesThreshold: number | null;
+  negativeVotes: number | null;
+  negativeVotesThreshold: number | null;
+  blocksLeftUntilJoin: number | null;
 }
 
-const RoleIntro = ({ currentRole }: IRoleIntro) => {
+const RoleIntro = ({
+  currentRole,
+  positiveVotes,
+  positiveVotesThreshold,
+  negativeVotes,
+  negativeVotesThreshold,
+  blocksLeftUntilJoin,
+}: IRoleIntro) => {
   const role: UserRole = useAppSelector(selectCurrentUserRole);
 
   const roleIntroMapping: Record<UserRole, React.ReactElement> = {
     Viewer: <div></div>,
     NormalUser: <RoleIntroNormalUser currentRole={currentRole} />,
-    Waiting: <RoleIntroWaiting currentRole={currentRole} />,
-    Pending: <RoleIntroPending currentRole={currentRole} />,
+    Waiting: (
+      <RoleIntroWaiting
+        currentRole={currentRole}
+        positiveVotes={positiveVotes}
+        positiveVotesThreshold={positiveVotesThreshold}
+        negativeVotes={negativeVotes}
+        negativeVotesThreshold={negativeVotesThreshold}
+      />
+    ),
+    Pending: <RoleIntroPending currentRole={currentRole} blocksLeftUntilJoin={blocksLeftUntilJoin} />,
     Miner: <RoleIntroMiner currentRole={currentRole} />,
   };
 

@@ -1,28 +1,15 @@
 import './styles.css';
 import colors from '../../../consts/colorPallete';
-import useCurrentTheme from '../../../consts/theme';
 import { SelfImprovement } from '@mui/icons-material';
-import { useEffect, useState } from 'react';
-import { readOnlyGetRemainingBlocksJoin } from '../../../consts/readOnly';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 
 interface IRoleIntroPending {
   currentRole: string;
+  blocksLeftUntilJoin: number | null;
 }
 
-const RoleIntroPending = ({ currentRole }: IRoleIntroPending) => {
-  const [blocksLeftUntilJoin, setBlocksLeftUntilJoin] = useState<number | null>(null);
-  useEffect(() => {
-    const fetchBlocksLeft = async () => {
-      const blocksLeft = await readOnlyGetRemainingBlocksJoin();
-      setBlocksLeftUntilJoin(blocksLeft);
-    };
-    fetchBlocksLeft();
-  }, [blocksLeftUntilJoin]);
-
-  const { currentTheme } = useCurrentTheme();
-
+const RoleIntroPending = ({ currentRole, blocksLeftUntilJoin }: IRoleIntroPending) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   return (

@@ -1,23 +1,21 @@
 import { useEffect, useState } from 'react';
 import { readOnlyExchangeToggle } from '../../../consts/readOnly';
 import { ContractSetAutoExchange } from '../../../consts/smartContractFunctions';
-import { selectCurrentTheme, selectUserSessionState } from '../../../redux/reducers/user-state';
+import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
-import colors from '../../../consts/colorPallete';
-import useCurrentTheme from '../../../consts/theme';
 
-interface IMinerMoreInfoAboutContainer {
+interface IMinerMoreInfoAboutMinerContainer {
   currentBalance: number;
   totalWithdrawals: number | null;
+  userAddress: string | null;
 }
 
-const MoreInfoAboutContainerMiner = ({ currentBalance, totalWithdrawals }: IMinerMoreInfoAboutContainer) => {
+const MoreInfoAboutContainerMiner = ({
+  currentBalance,
+  totalWithdrawals,
+  userAddress,
+}: IMinerMoreInfoAboutMinerContainer) => {
   const [exchange, setExchange] = useState<boolean | null>(false);
-  const { currentTheme } = useCurrentTheme();
-
-  const userSession = useAppSelector(selectUserSessionState);
-  const userAddress = userSession.loadUserData().profile.stxAddress.testnet;
-
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   const setAutoExchange = () => {

@@ -1,5 +1,4 @@
 import './styles.css';
-
 import {
   selectCurrentTheme,
   selectCurrentUserRole,
@@ -7,16 +6,14 @@ import {
   UserRole,
 } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
-import CommonInfoProfile from './CommonInfoProfile';
+// import CommonInfoProfile from './CommonInfoProfile';
 import MinerProfile from './MinerProfile';
-import PendingMinerProfile from './PendingMinerProfile';
-import WaitingMinerProfile from './WaitingMinerProfile';
+// import PendingMinerProfile from './PendingMinerProfile';
+// import WaitingMinerProfile from './WaitingMinerProfile';
 import colors from '../../../consts/colorPallete';
-import useCurrentTheme from '../../../consts/theme';
-import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { network, getExplorerUrl } from '../../../consts/network';
-import { readOnlyGetAllTotalWithdrawals, readOnlyGetBalance } from '../../../consts/readOnly';
+import { readOnlyGetAllTotalWithdrawals, readOnlyGetBalance, readOnlyGetNotifier } from '../../../consts/readOnly';
 
 const Profile = () => {
   const currentRole: UserRole = useAppSelector(selectCurrentUserRole);
@@ -24,11 +21,9 @@ const Profile = () => {
   const [explorerLink, setExplorerLink] = useState<string | undefined>(undefined);
   const [userAddress, setUserAddress] = useState<string | null>(null);
   const [currentBalance, setCurrentBalance] = useState<number>(0);
-  // const [withdrawAmountInput, setWithdrawAmountInput] = useState<number | null>(null);
   const [totalWithdrawals, setTotalWithdrawals] = useState<number | null>(null);
+  const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);
   const userSession = useAppSelector(selectUserSessionState);
-  const { currentTheme } = useCurrentTheme();
-
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   const profileMapping: Record<UserRole, React.ReactElement> = {
@@ -37,12 +32,52 @@ const Profile = () => {
     // Waiting: <WaitingMinerProfile />,
     // Pending: <PendingMinerProfile />,
     Viewer: <div></div>,
-    NormalUser: <MinerProfile connectedWallet={connectedWallet} explorerLink={explorerLink} />,
-    Waiting: <MinerProfile connectedWallet={connectedWallet} explorerLink={explorerLink} />,
-    Pending: <MinerProfile connectedWallet={connectedWallet} explorerLink={explorerLink} />,
-
-    Miner: <MinerProfile connectedWallet={connectedWallet} explorerLink={explorerLink} />,
+    NormalUser: (
+      <MinerProfile
+        connectedWallet={connectedWallet}
+        explorerLink={explorerLink}
+        currentBalance={currentBalance}
+        currentNotifier={currentNotifier}
+        userAddress={userAddress}
+      />
+    ),
+    Waiting: (
+      <MinerProfile
+        connectedWallet={connectedWallet}
+        explorerLink={explorerLink}
+        currentBalance={currentBalance}
+        currentNotifier={currentNotifier}
+        userAddress={userAddress}
+      />
+    ),
+    Pending: (
+      <MinerProfile
+        connectedWallet={connectedWallet}
+        explorerLink={explorerLink}
+        currentBalance={currentBalance}
+        currentNotifier={currentNotifier}
+        userAddress={userAddress}
+      />
+    ),
+    Miner: (
+      <MinerProfile
+        connectedWallet={connectedWallet}
+        explorerLink={explorerLink}
+        currentBalance={currentBalance}
+        currentNotifier={currentNotifier}
+        userAddress={userAddress}
+      />
+    ),
   };
+
+  useEffect(() => {
+    const getCurrentNotifier = async () => {
+      const notifier = await readOnlyGetNotifier();
+      setCurrentNotifier(notifier);
+    };
+
+    getCurrentNotifier();
+  }, [currentNotifier]);
 
   useEffect(() => {
     const wallet = userSession.loadUserData().profile.stxAddress.testnet;
@@ -68,7 +103,6 @@ const Profile = () => {
   useEffect(() => {
     const getUserBalance = async () => {
       const principalAddress = userSession.loadUserData().profile.stxAddress.testnet;
-
       const getTotalWithdrawals = await readOnlyGetAllTotalWithdrawals(principalAddress);
       const balance = await readOnlyGetBalance(principalAddress);
       setTotalWithdrawals(getTotalWithdrawals);
@@ -79,18 +113,8 @@ const Profile = () => {
   }, [currentBalance, totalWithdrawals]);
 
   return (
-    // <Box
-    //   sx={{
-    //     // minHeight: 'calc(100vh - 60px)',
-    //     height: 'calc(100vh - 60px)',
-    //     backgroundColor: colors[currentTheme].accent2,
-    //     color: colors[currentTheme].secondary,
-    //     // marginTop: -2.5,
-    //   }}
-    // >
     <div>
       <div>
-        {/* <div style={{ color: colors[currentTheme].lightYellow }} className="page-heading-title"> */}
         <div style={{ color: colors[appCurrentTheme].colorWriting }} className="page-heading-title">
           <h2>Decentralized Mining Pool</h2>
           <h2>Profile</h2>
@@ -99,10 +123,6 @@ const Profile = () => {
       </div>
     </div>
   );
-
-  {
-    // /* </Box> */
-  }
 };
 
 export default Profile;

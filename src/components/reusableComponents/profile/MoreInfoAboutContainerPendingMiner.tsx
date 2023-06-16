@@ -1,32 +1,15 @@
-import { useEffect, useState } from 'react';
-import {
-  selectCurrentTheme,
-  selectCurrentUserRole,
-  selectUserSessionState,
-  UserRole,
-} from '../../../redux/reducers/user-state';
+import { selectCurrentTheme, selectCurrentUserRole, UserRole } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
-import { readOnlyGetRemainingBlocksJoin } from '../../../consts/readOnly';
 import { ContractAddPending } from '../../../consts/smartContractFunctions';
 import colors from '../../../consts/colorPallete';
-import useCurrentTheme from '../../../consts/theme';
 
-const MoreInfoAboutContainerPendingMiner = () => {
+interface IMoreInfoAboutContainerPendingProps {
+  blocksLeftUntilJoin: number | null;
+}
+
+const MoreInfoAboutContainerPendingMiner = ({ blocksLeftUntilJoin }: IMoreInfoAboutContainerPendingProps) => {
   const currentRole: UserRole = useAppSelector(selectCurrentUserRole);
-  const userSession = useAppSelector(selectUserSessionState);
-  const userAddress = userSession.loadUserData().profile.stxAddress.testnet;
-  const [blocksLeftUntilJoin, setBlocksLeftUntilJoin] = useState<number | null>(null);
-  const { currentTheme } = useCurrentTheme();
-
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
-
-  useEffect(() => {
-    const fetchBlocksLeft = async () => {
-      const blocksLeft = await readOnlyGetRemainingBlocksJoin();
-      setBlocksLeftUntilJoin(blocksLeft);
-    };
-    fetchBlocksLeft();
-  }, [blocksLeftUntilJoin]);
 
   return (
     <>

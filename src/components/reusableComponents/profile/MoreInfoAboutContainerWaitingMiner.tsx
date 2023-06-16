@@ -1,36 +1,22 @@
-import { useEffect, useState } from 'react';
-
-import { selectCurrentTheme, selectUserSessionState } from '../../../redux/reducers/user-state';
+import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
-import { principalCV, ClarityValue, listCV, cvToJSON } from '@stacks/transactions';
-import { ReadOnlyAllDataWaitingMiners } from '../../../consts/readOnly';
 import { ContractTryEnterPool } from '../../../consts/smartContractFunctions';
 import colors from '../../../consts/colorPallete';
-import useCurrentTheme from '../../../consts/theme';
 
-const MoreInfoAboutContainerWaitingMiner = () => {
-  const userSession = useAppSelector(selectUserSessionState);
-  const userAddress = userSession.loadUserData().profile.stxAddress.testnet;
-  const userAddressAsCV: ClarityValue = listCV([principalCV(userSession.loadUserData().profile.stxAddress.testnet)]);
-  const [positiveVotes, setPositiveVotes] = useState<number | null>(null);
-  const [positiveVotesThreshold, setPositiveVotesThreshold] = useState<number | null>(null);
-  const [negativeVotes, setNegativeVotes] = useState<number | null>(null);
-  const [negativeVotesThreshold, setNegativeVotesThreshold] = useState<number | null>(null);
-  const { currentTheme } = useCurrentTheme();
+interface IMoreInfoAboutContainerWaitingMinerProps {
+  positiveVotes: number | null;
+  positiveVotesThreshold: number | null;
+  negativeVotes: number | null;
+  negativeVotesThreshold: number | null;
+}
 
+const MoreInfoAboutContainerWaitingMiner = ({
+  positiveVotes,
+  positiveVotesThreshold,
+  negativeVotes,
+  negativeVotesThreshold,
+}: IMoreInfoAboutContainerWaitingMinerProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const waitingList = await ReadOnlyAllDataWaitingMiners(userAddressAsCV);
-      const newWaitingList = cvToJSON(waitingList.newResultList[0]);
-      setPositiveVotes(newWaitingList.value[0].value.value['pos-votes'].value);
-      setPositiveVotesThreshold(newWaitingList.value[0].value.value['pos-thr'].value);
-      setNegativeVotes(newWaitingList.value[0].value.value['neg-votes'].value);
-      setNegativeVotesThreshold(newWaitingList.value[0].value.value['neg-thr'].value);
-    };
-    fetchData();
-  }, [userAddressAsCV]);
 
   return (
     <>
@@ -64,10 +50,6 @@ const MoreInfoAboutContainerWaitingMiner = () => {
               border: `1px solid ${colors[appCurrentTheme].defaultOrange}`,
             }}
             className="customButton"
-            // style={{
-            //   backgroundColor: colors[currentTheme].accent2,
-            //   color: colors[currentTheme].secondary,
-            // }}
             onClick={() => ContractTryEnterPool()}
           >
             Try Enter

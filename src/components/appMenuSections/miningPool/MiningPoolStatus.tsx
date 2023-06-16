@@ -6,13 +6,11 @@ import {
   readOnlyGetNotifierElectionProcessData,
 } from '../../../consts/readOnly';
 import MiningPoolStatusContainer from '../../reusableComponents/miningPool/MiningStatusContainer';
-import useCurrentTheme from '../../../consts/theme';
 import colors from '../../../consts/colorPallete';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 
 const MiningPoolStatus = () => {
-  const { currentTheme } = useCurrentTheme();
   const [currentBlock, setCurrentBlock] = useState<number | null>(null);
   const [notifierVoteStatus, setNotifierVoteStatus] = useState<string | null>(null);
   const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);

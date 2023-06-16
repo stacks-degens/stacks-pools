@@ -3,7 +3,6 @@ import DarkModeButton from '../consts/lightModeButton';
 import ConnectWallet from './ConnectWallet';
 import LeftPanel from './LeftPanel';
 import colors from '../consts/colorPallete';
-import useCurrentTheme from '../consts/theme';
 import './styles.css';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { selectCurrentTheme } from '../redux/reducers/user-state';
@@ -12,7 +11,6 @@ import { updateAppThemeAction } from '../redux/actions';
 const HeaderBar = () => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
   const dispatch = useAppDispatch();
-
   const isButtonChecked = appCurrentTheme === 'light' ? true : false;
 
   return (

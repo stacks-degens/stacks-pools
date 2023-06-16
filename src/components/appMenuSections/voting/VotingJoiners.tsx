@@ -78,19 +78,6 @@ const VotingJoiners = () => {
   };
 
   return (
-    // <Box
-    //   sx={{
-    //     display: 'flex',
-    //     alignItems: 'center',
-    //     flexDirection: 'column',
-    //     width: '100%',
-    //     minHeight: 'calc(100vh - 60px)',
-    //   }}
-    //   style={{
-    //     backgroundColor: colors[currentTheme].accent2,
-    //     color: colors[currentTheme].secondary,
-    //   }}
-    // >
     <div className="page-heading-title">
       <h2>Decentralized Mining Pool</h2>
       <h2>Voting - Joiners</h2>
@@ -104,9 +91,6 @@ const VotingJoiners = () => {
       />
     </div>
   );
-  {
-    /* </Box> */
-  }
 };
 
 export default VotingJoiners;

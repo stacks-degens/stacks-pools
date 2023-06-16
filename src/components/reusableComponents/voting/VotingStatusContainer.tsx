@@ -1,7 +1,6 @@
 import './styles.css';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import colors from '../../../consts/colorPallete';
-import useCurrentTheme from '../../../consts/theme';
 import { ContractEndVoteNotifier } from '../../../consts/smartContractFunctions';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
@@ -11,8 +10,6 @@ interface VotingStatusContainerProps {
   votingStatus: string | null;
 }
 const VotingStatusContainer = ({ notifier, votingStatus }: VotingStatusContainerProps) => {
-  const { currentTheme } = useCurrentTheme();
-
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   return (
