@@ -2,7 +2,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import colors from '../consts/colorPallete';
 import { useAppDispatch, useAppSelector } from '../redux/store';
-import { connectAction, disconnectAction, updateUserRoleAction } from '../redux/actions';
+import { connectAction, disconnectAction, updateAppThemeAction, updateUserRoleAction } from '../redux/actions';
 import { selectCurrentTheme, selectCurrentUserRole, selectUserSessionState } from '../redux/reducers/user-state';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
