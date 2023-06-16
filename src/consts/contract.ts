@@ -153,6 +153,7 @@ interface IFunctionMapping {
     publicFunctions: {
       allowContractCaller: string;
       revokeDelegate: string;
+      disallowContractCaller: string;
     };
   };
 }
@@ -232,6 +233,10 @@ export const functionMapping: IFunctionMapping = {
     readOnlyFunctions: {
       getAllowanceStatus: 'get-allowance-contract-callers',
     },
-    publicFunctions: { allowContractCaller: 'allow-contract-caller', revokeDelegate: 'revoke-delegate-stx' },
+    publicFunctions: {
+      allowContractCaller: 'allow-contract-caller',
+      revokeDelegate: 'revoke-delegate-stx',
+      disallowContractCaller: 'disallow-contract-caller',
+    },
   },
 };
