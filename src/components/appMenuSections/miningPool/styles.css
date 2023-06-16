@@ -1,0 +1,35 @@
+.table-row {
+  /* background-color: red; */
+}
+
+.test {
+  /* border-bottom: 1px solid green; */
+  /* border-left: 1px solid green; */
+}
+
+table {
+  border-top: 1px solid #f9b11c;
+  border-left: 2px solid #f9b11c;
+  border-right: 2px solid #f9b11c;
+  /* border: 2px solid #f9b11c; */
+  /* box-shadow: 1px 3px 4px #ed693c, -1px 0px 4px #fdc60b !important; */
+  /* box-shadow: 1px 1px 4px #ed693c, -1px -1px 4px #fdc60b !important; */
+  /* box-shadow: 0px 3px 5px -1px #ed693c, 0px 6px 10px 0px #ed693c, 0px 1px 18px 0px #ed693c !important; */
+  /* border: 3px solid green !important; */
+}
+
+.css-11xur9t-MuiPaper-root-MuiTableContainer-root {
+  border: 1px solid #f9b11c;
+  box-shadow: 1px 3px 4px #ed693c, -1px 0px 4px #fdc60b !important;
+  background-color: #fef9f7 !important;
+}
+
+/* propese removal icon for table */
+.css-nmy1ir-MuiSvgIcon-root {
+  /* color: #ed693c !important; */
+}
+
+/* info icon for table */
+.css-b13xs8-MuiSvgIcon-root {
+  /* color: #fdc60b !important; */
+}

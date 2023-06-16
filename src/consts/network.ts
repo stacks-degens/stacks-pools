@@ -33,8 +33,6 @@ type TransactionMapping = Record<
   (txId: string) => { apiUrl: string; explorerUrl: string; explorerUrlAddress: string }
 >;
 
-type UrlType = 'apiUrl' | 'explorerUrl' | 'explorerUrlAddress';
-
 export const transactionUrl: TransactionMapping = {
   mainnet: (txId: string) => ({
     apiUrl: `https://api.mainnet.hiro.so/extended/v1/tx/${txId}`,

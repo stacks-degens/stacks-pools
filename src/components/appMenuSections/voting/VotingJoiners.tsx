@@ -9,27 +9,35 @@ import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import Button from '@mui/material/Button';
 import InfoIcon from '@mui/icons-material/Info';
 import TableCreation from '../../../components/TableCreation';
-import { WaitingData, waitingColumns, GetWaitingRows } from '../../../consts/tableData';
+import { waitingColumns, GetWaitingRows, AllTableData } from '../../../consts/tableData';
 import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../../redux/store';
+import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 
 const VotingJoiners = () => {
   const { currentTheme } = useCurrentTheme();
   const waitingRows = GetWaitingRows();
   const navigate = useNavigate();
 
-  const handlePendingVoteButtonClick = (data: string, address: string) => {
-    if (data === 'voteYes') {
-      ContractVotePositiveJoin(address);
-    } else if (data === 'voteNo') {
-      ContractVoteNegativeJoin(address);
+  const appCurrentTheme = useAppSelector(selectCurrentTheme);
+
+  const handlePendingVoteButtonClick = (data: string, address: string | undefined) => {
+    if (address !== undefined) {
+      if (data === 'voteYes') {
+        ContractVotePositiveJoin(address);
+      } else if (data === 'voteNo') {
+        ContractVoteNegativeJoin(address);
+      }
     }
   };
 
-  const handleMinerInfoButtonClick = (address: string) => {
-    navigate(`/profile/${address}`);
+  const handleMinerInfoButtonClick = (address: string | undefined) => {
+    if (address !== undefined) {
+      navigate(`/profile/${address}`);
+    }
   };
 
-  const waitingRowContent = (_index: number, waitingRow: WaitingData) => {
+  const waitingRowContent = (_index: number, waitingRow: AllTableData) => {
     return (
       <React.Fragment>
         {waitingColumns.map((column) => (
@@ -37,26 +45,27 @@ const VotingJoiners = () => {
             key={column.dataKey}
             align={column.dataKey === 'address' ? 'left' : 'right'}
             sx={{
-              color: colors[currentTheme].secondary,
+              color: colors[appCurrentTheme].colorWriting,
+              backgroundColor: colors[appCurrentTheme].infoContainers,
             }}
           >
             {column.dataKey === 'generalInfo' && (
               <Box>
                 <Button onClick={() => handleMinerInfoButtonClick(waitingRow['address'])}>
-                  <InfoIcon fontSize="small" sx={{ color: colors[currentTheme].secondary }} />
+                  <InfoIcon fontSize="small" sx={{ color: colors[appCurrentTheme].defaultOrange }} />
                 </Button>
               </Box>
             )}
             {column.dataKey === 'vote' ? (
               <Box>
                 <Button onClick={() => handlePendingVoteButtonClick('voteYes', waitingRow['address'])}>
-                  <ThumbUpAltIcon fontSize="small" sx={{ color: 'green' }} />
+                  <ThumbUpAltIcon fontSize="small" sx={{ color: colors[appCurrentTheme].defaultOrange }} />
                 </Button>
                 <Button
                   style={{ marginRight: -52 }}
                   onClick={() => handlePendingVoteButtonClick('voteNo', waitingRow['address'])}
                 >
-                  <ThumbDownAltIcon fontSize="small" sx={{ color: 'red' }} />
+                  <ThumbDownAltIcon fontSize="small" sx={{ color: colors[appCurrentTheme].colorWriting }} />
                 </Button>
               </Box>
             ) : (
@@ -69,19 +78,23 @@ const VotingJoiners = () => {
   };
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'column',
-        width: '100%',
-        minHeight: 'calc(100vh - 60px)',
-      }}
-      style={{
-        backgroundColor: colors[currentTheme].accent2,
-        color: colors[currentTheme].secondary,
-      }}
-    >
+    // <Box
+    //   sx={{
+    //     display: 'flex',
+    //     alignItems: 'center',
+    //     flexDirection: 'column',
+    //     width: '100%',
+    //     minHeight: 'calc(100vh - 60px)',
+    //   }}
+    //   style={{
+    //     backgroundColor: colors[currentTheme].accent2,
+    //     color: colors[currentTheme].secondary,
+    //   }}
+    // >
+    <div className="page-heading-title">
+      <h2>Decentralized Mining Pool</h2>
+      <h2>Voting - Joiners</h2>
+      <div className="principal-content-profile-page"></div>
       <TableCreation
         rows={waitingRows}
         rowContent={waitingRowContent}
@@ -89,8 +102,11 @@ const VotingJoiners = () => {
         tableId="waiting"
         customTableWidth="75%"
       />
-    </Box>
+    </div>
   );
+  {
+    /* </Box> */
+  }
 };
 
 export default VotingJoiners;

@@ -2,7 +2,7 @@ import colors from '../../../consts/colorPallete';
 import useCurrentTheme from '../../../consts/theme';
 import { Box } from '@mui/material';
 import { useAppSelector } from '../../../redux/store';
-import { selectCurrentUserRole } from '../../../redux/reducers/user-state';
+import { selectCurrentTheme, selectCurrentUserRole } from '../../../redux/reducers/user-state';
 import { useEffect, useState } from 'react';
 import { readOnlyGetRemainingBlocksJoin } from '../../../consts/readOnly';
 import { ContractAddPending } from '../../../consts/smartContractFunctions';
@@ -11,6 +11,9 @@ const PendingMinerProfile = () => {
   const { currentTheme } = useCurrentTheme();
   const currentRole = useAppSelector(selectCurrentUserRole);
   const [blocksLeftUntilJoin, setBlocksLeftUntilJoin] = useState<number | null>(null);
+
+  const appCurrentTheme = useAppSelector(selectCurrentTheme);
+
   useEffect(() => {
     const fetchBlocksLeft = async () => {
       const blocksLeft = await readOnlyGetRemainingBlocksJoin();
@@ -23,8 +26,8 @@ const PendingMinerProfile = () => {
     <Box
       sx={{
         minHeight: 'calc(100vh - 60px)',
-        backgroundColor: colors[currentTheme].accent2,
-        color: colors[currentTheme].secondary,
+        backgroundColor: colors[appCurrentTheme].accent2,
+        color: colors[appCurrentTheme].secondary,
         marginTop: -2.5,
       }}
     >

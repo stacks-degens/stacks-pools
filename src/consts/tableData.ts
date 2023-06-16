@@ -4,7 +4,6 @@ import {
   ReadOnlyAllDataWaitingMiners,
   ReadOnlyGetMinersList,
   ReadOnlyGetWaitingList,
-  readOnlyGetK,
   readOnlyGetNotifierVoteNumber,
 } from './readOnly';
 import { cvToJSON, ClarityValue } from '@stacks/transactions';
@@ -12,20 +11,20 @@ import { cvToJSON, ClarityValue } from '@stacks/transactions';
 // data interface for all tables, used as type in TableCreation
 
 export interface AllTableData {
-  id: number;
-  address: string;
-  negativeVotes: string;
-  vote: string;
-  positiveVotes: string;
-  wasBlacklisted: string;
-  proposeRemoval: string;
-  notifierVotes: string;
-  generalInfo: string;
+  id?: number;
+  address?: string;
+  negativeVotes?: string;
+  vote?: string;
+  positiveVotes?: string;
+  wasBlacklisted?: string;
+  proposeRemoval?: string;
+  notifierVotes?: string;
+  generalInfo?: string;
 }
 
 // data for waiting table
 
-export interface WaitingData {
+interface WaitingData {
   id: number;
   address: string;
   negativeVotes: string;
@@ -77,8 +76,8 @@ export const waitingColumns: WaitingColumnData[] = [
 ];
 
 export const GetWaitingRows = () => {
-  const [waitingList, setWaitingList] = useState<any>([]);
-  const [addressList, setAddressList] = useState<any>([]);
+  const [waitingList, setWaitingList] = useState<ClarityValue[]>([]);
+  const [addressList, setAddressList] = useState<ClarityValue[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -109,7 +108,7 @@ export const GetWaitingRows = () => {
 
 // data for miners in pool table
 
-export interface MinersData {
+interface MinersData {
   id: number;
   address: string;
   proposeRemoval: string;
@@ -148,7 +147,7 @@ export const minerColumns: MinersColumnData[] = [
 ];
 
 export const GetMinersRows = () => {
-  const [minersList, setMinersList] = useState<any>([]);
+  const [minersList, setMinersList] = useState<{ value: string }[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -171,7 +170,7 @@ export const GetMinersRows = () => {
 
 // data for removals table
 
-export interface RemovalsData {
+interface RemovalsData {
   id: number;
   address: string;
   negativeVotes: string;
@@ -237,8 +236,8 @@ interface RemovalsListProps {
 }
 
 export const GetRemovalsRows = () => {
-  const [removalsList, setRemovalsList] = useState<any>([]);
-  const [addressList, setAddressList] = useState<any>([]);
+  const [removalsList, setRemovalsList] = useState<RemovalsListProps[]>([]);
+  const [addressList, setAddressList] = useState<{ value: { type: string; value: string }[] }[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -267,7 +266,7 @@ export const GetRemovalsRows = () => {
 
 // data for notifier voting miners
 
-export interface NotifiersData {
+interface NotifiersData {
   id: number;
   address: string;
   notifierVotes: string;
@@ -288,18 +287,18 @@ const createNotifiersData = (id: number, address: string, notifierVotes: string)
 
 export const notifierColumns: NotifiersColumnData[] = [
   {
-    width: 400,
+    width: 280,
     label: 'Address',
     dataKey: 'address',
   },
   {
-    width: 150,
+    width: 140,
     label: 'Votes/Threshold',
     dataKey: 'notifierVotes',
     numeric: true,
   },
   {
-    width: 150,
+    width: 140,
     label: 'Vote',
     dataKey: 'vote',
     numeric: true,
@@ -312,13 +311,10 @@ export const notifierColumns: NotifiersColumnData[] = [
   },
 ];
 
-export const GetNotifiersRows = async (minersList: any, notifierVoteThreshold: number) => {
-  // const getNotifierVotes = async (address: string) => {
-  //   const votes = await readOnlyGetNotifierVoteNumber(address);
-  //   console.log(votes);
-  //   return votes;
-  // };
-
+export const GetNotifiersRows = async (
+  minersList: Array<{ type: string; value: string }>,
+  notifierVoteThreshold: number
+) => {
   const getNotifierVotes = async () => {
     const fullInfo =
       minersList.length !== 0

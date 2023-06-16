@@ -5,23 +5,34 @@ import {
   readOnlyGetBalance,
   readOnlyGetNotifier,
   readOnlyGetAllTotalWithdrawals,
+  readOnlyClaimedBlockStatus,
 } from '../../../consts/readOnly';
-import { selectCurrentUserRole, selectUserSessionState } from '../../../redux/reducers/user-state';
+import { selectCurrentTheme, selectCurrentUserRole, selectUserSessionState } from '../../../redux/reducers/user-state';
 import '../style.css';
 import colors from '../../../consts/colorPallete';
 import useCurrentTheme from '../../../consts/theme';
 import { Alert, Box, TextField } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '../../../redux/store';
+import { useAppSelector } from '../../../redux/store';
 import {
   ContractChangeBtcAddress,
-  ContractClaimRewardsForBlock,
+  ContractRewardDistribution,
   ContractDepositSTX,
   ContractLeavePool,
   ContractWithdrawSTX,
   ContractSetAutoExchange,
 } from '../../../consts/smartContractFunctions';
+import AboutContainer from '../../reusableComponents/profile/AboutContainer';
+import ActivityContainer from '../../reusableComponents/profile/ActivityContainer';
+import ActionsContainer from '../../reusableComponents/profile/ActionsContainer';
+import RoleIntro from '../../reusableComponents/profile/RoleIntro';
 
-const MinerProfile = () => {
+interface IMinerProfileProps {
+  connectedWallet: string | null;
+  explorerLink: string | undefined;
+  // currentBalance: number;
+}
+
+const MinerProfile = ({ connectedWallet, explorerLink }: IMinerProfileProps) => {
   const [currentBalance, setCurrentBalance] = useState<number>(0);
   const { currentTheme } = useCurrentTheme();
   const currentRole = useAppSelector(selectCurrentUserRole);
@@ -53,9 +64,14 @@ const MinerProfile = () => {
     }
   };
 
-  const claimRewards = () => {
+  const claimRewards = async () => {
     if (claimRewardsInputAmount !== null) {
-      ContractClaimRewardsForBlock(claimRewardsInputAmount);
+      const wasBlockClaimed = await readOnlyClaimedBlockStatus(claimRewardsInputAmount);
+      if (wasBlockClaimed === false) {
+        ContractRewardDistribution(claimRewardsInputAmount);
+      } else {
+        console.log('Block already claimed');
+      }
     }
   };
 
@@ -130,16 +146,18 @@ const MinerProfile = () => {
   }, [currentBalance, totalWithdrawals]);
 
   return (
-    <Box
-      sx={{
-        minHeight: 'calc(100vh - 60px)',
-        backgroundColor: colors[currentTheme].accent2,
-        color: colors[currentTheme].secondary,
-        marginTop: -2.5,
-      }}
-    >
-      <div>
-        <ul>
+    // <Box
+    //   sx={{
+    //     // minHeight: 'calc(100vh - 60px)',
+    //     height: 'calc(100vh - 60px)',
+    //     backgroundColor: colors[currentTheme].accent2,
+    //     color: colors[currentTheme].secondary,
+    //     // marginTop: -2.5,
+    //   }}
+    // >
+    <div>
+      {/* <div> */}
+      {/* <ul>
           <li>
             current role: <div>{currentRole}</div>
           </li>
@@ -258,9 +276,25 @@ const MinerProfile = () => {
             You are currently the notifier and you can not leave pool. Just a simple miner can leave the pool.
           </Alert>
         </div>
-      )}
-    </Box>
+      )} */}
+      <div className="principal-content-profile-page">
+        <RoleIntro currentRole={currentRole} />
+        <div className={currentRole === 'Miner' ? 'main-info-container' : 'main-info-container-normal-user'}>
+          <AboutContainer
+            currentRole={currentRole}
+            connectedWallet={connectedWallet}
+            explorerLink={explorerLink}
+            currentBalance={currentBalance}
+            totalWithdrawals={totalWithdrawals}
+          />
+          {currentRole === 'Miner' && <ActionsContainer />}
+        </div>
+      </div>
+    </div>
   );
+  {
+    /* </Box> */
+  }
 };
 
 export default MinerProfile;

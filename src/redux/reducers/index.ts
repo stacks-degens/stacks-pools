@@ -1,5 +1,5 @@
 import { IUserState, defaultUserState, selectUserSessionState } from './user-state';
-import { DISCONNECT_USER_SESSION, CONNECT_USER_SESSION, UPDATE_USER_ROLE } from '../actions';
+import { DISCONNECT_USER_SESSION, CONNECT_USER_SESSION, UPDATE_USER_ROLE, UPDATE_APP_THEME } from '../actions';
 
 import { showConnect } from '@stacks/connect';
 
@@ -13,7 +13,7 @@ const initialState: IinitialState = {
 
 interface IreduxAction {
   type: string;
-  payload?: any;
+  payload?: any; // know the type?
 }
 
 const mainReducer = (state = initialState, action: IreduxAction) => {
@@ -38,6 +38,9 @@ const mainReducer = (state = initialState, action: IreduxAction) => {
       return state;
     case UPDATE_USER_ROLE:
       return { ...state, userState: { ...state.userState, userRole: action.payload } };
+
+    case UPDATE_APP_THEME:
+      return { ...state, userState: { ...state.userState, theme: action.payload } };
     default:
       return state;
   }
