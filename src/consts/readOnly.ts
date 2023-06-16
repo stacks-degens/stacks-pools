@@ -328,6 +328,7 @@ export const readOnlyGetCurrentBlock = async () => {
   return cvToJSON(currentBlock).value.value;
 };
 
+//exchange toggle for miners
 // get-auto-exchange
 // args: (address principal)
 // what does it do: get the state of auto-exchange function
