@@ -11,6 +11,8 @@ import VotingJoiners from './appMenuSections/voting/VotingJoiners';
 import VotingRemovals from './appMenuSections/voting/VotingRemovals';
 import VotingNotifier from './appMenuSections/voting/VotingNotifier';
 import MinerProfileDetails from './appMenuSections/profile/MinerProfileDetails';
+import DashboardStacking from './stacking/dashboard/DashboardStacking';
+import ProfileStacking from './stacking/profile/ProfileStacking';
 
 const MainPage = () => {
   return (
@@ -24,15 +26,17 @@ const MainPage = () => {
       </div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/dashboard" index element={<Dashboard />} />
-        <Route path="/miningPool/miners" element={<MiningPool />} />
-        <Route path="/voting" element={<Voting />} />
-        <Route path="/myProfile" element={<Profile />} />
-        <Route path="/miningPool/status" element={<MiningPoolStatus />} />
-        <Route path="/voting/joiners" element={<VotingJoiners />} />
-        <Route path="/voting/removals" element={<VotingRemovals />} />
-        <Route path="/voting/notifier" element={<VotingNotifier />} />
+        <Route path="mining/dashboard" index element={<Dashboard />} />
+        <Route path="/mining/pool/miners" element={<MiningPool />} />
+        <Route path="/mining/voting" element={<Voting />} />
+        <Route path="mining/myProfile" element={<Profile />} />
+        <Route path="/mining/pool/status" element={<MiningPoolStatus />} />
+        <Route path="/mining/voting/joiners" element={<VotingJoiners />} />
+        <Route path="/mining/voting/removals" element={<VotingRemovals />} />
+        <Route path="/mining/voting/notifier" element={<VotingNotifier />} />
         <Route path="/profile/:address" element={<MinerProfileDetails />} />
+        <Route path="/stacking/dashboard" element={<DashboardStacking />} />
+        <Route path="/stacking/myProfile" element={<ProfileStacking />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </div>
