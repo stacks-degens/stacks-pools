@@ -100,14 +100,21 @@ const Voting = () => {
 
   return (
     <div
-      style={{ backgroundColor: colors[appCurrentTheme].infoContainers }}
+      style={{
+        backgroundColor: 'inherit',
+      }}
       className="single-miner-page-main-container"
     >
       <div className="page-heading-title">
         <h2>Decentralized Mining Pool</h2>
         <h2>Miner Details</h2>
       </div>
-      <div className="principal-content-profile-page">
+      <div
+        style={{
+          backgroundColor: colors[appCurrentTheme].accent2,
+        }}
+        className="principal-content-profile-page"
+      >
         <RoleIntroMinerDetails currentRole={status} />
         <div className={'main-info-container-normal-user'}>
           <MinerDetailsContainer

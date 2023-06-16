@@ -24,3 +24,24 @@
     height: 100px;
   }
 }
+
+@media screen and (min-width: 576px) and (max-width: 991px) {
+  .home-page-main-container .page-heading-title {
+    margin-bottom: 60px;
+    height: 120px;
+  }
+
+  .home-page-main-container .page-heading-title h2 {
+    font-size: 30px;
+  }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1180px) {
+  .home-page-main-container .page-heading-title {
+    margin-bottom: 60px;
+  }
+
+  .home-page-main-container .page-heading-title h2 {
+    font-size: 28px;
+  }
+}
