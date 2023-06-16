@@ -10,10 +10,12 @@ import InfoIcon from '@mui/icons-material/Info';
 import Button from '@mui/material/Button';
 import TableCreation from '../../../components/TableCreation';
 import { removalsColumns, GetRemovalsRows, RemovalsData } from '../../../consts/tableData';
+import { useNavigate } from 'react-router-dom';
 
 const VotingRemovals = () => {
   const { currentTheme } = useCurrentTheme();
   const removalsRows = GetRemovalsRows();
+  const navigate = useNavigate();
 
   const handleRemovalVoteButtonClick = (data: string, address: string) => {
     if (data === 'voteYes') {
@@ -24,9 +26,7 @@ const VotingRemovals = () => {
   };
 
   const handleMinerInfoButtonClick = (address: string) => {
-    // change this call to redirect the one who clicked to a new tab, or make a popup with the info of the given miner
-    // the call is named 'readOnlyGetAllDataMinersInPool', but for now it gives read_length error (@deployer needs to fix it)
-    // ContractVotePositiveJoin(address);
+    navigate(`/profile/${address}`);
   };
 
   const removalsRowContent = (_index: number, removalsRow: RemovalsData) => {
@@ -86,7 +86,7 @@ const VotingRemovals = () => {
         rows={removalsRows}
         rowContent={removalsRowContent}
         columns={removalsColumns}
-        tableId="waiting"
+        tableId="removals"
         customTableWidth="75%"
       />
     </Box>

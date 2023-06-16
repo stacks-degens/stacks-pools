@@ -12,7 +12,6 @@ const CommonInfoProfile = () => {
   const [userAddress, setUserAddress] = useState<string | null>(null);
   const [explorerLink, setExplorerLink] = useState<string | undefined>(undefined);
   const { currentTheme } = useCurrentTheme();
-  // const explorerLink = getExplorerUrl[network](userAddress).explorerUrl;
   const userSession = useAppSelector(selectUserSessionState);
 
   useEffect(() => {

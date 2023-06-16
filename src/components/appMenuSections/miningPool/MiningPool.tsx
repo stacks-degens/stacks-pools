@@ -9,50 +9,19 @@ import TableCreation from '../../../components/TableCreation';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import InfoIcon from '@mui/icons-material/Info';
 import { GetMinersRows, minerColumns, MinersData } from '../../../consts/tableData';
-
-import { readOnlyAddressStatus } from '../../../consts/readOnly';
-import { useState, useEffect } from 'react';
-import { updateUserRoleAction } from '../../../redux/actions';
-import { useAppSelector } from '../../../redux/store';
-import { selectUserSessionState } from '../../../redux/reducers/user-state';
+import { useNavigate } from 'react-router-dom';
 
 const MiningPool = () => {
+  const navigate = useNavigate();
   const { currentTheme } = useCurrentTheme();
   const minersRows = GetMinersRows();
-  const [finalStatus, setFinalStatus] = useState<string>('');
-  const userSession = useAppSelector(selectUserSessionState);
-  // will add later, after read_length too big is solved
-  // const removalRows = GetRemovalsRows();
-
-  // you'll need this in another file to get the status of the user
-  // useEffect(() => {
-  //   const fetchStatus = async () => {
-  //     const args = userSession.loadUserData().profile.stxAddress.testnet;
-  //     const status = await readOnlyAddressStatus(args);
-  //     setFinalStatus(status);
-  //   };
-  //   fetchStatus();
-  // }, [setFinalStatus]);
-
-  useEffect(() => {
-    const fetchStatus = async () => {
-      const args = userSession.loadUserData().profile.stxAddress.testnet;
-      const status = await readOnlyAddressStatus(args);
-      setFinalStatus(status);
-      if (finalStatus !== null) updateUserRoleAction(finalStatus);
-      console.log('status', finalStatus);
-    };
-    fetchStatus();
-  }, [finalStatus]);
 
   const handleMinerRemoveButtonClick = (address: string) => {
     ContractProposeRemoval(address);
   };
 
-  const handleMinerInfoButtonClick = (address: string) => {
-    // change this call to redirect the one who clicked to a new tab, or make a popup with the info of the given miner
-    // the call is named 'readOnlyGetAllDataMinersInPool', but for now it gives read_length error (@deployer needs to fix it)
-    // ContractVotePositiveJoin(address);
+  const handleMinerInfoButtonClick = async (address: string) => {
+    navigate(`/profile/${address}`);
   };
 
   const minersRowContent = (_index: number, minersRow: MinersData) => {
@@ -75,14 +44,12 @@ const MiningPool = () => {
             ) : (
               minersRow[column.dataKey]
             )}
-            {column.dataKey === 'generalInfo' ? (
+            {column.dataKey === 'generalInfo' && (
               <Box>
                 <Button onClick={() => handleMinerInfoButtonClick(minersRow['address'])}>
                   <InfoIcon fontSize="small" sx={{ color: colors[currentTheme].secondary }} />
                 </Button>
               </Box>
-            ) : (
-              minersRow[column.dataKey]
             )}
           </TableCell>
         ))}

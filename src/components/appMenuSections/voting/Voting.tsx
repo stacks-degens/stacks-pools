@@ -1,13 +1,14 @@
 import colors from '../../../consts/colorPallete';
 import { readOnlyGetNotifier, readOnlyGetNotifierElectionProcessData } from '../../../consts/readOnly';
+import { ContractEndVoteNotifier } from '../../../consts/smartContractFunctions';
 import useCurrentTheme from '../../../consts/theme';
 import { Box } from '@mui/material';
 import { useState, useEffect } from 'react';
 
 const Voting = () => {
   const { currentTheme } = useCurrentTheme();
-  const [notifierVoteStatus, setNotifierVoteStatus] = useState<any>();
-  const [currentNotifier, setCurrentNotifier] = useState<string>('');
+  const [notifierVoteStatus, setNotifierVoteStatus] = useState<string | null>(null);
+  const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);
 
   useEffect(() => {
     const getCurrentNotifier = async () => {
@@ -21,7 +22,13 @@ const Voting = () => {
   useEffect(() => {
     const getNotifierStatus = async () => {
       const notifier = await readOnlyGetNotifierElectionProcessData();
-      setNotifierVoteStatus(notifier['vote-status'].value ? 'Vote ongoing!' : "Elections haven't started yet!");
+      setNotifierVoteStatus(
+        notifier['vote-status'].value === false
+          ? 'Elections ended!'
+          : parseInt(notifier['election-blocks-remaining'].value) > 0
+          ? 'Elections on-going!'
+          : 'Not really ended.'
+      );
     };
     getNotifierStatus();
   }, [notifierVoteStatus]);
@@ -38,10 +45,16 @@ const Voting = () => {
       <div>
         <h2>Voting - Status</h2>
         <ul>
-          <li>current notifier: {currentNotifier}</li>
-          <li>notifier voting status: {notifierVoteStatus}</li>
+          <li>current notifier: {currentNotifier !== null ? currentNotifier : ''}</li>
+          <li>
+            notifier voting status: {notifierVoteStatus !== null ? notifierVoteStatus : ''}
+            {notifierVoteStatus === 'Not really ended.' && (
+              <div>
+                <button onClick={ContractEndVoteNotifier}>End Notifier Vote</button>
+              </div>
+            )}
+          </li>
         </ul>
-        <h4>notifier results from last round</h4>
       </div>
     </Box>
   );

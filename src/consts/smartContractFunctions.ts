@@ -2,13 +2,28 @@ import { StacksMocknet, StacksMainnet, StacksTestnet } from '@stacks/network';
 import { network, transactionUrl } from './network';
 import { contractMapping } from './contract';
 import { openContractCall, FinishedTxData } from '@stacks/connect';
-import { AnchorMode, PostConditionMode, ClarityValue, stringCV, uintCV } from '@stacks/transactions';
+import {
+  AnchorMode,
+  PostConditionMode,
+  ClarityValue,
+  stringCV,
+  uintCV,
+  boolCV,
+  FungibleConditionCode,
+  makeStandardSTXPostCondition,
+  makeContractSTXPostCondition,
+  STXPostCondition,
+} from '@stacks/transactions';
 import { convertPrincipalToArg, convertStringToArg } from './converter';
 
 const contractNetwork =
   network === 'mainnet' ? new StacksMainnet() : network === 'testnet' ? new StacksTestnet() : new StacksMocknet();
 
-const CallFunctions = (function_args: ClarityValue[], contractFunctionName: string, post_condition_args: any) => {
+const CallFunctions = (
+  function_args: ClarityValue[],
+  contractFunctionName: string,
+  post_condition_args: STXPostCondition[]
+) => {
   const options = {
     network: contractNetwork,
     anchorMode: AnchorMode.Any,
@@ -27,6 +42,28 @@ const CallFunctions = (function_args: ClarityValue[], contractFunctionName: stri
     },
   };
   openContractCall(options);
+};
+
+const createPostConditionSTXTransferToContract = (userAddress: string, conditionAmount: number) => {
+  const postConditionAddress = userAddress;
+  const postConditionCode = FungibleConditionCode.Equal;
+  const postConditionAmount = conditionAmount;
+
+  return makeStandardSTXPostCondition(postConditionAddress, postConditionCode, postConditionAmount);
+};
+
+const createPostConditionSTXTransferFromContract = (conditionAmount: number) => {
+  const postConditionAddress = contractMapping[network].contractAddress;
+  const postConditionContract = contractMapping[network].contractName;
+  const postConditionCode = FungibleConditionCode.Equal;
+  const postConditionAmount = conditionAmount;
+
+  return makeContractSTXPostCondition(
+    postConditionAddress,
+    postConditionContract,
+    postConditionCode,
+    postConditionAmount
+  );
 };
 
 // vote-positive-join-request
@@ -71,18 +108,19 @@ export const ContractAskToJoin = (args: string) => {
 // args: (amount uint)
 // what does it do: deposits stx into user's account
 
-export const ContractDepositSTX = (amount: number) => {
-  const convertedArgs = [uintCV(amount)];
-  // const
-  CallFunctions(convertedArgs, 'deposit-stx', []);
+export const ContractDepositSTX = (amount: number, userAddress: string) => {
+  const convertedArgs = [uintCV(amount * 1000000)];
+  const postConditions = createPostConditionSTXTransferToContract(userAddress, amount * 1000000);
+  CallFunctions(convertedArgs, 'deposit-stx', [postConditions]);
 };
 //
 // withdraw-stx
 // args: (amount uint)
 // what does it do: withdraws stx from user's account
 export const ContractWithdrawSTX = (amount: number) => {
-  const convertedArgs = [uintCV(amount)];
-  CallFunctions(convertedArgs, 'withdraw-stx', []);
+  const convertedArgs = [uintCV(amount * 1000000)];
+  const postConditions = createPostConditionSTXTransferFromContract(amount * 1000000);
+  CallFunctions(convertedArgs, 'withdraw-stx', [postConditions]);
 };
 //
 // reward-distribution
@@ -135,15 +173,27 @@ export const ContractVoteNegativeRemove = (args: string) => {
 // start-vote-notifier
 // args: none
 // what does it do: starts the vote to elect a notifier
-//
+export const ContractStartVoteNotifier = () => {
+  CallFunctions([], 'start-vote-notifier', []);
+};
+
 // end-vote-notifier
 // args: none
 // what does it do: ends the vote for the notifier election
-//
+
+export const ContractEndVoteNotifier = () => {
+  CallFunctions([], 'end-vote-notifier', []);
+};
+
 // vote-notifier
 // args: (voted-notifier principal)
 // what does it do: adds a vote to the given notifier
-//
+
+export const ContractVoteForNotifier = (votedNotifier: string) => {
+  const convertedArgs = [convertPrincipalToArg(votedNotifier)];
+  CallFunctions(convertedArgs, 'vote-notifier', []);
+};
+
 // warn-miner
 // args: (miner principal)
 // what does it do: warns the user passed as argument
@@ -161,4 +211,12 @@ export const ContractClaimRewardsForBlock = (amount: number) => {
   const convertedArgs = [uintCV(amount)];
   // const
   CallFunctions(convertedArgs, 'reward-distribution', []);
+};
+
+// set-auto-exchange
+// args: bool value
+// what does it do: switches the state of auto-exchange to the given value
+export const ContractSetAutoExchange = (value: boolean) => {
+  const convertedArgs = [boolCV(value)];
+  CallFunctions(convertedArgs, 'set-auto-exchange', []);
 };

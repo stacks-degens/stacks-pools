@@ -10,6 +10,7 @@ import MiningPoolStatus from './appMenuSections/miningPool/MiningPoolStatus';
 import VotingJoiners from './appMenuSections/voting/VotingJoiners';
 import VotingRemovals from './appMenuSections/voting/VotingRemovals';
 import VotingNotifier from './appMenuSections/voting/VotingNotifier';
+import MinerProfileDetails from './appMenuSections/profile/MinerProfileDetails';
 
 const MainPage = () => {
   return (
@@ -27,6 +28,7 @@ const MainPage = () => {
         <Route path="/voting/joiners" element={<VotingJoiners />} />
         <Route path="/voting/removals" element={<VotingRemovals />} />
         <Route path="/voting/notifier" element={<VotingNotifier />} />
+        <Route path="/profile/:address" element={<MinerProfileDetails />} />
         <Route path="*" element={<Navigate to="/dashboard" />} />
       </Routes>
     </div>

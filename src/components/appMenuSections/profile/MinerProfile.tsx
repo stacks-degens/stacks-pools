@@ -4,13 +4,13 @@ import {
   readOnlyExchangeToggle,
   readOnlyGetBalance,
   readOnlyGetNotifier,
-  readOnlyGetRemainingBlocksJoin,
+  readOnlyGetAllTotalWithdrawals,
 } from '../../../consts/readOnly';
 import { selectCurrentUserRole, selectUserSessionState } from '../../../redux/reducers/user-state';
 import '../style.css';
 import colors from '../../../consts/colorPallete';
 import useCurrentTheme from '../../../consts/theme';
-import { Alert, Box, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Alert, Box, TextField } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../../redux/store';
 import {
   ContractChangeBtcAddress,
@@ -18,9 +18,8 @@ import {
   ContractDepositSTX,
   ContractLeavePool,
   ContractWithdrawSTX,
+  ContractSetAutoExchange,
 } from '../../../consts/smartContractFunctions';
-import { updateUserRoleAction } from '../../../redux/actions';
-import { SelectChangeEvent } from '@mui/material/Select';
 
 const MinerProfile = () => {
   const [currentBalance, setCurrentBalance] = useState<number>(0);
@@ -28,18 +27,24 @@ const MinerProfile = () => {
   const currentRole = useAppSelector(selectCurrentUserRole);
   const [depositAmountInput, setDepositAmountInput] = useState<number | null>(null);
   const [withdrawAmountInput, setWithdrawAmountInput] = useState<number | null>(null);
-  const [exchange, setExchange] = useState<boolean>(false);
+  const [exchange, setExchange] = useState<boolean | null>(false);
   const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);
   const [showAlertLeavePool, setShowAlertLeavePool] = useState<boolean>(false);
   const [leavePoolButtonClicked, setLeavePoolButtonClicked] = useState<boolean>(false);
   const [disableLeavePoolButton, setDisableLeavePoolButton] = useState<boolean>(false);
   const [claimRewardsInputAmount, setClaimRewardsInputAmount] = useState<number | null>(null);
-  const [btcAddress, setBtcAddress] = useState<string | ''>('');
+  const [totalWithdrawals, setTotalWithdrawals] = useState<number | null>(null);
+  const [btcAddress, setBtcAddress] = useState<string>('');
   const userSession = useAppSelector(selectUserSessionState);
-  const dispatch = useAppDispatch();
 
   const userAddress = userSession.loadUserData().profile.stxAddress.testnet;
   console.log('user address', userAddress);
+
+  const setAutoExchange = () => {
+    if (userAddress !== null) {
+      ContractSetAutoExchange(!exchange);
+    }
+  };
 
   const changeBtcAddress = () => {
     if (btcAddress !== '') {
@@ -54,17 +59,10 @@ const MinerProfile = () => {
     }
   };
 
-  const handleChangeSelectInput = (event: SelectChangeEvent) => {
-    console.log('select input value', exchange);
-    if (event.target.value === 'yes') setExchange(true);
-    else if (event.target.value === 'no') setExchange(false);
-  };
-
   const leavePool = () => {
     setLeavePoolButtonClicked(true);
     if (currentNotifier !== null && currentNotifier !== userAddress) {
       ContractLeavePool();
-      dispatch(updateUserRoleAction('NormalUser'));
     } else if (currentNotifier !== null && currentNotifier === userAddress) {
       console.log("you art the notifier, you can't leave pool");
 
@@ -74,26 +72,29 @@ const MinerProfile = () => {
   };
 
   const depositAmount = () => {
-    if (depositAmountInput !== null) {
-      ContractDepositSTX(depositAmountInput);
-      setDepositAmountInput(null);
+    if (depositAmountInput !== null && !isNaN(depositAmountInput)) {
+      if (depositAmountInput < 0.000001) {
+        alert('You need to input more');
+      } else {
+        console.log(depositAmountInput);
+        ContractDepositSTX(depositAmountInput, userAddress);
+      }
     }
   };
 
   const withdrawAmount = () => {
-    if (withdrawAmountInput !== null) {
-      ContractWithdrawSTX(withdrawAmountInput);
-      setWithdrawAmountInput(null);
+    if (withdrawAmountInput !== null && !isNaN(withdrawAmountInput)) {
+      if (withdrawAmountInput < 0.000001) {
+        alert('You need to input more');
+      } else {
+        ContractWithdrawSTX(withdrawAmountInput);
+      }
     }
   };
 
   useEffect(() => {
     if (leavePoolButtonClicked && showAlertLeavePool) setDisableLeavePoolButton(true);
   }, [leavePoolButtonClicked, showAlertLeavePool]);
-
-  useEffect(() => {
-    readOnlyExchangeToggle(userAddress);
-  }, []);
 
   useEffect(() => {
     const getCurrentNotifier = async () => {
@@ -105,15 +106,28 @@ const MinerProfile = () => {
   }, [currentNotifier]);
 
   useEffect(() => {
+    const getExchangeState = async () => {
+      if (userAddress !== null) {
+        const newExchange = await readOnlyExchangeToggle(userAddress);
+        setExchange(newExchange);
+      }
+    };
+
+    getExchangeState();
+  }, [userAddress]);
+
+  useEffect(() => {
     const getUserBalance = async () => {
       const principalAddress = userSession.loadUserData().profile.stxAddress.testnet;
 
+      const getTotalWithdrawals = await readOnlyGetAllTotalWithdrawals(principalAddress);
       const balance = await readOnlyGetBalance(principalAddress);
+      setTotalWithdrawals(getTotalWithdrawals);
       setCurrentBalance(balance);
     };
 
     getUserBalance();
-  }, []);
+  }, [currentBalance, totalWithdrawals]);
 
   return (
     <Box
@@ -129,24 +143,14 @@ const MinerProfile = () => {
           <li>
             current role: <div>{currentRole}</div>
           </li>
-          <li>balance SC: {currentBalance}</li>
-          <li>total withdrawal of SC</li>
+          <li>balance SC: {currentBalance / 1000000 + ' STX'}</li>
+          <li>total withdrawal of SC: {totalWithdrawals !== null ? totalWithdrawals / 1000000 + ' STX' : '0 STX'}</li>
           <li>
-            autoexchange stx to btc:
+            autoexchange stx to btc: {exchange === null || exchange === false ? 'No' : 'Yes'}
             <div>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">exchange</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={exchange === true ? 'yes' : 'no'}
-                  label="Exchange"
-                  onChange={handleChangeSelectInput}
-                >
-                  <MenuItem value="yes">yes</MenuItem>
-                  <MenuItem value="no">no</MenuItem>
-                </Select>
-              </FormControl>
+              <button onClick={setAutoExchange}>
+                {exchange === null || exchange === false ? 'Change to yes' : 'Change to no'}
+              </button>
             </div>
           </li>
           <li>
@@ -195,7 +199,7 @@ const MinerProfile = () => {
             type="number"
             onChange={(e) => {
               const inputAmount = e.target.value;
-              const inputAmountToInt = parseInt(inputAmount);
+              const inputAmountToInt = parseFloat(inputAmount);
               setDepositAmountInput(inputAmountToInt);
               console.log('deposit input', inputAmount);
             }}
@@ -205,7 +209,6 @@ const MinerProfile = () => {
             className="minerProfileButtons"
             onClick={() => {
               depositAmount();
-              alert('we need to implement this functionality');
             }}
           >
             Deposit
@@ -216,7 +219,7 @@ const MinerProfile = () => {
             type="number"
             onChange={(e) => {
               const inputAmount = e.target.value;
-              const inputAmountToInt = parseInt(inputAmount);
+              const inputAmountToInt = parseFloat(inputAmount);
               setWithdrawAmountInput(inputAmountToInt);
               console.log('withdraw input', inputAmount);
             }}
@@ -226,7 +229,6 @@ const MinerProfile = () => {
             className="minerProfileButtons"
             onClick={() => {
               withdrawAmount();
-              alert('we need to implement this functionality');
             }}
           >
             Withdraw

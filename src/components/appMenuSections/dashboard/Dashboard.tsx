@@ -8,7 +8,6 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import SaveIcon from '@mui/icons-material/Save';
 import { ContractAskToJoin } from '../../../consts/smartContractFunctions';
 import {
-  readOnlyAddressStatus,
   readOnlyGetBlocksWon,
   ReadOnlyGetMinersList,
   readOnlyGetNotifier,
@@ -21,8 +20,8 @@ import { Box } from '@mui/material';
 const Dashboard = () => {
   const [authenticatedSuccessfully, setAuthenticatedSuccessfully] = useState<boolean>(false);
   const [clickedJoinPoolButtonByViewer, setClickedJoinPoolButtonByViewer] = useState<boolean>(false);
-  const [currentNotifier, setCurrentNotifier] = useState<string>('');
-  const [minersList, setMinersList] = useState<any>([]);
+  const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);
+  const [minersList, setMinersList] = useState<Array<string>>([]);
   const { currentTheme } = useCurrentTheme();
   const currentRole: UserRole = useAppSelector(selectCurrentUserRole);
   const [userAddress, setUserAddress] = useState<string | null>(null);
@@ -50,11 +49,6 @@ const Dashboard = () => {
     else if (currentRole === 'Miner') navigate('/myProfile');
   };
 
-  const handleJoinPoolButtonByNormalUser = () => {
-    // alert('I am a normal user and now the join pool button should do something accordingly to my role');
-    // TODO: change navigate with the corresponding join pool function as a normal user
-  };
-
   useEffect(() => {
     const getCurrentNotifier = async () => {
       const notifier = await readOnlyGetNotifier();
@@ -77,9 +71,7 @@ const Dashboard = () => {
   useEffect(() => {
     const getMinersList = async () => {
       const { value } = await ReadOnlyGetMinersList();
-      // console.log('current', value);
-      const parsedMinersList = value.map((miner: any) => miner.value);
-      // console.log('parsed', parsedMinersList);
+      const parsedMinersList = value.length !== 0 ? value.map((miner: any) => miner.value) : [];
       setMinersList(parsedMinersList);
     };
 
@@ -127,13 +119,11 @@ const Dashboard = () => {
         <h4>General info about mining pool</h4>
         <ul>
           <li>
-            notifier: <div>{currentNotifier}</div>
+            notifier: <div>{currentNotifier !== null ? currentNotifier : ''}</div>
           </li>
           <li>
             list of miners:
-            {minersList.map((data: string, index: number) => (
-              <div key={index}>{data}</div>
-            ))}
+            {minersList.length !== 0 && minersList.map((data: string, index: number) => <div key={index}>{data}</div>)}
           </li>
           {currentRole === 'NormalUser' && <li>winner block id</li>}
           {blocksWon !== null && <li>number of blocks won:{blocksWon} </li>}
@@ -147,7 +137,6 @@ const Dashboard = () => {
                 handleJoinPoolButtonByViewer();
               } else if (currentRole === 'NormalUser' || 'Miner') {
                 ContractAskToJoin(`${userAddress}`);
-                // handleJoinPoolButtonByNormalUser();
               }
             }}
           >

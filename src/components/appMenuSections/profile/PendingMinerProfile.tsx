@@ -15,7 +15,6 @@ const PendingMinerProfile = () => {
     const fetchBlocksLeft = async () => {
       const blocksLeft = await readOnlyGetRemainingBlocksJoin();
       setBlocksLeftUntilJoin(blocksLeft);
-      // console.log(blocksLeftUntilJoin);
     };
     fetchBlocksLeft();
   }, [blocksLeftUntilJoin]);

@@ -9,8 +9,6 @@ import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { readOnlyAddressStatus } from '../consts/readOnly';
 
-const appConfig = new AppConfig(['store_write', 'publish_data']);
-
 interface ConnectWalletProps {
   currentTheme: string;
 }
@@ -34,11 +32,8 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
     const fetchStatus = async () => {
       const args = userSession.loadUserData().profile.stxAddress.testnet;
       const status = await readOnlyAddressStatus(args);
-      console.log('args', args);
       setFinalStatus(status);
-
       updateUserRoleAction(finalStatus);
-      console.log('status', finalStatus);
     };
 
     fetchStatus();

@@ -1,10 +1,4 @@
-import {
-  cvToValue,
-  listCV,
-  uintCV,
-  ClarityValue,
-  ListCV,
-} from '@stacks/transactions';
+import { cvToValue, listCV, uintCV, ClarityValue, ListCV } from '@stacks/transactions';
 import { network } from './network';
 
 import { stringCV } from '@stacks/transactions/dist/clarity/types/stringCV.js';
@@ -26,6 +20,10 @@ export const convertPrincipalToArg = (principal: string) => {
   return principalCV(principal);
 };
 
+export const convertPrincipalToList = (principal: string) => {
+  return listCV([principalCV(principal)]);
+};
+
 export const isPrincipal = (str: string) => {
   const secondChar = network !== 'mainnet' ? 'T' : 'P';
   if (str.charAt(0) === 'S' && str.charAt(1) === secondChar && str.length >= 39 && str.length <= 41) {
@@ -37,9 +35,11 @@ export const isPrincipal = (str: string) => {
 export const fromResultToList = (result: ClarityValue, start: number, end: number) => {
   let listArg: ClarityValue[] = [];
   let convertedArg: ClarityValue[] = [];
-  
-  (result as ListCV).list.forEach((x: ClarityValue) => {listArg.push(x)});
-  listArg.slice(start, end).forEach((x: ClarityValue) => convertedArg.push(x))
-  
+
+  (result as ListCV).list.forEach((x: ClarityValue) => {
+    listArg.push(x);
+  });
+  listArg.slice(start, end).forEach((x: ClarityValue) => convertedArg.push(x));
+
   return listCV(convertedArg);
 };

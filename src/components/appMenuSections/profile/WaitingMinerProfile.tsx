@@ -6,7 +6,7 @@ import { selectCurrentUserRole, selectUserSessionState } from '../../../redux/re
 import { ContractTryEnterPool } from '../../../consts/smartContractFunctions';
 import { ReadOnlyAllDataWaitingMiners } from '../../../consts/readOnly';
 import { useState, useEffect } from 'react';
-import { principalCV, ClarityValue, listCV } from '@stacks/transactions';
+import { principalCV, ClarityValue, listCV, cvToJSON } from '@stacks/transactions';
 
 const WaitingMinerProfile = () => {
   const { currentTheme } = useCurrentTheme();
@@ -20,11 +20,12 @@ const WaitingMinerProfile = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const newWaitingList = await ReadOnlyAllDataWaitingMiners(userAddressAsCV);
-      setPositiveVotes(newWaitingList[0].value[0].value.value['positive-votes'].value);
-      setPositiveVotesThreshold(newWaitingList[0].value[0].value.value['positive-threshold'].value);
-      setNegativeVotes(newWaitingList[0].value[0].value.value['negative-votes'].value);
-      setNegativeVotesThreshold(newWaitingList[0].value[0].value.value['negative-threshold'].value);
+      const waitingList = await ReadOnlyAllDataWaitingMiners(userAddressAsCV);
+      const newWaitingList = cvToJSON(waitingList.newResultList[0]);
+      setPositiveVotes(newWaitingList.value[0].value.value['pos-votes'].value);
+      setPositiveVotesThreshold(newWaitingList.value[0].value.value['pos-thr'].value);
+      setNegativeVotes(newWaitingList.value[0].value.value['neg-votes'].value);
+      setNegativeVotesThreshold(newWaitingList.value[0].value.value['neg-thr'].value);
     };
     fetchData();
   }, [positiveVotes, positiveVotesThreshold, negativeVotes, negativeVotesThreshold]);

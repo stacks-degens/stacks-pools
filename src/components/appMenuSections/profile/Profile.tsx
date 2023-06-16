@@ -1,6 +1,4 @@
-import { useEffect } from 'react';
-import { readOnlyGetBalance, readOnlyGetNotifierElectionProcessData } from '../../../consts/readOnly';
-import { selectCurrentUserRole, selectUserSessionState, UserRole } from '../../../redux/reducers/user-state';
+import { selectCurrentUserRole, UserRole } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
 import CommonInfoProfile from './CommonInfoProfile';
 import MinerProfile from './MinerProfile';
@@ -13,7 +11,6 @@ import { Box } from '@mui/material';
 const Profile = () => {
   const currentRole: UserRole = useAppSelector(selectCurrentUserRole);
   const { currentTheme } = useCurrentTheme();
-  const userSession = useAppSelector(selectUserSessionState);
 
   const profileMapping: Record<UserRole, React.ReactElement> = {
     Viewer: <CommonInfoProfile />,

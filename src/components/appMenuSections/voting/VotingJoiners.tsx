@@ -3,20 +3,19 @@ import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
 import useCurrentTheme from '../../../consts/theme';
 import colors from '../../../consts/colorPallete';
-import {
-  ContractVotePositiveJoin,
-  ContractVoteNegativeJoin,
-  ContractTryEnterPool,
-} from '../../../consts/smartContractFunctions';
+import { ContractVotePositiveJoin, ContractVoteNegativeJoin } from '../../../consts/smartContractFunctions';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import Button from '@mui/material/Button';
+import InfoIcon from '@mui/icons-material/Info';
 import TableCreation from '../../../components/TableCreation';
 import { WaitingData, waitingColumns, GetWaitingRows } from '../../../consts/tableData';
+import { useNavigate } from 'react-router-dom';
 
 const VotingJoiners = () => {
   const { currentTheme } = useCurrentTheme();
   const waitingRows = GetWaitingRows();
+  const navigate = useNavigate();
 
   const handlePendingVoteButtonClick = (data: string, address: string) => {
     if (data === 'voteYes') {
@@ -24,6 +23,10 @@ const VotingJoiners = () => {
     } else if (data === 'voteNo') {
       ContractVoteNegativeJoin(address);
     }
+  };
+
+  const handleMinerInfoButtonClick = (address: string) => {
+    navigate(`/profile/${address}`);
   };
 
   const waitingRowContent = (_index: number, waitingRow: WaitingData) => {
@@ -37,6 +40,13 @@ const VotingJoiners = () => {
               color: colors[currentTheme].secondary,
             }}
           >
+            {column.dataKey === 'generalInfo' && (
+              <Box>
+                <Button onClick={() => handleMinerInfoButtonClick(waitingRow['address'])}>
+                  <InfoIcon fontSize="small" sx={{ color: colors[currentTheme].secondary }} />
+                </Button>
+              </Box>
+            )}
             {column.dataKey === 'vote' ? (
               <Box>
                 <Button onClick={() => handlePendingVoteButtonClick('voteYes', waitingRow['address'])}>

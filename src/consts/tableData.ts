@@ -4,7 +4,10 @@ import {
   ReadOnlyAllDataWaitingMiners,
   ReadOnlyGetMinersList,
   ReadOnlyGetWaitingList,
+  readOnlyGetK,
+  readOnlyGetNotifierVoteNumber,
 } from './readOnly';
+import { cvToJSON, ClarityValue } from '@stacks/transactions';
 
 // data interface for all tables, used as type in TableCreation
 
@@ -16,6 +19,7 @@ export interface AllTableData {
   positiveVotes: string;
   wasBlacklisted: string;
   proposeRemoval: string;
+  notifierVotes: string;
   generalInfo: string;
 }
 
@@ -27,7 +31,7 @@ export interface WaitingData {
   negativeVotes: string;
   vote: string;
   positiveVotes: string;
-  wasBlacklisted: string;
+  generalInfo: string;
 }
 
 interface WaitingColumnData {
@@ -37,14 +41,8 @@ interface WaitingColumnData {
   width: number;
 }
 
-const createWaitingData = (
-  id: number,
-  address: string,
-  negativeVotes: string,
-  positiveVotes: string,
-  wasBlacklisted: string
-) => {
-  return { id, address, negativeVotes, positiveVotes, wasBlacklisted };
+const createWaitingData = (id: number, address: string, negativeVotes: string, positiveVotes: string) => {
+  return { id, address, negativeVotes, positiveVotes };
 };
 
 export const waitingColumns: WaitingColumnData[] = [
@@ -73,48 +71,35 @@ export const waitingColumns: WaitingColumnData[] = [
   },
   {
     width: 120,
-    label: 'Blacklisted',
-    dataKey: 'wasBlacklisted',
+    label: 'Miner Info',
+    dataKey: 'generalInfo',
   },
 ];
 
-interface WaitingListProps {
-  value: {
-    value: {
-      value: {
-        miner: { value: string };
-        'negative-threshold': { value: string };
-        'positive-threshold': { value: string };
-        'negative-votes': { value: string };
-        'positive-votes': { value: string };
-        'was-blacklist': { value: boolean };
-      };
-    };
-  }[];
-}
-
 export const GetWaitingRows = () => {
   const [waitingList, setWaitingList] = useState<any>([]);
+  const [addressList, setAddressList] = useState<any>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const fullWaitingList = await ReadOnlyGetWaitingList();
       const newWaitingList = await ReadOnlyAllDataWaitingMiners(fullWaitingList);
-      setWaitingList(newWaitingList);
+      setWaitingList(newWaitingList.newResultList);
+      setAddressList(newWaitingList.newAddressList);
     };
     fetchData();
-  }, [setWaitingList]);
+  }, []);
 
   const rows =
     waitingList.length !== 0
-      ? waitingList.map((miner: WaitingListProps, index: number) => {
-          const waitingValue = miner.value[0].value.value;
+      ? waitingList.map((miner: ClarityValue, index: number) => {
+          const waitingValue = cvToJSON(miner).value[0].value.value;
+          const waitingAddress = cvToJSON(addressList[index]).value[0].value;
           return createWaitingData(
             index,
-            waitingValue.miner.value,
-            waitingValue['negative-votes'].value + '/' + waitingValue['negative-threshold'].value,
-            waitingValue['positive-votes'].value + '/' + waitingValue['positive-threshold'].value,
-            !waitingValue['was-blacklist'].value ? 'No' : 'Yes'
+            waitingAddress,
+            waitingValue['neg-votes'].value + '/' + waitingValue['neg-thr'].value,
+            waitingValue['pos-votes'].value + '/' + waitingValue['pos-thr'].value
           );
         })
       : [];
@@ -144,7 +129,7 @@ const createMinersData = (id: number, address: string) => {
 
 export const minerColumns: MinersColumnData[] = [
   {
-    width: 750,
+    width: 400,
     label: 'Address',
     dataKey: 'address',
   },
@@ -171,7 +156,7 @@ export const GetMinersRows = () => {
       setMinersList(newMinersList.value);
     };
     fetchData();
-  }, [setMinersList]);
+  }, []);
 
   const rows =
     minersList.length !== 0
@@ -242,11 +227,10 @@ interface RemovalsListProps {
   value: {
     value: {
       value: {
-        miner: { value: string };
-        'negative-threshold': { value: string };
-        'positive-threshold': { value: string };
-        'votes-against-removal': { value: string };
-        'votes-for-removal': { value: string };
+        'neg-thr': { value: string };
+        'pos-thr': { value: string };
+        'vts-against': { value: string };
+        'vts-for': { value: string };
       };
     };
   }[];
@@ -254,14 +238,16 @@ interface RemovalsListProps {
 
 export const GetRemovalsRows = () => {
   const [removalsList, setRemovalsList] = useState<any>([]);
+  const [addressList, setAddressList] = useState<any>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const newRemovalsList = await ReadOnlyAllDataProposedRemovalMiners();
-      setRemovalsList(newRemovalsList);
+      setRemovalsList(newRemovalsList.newResultList);
+      setAddressList(newRemovalsList.newAddressList);
     };
     fetchData();
-  }, [setRemovalsList]);
+  }, []);
 
   const rows =
     removalsList.length !== 0
@@ -269,12 +255,92 @@ export const GetRemovalsRows = () => {
           const removalsValue = miner.value[0].value.value;
           return createRemovalsData(
             index,
-            removalsValue.miner.value,
-            removalsValue['votes-against-removal'].value + '/' + removalsValue['negative-threshold'].value,
-            removalsValue['votes-for-removal'].value + '/' + removalsValue['positive-threshold'].value
+            addressList[index].value[0].value,
+            removalsValue['vts-against'].value + '/' + removalsValue['neg-thr'].value,
+            removalsValue['vts-for'].value + '/' + removalsValue['pos-thr'].value
           );
         })
       : [];
 
   return rows;
+};
+
+// data for notifier voting miners
+
+export interface NotifiersData {
+  id: number;
+  address: string;
+  notifierVotes: string;
+  vote: string;
+  generalInfo: string;
+}
+
+interface NotifiersColumnData {
+  dataKey: keyof NotifiersData;
+  label: string;
+  numeric?: boolean;
+  width: number;
+}
+
+const createNotifiersData = (id: number, address: string, notifierVotes: string) => {
+  return { id, address, notifierVotes };
+};
+
+export const notifierColumns: NotifiersColumnData[] = [
+  {
+    width: 400,
+    label: 'Address',
+    dataKey: 'address',
+  },
+  {
+    width: 150,
+    label: 'Votes/Threshold',
+    dataKey: 'notifierVotes',
+    numeric: true,
+  },
+  {
+    width: 150,
+    label: 'Vote',
+    dataKey: 'vote',
+    numeric: true,
+  },
+  {
+    width: 120,
+    label: 'Miner Info',
+    dataKey: 'generalInfo',
+    numeric: true,
+  },
+];
+
+export const GetNotifiersRows = async (minersList: any, notifierVoteThreshold: number) => {
+  // const getNotifierVotes = async (address: string) => {
+  //   const votes = await readOnlyGetNotifierVoteNumber(address);
+  //   console.log(votes);
+  //   return votes;
+  // };
+
+  const getNotifierVotes = async () => {
+    const fullInfo =
+      minersList.length !== 0
+        ? await Promise.all(
+            minersList.map(async (miner: { value: string }, index: number) => {
+              const minerValue = miner.value;
+              const votes = await readOnlyGetNotifierVoteNumber(minerValue);
+              return { index, minerValue, votes };
+            })
+          )
+        : [];
+    return fullInfo;
+  };
+
+  const rows = await getNotifierVotes();
+
+  const newRows =
+    rows.length !== 0
+      ? rows.map((notifier: { index: number; minerValue: string; votes: number }) => {
+          return createNotifiersData(notifier.index, notifier.minerValue, notifier.votes + '/' + notifierVoteThreshold);
+        })
+      : [];
+
+  return newRows;
 };
