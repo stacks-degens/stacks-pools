@@ -76,19 +76,6 @@ const VotingRemovals = () => {
   };
 
   return (
-    // <Box
-    //   sx={{
-    //     display: 'flex',
-    //     alignItems: 'center',
-    //     flexDirection: 'column',
-    //     width: '100%',
-    //     minHeight: 'calc(100vh - 60px)',
-    //   }}
-    //   style={{
-    //     backgroundColor: colors[currentTheme].accent2,
-    //     color: colors[currentTheme].secondary,
-    //   }}
-    // >
     <div className="voting-removals-page-main-container">
       <div className="page-heading-title">
         <h2>Decentralized Mining Pool</h2>
@@ -105,7 +92,6 @@ const VotingRemovals = () => {
       </div>
     </div>
   );
-  // </Box>
 };
 
 export default VotingRemovals;

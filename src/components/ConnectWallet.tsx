@@ -57,7 +57,7 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
   if (userSession.isUserSignedIn()) {
     if (currentRole === 'Viewer') {
       dispatch(updateUserRoleAction(finalStatus));
-      return <div>Loading role...</div>;
+      return <div>Loading ...</div>;
     }
     return (
       <div>

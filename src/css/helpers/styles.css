@@ -13,7 +13,6 @@
 .flex-container {
   display: flex;
   flex-direction: row;
-  /* flex-direction: co; */
   justify-content: space-between;
 }
 
