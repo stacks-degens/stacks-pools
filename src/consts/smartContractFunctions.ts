@@ -328,13 +328,11 @@ export const ContractDelegatePoxStacking = (address: string) => {
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.allowContractCaller, []);
 };
 
-//check-pool-SC-pox-2-allowance
+//join-stacking-pool
 // args: none
-// what does it do: return true/false if you delegated the pox 2 contract and you are allowed to join pool for stacking
-// returns: number
+// what does it do: It tries moving the user that called the function into stacking pool
 
-// export const ContractJoinPoolStatusStacking = () => {
-//   const type = 'stacking';
-//   // const convertedArgs = [convertPrincipalToArg(address)];
-//   CallFunctions(type, [], functionMapping[type].publicFunctions.joinPoolStatus, []);
-// };
+export const ContractJoinPoolStacking = () => {
+  const type = 'stacking';
+  CallFunctions(type, [], functionMapping[type].publicFunctions.tryEnterPool, []);
+};

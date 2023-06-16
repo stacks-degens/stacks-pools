@@ -1,7 +1,15 @@
 import { StacksMocknet, StacksMainnet, StacksTestnet } from '@stacks/network';
 import { network } from './network';
 import { contractMapping, functionMapping } from './contract';
-import { callReadOnlyFunction, ClarityValue, ListCV, listCV, cvToJSON, uintCV } from '@stacks/transactions';
+import {
+  callReadOnlyFunction,
+  ClarityValue,
+  ListCV,
+  listCV,
+  cvToJSON,
+  uintCV,
+  principalCV,
+} from '@stacks/transactions';
 import { convertPrincipalToArg, convertPrincipalToList, fromResultToList, convertCVToValue } from './converter';
 import { userSession } from '../redux/reducers/user-state';
 
@@ -583,16 +591,17 @@ export const readOnlyGetMinimumDepositLiquidityProviderStacking = async () => {
   return cvToJSON(minimumDeposit).value;
 };
 
-//check-caller-allowed
-// args: none
-// what does it do: return true/false if you delegated the pox 2 contract and you are allowed to join pool for stacking
-// returns: number
+//get-allowance-contract-callers
+//args (sender:principal, callingContract: principal)
+//what does it do: returns null -> false or some value -> true
 
-export const readOnlyCheckJoinPoolStacking = async () => {
+export const readOnlyGetAllowanceStacking = async (senderAddress: string) => {
   const type = 'pox';
-  const joinPoolState = await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getJoinPoolStatus);
-
-  // const joinPoolState = await ReadOnlyFunctionsPox([], functionMapping[type].ReadOnlyFunctionsPox.getJoinPoolStatus);
-  console.log('status', joinPoolState);
-  return joinPoolState;
+  const convertedArgs = [principalCV(senderAddress), principalCV(contractMapping.stacking[network].contractAddress)];
+  const getAllowance = await ReadOnlyFunctions(
+    type,
+    convertedArgs,
+    functionMapping[type].readOnlyFunctions.getAllowanceStatus
+  );
+  return cvToJSON(getAllowance).value;
 };

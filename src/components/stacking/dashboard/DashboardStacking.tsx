@@ -6,7 +6,6 @@ import {
   selectUserSessionState,
 } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
-import { UserRoleMining } from '../../../redux/reducers/user-state';
 import './styles.css';
 import colors from '../../../consts/colorPallete';
 import DashboardStackingInfo from './DashboardStackingInfo';
