@@ -75,14 +75,4 @@ table th {
   table td {
     font-size: 11px !important;
   }
-
-  /* if we want to make the table bigger, but I don't guarantee it will be horizontally centered on every scrren */
-  /* .miningpool-miners-page-main-container .principal-content-profile-page {
-    margin-left: -40px;
-    width: 120%;
-  } */
-
-  /* .miningpool-miners-page-main-container .principal-content-profile-page td {
-    width: auto !important;
-  } */
 }
