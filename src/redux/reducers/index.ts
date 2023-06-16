@@ -2,7 +2,6 @@ import { IUserState, defaultUserState, selectUserSessionState } from './user-sta
 import { DISCONNECT_USER_SESSION, CONNECT_USER_SESSION, UPDATE_USER_ROLE, UPDATE_APP_THEME } from '../actions';
 
 import { showConnect } from '@stacks/connect';
-import logo from './../../logo.png';
 
 export interface IinitialState {
   userState: IUserState;
@@ -28,7 +27,8 @@ const mainReducer = (state = initialState, action: IreduxAction) => {
       showConnect({
         appDetails: {
           name: 'Stacks Decentralized Pools',
-          icon: logo,
+          // icon: window.location.origin + '/logo.png',
+          icon: 'https://res.cloudinary.com/dc0esmagg/image/upload/v1685115982/Degens/appLogo_qwhdc4.png',
         },
         redirectTo: '/',
         onFinish: () => {

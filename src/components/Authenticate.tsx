@@ -3,7 +3,6 @@ import { Connect } from '@stacks/connect-react';
 import { useAppSelector } from '../redux/store';
 import { selectCurrentTheme, selectUserSessionState } from '../redux/reducers/user-state';
 import colors from '../consts/colorPallete';
-import logo from './../logo.png';
 
 const Authenticate = () => {
   const userSession = useAppSelector(selectUserSessionState);
@@ -18,7 +17,9 @@ const Authenticate = () => {
         authOptions={{
           appDetails: {
             name: 'Stacks Decentralized Pools',
-            icon: logo,
+            // todo:
+            // icon: window.location.origin + '/logo.png',
+            icon: 'https://res.cloudinary.com/dc0esmagg/image/upload/v1685115982/Degens/appLogo_qwhdc4.png',
           },
           redirectTo: '/',
           onFinish: () => {
