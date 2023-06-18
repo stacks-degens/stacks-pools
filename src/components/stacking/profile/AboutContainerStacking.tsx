@@ -16,7 +16,7 @@ const AboutContainerStacking = ({ currentRole, connectedWallet, explorerLink }: 
   return (
     <div
       style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting }}
-      className="info-container-profile-page"
+      className="info-container-stacking-profile-page"
     >
       <div
         style={{
@@ -35,7 +35,9 @@ const AboutContainerStacking = ({ currentRole, connectedWallet, explorerLink }: 
       </div>
       <div
         style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting }}
-        className={currentRole === 'Provider' ? 'content-info-container' : 'content-info-container-normal-user'}
+        className={
+          currentRole === 'Provider' ? 'content-info-container-stacking' : 'content-info-container-normal-user'
+        }
       >
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Connected wallet:</span>

@@ -8,7 +8,7 @@ import {
 } from '../../../consts/smartContractFunctions';
 import { readOnlyClaimedBlockStatusStacking, readOnlyGetLiquidityProvider } from '../../../consts/readOnly';
 import { useAppSelector } from '../../../redux/store';
-import { selectCurrentTheme, selectUserSessionState } from '../../../redux/reducers/user-state';
+import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 import { Alert } from '@mui/material';
 import { ElectricBolt } from '@mui/icons-material';
 import ActionsContainerProviderStacking from './ActionsContainerProviderStacking';
@@ -19,8 +19,6 @@ interface IActionsContainerStackingProps {
 }
 
 const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContainerStackingProps) => {
-  // const [withdrawAmountInput, setWithdrawAmountInput] = useState<number | null>(null);
-  // const [totalWithdrawals, setTotalWithdrawals] = useState<number | null>(null);
   const [showAlertLeavePool, setShowAlertLeavePool] = useState<boolean>(false);
   const [leavePoolButtonClicked, setLeavePoolButtonClicked] = useState<boolean>(false);
   const [disableLeavePoolButton, setDisableLeavePoolButton] = useState<boolean>(false);
@@ -89,16 +87,6 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
     }
   };
 
-  // useEffect(() => {
-  //   const getUserTotalWithdrawls = async () => {
-  //     const principalAddress = userSession.loadUserData().profile.stxAddress.testnet;
-  //     const getTotalWithdrawals = await readOnlyGetAllTotalWithdrawalsMining(principalAddress);
-  //     setTotalWithdrawals(getTotalWithdrawals);
-  //   };
-
-  //   getUserTotalWithdrawls();
-  // }, [totalWithdrawals]);
-
   useEffect(() => {
     if (leavePoolButtonClicked && showAlertLeavePool) setDisableLeavePoolButton(true);
   }, [leavePoolButtonClicked, showAlertLeavePool]);
@@ -106,7 +94,7 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
   return (
     <div
       style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting }}
-      className="info-container-profile-page actions-container-profile-page"
+      className="info-container-stacking-profile-page actions-container-profile-page"
     >
       <div
         style={{
@@ -126,10 +114,10 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
 
       <div
         style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting }}
-        className="content-info-container justify-content-between"
+        className="content-info-container-stacking justify-content-between"
       >
         <div>
-          <div className="flex-container align-items-center input-line-actions-container">
+          <div className="flex-container align-items-center input-line-actions-container-stacking">
             <div className="width-55 label-and-input-container-actions-container">
               <label className="custom-label">Insert amount of STX to delegate</label>
               <div className="bottom-margins">
@@ -145,7 +133,7 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
                 ></input>
               </div>
             </div>
-            <div className="button-container-action-container">
+            <div className="button-container-stacking-action-container-stacking">
               <button
                 className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
                 onClick={() => {
@@ -171,7 +159,7 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
               </button>
             </div>
           </div>
-          <div className="flex-container align-items-center input-line-actions-container">
+          <div className="flex-container align-items-center input-line-actions-container-stacking">
             <div className="width-55 label-and-input-container-actions-container">
               <label className="custom-label">Insert amount of STX</label>
               <div className="bottom-margins">
@@ -187,7 +175,7 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
                 ></input>
               </div>
             </div>
-            <div className="button-container-action-container">
+            <div className="button-container-stacking-action-container-stacking">
               <button
                 className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
                 onClick={extendDelegateAmount}
@@ -196,7 +184,7 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
               </button>
             </div>
           </div>
-          <div className="flex-container align-items-center input-line-actions-container">
+          <div className="flex-container align-items-center input-line-actions-container-stacking">
             <div className="width-55 label-and-input-container-actions-container">
               <label className="custom-label">Insert block height</label>
               <div className="bottom-margins">
@@ -212,7 +200,7 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
                 ></input>
               </div>
             </div>
-            <div className="button-container-action-container">
+            <div className="button-container-stacking-action-container-stacking">
               <button
                 className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
                 onClick={claimRewards}
@@ -224,7 +212,7 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
         </div>
         {currentRole === 'Provider' && <ActionsContainerProviderStacking userAddress={userAddress} />}
         {leavePoolButtonClicked && showAlertLeavePool && (
-          <div className="block-margins-auto alert-container-actions-container">
+          <div className="block-margins-auto alert-container-stacking-actions-container-stacking">
             <Alert
               severity="warning"
               onClose={() => {
@@ -238,7 +226,7 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
           </div>
         )}
 
-        <div className="content-sections-title-info-container leave-pool-button-action-container">
+        <div className="content-sections-title-info-container leave-pool-button-action-container-stacking">
           <div className="flex-right">
             <button
               className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}

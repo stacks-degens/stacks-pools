@@ -1,7 +1,3 @@
-import { useState } from 'react';
-import { selectCurrentUserRoleMining, selectUserSessionState } from '../../../redux/reducers/user-state';
-import { useAppSelector } from '../../../redux/store';
-import { principalCV, ClarityValue, listCV, cvToJSON } from '@stacks/transactions';
 import './styles.css';
 import RoleIntroStacking from './RoleIntroStacking';
 import AboutContainerStacking from './AboutContainerStacking';
@@ -15,14 +11,15 @@ interface IStackerProfileProps {
 }
 
 const StackerProfile = ({ currentRole, connectedWallet, explorerLink, userAddress }: IStackerProfileProps) => {
-  const userSession = useAppSelector(selectUserSessionState);
-  const [totalWithdrawals, setTotalWithdrawals] = useState<number | null>(null);
-
   return (
     <div>
       <div className="principal-content-profile-page">
         <RoleIntroStacking currentRole={currentRole} />
-        <div className={currentRole === 'Provider' ? 'main-info-container' : 'main-info-container-normal-user'}>
+        <div
+          className={
+            currentRole === 'Provider' ? 'main-info-container-stacking' : 'main-info-container-stacking-normal-user'
+          }
+        >
           <AboutContainerStacking
             currentRole={currentRole}
             connectedWallet={connectedWallet}

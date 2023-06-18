@@ -5,18 +5,13 @@ import { useAppSelector } from '../../../redux/store';
 
 interface IRoleIntroStackingProps {
   currentRole: string;
-  // positiveVotes: number | null;
-  // positiveVotesThreshold: number | null;
-  // negativeVotes: number | null;
-  // negativeVotesThreshold: number | null;
-  // blocksLeftUntilJoin: number | null;
 }
 
 const RoleIntroStacking = ({ currentRole }: IRoleIntroStackingProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
   return (
     <div
-      className="intro-container-profile-page"
+      className="intro-container-stacking-profile-page"
       style={{
         background: `linear-gradient(135deg, ${colors[appCurrentTheme].defaultYellow} 30%, ${colors[appCurrentTheme].defaultOrange}) 60%`,
         color: colors[appCurrentTheme].introRoleWriting,

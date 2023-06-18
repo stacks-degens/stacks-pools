@@ -19,14 +19,11 @@ import {
 
 const DashboardStacking = () => {
   const currentRole: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
-  const [userAddress, setUserAddress] = useState<string | null>(null);
   const [currentLiquidityProvider, setCurrentLiquidityProvider] = useState<string | null>(null);
   const [stackersList, setStackersList] = useState<Array<string>>([]);
   const [blocksRewarded, setBlocksRewarded] = useState<number | null>(null);
   const [bitcoinRewards, setBitcoinRewards] = useState<number | null>(null);
   const [stacksAmountThisCycle, setStacksAmountThisCycle] = useState<number | null>(null);
-
-  const userSession = useAppSelector(selectUserSessionState);
 
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
