@@ -327,3 +327,12 @@ export const ContractDelegatePoxStacking = (address: string) => {
   const convertedArgs = [convertPrincipalToArg(address)];
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.allowContractCaller, []);
 };
+
+//join-stacking-pool
+// args: none
+// what does it do: It tries moving the user that called the function into stacking pool
+
+export const ContractJoinPoolStacking = () => {
+  const type = 'stacking';
+  CallFunctions(type, [], functionMapping[type].publicFunctions.tryEnterPool, []);
+};

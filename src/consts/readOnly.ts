@@ -1,7 +1,15 @@
 import { StacksMocknet, StacksMainnet, StacksTestnet } from '@stacks/network';
 import { network } from './network';
 import { contractMapping, functionMapping } from './contract';
-import { callReadOnlyFunction, ClarityValue, ListCV, listCV, cvToJSON, uintCV } from '@stacks/transactions';
+import {
+  callReadOnlyFunction,
+  ClarityValue,
+  ListCV,
+  listCV,
+  cvToJSON,
+  uintCV,
+  principalCV,
+} from '@stacks/transactions';
 import { convertPrincipalToArg, convertPrincipalToList, fromResultToList, convertCVToValue } from './converter';
 import { userSession } from '../redux/reducers/user-state';
 
@@ -9,7 +17,7 @@ const contractNetwork =
   network === 'mainnet' ? new StacksMainnet() : network === 'testnet' ? new StacksTestnet() : new StacksMocknet();
 
 const ReadOnlyFunctions = async (
-  type: 'mining' | 'stacking',
+  type: 'mining' | 'stacking' | 'pox',
   function_args: ClarityValue[],
   contractFunctionName: string
 ) => {
@@ -582,4 +590,19 @@ export const readOnlyGetMinimumDepositLiquidityProviderStacking = async () => {
   const type = 'stacking';
   const minimumDeposit = await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getMinimumDeposit);
   return cvToJSON(minimumDeposit).value;
+};
+
+//get-allowance-contract-callers
+//args (sender:principal, callingContract: principal)
+//what does it do: returns null -> false or some value -> true
+
+export const readOnlyGetAllowanceStacking = async (senderAddress: string) => {
+  const type = 'pox';
+  const convertedArgs = [principalCV(senderAddress), principalCV(contractMapping.stacking[network].contractAddress)];
+  const getAllowance = await ReadOnlyFunctions(
+    type,
+    convertedArgs,
+    functionMapping[type].readOnlyFunctions.getAllowanceStatus
+  );
+  return cvToJSON(getAllowance).value;
 };

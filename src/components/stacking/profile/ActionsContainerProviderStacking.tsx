@@ -18,8 +18,6 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
   const [depositAmountInput, setDepositAmountInput] = useState<number | null>(null);
   const [lockInPoolAmountInput, setLockInPoolAmountInput] = useState<number | null>(null);
   const [currentLiquidityProvider, setCurrentLiquidityProvider] = useState<string | null>(null);
-  const [lockInPoolButtonDisabled, setLockInPoolButtonDisabled] = useState<boolean>(true);
-  const [unlockInPoolButtonDisabled, setUnlockInPoolButtonDisabled] = useState<boolean>(false);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   const depositAmount = () => {
@@ -109,7 +107,6 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
         <div className="button-container-stacking-action-container-stacking">
           <button
             className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
-            disabled={unlockInPoolButtonDisabled}
             onClick={() => {
               lockInPool();
             }}

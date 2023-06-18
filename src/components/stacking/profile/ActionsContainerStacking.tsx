@@ -64,7 +64,6 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
   const leavePool = () => {
     setLeavePoolButtonClicked(true);
     if (currentLiquidityProvider !== null && currentLiquidityProvider !== userAddress) {
-      console.log('test');
       ContractLeavePoolStacking();
     } else if (currentLiquidityProvider !== null && currentLiquidityProvider === userAddress) {
       console.log("you art the provider, you can't leave pool");

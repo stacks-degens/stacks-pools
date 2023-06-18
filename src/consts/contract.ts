@@ -58,18 +58,18 @@ export const contractMapping: ContractMapping = {
   },
   pox: {
     mainnet: {
-      contractAddress: 'SP000000000000000000002Q6VF78.pox2',
-      contractName: '', // TODO: complete when deployed
+      contractAddress: 'SP000000000000000000002Q6VF78',
+      contractName: 'pox-2', // TODO: complete when deployed
       owner: '', // TODO: complete when deployed
     },
     testnet: {
-      contractAddress: 'ST000000000000000000002AMW42H.pox2',
-      contractName: 'pox-2-fake',
+      contractAddress: 'ST000000000000000000002AMW42H',
+      contractName: 'pox-2',
       owner: '',
     },
     devnet: {
-      contractAddress: 'ST000000000000000000002AMW42H.pox2',
-      contractName: 'pox-2-fake',
+      contractAddress: 'ST000000000000000000002AMW42H',
+      contractName: 'pox-2',
       owner: 'ST000000000000000000002AMW42H',
     },
   },
@@ -143,10 +143,13 @@ interface IFunctionMapping {
       setLiquidityProvider: string;
       lockInPool: string;
       unlockExtraStxInPool: string;
+      tryEnterPool: string;
     };
   };
   pox: {
-    readOnlyFunction: {};
+    readOnlyFunctions: {
+      getAllowanceStatus: string;
+    };
     publicFunctions: {
       allowContractCaller: string;
     };
@@ -221,7 +224,13 @@ export const functionMapping: IFunctionMapping = {
       setLiquidityProvider: 'set-liquidity-provider',
       lockInPool: 'reserve-funds-future-rewards',
       unlockExtraStxInPool: 'unlock-extra-reserved-funds',
+      tryEnterPool: 'join-stacking-pool',
     },
   },
-  pox: { readOnlyFunction: {}, publicFunctions: { allowContractCaller: 'allow-contract-caller' } },
+  pox: {
+    readOnlyFunctions: {
+      getAllowanceStatus: 'get-allowance-contract-callers',
+    },
+    publicFunctions: { allowContractCaller: 'allow-contract-caller' },
+  },
 };
