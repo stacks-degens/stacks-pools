@@ -551,3 +551,14 @@ export const readOnlyGetReturnStacking = async () => {
   const returnCovered = await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getReturnCovered);
   return cvToJSON(returnCovered).value;
 };
+
+//get-minimum-deposit-liquidity-provider
+// args: none
+// what does it do: return the minimum deposit for liquidity provider
+// returns: number
+
+export const readOnlyGetMinimumDepositLiquidityProviderStacking = async () => {
+  const type = 'stacking';
+  const minimumDeposit = await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getMinimumDeposit);
+  return cvToJSON(minimumDeposit).value;
+};

@@ -13,6 +13,7 @@ import {
   readOnlyGetBitcoinRewardsStacking,
   readOnlyGetBlocksRewardedStacking,
   readOnlyGetLiquidityProvider,
+  readOnlyGetMinimumDepositLiquidityProviderStacking,
   readOnlyGetReturnStacking,
   readOnlyGetStackAmounThisCycleStacking,
   ReadOnlyGetStackersList,
@@ -26,6 +27,7 @@ const DashboardStacking = () => {
   const [bitcoinRewards, setBitcoinRewards] = useState<number | null>(null);
   const [stacksAmountThisCycle, setStacksAmountThisCycle] = useState<number | null>(null);
   const [returnCovered, setReturnCovered] = useState<number | null>(null);
+  const [minimumDepositProvider, setMinimumDepositProvider] = useState<number | null>(null);
 
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
@@ -33,7 +35,6 @@ const DashboardStacking = () => {
     const getCurrentLiquidityProvider = async () => {
       const liquidityProvider = await readOnlyGetLiquidityProvider();
       setCurrentLiquidityProvider(liquidityProvider);
-      console.log('provider', currentLiquidityProvider);
     };
 
     getCurrentLiquidityProvider();
@@ -46,6 +47,15 @@ const DashboardStacking = () => {
     };
 
     getReturnCovered();
+  }, []);
+
+  useEffect(() => {
+    const getMinimumDepositProvider = async () => {
+      const minimum = await readOnlyGetMinimumDepositLiquidityProviderStacking();
+      setMinimumDepositProvider(parseInt(minimum));
+    };
+
+    getMinimumDepositProvider();
   }, []);
 
   useEffect(() => {
@@ -99,6 +109,7 @@ const DashboardStacking = () => {
             bitcoinRewards={bitcoinRewards}
             stacksAmountThisCycle={stacksAmountThisCycle}
             returnCovered={returnCovered}
+            minimumDepositProvider={minimumDepositProvider}
           />
         </div>
       </div>
