@@ -9,13 +9,18 @@ import { UserRoleMining } from '../../../redux/reducers/user-state';
 import './styles.css';
 import colors from '../../../consts/colorPallete';
 import DashboardStackingInfo from './DashboardStackingInfo';
-import { readOnlyGetLiquidityProvider, ReadOnlyGetStackersList } from '../../../consts/readOnly';
+import {
+  readOnlyGetBlocksRewardedStacking,
+  readOnlyGetLiquidityProvider,
+  ReadOnlyGetStackersList,
+} from '../../../consts/readOnly';
 
 const DashboardStacking = () => {
   const currentRole: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
   const [userAddress, setUserAddress] = useState<string | null>(null);
   const [currentLiquidityProvider, setCurrentLiquidityProvider] = useState<string | null>(null);
   const [stackersList, setStackersList] = useState<Array<string>>([]);
+  const [blocksRewarded, setBlocksRewarded] = useState<number | null>(null);
 
   const userSession = useAppSelector(selectUserSessionState);
 
@@ -52,6 +57,14 @@ const DashboardStacking = () => {
     getStackersList();
   }, []);
 
+  useEffect(() => {
+    const getBlocksRewarded = async () => {
+      const blocks = await readOnlyGetBlocksRewardedStacking();
+      setBlocksRewarded(blocks);
+    };
+    getBlocksRewarded();
+  }, [blocksRewarded]);
+
   return (
     <div className="dashboard-page-main-container">
       <div style={{ color: colors[appCurrentTheme].colorWriting }} className="page-heading-title">
@@ -64,6 +77,7 @@ const DashboardStacking = () => {
             currentRole={currentRole}
             liquidityProvider={currentLiquidityProvider}
             stackersList={stackersList}
+            blocksRewarded={blocksRewarded}
           />
         </div>
       </div>

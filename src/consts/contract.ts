@@ -107,7 +107,7 @@ interface IFunctionMapping {
     };
   };
   stacking: {
-    readOnlyFunctions: { getLiquidityProvider: string; getStackersList: string };
+    readOnlyFunctions: { getLiquidityProvider: string; getStackersList: string; getBlocksRewarded: string };
     publicFunctions: {};
   };
 }
@@ -161,7 +161,11 @@ export const functionMapping: IFunctionMapping = {
     },
   },
   stacking: {
-    readOnlyFunctions: { getLiquidityProvider: 'get-liquidity-provider', getStackersList: 'get-pool-members' },
+    readOnlyFunctions: {
+      getLiquidityProvider: 'get-liquidity-provider',
+      getStackersList: 'get-pool-members',
+      getBlocksRewarded: 'get-blocks-rewarded',
+    },
     publicFunctions: {},
   },
 };

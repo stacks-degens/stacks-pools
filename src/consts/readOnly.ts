@@ -470,3 +470,14 @@ export const ReadOnlyGetStackersList = async () => {
   );
   return stackersList;
 };
+
+// get-blocks-rewarded
+// args: none
+// what does it do: number of blocks rewarded
+// returns: number
+
+export const readOnlyGetBlocksRewardedStacking = async () => {
+  const type = 'stacking';
+  const rewardedBlocks = await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getBlocksRewarded);
+  return cvToJSON(rewardedBlocks).value;
+};
