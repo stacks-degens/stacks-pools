@@ -7,6 +7,7 @@ import {
   ContractLeavePoolStacking,
   ContractRevokeDelegateStacking,
   ContractRewardDistributionStacking,
+  ContractUpdateScBalancesStacking,
 } from '../../../consts/smartContractFunctions';
 import { readOnlyClaimedBlockStatusStacking, readOnlyGetLiquidityProvider } from '../../../consts/readOnly';
 import { useAppSelector } from '../../../redux/store';
@@ -40,6 +41,10 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
         alert('Block already claimed');
       }
     }
+  };
+
+  const updateScBalances = async () => {
+    ContractUpdateScBalancesStacking();
   };
 
   const delegateAmount = (amount: number) => {
@@ -154,19 +159,6 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
               </button>
             </div>
           </div>
-          <div
-            id="revoke-delegate-button"
-            className="content-sections-title-info-container leave-pool-button-action-container"
-          >
-            <div className="flex-center">
-              <button
-                className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
-                onClick={disallowContractCaller}
-              >
-                Disallow contract caller
-              </button>
-            </div>
-          </div>
           <div className="flex-container align-items-center input-line-actions-container-stacking">
             <div className="width-55 label-and-input-container-actions-container">
               <label className="custom-label">Insert amount of STX</label>
@@ -191,6 +183,19 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
                 }}
               >
                 Extend delegate
+              </button>
+            </div>
+          </div>
+          <div
+            id="revoke-delegate-button"
+            className="content-sections-title-info-container leave-pool-button-action-container"
+          >
+            <div className="flex-center">
+              <button
+                className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+                onClick={updateScBalances}
+              >
+                Update Pool Balances
               </button>
             </div>
           </div>
@@ -235,7 +240,19 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
             </Alert>
           </div>
         )}
-
+        <div
+          id="revoke-delegate-button"
+          className="content-sections-title-info-container leave-pool-button-action-container"
+        >
+          <div className="flex-center">
+            <button
+              className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+              onClick={disallowContractCaller}
+            >
+              Disallow contract caller
+            </button>
+          </div>
+        </div>
         <div className="content-sections-title-info-container leave-pool-button-action-container-stacking">
           <div className="flex-right">
             <button

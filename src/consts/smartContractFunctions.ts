@@ -278,6 +278,11 @@ export const ContractRewardDistributionStacking = (blockHeight: number) => {
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.rewardDistribution, []);
 };
 
+export const ContractUpdateScBalancesStacking = () => {
+  const type = 'stacking';
+  CallFunctions(type, [], functionMapping[type].publicFunctions.updateScBalances, []);
+};
+
 //deposit-stx-liquidity-provider
 // args: (amount uint)
 // what does it do: deposits stx into user's account

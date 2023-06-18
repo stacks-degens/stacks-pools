@@ -10,6 +10,7 @@ type ApiMapping = Record<
   (accountAddress: string) => {
     balance: string;
     nftsOwned: string;
+    blockInfo: string;
   }
 >;
 
@@ -17,14 +18,17 @@ export const apiMapping: ApiMapping = {
   mainnet: (accountAddress: string) => ({
     balance: `https://stacks-node-api.mainnet.stacks.co/extended/v1/address/${accountAddress}/balances`,
     nftsOwned: `https://stacks-node-api.mainnet.stacks.co/extended/v1/tokens/nft/holdings?principal=${accountAddress}&&`,
+    blockInfo: 'https://api.mainnet.hiro.so/extended/v1/block',
   }),
   testnet: (accountAddress: string) => ({
     balance: `https://stacks-node-api.testnet.stacks.co/extended/v1/address/${accountAddress}/balances`,
     nftsOwned: `https://stacks-node-api.testnet.stacks.co/extended/v1/tokens/nft/holdings?principal=${accountAddress}&&`,
+    blockInfo: 'https://api.testnet.hiro.so/extended/v1/block',
   }),
   devnet: (accountAddress: string) => ({
     balance: `http://localhost:3999/extended/v1/address/${accountAddress}/balances`,
     nftsOwned: `http://localhost:3999/extended/v1/tokens/nft/holdings?principal=${accountAddress}&&`,
+    blockInfo: 'http://localhost:3999/extended/v1/block',
   }),
 };
 

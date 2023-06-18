@@ -4,15 +4,41 @@ import './styles.css';
 import colors from '../../../consts/colorPallete';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
+import { useEffect, useState } from 'react';
+import { apiMapping, network } from '../../../consts/network';
 
 interface IAboutContainerStackingProps {
   currentRole: string;
   connectedWallet: string | null;
+  lockedInPool: number | null;
   explorerLink: string | undefined;
+  delegatedToPool: number | null;
+  userUntilBurnHt: number | null;
 }
 
-const AboutContainerStacking = ({ currentRole, connectedWallet, explorerLink }: IAboutContainerStackingProps) => {
+const AboutContainerStacking = ({
+  currentRole,
+  connectedWallet,
+  lockedInPool,
+  delegatedToPool,
+  userUntilBurnHt,
+  explorerLink,
+}: IAboutContainerStackingProps) => {
+  const [currentBtcBlock, setCurrentBtcBlock] = useState(0);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
+
+  useEffect(() => {
+    const getCurrentBlock = async () => {
+      if (connectedWallet) {
+        const blockInfoResult = await fetch(`${apiMapping[network](connectedWallet).blockInfo}`)
+          .then((res) => res.json())
+          .then((res) => res.results[0]['burn_block_height']);
+
+        if (blockInfoResult) setCurrentBtcBlock(blockInfoResult);
+      }
+    };
+    getCurrentBlock();
+  }, []);
   return (
     <div
       style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting }}
@@ -36,9 +62,17 @@ const AboutContainerStacking = ({ currentRole, connectedWallet, explorerLink }: 
       <div
         style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting }}
         className={
-          (currentRole === 'Provider' || currentRole === 'Stacker') ? 'content-info-container-stacking' : 'content-info-container-normal-user'
+          currentRole === 'Provider' || currentRole === 'Stacker'
+            ? 'content-info-container-stacking'
+            : 'content-info-container-normal-user'
         }
       >
+        <div className="content-sections-title-info-container bottom-margins">
+          <span className="bold-font">Current Bitcoin Block:</span>
+          <div className="write-just-on-one-line result-of-content-section">
+            {currentBtcBlock !== null ? currentBtcBlock : ''}
+          </div>
+        </div>
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Connected wallet:</span>
           <div className="write-just-on-one-line result-of-content-section">
@@ -47,6 +81,31 @@ const AboutContainerStacking = ({ currentRole, connectedWallet, explorerLink }: 
         </div>
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Role: {currentRole === 'NormalUserStacking' ? 'Normal User' : currentRole}</span>
+          <span className="result-of-content-section"></span>
+        </div>
+        <div className="content-sections-title-info-container bottom-margins">
+          <span className="bold-font">
+            Delegated to the pool:{' '}
+            {delegatedToPool !== null && delegatedToPool !== 0
+              ? `${delegatedToPool / 1000000} STX`
+              : 'No delegated funds'}
+          </span>
+          <span className="result-of-content-section"></span>
+        </div>
+        <div className="content-sections-title-info-container bottom-margins">
+          <span className="bold-font">
+            Locked in pool:{' '}
+            {lockedInPool !== null && lockedInPool !== 0 ? `${lockedInPool / 1000000} STX` : 'No locked funds'}
+          </span>
+          <span className="result-of-content-section"></span>
+        </div>
+        <div className="content-sections-title-info-container bottom-margins">
+          <span className="bold-font">
+            Delegated to the pool:{' '}
+            {userUntilBurnHt !== null && userUntilBurnHt !== 0
+              ? `Delegated until ${userUntilBurnHt} Bitcoin block`
+              : 'No delegated funds'}
+          </span>
           <span className="result-of-content-section"></span>
         </div>
         <div className="content-sections-title-info-container bottom-margins">
