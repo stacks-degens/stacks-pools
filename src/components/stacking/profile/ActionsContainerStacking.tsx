@@ -33,7 +33,8 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
   const claimRewards = async () => {
     if (claimRewardsInputAmount !== null) {
       const wasBlockClaimed = await readOnlyClaimedBlockStatusStacking(claimRewardsInputAmount);
-      if (wasBlockClaimed === false) {
+      console.log(wasBlockClaimed);
+      if (wasBlockClaimed === null) {
         ContractRewardDistributionStacking(claimRewardsInputAmount);
       } else {
         alert('Block already claimed');
