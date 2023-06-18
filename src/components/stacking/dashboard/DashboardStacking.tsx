@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import {
+  UserRoleStacking,
   selectCurrentTheme,
-  selectCurrentUserRoleMining,
+  selectCurrentUserRoleStacking,
   selectUserSessionState,
 } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
@@ -20,7 +21,7 @@ import {
 } from '../../../consts/readOnly';
 
 const DashboardStacking = () => {
-  const currentRole: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
+  const currentRole: UserRoleStacking = useAppSelector(selectCurrentUserRoleStacking);
   const [currentLiquidityProvider, setCurrentLiquidityProvider] = useState<string | null>(null);
   const [stackersList, setStackersList] = useState<Array<string>>([]);
   const [blocksRewarded, setBlocksRewarded] = useState<number | null>(null);
@@ -28,8 +29,21 @@ const DashboardStacking = () => {
   const [stacksAmountThisCycle, setStacksAmountThisCycle] = useState<number | null>(null);
   const [returnCovered, setReturnCovered] = useState<number | null>(null);
   const [minimumDepositProvider, setMinimumDepositProvider] = useState<number | null>(null);
+  const [userAddress, setUserAddress] = useState<string | null>(null);
+
+  const userSession = useAppSelector(selectUserSessionState);
 
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
+
+  useEffect(() => {
+    if (userSession.isUserSignedIn()) {
+      const args = userSession.loadUserData().profile.stxAddress.testnet;
+      console.log('address', args);
+      setUserAddress(args);
+    } else {
+      console.log('not signed in');
+    }
+  }, [userAddress]);
 
   useEffect(() => {
     const getCurrentLiquidityProvider = async () => {
@@ -110,6 +124,7 @@ const DashboardStacking = () => {
             stacksAmountThisCycle={stacksAmountThisCycle}
             returnCovered={returnCovered}
             minimumDepositProvider={minimumDepositProvider}
+            userAddress={userAddress}
           />
         </div>
       </div>
