@@ -43,6 +43,7 @@
 (define-constant err-stacking-permission-denied (err u609))
 (define-constant err-transfer-failed (err u777))
 (define-constant err-cant-calculate-weights (err u888))
+(define-constant err-already-updated-balances (err u895))
 (define-constant err-no-reward-for-this-block (err u900))
 (define-constant err-already-rewarded-block (err u992))
 (define-constant err-cant-withdraw-now (err u995))
@@ -217,7 +218,7 @@
           PREPARE_CYCLE_LENGTH)
         (/ PREPARE_CYCLE_LENGTH u2))) 
   err-wrong-moment-to-update-balances)
-
+  (asserts! (is-none (map-get? updated-sc-balances {reward-cycle: next-reward-cycle})) err-already-updated-balances)
   (var-set calc-locked-balance u0)
   (var-set calc-delegated-balance u0)
   (map update-sc-balances-one-stacker (var-get stackers-list))
@@ -743,3 +744,6 @@ true))
 
 (define-read-only (get-minimum-deposit-liquidity-provider) 
 (var-get minimum-deposit-amount-liquidity-provider))
+
+	(define-read-only (was-block-claimed (rewarded-burn-block uint))
+(map-get? already-rewarded {burn-block-height: rewarded-burn-block}))
