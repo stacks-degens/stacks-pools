@@ -193,7 +193,7 @@ export const functionMapping: IFunctionMapping = {
       delegateStx: 'delegate-stx',
       leavePool: 'leave-pool',
       rewardDistribution: 'reward-distribution',
-      depositStx: 'deposit-stx-SC-owner',
+      depositStx: 'deposit-stx-liquidity-provider',
       setLiquidityProvider: 'set-liquidity-provider',
       lockInPool: 'reserve-funds-future-rewards',
     },
