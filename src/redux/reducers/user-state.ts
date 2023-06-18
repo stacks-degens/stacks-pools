@@ -21,7 +21,7 @@ export const defaultUserState: IUserState = {
 export type Theme = 'light' | 'dark';
 
 export type UserRoleMining = 'Miner' | 'NormalUser' | 'Pending' | 'Waiting' | 'Viewer';
-export type UserRoleStacking = 'Viewer' | 'NormalUserStacking' | 'Provider';
+export type UserRoleStacking = 'Viewer' | 'NormalUserStacking' | 'Stacker' | 'Provider';
 
 export const selectUserState = (state: IinitialState) => state.userState;
 export const selectUserSessionState = (state: IinitialState) => state.userState.userSession;

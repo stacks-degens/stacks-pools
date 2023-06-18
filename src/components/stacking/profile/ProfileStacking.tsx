@@ -1,23 +1,29 @@
 import {
+  UserRoleStacking,
   selectCurrentTheme,
-  selectCurrentUserRoleMining,
+  selectCurrentUserRoleStacking,
   selectUserSessionState,
 } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
-import { UserRoleMining } from '../../../redux/reducers/user-state';
 import './styles.css';
 import colors from '../../../consts/colorPallete';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import RoleIntroStacking from './RoleIntroStacking';
 import StackerProfile from './StackerProfile';
 
 const ProfileStacking = () => {
   // I will need the currentRole, the connectedWallet and linkToExplorer
 
-  const currentRole: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
+  const currentRole: UserRoleStacking = useAppSelector(selectCurrentUserRoleStacking);
   const [userAddress, setUserAddress] = useState<string | null>(null);
+  const [connectedWallet, setConnectedWallet] = useState<string | null>(null);
   const userSession = useAppSelector(selectUserSessionState);
+
+  useEffect(() => {
+    const wallet = userSession.loadUserData().profile.stxAddress.testnet;
+    setConnectedWallet(wallet);
+  }, [connectedWallet]);
 
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
   return (
@@ -32,7 +38,7 @@ const ProfileStacking = () => {
         <h2>Decentralized Stacking Pool</h2>
         <h2>Profile</h2>
       </div>
-      {currentRole === 'Miner' ? <StackerProfile currentRole={currentRole} /> : ''}
+      {currentRole === 'Provider' ? <StackerProfile currentRole={currentRole} connectedWallet={connectedWallet} /> : ''}
     </div>
   );
 };

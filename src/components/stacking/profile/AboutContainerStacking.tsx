@@ -7,11 +7,11 @@ import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 
 interface IAboutContainerStackingProps {
   currentRole: string;
-  // connectedWallet: string | null;
+  connectedWallet: string | null;
   // explorerLink: string | undefined;
 }
 
-const AboutContainerStacking = ({ currentRole }: IAboutContainerStackingProps) => {
+const AboutContainerStacking = ({ currentRole, connectedWallet }: IAboutContainerStackingProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
   return (
     <div
@@ -35,14 +35,16 @@ const AboutContainerStacking = ({ currentRole }: IAboutContainerStackingProps) =
       </div>
       <div
         style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting }}
-        className={currentRole === 'Miner' ? 'content-info-container' : 'content-info-container-normal-user'}
+        className={currentRole === 'Provider' ? 'content-info-container' : 'content-info-container-normal-user'}
       >
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Connected wallet:</span>
-          <div className="write-just-on-one-line result-of-content-section"></div>
+          <div className="write-just-on-one-line result-of-content-section">
+            {connectedWallet !== null ? connectedWallet : ''}
+          </div>
         </div>
         <div className="content-sections-title-info-container bottom-margins">
-          <span className="bold-font">Role: </span>
+          <span className="bold-font">Role: {currentRole === 'NormalUserStacking' ? 'Normal User' : currentRole}</span>
           <span className="result-of-content-section"></span>
         </div>
         <div className="content-sections-title-info-container bottom-margins">
