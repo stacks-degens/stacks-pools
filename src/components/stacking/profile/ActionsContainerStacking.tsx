@@ -39,27 +39,14 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
     }
   };
 
-  const delegateAmount = () => {
-    if (delegateAmountInput !== null && !isNaN(delegateAmountInput)) {
-      if (delegateAmountInput < 0.000001) {
+  const delegateAmount = (amount: number) => {
+    if (amount !== null && !isNaN(amount)) {
+      if (amount < 0.000001) {
         alert('You need to input more');
       } else {
-        console.log(delegateAmountInput);
+        console.log(amount);
         if (userAddress !== null) {
-          ContractDelegateSTXStacking(delegateAmountInput);
-        }
-      }
-    }
-  };
-
-  const extendDelegateAmount = () => {
-    if (extendDelegateAmountInput !== null && !isNaN(extendDelegateAmountInput)) {
-      if (extendDelegateAmountInput < 0.000001) {
-        alert('You need to input more');
-      } else {
-        console.log(extendDelegateAmountInput);
-        if (userAddress !== null) {
-          // ContractExtendDelegate(depositAmountInput, userAddress);
+          ContractDelegateSTXStacking(amount);
         }
       }
     }
@@ -137,7 +124,7 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
               <button
                 className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
                 onClick={() => {
-                  delegateAmount();
+                  if (delegateAmountInput !== null) delegateAmount(delegateAmountInput);
                 }}
               >
                 Delegate
@@ -178,7 +165,9 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
             <div className="button-container-stacking-action-container-stacking">
               <button
                 className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
-                onClick={extendDelegateAmount}
+                onClick={() => {
+                  if (extendDelegateAmountInput !== null) delegateAmount(extendDelegateAmountInput);
+                }}
               >
                 Extend delegate
               </button>
