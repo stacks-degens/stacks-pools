@@ -44,6 +44,8 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
   const [openMiningPoolMenu, setOpenMiningPoolMenu] = useState<boolean>(false);
   const [openVotingMenu, setOpenVotingMenu] = useState<boolean>(false);
+  const [openStackingMenu, setOpenStackingMenu] = useState<boolean>(false);
+  const [openMiningMenu, setOpenMiningMenu] = useState<boolean>(false);
 
   const location = useLocation();
 
@@ -53,6 +55,14 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
 
   const handleClickVotingMenuItem = () => {
     setOpenVotingMenu(!openVotingMenu);
+  };
+
+  const handleClickStackingMenu = () => {
+    setOpenStackingMenu(!openStackingMenu);
+  };
+
+  const handleClickMiningMenu = () => {
+    setOpenMiningMenu(!openMiningMenu);
   };
 
   const currentRoleMining: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
@@ -127,7 +137,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
         component="nav"
         aria-labelledby="nested-list-subheader"
       > */}
-        <div style={{ marginTop: -10 }}>
+        <div>
           <ListItem
             className={
               location.pathname === '/stacking/myProfile' || location.pathname === '/stacking/dashboard'
@@ -137,9 +147,10 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
             // onClick={toggleDrawer(anchor, false)}
             // onKeyDown={toggleDrawer(anchor, false)}
           >
-            <ListItemButton>
+            <ListItemButton onClick={handleClickStackingMenu}>
               <ListItemIcon>
-                <KeyboardDoubleArrowDownIcon style={{ color: colors[appCurrentTheme].secondary }} />
+                {!openStackingMenu && (<KeyboardDoubleArrowDownIcon style={{ color: colors[appCurrentTheme].secondary }} />)}
+                {openStackingMenu && (<KeyboardDoubleArrowUpIcon style={{ color: colors[appCurrentTheme].secondary }} />)}
               </ListItemIcon>
               <ListItemText
                 className="navbar-sections-font-size"
@@ -148,10 +159,15 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
               />
             </ListItemButton>
           </ListItem>
-          <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
-          <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
-        </div>
-        <div>
+          <Collapse
+            in={openStackingMenu}
+            onClick={toggleDrawer(anchor, false)}
+            onKeyDown={toggleDrawer(anchor, false)}
+            timeout="auto"
+            unmountOnExit
+          >
+            <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
+            <div>
           <ListItem
             className={location.pathname === '/stacking/dashboard' ? 'active-custom' : ''}
             onClick={toggleDrawer(anchor, false)}
@@ -188,10 +204,13 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                 />
               </ListItemButton>
             </ListItem>
-            <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
           </div>
         )}
-        <div style={{ marginTop: -10 }}>
+          </Collapse>
+          <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
+          <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
+        </div>
+        <div>
           <ListItem
             className={
               location.pathname === '/mining/myProfile' ||
@@ -209,9 +228,10 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
             // onClick={toggleDrawer(anchor, false)}
             // onKeyDown={toggleDrawer(anchor, false)}
           >
-            <ListItemButton>
+            <ListItemButton onClick={handleClickMiningMenu}>
               <ListItemIcon>
-                <KeyboardDoubleArrowDownIcon style={{ color: colors[appCurrentTheme].secondary }} />
+                {!openMiningMenu && (<KeyboardDoubleArrowDownIcon style={{ color: colors[appCurrentTheme].secondary }} />)}
+                {openMiningMenu && (<KeyboardDoubleArrowUpIcon style={{ color: colors[appCurrentTheme].secondary }} />)}
               </ListItemIcon>
               <ListItemText
                 className="navbar-sections-font-size"
@@ -220,11 +240,13 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
               />
             </ListItemButton>
           </ListItem>
-          <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
-          <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
-          {/* <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} /> */}
-        </div>
-        <div>
+          <Collapse
+              in={openMiningMenu}
+              timeout="auto"
+              unmountOnExit
+            >
+              <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
+              <div>
           <ListItem
             className={location.pathname === '/mining/dashboard' ? 'active-custom' : ''}
             onClick={toggleDrawer(anchor, false)}
@@ -452,10 +474,14 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                   </List>
                 </Collapse>
               </ListItem>
-              <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
             </div>
           </>
         )}
+            </Collapse>
+          <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
+          <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
+          {/* <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} /> */}
+        </div>
       </List>
     </Box>
   );
