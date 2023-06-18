@@ -13,6 +13,7 @@ import {
   readOnlyGetBitcoinRewardsStacking,
   readOnlyGetBlocksRewardedStacking,
   readOnlyGetLiquidityProvider,
+  readOnlyGetReturnStacking,
   readOnlyGetStackAmounThisCycleStacking,
   ReadOnlyGetStackersList,
 } from '../../../consts/readOnly';
@@ -24,6 +25,7 @@ const DashboardStacking = () => {
   const [blocksRewarded, setBlocksRewarded] = useState<number | null>(null);
   const [bitcoinRewards, setBitcoinRewards] = useState<number | null>(null);
   const [stacksAmountThisCycle, setStacksAmountThisCycle] = useState<number | null>(null);
+  const [returnCovered, setReturnCovered] = useState<number | null>(null);
 
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
@@ -36,6 +38,15 @@ const DashboardStacking = () => {
 
     getCurrentLiquidityProvider();
   }, [currentLiquidityProvider]);
+
+  useEffect(() => {
+    const getReturnCovered = async () => {
+      const returnValue = await readOnlyGetReturnStacking();
+      setReturnCovered(parseInt(returnValue));
+    };
+
+    getReturnCovered();
+  }, []);
 
   useEffect(() => {
     const getStackersList = async () => {
@@ -87,6 +98,7 @@ const DashboardStacking = () => {
             blocksRewarded={blocksRewarded}
             bitcoinRewards={bitcoinRewards}
             stacksAmountThisCycle={stacksAmountThisCycle}
+            returnCovered={returnCovered}
           />
         </div>
       </div>
