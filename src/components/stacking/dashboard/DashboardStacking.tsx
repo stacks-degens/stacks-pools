@@ -10,6 +10,7 @@ import './styles.css';
 import colors from '../../../consts/colorPallete';
 import DashboardStackingInfo from './DashboardStackingInfo';
 import {
+  readOnlyGetBitcoinRewardsStacking,
   readOnlyGetBlocksRewardedStacking,
   readOnlyGetLiquidityProvider,
   ReadOnlyGetStackersList,
@@ -21,6 +22,7 @@ const DashboardStacking = () => {
   const [currentLiquidityProvider, setCurrentLiquidityProvider] = useState<string | null>(null);
   const [stackersList, setStackersList] = useState<Array<string>>([]);
   const [blocksRewarded, setBlocksRewarded] = useState<number | null>(null);
+  const [bitcoinRewards, setBitcoinRewards] = useState<number | null>(null);
 
   const userSession = useAppSelector(selectUserSessionState);
 
@@ -65,6 +67,14 @@ const DashboardStacking = () => {
     getBlocksRewarded();
   }, [blocksRewarded]);
 
+  useEffect(() => {
+    const getBitcoinRewards = async () => {
+      const bitcoin = await readOnlyGetBitcoinRewardsStacking();
+      setBitcoinRewards(bitcoin);
+    };
+    getBitcoinRewards();
+  }, [bitcoinRewards]);
+
   return (
     <div className="dashboard-page-main-container">
       <div style={{ color: colors[appCurrentTheme].colorWriting }} className="page-heading-title">
@@ -78,6 +88,7 @@ const DashboardStacking = () => {
             liquidityProvider={currentLiquidityProvider}
             stackersList={stackersList}
             blocksRewarded={blocksRewarded}
+            bitcoinRewards={bitcoinRewards}
           />
         </div>
       </div>

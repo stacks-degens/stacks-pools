@@ -481,3 +481,14 @@ export const readOnlyGetBlocksRewardedStacking = async () => {
   const rewardedBlocks = await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getBlocksRewarded);
   return cvToJSON(rewardedBlocks).value;
 };
+
+//get-amount-rewarded
+// args: none
+// what does it do: bitcoin rewards
+// returns: number
+
+export const readOnlyGetBitcoinRewardsStacking = async () => {
+  const type = 'stacking';
+  const bitcoinRewards = await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getBitcoinRewards);
+  return cvToJSON(bitcoinRewards).value;
+};
