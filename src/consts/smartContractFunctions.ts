@@ -249,7 +249,7 @@ export const ContractSetAutoExchangeMining = (value: boolean) => {
 
 // delegate-stx
 // args: (amount uint)
-// what does it do: delegtae stx
+// what does it do: delegate stx
 
 export const ContractDelegateSTXStacking = (amount: number) => {
   const type = 'stacking';
@@ -265,4 +265,14 @@ export const ContractDelegateSTXStacking = (amount: number) => {
 export const ContractLeavePoolStacking = () => {
   const type = 'stacking';
   CallFunctions(type, [], functionMapping[type].publicFunctions.leavePool, []);
+};
+
+// reward-distribution
+// args: (rewarded-burn-block uint)
+// what does it do: distributes rewards for a given block
+
+export const ContractRewardDistributionStacking = (blockHeight: number) => {
+  const type = 'stacking';
+  const convertedArgs = [uintCV(blockHeight)];
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.rewardDistribution, []);
 };

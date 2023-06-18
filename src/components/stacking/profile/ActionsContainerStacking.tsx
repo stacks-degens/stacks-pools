@@ -1,8 +1,12 @@
 import './styles.css';
 import colors from '../../../consts/colorPallete';
 import { useEffect, useState } from 'react';
-import { ContractDelegateSTXStacking, ContractLeavePoolStacking } from '../../../consts/smartContractFunctions';
-import { readOnlyGetLiquidityProvider } from '../../../consts/readOnly';
+import {
+  ContractDelegateSTXStacking,
+  ContractLeavePoolStacking,
+  ContractRewardDistributionStacking,
+} from '../../../consts/smartContractFunctions';
+import { readOnlyClaimedBlockStatusStacking, readOnlyGetLiquidityProvider } from '../../../consts/readOnly';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme, selectUserSessionState } from '../../../redux/reducers/user-state';
 import { Alert } from '@mui/material';
@@ -25,25 +29,15 @@ const ActionsContainerStacking = ({ userAddress }: IActionsContainerStackingProp
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   const claimRewards = async () => {
-    // if (claimRewardsInputAmount !== null) {
-    //   const wasBlockClaimed = await readOnlyClaimedBlockStatusMining(claimRewardsInputAmount);
-    //   if (wasBlockClaimed === false) {
-    //     ContractRewardDistributionMining(claimRewardsInputAmount);
-    //   } else {
-    //     alert('Block already claimed');
-    //   }
-    // }
+    if (claimRewardsInputAmount !== null) {
+      const wasBlockClaimed = await readOnlyClaimedBlockStatusStacking(claimRewardsInputAmount);
+      if (wasBlockClaimed === false) {
+        ContractRewardDistributionStacking(claimRewardsInputAmount);
+      } else {
+        alert('Block already claimed');
+      }
+    }
   };
-
-  // const withdrawAmount = () => {
-  //   if (withdrawAmountInput !== null && !isNaN(withdrawAmountInput)) {
-  //     if (withdrawAmountInput < 0.000001) {
-  //       alert('You need to input more');
-  //     } else {
-  //       ContractWithdrawSTXMining(withdrawAmountInput);
-  //     }
-  //   }
-  // };
 
   const delegateAmount = () => {
     if (delegateAmountInput !== null && !isNaN(delegateAmountInput)) {
