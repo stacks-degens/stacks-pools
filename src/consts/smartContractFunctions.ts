@@ -23,7 +23,8 @@ const CallFunctions = (
   type: 'mining' | 'stacking',
   function_args: ClarityValue[],
   contractFunctionName: string,
-  post_condition_args: STXPostCondition[]
+  post_condition_args: STXPostCondition[],
+  callback?: () => void
 ) => {
   const options = {
     network: contractNetwork,
@@ -37,6 +38,7 @@ const CallFunctions = (
     onFinish: (data: FinishedTxData) => {
       console.log(transactionUrl[network](data.txId).explorerUrl);
       console.log(transactionUrl[network](data.txId).apiUrl);
+      callback?.();
     },
     onCancel: () => {
       console.log('onCancel:', 'Transaction was canceled');
@@ -301,8 +303,17 @@ export const ContractSetNewLiquidityProvider = (newProvider: string) => {
 // args: (amount uint)
 // what does it do: deposits stx into user's account
 
-export const ContractReserveFundsFutureRewardsStacking = (amount: number) => {
+export const ContractReserveFundsFutureRewardsStacking = (amount: number, callback?: () => void) => {
   const type = 'stacking';
   const convertedArgs = [uintCV(amount * 1000000)];
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.lockInPool, []);
+};
+
+//unlock-extra-reserved-funds
+// args: none
+// what does it do: deposits stx into user's account
+
+export const ContractUnlockExtraReserveFundsStacking = (callback?: () => void) => {
+  const type = 'stacking';
+  CallFunctions(type, [], functionMapping[type].publicFunctions.unlockExtraStxInPool, [], callback);
 };

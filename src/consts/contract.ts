@@ -125,6 +125,7 @@ interface IFunctionMapping {
       depositStx: string;
       setLiquidityProvider: string;
       lockInPool: string;
+      unlockExtraStxInPool: string;
     };
   };
 }
@@ -196,6 +197,7 @@ export const functionMapping: IFunctionMapping = {
       depositStx: 'deposit-stx-liquidity-provider',
       setLiquidityProvider: 'set-liquidity-provider',
       lockInPool: 'reserve-funds-future-rewards',
+      unlockExtraStxInPool: 'unlock-extra-reserved-funds',
     },
   },
 };
