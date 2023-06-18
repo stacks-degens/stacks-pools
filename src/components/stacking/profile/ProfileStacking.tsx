@@ -52,15 +52,13 @@ const ProfileStacking = () => {
         <h2>Decentralized Stacking Pool</h2>
         <h2>Profile</h2>
       </div>
-      {currentRole === 'Provider' ? (
+      {(currentRole === 'Provider'  || currentRole === 'Stacker') && ( 
         <StackerProfile
           currentRole={currentRole}
           connectedWallet={connectedWallet}
           explorerLink={explorerLink}
           userAddress={userAddress}
         />
-      ) : (
-        ''
       )}
     </div>
   );

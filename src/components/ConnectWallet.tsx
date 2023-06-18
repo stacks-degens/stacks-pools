@@ -38,6 +38,7 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
 
   const currentRoleMining = useAppSelector(selectCurrentUserRoleMining);
   const currentRoleStacking = useAppSelector(selectCurrentUserRoleStacking);
+  console.log('currentRoleStacking', currentRoleStacking);
   const location = useLocation();
 
   const controlAccessRoutes = () => {

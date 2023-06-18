@@ -17,7 +17,8 @@ const StackerProfile = ({ currentRole, connectedWallet, explorerLink, userAddres
         <RoleIntroStacking currentRole={currentRole} />
         <div
           className={
-            currentRole === 'Provider' ? 'main-info-container-stacking' : 'main-info-container-stacking-normal-user'
+            (currentRole === 'Provider' || currentRole === 'Stacker' ) ? 
+              'main-info-container-stacking' : 'main-info-container-stacking-normal-user'
           }
         >
           <AboutContainerStacking
@@ -25,7 +26,7 @@ const StackerProfile = ({ currentRole, connectedWallet, explorerLink, userAddres
             connectedWallet={connectedWallet}
             explorerLink={explorerLink}
           />
-          {currentRole === 'Provider' && (
+          {(currentRole === 'Provider' || currentRole === 'Stacker') &&  (
             <ActionsContainerStacking userAddress={userAddress} currentRole={currentRole} />
           )}
         </div>

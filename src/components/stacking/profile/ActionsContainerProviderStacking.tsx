@@ -24,29 +24,30 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
     if (depositAmountInput !== null && !isNaN(depositAmountInput)) {
       if (depositAmountInput < 0.000001) {
         alert('You need to input more');
+        console.log('you need to input more');
       } else {
         console.log(depositAmountInput);
         if (userAddress !== null) {
-          ContractDepositSTXStacking(depositAmountInput);
+          ContractDepositSTXStacking(depositAmountInput, userAddress);
         }
       }
     }
   };
 
-  const lockInPool = (callback?: () => void) => {
+  const lockInPool = () => {
     if (lockInPoolAmountInput !== null && !isNaN(lockInPoolAmountInput)) {
       if (lockInPoolAmountInput < 0.000001) {
         alert('You need to input more');
       } else {
         console.log(lockInPoolAmountInput);
         if (userAddress !== null) {
-          ContractReserveFundsFutureRewardsStacking(lockInPoolAmountInput);
+          ContractReserveFundsFutureRewardsStacking(lockInPoolAmountInput, userAddress);
         }
       }
     }
   };
 
-  const unlockExtraStx = (callback?: () => void) => {
+  const unlockExtraStx = () => {
     ContractUnlockExtraReserveFundsStacking();
   };
 
@@ -63,14 +64,14 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
     <div>
       <div className="flex-container align-items-center input-line-actions-container-stacking">
         <div className="width-55 label-and-input-container-actions-container">
-          <label className="custom-label">Insert amount of micro-STX</label>
+          <label className="custom-label">Insert amount of STX</label>
           <div className="bottom-margins">
             <input
               className="custom-input"
               type="number"
               onChange={(e) => {
                 const inputAmount = e.target.value;
-                const inputAmountToInt = parseInt(inputAmount);
+                const inputAmountToInt = parseFloat(inputAmount);
                 setDepositAmountInput(inputAmountToInt);
                 console.log('deposit input', inputAmount);
               }}

@@ -36,7 +36,7 @@ const AboutContainerStacking = ({ currentRole, connectedWallet, explorerLink }: 
       <div
         style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting }}
         className={
-          currentRole === 'Provider' ? 'content-info-container-stacking' : 'content-info-container-normal-user'
+          (currentRole === 'Provider' || currentRole === 'Stacker') ? 'content-info-container-stacking' : 'content-info-container-normal-user'
         }
       >
         <div className="content-sections-title-info-container bottom-margins">
