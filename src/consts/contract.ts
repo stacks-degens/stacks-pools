@@ -112,6 +112,7 @@ interface IFunctionMapping {
       getStackersList: string;
       getBlocksRewarded: string;
       getBitcoinRewards: string;
+      getTotalStackedThisCycle: string;
     };
     publicFunctions: {};
   };
@@ -171,6 +172,7 @@ export const functionMapping: IFunctionMapping = {
       getStackersList: 'get-pool-members',
       getBlocksRewarded: 'get-blocks-rewarded',
       getBitcoinRewards: 'get-amount-rewarded',
+      getTotalStackedThisCycle: 'get-stacked-this-cycle',
     },
     publicFunctions: {},
   },

@@ -13,6 +13,7 @@ import {
   readOnlyGetBitcoinRewardsStacking,
   readOnlyGetBlocksRewardedStacking,
   readOnlyGetLiquidityProvider,
+  readOnlyGetStackAmounThisCycleStacking,
   ReadOnlyGetStackersList,
 } from '../../../consts/readOnly';
 
@@ -23,6 +24,7 @@ const DashboardStacking = () => {
   const [stackersList, setStackersList] = useState<Array<string>>([]);
   const [blocksRewarded, setBlocksRewarded] = useState<number | null>(null);
   const [bitcoinRewards, setBitcoinRewards] = useState<number | null>(null);
+  const [stacksAmountThisCycle, setStacksAmountThisCycle] = useState<number | null>(null);
 
   const userSession = useAppSelector(selectUserSessionState);
 
@@ -75,6 +77,14 @@ const DashboardStacking = () => {
     getBitcoinRewards();
   }, [bitcoinRewards]);
 
+  useEffect(() => {
+    const getStacksAmountThisCycle = async () => {
+      const stacks = await readOnlyGetStackAmounThisCycleStacking();
+      setStacksAmountThisCycle(stacks);
+    };
+    getStacksAmountThisCycle();
+  }, [stacksAmountThisCycle]);
+
   return (
     <div className="dashboard-page-main-container">
       <div style={{ color: colors[appCurrentTheme].colorWriting }} className="page-heading-title">
@@ -89,6 +99,7 @@ const DashboardStacking = () => {
             stackersList={stackersList}
             blocksRewarded={blocksRewarded}
             bitcoinRewards={bitcoinRewards}
+            stacksAmountThisCycle={stacksAmountThisCycle}
           />
         </div>
       </div>
