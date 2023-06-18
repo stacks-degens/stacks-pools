@@ -18,7 +18,7 @@ import colors from '../consts/colorPallete';
 import Home from '@mui/icons-material/Home';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useAppSelector } from '../redux/store';
-import { selectCurrentTheme, selectCurrentUserRole, UserRole } from '../redux/reducers/user-state';
+import { selectCurrentTheme, selectCurrentUserRoleMining, UserRoleMining } from '../redux/reducers/user-state';
 import { useState } from 'react';
 import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material';
 import { Collapse } from '@mui/material';
@@ -54,7 +54,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
     setOpenVotingMenu(!openVotingMenu);
   };
 
-  const currentRole: UserRole = useAppSelector(selectCurrentUserRole);
+  const currentRole: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
 
   const toggleDrawer = (anchor: Anchor, open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
     if (

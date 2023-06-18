@@ -3,8 +3,8 @@ import { IinitialState } from '.';
 
 export interface IUserState {
   userSession: UserSession;
-  userRole: UserRole;
-  // theme: Theme;
+  miningUserRole: UserRoleMining;
+  stackingUserRole: UserRoleStacking;
 }
 
 const appConfig = new AppConfig(['store_write', 'publish_data']);
@@ -13,15 +13,18 @@ export const userSession = new UserSession({ appConfig });
 
 export const defaultUserState: IUserState = {
   userSession,
-  userRole: 'Viewer',
+  miningUserRole: 'Viewer',
+  stackingUserRole: 'Viewer',
   // theme: 'light',
 };
 
 export type Theme = 'light' | 'dark';
 
-export type UserRole = 'Miner' | 'NormalUser' | 'Pending' | 'Waiting' | 'Viewer';
+export type UserRoleMining = 'Miner' | 'NormalUser' | 'Pending' | 'Waiting' | 'Viewer';
+export type UserRoleStacking = 'Viewer' | 'NormalUserStacking' | 'Provider';
 
 export const selectUserState = (state: IinitialState) => state.userState;
 export const selectUserSessionState = (state: IinitialState) => state.userState.userSession;
-export const selectCurrentUserRole = (state: IinitialState) => state.userState.userRole;
+export const selectCurrentUserRoleMining = (state: IinitialState) => state.userState.miningUserRole;
+export const selectCurrentUserRoleStacking = (state: IinitialState) => state.userState.stackingUserRole;
 export const selectCurrentTheme = (state: IinitialState) => state.theme;

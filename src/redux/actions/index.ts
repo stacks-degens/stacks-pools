@@ -1,10 +1,10 @@
 import { IinitialState } from '../reducers';
-import { UserRole } from '../reducers/user-state';
+import { UserRoleMining } from '../reducers/user-state';
 import { AppDispatch } from '../store';
 
 export const DISCONNECT_USER_SESSION = 'DISCONNECT_USER_SESSION';
 export const CONNECT_USER_SESSION = 'CONNECT_USER_SESSION';
-export const UPDATE_USER_ROLE = 'UPDATE_USER_ROLE';
+export const UPDATE_USER_ROLE_MINING = 'UPDATE_USER_ROLE_MINING';
 export const UPDATE_APP_THEME = 'UPDATE_APP_THEME';
 
 export const disconnectAction = () => {
@@ -19,14 +19,14 @@ export const connectAction = () => {
 //   return Promise.resolve('Miner');
 // };
 
-export const updateUserRoleAction = (newRole: string) => {
+export const updateUserRoleActionMining = (newRole: string) => {
   return async (dispatch: AppDispatch, getState: () => IinitialState) => {
     try {
       // const userRole = await updateRole();
       // dispatch({ type: UPDATE_USER_ROLE, payload: userRole });
-      dispatch({ type: UPDATE_USER_ROLE, payload: newRole });
+      dispatch({ type: UPDATE_USER_ROLE_MINING, payload: newRole });
     } catch (err) {
-      console.error('Failed to grab user role');
+      console.error('Failed to grab user role for mining');
     }
   };
 };

@@ -4,7 +4,7 @@ import {
   ReadOnlyAllDataWaitingMiners,
   readOnlyGetRemainingBlocksJoinMining,
 } from '../../../consts/readOnly';
-import { selectCurrentUserRole, selectUserSessionState } from '../../../redux/reducers/user-state';
+import { selectCurrentUserRoleMining, selectUserSessionState } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
 import AboutContainer from '../../reusableComponents/profile/AboutContainer';
 import ActionsContainer from '../../reusableComponents/profile/ActionsContainer';
@@ -28,7 +28,7 @@ const MinerProfile = ({
   userAddress,
 }: IMinerProfileProps) => {
   const userSession = useAppSelector(selectUserSessionState);
-  const currentRole = useAppSelector(selectCurrentUserRole);
+  const currentRole = useAppSelector(selectCurrentUserRoleMining);
   const [totalWithdrawals, setTotalWithdrawals] = useState<number | null>(null);
   const userAddressAsCV: ClarityValue = listCV([principalCV(userSession.loadUserData().profile.stxAddress.testnet)]);
   const [positiveVotes, setPositiveVotes] = useState<number | null>(null);

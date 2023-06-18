@@ -1,12 +1,12 @@
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
-import { UserRole } from '../../../redux/reducers/user-state';
+import { UserRoleMining } from '../../../redux/reducers/user-state';
 import './styles.css';
 import colors from '../../../consts/colorPallete';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 interface DashboardStackingInfoProps {
-  currentRole: UserRole;
+  currentRole: UserRoleMining;
 }
 
 const DashboardStackingInfo = ({ currentRole }: DashboardStackingInfoProps) => {

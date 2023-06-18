@@ -1,4 +1,8 @@
-import { selectCurrentTheme, selectCurrentUserRole, selectUserSessionState } from '../../../redux/reducers/user-state';
+import {
+  selectCurrentTheme,
+  selectCurrentUserRoleMining,
+  selectUserSessionState,
+} from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
 import colors from '../../../consts/colorPallete';
 import { Box } from '@mui/material';

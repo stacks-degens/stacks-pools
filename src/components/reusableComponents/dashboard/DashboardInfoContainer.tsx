@@ -4,7 +4,7 @@ import '../../../css/common-page-alignments/styles.css';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import colors from '../../../consts/colorPallete';
 import { ContractAskToJoinMining } from '../../../consts/smartContractFunctions';
-import { selectCurrentTheme, UserRole } from '../../../redux/reducers/user-state';
+import { selectCurrentTheme, UserRoleMining } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
 
 interface DashboardInfoContainerProps {
@@ -13,7 +13,7 @@ interface DashboardInfoContainerProps {
   blocksWon: number | null;
   stacksRewards: number | null;
   userAddress: string | null;
-  currentRole: UserRole;
+  currentRole: UserRoleMining;
 }
 const DashboardInfoContainer = ({
   notifier,

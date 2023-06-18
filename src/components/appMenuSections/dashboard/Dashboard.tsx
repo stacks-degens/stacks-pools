@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import {
   selectCurrentTheme,
-  selectCurrentUserRole,
+  selectCurrentUserRoleMining,
   selectUserSessionState,
-  UserRole,
+  UserRoleMining,
 } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
 import {
@@ -19,7 +19,7 @@ import './styles.css';
 const Dashboard = () => {
   const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);
   const [minersList, setMinersList] = useState<Array<string>>([]);
-  const currentRole: UserRole = useAppSelector(selectCurrentUserRole);
+  const currentRole: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
   const [userAddress, setUserAddress] = useState<string | null>(null);
   const [blocksWon, setBlocksWon] = useState<number | null>(null);
   const [stacksRewards, setStacksRewards] = useState<number | null>(null);

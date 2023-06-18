@@ -2,8 +2,8 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import colors from '../consts/colorPallete';
 import { useAppDispatch, useAppSelector } from '../redux/store';
-import { connectAction, disconnectAction, updateAppThemeAction, updateUserRoleAction } from '../redux/actions';
-import { selectCurrentTheme, selectCurrentUserRole, selectUserSessionState } from '../redux/reducers/user-state';
+import { connectAction, disconnectAction, updateUserRoleActionMining } from '../redux/actions';
+import { selectCurrentTheme, selectCurrentUserRoleMining, selectUserSessionState } from '../redux/reducers/user-state';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { readOnlyAddressStatusMining } from '../consts/readOnly';
@@ -19,7 +19,7 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
 
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
-  const currentRole = useAppSelector(selectCurrentUserRole);
+  const currentRole = useAppSelector(selectCurrentUserRoleMining);
   const location = useLocation();
 
   const controlAccessRoutes = () => {
@@ -35,7 +35,7 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
         const args = userSession.loadUserData().profile.stxAddress.testnet;
         const status = await readOnlyAddressStatusMining(args);
         setFinalStatus(status);
-        updateUserRoleAction(finalStatus);
+        updateUserRoleActionMining(finalStatus);
       }
     };
 
@@ -56,7 +56,7 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
 
   if (userSession.isUserSignedIn()) {
     if (currentRole === 'Viewer') {
-      dispatch(updateUserRoleAction(finalStatus));
+      dispatch(updateUserRoleActionMining(finalStatus));
       return <div>Loading ...</div>;
     }
     return (

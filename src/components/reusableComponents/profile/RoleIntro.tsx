@@ -1,6 +1,6 @@
 import './styles.css';
 import { useAppSelector } from '../../../redux/store';
-import { selectCurrentUserRole, UserRole } from '../../../redux/reducers/user-state';
+import { selectCurrentUserRoleMining, UserRoleMining } from '../../../redux/reducers/user-state';
 import RoleIntroMiner from './RoleIntroMiner';
 import RoleIntroWaiting from './RoleIntroWaiting';
 import RoleIntroPending from './RoleIntroPending';
@@ -23,9 +23,9 @@ const RoleIntro = ({
   negativeVotesThreshold,
   blocksLeftUntilJoin,
 }: IRoleIntro) => {
-  const role: UserRole = useAppSelector(selectCurrentUserRole);
+  const role: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
 
-  const roleIntroMapping: Record<UserRole, React.ReactElement> = {
+  const roleIntroMapping: Record<UserRoleMining, React.ReactElement> = {
     Viewer: <div></div>,
     NormalUser: <RoleIntroNormalUser currentRole={currentRole} />,
     Waiting: (

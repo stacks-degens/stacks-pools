@@ -1,7 +1,11 @@
 import colors from '../../../consts/colorPallete';
 import { Box, Button } from '@mui/material';
 import { useAppSelector } from '../../../redux/store';
-import { selectCurrentTheme, selectCurrentUserRole, selectUserSessionState } from '../../../redux/reducers/user-state';
+import {
+  selectCurrentTheme,
+  selectCurrentUserRoleMining,
+  selectUserSessionState,
+} from '../../../redux/reducers/user-state';
 import { ContractTryEnterPoolMining } from '../../../consts/smartContractFunctions';
 import { ReadOnlyAllDataWaitingMiners } from '../../../consts/readOnly';
 import { useState, useEffect } from 'react';
