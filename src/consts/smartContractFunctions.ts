@@ -289,11 +289,22 @@ export const ContractDepositSTXStacking = (amount: number) => {
 };
 
 //set-liquidity-provider
-// args: ()
+// args: (new principal address)
 // what does it do: sets a new provider
 
 export const ContractSetNewLiquidityProvider = (newProvider: string) => {
   const type = 'stacking';
   const convertedArgs = [convertPrincipalToArg(newProvider)];
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.setLiquidityProvider, []);
+};
+
+// reserve-funds-future-rewards
+// args: (amount uint)
+// what does it do: deposits stx into user's account
+
+export const ContractReserveFundsFutureRewardsStacking = (amount: number) => {
+  const type = 'stacking';
+  const convertedArgs = [uintCV(amount * 1000000)];
+  // const postConditions = createPostConditionSTXTransferToContract(userAddress, amount * 1000000);
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.lockInPool, []);
 };

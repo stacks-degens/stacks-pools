@@ -2,7 +2,7 @@ import './styles.css';
 import { useEffect, useState } from 'react';
 import {
   ContractDepositSTXStacking,
-  ContractLeavePoolStacking,
+  ContractReserveFundsFutureRewardsStacking,
   ContractSetNewLiquidityProvider,
 } from '../../../consts/smartContractFunctions';
 import { readOnlyGetLiquidityProvider } from '../../../consts/readOnly';
@@ -14,9 +14,8 @@ interface IActionsContainerStackingProps {
 }
 
 const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStackingProps) => {
-  const [disableLeavePoolButton, setDisableLeavePoolButton] = useState<boolean>(false);
   const [depositAmountInput, setDepositAmountInput] = useState<number | null>(null);
-  const [extendDelegateAmountInput, setExtendDelegateAmountInput] = useState<number | null>(null);
+  const [lockInPoolAmountInput, setLockInPoolAmountInput] = useState<number | null>(null);
   const [currentLiquidityProvider, setCurrentLiquidityProvider] = useState<string | null>(null);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
@@ -33,14 +32,14 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
     }
   };
 
-  const extendDelegateAmount = () => {
-    if (extendDelegateAmountInput !== null && !isNaN(extendDelegateAmountInput)) {
-      if (extendDelegateAmountInput < 0.000001) {
+  const lockInPool = () => {
+    if (lockInPoolAmountInput !== null && !isNaN(lockInPoolAmountInput)) {
+      if (lockInPoolAmountInput < 0.000001) {
         alert('You need to input more');
       } else {
-        console.log(extendDelegateAmountInput);
+        console.log(lockInPoolAmountInput);
         if (userAddress !== null) {
-          // ContractExtendDelegate(depositAmountInput, userAddress);
+          ContractReserveFundsFutureRewardsStacking(lockInPoolAmountInput);
         }
       }
     }
@@ -92,19 +91,16 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
               className="custom-input"
               type="number"
               onChange={(e) => {
-                // const inputAmount = e.target.value;
-                // const inputAmountToInt = parseFloat(inputAmount);
-                // setExtendDelegateAmountInput(inputAmountToInt);
-                // console.log('extend deposit input', inputAmount);
+                const inputAmount = e.target.value;
+                const inputAmountToInt = parseFloat(inputAmount);
+                setLockInPoolAmountInput(inputAmountToInt);
+                console.log('lock in pool input', inputAmount);
               }}
             ></input>
           </div>
         </div>
         <div className="button-container-action-container">
-          <button
-            className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
-            onClick={extendDelegateAmount}
-          >
+          <button className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'} onClick={lockInPool}>
             Lock in pool
           </button>
         </div>
@@ -114,10 +110,7 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
         className="content-sections-title-info-container leave-pool-button-action-container"
       >
         <div className="flex-center">
-          <button
-            className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
-            disabled={disableLeavePoolButton}
-          >
+          <button className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}>
             Unlock extra STX locked
           </button>
         </div>
