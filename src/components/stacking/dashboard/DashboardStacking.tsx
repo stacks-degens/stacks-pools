@@ -9,21 +9,16 @@ import { UserRoleMining } from '../../../redux/reducers/user-state';
 import './styles.css';
 import colors from '../../../consts/colorPallete';
 import DashboardStackingInfo from './DashboardStackingInfo';
+import { readOnlyGetLiquidityProvider } from '../../../consts/readOnly';
 
 const DashboardStacking = () => {
   const currentRole: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
   const [userAddress, setUserAddress] = useState<string | null>(null);
+  const [currentLiquidityProvider, setCurrentLiquidityProvider] = useState<string | null>(null);
+
   const userSession = useAppSelector(selectUserSessionState);
 
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
-
-  const dashboardStackingMapping: Record<UserRoleMining, React.ReactElement> = {
-    Viewer: <div></div>,
-    NormalUser: <div></div>,
-    Waiting: <div></div>,
-    Pending: <div></div>,
-    Miner: <div></div>,
-  };
 
   useEffect(() => {
     if (userSession.isUserSignedIn()) {
@@ -35,24 +30,25 @@ const DashboardStacking = () => {
     }
   }, [userAddress]);
 
+  useEffect(() => {
+    const getCurrentLiquidityProvider = async () => {
+      const liquidityProvider = await readOnlyGetLiquidityProvider();
+      setCurrentLiquidityProvider(liquidityProvider);
+      console.log('provider', currentLiquidityProvider);
+    };
+
+    getCurrentLiquidityProvider();
+  }, [currentLiquidityProvider]);
+
   return (
     <div className="dashboard-page-main-container">
       <div style={{ color: colors[appCurrentTheme].colorWriting }} className="page-heading-title">
         <h2>Decentralized Stacking Pool</h2>
         <h2>Dashboard</h2>
       </div>
-      {/* <div>{dashboardStackingMapping[currentRole]}</div> */}
       <div className="principal-content-profile-page">
         <div className={'main-info-container-normal-user'}>
-          <DashboardStackingInfo currentRole={currentRole} />
-          {/* <DashboardInfoContainer
-            notifier={currentNotifier}
-            minersList={minersList}
-            blocksWon={blocksWon}
-            stacksRewards={stacksRewards}
-            userAddress={userAddress}
-            currentRole={currentRole}
-          /> */}
+          <DashboardStackingInfo currentRole={currentRole} liquidityProvider={currentLiquidityProvider} />
         </div>
       </div>
     </div>

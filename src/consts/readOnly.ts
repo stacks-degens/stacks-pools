@@ -440,3 +440,20 @@ export const readOnlyGetAllTotalWithdrawalsMining = async (address: string) => {
 
   return cvToJSON(totalWithdrawals).value[0].value.value;
 };
+
+// get-liquidity-provider
+// args: none
+// what does it do: returns the current liquidity provider
+// return: address
+
+export const readOnlyGetLiquidityProvider = async () => {
+  const type = 'stacking';
+  const currentLiquidityProvider = await ReadOnlyFunctions(
+    type,
+    [],
+    functionMapping[type].readOnlyFunctions.getLiquidityProvider
+  );
+  console.log('from read only: ', currentLiquidityProvider);
+  return cvToJSON(currentLiquidityProvider).value;
+  // return currentLiquidityProvider;
+};

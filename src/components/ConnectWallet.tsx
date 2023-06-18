@@ -13,18 +13,19 @@ interface ConnectWalletProps {
 }
 
 const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
-  const [finalStatus, setFinalStatus] = useState<string>('Viewer');
+  const [finalStatusMining, setFinalStatusMining] = useState<string>('Viewer');
+  const [finalStatusStacking, setFinalStatusStacking] = useState<string>('Viewer');
   const userSession = useAppSelector(selectUserSessionState);
   const dispatch = useAppDispatch();
 
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
-  const currentRole = useAppSelector(selectCurrentUserRoleMining);
+  const currentRoleMining = useAppSelector(selectCurrentUserRoleMining);
   const location = useLocation();
 
   const controlAccessRoutes = () => {
     if (location.pathname !== '/') {
-      if (location.pathname.substring(1)?.toLowerCase() !== currentRole.toLowerCase()) {
+      if (location.pathname.substring(1)?.toLowerCase() !== currentRoleMining.toLowerCase()) {
         console.log('Seems like you got lost, click here to go back to the main page');
       }
     }
@@ -34,13 +35,13 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
       if (userSession.isUserSignedIn()) {
         const args = userSession.loadUserData().profile.stxAddress.testnet;
         const status = await readOnlyAddressStatusMining(args);
-        setFinalStatus(status);
-        updateUserRoleActionMining(finalStatus);
+        setFinalStatusMining(status);
+        updateUserRoleActionMining(finalStatusMining);
       }
     };
 
     fetchStatus();
-  }, [finalStatus]);
+  }, [finalStatusMining]);
 
   useEffect(() => {
     controlAccessRoutes();
@@ -55,8 +56,8 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
   };
 
   if (userSession.isUserSignedIn()) {
-    if (currentRole === 'Viewer') {
-      dispatch(updateUserRoleActionMining(finalStatus));
+    if (currentRoleMining === 'Viewer') {
+      dispatch(updateUserRoleActionMining(finalStatusMining));
       return <div>Loading ...</div>;
     }
     return (
