@@ -51,6 +51,7 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
 
   useEffect(() => {
     if (userSession.isUserSignedIn()) {
+      console.log(userSession.loadUserData().profile.stxAddress);
       const wallet = userSession.loadUserData().profile.stxAddress.testnet;
       setConnectedWallet(wallet);
     }
@@ -83,6 +84,7 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
       if (userSession.isUserSignedIn()) {
         const args = userSession.loadUserData().profile.stxAddress.testnet;
         const statusStacking = await readOnlyAddressStatusStacking(args);
+        console.log(statusStacking);
         setFinalStatusStacking(statusStacking);
         updateUserRoleActionStacking(finalStatusStacking);
       }
@@ -106,7 +108,7 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
   if (userSession.isUserSignedIn()) {
     if (currentRoleMining === 'Viewer') {
       dispatch(updateUserRoleActionMining(finalStatusMining));
-      return <div>Loading ...</div>;
+      // return <div>Loading ...</div>;
     }
     if (currentRoleStacking === 'Viewer') {
       dispatch(updateUserRoleActionStacking(finalStatusStacking));

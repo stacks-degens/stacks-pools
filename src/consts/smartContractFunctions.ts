@@ -255,8 +255,8 @@ export const ContractSetAutoExchangeMining = (value: boolean) => {
 export const ContractDelegateSTXStacking = (amount: number, userAddress: string) => {
   const type = 'stacking';
   const convertedArgs = [uintCV(amount * 1000000)];
-  const postConditions = createPostConditionSTXTransferToContract(userAddress, amount * 1000000);
-  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.delegateStx, [postConditions]);
+  // const postConditions = createPostConditionSTXTransferToContract(userAddress, amount * 1000000);
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.delegateStx, []);
 };
 
 // leave-pool
@@ -323,10 +323,15 @@ export const ContractUnlockExtraReserveFundsStacking = () => {
 // args: (principal address)
 // what does it do: allows to join pool for stacking
 
-export const ContractAllowInPoolPoxScStacking = (address: string) => {
+export const ContractAllowInPoolPoxScStacking = () => {
   const type = 'pox';
-  const convertedArgs = [convertPrincipalToArg(address), noneCV()];
-  console.log(address);
+  const convertedArgs = [
+    convertPrincipalToArg(
+      `${contractMapping['stacking'][network].contractAddress}.${contractMapping['stacking'][network].contractName}`
+    ),
+    noneCV(),
+  ];
+  // console.log(address);
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.allowContractCaller, []);
 };
 

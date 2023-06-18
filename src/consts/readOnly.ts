@@ -27,7 +27,6 @@ const ReadOnlyFunctions = async (
       : userSession.isUserSignedIn()
       ? userSession.loadUserData().profile.stxAddress.testnet
       : contractMapping[type][network].owner;
-
   const readOnlyResults = {
     contractAddress: contractMapping[type][network].contractAddress,
     contractName: contractMapping[type][network].contractName,
@@ -36,7 +35,7 @@ const ReadOnlyFunctions = async (
     functionArgs: function_args,
     senderAddress: userAddress,
   };
-
+  console.log(readOnlyResults);
   return callReadOnlyFunction(readOnlyResults);
 };
 

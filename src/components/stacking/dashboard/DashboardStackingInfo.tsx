@@ -35,11 +35,12 @@ const DashboardStackingInfo = ({
   //null is false (so ALert comes up) and
   //some value for true, but I don't know the type of that value ->
   //see if I have to change the type of aloowanceStatus
+  console.log(currentRole);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   const allowPoolInPoxSc = () => {
     if (userAddress !== null) {
-      ContractAllowInPoolPoxScStacking(userAddress);
+      ContractAllowInPoolPoxScStacking();
     }
   };
 
@@ -130,7 +131,6 @@ const DashboardStackingInfo = ({
           </button>
         </div>
       )}
-
     </div>
   );
 };
