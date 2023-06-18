@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import {
   ContractDepositSTXStacking,
   ContractReserveFundsFutureRewardsStacking,
+  ContractSetNewBtcPoxAddress,
   ContractSetNewLiquidityProvider,
   ContractUnlockExtraReserveFundsStacking,
 } from '../../../consts/smartContractFunctions';
@@ -164,7 +165,9 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
         <div className="button-container-stacking-action-container-stacking">
           <button
             className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
-            // onClick={changeBtcAddress}
+            onClick={() =>
+              ContractSetNewBtcPoxAddress('02e8f7dc91e49a577ce9ea8989c7184aea8886fe5250f02120dc6f98e3619679b0')
+            }
           >
             Set btc address pox rewards
           </button>

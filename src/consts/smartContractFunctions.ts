@@ -14,9 +14,23 @@ import {
   makeContractSTXPostCondition,
   STXPostCondition,
   noneCV,
+  bufferCV,
 } from '@stacks/transactions';
 import { convertPrincipalToArg, convertStringToArg } from './converter';
+import forge from 'node-forge';
+import RIPEMD160 from 'ripemd160';
+// const forge = require('node-forge');
 
+// // Calculate RIPEMD-160 hash
+// function hash160(data) {
+
+// }
+
+// // Example usage
+// const str = 'Hello, world!';
+// const buffer = Buffer.from(str, 'utf8');
+// const hash = hash160(buffer);
+// console.log('RIPEMD-160 Hash:', hash);
 const contractNetwork =
   network === 'mainnet' ? new StacksMainnet() : network === 'testnet' ? new StacksTestnet() : new StacksMocknet();
 
@@ -303,6 +317,35 @@ export const ContractSetNewLiquidityProvider = (newProvider: string) => {
   const convertedArgs = [convertPrincipalToArg(newProvider)];
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.setLiquidityProvider, []);
 };
+
+export const ContractSetNewBtcPoxAddress = (publicKey: string) => {};
+//   const type = 'stacking';
+//   // const pubkey = '02e8f7dc91e49a577ce9ea8989c7184aea8886fe5250f02120dc6f98e3619679b0';
+//   const version = '00';
+//   const versionBuffer = stringToUint8Array(version);
+//   const pubKeyBuffer = stringToUint8Array(publicKey);
+
+//   console.log('pubKeyBuffer, versionBuffer', pubKeyBuffer, versionBuffer);
+//   console.log('hash160', hash160(pubKeyBuffer));
+//   // const functionArgs = [bufferCV(Uint8Array.from(versionBuffer)), bufferCV(Uint8Array.from(hash160(pubKeyBuffer)))];
+
+//   // CallFunctions(type, functionArgs, functionMapping[type].publicFunctions.setPoolPoxAddress, []);
+// };
+
+// const hash160 = (pubKeyBuffer: any) => {
+//   // => 0df020ba32aa9b8b904471ff582ce6b579bf8bc8
+//   const md = forge.md.sha256.create();
+//   md.update(pubKeyBuffer);
+//   const hash = md.digest().toHex();
+//   console.log(new RIPEMD160().update(hash).digest('hex'));
+
+//   return new RIPEMD160().update(hash).digest('hex');
+// };
+
+// function stringToUint8Array(str: string) {
+//   const encoder = new TextEncoder();
+//   return encoder.encode(str);
+// }
 
 // reserve-funds-future-rewards
 // args: (amount uint)
