@@ -27,7 +27,6 @@ const ReadOnlyFunctions = async (
       : userSession.isUserSignedIn()
       ? userSession.loadUserData().profile.stxAddress.testnet
       : contractMapping[type][network].owner;
-
   const readOnlyResults = {
     contractAddress: contractMapping[type][network].contractAddress,
     contractName: contractMapping[type][network].contractName,
@@ -36,7 +35,7 @@ const ReadOnlyFunctions = async (
     functionArgs: function_args,
     senderAddress: userAddress,
   };
-
+  console.log(readOnlyResults);
   return callReadOnlyFunction(readOnlyResults);
 };
 
@@ -545,12 +544,8 @@ export const readOnlyGetStackAmounThisCycleStacking = async () => {
 export const readOnlyAddressStatusStacking = async (args: string) => {
   const type = 'stacking';
   const statusArgs = convertPrincipalToArg(args);
-
   const status = await ReadOnlyFunctions(type, [statusArgs], functionMapping[type].readOnlyFunctions.getAddressStatus);
-
-  // const statusInfo = cvToJSON(status).value.value;
   const statusInfo = cvToJSON(status).value.value;
-  console.log('something', statusInfo);
   return statusInfo === 'is-provider' ? 'Provider' : statusInfo === 'is-stacker' ? 'Stacker' : 'NormalUserStacking';
 };
 
@@ -604,5 +599,6 @@ export const readOnlyGetAllowanceStacking = async (senderAddress: string) => {
     convertedArgs,
     functionMapping[type].readOnlyFunctions.getAllowanceStatus
   );
+  console.log('allowance: ', cvToJSON(getAllowance));
   return cvToJSON(getAllowance).value;
 };

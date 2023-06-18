@@ -17,8 +17,11 @@ import { Link, useLocation } from 'react-router-dom';
 import colors from '../consts/colorPallete';
 import Home from '@mui/icons-material/Home';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import { useAppSelector } from '../redux/store';
-import { selectCurrentTheme, selectCurrentUserRoleMining, UserRoleMining } from '../redux/reducers/user-state';
+import { selectCurrentTheme, selectCurrentUserRoleMining, selectCurrentUserRoleStacking, UserRoleMining, UserRoleStacking } from '../redux/reducers/user-state';
 import { useState } from 'react';
 import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material';
 import { Collapse } from '@mui/material';
@@ -41,10 +44,10 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
   const [openMiningPoolMenu, setOpenMiningPoolMenu] = useState<boolean>(false);
   const [openVotingMenu, setOpenVotingMenu] = useState<boolean>(false);
+  const [openStackingMenu, setOpenStackingMenu] = useState<boolean>(false);
+  const [openMiningMenu, setOpenMiningMenu] = useState<boolean>(false);
 
   const location = useLocation();
-
-  console.log('location-', location.pathname.slice(0, 8));
 
   const handleClickMiningPoolMenuItem = () => {
     setOpenMiningPoolMenu(!openMiningPoolMenu);
@@ -54,7 +57,17 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
     setOpenVotingMenu(!openVotingMenu);
   };
 
-  const currentRole: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
+  const handleClickStackingMenu = () => {
+    setOpenStackingMenu(!openStackingMenu);
+  };
+
+  const handleClickMiningMenu = () => {
+    setOpenMiningMenu(!openMiningMenu);
+  };
+
+  const currentRoleMining: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
+  const currentRoleStacking: UserRoleStacking = useAppSelector(selectCurrentUserRoleStacking);
+  
 
   const toggleDrawer = (anchor: Anchor, open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
     if (
@@ -124,7 +137,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
         component="nav"
         aria-labelledby="nested-list-subheader"
       > */}
-        <div style={{ marginTop: -10 }}>
+        <div>
           <ListItem
             className={
               location.pathname === '/stacking/myProfile' || location.pathname === '/stacking/dashboard'
@@ -134,9 +147,10 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
             // onClick={toggleDrawer(anchor, false)}
             // onKeyDown={toggleDrawer(anchor, false)}
           >
-            <ListItemButton>
+            <ListItemButton onClick={handleClickStackingMenu}>
               <ListItemIcon>
-                <HomeIcon style={{ color: colors[appCurrentTheme].secondary }} />
+                {!openStackingMenu && (<KeyboardDoubleArrowDownIcon style={{ color: colors[appCurrentTheme].secondary }} />)}
+                {openStackingMenu && (<KeyboardDoubleArrowUpIcon style={{ color: colors[appCurrentTheme].secondary }} />)}
               </ListItemIcon>
               <ListItemText
                 className="navbar-sections-font-size"
@@ -145,10 +159,15 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
               />
             </ListItemButton>
           </ListItem>
-          <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
-          <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
-        </div>
-        <div>
+          <Collapse
+            in={openStackingMenu}
+            onClick={toggleDrawer(anchor, false)}
+            onKeyDown={toggleDrawer(anchor, false)}
+            timeout="auto"
+            unmountOnExit
+          >
+            <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
+            <div>
           <ListItem
             className={location.pathname === '/stacking/dashboard' ? 'active-custom' : ''}
             onClick={toggleDrawer(anchor, false)}
@@ -156,7 +175,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
           >
             <ListItemButton component={Link} to={'/stacking/dashboard'} className="padding-left-sidebar-main-sections">
               <ListItemIcon>
-                <Home style={{ color: colors[appCurrentTheme].secondary }} />
+                <SpaceDashboardIcon style={{ color: colors[appCurrentTheme].secondary }} />
               </ListItemIcon>
               <ListItemText
                 className="navbar-sections-font-size"
@@ -167,26 +186,31 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
           </ListItem>
           <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
         </div>
-        <div>
-          <ListItem
-            className={location.pathname === '/stacking/myProfile' ? 'active-custom' : ''}
-            onClick={toggleDrawer(anchor, false)}
-            onKeyDown={toggleDrawer(anchor, false)}
-          >
-            <ListItemButton component={Link} to={'/stacking/myProfile'} className="padding-left-sidebar-main-sections">
-              <ListItemIcon>
-                <Home style={{ color: colors[appCurrentTheme].secondary }} />
-              </ListItemIcon>
-              <ListItemText
-                className="navbar-sections-font-size"
-                style={{ color: colors[appCurrentTheme].secondary }}
-                primary="Profile"
-              />
-            </ListItemButton>
-          </ListItem>
-          <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
+        {(currentRoleStacking === 'Provider' || currentRoleStacking === 'Stacker') && (
+          <div>
+            <ListItem
+              className={location.pathname === '/stacking/myProfile' ? 'active-custom' : ''}
+              onClick={toggleDrawer(anchor, false)}
+              onKeyDown={toggleDrawer(anchor, false)}
+            >
+              <ListItemButton component={Link} to={'/stacking/myProfile'} className="padding-left-sidebar-main-sections">
+                <ListItemIcon>
+                  <AccountCircleIcon style={{ color: colors[appCurrentTheme].secondary }} />
+                </ListItemIcon>
+                <ListItemText
+                  className="navbar-sections-font-size"
+                  style={{ color: colors[appCurrentTheme].secondary }}
+                  primary="Profile"
+                />
+              </ListItemButton>
+            </ListItem>
+          </div>
+        )}
+          </Collapse>
+          <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
+          <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
         </div>
-        <div style={{ marginTop: -10 }}>
+        <div>
           <ListItem
             className={
               location.pathname === '/mining/myProfile' ||
@@ -204,9 +228,10 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
             // onClick={toggleDrawer(anchor, false)}
             // onKeyDown={toggleDrawer(anchor, false)}
           >
-            <ListItemButton>
+            <ListItemButton onClick={handleClickMiningMenu}>
               <ListItemIcon>
-                <HomeIcon style={{ color: colors[appCurrentTheme].secondary }} />
+                {!openMiningMenu && (<KeyboardDoubleArrowDownIcon style={{ color: colors[appCurrentTheme].secondary }} />)}
+                {openMiningMenu && (<KeyboardDoubleArrowUpIcon style={{ color: colors[appCurrentTheme].secondary }} />)}
               </ListItemIcon>
               <ListItemText
                 className="navbar-sections-font-size"
@@ -215,11 +240,13 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
               />
             </ListItemButton>
           </ListItem>
-          <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
-          <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
-          {/* <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} /> */}
-        </div>
-        <div>
+          <Collapse
+              in={openMiningMenu}
+              timeout="auto"
+              unmountOnExit
+            >
+              <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
+              <div>
           <ListItem
             className={location.pathname === '/mining/dashboard' ? 'active-custom' : ''}
             onClick={toggleDrawer(anchor, false)}
@@ -227,7 +254,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
           >
             <ListItemButton component={Link} to={'/mining/dashboard'} className="padding-left-sidebar-main-sections">
               <ListItemIcon>
-                <Home style={{ color: colors[appCurrentTheme].secondary }} />
+                <SpaceDashboardIcon style={{ color: colors[appCurrentTheme].secondary }} />
               </ListItemIcon>
               <ListItemText
                 className="navbar-sections-font-size"
@@ -238,7 +265,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
           </ListItem>
           <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
         </div>
-        {currentRole !== 'Viewer' && (
+        {currentRoleMining !== 'Viewer' && (
           <div>
             <ListItem
               className={location.pathname === '/mining/myProfile' ? 'active-custom' : ''}
@@ -259,7 +286,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
             <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
           </div>
         )}
-        {currentRole === 'Miner' && (
+        {currentRoleMining === 'Miner' && (
           <>
             <div>
               <ListItem className="liMenuMiningPool">
@@ -447,10 +474,14 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                   </List>
                 </Collapse>
               </ListItem>
-              <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
             </div>
           </>
         )}
+            </Collapse>
+          <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
+          <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
+          {/* <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} /> */}
+        </div>
       </List>
     </Box>
   );

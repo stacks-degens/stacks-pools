@@ -3,7 +3,7 @@ import { useAppSelector } from '../../../redux/store';
 import './styles.css';
 import colors from '../../../consts/colorPallete';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { ContractDelegatePoxStacking, ContractJoinPoolStacking } from '../../../consts/smartContractFunctions';
+import { ContractAllowInPoolPoxScStacking, ContractJoinPoolStacking } from '../../../consts/smartContractFunctions';
 import { useEffect, useState } from 'react';
 import { readOnlyGetAllowanceStacking } from '../../../consts/readOnly';
 import { Alert } from '@mui/material';
@@ -35,46 +35,12 @@ const DashboardStackingInfo = ({
   //null is false (so ALert comes up) and
   //some value for true, but I don't know the type of that value ->
   //see if I have to change the type of aloowanceStatus
-  const [allowanceStatus, setAllowanceStatus] = useState<boolean | null>(null);
-  const [showAlertJoinPool, setShowAlertJoinPool] = useState<boolean>(false);
-  const [joinPoolButtonClicked, setJoinPoolButtonClicked] = useState<boolean>(false);
-  const [disableJoinPoolButton, setDisableJoinPoolButton] = useState<boolean>(false);
-  const [delegatePoxButtonClicked, setDelegatePoxButtonClicked] = useState<boolean>(false);
+  console.log(currentRole);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
-  useEffect(() => {
-    const getAllowance = async () => {
-      if (userAddress !== null) {
-        const allowance = await readOnlyGetAllowanceStacking(userAddress);
-        console.log('allowance', allowance);
-        setAllowanceStatus(allowance);
-      }
-    };
-
-    getAllowance();
-  }, [delegatePoxButtonClicked]);
-
-  useEffect(() => {
-    if (joinPoolButtonClicked && showAlertJoinPool) setDisableJoinPoolButton(true);
-  }, [joinPoolButtonClicked, showAlertJoinPool]);
-
-  const delegatePox = () => {
+  const allowPoolInPoxSc = () => {
     if (userAddress !== null) {
-      setDelegatePoxButtonClicked(true);
-      ContractDelegatePoxStacking(userAddress);
-    }
-  };
-
-  const joinPool = () => {
-    setJoinPoolButtonClicked(true);
-
-    if (userAddress !== null) {
-      if (allowanceStatus !== null) ContractJoinPoolStacking();
-      else {
-        setShowAlertJoinPool(true);
-        setDisableJoinPoolButton(true);
-        setDelegatePoxButtonClicked(false);
-      }
+      ContractAllowInPoolPoxScStacking();
     }
   };
 
@@ -146,7 +112,10 @@ const DashboardStackingInfo = ({
       </div>
       {currentRole === 'NormalUserStacking' && (
         <div className="footer-join-button-container">
-          <button className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'} onClick={delegatePox}>
+          <button
+            className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+            onClick={allowPoolInPoxSc}
+          >
             Allow Pool in Pox-2 SC
           </button>
         </div>
@@ -156,25 +125,10 @@ const DashboardStackingInfo = ({
         <div className="footer-join-button-container margin-top-10">
           <button
             className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
-            onClick={joinPool}
-            disabled={disableJoinPoolButton}
+            onClick={() => ContractJoinPoolStacking()}
           >
             Join Pool
           </button>
-        </div>
-      )}
-      {joinPoolButtonClicked && showAlertJoinPool && (
-        <div className="block-margins-auto alert-container-stacking-actions-container-stacking">
-          <Alert
-            severity="warning"
-            onClose={() => {
-              setJoinPoolButtonClicked(false);
-              setShowAlertJoinPool(false);
-              setDisableJoinPoolButton(false);
-            }}
-          >
-            In order to Join the pool, you have to click the Delegate pox-2 button first.
-          </Alert>
         </div>
       )}
     </div>

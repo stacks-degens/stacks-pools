@@ -11,13 +11,16 @@ interface IStackerProfileProps {
 }
 
 const StackerProfile = ({ currentRole, connectedWallet, explorerLink, userAddress }: IStackerProfileProps) => {
+  console.log('currentRole', currentRole);
   return (
     <div>
       <div className="principal-content-profile-page">
         <RoleIntroStacking currentRole={currentRole} />
         <div
           className={
-            currentRole === 'Provider' ? 'main-info-container-stacking' : 'main-info-container-stacking-normal-user'
+            currentRole === 'Provider' || currentRole === 'Stacker'
+              ? 'main-info-container-stacking'
+              : 'main-info-container-stacking-normal-user'
           }
         >
           <AboutContainerStacking
@@ -25,7 +28,7 @@ const StackerProfile = ({ currentRole, connectedWallet, explorerLink, userAddres
             connectedWallet={connectedWallet}
             explorerLink={explorerLink}
           />
-          {currentRole === 'Provider' && (
+          {(currentRole === 'Provider' || currentRole === 'Stacker') && (
             <ActionsContainerStacking userAddress={userAddress} currentRole={currentRole} />
           )}
         </div>

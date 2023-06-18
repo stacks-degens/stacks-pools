@@ -33,7 +33,8 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
   const claimRewards = async () => {
     if (claimRewardsInputAmount !== null) {
       const wasBlockClaimed = await readOnlyClaimedBlockStatusStacking(claimRewardsInputAmount);
-      if (wasBlockClaimed === false) {
+      console.log(wasBlockClaimed);
+      if (wasBlockClaimed === null) {
         ContractRewardDistributionStacking(claimRewardsInputAmount);
       } else {
         alert('Block already claimed');
@@ -48,7 +49,7 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
       } else {
         console.log(amount);
         if (userAddress !== null) {
-          ContractDelegateSTXStacking(amount);
+          ContractDelegateSTXStacking(amount, userAddress);
         }
       }
     }
@@ -122,7 +123,7 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
                   type="number"
                   onChange={(e) => {
                     const inputAmount = e.target.value;
-                    const inputAmountToInt = parseInt(inputAmount);
+                    const inputAmountToInt = parseFloat(inputAmount);
                     setDelegateAmountInput(inputAmountToInt);
                     console.log('delegate input', inputAmount);
                   }}
@@ -202,7 +203,7 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
                   type="number"
                   onChange={(e) => {
                     const inputAmount = e.target.value;
-                    const inputAmountToInt = parseFloat(inputAmount);
+                    const inputAmountToInt = parseInt(inputAmount);
                     setClaimRewardsInputAmount(inputAmountToInt);
                     console.log('claim rewards input', inputAmount);
                   }}

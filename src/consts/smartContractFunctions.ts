@@ -13,6 +13,7 @@ import {
   makeStandardSTXPostCondition,
   makeContractSTXPostCondition,
   STXPostCondition,
+  noneCV,
 } from '@stacks/transactions';
 import { convertPrincipalToArg, convertStringToArg } from './converter';
 
@@ -23,8 +24,7 @@ const CallFunctions = (
   type: 'mining' | 'stacking' | 'pox',
   function_args: ClarityValue[],
   contractFunctionName: string,
-  post_condition_args: STXPostCondition[],
-  callback?: () => void
+  post_condition_args: STXPostCondition[]
 ) => {
   const options = {
     network: contractNetwork,
@@ -38,7 +38,6 @@ const CallFunctions = (
     onFinish: (data: FinishedTxData) => {
       console.log(transactionUrl[network](data.txId).explorerUrl);
       console.log(transactionUrl[network](data.txId).apiUrl);
-      callback?.();
     },
     onCancel: () => {
       console.log('onCancel:', 'Transaction was canceled');
@@ -253,10 +252,10 @@ export const ContractSetAutoExchangeMining = (value: boolean) => {
 // args: (amount uint)
 // what does it do: delegate stx
 
-export const ContractDelegateSTXStacking = (amount: number) => {
+export const ContractDelegateSTXStacking = (amount: number, userAddress: string) => {
   const type = 'stacking';
   const convertedArgs = [uintCV(amount * 1000000)];
-  // const postConditions = createPostConditionSTXTransferToContract("", amount * 1000000);
+  // const postConditions = createPostConditionSTXTransferToContract(userAddress, amount * 1000000);
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.delegateStx, []);
 };
 
@@ -283,10 +282,11 @@ export const ContractRewardDistributionStacking = (blockHeight: number) => {
 // args: (amount uint)
 // what does it do: deposits stx into user's account
 
-export const ContractDepositSTXStacking = (amount: number) => {
+export const ContractDepositSTXStacking = (amount: number, userAddress: string) => {
   const type = 'stacking';
   const convertedArgs = [uintCV(amount * 1000000)];
-  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.depositStx, []);
+  const postConditions = createPostConditionSTXTransferToContract(userAddress, amount * 1000000);
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.depositStx, [postConditions]);
 };
 
 //set-liquidity-provider
@@ -303,28 +303,35 @@ export const ContractSetNewLiquidityProvider = (newProvider: string) => {
 // args: (amount uint)
 // what does it do: deposits stx into user's account
 
-export const ContractReserveFundsFutureRewardsStacking = (amount: number, callback?: () => void) => {
+export const ContractReserveFundsFutureRewardsStacking = (amount: number, userAddress: string) => {
   const type = 'stacking';
   const convertedArgs = [uintCV(amount * 1000000)];
-  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.lockInPool, []);
+  const postConditions = createPostConditionSTXTransferToContract(userAddress, amount * 1000000);
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.lockInPool, [postConditions]);
 };
 
 //unlock-extra-reserved-funds
 // args: none
 // what does it do: deposits stx into user's account
 
-export const ContractUnlockExtraReserveFundsStacking = (callback?: () => void) => {
+export const ContractUnlockExtraReserveFundsStacking = () => {
   const type = 'stacking';
-  CallFunctions(type, [], functionMapping[type].publicFunctions.unlockExtraStxInPool, [], callback);
+  CallFunctions(type, [], functionMapping[type].publicFunctions.unlockExtraStxInPool, []);
 };
 
 //allow-contract-caller
 // args: (principal address)
 // what does it do: allows to join pool for stacking
 
-export const ContractDelegatePoxStacking = (address: string) => {
+export const ContractAllowInPoolPoxScStacking = () => {
   const type = 'pox';
-  const convertedArgs = [convertPrincipalToArg(address)];
+  const convertedArgs = [
+    convertPrincipalToArg(
+      `${contractMapping['stacking'][network].contractAddress}.${contractMapping['stacking'][network].contractName}`
+    ),
+    noneCV(),
+  ];
+  // console.log(address);
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.allowContractCaller, []);
 };
 

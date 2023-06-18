@@ -56,7 +56,7 @@ const DashboardStacking = () => {
   useEffect(() => {
     const getReturnCovered = async () => {
       const returnValue = await readOnlyGetReturnStacking();
-      setReturnCovered(parseInt(returnValue));
+      setReturnCovered(parseFloat(returnValue));
     };
 
     getReturnCovered();
@@ -65,7 +65,7 @@ const DashboardStacking = () => {
   useEffect(() => {
     const getMinimumDepositProvider = async () => {
       const minimum = await readOnlyGetMinimumDepositLiquidityProviderStacking();
-      setMinimumDepositProvider(parseInt(minimum));
+      setMinimumDepositProvider(parseFloat(minimum));
     };
 
     getMinimumDepositProvider();
