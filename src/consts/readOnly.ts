@@ -561,8 +561,6 @@ export const readOnlyLockedBalanceUser = async (
       ? cvToJSON(userData).value.value[parameter].value.value
       : null
     : null;
-  // const statusInfo = cvToJSON(status).value.value;
-  // return statusInfo === 'is-provider' ? 'Provider' : statusInfo === 'is-stacker' ? 'Stacker' : 'NormalUserStacking';
 };
 
 // was-block-claimed
