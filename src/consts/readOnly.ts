@@ -457,3 +457,16 @@ export const readOnlyGetLiquidityProvider = async () => {
   return cvToJSON(currentLiquidityProvider).value;
   // return currentLiquidityProvider;
 };
+
+// get-pool-members
+// args: none
+// what does it do: returns a list of stackers that are in pool
+// return: stackers in pool list
+
+export const ReadOnlyGetStackersList = async () => {
+  const type = 'stacking';
+  const stackersList = cvToJSON(
+    await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getStackersList)
+  );
+  return stackersList;
+};

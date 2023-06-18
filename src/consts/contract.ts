@@ -107,7 +107,7 @@ interface IFunctionMapping {
     };
   };
   stacking: {
-    readOnlyFunctions: { getLiquidityProvider: string };
+    readOnlyFunctions: { getLiquidityProvider: string; getStackersList: string };
     publicFunctions: {};
   };
 }
@@ -160,5 +160,8 @@ export const functionMapping: IFunctionMapping = {
       setAutoExchange: 'set-auto-exchange',
     },
   },
-  stacking: { readOnlyFunctions: { getLiquidityProvider: 'get-liquidity-provider' }, publicFunctions: {} },
+  stacking: {
+    readOnlyFunctions: { getLiquidityProvider: 'get-liquidity-provider', getStackersList: 'get-pool-members' },
+    publicFunctions: {},
+  },
 };
