@@ -35,7 +35,6 @@ const ReadOnlyFunctions = async (
     functionArgs: function_args,
     senderAddress: userAddress,
   };
-  console.log(readOnlyResults);
   return callReadOnlyFunction(readOnlyResults);
 };
 
@@ -481,7 +480,6 @@ export const readOnlyGetLiquidityProvider = async () => {
     [],
     functionMapping[type].readOnlyFunctions.getLiquidityProvider
   );
-  console.log('from read only: ', currentLiquidityProvider);
   return cvToJSON(currentLiquidityProvider).value;
   // return currentLiquidityProvider;
 };
@@ -547,6 +545,23 @@ export const readOnlyAddressStatusStacking = async (args: string) => {
   const status = await ReadOnlyFunctions(type, [statusArgs], functionMapping[type].readOnlyFunctions.getAddressStatus);
   const statusInfo = cvToJSON(status).value.value;
   return statusInfo === 'is-provider' ? 'Provider' : statusInfo === 'is-stacker' ? 'Stacker' : 'NormalUserStacking';
+};
+
+export const readOnlyLockedBalanceUser = async (
+  userAddress: string,
+  parameter: 'locked-balance' | 'delegated-balance' | 'until-burn-ht'
+) => {
+  const type = 'stacking';
+  const userDataArgs = convertPrincipalToArg(userAddress);
+  const userData = await ReadOnlyFunctions(type, [userDataArgs], functionMapping[type].readOnlyFunctions.getUserData);
+
+  return ['locked-balance', 'delegated-balance'].indexOf(parameter) > -1
+    ? parseInt(cvToJSON(userData).value.value[parameter].value)
+    : parameter === 'until-burn-ht'
+    ? cvToJSON(userData).value.value[parameter].value
+      ? cvToJSON(userData).value.value[parameter].value.value
+      : null
+    : null;
 };
 
 // was-block-claimed

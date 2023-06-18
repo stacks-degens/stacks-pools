@@ -8,10 +8,20 @@ interface IStackerProfileProps {
   connectedWallet: string | null;
   explorerLink: string | undefined;
   userAddress: string | null;
+  lockedInPool: number | null;
+  delegatedToPool: number | null;
+  userUntilBurnHt: number | null;
 }
 
-const StackerProfile = ({ currentRole, connectedWallet, explorerLink, userAddress }: IStackerProfileProps) => {
-  console.log('currentRole', currentRole);
+const StackerProfile = ({
+  currentRole,
+  connectedWallet,
+  explorerLink,
+  userAddress,
+  lockedInPool,
+  delegatedToPool,
+  userUntilBurnHt,
+}: IStackerProfileProps) => {
   return (
     <div>
       <div className="principal-content-profile-page">
@@ -26,7 +36,10 @@ const StackerProfile = ({ currentRole, connectedWallet, explorerLink, userAddres
           <AboutContainerStacking
             currentRole={currentRole}
             connectedWallet={connectedWallet}
+            lockedInPool={lockedInPool}
             explorerLink={explorerLink}
+            delegatedToPool={delegatedToPool}
+            userUntilBurnHt={userUntilBurnHt}
           />
           {(currentRole === 'Provider' || currentRole === 'Stacker') && (
             <ActionsContainerStacking userAddress={userAddress} currentRole={currentRole} />

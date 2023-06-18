@@ -134,6 +134,7 @@ interface IFunctionMapping {
       wasBlockClaimed: string;
       getReturnCovered: string;
       getMinimumDeposit: string;
+      getUserData: string;
     };
     publicFunctions: {
       delegateStx: string;
@@ -144,6 +145,7 @@ interface IFunctionMapping {
       lockInPool: string;
       unlockExtraStxInPool: string;
       tryEnterPool: string;
+      updateScBalances: string;
     };
   };
   pox: {
@@ -217,6 +219,7 @@ export const functionMapping: IFunctionMapping = {
       wasBlockClaimed: 'was-block-claimed',
       getReturnCovered: 'get-return',
       getMinimumDeposit: 'get-minimum-deposit-liquidity-provider',
+      getUserData: 'get-user-data',
     },
     publicFunctions: {
       delegateStx: 'delegate-stx',
@@ -227,6 +230,7 @@ export const functionMapping: IFunctionMapping = {
       lockInPool: 'reserve-funds-future-rewards',
       unlockExtraStxInPool: 'unlock-extra-reserved-funds',
       tryEnterPool: 'join-stacking-pool',
+      updateScBalances: 'update-sc-balances',
     },
   },
   pox: {
