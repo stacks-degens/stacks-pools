@@ -57,7 +57,12 @@ const ProfileStacking = () => {
         <h2>Profile</h2>
       </div>
       {currentRole === 'Provider' ? (
-        <StackerProfile currentRole={currentRole} connectedWallet={connectedWallet} explorerLink={explorerLink} />
+        <StackerProfile
+          currentRole={currentRole}
+          connectedWallet={connectedWallet}
+          explorerLink={explorerLink}
+          userAddress={userAddress}
+        />
       ) : (
         ''
       )}
