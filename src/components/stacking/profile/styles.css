@@ -125,3 +125,11 @@
 #revoke-delegate-button button {
   width: 270px !important;
 }
+
+@media screen and (min-width: 992px) and (max-width: 1180px) {
+  .profile-page-main-container .button-container-action-container button {
+    font-size: 18px;
+    width: 270px;
+    height: 45px;
+  }
+}

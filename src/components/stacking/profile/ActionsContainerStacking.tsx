@@ -11,12 +11,14 @@ import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme, selectUserSessionState } from '../../../redux/reducers/user-state';
 import { Alert } from '@mui/material';
 import { ElectricBolt } from '@mui/icons-material';
+import ActionsContainerProviderStacking from './ActionsContainerProviderStacking';
 
 interface IActionsContainerStackingProps {
   userAddress: string | null;
+  currentRole: string;
 }
 
-const ActionsContainerStacking = ({ userAddress }: IActionsContainerStackingProps) => {
+const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContainerStackingProps) => {
   // const [withdrawAmountInput, setWithdrawAmountInput] = useState<number | null>(null);
   // const [totalWithdrawals, setTotalWithdrawals] = useState<number | null>(null);
   const [showAlertLeavePool, setShowAlertLeavePool] = useState<boolean>(false);
@@ -220,6 +222,7 @@ const ActionsContainerStacking = ({ userAddress }: IActionsContainerStackingProp
             </div>
           </div>
         </div>
+        {currentRole === 'Provider' && <ActionsContainerProviderStacking userAddress={userAddress} />}
         {leavePoolButtonClicked && showAlertLeavePool && (
           <div className="block-margins-auto alert-container-actions-container">
             <Alert
