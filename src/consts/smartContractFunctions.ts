@@ -287,3 +287,13 @@ export const ContractDepositSTXStacking = (amount: number) => {
   // const postConditions = createPostConditionSTXTransferToContract(userAddress, amount * 1000000);
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.depositStx, []);
 };
+
+//set-liquidity-provider
+// args: ()
+// what does it do: sets a new provider
+
+export const ContractSetNewLiquidityProvider = (newProvider: string) => {
+  const type = 'stacking';
+  const convertedArgs = [convertPrincipalToArg(newProvider)];
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.setLiquidityProvider, []);
+};
