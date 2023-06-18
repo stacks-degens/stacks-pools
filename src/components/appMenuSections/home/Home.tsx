@@ -16,7 +16,7 @@ const Home = () => {
       }}
     >
       <div style={{ color: colors[appCurrentTheme].colorWriting }} className="page-heading-title">
-        <h2>Decentralized Mining Pool</h2>
+        <h2>Stacks Decentralized Pools</h2>
         <h2>Home</h2>
       </div>
       <div style={{ marginTop: 0 }}>
