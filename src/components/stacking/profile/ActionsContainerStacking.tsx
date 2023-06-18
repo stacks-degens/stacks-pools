@@ -3,6 +3,7 @@ import colors from '../../../consts/colorPallete';
 import { useEffect, useState } from 'react';
 import {
   ContractDelegateSTXStacking,
+  ContractDisallowContractCallerStacking,
   ContractLeavePoolStacking,
   ContractRevokeDelegateStacking,
   ContractRewardDistributionStacking,
@@ -78,6 +79,10 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
     ContractRevokeDelegateStacking();
   };
 
+  const disallowContractCaller = () => {
+    if (userAddress !== null) ContractDisallowContractCallerStacking(userAddress);
+  };
+
   useEffect(() => {
     if (leavePoolButtonClicked && showAlertLeavePool) setDisableLeavePoolButton(true);
   }, [leavePoolButtonClicked, showAlertLeavePool]);
@@ -145,6 +150,19 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
                 onClick={revokeDelegate}
               >
                 Revoke delegate
+              </button>
+            </div>
+          </div>
+          <div
+            id="revoke-delegate-button"
+            className="content-sections-title-info-container leave-pool-button-action-container"
+          >
+            <div className="flex-center">
+              <button
+                className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+                onClick={disallowContractCaller}
+              >
+                Disallow contract caller
               </button>
             </div>
           </div>

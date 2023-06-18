@@ -345,3 +345,13 @@ export const ContractRevokeDelegateStacking = () => {
   const type = 'pox';
   CallFunctions(type, [], functionMapping[type].publicFunctions.revokeDelegate, []);
 };
+
+//disallow-contract-caller
+// args: (principal address)
+// what does it do: allows to join pool for stacking
+
+export const ContractDisallowContractCallerStacking = (address: string) => {
+  const type = 'pox';
+  const convertedArgs = [convertPrincipalToArg(address)];
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.disallowContractCaller, []);
+};
