@@ -17,6 +17,7 @@ import {
   bufferCV,
 } from '@stacks/transactions';
 import { convertPrincipalToArg, convertStringToArg } from './converter';
+import { crypto } from 'bitcoinjs-lib';
 import forge from 'node-forge';
 import RIPEMD160 from 'ripemd160';
 // const forge = require('node-forge');
@@ -318,34 +319,40 @@ export const ContractSetNewLiquidityProvider = (newProvider: string) => {
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.setLiquidityProvider, []);
 };
 
-export const ContractSetNewBtcPoxAddress = (publicKey: string) => {};
-//   const type = 'stacking';
-//   // const pubkey = '02e8f7dc91e49a577ce9ea8989c7184aea8886fe5250f02120dc6f98e3619679b0';
-//   const version = '00';
-//   const versionBuffer = stringToUint8Array(version);
-//   const pubKeyBuffer = stringToUint8Array(publicKey);
+export const ContractSetNewBtcPoxAddress = (publicKey: string) => {
+  const type = 'stacking';
+  // const publicKeyHex =
+  //   "02e8f7dc91e49a577ce9ea8989c7184aea8886fe5250f02120dc6f98e3619679b0";
+  // const publicKey = Buffer.from(publicKeyHex, "hex");
+  // const pKhash160 = crypto.hash160(publicKey);
+  // const btcHashBuffer = pKhash160;
+  // const pubkey = '02e8f7dc91e49a577ce9ea8989c7184aea8886fe5250f02120dc6f98e3619679b0';
+  const version = '00';
+  const versionBuffer = stringToUint8Array(version);
+  const pubKeyBuffer = Buffer.from(publicKey, 'hex');
+  const pKhash160 = crypto.hash160(publicKey);
 
-//   console.log('pubKeyBuffer, versionBuffer', pubKeyBuffer, versionBuffer);
-//   console.log('hash160', hash160(pubKeyBuffer));
-//   // const functionArgs = [bufferCV(Uint8Array.from(versionBuffer)), bufferCV(Uint8Array.from(hash160(pubKeyBuffer)))];
+  console.log('pubKeyBuffer, versionBuffer', pubKeyBuffer, versionBuffer);
+  console.log('hash160', hash160(pubKeyBuffer));
+  // const functionArgs = [bufferCV(Uint8Array.from(versionBuffer)), bufferCV(Uint8Array.from(hash160(pubKeyBuffer)))];
 
-//   // CallFunctions(type, functionArgs, functionMapping[type].publicFunctions.setPoolPoxAddress, []);
-// };
+  // CallFunctions(type, functionArgs, functionMapping[type].publicFunctions.setPoolPoxAddress, []);
+};
 
-// const hash160 = (pubKeyBuffer: any) => {
-//   // => 0df020ba32aa9b8b904471ff582ce6b579bf8bc8
-//   const md = forge.md.sha256.create();
-//   md.update(pubKeyBuffer);
-//   const hash = md.digest().toHex();
-//   console.log(new RIPEMD160().update(hash).digest('hex'));
+const hash160 = (pubKeyBuffer: any) => {
+  // => 0df020ba32aa9b8b904471ff582ce6b579bf8bc8
+  const md = forge.md.sha256.create();
+  md.update(pubKeyBuffer);
+  const hash = md.digest().toHex();
+  console.log(new RIPEMD160().update(hash).digest('hex'));
 
-//   return new RIPEMD160().update(hash).digest('hex');
-// };
+  return new RIPEMD160().update(hash).digest('hex');
+};
 
-// function stringToUint8Array(str: string) {
-//   const encoder = new TextEncoder();
-//   return encoder.encode(str);
-// }
+function stringToUint8Array(str: string) {
+  const encoder = new TextEncoder();
+  return encoder.encode(str);
+}
 
 // reserve-funds-future-rewards
 // args: (amount uint)
