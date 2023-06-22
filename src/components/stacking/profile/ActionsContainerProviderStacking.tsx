@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import {
   ContractDepositSTXStacking,
   ContractReserveFundsFutureRewardsStacking,
+  ContractSetNewBtcPoxAddress,
   ContractSetNewLiquidityProvider,
   ContractUnlockExtraReserveFundsStacking,
 } from '../../../consts/smartContractFunctions';
@@ -18,6 +19,7 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
   const [depositAmountInput, setDepositAmountInput] = useState<number | null>(null);
   const [lockInPoolAmountInput, setLockInPoolAmountInput] = useState<number | null>(null);
   const [currentLiquidityProvider, setCurrentLiquidityProvider] = useState<string | null>(null);
+  const [newPoolPoxAddressPubKey, setNewPoolPoxAddressPubKey] = useState<string | null>(null);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   const depositAmount = () => {
@@ -155,16 +157,25 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
       </div>
       <div className="flex-container align-items-center input-line-actions-container-stacking">
         <div className="width-55 label-and-input-container-actions-container">
-          <label className="custom-label">Insert your new btc address</label>
+          <label className="custom-label">Insert the new Pool's PoX address' public key</label>
           <div className="bottom-margins">
-            {/* <input className="custom-input" type="text" onChange={(e) => setBtcAddress(e.target.value)}></input> */}
-            <input className="custom-input" type="text" onChange={() => {}}></input>
+            <input
+              className="custom-input"
+              type="text"
+              onChange={(e) => {
+                console.log(e);
+                setNewPoolPoxAddressPubKey(e.target.value);
+              }}
+            ></input>
           </div>
         </div>
         <div className="button-container-stacking-action-container-stacking">
           <button
             className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
-            // onClick={changeBtcAddress}
+            onClick={() => {
+              console.log(newPoolPoxAddressPubKey);
+              if (newPoolPoxAddressPubKey !== null) ContractSetNewBtcPoxAddress(newPoolPoxAddressPubKey);
+            }}
           >
             Set btc address pox rewards
           </button>

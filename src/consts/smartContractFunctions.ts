@@ -14,6 +14,8 @@ import {
   makeContractSTXPostCondition,
   STXPostCondition,
   noneCV,
+  bufferCV,
+  tupleCV,
 } from '@stacks/transactions';
 import { convertPrincipalToArg, convertStringToArg } from './converter';
 
@@ -302,6 +304,18 @@ export const ContractSetNewLiquidityProvider = (newProvider: string) => {
   const type = 'stacking';
   const convertedArgs = [convertPrincipalToArg(newProvider)];
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.setLiquidityProvider, []);
+};
+
+export const ContractSetNewBtcPoxAddress = (publicKey: string) => {
+  const type = 'stacking';
+  const version = '00';
+  const versionBuffer = Buffer.from(version, 'hex');
+  const pubKeyBuffer = Buffer.from(publicKey, 'hex');
+  const pKhash160 = crypto.hash160(pubKeyBuffer);
+
+  const functionArgs = [tupleCV({ hashbytes: bufferCV(pKhash160), version: bufferCV(versionBuffer) })];
+
+  CallFunctions(type, functionArgs, functionMapping[type].publicFunctions.setPoolPoxAddress, []);
 };
 
 // reserve-funds-future-rewards
