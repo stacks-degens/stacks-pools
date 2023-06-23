@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import {
   ContractDepositSTXStacking,
   ContractReserveFundsFutureRewardsStacking,
+  ContractSetNewBtcPoxAddress,
   ContractSetNewLiquidityProvider,
   ContractUnlockExtraReserveFundsStacking,
 } from '../../../consts/smartContractFunctions';
@@ -18,6 +19,7 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
   const [depositAmountInput, setDepositAmountInput] = useState<number | null>(null);
   const [lockInPoolAmountInput, setLockInPoolAmountInput] = useState<number | null>(null);
   const [currentLiquidityProvider, setCurrentLiquidityProvider] = useState<string | null>(null);
+  const [newPoolPoxAddress, setNewPoolPoxAddress] = useState<string | null>(null);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   const depositAmount = () => {
@@ -158,13 +160,21 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
           <label className="custom-label">Insert your new btc address</label>
           <div className="bottom-margins">
             {/* <input className="custom-input" type="text" onChange={(e) => setBtcAddress(e.target.value)}></input> */}
-            <input className="custom-input" type="text" onChange={() => {}}></input>
+            <input
+              className="custom-input"
+              type="text"
+              onChange={(e) => {
+                setNewPoolPoxAddress(e.target.value);
+              }}
+            ></input>
           </div>
         </div>
         <div className="button-container-stacking-action-container-stacking">
           <button
             className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
-            // onClick={changeBtcAddress}
+            onClick={() => {
+              if (newPoolPoxAddress !== null) ContractSetNewBtcPoxAddress(newPoolPoxAddress);
+            }}
           >
             Set btc address pox rewards
           </button>

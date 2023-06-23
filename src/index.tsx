@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { store, persistor } from '../src/redux/store';
 import Authenticate from './components/Authenticate';
 import { PersistGate } from 'redux-persist/integration/react';
+import 'stream-browserify';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
