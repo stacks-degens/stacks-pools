@@ -53,6 +53,9 @@ interface EpochTimeline {
   epoch_2_05: number;
   epoch_2_1: number;
   pox_2_activation: number;
+  epoch_2_2: number;
+  epoch_2_3: number;
+  epoch_2_4: number;
 }
 
 export const DEFAULT_EPOCH_TIMELINE = {
@@ -60,6 +63,9 @@ export const DEFAULT_EPOCH_TIMELINE = {
   epoch_2_05: Constants.DEVNET_DEFAULT_EPOCH_2_05,
   epoch_2_1: Constants.DEVNET_DEFAULT_EPOCH_2_1,
   pox_2_activation: Constants.DEVNET_DEFAULT_POX_2_ACTIVATION,
+  epoch_2_2: 106,
+  epoch_2_3: 108,
+  epoch_2_4: 112,
 };
 
 const delay = () => new Promise((resolve) => setTimeout(resolve, 3000));
@@ -189,6 +195,11 @@ export const waitForRewardCycleId = async (
     height = height + offset;
   }
   return await orchestrator.waitForStacksBlockAnchoredOnBitcoinBlockOfHeight(height);
+};
+
+export const waitForStacks24 = async (orchestrator, timeline) => {
+  // Wait for 2.4 to go live
+  await orchestrator.waitForStacksBlockAnchoredOnBitcoinBlockOfHeight(timeline.epoch_2_4);
 };
 
 export const waitForNextRewardPhase = async (
@@ -453,7 +464,7 @@ export const getPoolMembers = async (network: StacksNetwork) => {
 export const getCheckDelegation = async (network: StacksNetwork, stacker: string) => {
   const supplyCall = await callReadOnlyFunction({
     contractAddress: 'ST000000000000000000002AMW42H',
-    contractName: 'pox-2',
+    contractName: 'pox-3',
     functionName: 'get-check-delegation',
     functionArgs: [principalCV(stacker)],
     senderAddress: Accounts.DEPLOYER.stxAddress,
@@ -467,7 +478,7 @@ export const getCheckDelegation = async (network: StacksNetwork, stacker: string
 };
 
 export const readRewardCyclePoxAddressList = async (network: StacksNetwork, cycleId: number) => {
-  const url = network.getMapEntryUrl('ST000000000000000000002AMW42H', 'pox-2', 'reward-cycle-pox-address-list-len');
+  const url = network.getMapEntryUrl('ST000000000000000000002AMW42H', 'pox-3', 'reward-cycle-pox-address-list-len');
   const cycleIdValue = uintCV(cycleId);
   const keyValue = tupleCV({
     'reward-cycle': cycleIdValue,
@@ -508,7 +519,7 @@ export const readRewardCyclePoxAddressList = async (network: StacksNetwork, cycl
 export const readRewardCyclePoxAddressForAddress = async (network: StacksNetwork, cycleId: number, address: string) => {
   // TODO: There might be a better way to do this using the `stacking-state`
   //       map to get the index
-  const url = network.getMapEntryUrl('ST000000000000000000002AMW42H', 'pox-2', 'reward-cycle-pox-address-list-len');
+  const url = network.getMapEntryUrl('ST000000000000000000002AMW42H', 'pox-3', 'reward-cycle-pox-address-list-len');
   const cycleIdValue = uintCV(cycleId);
   const keyValue = tupleCV({
     'reward-cycle': cycleIdValue,
@@ -559,7 +570,7 @@ export const readRewardCyclePoxAddressListAtIndex = async (
   cycleId: number,
   index: number
 ): Promise<RewardCyclePoxAddressMapEntry | null | undefined> => {
-  const url = network.getMapEntryUrl('ST000000000000000000002AMW42H', 'pox-2', 'reward-cycle-pox-address-list');
+  const url = network.getMapEntryUrl('ST000000000000000000002AMW42H', 'pox-3', 'reward-cycle-pox-address-list');
   const cycleIdValue = uintCV(cycleId);
   const indexValue = uintCV(index);
   const keyValue = tupleCV({

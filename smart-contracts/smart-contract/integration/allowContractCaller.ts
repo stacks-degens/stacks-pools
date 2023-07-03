@@ -5,9 +5,9 @@ import {
   makeContractCall,
   noneCV,
   PostConditionMode,
-} from "@stacks/transactions";
-import { mainContract, poxPools1CycleContract } from "./contracts";
-import { StacksTestnet } from "@stacks/network";
+} from '@stacks/transactions';
+import { mainContract, poxPools1CycleContract } from './contracts';
+import { StacksTestnet } from '@stacks/network';
 
 export async function broadcastAllowContractCallerContracCall({
   senderKey,
@@ -19,13 +19,10 @@ export async function broadcastAllowContractCallerContracCall({
   nonce: number;
 }) {
   let txOptions = {
-    contractAddress: "ST000000000000000000002AMW42H",
-    contractName: "pox-2",
-    functionName: "allow-contract-caller",
-    functionArgs: [
-      contractPrincipalCV(mainContract.address, mainContract.name),
-      noneCV(),
-    ],
+    contractAddress: 'ST000000000000000000002AMW42H',
+    contractName: 'pox-3',
+    functionName: 'allow-contract-caller',
+    functionArgs: [contractPrincipalCV(mainContract.address, mainContract.name), noneCV()],
     network,
     nonce,
     anchorMode: AnchorMode.OnChainOnly,

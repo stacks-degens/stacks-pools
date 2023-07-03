@@ -12,6 +12,7 @@ import {
   getStackerWeight,
   readRewardCyclePoxAddressForAddress,
   readRewardCyclePoxAddressListAtIndex,
+  waitForStacks24,
 } from './helpers-stacking';
 import {
   broadcastStackSTX,
@@ -47,7 +48,7 @@ describe('testing stacking under epoch 2.1', () => {
   let timeline = DEFAULT_EPOCH_TIMELINE;
 
   beforeAll(() => {
-    orchestrator = buildDevnetNetworkOrchestrator(getNetworkIdFromEnv());
+    orchestrator = buildDevnetNetworkOrchestrator(getNetworkIdFromEnv(), timeline);
     orchestrator.start(120000);
   });
 
@@ -432,6 +433,7 @@ describe('testing stacking under epoch 2.1', () => {
   // });
 
   it('whole flow many cycles 5 stackers', async () => {
+    console.log('POX-3 test beginning');
     const network = new StacksTestnet({ url: orchestrator.getStacksNodeUrl() });
 
     let usersList = [Accounts.WALLET_8, Accounts.WALLET_1, Accounts.WALLET_2, Accounts.WALLET_3];
@@ -453,7 +455,9 @@ describe('testing stacking under epoch 2.1', () => {
 
     // Wait for Pox-2 activation
 
-    await orchestrator.waitForStacksBlockAnchoredOnBitcoinBlockOfHeight(timeline.pox_2_activation + 1, 10, true);
+    await waitForStacks24(orchestrator, timeline);
+
+    // await orchestrator.waitForStacksBlockAnchoredOnBitcoinBlockOfHeight(timeline.pox_2_activation + 1, 10, true);
 
     console.log(await getPoxInfo(network));
 
