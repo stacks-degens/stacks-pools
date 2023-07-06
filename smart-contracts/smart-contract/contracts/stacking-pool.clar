@@ -58,6 +58,7 @@
 (define-constant pox-2-contract (as-contract 'ST000000000000000000002AMW42H.pox-2))
 (define-constant blocks-to-pass-until-reward u101)
 (define-constant max-return-div-accepted u20)
+(define-constant ONE-6 u1000000)
 ;; liquidity provider data vars
 (define-data-var sc-total-balance uint u0)
 (define-data-var sc-owned-balance uint u0)
@@ -487,7 +488,7 @@
         (default-to u0 
           (get weight-percentage 
             (map-get? stacker-weights-per-reward-cycle {stacker: stacker, reward-cycle: (var-get reward-cycle-to-distribute-rewards)}))))
-      (stacker-reward (/ (* stacker-weight reward) u1000000))) 
+      (stacker-reward (/ (* stacker-weight reward) ONE-6))) 
       (if (> stacker-weight u0) 
           (match (as-contract (stx-transfer? stacker-reward tx-sender stacker))
             success 
@@ -510,7 +511,7 @@
 (define-private (weight-calculator (stacker principal) (stacker-locked uint) (total-locked uint) (liquidity-provider-locked uint)) 
 (begin 
   (asserts! (> (+ total-locked liquidity-provider-locked) u0) err-no-locked-funds) 
-  (ok (/ (* stacker-locked u1000000) (+ total-locked liquidity-provider-locked)))))
+  (ok (/ (* stacker-locked ONE-6) (+ total-locked liquidity-provider-locked)))))
 
 (define-private (calculate-all-stackers-weights (stackers-list-before-cycle (list 300 principal)) (next-reward-cycle uint))
 (begin 
@@ -533,13 +534,14 @@
       ;; total locked by a stacker
       (stacker-locked-at-reward-cycle 
         (default-to u0 (get locked-balance (map-get? user-data {address: stacker}))))
+      (liquidity-provider-contribution (+ liquidity-provider-reserved-at-reward-cycle stacker-locked-at-reward-cycle))
       ;; the weight calculator result for the given stacker
       (weight-calculator-result 
         (if 
           (is-eq stacker (var-get liquidity-provider)) 
           (weight-calculator 
             stacker 
-            liquidity-provider-reserved-at-reward-cycle 
+            liquidity-provider-contribution
             total-locked-at-reward-cycle 
             liquidity-provider-reserved-at-reward-cycle)
           (weight-calculator 

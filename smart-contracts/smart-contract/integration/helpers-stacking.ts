@@ -82,6 +82,7 @@ export function buildDevnetNetworkOrchestrator(
     },
   };
   let consolidatedConfig = getIsolatedNetworkConfigUsingNetworkId(networkId, config);
+  console.log('isolated Config!', consolidatedConfig);
   let orchestrator = new DevnetNetworkOrchestrator(consolidatedConfig, 2500);
   return orchestrator;
 }

@@ -41,14 +41,16 @@ import {
 } from './helper-fp';
 import { expect } from 'chai';
 import { getNonce, optionalCVOf, uintCV } from '@stacks/transactions';
+import { startOrchestrator } from './functional';
 
 describe('testing stacking under epoch 2.1', () => {
   let orchestrator: DevnetNetworkOrchestrator;
   let timeline = DEFAULT_EPOCH_TIMELINE;
 
   beforeAll(() => {
-    orchestrator = buildDevnetNetworkOrchestrator(getNetworkIdFromEnv());
-    orchestrator.start(120000);
+    // orchestrator = buildDevnetNetworkOrchestrator(getNetworkIdFromEnv(), timeline);
+    // orchestrator.start(120000);
+    orchestrator = startOrchestrator();
   });
 
   afterAll(() => {
