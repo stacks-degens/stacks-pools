@@ -35,6 +35,7 @@ const ReadOnlyFunctions = async (
     functionArgs: function_args,
     senderAddress: userAddress,
   };
+  console.log(readOnlyResults);
   return callReadOnlyFunction(readOnlyResults);
 };
 
