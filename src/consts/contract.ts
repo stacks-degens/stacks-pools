@@ -59,17 +59,17 @@ export const contractMapping: ContractMapping = {
   pox: {
     mainnet: {
       contractAddress: 'SP000000000000000000002Q6VF78',
-      contractName: 'pox-2', // TODO: complete when deployed
-      owner: '', // TODO: complete when deployed
+      contractName: 'pox-3', // TODO: complete when deployed
+      owner: 'SP000000000000000000002Q6VF78', // TODO: complete when deployed
     },
     testnet: {
       contractAddress: 'ST000000000000000000002AMW42H',
-      contractName: 'pox-2',
+      contractName: 'pox-3',
       owner: '',
     },
     devnet: {
       contractAddress: 'ST000000000000000000002AMW42H',
-      contractName: 'pox-2',
+      contractName: 'pox-3',
       owner: 'ST000000000000000000002AMW42H',
     },
   },
