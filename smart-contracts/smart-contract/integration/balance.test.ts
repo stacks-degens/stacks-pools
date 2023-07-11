@@ -19,16 +19,14 @@ import {
 } from './helpers';
 import { StacksTestnet } from '@stacks/network';
 import { DevnetNetworkOrchestrator } from '@hirosystems/stacks-devnet-js';
-import { startOrchestrator } from './functional';
 
 describe('testing depositing balance stx', () => {
   let orchestrator: DevnetNetworkOrchestrator;
   let timeline = DEFAULT_EPOCH_TIMELINE;
 
   beforeAll(() => {
-    orchestrator = startOrchestrator();
-    // orchestrator = buildDevnetNetworkOrchestrator(getNetworkIdFromEnv());
-    // orchestrator.start(120000);
+    orchestrator = buildDevnetNetworkOrchestrator(getNetworkIdFromEnv(), timeline);
+    orchestrator.start(120000);
   });
 
   afterAll(() => {

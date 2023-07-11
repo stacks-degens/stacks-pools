@@ -453,9 +453,11 @@ describe('testing stacking under epoch 2.1', () => {
     expect((metadata as any)['success']).toBe(true);
     expect((metadata as any)['result']).toBe('(ok true)');
 
-    // Wait for Pox-2 activation
+    // Wait for Pox-3 activation
 
     await waitForStacks24(orchestrator, timeline);
+
+    chainUpdate = await orchestrator.waitForNextStacksBlock();
 
     // await orchestrator.waitForStacksBlockAnchoredOnBitcoinBlockOfHeight(timeline.pox_2_activation + 1, 10, true);
 
@@ -511,6 +513,8 @@ describe('testing stacking under epoch 2.1', () => {
       });
     }
     chainUpdate = await orchestrator.waitForNextStacksBlock();
+    let chainUpdate2 = await orchestrator.waitForNextStacksBlock();
+    let chainUpdate3 = await orchestrator.waitForNextStacksBlock();
 
     for (let i = 1; i < usersList.length; i++) {
       metadata = chainUpdate.new_blocks[0].block.transactions[i]['metadata'];
