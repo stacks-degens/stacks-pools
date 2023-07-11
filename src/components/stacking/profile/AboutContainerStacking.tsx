@@ -86,8 +86,12 @@ const AboutContainerStacking = ({
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">
             Delegated to the pool:{' '}
-            {delegatedToPool !== null && delegatedToPool !== 0
-              ? `${delegatedToPool / 1000000} STX`
+            {delegatedToPool !== null && delegatedToPool !== 0 && userUntilBurnHt !== null
+              ? `${delegatedToPool / 1000000} STX until Bitcoin block ${userUntilBurnHt}`
+              : delegatedToPool !== null && delegatedToPool !== 0 && userUntilBurnHt === null
+              ? ''
+              : delegatedToPool === null || delegatedToPool === 0
+              ? 'No funds delegated to the Stacking Pool'
               : 'No delegated funds'}
           </span>
           <span className="result-of-content-section"></span>
@@ -96,15 +100,6 @@ const AboutContainerStacking = ({
           <span className="bold-font">
             Locked in pool:{' '}
             {lockedInPool !== null && lockedInPool !== 0 ? `${lockedInPool / 1000000} STX` : 'No locked funds'}
-          </span>
-          <span className="result-of-content-section"></span>
-        </div>
-        <div className="content-sections-title-info-container bottom-margins">
-          <span className="bold-font">
-            Delegated to the pool:{' '}
-            {userUntilBurnHt !== null && userUntilBurnHt !== 0
-              ? `Delegated until ${userUntilBurnHt} Bitcoin block`
-              : 'No delegated funds'}
           </span>
           <span className="result-of-content-section"></span>
         </div>

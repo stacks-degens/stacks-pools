@@ -116,7 +116,7 @@ const DashboardStackingInfo = ({
             className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
             onClick={allowPoolInPoxSc}
           >
-            Allow Pool in Pox-2 SC
+            Allow Pool in PoX SC
           </button>
         </div>
       )}

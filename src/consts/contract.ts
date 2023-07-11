@@ -34,7 +34,7 @@ export const contractMapping: ContractMapping = {
     },
     devnet: {
       contractAddress: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
-      contractName: 'main-contract-5-blocks',
+      contractName: 'mining-pool-5-blocks',
       owner: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
     },
   },
@@ -52,24 +52,24 @@ export const contractMapping: ContractMapping = {
     },
     devnet: {
       contractAddress: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
-      contractName: 'main',
+      contractName: 'stacking-pool',
       owner: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
     },
   },
   pox: {
     mainnet: {
       contractAddress: 'SP000000000000000000002Q6VF78',
-      contractName: 'pox-2', // TODO: complete when deployed
-      owner: '', // TODO: complete when deployed
+      contractName: 'pox-3', // TODO: complete when deployed
+      owner: 'SP000000000000000000002Q6VF78', // TODO: complete when deployed
     },
     testnet: {
       contractAddress: 'ST000000000000000000002AMW42H',
-      contractName: 'pox-2',
+      contractName: 'pox-3',
       owner: '',
     },
     devnet: {
       contractAddress: 'ST000000000000000000002AMW42H',
-      contractName: 'pox-2',
+      contractName: 'pox-3',
       owner: 'ST000000000000000000002AMW42H',
     },
   },

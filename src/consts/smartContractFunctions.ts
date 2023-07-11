@@ -313,14 +313,7 @@ export const ContractSetNewBtcPoxAddress = (publicKey: string) => {
   const versionBuffer = Buffer.from(version, 'hex');
   const pubKeyBuffer = Buffer.from(publicKey, 'hex');
   const pKhash160 = crypto.hash160(pubKeyBuffer);
-
-  const functionArgs = [
-    tupleCV({
-      version: bufferCV(versionBuffer),
-      hashbytes: bufferCV(pKhash160),
-    }),
-  ];
-
+  const functionArgs = [tupleCV({ hashbytes: bufferCV(pKhash160), version: bufferCV(versionBuffer) })];
   CallFunctions(type, functionArgs, functionMapping[type].publicFunctions.setPoolPoxAddress, []);
 };
 
