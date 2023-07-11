@@ -18,6 +18,7 @@ import {
   tupleCV,
 } from '@stacks/transactions';
 import { convertPrincipalToArg, convertStringToArg } from './converter';
+import { crypto } from 'bitcoinjs-lib';
 
 const contractNetwork =
   network === 'mainnet' ? new StacksMainnet() : network === 'testnet' ? new StacksTestnet() : new StacksMocknet();
@@ -312,9 +313,7 @@ export const ContractSetNewBtcPoxAddress = (publicKey: string) => {
   const versionBuffer = Buffer.from(version, 'hex');
   const pubKeyBuffer = Buffer.from(publicKey, 'hex');
   const pKhash160 = crypto.hash160(pubKeyBuffer);
-
   const functionArgs = [tupleCV({ hashbytes: bufferCV(pKhash160), version: bufferCV(versionBuffer) })];
-
   CallFunctions(type, functionArgs, functionMapping[type].publicFunctions.setPoolPoxAddress, []);
 };
 

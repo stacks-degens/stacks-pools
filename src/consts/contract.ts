@@ -146,6 +146,7 @@ interface IFunctionMapping {
       unlockExtraStxInPool: string;
       tryEnterPool: string;
       updateScBalances: string;
+      setPoolPoxAddress: string;
     };
   };
   pox: {
@@ -231,6 +232,7 @@ export const functionMapping: IFunctionMapping = {
       unlockExtraStxInPool: 'unlock-extra-reserved-funds',
       tryEnterPool: 'join-stacking-pool',
       updateScBalances: 'update-sc-balances',
+      setPoolPoxAddress: 'set-pool-pox-address',
     },
   },
   pox: {
