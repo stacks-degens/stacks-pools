@@ -34,7 +34,7 @@ export const contractMapping: ContractMapping = {
     },
     devnet: {
       contractAddress: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
-      contractName: 'main-contract-5-blocks',
+      contractName: 'mining-pool-5-blocks',
       owner: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
     },
   },
@@ -52,7 +52,7 @@ export const contractMapping: ContractMapping = {
     },
     devnet: {
       contractAddress: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
-      contractName: 'main',
+      contractName: 'stacking-pool',
       owner: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
     },
   },

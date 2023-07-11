@@ -10,6 +10,7 @@ import {
 import { readOnlyGetLiquidityProvider } from '../../../consts/readOnly';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
+import { Alert } from '@mui/material';
 
 interface IActionsContainerStackingProps {
   userAddress: string | null;
@@ -18,9 +19,28 @@ interface IActionsContainerStackingProps {
 const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStackingProps) => {
   const [depositAmountInput, setDepositAmountInput] = useState<number | null>(null);
   const [lockInPoolAmountInput, setLockInPoolAmountInput] = useState<number | null>(null);
-  const [currentLiquidityProvider, setCurrentLiquidityProvider] = useState<string | null>(null);
+  const [newLiquidityProvider, setNewLiquidityProvider] = useState<string | null>(null);
   const [newPoolPoxAddressPubKey, setNewPoolPoxAddressPubKey] = useState<string | null>(null);
+  const [invalidNewProviderAddress, setInvalidNewProviderAddress] = useState<boolean>(false);
+  const [invalidNewProviderAlertOpen, setInvalidNewProviderAlertOpen] = useState<boolean>(false);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
+
+  console.log('currentLiquidityProvider', newLiquidityProvider);
+
+  const handleUpdateLiquidityProvider = () => {
+    if (newLiquidityProvider !== null) {
+      try {
+        ContractSetNewLiquidityProvider(newLiquidityProvider);
+      } catch (e) {
+        console.log(e);
+        if (e instanceof Error && e.message.includes('Invalid c32 address')) {
+          setInvalidNewProviderAddress(true);
+          setInvalidNewProviderAlertOpen(true);
+        }
+      }
+      document.getElementById('inputNewLiqProv').value = null;
+    }
+  };
 
   const depositAmount = () => {
     if (depositAmountInput !== null && !isNaN(depositAmountInput)) {
@@ -52,15 +72,6 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
   const unlockExtraStx = () => {
     ContractUnlockExtraReserveFundsStacking();
   };
-
-  useEffect(() => {
-    const getCurrentLiquidityProvider = async () => {
-      const liquidityProvider = await readOnlyGetLiquidityProvider();
-      setCurrentLiquidityProvider(liquidityProvider);
-    };
-
-    getCurrentLiquidityProvider();
-  }, [currentLiquidityProvider]);
 
   return (
     <div>
@@ -133,14 +144,27 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
           </button>
         </div>
       </div>
+      {invalidNewProviderAddress && invalidNewProviderAlertOpen && (
+        <Alert
+          severity="warning"
+          onClose={() => {
+            setInvalidNewProviderAlertOpen(false);
+          }}
+        >
+          Please insert a valid STX address
+        </Alert>
+      )}
       <div className="flex-container align-items-center input-line-actions-container-stacking">
         <div className="width-55 label-and-input-container-actions-container">
-          <label className="custom-label">Insert your new btc address</label>
+          <label className="custom-label">Insert new Provider STX Address</label>
           <div className="bottom-margins">
             <input
+              id="inputNewLiqProv"
               className="custom-input"
               type="text"
-              onChange={(e) => setCurrentLiquidityProvider(e.target.value)}
+              onChange={(e) => {
+                setNewLiquidityProvider(e.target.value);
+              }}
             ></input>
           </div>
         </div>
@@ -148,7 +172,7 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
           <button
             className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
             onClick={() => {
-              if (currentLiquidityProvider !== null) ContractSetNewLiquidityProvider(currentLiquidityProvider);
+              handleUpdateLiquidityProvider();
             }}
           >
             Set new provider

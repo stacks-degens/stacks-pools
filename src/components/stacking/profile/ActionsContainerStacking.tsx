@@ -146,19 +146,6 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
               </button>
             </div>
           </div>
-          <div
-            id="revoke-delegate-button"
-            className="content-sections-title-info-container leave-pool-button-action-container"
-          >
-            <div className="flex-center">
-              <button
-                className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
-                onClick={revokeDelegate}
-              >
-                Revoke delegate
-              </button>
-            </div>
-          </div>
           <div className="flex-container align-items-center input-line-actions-container-stacking">
             <div className="width-55 label-and-input-container-actions-container">
               <label className="custom-label">Insert amount of STX</label>
@@ -240,6 +227,19 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
             </Alert>
           </div>
         )}
+        <div
+          id="revoke-delegate-button"
+          className="content-sections-title-info-container leave-pool-button-action-container"
+        >
+          <div className="flex-center">
+            <button
+              className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+              onClick={revokeDelegate}
+            >
+              Revoke delegation
+            </button>
+          </div>
+        </div>
         <div
           id="revoke-delegate-button"
           className="content-sections-title-info-container leave-pool-button-action-container"
