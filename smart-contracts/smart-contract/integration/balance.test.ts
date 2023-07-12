@@ -25,8 +25,8 @@ describe('testing depositing balance stx', () => {
   let timeline = DEFAULT_EPOCH_TIMELINE;
 
   beforeAll(() => {
-    orchestrator = buildDevnetNetworkOrchestrator(getNetworkIdFromEnv(), timeline);
-    orchestrator.start(120000);
+    orchestrator = buildDevnetNetworkOrchestrator(getNetworkIdFromEnv());
+    orchestrator.start(1000);
   });
 
   afterAll(() => {

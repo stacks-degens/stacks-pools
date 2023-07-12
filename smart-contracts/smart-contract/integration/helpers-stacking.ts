@@ -6,7 +6,7 @@ import {
   StacksTransactionMetadata,
   getIsolatedNetworkConfigUsingNetworkId,
 } from '@hirosystems/stacks-devnet-js';
-import { StacksNetwork } from '@stacks/network';
+import { StacksNetwork, StacksTestnet } from '@stacks/network';
 import {
   AnchorMode,
   broadcastTransaction,
@@ -116,6 +116,12 @@ export const getNetworkIdFromEnv = (): number => {
     : 1;
   return networkId;
 };
+
+export async function asyncExpectCurrentCycleIdToBe(cycleId: number, network: StacksTestnet) {
+  let poxInfo = await getPoxInfo(network);
+  console.log('PoxInfo', poxInfo);
+  expect(poxInfo.current_cycle.id).toBe(cycleId);
+}
 
 export const getChainInfo = async (network: StacksNetwork, retry?: number): Promise<any> => {
   let retryCountdown = retry ? retry : 20;

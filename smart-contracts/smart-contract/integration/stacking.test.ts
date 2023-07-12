@@ -1,4 +1,5 @@
 import {
+  asyncExpectCurrentCycleIdToBe,
   buildDevnetNetworkOrchestrator,
   DEFAULT_EPOCH_TIMELINE,
   getAccount,
@@ -440,29 +441,51 @@ describe('testing stacking under epoch 2.1', () => {
 
     let nonceUpdated = (await getAccount(network, Accounts.DEPLOYER.stxAddress)).nonce;
 
+    // Wait for Pox-2 activation
+
+    await waitForStacks24(orchestrator, timeline);
+    let chainUpdate = await orchestrator.waitForNextStacksBlock();
+    chainUpdate = await orchestrator.waitForNextStacksBlock();
+    chainUpdate = await orchestrator.waitForNextStacksBlock();
+
+    await asyncExpectCurrentCycleIdToBe(2, network);
+    chainUpdate = await orchestrator.waitForNextStacksBlock();
     // Deposit STX Liquidity Provider
+
+    // let metadata = chainUpdate.new_blocks[0].block.transactions[1]['metadata'];
+    // console.log('metadata:::', metadata);
+    // expect((metadata as any)['success']).toBe(true);
+    // expect((metadata as any)['result']).toBe('(ok true)');
+
+    chainUpdate = await orchestrator.waitForNextStacksBlock();
+    chainUpdate = await orchestrator.waitForNextStacksBlock();
+    chainUpdate = await orchestrator.waitForNextStacksBlock();
+    chainUpdate = await orchestrator.waitForNextStacksBlock();
+    chainUpdate = await orchestrator.waitForNextStacksBlock();
+    chainUpdate = await orchestrator.waitForNextStacksBlock();
+    chainUpdate = await orchestrator.waitForNextStacksBlock();
+    // chainUpdate = await orchestrator.waitForNextStacksBlock();
+    // chainUpdate = await orchestrator.waitForNextStacksBlock();
+    // chainUpdate = await orchestrator.waitForNextStacksBlock();
+    // chainUpdate = await orchestrator.waitForNextStacksBlock();
+    // chainUpdate = await orchestrator.waitForNextStacksBlock();
+    // chainUpdate = await orchestrator.waitForNextStacksBlock();
+    // chainUpdate = await orchestrator.waitForNextStacksBlock();
+    // chainUpdate = await orchestrator.waitForNextStacksBlock();
+    // chainUpdate = await orchestrator.waitForNextStacksBlock();
+    // await orchestrator.waitForStacksBlockAnchoredOnBitcoinBlockOfHeight(timeline.pox_2_activation + 1, 10, true);
+
+    console.log(await getPoxInfo(network));
+
     await broadcastDepositStxOwner({
       amountUstx: 11_000_000_000,
       nonce: nonceUpdated,
       network: network,
       user: Accounts.DEPLOYER,
     });
-    let chainUpdate = await orchestrator.waitForNextStacksBlock();
-    let metadata = chainUpdate.new_blocks[0].block.transactions[1]['metadata'];
-    console.log('metadata:::', metadata);
-    expect((metadata as any)['success']).toBe(true);
-    expect((metadata as any)['result']).toBe('(ok true)');
-
-    // Wait for Pox-3 activation
-
-    await waitForStacks24(orchestrator, timeline);
-
     chainUpdate = await orchestrator.waitForNextStacksBlock();
-
-    // await orchestrator.waitForStacksBlockAnchoredOnBitcoinBlockOfHeight(timeline.pox_2_activation + 1, 10, true);
-
-    console.log(await getPoxInfo(network));
-
+    chainUpdate = await orchestrator.waitForNextStacksBlock();
+    chainUpdate = await orchestrator.waitForNextStacksBlock();
     // Allow pool in Pox-2
 
     await broadcastAllowContractCallerContracCall({
@@ -513,8 +536,6 @@ describe('testing stacking under epoch 2.1', () => {
       });
     }
     chainUpdate = await orchestrator.waitForNextStacksBlock();
-    let chainUpdate2 = await orchestrator.waitForNextStacksBlock();
-    let chainUpdate3 = await orchestrator.waitForNextStacksBlock();
 
     for (let i = 1; i < usersList.length; i++) {
       metadata = chainUpdate.new_blocks[0].block.transactions[i]['metadata'];

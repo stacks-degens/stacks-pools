@@ -8,14 +8,6 @@ plan:
   batches:
     - id: 0
       transactions:
-        - requirement-publish:
-            contract-id: ST000000000000000000002AMW42H.pox-3
-            remap-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            remap-principals:
-              ST000000000000000000002AMW42H: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 675070
-            path: ".cache/requirements/ST000000000000000000002AMW42H.pox-3.clar"
-            clarity-version: 2
         - contract-publish:
             contract-name: ft-trait
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
@@ -138,8 +130,8 @@ plan:
         - contract-publish:
             contract-name: stacking-pool
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 344680
+            cost: 349130
             path: contracts/stacking-pool.clar
             anchor-block-only: true
             clarity-version: 2
-      epoch: "2.1"
+      epoch: "2.4"
