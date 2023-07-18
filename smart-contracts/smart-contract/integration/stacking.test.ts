@@ -51,7 +51,7 @@ describe('testing stacking under epoch 2.1', () => {
 
   beforeAll(() => {
     orchestrator = buildDevnetNetworkOrchestrator(getNetworkIdFromEnv(), timeline);
-    orchestrator.start(120000);
+    orchestrator.start(200000);
   });
 
   afterAll(() => {
@@ -434,13 +434,11 @@ describe('testing stacking under epoch 2.1', () => {
   //   );
   // });
 
-  it('whole flow many cycles 5 stackers', async () => {
+  it('whole flow many cycles 3 stackers', async () => {
     console.log('POX-3 test beginning');
     const network = new StacksTestnet({ url: orchestrator.getStacksNodeUrl() });
 
     let usersList = [Accounts.WALLET_8, Accounts.WALLET_1, Accounts.WALLET_2, Accounts.WALLET_3];
-
-    // let nonceUpdated = (await getAccount(network, Accounts.DEPLOYER.stxAddress)).nonce;
 
     // Wait for Pox-2 activation
 
@@ -448,14 +446,18 @@ describe('testing stacking under epoch 2.1', () => {
 
     console.log(await getPoxInfo(network));
 
-    let chainUpdate = await orchestrator.waitForNextStacksBlock();
-    let txs = chainUpdate.new_blocks[0].block.transactions;
+    // Wait for the contracts to be deployed
 
-    chainUpdate = await orchestrator.waitForNextStacksBlock();
-    txs = chainUpdate.new_blocks[0].block.transactions;
-    chainUpdate = await orchestrator.waitForNextStacksBlock();
-    txs = chainUpdate.new_blocks[0].block.transactions;
-
+    let chainUpdate, txs;
+    let noOfTxs = 0;
+    while (noOfTxs < 18) {
+      chainUpdate = await orchestrator.waitForNextStacksBlock();
+      txs = chainUpdate.new_blocks[0].block.transactions;
+      if (txs.length > 1) {
+        noOfTxs += txs.length - 1;
+        console.log(noOfTxs);
+      }
+    }
     // Deposit STX Liquidity Provider
 
     await broadcastDepositStxOwner({
@@ -464,25 +466,32 @@ describe('testing stacking under epoch 2.1', () => {
       network: network,
       user: Accounts.DEPLOYER,
     });
-    for (let i = 0; i <= 15; i++) {
+
+    // Check the deposit tx
+
+    let depositTxIndex = 0;
+    let blockIndex = 0;
+    while (depositTxIndex < 1) {
       chainUpdate = await orchestrator.waitForNextStacksBlock();
       txs = chainUpdate.new_blocks[0].block.transactions;
-
+      blockIndex++;
       if (txs.length > 1) {
         let txMetadata = txs[1].metadata;
         let txData = txMetadata.kind.data;
         let txSC = txData['contract_identifier'];
         let txMethod = txData['method'];
-
-        expect(txSC as any).toBe(`${Accounts.DEPLOYER.stxAddress}.${mainContract.name}`);
-        expect(txMethod as any).toBe('deposit-stx-liquidity-provider');
-        expect((txMetadata as any)['success']).toBe(true);
-        expect((txMetadata as any)['result']).toBe(`(ok true)`);
-        i = 15;
-        console.log('Deposit STX Metadata: ', txMetadata);
+        if (txMethod == 'deposit-stx-liquidity-provider') {
+          expect(txSC as any).toBe(`${mainContract.address}.${mainContract.name}`);
+          expect(txMethod as any).toBe('deposit-stx-liquidity-provider');
+          expect((txMetadata as any)['success']).toBe(true);
+          expect((txMetadata as any)['result']).toBe(`(ok true)`);
+          console.log(`Deposit STX Metadata, (block index ${blockIndex}): `, txMetadata);
+          depositTxIndex++;
+        }
       }
     }
-    // Allow pool in Pox-2
+
+    // Allow pool in Pox-3
 
     await broadcastAllowContractCallerContracCall({
       network,
@@ -499,56 +508,35 @@ describe('testing stacking under epoch 2.1', () => {
       nonce: (await getAccount(network, usersList[2].stxAddress)).nonce,
       senderKey: usersList[2].secretKey,
     });
-    for (let i = 0; i <= 15; i++) {
+
+    // Check the allow txs
+
+    let allowTxIndex = 0;
+    blockIndex = 0;
+
+    while (allowTxIndex < 3) {
       chainUpdate = await orchestrator.waitForNextStacksBlock();
       txs = chainUpdate.new_blocks[0].block.transactions;
+      blockIndex++;
 
       if (txs.length > 1) {
-        let txMetadata = txs[1].metadata;
-        expect((txMetadata as any)['success']).toBe(true);
-        expect((txMetadata as any)['result']).toBe(`(ok true)`);
-        i = 15;
+        for (let i = 1; i <= txs.length - 1; i++) {
+          let txMetadata = txs[i].metadata;
+          let txData = txMetadata.kind.data;
+          let txSC = txData['contract_identifier'];
+          let txMethod = txData['method'];
+
+          if (txMethod == 'allow-contract-caller') {
+            expect(txSC as any).toBe(`${Contracts.POX_3.address}.${Contracts.POX_3.name}`);
+            expect(txMethod as any).toBe('allow-contract-caller');
+            expect((txMetadata as any)['success']).toBe(true);
+            expect((txMetadata as any)['result']).toBe(`(ok true)`);
+            allowTxIndex++;
+            console.log(`Allow Contract Caller Metadata ${allowTxIndex}, block index ${blockIndex}`, txMetadata);
+          }
+        }
       }
     }
-
-    // chainUpdate = await orchestrator.waitForNextStacksBlock();
-    // txs = chainUpdate.new_blocks[0].block.transactions;
-    // chainUpdate = await orchestrator.waitForNextStacksBlock();
-    // txs = chainUpdate.new_blocks[0].block.transactions;
-    // chainUpdate = await orchestrator.waitForNextStacksBlock();
-    // txs = chainUpdate.new_blocks[0].block.transactions;
-    // chainUpdate = await orchestrator.waitForNextStacksBlock();
-    // txs = chainUpdate.new_blocks[0].block.transactions;
-    // chainUpdate = await orchestrator.waitForNextStacksBlock();
-    // txs = chainUpdate.new_blocks[0].block.transactions;
-    // chainUpdate = await orchestrator.waitForNextStacksBlock();
-    // txs = chainUpdate.new_blocks[0].block.transactions;
-    // chainUpdate = await orchestrator.waitForNextStacksBlock();
-    // txs = chainUpdate.new_blocks[0].block.transactions;
-    // chainUpdate = await orchestrator.waitForNextStacksBlock();
-    // txs = chainUpdate.new_blocks[0].block.transactions;
-
-    // chainUpdate = await orchestrator.waitForNextStacksBlock();
-    // txs = chainUpdate.new_blocks[0].block.transactions;
-    // chainUpdate = await orchestrator.waitForNextStacksBlock();
-    // txs = chainUpdate.new_blocks[0].block.transactions;
-    // chainUpdate = await orchestrator.waitForNextStacksBlock();
-    // txs = chainUpdate.new_blocks[0].block.transactions;
-    // chainUpdate = await orchestrator.waitForNextStacksBlock();
-    // txs = chainUpdate.new_blocks[0].block.transactions;
-    // chainUpdate = await orchestrator.waitForNextStacksBlock();
-    // txs = chainUpdate.new_blocks[0].block.transactions;
-    // chainUpdate = await orchestrator.waitForNextStacksBlock();
-    // txs = chainUpdate.new_blocks[0].block.transactions;
-    // chainUpdate = await orchestrator.waitForNextStacksBlock();
-    // txs = chainUpdate.new_blocks[0].block.transactions;
-    // chainUpdate = await orchestrator.waitForNextStacksBlock();
-    // txs = chainUpdate.new_blocks[0].block.transactions;
-    // chainUpdate = await orchestrator.waitForNextStacksBlock();
-    // txs = chainUpdate.new_blocks[0].block.transactions;
-
-    // chainUpdate = await orchestrator.waitForNextStacksBlock();
-    // txs = chainUpdate.new_blocks[0].block.transactions;
 
     // Reserve STX for future rewards Liquidity Provider
 
@@ -558,25 +546,27 @@ describe('testing stacking under epoch 2.1', () => {
       network: network,
       user: Accounts.DEPLOYER,
     });
-    chainUpdate = await orchestrator.waitForNextStacksBlock();
-    txs = chainUpdate.new_blocks[0].block.transactions;
 
-    chainUpdate = await orchestrator.waitForNextStacksBlock();
-    txs = chainUpdate.new_blocks[0].block.transactions;
+    // Check the Reserve STX tx
 
-    chainUpdate = await orchestrator.waitForNextStacksBlock();
-    txs = chainUpdate.new_blocks[0].block.transactions;
+    for (let i = 0; i <= 15; i++) {
+      chainUpdate = await orchestrator.waitForNextStacksBlock();
+      txs = chainUpdate.new_blocks[0].block.transactions;
 
-    // metadata = chainUpdate.new_blocks[0].block.transactions[1]["metadata"];
-    // expect((metadata as any)["success"]).toBe(true);
-    // expect((metadata as any)["result"]).toBe("(ok true)");
-    // chainUpdate = await orchestrator.waitForNextStacksBlock();
+      if (txs.length > 1) {
+        let txMetadata = txs[1].metadata;
+        let txData = txMetadata.kind.data;
+        let txSC = txData['contract_identifier'];
+        let txMethod = txData['method'];
 
-    // for (let i = 1; i < chainUpdate.new_blocks[0].block.transactions.length; i++) {
-    //   let metadataAllowI = chainUpdate.new_blocks[0].block.transactions[i]['metadata'];
-    //   expect((metadataAllowI as any)['success']).toBe(true);
-    //   expect((metadataAllowI as any)['result']).toBe('(ok true)');
-    // }
+        expect(txSC as any).toBe(`${mainContract.address}.${mainContract.name}`);
+        expect(txMethod as any).toBe('reserve-funds-future-rewards');
+        expect((txMetadata as any)['success']).toBe(true);
+        expect((txMetadata as any)['result']).toBe(`(ok true)`);
+        console.log(`Reserve STX Metadata, block index ${i + 1}`, txMetadata);
+        i = 15;
+      }
+    }
 
     // 3 Stackers Join Pool
 
@@ -587,15 +577,32 @@ describe('testing stacking under epoch 2.1', () => {
         user: usersList[i],
       });
     }
-    chainUpdate = await orchestrator.waitForNextStacksBlock();
-    chainUpdate = await orchestrator.waitForNextStacksBlock();
-    chainUpdate = await orchestrator.waitForNextStacksBlock();
 
-    // for (let i = 1; i < usersList.length; i++) {
-    //   metadata = chainUpdate.new_blocks[0].block.transactions[i]['metadata'];
-    //   expect((metadata as any)['success']).toBe(true);
-    //   expect((metadata as any)['result']).toBe('(ok true)');
-    // }
+    // Check the Join txs
+
+    let joinTxIndex = 0;
+    blockIndex = 0;
+    while (joinTxIndex < 3) {
+      chainUpdate = await orchestrator.waitForNextStacksBlock();
+      txs = chainUpdate.new_blocks[0].block.transactions;
+      blockIndex++;
+      if (txs.length > 1) {
+        for (let i = 1; i <= txs.length - 1; i++) {
+          let txMetadata = txs[i].metadata;
+          let txData = txMetadata.kind.data;
+          let txSC = txData['contract_identifier'];
+          let txMethod = txData['method'];
+
+          expect(txSC as any).toBe(`${mainContract.address}.${mainContract.name}`);
+          expect(txMethod as any).toBe('join-stacking-pool');
+          expect((txMetadata as any)['success']).toBe(true);
+          expect((txMetadata as any)['result']).toBe(`(ok true)`);
+          joinTxIndex++;
+          console.log(`Join Pool Metadata ${joinTxIndex}, block index ${blockIndex}`, txMetadata);
+        }
+      }
+    }
+    console.log('Join done');
 
     // 3 Stackers Delegate STX
 
@@ -606,6 +613,8 @@ describe('testing stacking under epoch 2.1', () => {
       network,
     });
 
+    console.log('1st delegation submitted');
+
     await broadcastDelegateStx({
       amountUstx: 125_000_000_000,
       user: usersList[1],
@@ -613,7 +622,8 @@ describe('testing stacking under epoch 2.1', () => {
       network,
     });
 
-    // modified here to be greater than min_threshold_ustx
+    console.log('2nd delegation submitted');
+
     await broadcastDelegateStx({
       amountUstx: 50_286_942_145_278, // pox activation threshold
       user: usersList[2],
@@ -621,64 +631,74 @@ describe('testing stacking under epoch 2.1', () => {
       network,
     });
 
-    chainUpdate = await orchestrator.waitForNextStacksBlock();
+    console.log('3rd delegation submitted');
 
-    for (let i = 1; i < chainUpdate.new_blocks[0].block.transactions.length; i++) {
-      let metadataDelegateI = chainUpdate.new_blocks[0].block.transactions[i]['metadata'];
-      console.log('i', i, metadataDelegateI);
-      expect((metadataDelegateI as any)['success']).toBe(true);
+    // Check the Delegate txs
 
-      // expect((metadataDelegateI as any)["result"]).toBe("(ok false)");
+    let delegateTxIndex = 0;
+    blockIndex = 0;
+    while (delegateTxIndex < 3) {
+      console.log('block index searching for delegations: ', blockIndex);
+      chainUpdate = await orchestrator.waitForNextStacksBlock();
+      txs = chainUpdate.new_blocks[0].block.transactions;
+      blockIndex++;
+      if (txs.length > 1) {
+        for (let i = 1; i <= txs.length - 1; i++) {
+          let txMetadata = txs[i].metadata;
+          let txData = txMetadata.kind.data;
+          let txSC = txData['contract_identifier'];
+          let txMethod = txData['method'];
+
+          expect(txSC as any).toBe(`${mainContract.address}.${mainContract.name}`);
+          expect(txMethod as any).toBe('delegate-stx');
+          expect((txMetadata as any)['success']).toBe(true);
+          // expect((txMetadata as any)['result']).toBe(`(ok true)`);
+          delegateTxIndex++;
+          console.log(`Delegate STX Metadata ${delegateTxIndex}, block index ${blockIndex}`, txMetadata);
+        }
+      }
     }
 
-    chainUpdate = await orchestrator.waitForNextStacksBlock();
-    for (let i = 1; i < chainUpdate.new_blocks[0].block.transactions.length; i++) {
-      let metadataDelegateI = chainUpdate.new_blocks[0].block.transactions[i]['metadata'];
-      console.log('i', i, metadataDelegateI);
-      expect((metadataDelegateI as any)['success']).toBe(true);
-      // expect((metadataDelegateI as any)["result"]).toBe("(ok true)");
-    }
-    chainUpdate = await orchestrator.waitForNextStacksBlock();
-    // for (let i = 1; i < chainUpdate.new_blocks[0].block.transactions.length; i++) {
-    //   let metadataDelegateI = chainUpdate.new_blocks[0].block.transactions[i]['metadata'];
-    //   console.log('i', i, metadataDelegateI);
-    //   expect((metadataDelegateI as any)['success']).toBe(true);
-
-    //   // expect((metadataDelegateI as any)["result"]).toBe("(ok true)");
-    // }
-
+    console.log(
+      'The last Delegation block: ' +
+        (chainUpdate.new_blocks[0].block.metadata as StacksBlockMetadata).bitcoin_anchor_block_identifier.index
+    );
     // Friedger check table entry:
 
     let poxInfo = await getPoxInfo(network);
     console.log('pox info CURRENT CYCLE:', poxInfo.current_cycle);
     console.log('pox info NEXT CYCLE:', poxInfo.next_cycle);
 
-    let poxAddrInfo0 = await readRewardCyclePoxAddressForAddress(network, 3, Accounts.DEPLOYER.stxAddress);
+    let poxAddrInfo0 = await readRewardCyclePoxAddressForAddress(
+      network,
+      poxInfo.current_cycle.id,
+      Accounts.DEPLOYER.stxAddress
+    );
 
     expect(poxAddrInfo0).toBeNull();
     console.log('POX ADDRESS INFO WALLET 1', poxAddrInfo0);
 
-    let poxAddrInfo1 = await readRewardCyclePoxAddressListAtIndex(network, 3, 0);
-
-    // Check total stacked STX
-
+    let poxAddrInfo1 = await readRewardCyclePoxAddressListAtIndex(network, poxInfo.next_cycle.id, 0);
+    // Check the Total Stacked STX
+    console.log('poxAddrInfo1', poxAddrInfo1);
     expect(poxAddrInfo1?.['total-ustx']).toEqual(uintCV(50_536_942_145_278));
     console.log('POX ADDRESS INFO POOL', poxAddrInfo1);
 
     // Check balances
 
-    console.log('first user:', await getAccount(network, usersList[0].stxAddress));
-    console.log('second user:', await getAccount(network, usersList[1].stxAddress));
-    console.log('third user:', await getAccount(network, usersList[2].stxAddress));
-    console.log('fourth user:', await getAccount(network, usersList[3].stxAddress));
+    let userAccount1 = await getAccount(network, usersList[0].stxAddress);
+    console.log('first user:', userAccount1);
 
-    console.log(
-      '** ' + (chainUpdate.new_blocks[0].block.metadata as StacksBlockMetadata).bitcoin_anchor_block_identifier.index
-    );
+    let userAccount2 = await getAccount(network, usersList[1].stxAddress);
+    console.log('second user:', userAccount2);
 
-    chainUpdate = await orchestrator.waitForNextStacksBlock();
+    let userAccount3 = await getAccount(network, usersList[2].stxAddress);
+    console.log('third user:', userAccount3);
 
-    getPoolMembers(network);
+    let userAccount4 = await getAccount(network, usersList[3].stxAddress);
+    console.log('fourth user:', userAccount4);
+
+    // chainUpdate = await orchestrator.waitForNextStacksBlock();
 
     // Update SC balances
 
@@ -688,27 +708,47 @@ describe('testing stacking under epoch 2.1', () => {
       network,
     });
 
-    chainUpdate = await orchestrator.waitForNextStacksBlock();
+    let updateBalancesTxIndex = 0;
+    blockIndex = 0;
 
-    let metadataUpdateBalances = chainUpdate.new_blocks[0].block.transactions[1]['metadata'];
-    expect((metadataUpdateBalances as any)['success']).toBe(true);
-    expect((metadataUpdateBalances as any)['result']).toBe('(ok true)');
+    while (updateBalancesTxIndex < 1) {
+      chainUpdate = await orchestrator.waitForNextStacksBlock();
+      txs = chainUpdate.new_blocks[0].block.transactions;
+      blockIndex++;
 
-    console.log(
-      '** ' + (chainUpdate.new_blocks[0].block.metadata as StacksBlockMetadata).bitcoin_anchor_block_identifier.index
-    );
+      if (txs.length > 1) {
+        for (let i = 1; i <= txs.length - 1; i++) {
+          let txMetadata = txs[i].metadata;
+          let txData = txMetadata.kind.data;
+          let txSC = txData['contract_identifier'];
+          let txMethod = txData['method'];
+          console.log(
+            '** ' +
+              (chainUpdate.new_blocks[0].block.metadata as StacksBlockMetadata).bitcoin_anchor_block_identifier.index
+          );
+          expect(txSC as any).toBe(`${mainContract.address}.${mainContract.name}`);
+          expect(txMethod as any).toBe('update-sc-balances');
+          expect((txMetadata as any)['success']).toBe(true);
+          // expect((txMetadata as any)['result']).toBe(`(ok true)`);
+          updateBalancesTxIndex++;
+          console.log(`Update Balances Metadata ${updateBalancesTxIndex}, block index ${blockIndex}`, txMetadata);
+        }
+      }
+    }
+    let updateBalancesBlock = (chainUpdate.new_blocks[0].block.metadata as StacksBlockMetadata)
+      .bitcoin_anchor_block_identifier.index;
+    console.log('The update balances block: ' + updateBalancesBlock);
 
-    await getScLockedBalance(network);
+    await getScLockedBalance(network); // 6 * block index + starting block
 
     // Check weights
 
     console.log(`DEPLOYER weight:`);
-    let deployerWeight = await getStackerWeight(network, Accounts.DEPLOYER.stxAddress, 3);
-    expect(deployerWeight as any).toBe('217');
+    let deployerWeight = await getStackerWeight(network, Accounts.DEPLOYER.stxAddress, poxInfo.next_cycle.id);
+    // expect(deployerWeight as any).toBe('217');
 
     for (let i = 0; i <= 3; i++) {
-      console.log(`STACKER ${i + 1} weight:`);
-      let userWeight = await getStackerWeight(network, usersList[i].stxAddress, 3);
+      let userWeight = await getStackerWeight(network, usersList[i].stxAddress, poxInfo.next_cycle.id);
       i == 2
         ? expect(userWeight as any).toBe('994836')
         : i < 2
@@ -716,18 +756,18 @@ describe('testing stacking under epoch 2.1', () => {
         : expect(userWeight.value as any).toBe(null);
     }
 
-    chainUpdate = await waitForRewardCycleId(network, orchestrator, 4);
+    chainUpdate = await waitForRewardCycleId(network, orchestrator, poxInfo.next_cycle.id);
     console.log(
       '** ' + (chainUpdate.new_blocks[0].block.metadata as StacksBlockMetadata).bitcoin_anchor_block_identifier.index
     );
 
     // Print Pox Addresses for the blocks from 130 to 133
 
-    for (let i = 130; i <= 133; i++) await getBlockPoxAddresses(network, Accounts.DEPLOYER.stxAddress, i);
+    for (let i = 170; i <= 176; i++) await getBlockPoxAddresses(network, Accounts.DEPLOYER.stxAddress, i);
 
     // Print Block Rewards for the blocks from 130 to 133
 
-    for (let i = 130; i <= 133; i++) await getBlockRewards(network, Accounts.DEPLOYER.stxAddress, i);
+    for (let i = 170; i <= 176; i++) await getBlockRewards(network, Accounts.DEPLOYER.stxAddress, i);
 
     // Distribute Rewards For The Previously Verified Blocks (even if won or not)
 

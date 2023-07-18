@@ -40,6 +40,7 @@ import { Constants } from './constants-stacking';
 import { decodeBtcAddress } from '@stacks/stacking';
 import { toBytes } from '@stacks/common';
 import { expect } from 'vitest';
+import { mainContract } from './contracts';
 const fetch = require('node-fetch');
 
 interface Account {
@@ -402,11 +403,11 @@ export const getScLockedBalance = async (network: StacksNetwork) => {
 
 export const getStackerWeight = async (network: StacksNetwork, stacker: string, rewardCycle: number) => {
   const supplyCall = await callReadOnlyFunction({
-    contractAddress: Accounts.DEPLOYER.stxAddress,
+    contractAddress: mainContract.address,
     contractName: 'stacking-pool',
     functionName: 'get-stacker-weight',
     functionArgs: [principalCV(stacker), uintCV(rewardCycle)],
-    senderAddress: Accounts.DEPLOYER.stxAddress,
+    senderAddress: mainContract.address,
     network: network,
   });
   const json = cvToJSON(supplyCall);
@@ -478,7 +479,7 @@ export const getCheckDelegation = async (network: StacksNetwork, stacker: string
   });
   const json = cvToJSON(supplyCall);
   console.log('Stacker delegation json', json);
-  console.log(`Stacker delegation info:`, json.value.value);
+  if (json.value) console.log(`Stacker delegation info:`, json.value.value);
 
   return json;
 };
