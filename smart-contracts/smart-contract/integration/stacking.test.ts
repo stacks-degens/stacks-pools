@@ -26,7 +26,7 @@ import {
   getStackerInfo,
   stackIncrease,
 } from './helpers-stacking';
-import { Accounts, Contracts } from './constants-stacking';
+import { Accounts, Contracts, Constants } from './constants-stacking';
 import { StacksTestnet } from '@stacks/network';
 import { DevnetNetworkOrchestrator, StacksBlockMetadata } from '@hirosystems/stacks-devnet-js';
 
@@ -442,30 +442,37 @@ describe('testing stacking under epoch 2.1', () => {
 
     // Wait for Pox-2 activation
 
-    await waitForStacks24(orchestrator, timeline);
-
+    await orchestrator.waitForStacksBlockAnchoredOnBitcoinBlockOfHeight(timeline.epoch_2_4 + 1, 5, true);
     console.log(await getPoxInfo(network));
 
     // Wait for the contracts to be deployed
 
     let chainUpdate, txs;
-    let noOfTxs = 0;
-    while (noOfTxs < 18) {
-      chainUpdate = await orchestrator.waitForNextStacksBlock();
-      txs = chainUpdate.new_blocks[0].block.transactions;
-      if (txs.length > 1) {
-        noOfTxs += txs.length - 1;
-        console.log(noOfTxs);
-      }
-    }
+    // let noOfTxs = 0;
+    // while (noOfTxs < 18) {
+    chainUpdate = await orchestrator.waitForNextStacksBlock();
+    txs = chainUpdate.new_blocks[0].block.transactions;
+    //   if (txs.length > 1) {
+    //     noOfTxs += txs.length - 1;
+    //     console.log(noOfTxs);
+    //   }
+    // }
     // Deposit STX Liquidity Provider
 
-    await broadcastDepositStxOwner({
-      amountUstx: 11_000_000_000,
-      nonce: (await getAccount(network, Accounts.DEPLOYER.stxAddress)).nonce,
-      network: network,
-      user: Accounts.DEPLOYER,
-    });
+    await broadcastDepositStxOwner(
+      11_000_000_000,
+      network,
+      Accounts.DEPLOYER,
+      1000,
+      (
+        await getAccount(network, Accounts.DEPLOYER.stxAddress)
+      ).nonce
+    ); //   {
+    //   amountUstx: 11_000_000_000,
+    //   nonce: (await getAccount(network, Accounts.DEPLOYER.stxAddress)).nonce,
+    //   network: network,
+    //   user: Accounts.DEPLOYER,
+    // }
 
     // Check the deposit tx
 
@@ -631,6 +638,13 @@ describe('testing stacking under epoch 2.1', () => {
       network,
     });
 
+    // await waitForNextPreparePhase(network, orchestrator);
+    // await broadcastUpdateScBalances({
+    //   user: Accounts.DEPLOYER,
+    //   nonce: (await getAccount(network, Accounts.DEPLOYER.stxAddress)).nonce,
+    //   network,
+    // });
+
     console.log('3rd delegation submitted');
 
     // Check the Delegate txs
@@ -663,6 +677,7 @@ describe('testing stacking under epoch 2.1', () => {
       'The last Delegation block: ' +
         (chainUpdate.new_blocks[0].block.metadata as StacksBlockMetadata).bitcoin_anchor_block_identifier.index
     );
+
     // Friedger check table entry:
 
     let poxInfo = await getPoxInfo(network);
@@ -676,13 +691,12 @@ describe('testing stacking under epoch 2.1', () => {
     );
 
     expect(poxAddrInfo0).toBeNull();
-    console.log('POX ADDRESS INFO WALLET 1', poxAddrInfo0);
+    console.log('PoX address info Current Cycle (DEPLOYER)', poxAddrInfo0);
 
     let poxAddrInfo1 = await readRewardCyclePoxAddressListAtIndex(network, poxInfo.next_cycle.id, 0);
     // Check the Total Stacked STX
-    console.log('poxAddrInfo1', poxAddrInfo1);
     expect(poxAddrInfo1?.['total-ustx']).toEqual(uintCV(50_536_942_145_278));
-    console.log('POX ADDRESS INFO POOL', poxAddrInfo1);
+    console.log('PoX address info Next Cycle', poxAddrInfo1);
 
     // Check balances
 
@@ -743,7 +757,6 @@ describe('testing stacking under epoch 2.1', () => {
 
     // Check weights
 
-    console.log(`DEPLOYER weight:`);
     let deployerWeight = await getStackerWeight(network, Accounts.DEPLOYER.stxAddress, poxInfo.next_cycle.id);
     // expect(deployerWeight as any).toBe('217');
 
@@ -757,53 +770,64 @@ describe('testing stacking under epoch 2.1', () => {
     }
 
     chainUpdate = await waitForRewardCycleId(network, orchestrator, poxInfo.next_cycle.id);
-    console.log(
-      '** ' + (chainUpdate.new_blocks[0].block.metadata as StacksBlockMetadata).bitcoin_anchor_block_identifier.index
-    );
+    let firstBurnBlockCurrRewardCycle = (chainUpdate.new_blocks[0].block.metadata as StacksBlockMetadata)
+      .bitcoin_anchor_block_identifier.index;
+    console.log('** ' + firstBurnBlockCurrRewardCycle);
 
     // Print Pox Addresses for the blocks from 130 to 133
 
-    for (let i = 170; i <= 176; i++) await getBlockPoxAddresses(network, Accounts.DEPLOYER.stxAddress, i);
+    for (let i = firstBurnBlockCurrRewardCycle; i <= firstBurnBlockCurrRewardCycle + Constants.REWARD_CYCLE_LENGTH; i++)
+      await getBlockPoxAddresses(network, Accounts.DEPLOYER.stxAddress, i);
 
     // Print Block Rewards for the blocks from 130 to 133
 
-    for (let i = 170; i <= 176; i++) await getBlockRewards(network, Accounts.DEPLOYER.stxAddress, i);
+    for (let i = firstBurnBlockCurrRewardCycle; i <= firstBurnBlockCurrRewardCycle + Constants.REWARD_CYCLE_LENGTH; i++)
+      await getBlockRewards(network, Accounts.DEPLOYER.stxAddress, i);
 
     // Distribute Rewards For The Previously Verified Blocks (even if won or not)
 
-    await broadcastRewardDistribution({
-      burnBlockHeight: 130,
-      network,
-      user: Accounts.DEPLOYER,
-      nonce: (await getAccount(network, Accounts.DEPLOYER.stxAddress)).nonce,
-    });
+    let userIndex = 0;
+    for (
+      let i = firstBurnBlockCurrRewardCycle;
+      i <= firstBurnBlockCurrRewardCycle + Constants.REWARD_CYCLE_LENGTH;
+      i++
+    ) {
+      userIndex == 4 ? (userIndex = 0) : (userIndex = userIndex);
+      await broadcastRewardDistribution({
+        burnBlockHeight: i,
+        network,
+        user: usersList[i],
+        nonce: (await getAccount(network, Accounts.DEPLOYER.stxAddress)).nonce,
+      });
+      userIndex++;
+    }
 
-    await broadcastRewardDistribution({
-      burnBlockHeight: 131,
-      network,
-      user: Accounts.WALLET_1,
-      nonce: (await getAccount(network, Accounts.WALLET_1.stxAddress)).nonce,
-    });
+    // await broadcastRewardDistribution({
+    //   burnBlockHeight: 131,
+    //   network,
+    //   user: Accounts.WALLET_1,
+    //   nonce: (await getAccount(network, Accounts.WALLET_1.stxAddress)).nonce,
+    // });
 
-    await broadcastRewardDistribution({
-      burnBlockHeight: 132,
-      network,
-      user: Accounts.WALLET_2,
-      nonce: (await getAccount(network, Accounts.WALLET_2.stxAddress)).nonce,
-    });
+    // await broadcastRewardDistribution({
+    //   burnBlockHeight: 132,
+    //   network,
+    //   user: Accounts.WALLET_2,
+    //   nonce: (await getAccount(network, Accounts.WALLET_2.stxAddress)).nonce,
+    // });
 
-    await broadcastRewardDistribution({
-      burnBlockHeight: 133,
-      network,
-      user: Accounts.WALLET_8,
-      nonce: (await getAccount(network, Accounts.WALLET_8.stxAddress)).nonce,
-    });
+    // await broadcastRewardDistribution({
+    //   burnBlockHeight: 133,
+    //   network,
+    //   user: Accounts.WALLET_8,
+    //   nonce: (await getAccount(network, Accounts.WALLET_8.stxAddress)).nonce,
+    // });
 
     chainUpdate = await orchestrator.waitForNextStacksBlock();
     console.log(chainUpdate.new_blocks[0].block.transactions);
 
-    chainUpdate = await orchestrator.waitForNextStacksBlock();
-    console.log(chainUpdate.new_blocks[0].block.transactions);
+    // chainUpdate = await orchestrator.waitForNextStacksBlock();
+    // console.log(chainUpdate.new_blocks[0].block.transactions);
 
     // Check Balances
 

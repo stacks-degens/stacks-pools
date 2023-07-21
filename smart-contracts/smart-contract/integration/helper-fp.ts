@@ -1,5 +1,6 @@
 import {
   AnchorMode,
+  broadcastTransaction,
   bufferCV,
   ClarityValue,
   listCV,
@@ -9,6 +10,8 @@ import {
   standardPrincipalCV,
   tupleCV,
   uintCV,
+  makeContractCall,
+  TxBroadcastResult,
 } from '@stacks/transactions';
 import { StacksNetwork } from '@stacks/network';
 // import { Accounts } from './constants';
@@ -16,6 +19,13 @@ import { HelperContract, mainContract, poxPoolsSelfServiceContract } from './con
 import { decodeBtcAddress } from '@stacks/stacking';
 import { toBytes } from '@stacks/common';
 import { handleContractCall } from './helpers-stacking';
+import { Accounts } from './constants-stacking';
+
+interface Account {
+  stxAddress: string;
+  btcAddress: string;
+  secretKey: string;
+}
 
 export async function broadcastJoinPool({
   nonce,
@@ -147,32 +157,58 @@ export async function broadcastDelegateStackStx({
   return handleContractCall({ txOptions, network });
 }
 
-export async function broadcastDepositStxOwner({
-  amountUstx,
-  nonce,
-  network,
-  user,
-}: {
-  amountUstx: number;
-  nonce: number;
-  network: StacksNetwork;
-  user: { stxAddress: string; secretKey: string };
-}) {
-  let txOptions = {
-    contractAddress: mainContract.address,
+export const broadcastDepositStxOwner = async (
+  amountUstx: number,
+  network: StacksNetwork,
+  account: Account,
+  fee: number,
+  nonce: number
+): Promise<TxBroadcastResult> => {
+  const txOptions = {
+    contractAddress: Accounts.DEPLOYER.stxAddress,
     contractName: mainContract.name,
-    functionName: mainContract.Functions.DepositStxOwner.name,
-    functionArgs: mainContract.Functions.DepositStxOwner.args({
-      amountUstx: uintCV(amountUstx),
-    }),
+    functionName: 'deposit-stx-liquidity-provider',
+    functionArgs: [uintCV(amountUstx)],
+    fee,
     nonce,
     network,
     anchorMode: AnchorMode.OnChainOnly,
     postConditionMode: PostConditionMode.Allow,
-    senderKey: user.secretKey,
+    senderKey: account.secretKey,
   };
-  return handleContractCall({ txOptions, network });
-}
+  // @ts-ignore
+  const tx = await makeContractCall(txOptions);
+  // Broadcast transaction to our Devnet stacks node
+  const result = await broadcastTransaction(tx, network);
+  return result;
+};
+
+// export async function broadcastDepositStxOwner({
+//   amountUstx,
+//   nonce,
+//   network,
+//   user,
+// }: {
+//   amountUstx: number;
+//   nonce: number;
+//   network: StacksNetwork;
+//   user: { stxAddress: string; secretKey: string };
+// }) {
+//   let txOptions = {
+//     contractAddress: mainContract.address,
+//     contractName: mainContract.name,
+//     functionName: mainContract.Functions.DepositStxOwner.name,
+//     functionArgs: mainContract.Functions.DepositStxOwner.args({
+//       amountUstx: uintCV(amountUstx),
+//     }),
+//     nonce,
+//     network,
+//     anchorMode: AnchorMode.OnChainOnly,
+//     postConditionMode: PostConditionMode.Allow,
+//     senderKey: user.secretKey,
+//   };
+//   return handleContractCall({ txOptions, network });
+// }
 
 export async function broadcastReserveStxOwner({
   amountUstx,

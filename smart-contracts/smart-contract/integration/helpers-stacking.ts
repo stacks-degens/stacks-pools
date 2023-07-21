@@ -86,6 +86,8 @@ export function buildDevnetNetworkOrchestrator(
       bitcoin_controller_automining_disabled: false,
       working_dir,
       use_docker_gateway_routing: process.env.GITHUB_ACTIONS ? true : false,
+      stacks_api_url: 'hirosystems/stacks-blockchain-api:latest',
+      stacks_explorer_url: 'hirosystems/explorer:latest',
     },
   };
   let consolidatedConfig = getIsolatedNetworkConfigUsingNetworkId(networkId, config);
@@ -426,6 +428,7 @@ export const getBlockPoxAddresses = async (network: StacksNetwork, stacker: stri
     network: network,
   });
   const json = cvToJSON(supplyCall);
+  console.log('json:', json);
   console.log(
     `Block ${burnHeight} pox addr 1`,
     json.value.value.value.addrs.value[0] //.value.hashbytes
