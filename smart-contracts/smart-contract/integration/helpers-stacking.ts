@@ -428,15 +428,16 @@ export const getBlockPoxAddresses = async (network: StacksNetwork, stacker: stri
     network: network,
   });
   const json = cvToJSON(supplyCall);
-  console.log('json:', json);
-  console.log(
-    `Block ${burnHeight} pox addr 1`,
-    json.value.value.value.addrs.value[0] //.value.hashbytes
-  );
-  console.log(
-    `Block ${burnHeight} pox addr 2`,
-    json.value.value.value.addrs.value[1] //.value.hashbytes
-  );
+  if (json.value.value) {
+    console.log(
+      `Block ${burnHeight} pox addr 1`,
+      json.value.value.value.addrs.value[0] //.value.hashbytes
+    );
+    console.log(
+      `Block ${burnHeight} pox addr 2`,
+      json.value.value.value.addrs.value[1] //.value.hashbytes
+    );
+  }
 
   return json;
 };
@@ -481,8 +482,8 @@ export const getCheckDelegation = async (network: StacksNetwork, stacker: string
     network: network,
   });
   const json = cvToJSON(supplyCall);
-  console.log('Stacker delegation json', json);
-  if (json.value) console.log(`Stacker delegation info:`, json.value.value);
+  // console.log('Stacker delegation json', json);
+  // if (json.value) console.log(`Stacker delegation info:`, json.value.value);
 
   return json;
 };
