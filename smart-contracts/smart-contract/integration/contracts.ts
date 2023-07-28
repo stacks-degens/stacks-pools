@@ -20,7 +20,7 @@ import {
 
 export namespace mainContract {
   export const address = 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM';
-  export const name = 'stacking-pool';
+  export const name = 'stacking-pool-test';
 
   // Functions
   export namespace Functions {

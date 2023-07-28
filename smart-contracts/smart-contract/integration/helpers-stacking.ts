@@ -69,6 +69,16 @@ export const DEFAULT_EPOCH_TIMELINE = {
   epoch_2_4: 112,
 };
 
+export const FAST_FORWARD_TO_EPOCH_2_4 = {
+  epoch_2_0: 100,
+  epoch_2_05: 102,
+  epoch_2_1: 104,
+  pox_2_activation: 105,
+  epoch_2_2: 106,
+  epoch_2_3: 108,
+  epoch_2_4: 112,
+};
+
 const delay = () => new Promise((resolve) => setTimeout(resolve, 3000));
 
 export function buildDevnetNetworkOrchestrator(
@@ -391,7 +401,7 @@ export const getStackerInfo = async (network: StacksNetwork) => {
 export const getScLockedBalance = async (network: StacksNetwork) => {
   const supplyCall = await callReadOnlyFunction({
     contractAddress: Accounts.DEPLOYER.stxAddress,
-    contractName: 'stacking-pool',
+    contractName: 'stacking-pool-test',
     functionName: 'get-SC-locked-balance',
     functionArgs: [],
     senderAddress: Accounts.DEPLOYER.stxAddress,
@@ -406,7 +416,7 @@ export const getScLockedBalance = async (network: StacksNetwork) => {
 export const getStackerWeight = async (network: StacksNetwork, stacker: string, rewardCycle: number) => {
   const supplyCall = await callReadOnlyFunction({
     contractAddress: mainContract.address,
-    contractName: 'stacking-pool',
+    contractName: 'stacking-pool-test',
     functionName: 'get-stacker-weight',
     functionArgs: [principalCV(stacker), uintCV(rewardCycle)],
     senderAddress: mainContract.address,
@@ -421,7 +431,7 @@ export const getStackerWeight = async (network: StacksNetwork, stacker: string, 
 export const getBlockPoxAddresses = async (network: StacksNetwork, stacker: string, burnHeight: number) => {
   const supplyCall = await callReadOnlyFunction({
     contractAddress: Accounts.DEPLOYER.stxAddress,
-    contractName: 'stacking-pool',
+    contractName: 'stacking-pool-test',
     functionName: 'get-block-rewards',
     functionArgs: [uintCV(burnHeight)],
     senderAddress: Accounts.DEPLOYER.stxAddress,
@@ -445,7 +455,7 @@ export const getBlockPoxAddresses = async (network: StacksNetwork, stacker: stri
 export const getBlockRewards = async (network: StacksNetwork, stacker: string, burnHeight: number) => {
   const supplyCall = await callReadOnlyFunction({
     contractAddress: Accounts.DEPLOYER.stxAddress,
-    contractName: 'stacking-pool',
+    contractName: 'stacking-pool-test',
     functionName: 'get-block-rewards',
     functionArgs: [uintCV(burnHeight)],
     senderAddress: Accounts.DEPLOYER.stxAddress,
@@ -460,7 +470,7 @@ export const getBlockRewards = async (network: StacksNetwork, stacker: string, b
 export const getPoolMembers = async (network: StacksNetwork) => {
   const supplyCall = await callReadOnlyFunction({
     contractAddress: Accounts.DEPLOYER.stxAddress,
-    contractName: 'stacking-pool',
+    contractName: 'stacking-pool-test',
     functionName: 'get-pool-members',
     functionArgs: [],
     senderAddress: Accounts.DEPLOYER.stxAddress,

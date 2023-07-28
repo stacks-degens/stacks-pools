@@ -1,5 +1,5 @@
 
-;; Main Stacking Pool Contract
+;; The Stacking Pool Contract Designed For Testing
 
 
 ;; Flow
@@ -477,17 +477,19 @@
 
 (define-private (transfer-reward-one-stacker (stacker principal)) 
 (let (
-      (reward 
-        (unwrap! (preview-exchange-reward 
-          (default-to u0 
-            (get reward 
-              (map-get? burn-block-rewards { burn-height: (var-get burn-block-to-distribute-rewards)}))) 
-          u5) err-cant-unwrap-exchange-preview))
+      (reward (* u490 (default-to u0 (get reward (map-get? burn-block-rewards { burn-height: (var-get burn-block-to-distribute-rewards)}))))) ;; hardcoded reward for tests 
+      ;; (reward 
+      ;;   (unwrap! (preview-exchange-reward 
+      ;;     (default-to u0 
+      ;;       (get reward 
+      ;;         (map-get? burn-block-rewards { burn-height: (var-get burn-block-to-distribute-rewards)}))) 
+      ;;     u5) err-cant-unwrap-exchange-preview))
       (stacker-weight 
         (default-to u0 
           (get weight-percentage 
             (map-get? stacker-weights-per-reward-cycle {stacker: stacker, reward-cycle: (var-get reward-cycle-to-distribute-rewards)}))))
       (stacker-reward (/ (* stacker-weight reward) ONE-6))) 
+      
         (if (> stacker-weight u0) 
           (match (as-contract (stx-transfer? stacker-reward tx-sender stacker))
             success 

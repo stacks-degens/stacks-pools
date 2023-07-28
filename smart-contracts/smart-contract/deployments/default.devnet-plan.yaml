@@ -130,8 +130,15 @@ plan:
         - contract-publish:
             contract-name: stacking-pool
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 349130
+            cost: 350600
             path: contracts/stacking-pool.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: stacking-pool-test
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 351400
+            path: contracts/stacking-pool-test.clar
             anchor-block-only: true
             clarity-version: 2
       epoch: "2.4"
