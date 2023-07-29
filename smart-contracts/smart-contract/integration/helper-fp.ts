@@ -236,6 +236,36 @@ export async function broadcastDepositStxOwner({
   return handleContractCall({ txOptions, network });
 }
 
+export async function broadcastDelegateStackStxMany({
+  stackersLockList,
+  nonce,
+  network,
+  user,
+}: {
+  stackersLockList: [string];
+  nonce: number;
+  network: StacksNetwork;
+  user: { stxAddress: string; secretKey: string };
+}) {
+  let convertedList = [];
+  stackersLockList.forEach((stacker) => convertedList.push(standardPrincipalCV(stacker)));
+
+  let txOptions = {
+    contractAddress: mainContract.address,
+    contractName: mainContract.name,
+    functionName: mainContract.Functions.DelegateStackStxMany.name,
+    functionArgs: mainContract.Functions.DelegateStackStxMany.args({
+      stackersLockList: listCV(convertedList),
+    }),
+    nonce,
+    network,
+    anchorMode: AnchorMode.OnChainOnly,
+    postConditionMode: PostConditionMode.Allow,
+    senderKey: user.secretKey,
+  };
+  return handleContractCall({ txOptions, network });
+}
+
 export async function broadcastReserveStxOwner({
   amountUstx,
   nonce,

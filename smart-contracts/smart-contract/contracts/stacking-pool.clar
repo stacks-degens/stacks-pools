@@ -296,6 +296,9 @@
     ;; Do 4.
     (ok (maybe-stack-aggregation-commit current-cycle))))
 
+(define-public (delegate-stack-stx-many (stackers-lock-list (list 100 principal))) 
+(ok (map delegate-stack-stx stackers-lock-list)))
+
 (define-public (multiple-blocks-check-won-rewards (burn-heights-list (list 100 uint))) 
 (ok (map check-won-block-rewards burn-heights-list)))
 

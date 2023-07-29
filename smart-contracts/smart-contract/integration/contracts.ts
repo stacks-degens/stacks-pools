@@ -38,6 +38,18 @@ export namespace mainContract {
       }
     }
 
+    export namespace DelegateStackStxMany {
+      export const name = 'delegate-stack-stx-many';
+
+      export interface DelegateStackStxArgs {
+        stackersLockList: ListCV<PrincipalCV>;
+      }
+
+      export function args(args: DelegateStackStxArgs): ClarityValue[] {
+        return [args.stackersLockList];
+      }
+    }
+
     export namespace DepositStxOwner {
       export const name = 'deposit-stx-liquidity-provider';
 
