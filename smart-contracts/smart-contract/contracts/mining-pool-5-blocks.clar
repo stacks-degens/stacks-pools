@@ -638,23 +638,14 @@
   (if (var-get notifier-previous-entries-removed) 
       (begin 
         (ok (var-set notifier-previous-entries-removed false))) 
-      (end-vote-notifier-on-start))))
+      (end-vote-notifier-private))))
 
 (define-public (end-vote-notifier) 
 (begin 
   (asserts! (>= block-height (var-get notifier-vote-end-block)) err-voting-still-active)
-  (unwrap! (get-max-votes-number-notifier) (err u99999))
-  (if 
-    (> 
-      (var-get max-votes-notifier)  
-      (/ (var-get k) u2)) 
-    (var-set notifier (var-get max-voted-proposed-notifier))
-    false)
-  (delete-all-notifier-entries)
-  (var-set notifier-vote-active false)
-  (ok true)))
+  (end-vote-notifier-private)))
 
-(define-public (end-vote-notifier-on-start) 
+(define-private (end-vote-notifier-private) 
 (begin 
   (unwrap! (get-max-votes-number-notifier) (err u99999))
   (if 
