@@ -301,10 +301,7 @@
   (asserts! (< block-number block-height) err-block-height-invalid) ;; +100  ? 
   (asserts! (is-none (get claimed (map-get? claimed-rewards {block-number: block-number}))) err-already-distributed)
   (let ((miners-list-at-reward-block 
-          (if 
-            (is-eq block-number block-height) 
-            (var-get miners-list) 
-            (at-block (unwrap! (get-block-info? id-header-hash block-number) err-cant-unwrap-rewarded-block) (var-get miners-list))))
+          (at-block (unwrap! (get-block-info? id-header-hash block-number) err-cant-unwrap-rewarded-block) (var-get miners-list)))
         (block-reward (get-reward-at-block block-number)))
     ;; (asserts! (is-eq (unwrap-panic (get claimer block-reward)) (as-contract tx-sender)) err-not-claimer)
     (map-set claimed-rewards {block-number: block-number} {claimed: true})
@@ -641,17 +638,32 @@
   (if (var-get notifier-previous-entries-removed) 
       (begin 
         (ok (var-set notifier-previous-entries-removed false))) 
-      (end-vote-notifier))))
+      (end-vote-notifier-on-start))))
 
 (define-public (end-vote-notifier) 
 (begin 
   (asserts! (>= block-height (var-get notifier-vote-end-block)) err-voting-still-active)
   (unwrap! (get-max-votes-number-notifier) (err u99999))
-  (if (> (var-get max-votes-notifier) (/ (var-get k) u2)) 
+  (if 
+    (> 
+      (var-get max-votes-notifier) 
+      (/ (var-get k) u2)) 
     (var-set notifier (var-get max-voted-proposed-notifier))
     false)
   (delete-all-notifier-entries)
   (var-set notifier-vote-active false)
+  (ok true)))
+
+(define-public (end-vote-notifier-on-start) 
+(begin 
+  (unwrap! (get-max-votes-number-notifier) (err u99999))
+  (if 
+    (> 
+      (var-get max-votes-notifier) 
+      (/ (var-get k) u2)) 
+    (var-set notifier (var-get max-voted-proposed-notifier))
+    false)
+  (delete-all-notifier-entries)
   (ok true)))
 
 (define-private (get-max-votes-number-notifier) 
