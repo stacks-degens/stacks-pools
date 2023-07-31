@@ -46,9 +46,9 @@ export const contractMapping: ContractMapping = {
       owner: '', // TODO: complete when deployed
     },
     testnet: {
-      contractAddress: '',
-      contractName: '',
-      owner: '',
+      contractAddress: 'ST02D2KP0630FS1BCJ7YM4TYMDH6NS9QKR0B57R3',
+      contractName: 'stacking-pool-test',
+      owner: 'ST02D2KP0630FS1BCJ7YM4TYMDH6NS9QKR0B57R3',
     },
     devnet: {
       contractAddress: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
@@ -59,13 +59,13 @@ export const contractMapping: ContractMapping = {
   pox: {
     mainnet: {
       contractAddress: 'SP000000000000000000002Q6VF78',
-      contractName: 'pox-3', // TODO: complete when deployed
-      owner: 'SP000000000000000000002Q6VF78', // TODO: complete when deployed
+      contractName: 'pox-3',
+      owner: 'SP000000000000000000002Q6VF78',
     },
     testnet: {
       contractAddress: 'ST000000000000000000002AMW42H',
       contractName: 'pox-3',
-      owner: '',
+      owner: 'ST000000000000000000002AMW42H',
     },
     devnet: {
       contractAddress: 'ST000000000000000000002AMW42H',
