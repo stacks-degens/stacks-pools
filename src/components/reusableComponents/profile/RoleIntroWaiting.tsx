@@ -38,7 +38,7 @@ const RoleIntroWaiting = ({
         <div className="intro-sides">
           <>
             <h5 className="margin-block-0">Status</h5>
-            <div className="top-margins">
+            <div className="top-margins" text-align-center>
               {positiveVotes !== null && positiveVotesThreshold !== null && positiveVotes < positiveVotesThreshold
                 ? 'Waiting to be voted'
                 : 'You have enough votes'}

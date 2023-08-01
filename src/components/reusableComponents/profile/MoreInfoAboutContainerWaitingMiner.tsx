@@ -22,7 +22,11 @@ const MoreInfoAboutContainerWaitingMiner = ({
     <>
       <div className="content-sections-title-info-container bottom-margins">
         <span className="bold-font">Status: </span>
-        <span className="result-of-content-section">waiting to be voted </span>
+        <span className="result-of-content-section">
+          {positiveVotes !== null && positiveVotesThreshold !== null && positiveVotes < positiveVotesThreshold
+            ? 'Waiting to be voted'
+            : 'You have enough votes'}
+        </span>
       </div>
 
       <div className="content-sections-title-info-container">

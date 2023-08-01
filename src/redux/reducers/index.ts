@@ -8,7 +8,6 @@ import {
 } from '../actions';
 
 import { showConnect } from '@stacks/connect';
-import logo from './../../logo.png';
 
 export interface IinitialState {
   userState: IUserState;
@@ -34,7 +33,7 @@ const mainReducer = (state = initialState, action: IreduxAction) => {
       showConnect({
         appDetails: {
           name: 'Stacks Decentralized Pools',
-          icon: logo,
+          icon: 'https://res.cloudinary.com/dltehevwk/image/upload/v1690910281/pools-logo.png',
         },
         redirectTo: '/',
         onFinish: () => {
