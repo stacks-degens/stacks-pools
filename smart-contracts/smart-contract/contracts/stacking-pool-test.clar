@@ -462,7 +462,7 @@
                                     })
                                   (increment-sc-locked-balance 
                                     (- amount-ustx 
-                                      (default-to u0 (get locked-balance (map-get? user-data {address: tx-sender})))))
+                                      (default-to u0 (get locked-balance (map-get? user-data {address: user})))))
                                   (ok {lock-amount: (get total-locked success-increase),
                                       stacker: user,
                                       unlock-burn-height: (get unlock-burn-height success)}))
