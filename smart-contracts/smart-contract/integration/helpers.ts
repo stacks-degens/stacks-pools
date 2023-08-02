@@ -18,6 +18,8 @@ import {
   cvToJSON,
   principalCV,
   standardPrincipalCV,
+  bufferCV,
+  tupleCV,
 } from '@stacks/transactions';
 import { Constants } from './constants';
 const fetch = require('node-fetch');
@@ -175,7 +177,8 @@ export const getRewardAtBlock = async (network: StacksNetwork, blockHeight: numb
 };
 
 export const askToJoin = async (
-  btcAddress: string,
+  btcAddressVersion: Uint8Array,
+  btcAddressHashbytesUintArray: Uint8Array,
   network: StacksNetwork,
   account: Account,
   fee: number,
@@ -185,7 +188,9 @@ export const askToJoin = async (
     contractAddress: Accounts.DEPLOYER.stxAddress,
     contractName: 'mining-pool-5-blocks',
     functionName: 'ask-to-join',
-    functionArgs: [standardPrincipalCV(btcAddress)],
+    functionArgs: [
+      tupleCV({ version: bufferCV(btcAddressVersion), hashbytes: bufferCV(btcAddressHashbytesUintArray) }),
+    ],
     fee,
     nonce,
     network,
@@ -195,6 +200,7 @@ export const askToJoin = async (
   };
   // @ts-ignore
   const tx = await makeContractCall(txOptions);
+  console.log(tx);
   // Broadcast transaction to our Devnet stacks node
   const result = await broadcastTransaction(tx, network);
   return result;

@@ -54,7 +54,7 @@
 (define-map map-block-joined { address: principal } { block-height: uint })
 (define-map map-balance-xBTC { address: principal } { value: uint })
 (define-map auto-exchange { address: principal } { value: bool })
-(define-map btc-address { address: principal } { btc-address: (string-ascii 42) })
+(define-map btc-address { address: principal } { btc-address: {hashbytes: (buff 20), version: (buff 1)} })
 
 (define-map map-votes-accept-join { address: principal } { value: uint })
 (define-map map-votes-reject-join { address: principal } { value: uint })
@@ -266,7 +266,7 @@
 (define-read-only (get-miner-btc-address (miner-address principal))
   (map-get? btc-address {address: miner-address}))
 
-(define-public (set-my-btc-address (new-btc-address  (string-ascii 42))) 
+(define-public (set-my-btc-address (new-btc-address {hashbytes: (buff 20), version: (buff 1)})) 
   (ok (map-set btc-address {address: tx-sender} {btc-address: new-btc-address})))
 
 ;; deposit funds
@@ -317,7 +317,7 @@
 
 ;; JOINING FLOW
 
-(define-public (ask-to-join (my-btc-address (string-ascii 42)))
+(define-public (ask-to-join (my-btc-address {hashbytes: (buff 20), version: (buff 1)}))
 (begin 
   (asserts! (not (check-is-miner-now tx-sender)) err-already-joined) 
   (asserts! (not (check-is-waiting-now tx-sender)) err-already-asked-to-join) 
