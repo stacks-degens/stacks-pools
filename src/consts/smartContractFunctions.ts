@@ -16,6 +16,8 @@ import {
   noneCV,
   bufferCV,
   tupleCV,
+  principalCV,
+  listCV,
 } from '@stacks/transactions';
 import { convertPrincipalToArg, convertStringToArg } from './converter';
 import { crypto } from 'bitcoinjs-lib';
@@ -258,8 +260,21 @@ export const ContractSetAutoExchangeMining = (value: boolean) => {
 export const ContractDelegateSTXStacking = (amount: number, userAddress: string) => {
   const type = 'stacking';
   const convertedArgs = [uintCV(amount * 1000000)];
-  // const postConditions = createPostConditionSTXTransferToContract(userAddress, amount * 1000000);
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.delegateStx, []);
+};
+
+// delegate-stack-stx-many
+// args: stackers-lock-list (list 100 principal)
+// what does it do: delegate stx for multiple stackers
+
+export const ContractStackManySTX = (listUserAddresses: Array<string>) => {
+  const type = 'stacking';
+  let convertedArgs: any = [];
+  listUserAddresses.forEach((userAddress) => {
+    convertedArgs.push(principalCV(userAddress));
+  });
+  convertedArgs = [listCV(convertedArgs)];
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.delegateStackStxMany, []);
 };
 
 // leave-pool

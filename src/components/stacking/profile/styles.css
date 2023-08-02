@@ -122,10 +122,6 @@
   align-items: center;
 }
 
-#revoke-delegate-button button {
-  width: 270px !important;
-}
-
 .profile-page-main-container-stacking {
   height: auto;
   display: flex;

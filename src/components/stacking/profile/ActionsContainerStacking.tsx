@@ -7,6 +7,7 @@ import {
   ContractLeavePoolStacking,
   ContractRevokeDelegateStacking,
   ContractRewardDistributionStacking,
+  ContractStackManySTX,
   ContractUpdateScBalancesStacking,
 } from '../../../consts/smartContractFunctions';
 import { readOnlyClaimedBlockStatusStacking, readOnlyGetLiquidityProvider } from '../../../consts/readOnly';
@@ -19,14 +20,16 @@ import ActionsContainerProviderStacking from './ActionsContainerProviderStacking
 interface IActionsContainerStackingProps {
   userAddress: string | null;
   currentRole: string;
+  delegatedToPool: number | null;
 }
 
-const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContainerStackingProps) => {
+const ActionsContainerStacking = ({ userAddress, currentRole, delegatedToPool }: IActionsContainerStackingProps) => {
   const [showAlertLeavePool, setShowAlertLeavePool] = useState<boolean>(false);
   const [leavePoolButtonClicked, setLeavePoolButtonClicked] = useState<boolean>(false);
   const [disableLeavePoolButton, setDisableLeavePoolButton] = useState<boolean>(false);
   const [delegateAmountInput, setDelegateAmountInput] = useState<number | null>(null);
-  const [extendDelegateAmountInput, setExtendDelegateAmountInput] = useState<number | null>(null);
+  const [increaseDelegateAmountInput, setIncreaseDelegateAmountInput] = useState<number | null>(null);
+
   const [claimRewardsInputAmount, setClaimRewardsInputAmount] = useState<number | null>(null);
   const [currentLiquidityProvider, setCurrentLiquidityProvider] = useState<string | null>(null);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
@@ -58,6 +61,31 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
         }
       }
     }
+  };
+
+  const increaseDelegateAmount = (alreadyDelegated: number, amount: number) => {
+    if (amount !== null && !isNaN(amount)) {
+      if (amount < 0.000001) {
+        alert('You need to input more');
+      } else {
+        console.log(amount);
+        if (userAddress !== null) {
+          ContractDelegateSTXStacking(amount + alreadyDelegated, userAddress);
+        }
+      }
+    }
+  };
+
+  const onClickStackFunds = () => {
+    const inputListNode = document.getElementById('listId');
+    const inputList = inputListNode?.value;
+    console.log('inputList output: ', parseList(inputList));
+    const parsedList = parseList(inputList);
+    ContractStackManySTX(parsedList);
+  };
+
+  const parseList = (inputList: String) => {
+    return inputList.replaceAll(' ', '').split(',');
   };
 
   useEffect(() => {
@@ -119,6 +147,32 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
         className="content-info-container-stacking justify-content-between"
       >
         <div>
+          {currentRole === 'Provider' && <ActionsContainerProviderStacking userAddress={userAddress} /> && (
+            <div className="flex-container align-items-center input-line-actions-container-stacking">
+              <div className="width-55 label-and-input-container-actions-container">
+                <label className="custom-label">Lock funds for the next cycle</label>
+                <div className="bottom-margins">
+                  <input
+                    className="custom-input"
+                    type="text"
+                    id="listId"
+                    placeholder="principal, principal, principal etc."
+                  ></input>
+                </div>
+              </div>
+              <div className="button-container-stacking-action-container-stacking">
+                <button
+                  className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+                  onClick={() => {
+                    onClickStackFunds();
+                  }}
+                >
+                  Stack Funds Multiple Users
+                </button>
+              </div>
+            </div>
+          )}
+
           <div className="flex-container align-items-center input-line-actions-container-stacking">
             <div className="width-55 label-and-input-container-actions-container">
               <label className="custom-label">Insert amount of STX to delegate</label>
@@ -138,6 +192,7 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
             <div className="button-container-stacking-action-container-stacking">
               <button
                 className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+                disabled={!!delegatedToPool}
                 onClick={() => {
                   if (delegateAmountInput !== null) delegateAmount(delegateAmountInput);
                 }}
@@ -156,8 +211,8 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
                   onChange={(e) => {
                     const inputAmount = e.target.value;
                     const inputAmountToInt = parseFloat(inputAmount);
-                    setExtendDelegateAmountInput(inputAmountToInt);
-                    console.log('extend deposit input', inputAmount);
+                    setIncreaseDelegateAmountInput(inputAmountToInt);
+                    console.log('increase deposit input', inputAmount);
                   }}
                 ></input>
               </div>
@@ -165,19 +220,18 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
             <div className="button-container-stacking-action-container-stacking">
               <button
                 className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+                disabled={!delegatedToPool}
                 onClick={() => {
-                  if (extendDelegateAmountInput !== null) delegateAmount(extendDelegateAmountInput);
+                  if (increaseDelegateAmountInput && delegatedToPool)
+                    increaseDelegateAmount(delegatedToPool, increaseDelegateAmountInput);
                 }}
               >
-                Extend delegate
+                Increase delegate
               </button>
             </div>
           </div>
-          <div
-            id="revoke-delegate-button"
-            className="content-sections-title-info-container leave-pool-button-action-container"
-          >
-            <div className="flex-center">
+          <div className="content-sections-title-info-container leave-pool-button-action-container-stacking">
+            <div className="flex-right">
               <button
                 className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
                 onClick={updateScBalances}
@@ -227,11 +281,8 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
             </Alert>
           </div>
         )}
-        <div
-          id="revoke-delegate-button"
-          className="content-sections-title-info-container leave-pool-button-action-container"
-        >
-          <div className="flex-center">
+        <div className="content-sections-title-info-container leave-pool-button-action-container-stacking">
+          <div className="flex-right">
             <button
               className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
               onClick={revokeDelegate}
@@ -240,11 +291,8 @@ const ActionsContainerStacking = ({ userAddress, currentRole }: IActionsContaine
             </button>
           </div>
         </div>
-        <div
-          id="revoke-delegate-button"
-          className="content-sections-title-info-container leave-pool-button-action-container"
-        >
-          <div className="flex-center">
+        <div className="content-sections-title-info-container leave-pool-button-action-container-stacking">
+          <div className="flex-right">
             <button
               className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
               onClick={disallowContractCaller}

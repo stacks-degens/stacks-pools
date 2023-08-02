@@ -74,7 +74,7 @@ const ActionsContainer = ({ currentNotifier, userAddress }: IActionsContainerPro
     if (currentNotifier !== null && currentNotifier !== userAddress) {
       ContractLeavePoolMining();
     } else if (currentNotifier !== null && currentNotifier === userAddress) {
-      console.log("you art the notifier, you can't leave pool");
+      console.log("you are the notifier, you can't leave pool");
 
       setShowAlertLeavePool(true);
       setDisableLeavePoolButton(true);

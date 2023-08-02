@@ -42,7 +42,11 @@ const StackerProfile = ({
             userUntilBurnHt={userUntilBurnHt}
           />
           {(currentRole === 'Provider' || currentRole === 'Stacker') && (
-            <ActionsContainerStacking userAddress={userAddress} currentRole={currentRole} />
+            <ActionsContainerStacking
+              userAddress={userAddress}
+              currentRole={currentRole}
+              delegatedToPool={delegatedToPool}
+            />
           )}
         </div>
       </div>

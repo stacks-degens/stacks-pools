@@ -39,8 +39,6 @@ const MinerDetailsContainer = ({
 
   const location = useLocation();
   const params = useParams();
-  console.log('loc', location);
-  console.log('params', params);
 
   useEffect(() => {
     const getCurrentNotifier = async () => {

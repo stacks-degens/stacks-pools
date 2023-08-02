@@ -129,11 +129,8 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
           </button>
         </div>
       </div>
-      <div
-        id="revoke-delegate-button"
-        className="content-sections-title-info-container leave-pool-button-action-container"
-      >
-        <div className="flex-center">
+      <div className="content-sections-title-info-container leave-pool-button-action-container-stacking">
+        <div className="flex-right">
           <button
             className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
             onClick={() => {
@@ -186,6 +183,7 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
             <input
               className="custom-input"
               type="text"
+              placeholder="0 versioned (legacy P2PKH) btc address' public key"
               onChange={(e) => {
                 console.log(e);
                 setNewPoolPoxAddressPubKey(e.target.value);

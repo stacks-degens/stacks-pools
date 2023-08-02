@@ -37,10 +37,7 @@ const DashboardStacking = () => {
   useEffect(() => {
     if (userSession.isUserSignedIn()) {
       const args = userSession.loadUserData().profile.stxAddress.testnet;
-      console.log('address', args);
       setUserAddress(args);
-    } else {
-      console.log('not signed in');
     }
   }, [userAddress]);
 
