@@ -749,5 +749,5 @@ true))
 (define-read-only (get-minimum-deposit-liquidity-provider) 
 (var-get minimum-deposit-amount-liquidity-provider))
 
-	(define-read-only (was-block-claimed (rewarded-burn-block uint))
+(define-read-only (was-block-claimed (rewarded-burn-block uint))
 (map-get? already-rewarded {burn-block-height: rewarded-burn-block}))
