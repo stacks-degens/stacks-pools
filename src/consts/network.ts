@@ -1,4 +1,4 @@
-export const network: networkType = 'mainnet';
+export const network: networkType = 'testnet';
 export type networkType = 'mainnet' | 'testnet' | 'devnet';
 
 // get calls

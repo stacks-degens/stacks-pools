@@ -129,7 +129,7 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
           </button>
         </div>
       </div>
-      <div className="content-sections-title-info-container leave-pool-button-action-container-stacking">
+      <div className="content-sections-title-info-container leave-pool-button-action-container">
         <div className="flex-right">
           <button
             className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}

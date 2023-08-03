@@ -20,6 +20,7 @@ import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import { useNavigate } from 'react-router-dom';
 import VotingNotifierInfoContainer from '../../reusableComponents/voting/VotingNotifierInfoContainer';
 import './styles.css';
+import { network } from '../../../consts/network';
 
 const VotingNotifier = () => {
   const [userAddress, setUserAddress] = useState<string | null>(null);
@@ -30,7 +31,7 @@ const VotingNotifier = () => {
   const userSession = useAppSelector(selectUserSessionState);
   const [notifiersRows, setNotifiersRows] = useState<{ id: number; address: string; notifierVotes: string }[]>([]);
   const navigate = useNavigate();
-
+  const localNetwork = network === 'devnet' ? 'testnet' : network;
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   const handleMinerInfoButtonClick = (address: string | undefined) => {
@@ -134,7 +135,7 @@ const VotingNotifier = () => {
   }, []);
 
   useEffect(() => {
-    const args = userSession.loadUserData().profile.stxAddress.testnet;
+    const args = userSession.loadUserData().profile.stxAddress[localNetwork];
     setUserAddress(args);
   }, []);
 

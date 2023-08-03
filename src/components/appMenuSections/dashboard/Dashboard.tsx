@@ -15,6 +15,7 @@ import {
 import DashboardInfoContainer from '../../reusableComponents/dashboard/DashboardInfoContainer';
 import colors from '../../../consts/colorPallete';
 import './styles.css';
+import { network } from '../../../consts/network';
 
 const Dashboard = () => {
   const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);
@@ -24,8 +25,8 @@ const Dashboard = () => {
   const [blocksWon, setBlocksWon] = useState<number | null>(null);
   const [stacksRewards, setStacksRewards] = useState<number | null>(null);
   const userSession = useAppSelector(selectUserSessionState);
-
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
+  const localNetwork = network === 'devnet' ? 'testnet' : network;
 
   useEffect(() => {
     const getCurrentNotifier = async () => {
@@ -38,7 +39,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (userSession.isUserSignedIn()) {
-      const args = userSession.loadUserData().profile.stxAddress.testnet;
+      const args = userSession.loadUserData().profile.stxAddress[localNetwork];
       setUserAddress(args);
     }
   }, [userAddress]);

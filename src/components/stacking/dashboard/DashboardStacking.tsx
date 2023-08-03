@@ -18,6 +18,7 @@ import {
   readOnlyGetStackAmounThisCycleStacking,
   ReadOnlyGetStackersList,
 } from '../../../consts/readOnly';
+import { network } from '../../../consts/network';
 
 const DashboardStacking = () => {
   const currentRole: UserRoleStacking = useAppSelector(selectCurrentUserRoleStacking);
@@ -29,14 +30,13 @@ const DashboardStacking = () => {
   const [returnCovered, setReturnCovered] = useState<number | null>(null);
   const [minimumDepositProvider, setMinimumDepositProvider] = useState<number | null>(null);
   const [userAddress, setUserAddress] = useState<string | null>(null);
-
+  const localNetwork = network === 'devnet' ? 'testnet' : network;
   const userSession = useAppSelector(selectUserSessionState);
-
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   useEffect(() => {
     if (userSession.isUserSignedIn()) {
-      const args = userSession.loadUserData().profile.stxAddress.testnet;
+      const args = userSession.loadUserData().profile.stxAddress[localNetwork];
       setUserAddress(args);
     }
   }, [userAddress]);

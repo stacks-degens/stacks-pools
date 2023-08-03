@@ -11,6 +11,7 @@ import ActionsContainer from '../../reusableComponents/profile/ActionsContainer'
 import RoleIntro from '../../reusableComponents/profile/RoleIntro';
 import { principalCV, ClarityValue, listCV, cvToJSON } from '@stacks/transactions';
 import './styles.css';
+import { network } from '../../../consts/network';
 
 interface IMinerProfileProps {
   connectedWallet: string | null;
@@ -30,7 +31,10 @@ const MinerProfile = ({
   const userSession = useAppSelector(selectUserSessionState);
   const currentRole = useAppSelector(selectCurrentUserRoleMining);
   const [totalWithdrawals, setTotalWithdrawals] = useState<number | null>(null);
-  const userAddressAsCV: ClarityValue = listCV([principalCV(userSession.loadUserData().profile.stxAddress.testnet)]);
+  const localNetwork = network === 'devnet' ? 'testnet' : network;
+  const userAddressAsCV: ClarityValue = listCV([
+    principalCV(userSession.loadUserData().profile.stxAddress[localNetwork]),
+  ]);
   const [positiveVotes, setPositiveVotes] = useState<number | null>(null);
   const [positiveVotesThreshold, setPositiveVotesThreshold] = useState<number | null>(null);
   const [negativeVotes, setNegativeVotes] = useState<number | null>(null);
@@ -47,7 +51,7 @@ const MinerProfile = ({
 
   useEffect(() => {
     const getUserTotalWithdrawls = async () => {
-      const principalAddress = userSession.loadUserData().profile.stxAddress.testnet;
+      const principalAddress = userSession.loadUserData().profile.stxAddress[localNetwork];
       const getTotalWithdrawals = await readOnlyGetAllTotalWithdrawalsMining(principalAddress);
       setTotalWithdrawals(getTotalWithdrawals);
     };

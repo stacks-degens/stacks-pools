@@ -71,7 +71,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
     setOpenMiningMenu(!openMiningMenu);
   };
 
-  const currentRoleMining: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
+  // const currentRoleMining: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
   const currentRoleStacking: UserRoleStacking = useAppSelector(selectCurrentUserRoleStacking);
 
   const toggleDrawer = (anchor: Anchor, open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -280,7 +280,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
               </ListItem>
               <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
             </div>
-            {currentRoleMining !== 'Viewer' && (
+            {/* {currentRoleMining !== 'Viewer' && (
               <div>
                 <ListItem
                   className={location.pathname === '/mining/myProfile' ? 'active-custom' : ''}
@@ -498,7 +498,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                   </ListItem>
                 </div>
               </>
-            )}
+            )} */}
           </Collapse>
           <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
           <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />

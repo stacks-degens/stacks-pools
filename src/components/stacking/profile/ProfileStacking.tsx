@@ -21,15 +21,16 @@ const ProfileStacking = () => {
   const [delegatedToPool, setDelegatedToPool] = useState<number>(0);
   const [userUntilBurnHt, setUserUntilBurnHt] = useState<number>(0);
   const userSession = useAppSelector(selectUserSessionState);
+  const localNetwork = network === 'devnet' ? 'testnet' : network;
 
   useEffect(() => {
-    const wallet = userSession.loadUserData().profile.stxAddress.testnet;
+    const wallet = userSession.loadUserData().profile.stxAddress[localNetwork];
     setConnectedWallet(wallet);
   }, [connectedWallet]);
 
   useEffect(() => {
     if (userSession.isUserSignedIn()) {
-      const args = userSession.loadUserData().profile.stxAddress.testnet;
+      const args = userSession.loadUserData().profile.stxAddress[localNetwork];
       setUserAddress(args);
     }
   }, [userAddress]);
@@ -42,7 +43,7 @@ const ProfileStacking = () => {
 
   useEffect(() => {
     const getLockedBalance = async () => {
-      const wallet = userSession.loadUserData().profile.stxAddress.testnet;
+      const wallet = userSession.loadUserData().profile.stxAddress[localNetwork];
       console.log(wallet);
       const userLockedData = await readOnlyLockedBalanceUser(wallet, 'locked-balance');
       const userDelegatedData = await readOnlyLockedBalanceUser(wallet, 'delegated-balance');

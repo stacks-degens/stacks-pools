@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import {
   ReadOnlyAllDataWaitingMiners,
-  readOnlyAddressStatusMining,
+  // readOnlyAddressStatusMining,
   readOnlyGetAllDataMinersInPool,
   readOnlyGetRemainingBlocksJoinMining,
 } from '../../../consts/readOnly';
@@ -70,11 +70,11 @@ const MinerProfileDetails = () => {
     if (address !== null) {
       setExplorerLink(getExplorerUrl[network](address).explorerUrl);
 
-      const getAddressStatus = async () => {
-        const newStatus = await readOnlyAddressStatusMining(address);
-        setStatus(newStatus);
-      };
-      getAddressStatus();
+      // const getAddressStatus = async () => {
+      //   const newStatus = await readOnlyAddressStatusMining(address);
+      //   setStatus(newStatus);
+      // };
+      // getAddressStatus();
     }
   }, [address]);
 

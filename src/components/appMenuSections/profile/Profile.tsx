@@ -31,6 +31,7 @@ const Profile = () => {
   const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);
   const userSession = useAppSelector(selectUserSessionState);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
+  const localNetwork = network === 'devnet' ? 'testnet' : network;
 
   const profileMapping: Record<UserRoleMining, React.ReactElement> = {
     Viewer: <div></div>,
@@ -82,13 +83,13 @@ const Profile = () => {
   }, [currentNotifier]);
 
   useEffect(() => {
-    const wallet = userSession.loadUserData().profile.stxAddress.testnet;
+    const wallet = userSession.loadUserData().profile.stxAddress[localNetwork];
     setConnectedWallet(wallet);
   }, [connectedWallet]);
 
   useEffect(() => {
     if (userSession.isUserSignedIn()) {
-      const args = userSession.loadUserData().profile.stxAddress.testnet;
+      const args = userSession.loadUserData().profile.stxAddress[localNetwork];
       setUserAddress(args);
     }
   }, [userAddress]);
@@ -101,7 +102,7 @@ const Profile = () => {
 
   useEffect(() => {
     const getUserBalance = async () => {
-      const principalAddress = userSession.loadUserData().profile.stxAddress.testnet;
+      const principalAddress = userSession.loadUserData().profile.stxAddress[localNetwork];
       const getTotalWithdrawals = await readOnlyGetAllTotalWithdrawalsMining(principalAddress);
       const balance = await readOnlyGetBalanceMining(principalAddress);
       setTotalWithdrawals(getTotalWithdrawals);
