@@ -41,9 +41,9 @@ export const contractMapping: ContractMapping = {
 
   stacking: {
     mainnet: {
-      contractAddress: '', // TODO: complete when deployed
-      contractName: '', // TODO: complete when deployed
-      owner: '', // TODO: complete when deployed
+      contractAddress: 'SP02D2KP0630FS1BCJ7YM4TYMDH6NS9QKTNCZR00',
+      contractName: 'stacking-pool',
+      owner: 'SP02D2KP0630FS1BCJ7YM4TYMDH6NS9QKTNCZR00',
     },
     testnet: {
       contractAddress: 'ST02D2KP0630FS1BCJ7YM4TYMDH6NS9QKR0B57R3',

@@ -21,7 +21,13 @@ import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import { useAppSelector } from '../redux/store';
-import { selectCurrentTheme, selectCurrentUserRoleMining, selectCurrentUserRoleStacking, UserRoleMining, UserRoleStacking } from '../redux/reducers/user-state';
+import {
+  selectCurrentTheme,
+  selectCurrentUserRoleMining,
+  selectCurrentUserRoleStacking,
+  UserRoleMining,
+  UserRoleStacking,
+} from '../redux/reducers/user-state';
 import { useState } from 'react';
 import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material';
 import { Collapse } from '@mui/material';
@@ -67,7 +73,6 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
 
   const currentRoleMining: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
   const currentRoleStacking: UserRoleStacking = useAppSelector(selectCurrentUserRoleStacking);
-  
 
   const toggleDrawer = (anchor: Anchor, open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
     if (
@@ -149,8 +154,10 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
           >
             <ListItemButton onClick={handleClickStackingMenu}>
               <ListItemIcon>
-                {!openStackingMenu && (<KeyboardDoubleArrowDownIcon style={{ color: colors[appCurrentTheme].secondary }} />)}
-                {openStackingMenu && (<KeyboardDoubleArrowUpIcon style={{ color: colors[appCurrentTheme].secondary }} />)}
+                {!openStackingMenu && (
+                  <KeyboardDoubleArrowDownIcon style={{ color: colors[appCurrentTheme].secondary }} />
+                )}
+                {openStackingMenu && <KeyboardDoubleArrowUpIcon style={{ color: colors[appCurrentTheme].secondary }} />}
               </ListItemIcon>
               <ListItemText
                 className="navbar-sections-font-size"
@@ -168,50 +175,58 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
           >
             <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
             <div>
-          <ListItem
-            className={location.pathname === '/stacking/dashboard' ? 'active-custom' : ''}
-            onClick={toggleDrawer(anchor, false)}
-            onKeyDown={toggleDrawer(anchor, false)}
-          >
-            <ListItemButton component={Link} to={'/stacking/dashboard'} className="padding-left-sidebar-main-sections">
-              <ListItemIcon>
-                <SpaceDashboardIcon style={{ color: colors[appCurrentTheme].secondary }} />
-              </ListItemIcon>
-              <ListItemText
-                className="navbar-sections-font-size"
-                style={{ color: colors[appCurrentTheme].secondary }}
-                primary="Dashboard"
-              />
-            </ListItemButton>
-          </ListItem>
-          <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
-        </div>
-        {(currentRoleStacking === 'Provider' || currentRoleStacking === 'Stacker') && (
-          <div>
-            <ListItem
-              className={location.pathname === '/stacking/myProfile' ? 'active-custom' : ''}
-              onClick={toggleDrawer(anchor, false)}
-              onKeyDown={toggleDrawer(anchor, false)}
-            >
-              <ListItemButton component={Link} to={'/stacking/myProfile'} className="padding-left-sidebar-main-sections">
-                <ListItemIcon>
-                  <AccountCircleIcon style={{ color: colors[appCurrentTheme].secondary }} />
-                </ListItemIcon>
-                <ListItemText
-                  className="navbar-sections-font-size"
-                  style={{ color: colors[appCurrentTheme].secondary }}
-                  primary="Profile"
-                />
-              </ListItemButton>
-            </ListItem>
-          </div>
-        )}
+              <ListItem
+                className={location.pathname === '/stacking/dashboard' ? 'active-custom' : ''}
+                onClick={toggleDrawer(anchor, false)}
+                onKeyDown={toggleDrawer(anchor, false)}
+              >
+                <ListItemButton
+                  component={Link}
+                  to={'/stacking/dashboard'}
+                  className="padding-left-sidebar-main-sections"
+                >
+                  <ListItemIcon>
+                    <SpaceDashboardIcon style={{ color: colors[appCurrentTheme].secondary }} />
+                  </ListItemIcon>
+                  <ListItemText
+                    className="navbar-sections-font-size"
+                    style={{ color: colors[appCurrentTheme].secondary }}
+                    primary="Dashboard"
+                  />
+                </ListItemButton>
+              </ListItem>
+              <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
+            </div>
+            {(currentRoleStacking === 'Provider' || currentRoleStacking === 'Stacker') && (
+              <div>
+                <ListItem
+                  className={location.pathname === '/stacking/myProfile' ? 'active-custom' : ''}
+                  onClick={toggleDrawer(anchor, false)}
+                  onKeyDown={toggleDrawer(anchor, false)}
+                >
+                  <ListItemButton
+                    component={Link}
+                    to={'/stacking/myProfile'}
+                    className="padding-left-sidebar-main-sections"
+                  >
+                    <ListItemIcon>
+                      <AccountCircleIcon style={{ color: colors[appCurrentTheme].secondary }} />
+                    </ListItemIcon>
+                    <ListItemText
+                      className="navbar-sections-font-size"
+                      style={{ color: colors[appCurrentTheme].secondary }}
+                      primary="Profile"
+                    />
+                  </ListItemButton>
+                </ListItem>
+              </div>
+            )}
           </Collapse>
           <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
           <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
         </div>
         <div>
-          <ListItem
+          {/* <ListItem
             className={
               location.pathname === '/mining/myProfile' ||
               location.pathname === '/mining/dashboard' ||
@@ -239,245 +254,252 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                 primary="Mining"
               />
             </ListItemButton>
-          </ListItem>
-          <Collapse
-              in={openMiningMenu}
-              timeout="auto"
-              unmountOnExit
-            >
-              <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
-              <div>
-          <ListItem
-            className={location.pathname === '/mining/dashboard' ? 'active-custom' : ''}
-            onClick={toggleDrawer(anchor, false)}
-            onKeyDown={toggleDrawer(anchor, false)}
-          >
-            <ListItemButton component={Link} to={'/mining/dashboard'} className="padding-left-sidebar-main-sections">
-              <ListItemIcon>
-                <SpaceDashboardIcon style={{ color: colors[appCurrentTheme].secondary }} />
-              </ListItemIcon>
-              <ListItemText
-                className="navbar-sections-font-size"
-                style={{ color: colors[appCurrentTheme].secondary }}
-                primary="Dashboard"
-              />
-            </ListItemButton>
-          </ListItem>
-          <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
-        </div>
-        {currentRoleMining !== 'Viewer' && (
-          <div>
-            <ListItem
-              className={location.pathname === '/mining/myProfile' ? 'active-custom' : ''}
-              onClick={toggleDrawer(anchor, false)}
-              onKeyDown={toggleDrawer(anchor, false)}
-            >
-              <ListItemButton component={Link} to={'/mining/myProfile'} className="padding-left-sidebar-main-sections">
-                <ListItemIcon>
-                  <AccountCircleIcon style={{ color: colors[appCurrentTheme].secondary }} />
-                </ListItemIcon>
-                <ListItemText
-                  className="navbar-sections-font-size"
-                  style={{ color: colors[appCurrentTheme].secondary }}
-                  primary="Profile"
-                />
-              </ListItemButton>
-            </ListItem>
+          </ListItem> */}
+          <Collapse in={openMiningMenu} timeout="auto" unmountOnExit>
             <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
-          </div>
-        )}
-        {currentRoleMining === 'Miner' && (
-          <>
             <div>
-              <ListItem className="liMenuMiningPool">
-                <ListItemButton onClick={handleClickMiningPoolMenuItem} className="padding-left-sidebar-main-sections">
+              <ListItem
+                className={location.pathname === '/mining/dashboard' ? 'active-custom' : ''}
+                onClick={toggleDrawer(anchor, false)}
+                onKeyDown={toggleDrawer(anchor, false)}
+              >
+                <ListItemButton
+                  component={Link}
+                  to={'/mining/dashboard'}
+                  className="padding-left-sidebar-main-sections"
+                >
                   <ListItemIcon>
-                    <Hardware style={{ color: colors[appCurrentTheme].secondary }} />
+                    <SpaceDashboardIcon style={{ color: colors[appCurrentTheme].secondary }} />
                   </ListItemIcon>
                   <ListItemText
                     className="navbar-sections-font-size"
                     style={{ color: colors[appCurrentTheme].secondary }}
-                    primary="Mining Pool"
+                    primary="Dashboard"
                   />
-                  {openMiningPoolMenu ? (
-                    <ExpandLess style={{ color: colors[appCurrentTheme].secondary }} />
-                  ) : (
-                    <ExpandMore style={{ color: colors[appCurrentTheme].secondary }} />
-                  )}
                 </ListItemButton>
-
-                <Collapse
-                  in={openMiningPoolMenu}
-                  onClick={toggleDrawer(anchor, false)}
-                  onKeyDown={toggleDrawer(anchor, false)}
-                  timeout="auto"
-                  unmountOnExit
-                >
-                  <List
-                    className={location.pathname === '/mining/pool/status' ? 'active-custom' : ''}
-                    component="div"
-                    disablePadding
-                  >
-                    <ListItemButton
-                      sx={{ pl: 4 }}
-                      component={Link}
-                      to={'/mining/pool/status'}
-                      className="padding-left-sidebar-inner-sections"
-                    >
-                      <ListItemIcon>
-                        <StarBorder style={{ color: colors[appCurrentTheme].secondary }} />
-                      </ListItemIcon>
-                      <ListItemText
-                        className="navbar-sections-font-size"
-                        style={{ color: colors[appCurrentTheme].secondary }}
-                        primary="Status"
-                      />
-                    </ListItemButton>
-                  </List>
-                  <List
-                    className={
-                      location.pathname === '/mining/pool/miners' || location.pathname.slice(0, 8) === '/profile'
-                        ? 'active-custom'
-                        : ''
-                    }
-                    component="div"
-                    disablePadding
-                  >
-                    <ListItemButton
-                      sx={{ pl: 4 }}
-                      component={Link}
-                      to={'/mining/pool/miners'}
-                      className="padding-left-sidebar-inner-sections"
-                    >
-                      <ListItemIcon>
-                        <StarBorder style={{ color: colors[appCurrentTheme].secondary }} />
-                      </ListItemIcon>
-                      <ListItemText
-                        className="navbar-sections-font-size"
-                        style={{ color: colors[appCurrentTheme].secondary }}
-                        primary="Miners"
-                      />
-                    </ListItemButton>
-                  </List>
-                </Collapse>
               </ListItem>
               <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
             </div>
-            <div>
-              <ListItem className="liMenuMiningPool">
-                <ListItemButton onClick={handleClickVotingMenuItem} className="padding-left-sidebar-main-sections">
-                  <ListItemIcon>
-                    <Poll style={{ color: colors[appCurrentTheme].secondary }} />
-                  </ListItemIcon>
-                  <ListItemText
-                    className="navbar-sections-font-size"
-                    style={{ color: colors[appCurrentTheme].secondary }}
-                    primary="Voting"
-                  />
-                  {openVotingMenu ? (
-                    <ExpandLess style={{ color: colors[appCurrentTheme].secondary }} />
-                  ) : (
-                    <ExpandMore style={{ color: colors[appCurrentTheme].secondary }} />
-                  )}
-                </ListItemButton>
-
-                <Collapse
-                  in={openVotingMenu}
+            {currentRoleMining !== 'Viewer' && (
+              <div>
+                <ListItem
+                  className={location.pathname === '/mining/myProfile' ? 'active-custom' : ''}
                   onClick={toggleDrawer(anchor, false)}
                   onKeyDown={toggleDrawer(anchor, false)}
-                  timeout="auto"
-                  unmountOnExit
                 >
-                  <List
-                    className={location.pathname === '/mining/voting' ? 'active-custom' : ''}
-                    component="div"
-                    disablePadding
+                  <ListItemButton
+                    component={Link}
+                    to={'/mining/myProfile'}
+                    className="padding-left-sidebar-main-sections"
                   >
+                    <ListItemIcon>
+                      <AccountCircleIcon style={{ color: colors[appCurrentTheme].secondary }} />
+                    </ListItemIcon>
+                    <ListItemText
+                      className="navbar-sections-font-size"
+                      style={{ color: colors[appCurrentTheme].secondary }}
+                      primary="Profile"
+                    />
+                  </ListItemButton>
+                </ListItem>
+                <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
+              </div>
+            )}
+            {currentRoleMining === 'Miner' && (
+              <>
+                <div>
+                  <ListItem className="liMenuMiningPool">
                     <ListItemButton
-                      sx={{ pl: 4 }}
-                      component={Link}
-                      to={'/mining/voting'}
-                      className="padding-left-sidebar-inner-sections"
+                      onClick={handleClickMiningPoolMenuItem}
+                      className="padding-left-sidebar-main-sections"
                     >
                       <ListItemIcon>
-                        <StarBorder style={{ color: colors[appCurrentTheme].secondary }} />
+                        <Hardware style={{ color: colors[appCurrentTheme].secondary }} />
                       </ListItemIcon>
                       <ListItemText
                         className="navbar-sections-font-size"
                         style={{ color: colors[appCurrentTheme].secondary }}
-                        primary="Status"
+                        primary="Mining Pool"
                       />
+                      {openMiningPoolMenu ? (
+                        <ExpandLess style={{ color: colors[appCurrentTheme].secondary }} />
+                      ) : (
+                        <ExpandMore style={{ color: colors[appCurrentTheme].secondary }} />
+                      )}
                     </ListItemButton>
-                  </List>
-                  <List
-                    className={location.pathname === '/mining/voting/joiners' ? 'active-custom' : ''}
-                    component="div"
-                    disablePadding
-                  >
-                    <ListItemButton
-                      sx={{ pl: 4 }}
-                      component={Link}
-                      to={'/mining/voting/joiners'}
-                      className="padding-left-sidebar-inner-sections"
+
+                    <Collapse
+                      in={openMiningPoolMenu}
+                      onClick={toggleDrawer(anchor, false)}
+                      onKeyDown={toggleDrawer(anchor, false)}
+                      timeout="auto"
+                      unmountOnExit
                     >
+                      <List
+                        className={location.pathname === '/mining/pool/status' ? 'active-custom' : ''}
+                        component="div"
+                        disablePadding
+                      >
+                        <ListItemButton
+                          sx={{ pl: 4 }}
+                          component={Link}
+                          to={'/mining/pool/status'}
+                          className="padding-left-sidebar-inner-sections"
+                        >
+                          <ListItemIcon>
+                            <StarBorder style={{ color: colors[appCurrentTheme].secondary }} />
+                          </ListItemIcon>
+                          <ListItemText
+                            className="navbar-sections-font-size"
+                            style={{ color: colors[appCurrentTheme].secondary }}
+                            primary="Status"
+                          />
+                        </ListItemButton>
+                      </List>
+                      <List
+                        className={
+                          location.pathname === '/mining/pool/miners' || location.pathname.slice(0, 8) === '/profile'
+                            ? 'active-custom'
+                            : ''
+                        }
+                        component="div"
+                        disablePadding
+                      >
+                        <ListItemButton
+                          sx={{ pl: 4 }}
+                          component={Link}
+                          to={'/mining/pool/miners'}
+                          className="padding-left-sidebar-inner-sections"
+                        >
+                          <ListItemIcon>
+                            <StarBorder style={{ color: colors[appCurrentTheme].secondary }} />
+                          </ListItemIcon>
+                          <ListItemText
+                            className="navbar-sections-font-size"
+                            style={{ color: colors[appCurrentTheme].secondary }}
+                            primary="Miners"
+                          />
+                        </ListItemButton>
+                      </List>
+                    </Collapse>
+                  </ListItem>
+                  <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
+                </div>
+                <div>
+                  <ListItem className="liMenuMiningPool">
+                    <ListItemButton onClick={handleClickVotingMenuItem} className="padding-left-sidebar-main-sections">
                       <ListItemIcon>
-                        <StarBorder style={{ color: colors[appCurrentTheme].secondary }} />
+                        <Poll style={{ color: colors[appCurrentTheme].secondary }} />
                       </ListItemIcon>
                       <ListItemText
                         className="navbar-sections-font-size"
                         style={{ color: colors[appCurrentTheme].secondary }}
-                        primary="Joiners"
+                        primary="Voting"
                       />
+                      {openVotingMenu ? (
+                        <ExpandLess style={{ color: colors[appCurrentTheme].secondary }} />
+                      ) : (
+                        <ExpandMore style={{ color: colors[appCurrentTheme].secondary }} />
+                      )}
                     </ListItemButton>
-                  </List>
-                  <List
-                    className={location.pathname === '/mining/voting/removals' ? 'active-custom' : ''}
-                    component="div"
-                    disablePadding
-                  >
-                    <ListItemButton
-                      sx={{ pl: 4 }}
-                      component={Link}
-                      to={'/mining/voting/removals'}
-                      className="padding-left-sidebar-inner-sections"
+
+                    <Collapse
+                      in={openVotingMenu}
+                      onClick={toggleDrawer(anchor, false)}
+                      onKeyDown={toggleDrawer(anchor, false)}
+                      timeout="auto"
+                      unmountOnExit
                     >
-                      <ListItemIcon>
-                        <StarBorder style={{ color: colors[appCurrentTheme].secondary }} />
-                      </ListItemIcon>
-                      <ListItemText
-                        className="navbar-sections-font-size"
-                        style={{ color: colors[appCurrentTheme].secondary }}
-                        primary="Removals"
-                      />
-                    </ListItemButton>
-                  </List>
-                  <List
-                    className={location.pathname === '/mining/voting/notifier' ? 'active-custom' : ''}
-                    component="div"
-                    disablePadding
-                  >
-                    <ListItemButton
-                      sx={{ pl: 4 }}
-                      component={Link}
-                      to={'/mining/voting/notifier'}
-                      className="padding-left-sidebar-inner-sections"
-                    >
-                      <ListItemIcon>
-                        <StarBorder style={{ color: colors[appCurrentTheme].secondary }} />
-                      </ListItemIcon>
-                      <ListItemText
-                        className="navbar-sections-font-size"
-                        style={{ color: colors[appCurrentTheme].secondary }}
-                        primary="Notifier"
-                      />
-                    </ListItemButton>
-                  </List>
-                </Collapse>
-              </ListItem>
-            </div>
-          </>
-        )}
-            </Collapse>
+                      <List
+                        className={location.pathname === '/mining/voting' ? 'active-custom' : ''}
+                        component="div"
+                        disablePadding
+                      >
+                        <ListItemButton
+                          sx={{ pl: 4 }}
+                          component={Link}
+                          to={'/mining/voting'}
+                          className="padding-left-sidebar-inner-sections"
+                        >
+                          <ListItemIcon>
+                            <StarBorder style={{ color: colors[appCurrentTheme].secondary }} />
+                          </ListItemIcon>
+                          <ListItemText
+                            className="navbar-sections-font-size"
+                            style={{ color: colors[appCurrentTheme].secondary }}
+                            primary="Status"
+                          />
+                        </ListItemButton>
+                      </List>
+                      <List
+                        className={location.pathname === '/mining/voting/joiners' ? 'active-custom' : ''}
+                        component="div"
+                        disablePadding
+                      >
+                        <ListItemButton
+                          sx={{ pl: 4 }}
+                          component={Link}
+                          to={'/mining/voting/joiners'}
+                          className="padding-left-sidebar-inner-sections"
+                        >
+                          <ListItemIcon>
+                            <StarBorder style={{ color: colors[appCurrentTheme].secondary }} />
+                          </ListItemIcon>
+                          <ListItemText
+                            className="navbar-sections-font-size"
+                            style={{ color: colors[appCurrentTheme].secondary }}
+                            primary="Joiners"
+                          />
+                        </ListItemButton>
+                      </List>
+                      <List
+                        className={location.pathname === '/mining/voting/removals' ? 'active-custom' : ''}
+                        component="div"
+                        disablePadding
+                      >
+                        <ListItemButton
+                          sx={{ pl: 4 }}
+                          component={Link}
+                          to={'/mining/voting/removals'}
+                          className="padding-left-sidebar-inner-sections"
+                        >
+                          <ListItemIcon>
+                            <StarBorder style={{ color: colors[appCurrentTheme].secondary }} />
+                          </ListItemIcon>
+                          <ListItemText
+                            className="navbar-sections-font-size"
+                            style={{ color: colors[appCurrentTheme].secondary }}
+                            primary="Removals"
+                          />
+                        </ListItemButton>
+                      </List>
+                      <List
+                        className={location.pathname === '/mining/voting/notifier' ? 'active-custom' : ''}
+                        component="div"
+                        disablePadding
+                      >
+                        <ListItemButton
+                          sx={{ pl: 4 }}
+                          component={Link}
+                          to={'/mining/voting/notifier'}
+                          className="padding-left-sidebar-inner-sections"
+                        >
+                          <ListItemIcon>
+                            <StarBorder style={{ color: colors[appCurrentTheme].secondary }} />
+                          </ListItemIcon>
+                          <ListItemText
+                            className="navbar-sections-font-size"
+                            style={{ color: colors[appCurrentTheme].secondary }}
+                            primary="Notifier"
+                          />
+                        </ListItemButton>
+                      </List>
+                    </Collapse>
+                  </ListItem>
+                </div>
+              </>
+            )}
+          </Collapse>
           <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
           <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
           {/* <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} /> */}
