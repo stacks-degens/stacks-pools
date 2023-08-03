@@ -14,7 +14,7 @@ import {
   selectCurrentUserRoleStacking,
   selectUserSessionState,
 } from '../redux/reducers/user-state';
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import {
   // readOnlyAddressStatusMining,
@@ -22,6 +22,7 @@ import {
   readOnlyGetLiquidityProvider,
 } from '../consts/readOnly';
 import { network } from '../consts/network';
+import { useNavigate } from 'react-router-dom';
 
 interface ConnectWalletProps {
   currentTheme: string;
@@ -34,12 +35,11 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
   const [connectedWallet, setConnectedWallet] = useState<string | null>(null);
   const userSession = useAppSelector(selectUserSessionState);
   const dispatch = useAppDispatch();
-
+  const location = useLocation();
+  const navigate = useNavigate();
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
-
   const currentRoleMining = useAppSelector(selectCurrentUserRoleMining);
   const currentRoleStacking = useAppSelector(selectCurrentUserRoleStacking);
-  const location = useLocation();
   const localNetwork = network === 'devnet' ? 'testnet' : network;
 
   const controlAccessRoutes = () => {
@@ -54,6 +54,8 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
     if (userSession.isUserSignedIn()) {
       const wallet = userSession.loadUserData().profile.stxAddress[localNetwork];
       setConnectedWallet(wallet);
+    } else {
+      navigate(`/`);
     }
   }, [connectedWallet]);
 
@@ -86,6 +88,8 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
         const statusStacking = await readOnlyAddressStatusStacking(args);
         setFinalStatusStacking(statusStacking);
         updateUserRoleActionStacking(finalStatusStacking);
+      } else {
+        navigate(`/`);
       }
     };
 

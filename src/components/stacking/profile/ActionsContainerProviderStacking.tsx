@@ -25,8 +25,6 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
   const [invalidNewProviderAlertOpen, setInvalidNewProviderAlertOpen] = useState<boolean>(false);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
-  console.log('currentLiquidityProvider', newLiquidityProvider);
-
   const handleUpdateLiquidityProvider = () => {
     if (newLiquidityProvider !== null) {
       try {

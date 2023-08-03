@@ -26,19 +26,22 @@ const AboutContainerStacking = ({
 }: IAboutContainerStackingProps) => {
   const [currentBtcBlock, setCurrentBtcBlock] = useState(0);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
+  const [btcBlockRetrieved, setBtcBlockRetrieved] = useState(false);
 
   useEffect(() => {
     const getCurrentBlock = async () => {
-      if (connectedWallet) {
-        const blockInfoResult = await fetch(`${apiMapping[network](connectedWallet).blockInfo}`)
-          .then((res) => res.json())
-          .then((res) => res.results[0]['burn_block_height']);
+      const blockInfoResult = await fetch(`${apiMapping[network]('').blockInfo}`)
+        .then((res) => res.json())
+        .then((res) => res.results[0]['burn_block_height']);
 
-        if (blockInfoResult) setCurrentBtcBlock(blockInfoResult);
+      if (await blockInfoResult) {
+        setCurrentBtcBlock(blockInfoResult);
+        setBtcBlockRetrieved(true);
       }
     };
     getCurrentBlock();
-  }, []);
+  }, [setCurrentBtcBlock]);
+
   return (
     <div
       style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting }}
@@ -60,7 +63,10 @@ const AboutContainerStacking = ({
         </div>
       </div>
       <div
-        style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting }}
+        style={{
+          backgroundColor: colors[appCurrentTheme].infoContainers,
+          color: colors[appCurrentTheme].colorWriting,
+        }}
         className={
           currentRole === 'Provider' || currentRole === 'Stacker'
             ? 'content-info-container-stacking'
