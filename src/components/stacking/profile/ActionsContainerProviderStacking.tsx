@@ -1,5 +1,5 @@
 import './styles.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   ContractDepositSTXStacking,
   ContractReserveFundsFutureRewardsStacking,
@@ -7,7 +7,6 @@ import {
   ContractSetNewLiquidityProvider,
   ContractUnlockExtraReserveFundsStacking,
 } from '../../../consts/smartContractFunctions';
-import { readOnlyGetLiquidityProvider } from '../../../consts/readOnly';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 import { Alert } from '@mui/material';
@@ -36,7 +35,11 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
           setInvalidNewProviderAlertOpen(true);
         }
       }
-      document.getElementById('inputNewLiqProv').value = null;
+      // document.getElementById('inputNewLiqProv').value = null;
+      const element = document.getElementById('inputNewLiqProv') as HTMLInputElement;
+      if (element !== null) {
+        element.value = '';
+      }
     }
   };
 
@@ -127,7 +130,7 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
           </button>
         </div>
       </div>
-      <div className="content-sections-title-info-container leave-pool-button-action-container">
+      <div className="content-sections-title-info-container leave-pool-button-action-container-stacking">
         <div className="flex-right">
           <button
             className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
@@ -139,6 +142,7 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
           </button>
         </div>
       </div>
+
       {invalidNewProviderAddress && invalidNewProviderAlertOpen && (
         <Alert
           severity="warning"

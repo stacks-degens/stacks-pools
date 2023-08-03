@@ -4,9 +4,6 @@ import './styles.css';
 import colors from '../../../consts/colorPallete';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { ContractAllowInPoolPoxScStacking, ContractJoinPoolStacking } from '../../../consts/smartContractFunctions';
-import { useEffect, useState } from 'react';
-import { readOnlyGetAllowanceStacking } from '../../../consts/readOnly';
-import { Alert } from '@mui/material';
 
 interface DashboardStackingInfoProps {
   currentRole: UserRoleStacking;

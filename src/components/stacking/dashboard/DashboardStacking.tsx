@@ -19,6 +19,7 @@ import {
   ReadOnlyGetStackersList,
 } from '../../../consts/readOnly';
 import { network } from '../../../consts/network';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const DashboardStacking = () => {
   const currentRole: UserRoleStacking = useAppSelector(selectCurrentUserRoleStacking);
@@ -43,8 +44,10 @@ const DashboardStacking = () => {
 
   useEffect(() => {
     const getCurrentLiquidityProvider = async () => {
+      // if (userAddress) {
       const liquidityProvider = await readOnlyGetLiquidityProvider();
       setCurrentLiquidityProvider(liquidityProvider);
+      // }
     };
 
     getCurrentLiquidityProvider();
@@ -52,8 +55,10 @@ const DashboardStacking = () => {
 
   useEffect(() => {
     const getReturnCovered = async () => {
+      // if (userAddress) {
       const returnValue = await readOnlyGetReturnStacking();
       setReturnCovered(parseFloat(returnValue));
+      // }
     };
 
     getReturnCovered();
@@ -61,8 +66,10 @@ const DashboardStacking = () => {
 
   useEffect(() => {
     const getMinimumDepositProvider = async () => {
+      // if (userAddress) {
       const minimum = await readOnlyGetMinimumDepositLiquidityProviderStacking();
       setMinimumDepositProvider(parseFloat(minimum));
+      // }
     };
 
     getMinimumDepositProvider();
@@ -70,10 +77,12 @@ const DashboardStacking = () => {
 
   useEffect(() => {
     const getStackersList = async () => {
+      // if (userAddress) {
       const { value } = await ReadOnlyGetStackersList();
       const parsedStackersList =
         value.length !== 0 ? value.map((stacker: { type: string; value: string }) => stacker.value) : [];
       setStackersList(parsedStackersList);
+      // }
     };
 
     getStackersList();
@@ -81,25 +90,31 @@ const DashboardStacking = () => {
 
   useEffect(() => {
     const getBlocksRewarded = async () => {
+      // if (userAddress) {
       const blocks = await readOnlyGetBlocksRewardedStacking();
       setBlocksRewarded(blocks);
+      // }
     };
     getBlocksRewarded();
   }, [blocksRewarded]);
 
   useEffect(() => {
     const getBitcoinRewards = async () => {
+      // if (userAddress) {
       const bitcoin = await readOnlyGetBitcoinRewardsStacking();
       setBitcoinRewards(bitcoin);
+      // }
     };
     getBitcoinRewards();
   }, [bitcoinRewards]);
 
   useEffect(() => {
     const getStacksAmountThisCycle = async () => {
+      // if (userAddress) {
       const stacks = await readOnlyGetStackAmounThisCycleStacking();
       setStacksAmountThisCycle(stacks);
     };
+    // };
     getStacksAmountThisCycle();
   }, [stacksAmountThisCycle]);
 

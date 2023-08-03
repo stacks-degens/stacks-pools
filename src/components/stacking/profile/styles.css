@@ -1,3 +1,6 @@
+@import '../../../css/inputs/styles.css';
+@import '../../../css/buttons/styles.css';
+
 .yellow-icon {
   color: #f9b11c !important;
 }

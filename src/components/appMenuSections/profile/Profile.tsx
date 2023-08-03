@@ -83,8 +83,10 @@ const Profile = () => {
   }, [currentNotifier]);
 
   useEffect(() => {
-    const wallet = userSession.loadUserData().profile.stxAddress[localNetwork];
-    setConnectedWallet(wallet);
+    if (userSession.isUserSignedIn()) {
+      const wallet = userSession.loadUserData().profile.stxAddress[localNetwork];
+      setConnectedWallet(wallet);
+    }
   }, [connectedWallet]);
 
   useEffect(() => {

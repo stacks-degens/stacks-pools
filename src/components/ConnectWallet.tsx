@@ -14,7 +14,7 @@ import {
   selectCurrentUserRoleStacking,
   selectUserSessionState,
 } from '../redux/reducers/user-state';
-import { Navigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import {
   // readOnlyAddressStatusMining,
@@ -22,7 +22,6 @@ import {
   readOnlyGetLiquidityProvider,
 } from '../consts/readOnly';
 import { network } from '../consts/network';
-import { useNavigate } from 'react-router-dom';
 
 interface ConnectWalletProps {
   currentTheme: string;
@@ -36,11 +35,18 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
   const userSession = useAppSelector(selectUserSessionState);
   const dispatch = useAppDispatch();
   const location = useLocation();
-  const navigate = useNavigate();
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
   const currentRoleMining = useAppSelector(selectCurrentUserRoleMining);
   const currentRoleStacking = useAppSelector(selectCurrentUserRoleStacking);
   const localNetwork = network === 'devnet' ? 'testnet' : network;
+  const [userAddress, setUserAddress] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (userSession.isUserSignedIn()) {
+      const args = userSession.loadUserData().profile.stxAddress[localNetwork];
+      setUserAddress(args);
+    }
+  }, [userAddress]);
 
   const controlAccessRoutes = () => {
     if (location.pathname !== '/') {
@@ -54,8 +60,6 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
     if (userSession.isUserSignedIn()) {
       const wallet = userSession.loadUserData().profile.stxAddress[localNetwork];
       setConnectedWallet(wallet);
-    } else {
-      navigate(`/`);
     }
   }, [connectedWallet]);
 
@@ -88,8 +92,6 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
         const statusStacking = await readOnlyAddressStatusStacking(args);
         setFinalStatusStacking(statusStacking);
         updateUserRoleActionStacking(finalStatusStacking);
-      } else {
-        navigate(`/`);
       }
     };
 

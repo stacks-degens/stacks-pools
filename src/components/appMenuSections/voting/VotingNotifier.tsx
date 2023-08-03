@@ -135,8 +135,10 @@ const VotingNotifier = () => {
   }, []);
 
   useEffect(() => {
-    const args = userSession.loadUserData().profile.stxAddress[localNetwork];
-    setUserAddress(args);
+    if (userSession.isUserSignedIn()) {
+      const args = userSession.loadUserData().profile.stxAddress[localNetwork];
+      setUserAddress(args);
+    }
   }, []);
 
   useEffect(() => {
