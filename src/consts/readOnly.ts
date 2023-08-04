@@ -21,12 +21,10 @@ const ReadOnlyFunctions = async (
   function_args: ClarityValue[],
   contractFunctionName: string
 ) => {
-  const userAddress =
-    network === 'mainnet'
-      ? userSession.loadUserData().profile.stxAddress.mainnet
-      : userSession.isUserSignedIn()
-      ? userSession.loadUserData().profile.stxAddress.testnet
-      : contractMapping[type][network].owner;
+  const userAddress = !userSession.isUserSignedIn()
+    ? contractMapping[type][network].owner
+    : userSession.loadUserData().profile.stxAddress.network;
+
   const readOnlyResults = {
     contractAddress: contractMapping[type][network].contractAddress,
     contractName: contractMapping[type][network].contractName,
