@@ -15,6 +15,7 @@ import { userSession } from '../redux/reducers/user-state';
 
 const contractNetwork =
   network === 'mainnet' ? new StacksMainnet() : network === 'testnet' ? new StacksTestnet() : new StacksMocknet();
+const localNetwork = network === 'devnet' ? 'testnet' : network;
 
 const ReadOnlyFunctions = async (
   type: 'mining' | 'stacking' | 'pox',
@@ -23,7 +24,7 @@ const ReadOnlyFunctions = async (
 ) => {
   const userAddress = !userSession.isUserSignedIn()
     ? contractMapping[type][network].owner
-    : userSession.loadUserData().profile.stxAddress.network;
+    : userSession.loadUserData().profile.stxAddress.localNetwork;
 
   const readOnlyResults = {
     contractAddress: contractMapping[type][network].contractAddress,
