@@ -46,7 +46,7 @@ const ProfileStacking = () => {
       const args = userSession.loadUserData().profile.stxAddress[localNetwork];
       setUserAddress(args);
     }
-  }, [userAddress]);
+  }, []);
 
   useEffect(() => {
     if (userAddress !== null) {
@@ -69,7 +69,7 @@ const ProfileStacking = () => {
     };
 
     getLockedBalance();
-  }, []);
+  }, [userAddress]);
 
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
   return (
