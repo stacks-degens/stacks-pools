@@ -14,21 +14,38 @@ type ApiMapping = Record<
   }
 >;
 
+type ApiUrl = Record<networkType, string>;
+
+export const apiUrl: ApiUrl = {
+  mainnet:
+    'https://responsive-cosmopolitan-panorama.stacks-mainnet.quiknode.pro/3a26316cbf4275e95002802aa24e9e19cf744239', // 'https://api.mainnet.hiro.so',
+  testnet: 'https://cold-alpha-spring.stacks-testnet.quiknode.pro/a28b33a78e1ee89cc89e2c0eb02b4790cbbb671f', // 'https://api.testnet.hiro.so',
+  devnet: 'http://localhost:3999',
+};
+
+type ExplorerUrl = Record<networkType, [string, string]>;
+
+const explorerUrl: ExplorerUrl = {
+  mainnet: ['https://explorer.hiro.so', 'mainnet'],
+  testnet: ['https://explorer.hiro.so', 'testnet'],
+  devnet: ['http://localhost:8000', 'mainnet'],
+};
+
 export const apiMapping: ApiMapping = {
   mainnet: (accountAddress: string) => ({
-    balance: `https://api.mainnet.hiro.so/extended/v1/address/${accountAddress}/balances`,
-    nftsOwned: `https://api.mainnet.hiro.so/extended/v1/tokens/nft/holdings?principal=${accountAddress}&&`,
-    blockInfo: 'https://api.mainnet.hiro.so/extended/v1/block',
+    balance: `${apiUrl.mainnet}/extended/v1/address/${accountAddress}/balances`,
+    nftsOwned: `${apiUrl.mainnet}/extended/v1/tokens/nft/holdings?principal=${accountAddress}&&`,
+    blockInfo: `${apiUrl.mainnet}/extended/v1/block`,
   }),
   testnet: (accountAddress: string) => ({
-    balance: `https://api.testnet.hiro.so/extended/v1/address/${accountAddress}/balances`,
-    nftsOwned: `https://api.testnet.hiro.so/extended/v1/tokens/nft/holdings?principal=${accountAddress}&&`,
-    blockInfo: 'https://api.testnet.hiro.so/extended/v1/block',
+    balance: `${apiUrl.testnet}/extended/v1/address/${accountAddress}/balances`,
+    nftsOwned: `${apiUrl.testnet}/extended/v1/tokens/nft/holdings?principal=${accountAddress}&&`,
+    blockInfo: `${apiUrl.testnet}/extended/v1/block`,
   }),
   devnet: (accountAddress: string) => ({
-    balance: `http://localhost:3999/extended/v1/address/${accountAddress}/balances`,
-    nftsOwned: `http://localhost:3999/extended/v1/tokens/nft/holdings?principal=${accountAddress}&&`,
-    blockInfo: 'http://localhost:3999/extended/v1/block',
+    balance: `${apiUrl.devnet}/extended/v1/address/${accountAddress}/balances`,
+    nftsOwned: `${apiUrl.devnet}/extended/v1/tokens/nft/holdings?principal=${accountAddress}&&`,
+    blockInfo: `${apiUrl.devnet}/extended/v1/block`,
   }),
 };
 
@@ -39,19 +56,19 @@ type TransactionMapping = Record<
 
 export const transactionUrl: TransactionMapping = {
   mainnet: (txId: string) => ({
-    apiUrl: `https://api.mainnet.hiro.so/extended/v1/tx/${txId}`,
-    explorerUrl: `https://explorer.hiro.so/txid/${txId}?chain=mainnet`,
-    explorerUrlAddress: `https://explorer.hiro.so/address/${txId}?chain=mainnet`,
+    apiUrl: `${apiUrl.mainnet}/extended/v1/tx/${txId}`,
+    explorerUrl: `${explorerUrl.mainnet[0]}/txid/${txId}?chain=${explorerUrl.mainnet[1]}`,
+    explorerUrlAddress: `${explorerUrl.mainnet[0]}/address/${txId}?chain=${explorerUrl.mainnet[1]}`,
   }),
   testnet: (txId: string) => ({
-    apiUrl: `https://api.testnet.hiro.so/extended/v1/tx/${txId}`,
-    explorerUrl: `https://explorer.hiro.so/txid/${txId}?chain=testnet`,
-    explorerUrlAddress: `https://explorer.hiro.so/address/${txId}?chain=testnet`,
+    apiUrl: `${apiUrl.testnet}/extended/v1/tx/${txId}`,
+    explorerUrl: `${explorerUrl.testnet[0]}/txid/${txId}?chain=${explorerUrl.testnet[1]}`,
+    explorerUrlAddress: `${explorerUrl.testnet[0]}/address/${txId}?chain=${explorerUrl.testnet[1]}`,
   }),
   devnet: (txId: string) => ({
-    apiUrl: `http://localhost:3999/extended/v1/tx/${txId}`,
-    explorerUrl: `http://localhost:8000/txid/${txId}?chain=mainnet`,
-    explorerUrlAddress: `http://localhost:8000/address/${txId}?chain=mainnet`,
+    apiUrl: `${apiUrl.devnet}/extended/v1/tx/${txId}`,
+    explorerUrl: `${explorerUrl.devnet[0]}/txid/${txId}?chain=${explorerUrl.devnet[0]}`,
+    explorerUrlAddress: `${explorerUrl.devnet[0]}/address/${txId}?chain=${explorerUrl.devnet[0]}`,
   }),
 };
 
@@ -59,24 +76,23 @@ type PostApiUrl = Record<networkType, (contractAddress: string, contractName: st
 
 export const postApiUrl: PostApiUrl = {
   mainnet: (contractAddress: string, contractName: string, functionName: string) =>
-    `https://api.mainnet.hiro.so/v2/contracts/call-read/${contractAddress}/${contractName}/${functionName}`,
+    `${apiUrl.mainnet}/v2/contracts/call-read/${contractAddress}/${contractName}/${functionName}`,
   testnet: (contractAddress: string, contractName: string, functionName: string) =>
-    `https://api.testnet.hiro.so/v2/contracts/call-read/${contractAddress}/${contractName}/${functionName}`,
+    `${apiUrl.testnet}/v2/contracts/call-read/${contractAddress}/${contractName}/${functionName}`,
   devnet: (contractAddress: string, contractName: string, functionName: string) =>
-    `http://localhost:3999/v2/contracts/call-read/${contractAddress}/${contractName}/${functionName}`,
+    `${apiUrl.devnet}/v2/contracts/call-read/${contractAddress}/${contractName}/${functionName}`,
 };
 
-type ExplorerUrl = Record<networkType, (userAddress: string) => { explorerUrl: string }>;
+type ExplorerUserAddressUrl = Record<networkType, (userAddress: string) => { explorerUrl: string }>;
 
-export const getExplorerUrl: ExplorerUrl = {
+export const getExplorerUrl: ExplorerUserAddressUrl = {
   mainnet: (userAddress: string) => ({
-    explorerUrl: `https://explorer.hiro.so/address/${userAddress}?chain=mainnet`,
+    explorerUrl: `${explorerUrl.mainnet[0]}/address/${userAddress}?chain=${explorerUrl.mainnet[1]}`,
   }),
   testnet: (userAddress: string) => ({
-    // explorerUrl: `https://explorer.hiro.so?chain=testnet`,
-    explorerUrl: `https://explorer.hiro.so/address/${userAddress}?chain=testnet`,
+    explorerUrl: `${explorerUrl.testnet[0]}/address/${userAddress}?chain=${explorerUrl.testnet[1]}`,
   }),
   devnet: (userAddress: string) => ({
-    explorerUrl: `http://localhost:8000/address/${userAddress}?chain=mainnet`,
+    explorerUrl: `${explorerUrl.devnet[0]}/address/${userAddress}?chain=${explorerUrl.devnet[1]}`,
   }),
 };

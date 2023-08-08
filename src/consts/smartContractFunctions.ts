@@ -1,5 +1,5 @@
-import { StacksMocknet, StacksMainnet, StacksTestnet } from '@stacks/network';
-import { network, transactionUrl } from './network';
+import { StacksMocknet, StacksMainnet, StacksTestnet, StacksNetwork } from '@stacks/network';
+import { apiUrl, network, transactionUrl } from './network';
 import { contractMapping, functionMapping } from './contract';
 import { openContractCall, FinishedTxData } from '@stacks/connect';
 import {
@@ -23,7 +23,11 @@ import { convertPrincipalToArg, convertStringToArg } from './converter';
 import { crypto } from 'bitcoinjs-lib';
 
 const contractNetwork =
-  network === 'mainnet' ? new StacksMainnet() : network === 'testnet' ? new StacksTestnet() : new StacksMocknet();
+  network === 'mainnet'
+    ? new StacksMainnet({ url: apiUrl[network] })
+    : network === 'testnet'
+    ? new StacksTestnet({ url: apiUrl[network] })
+    : new StacksMocknet({ url: apiUrl[network] });
 
 const CallFunctions = (
   type: 'mining' | 'stacking' | 'pox',
