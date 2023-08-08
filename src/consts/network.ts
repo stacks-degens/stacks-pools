@@ -16,10 +16,16 @@ type ApiMapping = Record<
 
 type ApiUrl = Record<networkType, string>;
 
+// export const apiUrl: ApiUrl = {
+//   mainnet:
+//     'https://responsive-cosmopolitan-panorama.stacks-mainnet.quiknode.pro/3a26316cbf4275e95002802aa24e9e19cf744239', // 'https://api.mainnet.hiro.so',
+//   testnet: 'https://cold-alpha-spring.stacks-testnet.quiknode.pro/a28b33a78e1ee89cc89e2c0eb02b4790cbbb671f', // 'https://api.testnet.hiro.so',
+//   devnet: 'http://localhost:3999',
+// };
+
 export const apiUrl: ApiUrl = {
-  mainnet:
-    'https://responsive-cosmopolitan-panorama.stacks-mainnet.quiknode.pro/3a26316cbf4275e95002802aa24e9e19cf744239', // 'https://api.mainnet.hiro.so',
-  testnet: 'https://cold-alpha-spring.stacks-testnet.quiknode.pro/a28b33a78e1ee89cc89e2c0eb02b4790cbbb671f', // 'https://api.testnet.hiro.so',
+  mainnet: 'https://api.mainnet.hiro.so', // 'https://api.mainnet.hiro.so',
+  testnet: 'https://api.testnet.hiro.so', // 'https://api.testnet.hiro.so',
   devnet: 'http://localhost:3999',
 };
 

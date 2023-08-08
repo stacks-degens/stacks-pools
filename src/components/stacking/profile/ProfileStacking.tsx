@@ -25,19 +25,24 @@ const ProfileStacking = () => {
   const localNetwork = network === 'devnet' ? 'testnet' : network;
   const navigate = useNavigate();
   const location = useLocation();
+  const basePath = '/stacking/dashboard';
 
   useEffect(() => {
     if (userSession.isUserSignedIn() === false) {
-      navigate('/');
+      navigate(`${basePath}`);
+    } else if (userSession.isUserSignedIn()) {
+      if (currentRole === 'NormalUserStacking') {
+        navigate(`${basePath}`);
+      }
     }
-  }, [location.pathname]);
+  }, [location.pathname, currentRole]);
 
   useEffect(() => {
     if (userSession.isUserSignedIn()) {
       const wallet = userSession.loadUserData().profile.stxAddress[localNetwork];
       setConnectedWallet(wallet);
     } else {
-      navigate('/');
+      navigate(`${basePath}`);
     }
   }, [connectedWallet]);
 
@@ -56,7 +61,7 @@ const ProfileStacking = () => {
 
   useEffect(() => {
     const getLockedBalance = async () => {
-      if (userSession.isUserSignedIn()) {
+      if (userSession.isUserSignedIn() && (currentRole === 'Stacker' || currentRole === 'Provider')) {
         const wallet = userSession.loadUserData().profile.stxAddress[localNetwork];
         console.log(wallet);
         const userLockedData = await readOnlyLockedBalanceUser(wallet, 'locked-balance');
