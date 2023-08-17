@@ -7,6 +7,12 @@ import { encryptTransform } from 'redux-persist-transform-encrypt';
 import storage from 'redux-persist/lib/storage';
 import { AppConfig, UserSession } from '@stacks/connect';
 
+import crypto from 'crypto';
+
+const generateSecretKey = () => {
+  return crypto.randomBytes(32).toString('hex'); // Generates a 64-character hex key
+};
+
 const UserSesssionPersistTransform = createTransform(
   (inboundState: IinitialState, key: string | number) => {
     console.log('inbount', key, inboundState);
@@ -30,7 +36,8 @@ const persistConfig = {
   transforms: [
     // UserSesssionPersistTransform,
     encryptTransform({
-      secretKey: 'somekey',
+      // secretKey: 'somekey',
+      secretKey: generateSecretKey(),
       onError: function (error) {
         console.log(error);
       },
