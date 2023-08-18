@@ -3,7 +3,11 @@ export namespace Constants {
   export const DEVNET_DEFAULT_EPOCH_2_05 = 102;
   export const DEVNET_DEFAULT_EPOCH_2_1 = 113;
   export const DEVNET_DEFAULT_POX_2_ACTIVATION = 120;
-  export const BITCOIN_BLOCK_TIME = 2_000;
+  export const DEVNET_DEFAULT_EPOCH_2_2 = 122;
+  export const DEVNET_DEFAULT_EPOCH_2_3 = 128;
+  export const DEVNET_DEFAULT_EPOCH_2_4 = 134;
+  export const BITCOIN_BLOCK_TIME = 1_000;
+  export const REWARD_CYCLE_LENGTH = 6;
 }
 
 export namespace Contracts {
@@ -14,6 +18,10 @@ export namespace Contracts {
   export const POX_2 = {
     address: 'ST000000000000000000002AMW42H',
     name: 'pox-2',
+  };
+  export const POX_3 = {
+    address: 'ST000000000000000000002AMW42H',
+    name: 'pox-3',
   };
 }
 

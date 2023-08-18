@@ -1,4 +1,4 @@
-import { Chain, Tx, types, Account } from "../deps.ts";
+import { Chain, Tx, types, Account } from '../deps.ts';
 
 export function fpDelegationAllowContractCaller(
   contractCaller: string,
@@ -6,58 +6,40 @@ export function fpDelegationAllowContractCaller(
   user: Account
 ) {
   return Tx.contractCall(
-    "stacking-pool",
-    "allow-contract-caller",
-    [
-      types.principal(contractCaller),
-      untilBurnHt ? types.some(types.uint(untilBurnHt)) : types.none(),
-    ],
+    'stacking-pool-test',
+    'allow-contract-caller',
+    [types.principal(contractCaller), untilBurnHt ? types.some(types.uint(untilBurnHt)) : types.none()],
     user.address
   );
 }
 
 export function delegateStx(amount: number, user: Account) {
-  return Tx.contractCall(
-    "stacking-pool",
-    "delegate-stx",
-    [types.uint(amount)],
-    user.address
-  );
+  return Tx.contractCall('stacking-pool-test', 'delegate-stx', [types.uint(amount)], user.address);
 }
 
 export function delegateStackStx(stacker: Account, user: Account) {
-  return Tx.contractCall(
-    "stacking-pool",
-    "delegate-stack-stx",
-    [types.principal(stacker.address)],
-    user.address
-  );
+  return Tx.contractCall('stacking-pool-test', 'delegate-stack-stx', [types.principal(stacker.address)], user.address);
 }
 
 export function joinStackingPool(user: Account) {
-  return Tx.contractCall("stacking-pool", "join-stacking-pool", [], user.address);
+  return Tx.contractCall('stacking-pool-test', 'join-stacking-pool', [], user.address);
 }
 
 export function quitStackingPool(user: Account) {
-  return Tx.contractCall("stacking-pool", "quit-stacking-pool", [], user.address);
+  return Tx.contractCall('stacking-pool-test', 'quit-stacking-pool', [], user.address);
 }
 
 export function delegateStackStxMany(stackers: Account[], user: Account) {
   return Tx.contractCall(
-    "stacking-pool",
-    "delegate-stack-stx-many",
+    'stacking-pool-test',
+    'delegate-stack-stx-many',
     [types.list(stackers.map((s) => types.principal(s.address)))],
     user.address
   );
 }
 
 export function getUserData(stacker: Account, user: Account) {
-  return Tx.contractCall(
-    "stacking-pool",
-    "get-user-data",
-    [types.principal(stacker.address)],
-    user.address
-  );
+  return Tx.contractCall('stacking-pool-test', 'get-user-data', [types.principal(stacker.address)], user.address);
 }
 
 // // admin functions

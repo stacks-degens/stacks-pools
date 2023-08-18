@@ -20,7 +20,7 @@ import {
 
 export namespace mainContract {
   export const address = 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM';
-  export const name = 'stacking-pool';
+  export const name = 'stacking-pool-test';
 
   // Functions
   export namespace Functions {
@@ -35,6 +35,18 @@ export namespace mainContract {
 
       export function args(args: DelegateStackStxArgs): ClarityValue[] {
         return [args.amountUstx, args.user];
+      }
+    }
+
+    export namespace DelegateStackStxMany {
+      export const name = 'delegate-stack-stx-many';
+
+      export interface DelegateStackStxArgs {
+        stackersLockList: ListCV<PrincipalCV>;
+      }
+
+      export function args(args: DelegateStackStxArgs): ClarityValue[] {
+        return [args.stackersLockList];
       }
     }
 

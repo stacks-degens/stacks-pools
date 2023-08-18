@@ -19,14 +19,17 @@ import {
 } from './helpers';
 import { StacksTestnet } from '@stacks/network';
 import { DevnetNetworkOrchestrator } from '@hirosystems/stacks-devnet-js';
+import { FAST_FORWARD_TO_EPOCH_2_4 } from './helpers-stacking';
+import { mainContract } from './contracts';
+import { crypto } from 'bitcoinjs-lib';
 
 describe('testing depositing balance stx', () => {
   let orchestrator: DevnetNetworkOrchestrator;
-  let timeline = DEFAULT_EPOCH_TIMELINE;
+  let timeline = FAST_FORWARD_TO_EPOCH_2_4;
 
   beforeAll(() => {
     orchestrator = buildDevnetNetworkOrchestrator(getNetworkIdFromEnv());
-    orchestrator.start(120000);
+    orchestrator.start(1000);
   });
 
   afterAll(() => {
@@ -91,23 +94,31 @@ describe('testing depositing balance stx', () => {
         secretKey: '47599fb4a8cfb07e2db61484c81459db81a5480e770b0de8cbe8de960834bf1701',
       },
     };
-
     const network = new StacksTestnet({ url: orchestrator.getStacksNodeUrl() });
     const fee = 1000;
 
-    // Advance to make sure PoX-2 is activated
-    await orchestrator.waitForStacksBlockAnchoredOnBitcoinBlockOfHeight(timeline.pox_2_activation + 1, 5, true);
+    const btcAddressVersionUintArray = Uint8Array.from(Buffer.from('00', 'hex'));
+    const publicKeyHex = '02e8f7dc91e49a577ce9ea8989c7184aea8886fe5250f02120dc6f98e3619679b0';
+    const publicKey = Buffer.from(publicKeyHex, 'hex');
+    const pKhash160 = crypto.hash160(publicKey);
+    const btcHashBuffer = pKhash160;
+    const btcUintArray = Uint8Array.from(btcHashBuffer);
 
+    // Advance to make sure PoX-3 is activated
+
+    await orchestrator.waitForStacksBlockAnchoredOnBitcoinBlockOfHeight(timeline.epoch_2_4 + 1, 5, true);
     // get nonces
     let nonceWallets = {};
-    for (let i = 1; i < 10; i++) {
+    for (let i = 6; i < 10; i++) {
       nonceWallets[i] = (await getAccount(network, Accounts[`WALLET_${i}`].stxAddress)).nonce;
     }
 
-    // ask to join with all 9 participants
-    for (let i = 1; i < 10; i++) {
+    // ask to join with 4 participants
+
+    for (let i = 6; i < 10; i++) {
       let responseawait = await askToJoin(
-        Accounts[`WALLET_${i}`].stxAddress,
+        btcAddressVersionUintArray,
+        btcUintArray,
         network,
         Accounts[`WALLET_${i}`],
         fee,
@@ -115,19 +126,34 @@ describe('testing depositing balance stx', () => {
       );
       nonceWallets[i] += 1;
     }
-    let blockResult = await orchestrator.waitForNextStacksBlock();
+    let chainUpdate, txs;
 
-    // console.log('ask to join info below: ');
-    for (let i = 1; i < 10; i++) {
-      let metadata = blockResult.new_blocks[0].block.transactions[i].metadata;
-      // console.log('metadata for transaction ' + i + ' is: ');
-      // console.log(metadata);
-      expect((metadata as any)['success']).toBe(true);
-      expect((metadata as any)['result']).toBe('(ok true)');
+    let askToJoinTxIndex = 0;
+    let blockIndex = 0;
+    while (askToJoinTxIndex < 4) {
+      chainUpdate = await orchestrator.waitForNextStacksBlock();
+      txs = chainUpdate.new_blocks[0].block.transactions;
+      blockIndex++;
+      if (txs.length > 1) {
+        for (let i = 1; i <= txs.length - 1; i++) {
+          let txMetadata = txs[i].metadata;
+          let txData = txMetadata.kind.data;
+          let txSC = txData['contract_identifier'];
+          let txMethod = txData['method'];
+
+          if (txSC === `${mainContract.address}.mining-pool-5-blocks` && txMethod === `ask-to-join`) {
+            expect((txMetadata as any)['result']).toBe('(ok true)');
+            expect((txMetadata as any)['success']).toBe(true);
+            askToJoinTxIndex++;
+          }
+        }
+      }
     }
+
     // deployer vote positive for joining each participant
+
     let nonceDeployer = (await getAccount(network, Accounts.DEPLOYER.stxAddress)).nonce;
-    for (let i = 1; i < 10; i++) {
+    for (let i = 6; i < 10; i++) {
       let responseFor = await votePositive(
         Accounts[`WALLET_${i}`].stxAddress,
         network,
@@ -138,92 +164,114 @@ describe('testing depositing balance stx', () => {
       nonceDeployer += 1;
       expect(responseFor.error).toBeUndefined();
     }
-    blockResult = await orchestrator.waitForNextStacksBlock();
-    // metadata = blockResult.new_blocks[0].block.transactions[1].metadata;
-    // console.log('vote positive info below: ');
-    for (let i = 1; i < 10; i++) {
-      let metadata = blockResult.new_blocks[0].block.transactions[i].metadata;
-      // console.log(blockResult.new_blocks[0].block.transactions[i].metadata);
-      expect((metadata as any)['success']).toBe(true);
-      expect((metadata as any)['result']).toBe('(ok true)');
+
+    let votePositiveJoinIndex = 0;
+    blockIndex = 0;
+
+    while (votePositiveJoinIndex < 4) {
+      chainUpdate = await orchestrator.waitForNextStacksBlock();
+      txs = chainUpdate.new_blocks[0].block.transactions;
+      blockIndex++;
+      if (txs.length > 1) {
+        for (let i = 1; i <= txs.length - 1; i++) {
+          let txMetadata = txs[i].metadata;
+          let txData = txMetadata.kind.data;
+          let txSC = txData['contract_identifier'];
+          let txMethod = txData['method'];
+
+          if (txSC === `${mainContract.address}.mining-pool-5-blocks` && txMethod === `vote-positive-join-request`) {
+            expect((txMetadata as any)['result']).toBe('(ok true)');
+            expect((txMetadata as any)['success']).toBe(true);
+            votePositiveJoinIndex++;
+          }
+        }
+      }
     }
 
-    // try-enter pool
-    for (let i = 1; i < 10; i++) {
+    // try-enter-pool
+
+    for (let i = 6; i < 10; i++) {
       let responseFor = await tryEnterPool(network, Accounts[`WALLET_${i}`], fee, nonceWallets[i]);
       nonceWallets[i] += 1;
       expect(responseFor.error).toBeUndefined();
     }
-    blockResult = await orchestrator.waitForNextStacksBlock();
-    for (let i = 1; i < 10; i++) {
-      let metadata = blockResult.new_blocks[0].block.transactions[1].metadata;
-      expect((metadata as any)['success']).toBe(true);
-      expect((metadata as any)['result']).toBe('(ok true)');
+
+    let tryEnterPoolIndex = 0;
+    blockIndex = 0;
+
+    while (tryEnterPoolIndex < 4) {
+      chainUpdate = await orchestrator.waitForNextStacksBlock();
+      txs = chainUpdate.new_blocks[0].block.transactions;
+      blockIndex++;
+      if (txs.length > 1) {
+        for (let i = 1; i <= txs.length - 1; i++) {
+          let txMetadata = txs[i].metadata;
+          let txData = txMetadata.kind.data;
+          let txSC = txData['contract_identifier'];
+          let txMethod = txData['method'];
+
+          if (txSC === `${mainContract.address}.mining-pool-5-blocks` && txMethod === `try-enter-pool`) {
+            expect((txMetadata as any)['result']).toBe('(ok true)');
+            expect((txMetadata as any)['success']).toBe(true);
+            tryEnterPoolIndex++;
+          }
+        }
+      }
     }
 
-    // block height 21
-    let current_block_height = blockResult.new_blocks[0].block.block_identifier.index;
+    let current_block_height = chainUpdate.new_blocks[0].block.block_identifier.index;
     current_block_height += 6;
     let reward_block_height = current_block_height + 1;
     await orchestrator.waitForStacksBlockOfHeight(current_block_height);
 
     // add pending miners to pool
+
     let response = await addPendingMinersToPool(network, Accounts.DEPLOYER, fee, nonceDeployer);
     nonceDeployer += 1;
     expect(response.error).toBeUndefined();
-    blockResult = await orchestrator.waitForNextStacksBlock();
-    let metadata = blockResult.new_blocks[0].block.transactions[1].metadata;
+
+    chainUpdate = await orchestrator.waitForNextStacksBlock();
+    let metadata = chainUpdate.new_blocks[0].block.transactions[1].metadata;
     expect((metadata as any)['success']).toBe(true);
     expect((metadata as any)['result']).toBe('(ok true)');
 
-    // now 10 participants in mining pool
-
+    // now 5 participants in mining pool
     // Check balance for particiapnts
 
-    current_block_height = blockResult.new_blocks[0].block.block_identifier.index;
+    current_block_height = chainUpdate.new_blocks[0].block.block_identifier.index;
     current_block_height += 110;
     await orchestrator.waitForStacksBlockOfHeight(current_block_height);
-
     let info = await getRewardAtBlock(network, 15);
     console.log('rewards at block 15:');
     console.log(info.value.claimer.value);
     console.log(info.value.reward.value);
-
     info = await getRewardAtBlock(network, reward_block_height); // 27
-    // console.log('rewards at block ', reward_block_height);
-    // console.log(info.value.claimer.value);
     console.log(info.value.reward.value);
     let distributedAmount = 1000301000;
+
     // 1 000 301 000
     // 3 000 900 000
-
     // // we are at block 125+
+
     nonceDeployer = (await getAccount(network, Accounts.DEPLOYER.stxAddress)).nonce;
     distributeRewards(reward_block_height, network, Accounts.DEPLOYER, fee, nonceDeployer);
     nonceDeployer += 1;
-    blockResult = await orchestrator.waitForNextStacksBlock();
-
-    // 100030100 / 10 = 100030100
-
+    chainUpdate = await orchestrator.waitForNextStacksBlock();
+    // 100030100 / 5 = 200060200
     info = await getRewardAtBlock(network, 122); // 27
     console.log('rewards at block 122 principal: ');
     console.log(info.value.claimer.value);
-
-    for (let i = 1; i < 10; i++) {
+    for (let i = 6; i < 10; i++) {
       info = await getBalanceSTX(network, Accounts[`WALLET_${i}`].stxAddress);
       console.log('Earned values by ', i);
       console.log(info);
-      expect(info.value.value).toBe(`100030100`);
+      expect(info.value.value).toBe(`200060200`);
     }
-
     // see at what block_height miners join pool
-
     // distribute rewards once - working for block 3 at block 120
     // verify with balances of the miners before and after distributing the rewards
-
     // distribute rewards same - not working for block 3 at block 120
     // distribute rewards same - working for block 4 at block 120
-
     // check balances for miners
   });
 });

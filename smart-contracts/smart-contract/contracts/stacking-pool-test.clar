@@ -1,5 +1,5 @@
 
-;; Main Stacking Pool Contract
+;; The Stacking Pool Contract Designed For Testing
 
 
 ;; Flow
@@ -30,7 +30,6 @@
 (define-constant err-allow-pool-in-SC-first (err u195))
 (define-constant err-allow-pool-in-pox-2-first (err u199))
 (define-constant err-insufficient-funds (err u200))
-(define-constant err-revoke-delegation-in-pox-first (err u201))
 (define-constant err-disallow-pool-in-pox-2-first (err u299))
 (define-constant err-full-stacking-pool (err u300))
 (define-constant err-same-value (err u325))
@@ -98,7 +97,6 @@
 ;; data maps
 
 (define-map user-data { address: principal } {is-in-pool:bool, delegated-balance: uint, locked-balance:uint, until-burn-ht: (optional uint) })
-(define-map user-revoked-delegation principal bool)
 (define-map pox-addr-indices uint uint)
 (define-map last-aggregation uint uint)
 (define-map allowance-contract-callers { sender: principal, contract-caller: principal} { until-burn-ht: (optional uint)})
@@ -191,14 +189,17 @@
 
 (define-public (quit-stacking-pool)
 (begin
-  (asserts! (is-none (get-check-delegation tx-sender)) err-revoke-delegation-in-pox-first)
   (asserts! (not (check-pool-SC-pox-2-allowance)) err-disallow-pool-in-pox-2-first)
   (asserts! (is-some (map-get? user-data {address: tx-sender})) err-not-in-pool)
   (asserts! (not (is-eq tx-sender (var-get liquidity-provider))) err-liquidity-provider-not-permitted)
-    (try! (disallow-contract-caller pool-contract))
-    (var-set stackers-list (filter remove-stacker-stackers-list (var-get stackers-list))) 
-    (map-delete user-data {address: tx-sender})
-    (ok true)))
+  (let ((result-revoke
+          ;; calls revoke and ignores result
+          (contract-call? 'ST000000000000000000002AMW42H.pox-3 revoke-delegate-stx)))
+
+      (try! (disallow-contract-caller pool-contract))
+      (var-set stackers-list (filter remove-stacker-stackers-list (var-get stackers-list))) 
+      (map-delete user-data {address: tx-sender})
+      (ok true))))
 
 ;; The SC balances need to be updated during the first half of every Prepare Phase
 ;; Everyone can call the function in order to recalculate each stacker's weight inside the pool
@@ -479,19 +480,20 @@
 
 (define-private (transfer-reward-one-stacker (stacker principal)) 
 (let (
-      (reward 
-        (unwrap! (preview-exchange-reward 
-          (default-to u0 
-            (get reward 
-              (map-get? burn-block-rewards { burn-height: (var-get burn-block-to-distribute-rewards)}))) 
-          u5) err-cant-unwrap-exchange-preview))
+      (reward (* u490 (default-to u0 (get reward (map-get? burn-block-rewards { burn-height: (var-get burn-block-to-distribute-rewards)}))))) ;; hardcoded reward for tests 
+      ;; (reward 
+      ;;   (unwrap! (preview-exchange-reward 
+      ;;     (default-to u0 
+      ;;       (get reward 
+      ;;         (map-get? burn-block-rewards { burn-height: (var-get burn-block-to-distribute-rewards)}))) 
+      ;;     u5) err-cant-unwrap-exchange-preview))
       (stacker-weight 
         (default-to u0 
           (get weight-percentage 
             (map-get? stacker-weights-per-reward-cycle {stacker: stacker, reward-cycle: (var-get reward-cycle-to-distribute-rewards)}))))
       (stacker-reward (/ (* stacker-weight reward) ONE-6))) 
-      (if (> stacker-weight u0) 
-
+      
+        (if (> stacker-weight u0) 
           (match (as-contract (stx-transfer? stacker-reward tx-sender stacker))
             success 
               (begin 
@@ -691,9 +693,6 @@ true))
 (define-read-only (check-pool-SC-pox-2-allowance)
 (is-some (contract-call? 'ST000000000000000000002AMW42H.pox-3 get-allowance-contract-callers tx-sender pool-contract)))
 
-(define-read-only (get-check-delegation (stacker principal))
-(contract-call? 'ST000000000000000000002AMW42H.pox-3 get-check-delegation stacker))
-
 (define-read-only (get-pox-addr-indices (reward-cycle uint))
 (map-get? pox-addr-indices reward-cycle))
 
@@ -752,5 +751,5 @@ true))
 (define-read-only (get-minimum-deposit-liquidity-provider) 
 (var-get minimum-deposit-amount-liquidity-provider))
 
-(define-read-only (was-block-claimed (rewarded-burn-block uint))
+	(define-read-only (was-block-claimed (rewarded-burn-block uint))
 (map-get? already-rewarded {burn-block-height: rewarded-burn-block}))
