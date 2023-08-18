@@ -19,7 +19,7 @@
 (define-constant err-cant-vote-himself (err u119))
 (define-constant err-cant-change-notifier (err u120))
 (define-constant err-already-proposed-for-notifier (err u121))
-(define-constant err-not-proposed-for-removal-k-missing (err u122))
+(define-constant err-not-proposed-for-removal-proposal-block-missing (err u122))
 (define-constant err-not-proposed-for-notifier-k-missing (err u123))
 (define-constant err-not-proposed-notifier (err u124))
 (define-constant err-already-notifier (err u125))
@@ -540,7 +540,7 @@
 (begin
   (asserts! (not (is-eq contract-caller miner-to-vote)) err-cant-vote-himself)
   (asserts! (check-is-proposed-for-removal-now miner-to-vote) err-not-proposed-for-removal) ;; map_is_proposed_for_removal
-  (asserts! (is-ok (get-k-at-block-proposed-removal miner-to-vote)) err-not-proposed-for-removal-k-missing)
+  (asserts! (is-ok (get-k-at-block-proposed-removal miner-to-vote)) err-not-proposed-for-removal-proposal-block-missing)
     (asserts! (unwrap! (check-is-miner-when-requested-remove miner-to-vote) err-cant-unwrap-check-miner) err-no-vote-permission)
     (asserts! (has-voted-remove miner-to-vote) err-already-voted) ;; O(1)
     (map-set map-remove-request-voter 
@@ -559,7 +559,7 @@
 (begin
   (asserts! (not (is-eq contract-caller miner-to-vote)) err-cant-vote-himself)
   (asserts! (check-is-proposed-for-removal-now miner-to-vote) err-not-proposed-for-removal) ;; map_is_waiting
-  (asserts! (is-ok (get-k-at-block-proposed-removal miner-to-vote)) err-not-proposed-for-removal-k-missing)
+  (asserts! (is-ok (get-k-at-block-proposed-removal miner-to-vote)) err-not-proposed-for-removal-proposal-block-missing)
   (asserts! (unwrap! (check-is-miner-when-requested-remove miner-to-vote) err-cant-unwrap-check-miner) err-no-vote-permission)
   (asserts! (has-voted-remove miner-to-vote) err-already-voted) ;; O(1)
   (map-set map-remove-request-voter 

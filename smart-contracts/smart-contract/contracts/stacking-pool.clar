@@ -77,7 +77,7 @@
 (define-data-var reward-cycle-to-calculate-weight uint u0)
 (define-data-var burn-block-to-distribute-rewards uint u0)
 (define-data-var reward-cycle-to-distribute-rewards uint u0)
-
+(define-data-var temp-current-reward uint u0)
 ;; common data vars
 (define-data-var minimum-deposit-amount-liquidity-provider uint u10000000000) ;; minimum amount for the liquidity provider to transfer after deploy in microSTX (STX * 10^-6)
 (define-data-var stackers-list (list 300 principal) (list tx-sender))
@@ -268,7 +268,7 @@
           (var-set reward-cycle-to-distribute-rewards reward-cycle)
           (match (map-get? calculated-weights-reward-cycles {reward-cycle: reward-cycle}) 
             calculated (ok 
-                        (transfer-rewards-all-stackers stackers-list-for-reward-cycle))
+                          (unwrap-panic (transfer-rewards-all-stackers stackers-list-for-reward-cycle)))
             err-weights-not-calculated)))
 
 ;; delegating stx to the pool SC
@@ -474,16 +474,19 @@
 ;; Rewards transferring functions
 
 (define-private (transfer-rewards-all-stackers (stackers-list-before-cycle (list 300 principal)))
-(map transfer-reward-one-stacker stackers-list-before-cycle))
+(let ((current-reward 
+        (unwrap! 
+          (preview-exchange-reward 
+            (default-to u0 
+              (get reward 
+                (map-get? burn-block-rewards { burn-height: (var-get burn-block-to-distribute-rewards)}))) 
+            u5) err-cant-unwrap-exchange-preview))) 
+      (var-set temp-current-reward current-reward)
+      (ok (map transfer-reward-one-stacker stackers-list-before-cycle))))
 
 (define-private (transfer-reward-one-stacker (stacker principal)) 
 (let (
-      (reward 
-        (unwrap! (preview-exchange-reward 
-          (default-to u0 
-            (get reward 
-              (map-get? burn-block-rewards { burn-height: (var-get burn-block-to-distribute-rewards)}))) 
-          u5) err-cant-unwrap-exchange-preview))
+      (reward (var-get temp-current-reward))
       (stacker-weight 
         (default-to u0 
           (get weight-percentage 
