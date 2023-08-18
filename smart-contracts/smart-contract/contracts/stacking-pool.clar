@@ -115,7 +115,7 @@
 
 (define-public (deposit-stx-liquidity-provider (amount uint)) 
 (begin 
-  (asserts! (is-eq tx-sender (var-get liquidity-provider)) err-only-liquidity-provider)
+  (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider)
   (asserts! (>= amount (var-get minimum-deposit-amount-liquidity-provider)) err-future-reward-not-covered)
   (try! (stx-transfer? amount tx-sender pool-contract))
   (var-set sc-total-balance (+ amount (var-get sc-total-balance)))
@@ -124,7 +124,7 @@
 
 (define-public (withdraw-stx-liquidity-provider (amount uint)) 
 (begin 
-  (asserts! (is-eq tx-sender (var-get liquidity-provider)) err-only-liquidity-provider)
+  (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider)
   (asserts! 
     (and 
       (check-can-decrement-owned-balance amount) 
@@ -139,7 +139,7 @@
 
 (define-public (reserve-funds-future-rewards (amount uint)) 
 (begin 
-  (asserts! (is-eq tx-sender (var-get liquidity-provider)) err-only-liquidity-provider)
+  (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider)
   (asserts! (>= (var-get sc-owned-balance) amount) err-insufficient-funds) 
   (asserts! (>= amount (var-get minimum-deposit-amount-liquidity-provider)) err-future-reward-not-covered)
   (var-set sc-owned-balance (- (var-get sc-owned-balance) amount))
@@ -150,7 +150,7 @@
 (begin 
   (asserts! 
     (is-eq 
-      tx-sender 
+      contract-caller 
       (var-get liquidity-provider)) 
   err-only-liquidity-provider)
   (asserts! (can-withdraw-extra-reserved-now) err-cant-withdraw-now)
@@ -170,7 +170,6 @@
 (define-public (join-stacking-pool)
 (begin
   (asserts! (check-pool-SC-pox-2-allowance) err-allow-pool-in-pox-2-first)
-  ;; (asserts! (check-caller-allowed) err-allow-pool-in-SC-first)
   (asserts! (is-none (map-get? user-data {address: tx-sender})) err-already-in-pool)
   (var-set stackers-list (unwrap! (as-max-len? (concat (var-get stackers-list) (list tx-sender )) u300) err-full-stacking-pool)) 
   (map-set user-data {address: tx-sender} {is-in-pool: true, delegated-balance: u0, locked-balance: u0, until-burn-ht: none})
@@ -194,7 +193,7 @@
   (asserts! (is-none (get-check-delegation tx-sender)) err-revoke-delegation-in-pox-first)
   (asserts! (not (check-pool-SC-pox-2-allowance)) err-disallow-pool-in-pox-2-first)
   (asserts! (is-some (map-get? user-data {address: tx-sender})) err-not-in-pool)
-  (asserts! (not (is-eq tx-sender (var-get liquidity-provider))) err-liquidity-provider-not-permitted)
+  (asserts! (not (is-eq contract-caller (var-get liquidity-provider))) err-liquidity-provider-not-permitted)
     (try! (disallow-contract-caller pool-contract))
     (var-set stackers-list (filter remove-stacker-stackers-list (var-get stackers-list))) 
     (map-delete user-data {address: tx-sender})
@@ -305,23 +304,23 @@
 
 (define-public (set-pool-pox-address (new-pool-pox-address {hashbytes: (buff 32), version: (buff 1)})) 
 (begin 
-  (asserts! (is-eq tx-sender (var-get liquidity-provider)) err-only-liquidity-provider)
+  (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider)
   (ok (var-set pool-pox-address new-pool-pox-address))))
 
 (define-public (set-active (is-active bool))
 (begin
-  (asserts! (is-eq tx-sender (var-get liquidity-provider)) err-only-liquidity-provider)    
+  (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider)    
   (ok (var-set active is-active))))
 
 (define-public (set-liquidity-provider (new-liquidity-provider principal)) 
 (begin 
-  (asserts! (is-eq tx-sender (var-get liquidity-provider)) err-only-liquidity-provider)
+  (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider)
   (asserts! (is-some (map-get? user-data {address: new-liquidity-provider})) err-not-in-pool) ;; new liquidity provider should be in pool
   (ok (var-set liquidity-provider new-liquidity-provider))))
 
 (define-public (update-return (new-return-value uint)) 
 (begin 
-  (asserts! (is-eq tx-sender (var-get liquidity-provider)) err-only-liquidity-provider) 
+  (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider) 
   (asserts! (<= new-return-value max-return-div-accepted) err-return-div-exceeds-maximum)
   (asserts! (not (is-eq new-return-value (var-get return-div))) err-same-value)
   (var-set return-div new-return-value)
@@ -444,7 +443,7 @@
                 pox-address 
                 (- 
                   amount-ustx 
-                  (default-to u0 (get locked-balance (map-get? user-data {address: tx-sender})))))
+                  (default-to u0 (get locked-balance (map-get? user-data {address: user})))))
                 success-increase (begin
                                   (print "success-increase")
                                   (print success-increase)

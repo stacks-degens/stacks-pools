@@ -94,8 +94,9 @@
 (define-data-var reward uint u0)
 (define-data-var total-rewarded uint u0)
 (define-data-var blocks-won uint u0)
-
-
+(define-data-var reward-change-funds uint u0)
+(define-data-var temp-distributed-change-funds uint u0)
+(define-data-var temp-change-after-flushing uint u0)
 (map-set map-is-miner {address: tx-sender} {value: true})
 (map-set map-block-joined {address: tx-sender} {block-height: block-height})
 (map-set balance tx-sender u0)
@@ -266,7 +267,7 @@
 (define-read-only (get-miner-btc-address (miner-address principal))
   (map-get? btc-address {address: miner-address}))
 
-(define-public (set-my-btc-address (new-btc-address  {hashbytes: (buff 20), version: (buff 1)})) 
+(define-public (set-my-btc-address (new-btc-address {hashbytes: (buff 20), version: (buff 1)})) 
   (ok (map-set btc-address {address: tx-sender} {btc-address: new-btc-address})))
 
 ;; deposit funds
@@ -300,20 +301,44 @@
 (begin 
   (asserts! (< block-number block-height) err-block-height-invalid) ;; +100  ? 
   (asserts! (is-none (get claimed (map-get? claimed-rewards {block-number: block-number}))) err-already-distributed)
-  (let ((miners-list-at-reward-block  
+  (let ((miners-list-at-reward-block 
           (at-block (unwrap! (get-block-info? id-header-hash block-number) err-cant-unwrap-rewarded-block) (var-get miners-list)))
-        (block-reward (get-reward-at-block block-number)))
+        (block-reward (get-reward-at-block block-number))
+        (current-reward (var-get reward))
+        (current-miners-list-len (len miners-list-at-reward-block))
+        (distribution-change-funds (mod current-reward current-miners-list-len))
+        (current-change-funds (var-get reward-change-funds)))
     ;; (asserts! (is-eq (unwrap-panic (get claimer block-reward)) (as-contract tx-sender)) err-not-claimer)
     (map-set claimed-rewards {block-number: block-number} {claimed: true})
-    (var-set miners-list-len-at-reward-block (len miners-list-at-reward-block)) 
+    (var-set miners-list-len-at-reward-block current-miners-list-len) 
     (var-set reward (unwrap-panic (get reward block-reward)))
     (var-set total-rewarded (+ (var-get total-rewarded) (var-get reward)))
     (var-set blocks-won (+ (var-get blocks-won) u1))
+    (var-set reward-change-funds (+ current-change-funds distribution-change-funds))
     (map distribute-reward-each-miner miners-list-at-reward-block)
     (ok true))))
 
 (define-private (distribute-reward-each-miner (miner principal)) 
-(map-set balance miner (+ (unwrap-panic (map-get? balance miner)) (/ (var-get reward) (var-get miners-list-len-at-reward-block)))))
+(let ((miner-balance (default-to u0 (map-get? balance miner)))
+      (current-reward (var-get reward))
+      (current-change-funds (var-get reward-change-funds))
+      (current-miners-list-len (var-get miners-list-len-at-reward-block))
+      (distributed-amount (/ current-reward current-miners-list-len))
+      ) 
+  
+  (map-set balance miner 
+    (+ miner-balance distributed-amount))))
+
+(define-private (flush-change-each-miner (miner principal)) 
+(let ((miner-balance (default-to u0 (map-get? balance miner)))
+      (current-reward (var-get reward))
+      (current-change-funds (var-get reward-change-funds))
+      (current-miners-list-len (var-get miners-list-len-at-reward-block))
+      (distributed-amount (/ current-reward current-miners-list-len))
+      (distribution-change-funds (mod current-reward current-miners-list-len))) 
+  (var-set reward-change-funds (+ current-change-funds distribution-change-funds))
+  (map-set balance miner 
+    (+ miner-balance distributed-amount))))
 
 ;; JOINING FLOW
 
@@ -356,6 +381,22 @@
         (reject-miner-in-pool miner-to-vote) 
         false))
     (ok true)))
+
+(define-public (quit-waiting-list) 
+  (begin 
+    (asserts! (check-is-waiting-now contract-caller) err-not-asked-to-join)
+    (asserts! 
+      (<= 
+        blocks-to-pass
+        (- block-height 
+          (default-to block-height 
+            (get value 
+              (map-get? map-block-asked-to-join {address: contract-caller}))))) err-more-blocks-to-pass)
+    (let ((remove-result (unwrap-panic (remove-principal-waiting-list contract-caller))))
+      (var-set miner-to-remove-votes-join contract-caller)
+      (var-set waiting-list remove-result)
+      (map-delete map-is-waiting {address: contract-caller})
+      (ok (clear-votes-map-join-vote contract-caller)))))
 
 (define-private (accept-miner-in-pool (miner principal)) 
 (begin 
@@ -548,6 +589,21 @@
       (reject-removal miner-to-vote)
       (ok false)))
   (ok true)))
+
+(define-public (quit-proposed-removal-list) 
+  (begin 
+    (asserts! 
+      (<= 
+        blocks-to-pass
+        (- block-height 
+          (default-to block-height 
+            (get value 
+              (map-get? map-block-proposed-to-remove {address: contract-caller}))))) err-more-blocks-to-pass)
+    (let ((remove-result (unwrap-panic (remove-principal-proposed-removal-list contract-caller))))
+      (var-set miner-to-remove-votes-remove contract-caller)
+      (var-set proposed-removal-list remove-result)
+      (map-delete map-is-proposed-for-removal {address: contract-caller})
+      (ok (clear-votes-map-remove-vote contract-caller)))))
 
 (define-private (process-removal (miner principal))
 (begin 
@@ -782,6 +838,37 @@
   (if (is-eq n-local u3)
     (>= votes-number u2)
     (>= votes-number (+ (- n-local k-local) u1)))))
+
+;; RECOVERING UNASSIGNED FUNDS FUNCTIONS
+
+;; A public function each miner can call in order to recover the 
+;; undistributed rewards caused by dividing rewards to stackers
+(define-public (flush-change)
+(let ((total-change-funds (var-get reward-change-funds))
+      (current-miners-list-len (len (var-get miners-list)))
+      (distributed-change-funds (/ total-change-funds current-miners-list-len))
+      (change-after-flushing (mod total-change-funds current-miners-list-len))) 
+  (asserts! (check-is-miner-now tx-sender) err-not-in-miner-map)
+  (var-set temp-distributed-change-funds distributed-change-funds)
+  (var-set temp-change-after-flushing change-after-flushing)
+  (map flush-distribution-one-miner (var-get miners-list))
+  (ok   
+    (var-set reward-change-funds 
+      (- 
+        total-change-funds 
+        (* 
+          current-miners-list-len 
+          distributed-change-funds))))))
+
+(define-private (flush-distribution-one-miner (miner principal))
+(let ((miner-balance (default-to u0 (map-get? balance miner)))
+      (total-change-funds (var-get reward-change-funds))
+      (current-miners-list-len (len (var-get miners-list)))
+      (distributed-change-funds (/ total-change-funds current-miners-list-len)))
+  (map-set balance miner 
+    (+ 
+      miner-balance 
+      (var-get temp-distributed-change-funds)))))
 
 ;; LIST PROCESSING FUNCTIONS
 
