@@ -34,7 +34,7 @@ Clarinet.test({
     // try without any allowance
     let block = chain.mineBlock([
       Tx.contractCall(
-        'stacking-pool',
+        'stacking-pool-test',
         'deposit-stx-liquidity-provider',
         [types.uint(10_000_000_000)],
         deployer.address
@@ -44,7 +44,7 @@ Clarinet.test({
     // check delegation calls
     block.receipts[0].result.expectOk().expectBool(true);
 
-    block = chain.mineBlock([Tx.contractCall('stacking-pool', 'get-SC-total-balance', [], deployer.address)]);
+    block = chain.mineBlock([Tx.contractCall('stacking-pool-test', 'get-SC-total-balance', [], deployer.address)]);
 
     block.receipts[0].result.expectUint(10_000_000_000);
   },
@@ -68,7 +68,7 @@ Clarinet.test({
   async fn(chain: Chain, accounts: Map<string, Account>) {
     const deployer = accounts.get('deployer')!;
     const wallet_1 = accounts.get('wallet_1')!;
-    const mainContract = deployer.address + '.stacking-pool';
+    const mainContract = deployer.address + '.stacking-pool-test';
 
     // try without any allowance
     let block = chain.mineBlock([allowContractCaller(mainContract, undefined, wallet_1), joinStackingPool(wallet_1)]);
@@ -84,7 +84,7 @@ Clarinet.test({
   async fn(chain: Chain, accounts: Map<string, Account>) {
     const deployer = accounts.get('deployer')!;
     const wallet_1 = accounts.get('wallet_1')!;
-    const mainContract = deployer.address + '.stacking-pool';
+    const mainContract = deployer.address + '.stacking-pool-test';
 
     let block = chain.mineBlock([
       allowContractCaller(mainContract, undefined, wallet_1),
@@ -105,12 +105,12 @@ Clarinet.test({
   name: 'Ensure that user can only delegate from a contract allowing pox-2 and joining the pool',
   async fn(chain: Chain, accounts: Map<string, Account>) {
     const mainDelegateStx = (amountUstx: number, user: Account) => {
-      return Tx.contractCall('stacking-pool', 'delegate-stx', [types.uint(amountUstx)], user.address);
+      return Tx.contractCall('stacking-pool-test', 'delegate-stx', [types.uint(amountUstx)], user.address);
     };
     const deployer = accounts.get('deployer')!;
     const wallet_1 = accounts.get('wallet_1')!;
     const wallet_2 = accounts.get('wallet_2')!;
-    const mainContract = deployer.address + '.stacking-pool';
+    const mainContract = deployer.address + '.stacking-pool-test';
 
     // try without any allowance
     let block = chain.mineBlock([mainDelegateStx(20_000_000_000, wallet_1)]);
@@ -137,12 +137,12 @@ Clarinet.test({
   name: 'Ensure that user can delegate how much he wants, but can lock only funds he owns',
   async fn(chain: Chain, accounts: Map<string, Account>) {
     const mainDelegateStx = (amountUstx: number, user: Account) => {
-      return Tx.contractCall('stacking-pool', 'delegate-stx', [types.uint(amountUstx)], user.address);
+      return Tx.contractCall('stacking-pool-test', 'delegate-stx', [types.uint(amountUstx)], user.address);
     };
     const deployer = accounts.get('deployer')!;
     const wallet_1 = accounts.get('wallet_1')!;
     const wallet_2 = accounts.get('wallet_2')!;
-    const mainContract = deployer.address + '.stacking-pool';
+    const mainContract = deployer.address + '.stacking-pool-test';
 
     // user owns 100_000_000_000_000, delegates 200_000_000_000_000
     let block = chain.mineBlock([
@@ -183,12 +183,12 @@ Clarinet.test({
 
   async fn(chain: Chain, accounts: Map<string, Account>) {
     const mainDelegateStx = (amountUstx: number, user: Account) => {
-      return Tx.contractCall('stacking-pool', 'delegate-stx', [types.uint(amountUstx)], user.address);
+      return Tx.contractCall('stacking-pool-test', 'delegate-stx', [types.uint(amountUstx)], user.address);
     };
     const deployer = accounts.get('deployer')!;
     const wallet_1 = accounts.get('wallet_1')!;
     const wallet_2 = accounts.get('wallet_2')!;
-    const mainContract = deployer.address + '.stacking-pool';
+    const mainContract = deployer.address + '.stacking-pool-test';
 
     // Allow pool SC in pox-2, join stacking pool and delegate with wallet_1
     let block = chain.mineBlock([
@@ -327,10 +327,10 @@ Clarinet.test({
 
   async fn(chain: Chain, accounts: Map<string, Account>) {
     const mainDelegateStx = (amountUstx: number, user: Account) => {
-      return Tx.contractCall('stacking-pool', 'delegate-stx', [types.uint(amountUstx)], user.address);
+      return Tx.contractCall('stacking-pool-test', 'delegate-stx', [types.uint(amountUstx)], user.address);
     };
     const deployer = accounts.get('deployer')!;
-    const mainContract = deployer.address + '.stacking-pool';
+    const mainContract = deployer.address + '.stacking-pool-test';
 
     // Allow pool SC in pox-2, join stacking pool and delegate with first 6 wallets
     let block: any;
@@ -369,12 +369,12 @@ Clarinet.test({
 
   async fn(chain: Chain, accounts: Map<string, Account>) {
     const mainDelegateStx = (amountUstx: number, user: Account) => {
-      return Tx.contractCall('stacking-pool', 'delegate-stx', [types.uint(amountUstx)], user.address);
+      return Tx.contractCall('stacking-pool-test', 'delegate-stx', [types.uint(amountUstx)], user.address);
     };
     const deployer = accounts.get('deployer')!;
     const wallet_4 = accounts.get('wallet_4')!;
     const wallet_8 = accounts.get('wallet_8')!;
-    const mainContract = deployer.address + '.stacking-pool';
+    const mainContract = deployer.address + '.stacking-pool-test';
 
     // Allow pool SC in pox-2, join stacking pool and delegate with first 3 wallets
     let block: any;

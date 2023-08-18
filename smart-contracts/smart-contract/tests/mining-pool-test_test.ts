@@ -5,7 +5,7 @@ const CONVERT_TO_STX = (amount: number) => {
   return amount * 1000000;
 };
 
-const CONTRACT_NAME = 'mining-pool';
+const CONTRACT_NAME = 'mining-pool-test';
 const ASK_TO_JOIN = 'ask-to-join';
 const GET_MINERS_LIST = 'get-miners-list';
 const GET_WAITING_LIST = 'get-waiting-list';
@@ -50,12 +50,6 @@ const err_already_proposed_for_notifier = '(err u121)';
 const err_not_proposed_notifier = '(err u124)';
 const err_already_notifier = '(err u125)';
 const err_no_voting_period = '(err u129)';
-const btcAddressVersionUintArray = Uint8Array.from(Buffer.from('00', 'hex'));
-const publicKeyHex = '02e8f7dc91e49a577ce9ea8989c7184aea8886fe5250f02120dc6f98e3619679b0';
-const publicKey = Buffer.from(publicKeyHex, 'hex');
-const pKhash160 = crypto.hash160(publicKey);
-const btcHashBuffer = pKhash160;
-const btcUintArray = Uint8Array.from(btcHashBuffer);
 
 Clarinet.test({
   name: 'Get All Data Waiting 300 Miners',
@@ -69,18 +63,7 @@ Clarinet.test({
     for (let i = 1; i <= 299; i++) {
       const miner = accounts.get(`wallet_${i}`)!;
       block = chain.mineBlock([
-        Tx.contractCall(
-          CONTRACT_NAME,
-          ASK_TO_JOIN,
-          [
-            // types.ascii(miner.address),
-            types.tuple({
-              version: types.buffer(Buffer.from('00', 'hex')),
-              hashbytes: types.buffer(Buffer.from(publicKeyHex, 'hex')),
-            }),
-          ],
-          miner.address
-        ),
+        Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(miner.address)], miner.address),
       ]);
       if (i == 1) testing_list.push(`${miner.address}`);
       else testing_list.push(` ${miner.address}`);

@@ -1,6 +1,6 @@
 [project]
-name = 'DeMiPool'
-description = 'descentralized mining pool SC'
+name = 'Decentralized Stacks Pools'
+description = 'Decentralized Stacks Pools'
 authors = []
 telemetry = false
 cache_dir = '.cache'
@@ -55,6 +55,11 @@ epoch = 2.4
 
 [contracts.mining-pool-5-blocks]
 path = 'contracts/mining-pool-5-blocks.clar'
+clarity_version = 2
+epoch = 2.4
+
+[contracts.mining-pool-test]
+path = 'contracts/mining-pool-test.clar'
 clarity_version = 2
 epoch = 2.4
 

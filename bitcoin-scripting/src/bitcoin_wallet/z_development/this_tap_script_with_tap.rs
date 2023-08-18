@@ -28,6 +28,7 @@ use electrum_client::{Client, ElectrumApi};
 use miniscript::psbt::{PsbtExt, PsbtInputSatisfier};
 use miniscript::{Descriptor, DescriptorPublicKey, Miniscript, Tap, ToPublicKey};
 
+#[test]
 pub fn Test_tap_with_tap() {
     let secp = Secp256k1::new();
     let alice_secret =
