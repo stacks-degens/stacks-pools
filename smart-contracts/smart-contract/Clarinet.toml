@@ -6,13 +6,23 @@ telemetry = false
 cache_dir = '.cache'
 
 [[project.requirements]]
-contract_id = 'SP000000000000000000002Q6VF78.pox-2'
+contract_id = 'SP000000000000000000002Q6VF78.pox-3'
 
 [[project.requirements]]
-contract_id = 'ST000000000000000000002AMW42H.pox-2'
+contract_id = 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.trait-sip-010'
 
 [[project.requirements]]
-contract_id = 'ST000000000000000000002AMW42H.pox-3'
+contract_id = 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.amm-swap-pool-v1-1'
+
+[[project.requirements]]
+contract_id = 'SP1WN90HKT0E1FWCJT9JFPMC8YP7XGBGFNZGHRVZX.clarity-bitcoin'
+
+[[project.requirements]]
+contract_id = 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.token-wstx'
+
+[[project.requirements]]
+contract_id = 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.token-wbtc'
+
 [contracts.Wrapped-Bitcoin]
 path = 'contracts/Wrapped-Bitcoin.clar'
 clarity_version = 2
@@ -23,10 +33,10 @@ path = 'contracts/alex-vault-v1-1.clar'
 clarity_version = 2
 epoch = 2.4
 
-[contracts.amm-swap-pool-v1-1]
-path = 'contracts/amm-swap-pool-v1-1.clar'
-clarity_version = 2
-epoch = 2.4
+# [contracts.amm-swap-pool-v1-1]
+# path = 'contracts/amm-swap-pool-v1-1.clar'
+# clarity_version = 2
+# epoch = 2.4
 
 [contracts.bridge-contract]
 path = 'contracts/bridge-contract.clar'

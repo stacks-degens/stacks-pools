@@ -5,11 +5,25 @@ authors = []
 telemetry = false
 cache_dir = './.cache'
 
-[[project.requirements]]
-contract_id = 'ST3VRQJMS69354J6DTPKG5W67XP31D4E6HJW708W4.Wrapped-Bitcoin'
+# [[project.requirements]]
+# contract_id = 'ST3VRQJMS69354J6DTPKG5W67XP31D4E6HJW708W4.Wrapped-Bitcoin'
+
+# [[project.requirements]]
+# contract_id = 'ST19F1KWRKRF2BZMPW7MWV463K11WED2M39X1HR3A.clarity-bitcoin'
 
 [[project.requirements]]
-contract_id = 'ST19F1KWRKRF2BZMPW7MWV463K11WED2M39X1HR3A.clarity-bitcoin'
+contract_id = 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.amm-swap-pool-v1-1'
+
+[[project.requirements]]
+contract_id = 'SP1WN90HKT0E1FWCJT9JFPMC8YP7XGBGFNZGHRVZX.clarity-bitcoin'
+
+[[project.requirements]]
+contract_id = 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.token-wstx'
+
+[[project.requirements]]
+contract_id = 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.token-wbtc'
+
+
 [contracts.Wrapped-Bitcoin]
 path = 'contracts/Wrapped-Bitcoin.clar'
 clarity_version = 2

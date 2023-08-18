@@ -1,5 +1,5 @@
 ;; exhchange utilities
-(use-trait ft-trait .trait-sip-010.sip-010-trait)
+(use-trait ft-trait 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.trait-sip-010.sip-010-trait)
 
 (define-constant ONE_8 u100000000)
 
@@ -26,15 +26,27 @@
     (token-x (contract-of token-x-trait))
     (token-y (contract-of token-y-trait))
     (fee-amount 
-      (contract-call? .amm-swap-pool-v1-1 fee-helper token-x token-y ONE_8))
-    (get-helper-result (try! (contract-call? .amm-swap-pool-v1-1 get-helper token-x token-y ONE_8 multiplied-amount)))
+      (contract-call? 
+        'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.amm-swap-pool-v1-1 
+        fee-helper 
+        token-x 
+        token-y 
+        ONE_8))
+    (get-helper-result (try! (contract-call? 
+                              'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.amm-swap-pool-v1-1 
+                              get-helper 
+                              token-x 
+                              token-y 
+                              ONE_8 
+                              multiplied-amount)))
     (converted-amount 
       (mul-down 
         get-helper-result 
         (- ONE_8 (unwrap-panic fee-amount))))
     (converted-amount-slippeage (minus-percent converted-amount slippeage)))
     (ok (contract-call? 
-        .amm-swap-pool-v1-1 swap-helper
+          'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.amm-swap-pool-v1-1 
+          swap-helper
           token-x-trait
           token-y-trait
           ONE_8
@@ -55,8 +67,19 @@
     (token-x (contract-of token-x-trait))
     (token-y (contract-of token-y-trait))
     (fee-amount 
-      (contract-call? .amm-swap-pool-v1-1 fee-helper token-x token-y ONE_8))
-    (get-helper-result (try! (contract-call? .amm-swap-pool-v1-1 get-helper token-x token-y ONE_8 multiplied-amount)))
+      (contract-call? 
+        'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.amm-swap-pool-v1-1 
+        fee-helper 
+        token-x 
+        token-y 
+        ONE_8))
+    (get-helper-result (try! (contract-call? 
+                                'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.amm-swap-pool-v1-1 
+                                get-helper 
+                                token-x 
+                                token-y 
+                                ONE_8 
+                                multiplied-amount)))
     (xbtc-amount 
       (mul-down 
         get-helper-result 
@@ -64,12 +87,13 @@
     (xbtc-amount-slippeage (minus-percent xbtc-amount slippeage))
     (xbtc-to-send (/ (* xbtc-amount u95) u100)))
     (try! (contract-call? 
-        .amm-swap-pool-v1-1 swap-helper
-          token-x-trait
-          token-y-trait
-          ONE_8
-          multiplied-amount
-        (some xbtc-amount-slippeage)))
+            'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.amm-swap-pool-v1-1 
+            swap-helper
+            token-x-trait
+            token-y-trait
+            ONE_8
+            multiplied-amount
+            (some xbtc-amount-slippeage)))
     (try! (contract-call? .degen-bridge-testnet-v3 initiate-outbound-swap xbtc-to-send btc-version btc-hash supplier-id))
     (ok xbtc-to-send)))
 
@@ -78,8 +102,8 @@
     (token-x (contract-of token-x-trait))
     (token-y (contract-of token-y-trait))
     (fee-amount 
-      (contract-call? .amm-swap-pool-v1-1 fee-helper token-x token-y ONE_8))
-    (get-helper-result (try! (contract-call? .amm-swap-pool-v1-1 get-helper token-x token-y ONE_8 multiplied-amount)))
+      (contract-call? 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.amm-swap-pool-v1-1 fee-helper token-x token-y ONE_8))
+    (get-helper-result (try! (contract-call? 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.amm-swap-pool-v1-1 get-helper token-x token-y ONE_8 multiplied-amount)))
     (converted-amount 
       (mul-down 
         get-helper-result 

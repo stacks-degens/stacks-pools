@@ -306,12 +306,12 @@
   )
   (let
     (
-      (was-mined-bool (unwrap! (contract-call? 'ST19F1KWRKRF2BZMPW7MWV463K11WED2M39X1HR3A.clarity-bitcoin was-tx-mined-prev? block prev-blocks tx proof) ERR_TX_NOT_MINED))
+      (was-mined-bool (unwrap! (contract-call? 'SP1WN90HKT0E1FWCJT9JFPMC8YP7XGBGFNZGHRVZX.clarity-bitcoin was-tx-mined-prev? block prev-blocks tx proof) ERR_TX_NOT_MINED))
       (was-mined (asserts! was-mined-bool ERR_TX_NOT_MINED))
       (mined-height (get height block))
       (htlc-redeem (generate-htlc-script sender recipient expiration-buff hash swapper-buff))
       (htlc-output (generate-script-hash htlc-redeem))
-      (parsed-tx (unwrap! (contract-call? 'ST19F1KWRKRF2BZMPW7MWV463K11WED2M39X1HR3A.clarity-bitcoin parse-tx tx) ERR_INVALID_TX))
+      (parsed-tx (unwrap! (contract-call? 'SP1WN90HKT0E1FWCJT9JFPMC8YP7XGBGFNZGHRVZX.clarity-bitcoin parse-tx tx) ERR_INVALID_TX))
       (output (unwrap! (element-at (get outs parsed-tx) output-index) ERR_INVALID_TX))
       (output-script (get scriptPubKey output))
       (supplier (unwrap! (map-get? supplier-by-id supplier-id) ERR_INVALID_SUPPLIER))
@@ -325,7 +325,7 @@
       (new-escrow (+ escrowed xbtc))
       (expiration (try! (read-uint32 expiration-buff (len expiration-buff))))
       (swapper-id (try! (read-uint32 swapper-buff u4)))
-      (txid (contract-call? 'ST19F1KWRKRF2BZMPW7MWV463K11WED2M39X1HR3A.clarity-bitcoin get-txid tx))
+      (txid (contract-call? 'SP1WN90HKT0E1FWCJT9JFPMC8YP7XGBGFNZGHRVZX.clarity-bitcoin get-txid tx))
       (expiration-ok (try! (validate-expiration expiration mined-height)))
       (escrow {
         swapper: swapper-id,
@@ -389,8 +389,9 @@
         (escrowed (unwrap! (map-get? supplier-escrow supplier-id) ERR_PANIC))
         (swapper (unwrap! (get-swapper-principal (get swapper swap)) ERR_PANIC))
         (fee-amount 
-          (contract-call? .amm-swap-pool-v1-1 fee-helper .token-wbtc .token-wstx ONE_8))
-        (get-helper-result (try! (contract-call? .amm-swap-pool-v1-1 get-helper .token-wbtc .token-wstx ONE_8 xbtc)))
+          (contract-call? 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.amm-swap-pool-v1-1 fee-helper 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.token-wbtc
+          'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.token-wbtc 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.token-wstx ONE_8))
+        (get-helper-result (try! (contract-call? 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.amm-swap-pool-v1-1 get-helper 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.token-wbtc 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.token-wstx ONE_8 xbtc)))
         (stx-amount 
           (mul-down 
             get-helper-result 
@@ -398,9 +399,9 @@
         (stx-amount-slippeage (minus-percent xbtc u5))
         (btc-to-xbtc-transfer-result (try! (as-contract (transfer xbtc tx-sender swapper))))
         (xbtc-to-stx-transfer-result 
-          (try! (contract-call? .amm-swap-pool-v1-1 swap-helper
-                    .token-wbtc
-                    .token-wstx
+          (try! (contract-call? 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.amm-swap-pool-v1-1 swap-helper
+                    'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.token-wbtc
+                    'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.token-wstx
                     ONE_8
                     xbtc
                     (some stx-amount-slippeage))))
@@ -524,14 +525,14 @@
   )
   (let
     (
-      (was-mined-bool (unwrap! (contract-call? 'ST19F1KWRKRF2BZMPW7MWV463K11WED2M39X1HR3A.clarity-bitcoin was-tx-mined-prev? block prev-blocks tx proof) ERR_TX_NOT_MINED))
+      (was-mined-bool (unwrap! (contract-call? 'SP1WN90HKT0E1FWCJT9JFPMC8YP7XGBGFNZGHRVZX.clarity-bitcoin was-tx-mined-prev? block prev-blocks tx proof) ERR_TX_NOT_MINED))
       (was-mined (asserts! was-mined-bool ERR_TX_NOT_MINED))
       (swap (unwrap! (get-outbound-swap swap-id) ERR_SWAP_NOT_FOUND))
       (expected-output (generate-output (get version swap) (get hash swap)))
-      (parsed-tx (unwrap! (contract-call? 'ST19F1KWRKRF2BZMPW7MWV463K11WED2M39X1HR3A.clarity-bitcoin parse-tx tx) ERR_INVALID_TX))
+      (parsed-tx (unwrap! (contract-call? 'SP1WN90HKT0E1FWCJT9JFPMC8YP7XGBGFNZGHRVZX.clarity-bitcoin parse-tx tx) ERR_INVALID_TX))
       (output (unwrap! (element-at (get outs parsed-tx) output-index) ERR_INVALID_TX))
       (output-script (get scriptPubKey output))
-      (txid (contract-call? 'ST19F1KWRKRF2BZMPW7MWV463K11WED2M39X1HR3A.clarity-bitcoin get-txid tx))
+      (txid (contract-call? 'SP1WN90HKT0E1FWCJT9JFPMC8YP7XGBGFNZGHRVZX.clarity-bitcoin get-txid tx))
       (output-sats (get value output))
       (xbtc (get xbtc swap))
       (supplier (get supplier swap))
@@ -687,7 +688,7 @@
 (define-private (transfer (amount uint) (sender principal) (recipient principal))
 ;;On mainnet: we'll call AlexGo contract address
 ;;ST3VRQJMS69354J6DTPKG5W67XP31D4E6HJW708W4 used in testnet for Wrapped-Bitcoin
-  (match (contract-call? .token-wbtc transfer amount sender recipient none) 
+  (match (contract-call? 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.token-wbtc transfer amount sender recipient none) 
     success (ok success)
     error (begin
       (print { transfer-error: error })
