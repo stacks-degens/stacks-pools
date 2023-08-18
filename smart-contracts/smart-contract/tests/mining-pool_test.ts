@@ -1,5 +1,9 @@
-import { Clarinet, Tx, Chain, Account, types } from 'https://deno.land/x/clarinet@v1.4.0/index.ts';
+import { Clarinet, Tx, Chain, Account, types } from 'https://deno.land/x/clarinet@v1.5.4/index.ts';
 import { assertEquals } from 'https://deno.land/std@0.170.0/testing/asserts.ts';
+import sha256 from 'https://deno.land/x/sha256js/sha256.mjs';
+import ripemd160 from 'https://deno.land/x/ripemd160js@v2.0.3/ripemd160.mjs';
+
+// hash160 = ripemd(sha256(value))
 
 const CONVERT_TO_STX = (amount: number) => {
   return amount * 1000000;
@@ -23,8 +27,8 @@ const WITHDRAW = 'withdraw-stx';
 const GET_BALANCE = 'get-balance';
 const GET_REWARD_AT_BLOCK_READ = 'get-reward-at-block-read';
 const REWARD_DISTRIBUTION = 'reward-distribution';
-const GET_DATA_WAITING_MINER = 'get-all-data-waiting-miners'
-const GET_DATA_REMOVAL = 'get-all-data-miners-proposed-for-removal'
+const GET_DATA_WAITING_MINER = 'get-all-data-waiting-miners';
+const GET_DATA_REMOVAL = 'get-all-data-miners-proposed-for-removal';
 const err_insufficient_balance = '(err u1001)';
 const err_missing_balance = '(err u1002)';
 const LEAVE_POOL = 'leave-pool';
@@ -51,6 +55,23 @@ const err_not_proposed_notifier = '(err u124)';
 const err_already_notifier = '(err u125)';
 const err_no_voting_period = '(err u129)';
 
+// Conversions for hashing
+const publicKeyHex = '02e8f7dc91e49a577ce9ea8989c7184aea8886fe5250f02120dc6f98e3619679b0';
+
+const buffer_from = (num: string) => {
+  const hexString = num;
+  const byteArray = new Uint8Array(hexString.length / 2);
+
+  for (let i = 0; i < byteArray.length; i++) {
+    byteArray[i] = parseInt(hexString.substr(i * 2, 2), 16);
+  }
+  return byteArray;
+};
+
+const hash160 = (value: any) => {
+  return sha256(value).then((x: any) => ripemd160(x));
+};
+
 Clarinet.test({
   name: 'Get All Data Waiting 300 Miners',
   async fn(chain: Chain, accounts: Map<string, Account>) {
@@ -63,7 +84,17 @@ Clarinet.test({
     for (let i = 1; i <= 299; i++) {
       const miner = accounts.get(`wallet_${i}`)!;
       block = chain.mineBlock([
-        Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(miner.address)], miner.address),
+        Tx.contractCall(
+          CONTRACT_NAME,
+          ASK_TO_JOIN,
+          [
+            types.tuple({
+              version: types.buff(hash160(buffer_from('00'))),
+              hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+            }),
+          ],
+          miner.address
+        ),
       ]);
       if (i == 1) testing_list.push(`${miner.address}`);
       else testing_list.push(` ${miner.address}`);
@@ -102,26 +133,56 @@ Clarinet.test({
     assertEquals(block.height, 653);
 
     block = chain.mineBlock([
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(accounts.get(`wallet_${300}`)!.address)], accounts.get(`wallet_${300}`)!.address),
-      Tx.contractCall(CONTRACT_NAME, GET_DATA_WAITING_MINER, [types.list([types.principal(accounts.get(`wallet_${300}`)!.address)])], deployer.address),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        accounts.get(`wallet_${300}`)!.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        GET_DATA_WAITING_MINER,
+        [types.list([types.principal(accounts.get(`wallet_${300}`)!.address)])],
+        deployer.address
+      ),
     ]);
 
     for (let i = 91; i <= 299; i++) {
       const miner = accounts.get(`wallet_${300}`)!;
       block = chain.mineBlock([
-        Tx.contractCall(CONTRACT_NAME, VOTE_POSITIVE_JOIN, [types.principal(miner.address)], accounts.get(`wallet_${i}`)!.address),
+        Tx.contractCall(
+          CONTRACT_NAME,
+          VOTE_POSITIVE_JOIN,
+          [types.principal(miner.address)],
+          accounts.get(`wallet_${i}`)!.address
+        ),
       ]);
     }
 
     for (let i = 1; i <= 90; i++) {
       const miner = accounts.get(`wallet_${300}`)!;
       block = chain.mineBlock([
-        Tx.contractCall(CONTRACT_NAME, VOTE_NEGATIVE_JOIN, [types.principal(miner.address)], accounts.get(`wallet_${i}`)!.address),
+        Tx.contractCall(
+          CONTRACT_NAME,
+          VOTE_NEGATIVE_JOIN,
+          [types.principal(miner.address)],
+          accounts.get(`wallet_${i}`)!.address
+        ),
       ]);
     }
 
     block = chain.mineBlock([
-      Tx.contractCall(CONTRACT_NAME, GET_DATA_WAITING_MINER, [types.list([types.principal(accounts.get(`wallet_${300}`)!.address)])], deployer.address),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        GET_DATA_WAITING_MINER,
+        [types.list([types.principal(accounts.get(`wallet_${300}`)!.address)])],
+        deployer.address
+      ),
     ]);
   },
 });
@@ -138,7 +199,17 @@ Clarinet.test({
     for (let i = 1; i <= 299; i++) {
       const miner = accounts.get(`wallet_${i}`)!;
       block = chain.mineBlock([
-        Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(miner.address)], miner.address),
+        Tx.contractCall(
+          CONTRACT_NAME,
+          ASK_TO_JOIN,
+          [
+            types.tuple({
+              version: types.buff(hash160(buffer_from('00'))),
+              hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+            }),
+          ],
+          miner.address
+        ),
       ]);
       if (i == 1) testing_list.push(`${miner.address}`);
       else testing_list.push(` ${miner.address}`);
@@ -177,8 +248,18 @@ Clarinet.test({
     assertEquals(block.height, 653);
 
     block = chain.mineBlock([
-      Tx.contractCall(CONTRACT_NAME, PROPOSE_REMOVAL, [types.principal(accounts.get(`wallet_${299}`)!.address)], deployer.address),
-      Tx.contractCall(CONTRACT_NAME, GET_DATA_REMOVAL, [types.list([types.principal(accounts.get(`wallet_${299}`)!.address)])], deployer.address),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        PROPOSE_REMOVAL,
+        [types.principal(accounts.get(`wallet_${299}`)!.address)],
+        deployer.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        GET_DATA_REMOVAL,
+        [types.list([types.principal(accounts.get(`wallet_${299}`)!.address)])],
+        deployer.address
+      ),
     ]);
   },
 });
@@ -199,7 +280,17 @@ Clarinet.test({
     // 1 miner asks to join
 
     let block = chain.mineBlock([
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(deployer.address)], user1.address),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user1.address
+      ),
       Tx.contractCall(CONTRACT_NAME, GET_WAITING_LIST, [], user1.address),
       Tx.contractCall(CONTRACT_NAME, GET_MINERS_LIST, [], user1.address),
       Tx.contractCall(CONTRACT_NAME, GET_PENDING_LIST, [], user1.address),
@@ -235,7 +326,17 @@ Clarinet.test({
     // 1 miner asks to join
 
     block = chain.mineBlock([
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(deployer.address)], user1.address),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user1.address
+      ),
       Tx.contractCall(CONTRACT_NAME, GET_WAITING_LIST, [], user1.address),
       Tx.contractCall(CONTRACT_NAME, GET_MINERS_LIST, [], user1.address),
       Tx.contractCall(CONTRACT_NAME, GET_PENDING_LIST, [], user1.address),
@@ -307,7 +408,17 @@ Clarinet.test({
     // another user asks to join
 
     block = chain.mineBlock([
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user2.address)], user2.address),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user2.address
+      ),
       Tx.contractCall(CONTRACT_NAME, GET_WAITING_LIST, [], user1.address),
       Tx.contractCall(CONTRACT_NAME, GET_MINERS_LIST, [], user1.address),
       Tx.contractCall(CONTRACT_NAME, GET_PENDING_LIST, [], user1.address),
@@ -352,7 +463,17 @@ Clarinet.test({
     // another user asks to join
 
     block = chain.mineBlock([
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user2.address)], user2.address),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user2.address
+      ),
       Tx.contractCall(CONTRACT_NAME, GET_WAITING_LIST, [], user1.address),
       Tx.contractCall(CONTRACT_NAME, GET_MINERS_LIST, [], user1.address),
       Tx.contractCall(CONTRACT_NAME, GET_PENDING_LIST, [], user1.address),
@@ -414,8 +535,28 @@ Clarinet.test({
     // two users asks to join
 
     block = chain.mineBlock([
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user3.address)], user3.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user4.address)], user4.address),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user3.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user4.address
+      ),
       Tx.contractCall(CONTRACT_NAME, GET_WAITING_LIST, [], user1.address),
       Tx.contractCall(CONTRACT_NAME, GET_MINERS_LIST, [], user1.address),
       Tx.contractCall(CONTRACT_NAME, GET_PENDING_LIST, [], user1.address),
@@ -466,8 +607,28 @@ Clarinet.test({
     // two users asks to join
 
     block = chain.mineBlock([
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user3.address)], user3.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user5.address)], user5.address),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user3.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user5.address
+      ),
       Tx.contractCall(CONTRACT_NAME, GET_WAITING_LIST, [], user1.address),
       Tx.contractCall(CONTRACT_NAME, GET_MINERS_LIST, [], user1.address),
       Tx.contractCall(CONTRACT_NAME, GET_PENDING_LIST, [], user1.address),
@@ -555,7 +716,17 @@ Clarinet.test({
     for (let i = 1; i <= 46; i++) {
       const miner = accounts.get(`wallet_${i}`)!;
       block = chain.mineBlock([
-        Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(miner.address)], miner.address),
+        Tx.contractCall(
+          CONTRACT_NAME,
+          ASK_TO_JOIN,
+          [
+            types.tuple({
+              version: types.buff(hash160(buffer_from('00'))),
+              hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+            }),
+          ],
+          miner.address
+        ),
       ]);
       if (i == 1) testing_list.push(`${miner.address}`);
       else testing_list.push(` ${miner.address}`);
@@ -606,7 +777,17 @@ Clarinet.test({
     for (let i = 1; i <= 100; i++) {
       const miner = accounts.get(`wallet_${i}`)!;
       block = chain.mineBlock([
-        Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(miner.address)], miner.address),
+        Tx.contractCall(
+          CONTRACT_NAME,
+          ASK_TO_JOIN,
+          [
+            types.tuple({
+              version: types.buff(hash160(buffer_from('00'))),
+              hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+            }),
+          ],
+          miner.address
+        ),
       ]);
       if (i == 1) testing_list.push(`${miner.address}`);
       else testing_list.push(` ${miner.address}`);
@@ -656,7 +837,17 @@ Clarinet.test({
     for (let i = 1; i <= 299; i++) {
       const miner = accounts.get(`wallet_${i}`)!;
       block = chain.mineBlock([
-        Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(miner.address)], miner.address),
+        Tx.contractCall(
+          CONTRACT_NAME,
+          ASK_TO_JOIN,
+          [
+            types.tuple({
+              version: types.buff(hash160(buffer_from('00'))),
+              hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+            }),
+          ],
+          miner.address
+        ),
       ]);
       if (i == 1) testing_list.push(`${miner.address}`);
       else testing_list.push(` ${miner.address}`);
@@ -706,7 +897,17 @@ Clarinet.test({
     for (let i = 1; i <= 100; i++) {
       const miner = accounts.get(`wallet_${i}`)!;
       block = chain.mineBlock([
-        Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(miner.address)], miner.address),
+        Tx.contractCall(
+          CONTRACT_NAME,
+          ASK_TO_JOIN,
+          [
+            types.tuple({
+              version: types.buff(hash160(buffer_from('00'))),
+              hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+            }),
+          ],
+          miner.address
+        ),
       ]);
       if (i == 1) testing_list.push(`${miner.address}`);
       else testing_list.push(` ${miner.address}`);
@@ -743,7 +944,17 @@ Clarinet.test({
     for (let i = 1; i <= 299; i++) {
       const miner = accounts.get(`wallet_${i}`)!;
       block = chain.mineBlock([
-        Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(miner.address)], miner.address),
+        Tx.contractCall(
+          CONTRACT_NAME,
+          ASK_TO_JOIN,
+          [
+            types.tuple({
+              version: types.buff(hash160(buffer_from('00'))),
+              hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+            }),
+          ],
+          miner.address
+        ),
       ]);
       if (i == 1) testing_list.push(`${miner.address}`);
       else testing_list.push(` ${miner.address}`);
@@ -787,7 +998,17 @@ Clarinet.test({
     for (let i = 1; i <= 14; i++) {
       const miner = accounts.get(`wallet_${i}`)!;
       block = chain.mineBlock([
-        Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(miner.address)], miner.address),
+        Tx.contractCall(
+          CONTRACT_NAME,
+          ASK_TO_JOIN,
+          [
+            types.tuple({
+              version: types.buff(hash160(buffer_from('00'))),
+              hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+            }),
+          ],
+          miner.address
+        ),
       ]);
       if (i == 1) testing_list.push(`${miner.address}`);
       else testing_list.push(` ${miner.address}`);
@@ -858,7 +1079,17 @@ Clarinet.test({
     for (let i = 1; i <= 19; i++) {
       const miner = accounts.get(`wallet_${i}`)!;
       block = chain.mineBlock([
-        Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(miner.address)], miner.address),
+        Tx.contractCall(
+          CONTRACT_NAME,
+          ASK_TO_JOIN,
+          [
+            types.tuple({
+              version: types.buff(hash160(buffer_from('00'))),
+              hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+            }),
+          ],
+          miner.address
+        ),
       ]);
       if (i == 1) testing_list.push(`${miner.address}`);
       else testing_list.push(` ${miner.address}`);
@@ -980,7 +1211,17 @@ Clarinet.test({
     for (let i = 1; i <= 49; i++) {
       const miner = accounts.get(`wallet_${i}`)!;
       block = chain.mineBlock([
-        Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(miner.address)], miner.address),
+        Tx.contractCall(
+          CONTRACT_NAME,
+          ASK_TO_JOIN,
+          [
+            types.tuple({
+              version: types.buff(hash160(buffer_from('00'))),
+              hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+            }),
+          ],
+          miner.address
+        ),
       ]);
       if (i == 1) testing_list.push(`${miner.address}`);
       else testing_list.push(` ${miner.address}`);
@@ -1088,7 +1329,17 @@ Clarinet.test({
     for (let i = 1; i <= 100; i++) {
       const miner = accounts.get(`wallet_${i}`)!;
       block = chain.mineBlock([
-        Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(miner.address)], miner.address),
+        Tx.contractCall(
+          CONTRACT_NAME,
+          ASK_TO_JOIN,
+          [
+            types.tuple({
+              version: types.buff(hash160(buffer_from('00'))),
+              hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+            }),
+          ],
+          miner.address
+        ),
       ]);
       if (i == 1) testing_list.push(`${miner.address}`);
       else testing_list.push(` ${miner.address}`);
@@ -1141,7 +1392,17 @@ Clarinet.test({
     for (let i = 1; i <= 299; i++) {
       const miner = accounts.get(`wallet_${i}`)!;
       block = chain.mineBlock([
-        Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(miner.address)], miner.address),
+        Tx.contractCall(
+          CONTRACT_NAME,
+          ASK_TO_JOIN,
+          [
+            types.tuple({
+              version: types.buff(hash160(buffer_from('00'))),
+              hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+            }),
+          ],
+          miner.address
+        ),
       ]);
       if (i == 1) testing_list.push(`${miner.address}`);
       else testing_list.push(` ${miner.address}`);
@@ -1202,8 +1463,28 @@ Clarinet.test({
     const user2 = accounts.get('wallet_2')!;
 
     let block = chain.mineBlock([
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user1.address)], user1.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user2.address)], user2.address),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user1.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user2.address
+      ),
     ]);
 
     assertEquals(block.receipts[0].result, `(ok true)`);
@@ -1299,10 +1580,50 @@ Clarinet.test({
     const user4 = accounts.get('wallet_4')!;
 
     let block = chain.mineBlock([
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user1.address)], user1.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user2.address)], user2.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user3.address)], user3.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user4.address)], user4.address),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user1.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user2.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user3.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user4.address
+      ),
     ]);
 
     assertEquals(block.receipts[0].result, `(ok true)`);
@@ -1472,14 +1793,94 @@ Clarinet.test({
     const user8 = accounts.get('wallet_8')!;
 
     let block = chain.mineBlock([
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user1.address)], user1.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user2.address)], user2.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user3.address)], user3.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user4.address)], user4.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user5.address)], user5.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user6.address)], user6.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user7.address)], user7.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user8.address)], user8.address),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user1.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user2.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user3.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user4.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user5.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user6.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user7.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user8.address
+      ),
     ]);
 
     assertEquals(block.receipts[0].result, `(ok true)`);
@@ -1648,25 +2049,215 @@ Clarinet.test({
     const user19 = accounts.get('wallet_19')!;
 
     let block = chain.mineBlock([
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user1.address)], user1.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user2.address)], user2.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user3.address)], user3.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user4.address)], user4.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user5.address)], user5.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user6.address)], user6.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user7.address)], user7.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user8.address)], user8.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user9.address)], user9.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user10.address)], user10.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user11.address)], user11.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user12.address)], user12.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user13.address)], user13.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user14.address)], user14.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user15.address)], user15.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user16.address)], user16.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user17.address)], user17.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user18.address)], user18.address),
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(user19.address)], user19.address),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user1.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user2.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user3.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user4.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user5.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user6.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user7.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user8.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user9.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user10.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user11.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user12.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user13.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user14.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user15.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user16.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user17.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user18.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [
+          types.tuple({
+            version: types.buff(hash160(buffer_from('00'))),
+            hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+          }),
+        ],
+        user19.address
+      ),
     ]);
 
     assertEquals(block.receipts[0].result, `(ok true)`);
@@ -1865,7 +2456,17 @@ Clarinet.test({
     for (let i = 1; i <= 299; i++) {
       const miner = accounts.get(`wallet_${i}`)!;
       block = chain.mineBlock([
-        Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(miner.address)], miner.address),
+        Tx.contractCall(
+          CONTRACT_NAME,
+          ASK_TO_JOIN,
+          [
+            types.tuple({
+              version: types.buff(hash160(buffer_from('00'))),
+              hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+            }),
+          ],
+          miner.address
+        ),
       ]);
       if (i == 1) testing_list.push(`${miner.address}`);
       else testing_list.push(` ${miner.address}`);
@@ -1957,7 +2558,17 @@ Clarinet.test({
     for (let i = 1; i <= 299; i++) {
       const miner = accounts.get(`wallet_${i}`)!;
       block = chain.mineBlock([
-        Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(miner.address)], miner.address),
+        Tx.contractCall(
+          CONTRACT_NAME,
+          ASK_TO_JOIN,
+          [
+            types.tuple({
+              version: types.buff(hash160(buffer_from('00'))),
+              hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+            }),
+          ],
+          miner.address
+        ),
       ]);
       if (i == 1) testing_list.push(`${miner.address}`);
       else testing_list.push(` ${miner.address}`);
@@ -2020,13 +2631,17 @@ Clarinet.test({
       if (2 * i + 1 == 203) {
         block = chain.mineBlock([
           Tx.contractCall(CONTRACT_NAME, GET_NOTIFIER_VOTE_NUMBER, [types.principal(user1.address)], deployer.address),
-          Tx.contractCall(CONTRACT_NAME, VOTE_NOTIFIER, [types.principal(user1.address)], accounts.get(`wallet_${2 * i + 2}`).address),
+          Tx.contractCall(
+            CONTRACT_NAME,
+            VOTE_NOTIFIER,
+            [types.principal(user1.address)],
+            accounts.get(`wallet_${2 * i + 2}`).address
+          ),
         ]);
 
         assertEquals(block.receipts[0].result, `none`);
         assertEquals(block.receipts[1].result, `${err_no_voting_period}`);
-      }
-      else assertEquals(block.receipts[2].result, `(ok true)`);
+      } else assertEquals(block.receipts[2].result, `(ok true)`);
     }
 
     block = chain.mineBlock([
@@ -2366,7 +2981,17 @@ Clarinet.test({
     for (let i = 1; i <= 100; i++) {
       const miner = accounts.get(`wallet_${i}`)!;
       block = chain.mineBlock([
-        Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(miner.address)], miner.address),
+        Tx.contractCall(
+          CONTRACT_NAME,
+          ASK_TO_JOIN,
+          [
+            types.tuple({
+              version: types.buff(hash160(buffer_from('00'))),
+              hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+            }),
+          ],
+          miner.address
+        ),
       ]);
       if (i == 1) testing_list.push(`${miner.address}`);
       else testing_list.push(` ${miner.address}`);
@@ -2399,7 +3024,7 @@ Clarinet.test({
     assertEquals(block.height, 204);
 
     block = chain.mineBlock([
-      Tx.contractCall(CONTRACT_NAME, GET_REWARD_AT_BLOCK_READ, [types.uint(10)],deployer.address),
+      Tx.contractCall(CONTRACT_NAME, GET_REWARD_AT_BLOCK_READ, [types.uint(10)], deployer.address),
       Tx.contractCall(CONTRACT_NAME, REWARD_DISTRIBUTION, [types.uint(10)], deployer.address),
       Tx.contractCall(CONTRACT_NAME, GET_BALANCE, [types.principal(deployer.address)], deployer.address),
     ]);
@@ -2431,7 +3056,17 @@ Clarinet.test({
     for (let i = 1; i <= 299; i++) {
       const miner = accounts.get(`wallet_${i}`)!;
       block = chain.mineBlock([
-        Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(miner.address)], miner.address),
+        Tx.contractCall(
+          CONTRACT_NAME,
+          ASK_TO_JOIN,
+          [
+            types.tuple({
+              version: types.buff(hash160(buffer_from('00'))),
+              hashbytes: types.buff(hash160(buffer_from(publicKeyHex))),
+            }),
+          ],
+          miner.address
+        ),
       ]);
       if (i == 1) testing_list.push(`${miner.address}`);
       else testing_list.push(` ${miner.address}`);
@@ -2473,15 +3108,14 @@ Clarinet.test({
 
     // some blocks pass to get the reward
 
-    for (let i=1; i<=120;i++)
-    {
-      block=chain.mineBlock([]);
+    for (let i = 1; i <= 120; i++) {
+      block = chain.mineBlock([]);
     }
 
     // distributing rewards
 
     block = chain.mineBlock([
-      Tx.contractCall(CONTRACT_NAME, GET_REWARD_AT_BLOCK_READ, [types.uint(10)],deployer.address),
+      Tx.contractCall(CONTRACT_NAME, GET_REWARD_AT_BLOCK_READ, [types.uint(10)], deployer.address),
       Tx.contractCall(CONTRACT_NAME, REWARD_DISTRIBUTION, [types.uint(602)], deployer.address),
       Tx.contractCall(CONTRACT_NAME, GET_BALANCE, [types.principal(user1.address)], deployer.address),
     ]);

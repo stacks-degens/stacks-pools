@@ -31,13 +31,13 @@
             <td class="headerValue">coverage.lcov</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">65</td>
-            <td class="headerCovTableEntry">350</td>
-            <td class="headerCovTableEntryLo">18.6 %</td>
+            <td class="headerCovTableEntry">64</td>
+            <td class="headerCovTableEntry">349</td>
+            <td class="headerCovTableEntryLo">18.3 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2023-06-19 01:55:13</td>
+            <td class="headerValue">2023-08-18 21:53:02</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">10</td>
@@ -49,9 +49,9 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">0</td>
-            <td class="headerCovTableEntry">0</td>
-            <td class="headerCovTableEntryHi">-</td>
+            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntry">69</td>
+            <td class="headerCovTableEntryLo">8.7 %</td>
           </tr>
           <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -210,18 +210,18 @@
 <a name="139"><span class="lineNum">     139 </span>                :<span class="lineCov">          1 :         inbound-base-fee: inbound-base-fee,</span></a>
 <a name="140"><span class="lineNum">     140 </span>                :            :       })</a>
 <a name="141"><span class="lineNum">     141 </span>                :            :     )</a>
-<a name="142"><span class="lineNum">     142 </span>                :<span class="lineCov">          4 :     (asserts! (map-insert supplier-by-id id supplier) ERR_PANIC)</span></a>
-<a name="143"><span class="lineNum">     143 </span>                :<span class="lineCov">          4 :     (asserts! (map-insert supplier-funds id u0) ERR_PANIC)</span></a>
-<a name="144"><span class="lineNum">     144 </span>                :<span class="lineCov">          4 :     (asserts! (map-insert supplier-escrow id u0) ERR_PANIC)</span></a>
-<a name="145"><span class="lineNum">     145 </span>                :<span class="lineCov">          3 :     (try! (validate-fee inbound-fee))</span></a>
-<a name="146"><span class="lineNum">     146 </span>                :<span class="lineCov">          3 :     (try! (validate-fee outbound-fee))</span></a>
+<a name="142"><span class="lineNum">     142 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">          1 :     (asserts! (map-insert supplier-by-id id supplier) ERR_PANIC)</span></a>
+<a name="143"><span class="lineNum">     143 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">          1 :     (asserts! (map-insert supplier-funds id u0) ERR_PANIC)</span></a>
+<a name="144"><span class="lineNum">     144 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">          1 :     (asserts! (map-insert supplier-escrow id u0) ERR_PANIC)</span></a>
+<a name="145"><span class="lineNum">     145 </span>                :<span class="lineCov">          1 :     (try! (validate-fee inbound-fee))</span></a>
+<a name="146"><span class="lineNum">     146 </span>                :<span class="lineCov">          1 :     (try! (validate-fee outbound-fee))</span></a>
 <a name="147"><span class="lineNum">     147 </span>                :            : </a>
 <a name="148"><span class="lineNum">     148 </span>                :            :     ;; validate that the public key and controller do not exist</a>
-<a name="149"><span class="lineNum">     149 </span>                :<span class="lineCov">          4 :     (asserts! (map-insert supplier-by-public-key public-key id) ERR_SUPPLIER_EXISTS)</span></a>
-<a name="150"><span class="lineNum">     150 </span>                :<span class="lineCov">          4 :     (asserts! (map-insert supplier-by-controller tx-sender id) ERR_SUPPLIER_EXISTS)</span></a>
-<a name="151"><span class="lineNum">     151 </span>                :<span class="lineCov">          4 :     (var-set next-supplier-id (+ id u1))</span></a>
-<a name="152"><span class="lineNum">     152 </span>                :<span class="lineCov">          3 :     (try! (add-funds funds))</span></a>
-<a name="153"><span class="lineNum">     153 </span>                :<span class="lineCov">          2 :     (ok id)</span></a>
+<a name="149"><span class="lineNum">     149 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">          1 :     (asserts! (map-insert supplier-by-public-key public-key id) ERR_SUPPLIER_EXISTS)</span></a>
+<a name="150"><span class="lineNum">     150 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">          1 :     (asserts! (map-insert supplier-by-controller tx-sender id) ERR_SUPPLIER_EXISTS)</span></a>
+<a name="151"><span class="lineNum">     151 </span>                :<span class="lineCov">          1 :     (var-set next-supplier-id (+ id u1))</span></a>
+<a name="152"><span class="lineNum">     152 </span>                :<span class="lineCov">          1 :     (try! (add-funds funds))</span></a>
+<a name="153"><span class="lineNum">     153 </span>                :<span class="lineCov">          1 :     (ok id)</span></a>
 <a name="154"><span class="lineNum">     154 </span>                :            :   )</a>
 <a name="155"><span class="lineNum">     155 </span>                :            : )</a>
 <a name="156"><span class="lineNum">     156 </span>                :            : </a>
@@ -234,13 +234,13 @@
 <a name="163"><span class="lineNum">     163 </span>                :            : (define-public (add-funds (amount uint))</a>
 <a name="164"><span class="lineNum">     164 </span>                :<span class="lineCov">          1 :   (let</span></a>
 <a name="165"><span class="lineNum">     165 </span>                :            :     (</a>
-<a name="166"><span class="lineNum">     166 </span>                :<span class="lineCov">          4 :       (supplier-id (unwrap! (get-supplier-id-by-controller contract-caller) ERR_UNAUTHORIZED))</span></a>
-<a name="167"><span class="lineNum">     167 </span>                :<span class="lineCov">          2 :       (existing-funds (get-funds supplier-id))</span></a>
-<a name="168"><span class="lineNum">     168 </span>                :<span class="lineCov">          3 :       (new-funds (+ amount existing-funds))</span></a>
+<a name="166"><span class="lineNum">     166 </span>                :<span class="lineCov">          1 :       (supplier-id (unwrap! (get-supplier-id-by-controller contract-caller) ERR_UNAUTHORIZED))</span></a>
+<a name="167"><span class="lineNum">     167 </span>                :<span class="lineCov">          1 :       (existing-funds (get-funds supplier-id))</span></a>
+<a name="168"><span class="lineNum">     168 </span>                :<span class="lineCov">          1 :       (new-funds (+ amount existing-funds))</span></a>
 <a name="169"><span class="lineNum">     169 </span>                :            :     )</a>
-<a name="170"><span class="lineNum">     170 </span>                :<span class="lineCov">          6 :     (try! (transfer amount tx-sender (as-contract tx-sender)))</span></a>
-<a name="171"><span class="lineNum">     171 </span>                :<span class="lineCov">          3 :     (map-set supplier-funds supplier-id new-funds)</span></a>
-<a name="172"><span class="lineNum">     172 </span>                :<span class="lineCov">          2 :     (ok new-funds)</span></a>
+<a name="170"><span class="lineNum">     170 </span>                :<span class="lineCov">          1 :     (try! (transfer amount tx-sender (as-contract tx-sender)))</span></a>
+<a name="171"><span class="lineNum">     171 </span>                :<span class="lineCov">          1 :     (map-set supplier-funds supplier-id new-funds)</span></a>
+<a name="172"><span class="lineNum">     172 </span>                :<span class="lineCov">          1 :     (ok new-funds)</span></a>
 <a name="173"><span class="lineNum">     173 </span>                :            :   )</a>
 <a name="174"><span class="lineNum">     174 </span>                :            : )</a>
 <a name="175"><span class="lineNum">     175 </span>                :            : </a>
@@ -254,7 +254,7 @@
 <a name="183"><span class="lineNum">     183 </span>                :            :     (</a>
 <a name="184"><span class="lineNum">     184 </span>                :<span class="lineNoCov">          0 :       (supplier-id (unwrap! (get-supplier-id-by-controller contract-caller) ERR_UNAUTHORIZED))</span></a>
 <a name="185"><span class="lineNum">     185 </span>                :<span class="lineNoCov">          0 :       (existing-funds (get-funds supplier-id))</span></a>
-<a name="186"><span class="lineNum">     186 </span>                :<span class="lineNoCov">          0 :       (amount-ok (asserts! (&gt;= existing-funds amount) ERR_INSUFFICIENT_FUNDS))</span></a>
+<a name="186"><span class="lineNum">     186 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (amount-ok (asserts! (&gt;= existing-funds amount) ERR_INSUFFICIENT_FUNDS))</span></a>
 <a name="187"><span class="lineNum">     187 </span>                :<span class="lineNoCov">          0 :       (new-funds (- existing-funds amount))</span></a>
 <a name="188"><span class="lineNum">     188 </span>                :<span class="lineNoCov">          0 :       (controller contract-caller)</span></a>
 <a name="189"><span class="lineNum">     189 </span>                :            :     )</a>
@@ -310,8 +310,8 @@
 <a name="239"><span class="lineNum">     239 </span>                :<span class="lineNoCov">          0 :         public-key: public-key,</span></a>
 <a name="240"><span class="lineNum">     240 </span>                :            :       }))</a>
 <a name="241"><span class="lineNum">     241 </span>                :            :     )</a>
-<a name="242"><span class="lineNum">     242 </span>                :<span class="lineNoCov">          0 :     (asserts! (map-insert supplier-by-public-key public-key supplier-id) ERR_SUPPLIER_EXISTS)</span></a>
-<a name="243"><span class="lineNum">     243 </span>                :<span class="lineNoCov">          0 :     (asserts! (map-delete supplier-by-public-key (get public-key existing-supplier)) ERR_PANIC)</span></a>
+<a name="242"><span class="lineNum">     242 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (map-insert supplier-by-public-key public-key supplier-id) ERR_SUPPLIER_EXISTS)</span></a>
+<a name="243"><span class="lineNum">     243 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (map-delete supplier-by-public-key (get public-key existing-supplier)) ERR_PANIC)</span></a>
 <a name="244"><span class="lineNum">     244 </span>                :<span class="lineNoCov">          0 :     (map-set supplier-by-id supplier-id new-supplier)</span></a>
 <a name="245"><span class="lineNum">     245 </span>                :<span class="lineNoCov">          0 :     (ok new-supplier)</span></a>
 <a name="246"><span class="lineNum">     246 </span>                :            :   )</a>
@@ -329,8 +329,8 @@
 <a name="258"><span class="lineNum">     258 </span>                :<span class="lineNoCov">          0 :       (swapper tx-sender)</span></a>
 <a name="259"><span class="lineNum">     259 </span>                :<span class="lineNoCov">          0 :       (id (var-get next-swapper-id))</span></a>
 <a name="260"><span class="lineNum">     260 </span>                :            :     )</a>
-<a name="261"><span class="lineNum">     261 </span>                :<span class="lineNoCov">          0 :     (asserts! (map-insert swapper-by-id id swapper) ERR_PANIC)</span></a>
-<a name="262"><span class="lineNum">     262 </span>                :<span class="lineNoCov">          0 :     (asserts! (map-insert swapper-by-principal swapper id) ERR_SWAPPER_EXISTS)</span></a>
+<a name="261"><span class="lineNum">     261 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (map-insert swapper-by-id id swapper) ERR_PANIC)</span></a>
+<a name="262"><span class="lineNum">     262 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (map-insert swapper-by-principal swapper id) ERR_SWAPPER_EXISTS)</span></a>
 <a name="263"><span class="lineNum">     263 </span>                :<span class="lineNoCov">          0 :     (var-set next-swapper-id (+ id u1))</span></a>
 <a name="264"><span class="lineNum">     264 </span>                :<span class="lineNoCov">          0 :     (ok id)</span></a>
 <a name="265"><span class="lineNum">     265 </span>                :            :   )</a>
@@ -378,7 +378,7 @@
 <a name="307"><span class="lineNum">     307 </span>                :<span class="lineNoCov">          0 :   (let</span></a>
 <a name="308"><span class="lineNum">     308 </span>                :            :     (</a>
 <a name="309"><span class="lineNum">     309 </span>                :<span class="lineNoCov">          0 :       (was-mined-bool (unwrap! (contract-call? .clarity-bitcoin was-tx-mined-prev? block prev-blocks tx proof) ERR_TX_NOT_MINED)) ;; ST19F1KWRKRF2BZMPW7MWV463K11WED2M39X1HR3A.clarity-bitcoin</span></a>
-<a name="310"><span class="lineNum">     310 </span>                :<span class="lineNoCov">          0 :       (was-mined (asserts! was-mined-bool ERR_TX_NOT_MINED))</span></a>
+<a name="310"><span class="lineNum">     310 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (was-mined (asserts! was-mined-bool ERR_TX_NOT_MINED))</span></a>
 <a name="311"><span class="lineNum">     311 </span>                :<span class="lineNoCov">          0 :       (mined-height (get height block))</span></a>
 <a name="312"><span class="lineNum">     312 </span>                :<span class="lineNoCov">          0 :       (htlc-redeem (generate-htlc-script sender recipient expiration-buff hash swapper-buff))</span></a>
 <a name="313"><span class="lineNum">     313 </span>                :<span class="lineNoCov">          0 :       (htlc-output (generate-script-hash htlc-redeem))</span></a>
@@ -390,7 +390,7 @@
 <a name="319"><span class="lineNum">     319 </span>                :<span class="lineNoCov">          0 :       (fee-rate (default-to 0 (get inbound-fee supplier)))</span></a>
 <a name="320"><span class="lineNum">     320 </span>                :<span class="lineNoCov">          0 :       (xbtc (try! (get-swap-amount sats fee-rate (get inbound-base-fee supplier))))</span></a>
 <a name="321"><span class="lineNum">     321 </span>                :<span class="lineNoCov">          0 :       (funds (get-funds supplier-id))</span></a>
-<a name="322"><span class="lineNum">     322 </span>                :<span class="lineNoCov">          0 :       (funds-ok (asserts! (&gt;= funds xbtc) ERR_INSUFFICIENT_FUNDS))</span></a>
+<a name="322"><span class="lineNum">     322 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (funds-ok (asserts! (&gt;= funds xbtc) ERR_INSUFFICIENT_FUNDS))</span></a>
 <a name="323"><span class="lineNum">     323 </span>                :<span class="lineNoCov">          0 :       (escrowed (unwrap! (map-get? supplier-escrow supplier-id) ERR_PANIC))</span></a>
 <a name="324"><span class="lineNum">     324 </span>                :<span class="lineNoCov">          0 :       (new-funds (- funds xbtc))</span></a>
 <a name="325"><span class="lineNum">     325 </span>                :<span class="lineNoCov">          0 :       (new-escrow (+ escrowed xbtc))</span></a>
@@ -414,13 +414,13 @@
 <a name="343"><span class="lineNum">     343 </span>                :            :       })</a>
 <a name="344"><span class="lineNum">     344 </span>                :            :     )</a>
 <a name="345"><span class="lineNum">     345 </span>                :            :     ;; assert tx-sender is swapper</a>
-<a name="346"><span class="lineNum">     346 </span>                :<span class="lineNoCov">          0 :     (asserts! (is-eq tx-sender (unwrap! (map-get? swapper-by-id swapper-id) ERR_SWAPPER_NOT_FOUND)) ERR_UNAUTHORIZED)</span></a>
-<a name="347"><span class="lineNum">     347 </span>                :<span class="lineNoCov">          0 :     (asserts! (is-eq (get public-key supplier) recipient) ERR_INVALID_OUTPUT)</span></a>
-<a name="348"><span class="lineNum">     348 </span>                :<span class="lineNoCov">          0 :     (asserts! (is-eq output-script htlc-output) ERR_INVALID_OUTPUT)</span></a>
-<a name="349"><span class="lineNum">     349 </span>                :<span class="lineNoCov">          0 :     (asserts! (is-eq (len hash) u32) ERR_INVALID_HASH)</span></a>
-<a name="350"><span class="lineNum">     350 </span>                :<span class="lineNoCov">          0 :     (asserts! (map-insert inbound-swaps txid escrow) ERR_TXID_USED)</span></a>
-<a name="351"><span class="lineNum">     351 </span>                :<span class="lineNoCov">          0 :     (asserts! (map-insert inbound-meta txid meta) ERR_PANIC)</span></a>
-<a name="352"><span class="lineNum">     352 </span>                :<span class="lineNoCov">          0 :     (asserts! (&gt;= xbtc min-to-receive) ERR_INCONSISTENT_FEES)</span></a>
+<a name="346"><span class="lineNum">     346 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (is-eq tx-sender (unwrap! (map-get? swapper-by-id swapper-id) ERR_SWAPPER_NOT_FOUND)) ERR_UNAUTHORIZED)</span></a>
+<a name="347"><span class="lineNum">     347 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (is-eq (get public-key supplier) recipient) ERR_INVALID_OUTPUT)</span></a>
+<a name="348"><span class="lineNum">     348 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (is-eq output-script htlc-output) ERR_INVALID_OUTPUT)</span></a>
+<a name="349"><span class="lineNum">     349 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (is-eq (len hash) u32) ERR_INVALID_HASH)</span></a>
+<a name="350"><span class="lineNum">     350 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (map-insert inbound-swaps txid escrow) ERR_TXID_USED)</span></a>
+<a name="351"><span class="lineNum">     351 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (map-insert inbound-meta txid meta) ERR_PANIC)</span></a>
+<a name="352"><span class="lineNum">     352 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (&gt;= xbtc min-to-receive) ERR_INCONSISTENT_FEES)</span></a>
 <a name="353"><span class="lineNum">     353 </span>                :<span class="lineNoCov">          0 :     (map-set supplier-funds supplier-id new-funds)</span></a>
 <a name="354"><span class="lineNum">     354 </span>                :<span class="lineNoCov">          0 :     (map-set supplier-escrow supplier-id new-escrow)</span></a>
 <a name="355"><span class="lineNum">     355 </span>                :<span class="lineNoCov">          0 :     (print (merge (merge escrow meta) { </span></a>
@@ -436,8 +436,8 @@
 <a name="365"><span class="lineNum">     365 </span>                :            : </a>
 <a name="366"><span class="lineNum">     366 </span>                :            : (define-private (minus-percent (a uint) (percent uint))</a>
 <a name="367"><span class="lineNum">     367 </span>                :<span class="lineNoCov">          0 :   (if (is-eq a u0)</span></a>
-<a name="368"><span class="lineNum">     368 </span>                :<span class="lineNoCov">          0 :     u0</span></a>
-<a name="369"><span class="lineNum">     369 </span>                :<span class="lineNoCov">          0 :     (/ (- (* a u100) (* a percent)) u100)))</span></a>
+<a name="368"><span class="lineNum">     368 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     u0</span></a>
+<a name="369"><span class="lineNum">     369 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (/ (- (* a u100) (* a percent)) u100)))</span></a>
 <a name="370"><span class="lineNum">     370 </span>                :            : </a>
 <a name="371"><span class="lineNum">     371 </span>                :            : ;; Finalize an inbound swap by revealing the preimage.</a>
 <a name="372"><span class="lineNum">     372 </span>                :            : ;; Validates that `sha256(preimage)` is equal to the `hash` provided when</a>
@@ -449,12 +449,12 @@
 <a name="378"><span class="lineNum">     378 </span>                :            : ;; @param preimage; the preimage that hashes to the swap's `hash`</a>
 <a name="379"><span class="lineNum">     379 </span>                :            : (define-public (finalize-swap (txid (buff 32)) (preimage (buff 128)))</a>
 <a name="380"><span class="lineNum">     380 </span>                :<span class="lineNoCov">          0 :   (match (map-get? inbound-preimages txid)</span></a>
-<a name="381"><span class="lineNum">     381 </span>                :<span class="lineNoCov">          0 :     existing ERR_ALREADY_FINALIZED</span></a>
-<a name="382"><span class="lineNum">     382 </span>                :<span class="lineNoCov">          0 :     (let</span></a>
+<a name="381"><span class="lineNum">     381 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     existing ERR_ALREADY_FINALIZED</span></a>
+<a name="382"><span class="lineNum">     382 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (let</span></a>
 <a name="383"><span class="lineNum">     383 </span>                :            :       (</a>
 <a name="384"><span class="lineNum">     384 </span>                :<span class="lineNoCov">          0 :         (swap (unwrap! (map-get? inbound-swaps txid) ERR_INVALID_ESCROW))</span></a>
 <a name="385"><span class="lineNum">     385 </span>                :<span class="lineNoCov">          0 :         (stored-hash (get hash swap))</span></a>
-<a name="386"><span class="lineNum">     386 </span>                :<span class="lineNoCov">          0 :         (preimage-ok (asserts! (is-eq (sha256 preimage) stored-hash) ERR_INVALID_PREIMAGE))</span></a>
+<a name="386"><span class="lineNum">     386 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :         (preimage-ok (asserts! (is-eq (sha256 preimage) stored-hash) ERR_INVALID_PREIMAGE))</span></a>
 <a name="387"><span class="lineNum">     387 </span>                :<span class="lineNoCov">          0 :         (supplier-id (get supplier swap))</span></a>
 <a name="388"><span class="lineNum">     388 </span>                :<span class="lineNoCov">          0 :         (xbtc (get xbtc swap))</span></a>
 <a name="389"><span class="lineNum">     389 </span>                :<span class="lineNoCov">          0 :         (escrowed (unwrap! (map-get? supplier-escrow supplier-id) ERR_PANIC))</span></a>
@@ -478,7 +478,7 @@
 <a name="407"><span class="lineNum">     407 </span>                :            :       )</a>
 <a name="408"><span class="lineNum">     408 </span>                :<span class="lineNoCov">          0 :       (map-insert inbound-preimages txid preimage)</span></a>
 <a name="409"><span class="lineNum">     409 </span>                :<span class="lineNoCov">          0 :       (print xbtc-to-stx-transfer-result)      </span></a>
-<a name="410"><span class="lineNum">     410 </span>                :<span class="lineNoCov">          0 :       (asserts! (&gt;= (get expiration swap) block-height) ERR_ESCROW_EXPIRED)</span></a>
+<a name="410"><span class="lineNum">     410 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (asserts! (&gt;= (get expiration swap) block-height) ERR_ESCROW_EXPIRED)</span></a>
 <a name="411"><span class="lineNum">     411 </span>                :<span class="lineNoCov">          0 :       (map-set supplier-escrow supplier-id (- escrowed xbtc))</span></a>
 <a name="412"><span class="lineNum">     412 </span>                :<span class="lineNoCov">          0 :       (update-user-inbound-volume swapper xbtc)</span></a>
 <a name="413"><span class="lineNum">     413 </span>                :<span class="lineNoCov">          0 :       (print (merge swap {</span></a>
@@ -507,8 +507,8 @@
 <a name="436"><span class="lineNum">     436 </span>                :            : ;; @param txid; the txid of the BTC tx used for this inbound swap</a>
 <a name="437"><span class="lineNum">     437 </span>                :            : (define-public (revoke-expired-inbound (txid (buff 32)))</a>
 <a name="438"><span class="lineNum">     438 </span>                :<span class="lineNoCov">          0 :   (match (map-get? inbound-preimages txid)</span></a>
-<a name="439"><span class="lineNum">     439 </span>                :<span class="lineNoCov">          0 :     existing ERR_REVOKE_INBOUND_IS_FINALIZED</span></a>
-<a name="440"><span class="lineNum">     440 </span>                :<span class="lineNoCov">          0 :     (let</span></a>
+<a name="439"><span class="lineNum">     439 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     existing ERR_REVOKE_INBOUND_IS_FINALIZED</span></a>
+<a name="440"><span class="lineNum">     440 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (let</span></a>
 <a name="441"><span class="lineNum">     441 </span>                :            :       (</a>
 <a name="442"><span class="lineNum">     442 </span>                :<span class="lineNoCov">          0 :         (swap (unwrap! (map-get? inbound-swaps txid) ERR_INVALID_ESCROW))</span></a>
 <a name="443"><span class="lineNum">     443 </span>                :<span class="lineNoCov">          0 :         (xbtc (get xbtc swap))</span></a>
@@ -518,7 +518,7 @@
 <a name="447"><span class="lineNum">     447 </span>                :<span class="lineNoCov">          0 :         (new-funds (+ funds xbtc))</span></a>
 <a name="448"><span class="lineNum">     448 </span>                :<span class="lineNoCov">          0 :         (new-escrow (- escrowed xbtc))</span></a>
 <a name="449"><span class="lineNum">     449 </span>                :            :       )</a>
-<a name="450"><span class="lineNum">     450 </span>                :<span class="lineNoCov">          0 :       (asserts! (&lt;= (get expiration swap) block-height) ERR_REVOKE_INBOUND_NOT_EXPIRED)</span></a>
+<a name="450"><span class="lineNum">     450 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (asserts! (&lt;= (get expiration swap) block-height) ERR_REVOKE_INBOUND_NOT_EXPIRED)</span></a>
 <a name="451"><span class="lineNum">     451 </span>                :<span class="lineNoCov">          0 :       (map-insert inbound-preimages txid REVOKED_INBOUND_PREIMAGE)</span></a>
 <a name="452"><span class="lineNum">     452 </span>                :<span class="lineNoCov">          0 :       (map-set supplier-escrow supplier-id new-escrow)</span></a>
 <a name="453"><span class="lineNum">     453 </span>                :<span class="lineNoCov">          0 :       (map-set supplier-funds supplier-id new-funds)</span></a>
@@ -545,9 +545,9 @@
 <a name="474"><span class="lineNum">     474 </span>                :            : (define-public (initiate-outbound-swap (xbtc uint) (btc-version (buff 1)) (btc-hash (buff 20)) (supplier-id uint))</a>
 <a name="475"><span class="lineNum">     475 </span>                :<span class="lineCov">          1 :   (let</span></a>
 <a name="476"><span class="lineNum">     476 </span>                :            :     (</a>
-<a name="477"><span class="lineNum">     477 </span>                :<span class="lineCov">          4 :       (supplier (unwrap! (map-get? supplier-by-id supplier-id) ERR_INVALID_SUPPLIER))</span></a>
-<a name="478"><span class="lineNum">     478 </span>                :<span class="lineCov">          4 :       (fee-rate (default-to 0 (get outbound-fee supplier)))</span></a>
-<a name="479"><span class="lineNum">     479 </span>                :<span class="lineCov">          6 :       (sats (try! (get-swap-amount xbtc fee-rate (get outbound-base-fee supplier))))</span></a>
+<a name="477"><span class="lineNum">     477 </span>                :<span class="lineCov">          1 :       (supplier (unwrap! (map-get? supplier-by-id supplier-id) ERR_INVALID_SUPPLIER))</span></a>
+<a name="478"><span class="lineNum">     478 </span>                :<span class="lineCov">          1 :       (fee-rate (default-to 0 (get outbound-fee supplier)))</span></a>
+<a name="479"><span class="lineNum">     479 </span>                :<span class="lineCov">          1 :       (sats (try! (get-swap-amount xbtc fee-rate (get outbound-base-fee supplier))))</span></a>
 <a name="480"><span class="lineNum">     480 </span>                :<span class="lineNoCov">          0 :       (swap {</span></a>
 <a name="481"><span class="lineNum">     481 </span>                :<span class="lineCov">          1 :         sats: sats,</span></a>
 <a name="482"><span class="lineNum">     482 </span>                :<span class="lineCov">          1 :         xbtc: xbtc,</span></a>
@@ -559,15 +559,15 @@
 <a name="488"><span class="lineNum">     488 </span>                :            :       })</a>
 <a name="489"><span class="lineNum">     489 </span>                :<span class="lineCov">          1 :       (swap-id (var-get next-outbound-id))</span></a>
 <a name="490"><span class="lineNum">     490 </span>                :            :     )</a>
-<a name="491"><span class="lineNum">     491 </span>                :<span class="lineCov">          4 :     (try! (validate-btc-addr btc-version btc-hash))</span></a>
-<a name="492"><span class="lineNum">     492 </span>                :<span class="lineCov">          6 :     (try! (transfer xbtc tx-sender (as-contract tx-sender)))</span></a>
-<a name="493"><span class="lineNum">     493 </span>                :<span class="lineCov">          4 :     (asserts! (map-insert outbound-swaps swap-id swap) ERR_PANIC)</span></a>
-<a name="494"><span class="lineNum">     494 </span>                :<span class="lineCov">          4 :     (var-set next-outbound-id (+ swap-id u1))</span></a>
-<a name="495"><span class="lineNum">     495 </span>                :<span class="lineCov">          3 :     (print (merge swap {</span></a>
+<a name="491"><span class="lineNum">     491 </span>                :<span class="lineCov">          1 :     (try! (validate-btc-addr btc-version btc-hash))</span></a>
+<a name="492"><span class="lineNum">     492 </span>                :<span class="lineCov">          1 :     (try! (transfer xbtc tx-sender (as-contract tx-sender)))</span></a>
+<a name="493"><span class="lineNum">     493 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">          1 :     (asserts! (map-insert outbound-swaps swap-id swap) ERR_PANIC)</span></a>
+<a name="494"><span class="lineNum">     494 </span>                :<span class="lineCov">          1 :     (var-set next-outbound-id (+ swap-id u1))</span></a>
+<a name="495"><span class="lineNum">     495 </span>                :<span class="lineCov">          1 :     (print (merge swap {</span></a>
 <a name="496"><span class="lineNum">     496 </span>                :<span class="lineCov">          1 :       swap-id: swap-id,</span></a>
 <a name="497"><span class="lineNum">     497 </span>                :<span class="lineCov">          1 :       topic: &quot;initiate-outbound&quot;,</span></a>
 <a name="498"><span class="lineNum">     498 </span>                :            :     }))</a>
-<a name="499"><span class="lineNum">     499 </span>                :<span class="lineCov">          2 :     (ok swap-id)</span></a>
+<a name="499"><span class="lineNum">     499 </span>                :<span class="lineCov">          1 :     (ok swap-id)</span></a>
 <a name="500"><span class="lineNum">     500 </span>                :            :   )</a>
 <a name="501"><span class="lineNum">     501 </span>                :            : )</a>
 <a name="502"><span class="lineNum">     502 </span>                :            : </a>
@@ -596,7 +596,7 @@
 <a name="525"><span class="lineNum">     525 </span>                :<span class="lineNoCov">          0 :   (let</span></a>
 <a name="526"><span class="lineNum">     526 </span>                :            :     (</a>
 <a name="527"><span class="lineNum">     527 </span>                :<span class="lineNoCov">          0 :       (was-mined-bool (unwrap! (contract-call? .clarity-bitcoin was-tx-mined-prev? block prev-blocks tx proof) ERR_TX_NOT_MINED)) ;;ST19F1KWRKRF2BZMPW7MWV463K11WED2M39X1HR3A.clarity-bitcoin</span></a>
-<a name="528"><span class="lineNum">     528 </span>                :<span class="lineNoCov">          0 :       (was-mined (asserts! was-mined-bool ERR_TX_NOT_MINED))</span></a>
+<a name="528"><span class="lineNum">     528 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (was-mined (asserts! was-mined-bool ERR_TX_NOT_MINED))</span></a>
 <a name="529"><span class="lineNum">     529 </span>                :<span class="lineNoCov">          0 :       (swap (unwrap! (get-outbound-swap swap-id) ERR_SWAP_NOT_FOUND))</span></a>
 <a name="530"><span class="lineNum">     530 </span>                :<span class="lineNoCov">          0 :       (expected-output (generate-output (get version swap) (get hash swap)))</span></a>
 <a name="531"><span class="lineNum">     531 </span>                :<span class="lineNoCov">          0 :       (parsed-tx (unwrap! (contract-call? .clarity-bitcoin parse-tx tx) ERR_INVALID_TX)) ;;ST19F1KWRKRF2BZMPW7MWV463K11WED2M39X1HR3A.clarity-bitcoin</span></a>
@@ -609,10 +609,10 @@
 <a name="538"><span class="lineNum">     538 </span>                :<span class="lineNoCov">          0 :       (funds-before (get-funds supplier))</span></a>
 <a name="539"><span class="lineNum">     539 </span>                :            :     )</a>
 <a name="540"><span class="lineNum">     540 </span>                :<span class="lineNoCov">          0 :     (map-set supplier-funds supplier (+ funds-before xbtc))</span></a>
-<a name="541"><span class="lineNum">     541 </span>                :<span class="lineNoCov">          0 :     (asserts! (is-eq output-script expected-output) ERR_INVALID_OUTPUT)</span></a>
-<a name="542"><span class="lineNum">     542 </span>                :<span class="lineNoCov">          0 :     (asserts! (map-insert completed-outbound-swaps swap-id txid) ERR_ALREADY_FINALIZED)</span></a>
-<a name="543"><span class="lineNum">     543 </span>                :<span class="lineNoCov">          0 :     (asserts! (map-insert completed-outbound-swap-txids txid swap-id) ERR_TXID_USED)</span></a>
-<a name="544"><span class="lineNum">     544 </span>                :<span class="lineNoCov">          0 :     (asserts! (&gt;= output-sats (get sats swap)) ERR_INSUFFICIENT_AMOUNT)</span></a>
+<a name="541"><span class="lineNum">     541 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (is-eq output-script expected-output) ERR_INVALID_OUTPUT)</span></a>
+<a name="542"><span class="lineNum">     542 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (map-insert completed-outbound-swaps swap-id txid) ERR_ALREADY_FINALIZED)</span></a>
+<a name="543"><span class="lineNum">     543 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (map-insert completed-outbound-swap-txids txid swap-id) ERR_TXID_USED)</span></a>
+<a name="544"><span class="lineNum">     544 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (&gt;= output-sats (get sats swap)) ERR_INSUFFICIENT_AMOUNT)</span></a>
 <a name="545"><span class="lineNum">     545 </span>                :<span class="lineNoCov">          0 :     (update-user-outbound-volume (get swapper swap) xbtc)</span></a>
 <a name="546"><span class="lineNum">     546 </span>                :<span class="lineNoCov">          0 :     (print (merge swap {</span></a>
 <a name="547"><span class="lineNum">     547 </span>                :<span class="lineNoCov">          0 :       topic: &quot;finalize-outbound&quot;,</span></a>
@@ -638,7 +638,7 @@
 <a name="567"><span class="lineNum">     567 </span>                :<span class="lineNoCov">          0 :       (swapper (get swapper swap))</span></a>
 <a name="568"><span class="lineNum">     568 </span>                :            :     )</a>
 <a name="569"><span class="lineNum">     569 </span>                :<span class="lineNoCov">          0 :     (try! (as-contract (transfer xbtc tx-sender swapper)))</span></a>
-<a name="570"><span class="lineNum">     570 </span>                :<span class="lineNoCov">          0 :     (asserts! (map-insert completed-outbound-swaps swap-id REVOKED_OUTBOUND_TXID) ERR_PANIC)</span></a>
+<a name="570"><span class="lineNum">     570 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (map-insert completed-outbound-swaps swap-id REVOKED_OUTBOUND_TXID) ERR_PANIC)</span></a>
 <a name="571"><span class="lineNum">     571 </span>                :<span class="lineNoCov">          0 :     (print (merge swap {</span></a>
 <a name="572"><span class="lineNum">     572 </span>                :<span class="lineNoCov">          0 :       topic: &quot;revoke-outbound&quot;,</span></a>
 <a name="573"><span class="lineNum">     573 </span>                :<span class="lineNoCov">          0 :       swap-id: swap-id,</span></a>
@@ -650,7 +650,7 @@
 <a name="579"><span class="lineNum">     579 </span>                :            : ;; getters</a>
 <a name="580"><span class="lineNum">     580 </span>                :            : </a>
 <a name="581"><span class="lineNum">     581 </span>                :            : (define-read-only (get-supplier-id-by-controller (controller principal))</a>
-<a name="582"><span class="lineNum">     582 </span>                :<span class="lineCov">          2 :   (map-get? supplier-by-controller controller)</span></a>
+<a name="582"><span class="lineNum">     582 </span>                :<span class="lineCov">          1 :   (map-get? supplier-by-controller controller)</span></a>
 <a name="583"><span class="lineNum">     583 </span>                :            : )</a>
 <a name="584"><span class="lineNum">     584 </span>                :            : </a>
 <a name="585"><span class="lineNum">     585 </span>                :            : (define-read-only (get-supplier-id-by-public-key (public-key (buff 33)))</a>
@@ -662,7 +662,7 @@
 <a name="591"><span class="lineNum">     591 </span>                :            : )</a>
 <a name="592"><span class="lineNum">     592 </span>                :            : </a>
 <a name="593"><span class="lineNum">     593 </span>                :            : (define-read-only (get-funds (id uint))</a>
-<a name="594"><span class="lineNum">     594 </span>                :<span class="lineCov">          4 :   (default-to u0 (map-get? supplier-funds id))</span></a>
+<a name="594"><span class="lineNum">     594 </span>                :<span class="lineCov">          1 :   (default-to u0 (map-get? supplier-funds id))</span></a>
 <a name="595"><span class="lineNum">     595 </span>                :            : )</a>
 <a name="596"><span class="lineNum">     596 </span>                :            : </a>
 <a name="597"><span class="lineNum">     597 </span>                :            : (define-read-only (get-escrow (id uint))</a>
@@ -729,8 +729,8 @@
 <a name="658"><span class="lineNum">     658 </span>                :            : </a>
 <a name="659"><span class="lineNum">     659 </span>                :            : (define-read-only (get-user-inbound-volume (user principal))</a>
 <a name="660"><span class="lineNum">     660 </span>                :<span class="lineNoCov">          0 :   (match (map-get? user-inbound-volume-map user)</span></a>
-<a name="661"><span class="lineNum">     661 </span>                :<span class="lineNoCov">          0 :     vol vol</span></a>
-<a name="662"><span class="lineNum">     662 </span>                :<span class="lineNoCov">          0 :     u0</span></a>
+<a name="661"><span class="lineNum">     661 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     vol vol</span></a>
+<a name="662"><span class="lineNum">     662 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :     u0</span></a>
 <a name="663"><span class="lineNum">     663 </span>                :            :   )</a>
 <a name="664"><span class="lineNum">     664 </span>                :            : )</a>
 <a name="665"><span class="lineNum">     665 </span>                :            : </a>
@@ -738,8 +738,8 @@
 <a name="667"><span class="lineNum">     667 </span>                :            : </a>
 <a name="668"><span class="lineNum">     668 </span>                :            : (define-read-only (get-user-outbound-volume (user principal))</a>
 <a name="669"><span class="lineNum">     669 </span>                :<span class="lineNoCov">          0 :   (match (map-get? user-outbound-volume-map user)</span></a>
-<a name="670"><span class="lineNum">     670 </span>                :<span class="lineNoCov">          0 :     vol vol</span></a>
-<a name="671"><span class="lineNum">     671 </span>                :<span class="lineNoCov">          0 :     u0</span></a>
+<a name="670"><span class="lineNum">     670 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     vol vol</span></a>
+<a name="671"><span class="lineNum">     671 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :     u0</span></a>
 <a name="672"><span class="lineNum">     672 </span>                :            :   )</a>
 <a name="673"><span class="lineNum">     673 </span>                :            : )</a>
 <a name="674"><span class="lineNum">     674 </span>                :            : </a>
@@ -758,9 +758,9 @@
 <a name="687"><span class="lineNum">     687 </span>                :            : (define-private (transfer (amount uint) (sender principal) (recipient principal))</a>
 <a name="688"><span class="lineNum">     688 </span>                :            : ;;On mainnet: we'll call AlexGo contract address</a>
 <a name="689"><span class="lineNum">     689 </span>                :            : ;;ST3VRQJMS69354J6DTPKG5W67XP31D4E6HJW708W4 used in testnet for Wrapped-Bitcoin</a>
-<a name="690"><span class="lineNum">     690 </span>                :<span class="lineCov">         12 :   (match (contract-call? .token-wbtc transfer amount sender recipient none) </span></a>
-<a name="691"><span class="lineNum">     691 </span>                :<span class="lineCov">          4 :     success (ok success)</span></a>
-<a name="692"><span class="lineNum">     692 </span>                :<span class="lineNoCov">          0 :     error (begin</span></a>
+<a name="690"><span class="lineNum">     690 </span>                :<span class="lineCov">          2 :   (match (contract-call? .token-wbtc transfer amount sender recipient none) </span></a>
+<a name="691"><span class="lineNum">     691 </span>           [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span>]:<span class="lineCov">          2 :     success (ok success)</span></a>
+<a name="692"><span class="lineNum">     692 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :     error (begin</span></a>
 <a name="693"><span class="lineNum">     693 </span>                :<span class="lineNoCov">          0 :       (print { transfer-error: error })</span></a>
 <a name="694"><span class="lineNum">     694 </span>                :<span class="lineNoCov">          0 :       ERR_TRANSFER</span></a>
 <a name="695"><span class="lineNum">     695 </span>                :            :     )</a>
@@ -784,8 +784,8 @@
 <a name="713"><span class="lineNum">     713 </span>                :<span class="lineNoCov">          0 :       (next-buff-min (as-max-len? next-buff u192))</span></a>
 <a name="714"><span class="lineNum">     714 </span>                :            :     )</a>
 <a name="715"><span class="lineNum">     715 </span>                :<span class="lineNoCov">          0 :     (match next-buff-min</span></a>
-<a name="716"><span class="lineNum">     716 </span>                :<span class="lineNoCov">          0 :       min-buff min-buff</span></a>
-<a name="717"><span class="lineNum">     717 </span>                :<span class="lineNoCov">          0 :       result ;; if using `concat-buffs`, this should never happen.</span></a>
+<a name="716"><span class="lineNum">     716 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :       min-buff min-buff</span></a>
+<a name="717"><span class="lineNum">     717 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :       result ;; if using `concat-buffs`, this should never happen.</span></a>
 <a name="718"><span class="lineNum">     718 </span>                :            :     )</a>
 <a name="719"><span class="lineNum">     719 </span>                :            :   )</a>
 <a name="720"><span class="lineNum">     720 </span>                :            : )</a>
@@ -793,11 +793,11 @@
 <a name="722"><span class="lineNum">     722 </span>                :            : (define-read-only (get-swap-amount (amount uint) (fee-rate int) (base-fee int))</a>
 <a name="723"><span class="lineNum">     723 </span>                :<span class="lineCov">          1 :   (let</span></a>
 <a name="724"><span class="lineNum">     724 </span>                :            :     (</a>
-<a name="725"><span class="lineNum">     725 </span>                :<span class="lineCov">          3 :       (with-bps-fee (get-amount-with-fee-rate amount fee-rate))</span></a>
+<a name="725"><span class="lineNum">     725 </span>                :<span class="lineCov">          1 :       (with-bps-fee (get-amount-with-fee-rate amount fee-rate))</span></a>
 <a name="726"><span class="lineNum">     726 </span>                :            :     )</a>
-<a name="727"><span class="lineNum">     727 </span>                :<span class="lineCov">          4 :     (if (&gt;= base-fee with-bps-fee)</span></a>
-<a name="728"><span class="lineNum">     728 </span>                :<span class="lineNoCov">          0 :       ERR_INSUFFICIENT_AMOUNT</span></a>
-<a name="729"><span class="lineNum">     729 </span>                :<span class="lineCov">          5 :       (ok (to-uint (- with-bps-fee base-fee)))</span></a>
+<a name="727"><span class="lineNum">     727 </span>                :<span class="lineCov">          1 :     (if (&gt;= base-fee with-bps-fee)</span></a>
+<a name="728"><span class="lineNum">     728 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :       ERR_INSUFFICIENT_AMOUNT</span></a>
+<a name="729"><span class="lineNum">     729 </span>           [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          1 :       (ok (to-uint (- with-bps-fee base-fee)))</span></a>
 <a name="730"><span class="lineNum">     730 </span>                :            :     )</a>
 <a name="731"><span class="lineNum">     731 </span>                :            :   )</a>
 <a name="732"><span class="lineNum">     732 </span>                :            : )</a>
@@ -805,8 +805,8 @@
 <a name="734"><span class="lineNum">     734 </span>                :            : (define-read-only (get-amount-with-fee-rate (amount uint) (fee-rate int))</a>
 <a name="735"><span class="lineNum">     735 </span>                :<span class="lineCov">          1 :   (let</span></a>
 <a name="736"><span class="lineNum">     736 </span>                :            :     (</a>
-<a name="737"><span class="lineNum">     737 </span>                :<span class="lineCov">          6 :       (numerator (* (to-int amount) (- 10000 fee-rate)))</span></a>
-<a name="738"><span class="lineNum">     738 </span>                :<span class="lineCov">          3 :       (final (/ numerator 10000))</span></a>
+<a name="737"><span class="lineNum">     737 </span>                :<span class="lineCov">          1 :       (numerator (* (to-int amount) (- 10000 fee-rate)))</span></a>
+<a name="738"><span class="lineNum">     738 </span>                :<span class="lineCov">          1 :       (final (/ numerator 10000))</span></a>
 <a name="739"><span class="lineNum">     739 </span>                :            :     )</a>
 <a name="740"><span class="lineNum">     740 </span>                :<span class="lineCov">          1 :     final</span></a>
 <a name="741"><span class="lineNum">     741 </span>                :            :   )</a>
@@ -854,34 +854,34 @@
 <a name="783"><span class="lineNum">     783 </span>                :            : ;; block where the HTLC was confirmed.</a>
 <a name="784"><span class="lineNum">     784 </span>                :            : (define-read-only (validate-expiration (expiration uint) (mined-height uint))</a>
 <a name="785"><span class="lineNum">     785 </span>                :<span class="lineNoCov">          0 :   (if (&gt; expiration (+ (- block-height mined-height) MIN_EXPIRATION))</span></a>
-<a name="786"><span class="lineNum">     786 </span>                :<span class="lineNoCov">          0 :     (if (&lt; expiration MAX_HTLC_EXPIRATION) (ok true) ERR_INVALID_EXPIRATION)</span></a>
-<a name="787"><span class="lineNum">     787 </span>                :<span class="lineNoCov">          0 :     ERR_INVALID_EXPIRATION</span></a>
+<a name="786"><span class="lineNum">     786 </span>   [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>][<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (if (&lt; expiration MAX_HTLC_EXPIRATION) (ok true) ERR_INVALID_EXPIRATION)</span></a>
+<a name="787"><span class="lineNum">     787 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :     ERR_INVALID_EXPIRATION</span></a>
 <a name="788"><span class="lineNum">     788 </span>                :            :   )</a>
 <a name="789"><span class="lineNum">     789 </span>                :            : )</a>
 <a name="790"><span class="lineNum">     790 </span>                :            : </a>
 <a name="791"><span class="lineNum">     791 </span>                :            : (define-read-only (validate-fee (fee-opt (optional int)))</a>
-<a name="792"><span class="lineNum">     792 </span>                :<span class="lineCov">          4 :   (match fee-opt</span></a>
-<a name="793"><span class="lineNum">     793 </span>                :<span class="lineNoCov">          0 :     fee (let</span></a>
+<a name="792"><span class="lineNum">     792 </span>                :<span class="lineCov">          2 :   (match fee-opt</span></a>
+<a name="793"><span class="lineNum">     793 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     fee (let</span></a>
 <a name="794"><span class="lineNum">     794 </span>                :            :       (</a>
 <a name="795"><span class="lineNum">     795 </span>                :<span class="lineNoCov">          0 :         (max-fee 10000)</span></a>
 <a name="796"><span class="lineNum">     796 </span>                :<span class="lineNoCov">          0 :         (within-upper (&lt; fee max-fee))</span></a>
 <a name="797"><span class="lineNum">     797 </span>                :<span class="lineNoCov">          0 :         (within-lower (&gt; fee (* -1 max-fee)))</span></a>
 <a name="798"><span class="lineNum">     798 </span>                :            :       )</a>
-<a name="799"><span class="lineNum">     799 </span>                :<span class="lineNoCov">          0 :       (asserts! (and within-upper within-lower) ERR_FEE_INVALID)</span></a>
+<a name="799"><span class="lineNum">     799 </span>   [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>][<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (asserts! (and within-upper within-lower) ERR_FEE_INVALID)</span></a>
 <a name="800"><span class="lineNum">     800 </span>                :<span class="lineNoCov">          0 :       (ok true)</span></a>
 <a name="801"><span class="lineNum">     801 </span>                :            :     )</a>
-<a name="802"><span class="lineNum">     802 </span>                :<span class="lineCov">          4 :     (ok true)</span></a>
+<a name="802"><span class="lineNum">     802 </span>           [<span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          2 :     (ok true)</span></a>
 <a name="803"><span class="lineNum">     803 </span>                :            :   )</a>
 <a name="804"><span class="lineNum">     804 </span>                :            : )</a>
 <a name="805"><span class="lineNum">     805 </span>                :            : </a>
 <a name="806"><span class="lineNum">     806 </span>                :            : (define-read-only (validate-btc-addr (version (buff 1)) (hash (buff 20)))</a>
 <a name="807"><span class="lineNum">     807 </span>                :<span class="lineCov">          1 :   (let</span></a>
 <a name="808"><span class="lineNum">     808 </span>                :            :     (</a>
-<a name="809"><span class="lineNum">     809 </span>                :<span class="lineCov">          4 :       (valid-hash (is-eq (len hash) u20))</span></a>
-<a name="810"><span class="lineNum">     810 </span>                :<span class="lineCov">          4 :       (valid-version (or (is-eq version P2PKH_VERSION) (is-eq version P2SH_VERSION)))</span></a>
+<a name="809"><span class="lineNum">     809 </span>                :<span class="lineCov">          1 :       (valid-hash (is-eq (len hash) u20))</span></a>
+<a name="810"><span class="lineNum">     810 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :       (valid-version (or (is-eq version P2PKH_VERSION) (is-eq version P2SH_VERSION)))</span></a>
 <a name="811"><span class="lineNum">     811 </span>                :            :     )</a>
-<a name="812"><span class="lineNum">     812 </span>                :<span class="lineCov">          4 :     (asserts! (and valid-hash valid-version) ERR_INVALID_BTC_ADDR)</span></a>
-<a name="813"><span class="lineNum">     813 </span>                :<span class="lineCov">          2 :     (ok true)</span></a>
+<a name="812"><span class="lineNum">     812 </span>   [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>][<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          1 :     (asserts! (and valid-hash valid-version) ERR_INVALID_BTC_ADDR)</span></a>
+<a name="813"><span class="lineNum">     813 </span>                :<span class="lineCov">          1 :     (ok true)</span></a>
 <a name="814"><span class="lineNum">     814 </span>                :            :   )</a>
 <a name="815"><span class="lineNum">     815 </span>                :            : )</a>
 <a name="816"><span class="lineNum">     816 </span>                :            : </a>
@@ -896,8 +896,8 @@
 <a name="825"><span class="lineNum">     825 </span>                :<span class="lineNoCov">          0 :       (is-expired (&gt;= burn-block-height swap-expiration))</span></a>
 <a name="826"><span class="lineNum">     826 </span>                :<span class="lineNoCov">          0 :       (is-not-finalized (is-none finalize-txid))</span></a>
 <a name="827"><span class="lineNum">     827 </span>                :            :     )</a>
-<a name="828"><span class="lineNum">     828 </span>                :<span class="lineNoCov">          0 :     (asserts! is-expired ERR_REVOKE_OUTBOUND_NOT_EXPIRED)</span></a>
-<a name="829"><span class="lineNum">     829 </span>                :<span class="lineNoCov">          0 :     (asserts! is-not-finalized ERR_REVOKE_OUTBOUND_IS_FINALIZED)</span></a>
+<a name="828"><span class="lineNum">     828 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! is-expired ERR_REVOKE_OUTBOUND_NOT_EXPIRED)</span></a>
+<a name="829"><span class="lineNum">     829 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! is-not-finalized ERR_REVOKE_OUTBOUND_IS_FINALIZED)</span></a>
 <a name="830"><span class="lineNum">     830 </span>                :<span class="lineNoCov">          0 :     (ok swap)</span></a>
 <a name="831"><span class="lineNum">     831 </span>                :            :   )</a>
 <a name="832"><span class="lineNum">     832 </span>                :            : )</a>
@@ -958,8 +958,8 @@
 <a name="887"><span class="lineNum">     887 </span>                :            : ;; so it should only ever be these two.</a>
 <a name="888"><span class="lineNum">     888 </span>                :            : (define-read-only (generate-output (version (buff 1)) (hash (buff 20)))</a>
 <a name="889"><span class="lineNum">     889 </span>                :<span class="lineNoCov">          0 :   (if (is-eq version P2SH_VERSION)</span></a>
-<a name="890"><span class="lineNum">     890 </span>                :<span class="lineNoCov">          0 :     (generate-p2sh-output hash)</span></a>
-<a name="891"><span class="lineNum">     891 </span>                :<span class="lineNoCov">          0 :     (generate-p2pkh-output hash)</span></a>
+<a name="890"><span class="lineNum">     890 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (generate-p2sh-output hash)</span></a>
+<a name="891"><span class="lineNum">     891 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (generate-p2pkh-output hash)</span></a>
 <a name="892"><span class="lineNum">     892 </span>                :            :   )</a>
 <a name="893"><span class="lineNum">     893 </span>                :            : )</a>
 <a name="894"><span class="lineNum">     894 </span>                :            : </a>
@@ -974,9 +974,9 @@
 <a name="903"><span class="lineNum">     903 </span>                :<span class="lineNoCov">          0 :   (let</span></a>
 <a name="904"><span class="lineNum">     904 </span>                :            :     (</a>
 <a name="905"><span class="lineNum">     905 </span>                :<span class="lineNoCov">          0 :       (byte-1 (buff-to-u8 (unwrap! (element-at num u0) ERR_READ_UINT)))</span></a>
-<a name="906"><span class="lineNum">     906 </span>                :<span class="lineNoCov">          0 :       (byte-2 (if (&gt; length u1) (buff-to-u8 (unwrap! (element-at num u1) ERR_READ_UINT)) u0))</span></a>
-<a name="907"><span class="lineNum">     907 </span>                :<span class="lineNoCov">          0 :       (byte-3 (if (&gt; length u2) (buff-to-u8 (unwrap! (element-at num u2) ERR_READ_UINT)) u0))</span></a>
-<a name="908"><span class="lineNum">     908 </span>                :<span class="lineNoCov">          0 :       (byte-4 (if (&gt; length u3) (buff-to-u8 (unwrap! (element-at num u3) ERR_READ_UINT)) u0))</span></a>
+<a name="906"><span class="lineNum">     906 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (byte-2 (if (&gt; length u1) (buff-to-u8 (unwrap! (element-at num u1) ERR_READ_UINT)) u0))</span></a>
+<a name="907"><span class="lineNum">     907 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (byte-3 (if (&gt; length u2) (buff-to-u8 (unwrap! (element-at num u2) ERR_READ_UINT)) u0))</span></a>
+<a name="908"><span class="lineNum">     908 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (byte-4 (if (&gt; length u3) (buff-to-u8 (unwrap! (element-at num u3) ERR_READ_UINT)) u0))</span></a>
 <a name="909"><span class="lineNum">     909 </span>                :            :     )</a>
 <a name="910"><span class="lineNum">     910 </span>                :<span class="lineNoCov">          0 :     (ok (+ (* byte-4 u16777216) (* byte-3 u65536) (* byte-2 u256) byte-1))</span></a>
 <a name="911"><span class="lineNum">     911 </span>                :            :   )</a>

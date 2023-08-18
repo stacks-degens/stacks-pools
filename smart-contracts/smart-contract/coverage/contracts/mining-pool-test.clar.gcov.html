@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>LCOV - coverage.lcov - contracts/mining-pool-5-blocks.clar</title>
+  <title>LCOV - coverage.lcov - contracts/mining-pool-test.clar</title>
   <link rel="stylesheet" type="text/css" href="../gcov.css">
 </head>
 
@@ -19,7 +19,7 @@
         <table cellpadding=1 border=0 width="100%">
           <tr>
             <td width="10%" class="headerItem">Current view:</td>
-            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">contracts</a> - mining-pool-5-blocks.clar<span style="font-size: 80%;"> (source / <a href="mining-pool-5-blocks.clar.func-sort-c.html">functions</a>)</span></td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">contracts</a> - mining-pool-test.clar<span style="font-size: 80%;"> (source / <a href="mining-pool-test.clar.func-sort-c.html">functions</a>)</span></td>
             <td width="5%"></td>
             <td width="15%"></td>
             <td width="10%" class="headerCovTableHead">Hit</td>
@@ -31,27 +31,27 @@
             <td class="headerValue">coverage.lcov</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">215</td>
+            <td class="headerCovTableEntry">3</td>
             <td class="headerCovTableEntry">689</td>
-            <td class="headerCovTableEntryLo">31.2 %</td>
+            <td class="headerCovTableEntryLo">0.4 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
             <td class="headerValue">2023-08-18 21:53:02</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">32</td>
+            <td class="headerCovTableEntry">0</td>
             <td class="headerCovTableEntry">103</td>
-            <td class="headerCovTableEntryLo">31.1 %</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
           </tr>
           <tr>
             <td></td>
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">35</td>
+            <td class="headerCovTableEntry">0</td>
             <td class="headerCovTableEntry">209</td>
-            <td class="headerCovTableEntryLo">16.7 %</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
           </tr>
           <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -112,7 +112,7 @@
 <a name="41"><span class="lineNum">      41 </span>                :            : (define-constant err-cant-unwrap-rewarded-block (err u1004))</a>
 <a name="42"><span class="lineNum">      42 </span>                :            : </a>
 <a name="43"><span class="lineNum">      43 </span>                :            : (define-constant notifier-election-blocks-to-pass u144)</a>
-<a name="44"><span class="lineNum">      44 </span>                :            : (define-constant blocks-to-pass u5)</a>
+<a name="44"><span class="lineNum">      44 </span>                :            : (define-constant blocks-to-pass u100)</a>
 <a name="45"><span class="lineNum">      45 </span>                :            : </a>
 <a name="46"><span class="lineNum">      46 </span>                :            : (define-map balance principal uint)</a>
 <a name="47"><span class="lineNum">      47 </span>                :            : (define-map claimed-rewards { block-number: uint } { claimed: bool })</a>
@@ -125,7 +125,7 @@
 <a name="54"><span class="lineNum">      54 </span>                :            : (define-map map-block-joined { address: principal } { block-height: uint })</a>
 <a name="55"><span class="lineNum">      55 </span>                :            : (define-map map-balance-xBTC { address: principal } { value: uint })</a>
 <a name="56"><span class="lineNum">      56 </span>                :            : (define-map auto-exchange { address: principal } { value: bool })</a>
-<a name="57"><span class="lineNum">      57 </span>                :            : (define-map btc-address { address: principal } { btc-address: {hashbytes: (buff 20), version: (buff 1)} })</a>
+<a name="57"><span class="lineNum">      57 </span>                :            : (define-map btc-address { address: principal } { btc-address: (string-ascii 41) })</a>
 <a name="58"><span class="lineNum">      58 </span>                :            : </a>
 <a name="59"><span class="lineNum">      59 </span>                :            : (define-map map-votes-accept-join { address: principal } { value: uint })</a>
 <a name="60"><span class="lineNum">      60 </span>                :            : (define-map map-votes-reject-join { address: principal } { value: uint })</a>
@@ -179,61 +179,61 @@
 <a name="108"><span class="lineNum">     108 </span>                :            : ;; waiting miners</a>
 <a name="109"><span class="lineNum">     109 </span>                :            : </a>
 <a name="110"><span class="lineNum">     110 </span>                :            : (define-read-only (get-all-data-waiting-miners (waiting-miners-list (list 100 principal))) </a>
-<a name="111"><span class="lineNum">     111 </span>                :<span class="lineCov">          2 : (map get-all-data-waiting-miner waiting-miners-list))</span></a>
+<a name="111"><span class="lineNum">     111 </span>                :<span class="lineNoCov">          0 : (map get-all-data-waiting-miner waiting-miners-list))</span></a>
 <a name="112"><span class="lineNum">     112 </span>                :            : </a>
 <a name="113"><span class="lineNum">     113 </span>                :            : (define-private (get-all-data-waiting-miner (miner principal))</a>
-<a name="114"><span class="lineNum">     114 </span>                :<span class="lineCov">          2 : (let ((k-at-block-asked-to-join (unwrap-panic (get-k-at-block-asked-to-join miner)))</span></a>
-<a name="115"><span class="lineNum">     115 </span>                :<span class="lineCov">          2 :       (n-at-block-asked-to-join (unwrap-panic (get-n-at-block-asked-to-join miner))))</span></a>
-<a name="116"><span class="lineNum">     116 </span>                :<span class="lineCov">          2 :   (begin </span></a>
-<a name="117"><span class="lineNum">     117 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">          2 :     (asserts! (is-some (get value (map-get? map-is-waiting {address: miner}))) err-not-waiting)</span></a>
-<a name="118"><span class="lineNum">     118 </span>                :<span class="lineCov">          2 :     (ok </span></a>
+<a name="114"><span class="lineNum">     114 </span>                :<span class="lineNoCov">          0 : (let ((k-at-block-asked-to-join (unwrap-panic (get-k-at-block-asked-to-join miner)))</span></a>
+<a name="115"><span class="lineNum">     115 </span>                :<span class="lineNoCov">          0 :       (n-at-block-asked-to-join (unwrap-panic (get-n-at-block-asked-to-join miner))))</span></a>
+<a name="116"><span class="lineNum">     116 </span>                :<span class="lineNoCov">          0 :   (begin </span></a>
+<a name="117"><span class="lineNum">     117 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (is-some (get value (map-get? map-is-waiting {address: miner}))) err-not-waiting)</span></a>
+<a name="118"><span class="lineNum">     118 </span>                :<span class="lineNoCov">          0 :     (ok </span></a>
 <a name="119"><span class="lineNum">     119 </span>                :            :       {</a>
 <a name="120"><span class="lineNum">     120 </span>                :<span class="lineNoCov">          0 :         pos-votes: </span></a>
-<a name="121"><span class="lineNum">     121 </span>                :<span class="lineCov">          2 :           (default-to u0 (get value (map-get? map-votes-accept-join {address: miner}))),</span></a>
+<a name="121"><span class="lineNum">     121 </span>                :<span class="lineNoCov">          0 :           (default-to u0 (get value (map-get? map-votes-accept-join {address: miner}))),</span></a>
 <a name="122"><span class="lineNum">     122 </span>                :<span class="lineNoCov">          0 :         pos-thr: </span></a>
-<a name="123"><span class="lineNum">     123 </span>                :<span class="lineCov">          2 :           (if </span></a>
-<a name="124"><span class="lineNum">     124 </span>                :<span class="lineCov">          2 :             (is-eq k-at-block-asked-to-join u0) </span></a>
+<a name="123"><span class="lineNum">     123 </span>                :<span class="lineNoCov">          0 :           (if </span></a>
+<a name="124"><span class="lineNum">     124 </span>                :<span class="lineNoCov">          0 :             (is-eq k-at-block-asked-to-join u0) </span></a>
 <a name="125"><span class="lineNum">     125 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :             u1 </span></a>
-<a name="126"><span class="lineNum">     126 </span>           [<span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          2 :             k-at-block-asked-to-join),</span></a>
+<a name="126"><span class="lineNum">     126 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :             k-at-block-asked-to-join),</span></a>
 <a name="127"><span class="lineNum">     127 </span>                :<span class="lineNoCov">          0 :         neg-votes:</span></a>
-<a name="128"><span class="lineNum">     128 </span>                :<span class="lineCov">          2 :           (default-to u0 (get value (map-get? map-votes-reject-join {address: miner}))),</span></a>
+<a name="128"><span class="lineNum">     128 </span>                :<span class="lineNoCov">          0 :           (default-to u0 (get value (map-get? map-votes-reject-join {address: miner}))),</span></a>
 <a name="129"><span class="lineNum">     129 </span>                :<span class="lineNoCov">          0 :         neg-thr: </span></a>
-<a name="130"><span class="lineNum">     130 </span>                :<span class="lineCov">          2 :           (if   </span></a>
-<a name="131"><span class="lineNum">     131 </span>                :<span class="lineCov">          2 :             (is-eq n-at-block-asked-to-join u1) </span></a>
+<a name="130"><span class="lineNum">     130 </span>                :<span class="lineNoCov">          0 :           (if   </span></a>
+<a name="131"><span class="lineNum">     131 </span>                :<span class="lineNoCov">          0 :             (is-eq n-at-block-asked-to-join u1) </span></a>
 <a name="132"><span class="lineNum">     132 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :             u1 </span></a>
-<a name="133"><span class="lineNum">     133 </span>           [<span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          2 :             (if </span></a>
-<a name="134"><span class="lineNum">     134 </span>                :<span class="lineCov">          2 :               (is-eq n-at-block-asked-to-join u2) </span></a>
+<a name="133"><span class="lineNum">     133 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :             (if </span></a>
+<a name="134"><span class="lineNum">     134 </span>                :<span class="lineNoCov">          0 :               (is-eq n-at-block-asked-to-join u2) </span></a>
 <a name="135"><span class="lineNum">     135 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :               u2 </span></a>
-<a name="136"><span class="lineNum">     136 </span>           [<span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          2 :               (+ (- n-at-block-asked-to-join k-at-block-asked-to-join) u1)))}))))</span></a>
+<a name="136"><span class="lineNum">     136 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :               (+ (- n-at-block-asked-to-join k-at-block-asked-to-join) u1)))}))))</span></a>
 <a name="137"><span class="lineNum">     137 </span>                :            : </a>
 <a name="138"><span class="lineNum">     138 </span>                :            : ;; miners proposed for removal</a>
 <a name="139"><span class="lineNum">     139 </span>                :            : </a>
 <a name="140"><span class="lineNum">     140 </span>                :            : (define-read-only (get-all-data-miners-proposed-for-removal (removal-miners-list (list 100 principal))) </a>
-<a name="141"><span class="lineNum">     141 </span>                :<span class="lineCov">          1 : (map get-all-data-miner-proposed-for-removal removal-miners-list))</span></a>
+<a name="141"><span class="lineNum">     141 </span>                :<span class="lineNoCov">          0 : (map get-all-data-miner-proposed-for-removal removal-miners-list))</span></a>
 <a name="142"><span class="lineNum">     142 </span>                :            : </a>
 <a name="143"><span class="lineNum">     143 </span>                :            : (define-private (get-all-data-miner-proposed-for-removal (miner principal)) </a>
-<a name="144"><span class="lineNum">     144 </span>                :<span class="lineCov">          1 : (let ((k-at-block-proposed-removal (unwrap-panic (get-k-at-block-proposed-removal miner)))</span></a>
-<a name="145"><span class="lineNum">     145 </span>                :<span class="lineCov">          1 :       (n-at-block-proposed-removal (unwrap-panic (get-n-at-block-proposed-removal miner))))</span></a>
-<a name="146"><span class="lineNum">     146 </span>                :<span class="lineCov">          1 :   (begin </span></a>
-<a name="147"><span class="lineNum">     147 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">          1 :     (asserts! (is-some (get value (map-get? map-is-proposed-for-removal {address: miner}))) err-not-pending)</span></a>
-<a name="148"><span class="lineNum">     148 </span>                :<span class="lineCov">          1 :     (ok </span></a>
+<a name="144"><span class="lineNum">     144 </span>                :<span class="lineNoCov">          0 : (let ((k-at-block-proposed-removal (unwrap-panic (get-k-at-block-proposed-removal miner)))</span></a>
+<a name="145"><span class="lineNum">     145 </span>                :<span class="lineNoCov">          0 :       (n-at-block-proposed-removal (unwrap-panic (get-n-at-block-proposed-removal miner))))</span></a>
+<a name="146"><span class="lineNum">     146 </span>                :<span class="lineNoCov">          0 :   (begin </span></a>
+<a name="147"><span class="lineNum">     147 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (is-some (get value (map-get? map-is-proposed-for-removal {address: miner}))) err-not-pending)</span></a>
+<a name="148"><span class="lineNum">     148 </span>                :<span class="lineNoCov">          0 :     (ok </span></a>
 <a name="149"><span class="lineNum">     149 </span>                :            :       {</a>
 <a name="150"><span class="lineNum">     150 </span>                :<span class="lineNoCov">          0 :         vts-for: </span></a>
-<a name="151"><span class="lineNum">     151 </span>                :<span class="lineCov">          1 :           (default-to u0 (get value (map-get? map-votes-accept-removal {address: miner}))),</span></a>
+<a name="151"><span class="lineNum">     151 </span>                :<span class="lineNoCov">          0 :           (default-to u0 (get value (map-get? map-votes-accept-removal {address: miner}))),</span></a>
 <a name="152"><span class="lineNum">     152 </span>                :<span class="lineNoCov">          0 :         pos-thr: </span></a>
-<a name="153"><span class="lineNum">     153 </span>                :<span class="lineCov">          1 :           (if </span></a>
-<a name="154"><span class="lineNum">     154 </span>                :<span class="lineCov">          1 :             (is-eq k-at-block-proposed-removal u0) </span></a>
+<a name="153"><span class="lineNum">     153 </span>                :<span class="lineNoCov">          0 :           (if </span></a>
+<a name="154"><span class="lineNum">     154 </span>                :<span class="lineNoCov">          0 :             (is-eq k-at-block-proposed-removal u0) </span></a>
 <a name="155"><span class="lineNum">     155 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :             u1 </span></a>
-<a name="156"><span class="lineNum">     156 </span>           [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          1 :             k-at-block-proposed-removal),</span></a>
+<a name="156"><span class="lineNum">     156 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :             k-at-block-proposed-removal),</span></a>
 <a name="157"><span class="lineNum">     157 </span>                :<span class="lineNoCov">          0 :         vts-against: </span></a>
-<a name="158"><span class="lineNum">     158 </span>                :<span class="lineCov">          1 :           (default-to u0 (get value (map-get? map-votes-reject-removal {address: miner}))),</span></a>
+<a name="158"><span class="lineNum">     158 </span>                :<span class="lineNoCov">          0 :           (default-to u0 (get value (map-get? map-votes-reject-removal {address: miner}))),</span></a>
 <a name="159"><span class="lineNum">     159 </span>                :<span class="lineNoCov">          0 :         neg-thr: </span></a>
-<a name="160"><span class="lineNum">     160 </span>                :<span class="lineCov">          1 :           (if   </span></a>
-<a name="161"><span class="lineNum">     161 </span>                :<span class="lineCov">          1 :             (is-eq n-at-block-proposed-removal u2) </span></a>
+<a name="160"><span class="lineNum">     160 </span>                :<span class="lineNoCov">          0 :           (if   </span></a>
+<a name="161"><span class="lineNum">     161 </span>                :<span class="lineNoCov">          0 :             (is-eq n-at-block-proposed-removal u2) </span></a>
 <a name="162"><span class="lineNum">     162 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :             u1 </span></a>
-<a name="163"><span class="lineNum">     163 </span>           [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          1 :             (if (is-eq n-at-block-proposed-removal u3) </span></a>
+<a name="163"><span class="lineNum">     163 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :             (if (is-eq n-at-block-proposed-removal u3) </span></a>
 <a name="164"><span class="lineNum">     164 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :               u2 </span></a>
-<a name="165"><span class="lineNum">     165 </span>           [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          1 :               (+ (- n-at-block-proposed-removal k-at-block-proposed-removal) u1)))}))))</span></a>
+<a name="165"><span class="lineNum">     165 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :               (+ (- n-at-block-proposed-removal k-at-block-proposed-removal) u1)))}))))</span></a>
 <a name="166"><span class="lineNum">     166 </span>                :            : </a>
 <a name="167"><span class="lineNum">     167 </span>                :            : ;; pending accept miners</a>
 <a name="168"><span class="lineNum">     168 </span>                :            : </a>
@@ -339,7 +339,7 @@
 <a name="268"><span class="lineNum">     268 </span>                :            : (define-read-only (get-miner-btc-address (miner-address principal))</a>
 <a name="269"><span class="lineNum">     269 </span>                :<span class="lineNoCov">          0 :   (map-get? btc-address {address: miner-address}))</span></a>
 <a name="270"><span class="lineNum">     270 </span>                :            : </a>
-<a name="271"><span class="lineNum">     271 </span>                :            : (define-public (set-my-btc-address (new-btc-address {hashbytes: (buff 20), version: (buff 1)})) </a>
+<a name="271"><span class="lineNum">     271 </span>                :            : (define-public (set-my-btc-address (new-btc-address (string-ascii 41))) </a>
 <a name="272"><span class="lineNum">     272 </span>                :<span class="lineNoCov">          0 :   (ok (map-set btc-address {address: tx-sender} {btc-address: new-btc-address})))</span></a>
 <a name="273"><span class="lineNum">     273 </span>                :            : </a>
 <a name="274"><span class="lineNum">     274 </span>                :            : ;; deposit funds</a>
@@ -413,45 +413,45 @@
 <a name="342"><span class="lineNum">     342 </span>                :            : </a>
 <a name="343"><span class="lineNum">     343 </span>                :            : ;; JOINING FLOW</a>
 <a name="344"><span class="lineNum">     344 </span>                :            : </a>
-<a name="345"><span class="lineNum">     345 </span>                :            : (define-public (ask-to-join (my-btc-address {hashbytes: (buff 20), version: (buff 1)}))</a>
-<a name="346"><span class="lineNum">     346 </span>                :<span class="lineCov">        599 : (begin </span></a>
-<a name="347"><span class="lineNum">     347 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">        599 :   (asserts! (not (check-is-miner-now contract-caller)) err-already-joined) </span></a>
-<a name="348"><span class="lineNum">     348 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">        599 :   (asserts! (not (check-is-waiting-now contract-caller)) err-already-asked-to-join) </span></a>
-<a name="349"><span class="lineNum">     349 </span>                :<span class="lineCov">        599 :   (map-set map-block-asked-to-join {address: tx-sender} {value: block-height})</span></a>
-<a name="350"><span class="lineNum">     350 </span>                :<span class="lineCov">        599 :   (map-set btc-address {address: tx-sender} {btc-address: my-btc-address})</span></a>
-<a name="351"><span class="lineNum">     351 </span>                :<span class="lineCov">        599 :   (var-set waiting-list (unwrap-panic (as-max-len? (concat (var-get waiting-list) (list tx-sender)) u300)))</span></a>
-<a name="352"><span class="lineNum">     352 </span>                :<span class="lineCov">        599 :   (map-set map-is-waiting {address: tx-sender} {value: true})</span></a>
-<a name="353"><span class="lineNum">     353 </span>                :<span class="lineCov">        599 :   (ok true)))</span></a>
+<a name="345"><span class="lineNum">     345 </span>                :            : (define-public (ask-to-join (my-btc-address (string-ascii 41)))</a>
+<a name="346"><span class="lineNum">     346 </span>                :<span class="lineNoCov">          0 : (begin </span></a>
+<a name="347"><span class="lineNum">     347 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (asserts! (not (check-is-miner-now contract-caller)) err-already-joined) </span></a>
+<a name="348"><span class="lineNum">     348 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (asserts! (not (check-is-waiting-now contract-caller)) err-already-asked-to-join) </span></a>
+<a name="349"><span class="lineNum">     349 </span>                :<span class="lineNoCov">          0 :   (map-set map-block-asked-to-join {address: tx-sender} {value: block-height})</span></a>
+<a name="350"><span class="lineNum">     350 </span>                :<span class="lineNoCov">          0 :   (map-set btc-address {address: tx-sender} {btc-address: my-btc-address})</span></a>
+<a name="351"><span class="lineNum">     351 </span>                :<span class="lineNoCov">          0 :   (var-set waiting-list (unwrap-panic (as-max-len? (concat (var-get waiting-list) (list tx-sender)) u300)))</span></a>
+<a name="352"><span class="lineNum">     352 </span>                :<span class="lineNoCov">          0 :   (map-set map-is-waiting {address: tx-sender} {value: true})</span></a>
+<a name="353"><span class="lineNum">     353 </span>                :<span class="lineNoCov">          0 :   (ok true)))</span></a>
 <a name="354"><span class="lineNum">     354 </span>                :            : </a>
 <a name="355"><span class="lineNum">     355 </span>                :            : (define-public (vote-positive-join-request (miner-to-vote principal))</a>
-<a name="356"><span class="lineNum">     356 </span>                :<span class="lineCov">        807 : (begin</span></a>
-<a name="357"><span class="lineNum">     357 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">        807 :   (asserts! (check-is-waiting-now miner-to-vote) err-not-asked-to-join) ;; map_is_waiting</span></a>
-<a name="358"><span class="lineNum">     358 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">        807 :     (asserts! (unwrap! (check-is-miner-when-requested-join miner-to-vote) err-cant-unwrap-check-miner) err-no-vote-permission)</span></a>
-<a name="359"><span class="lineNum">     359 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">        807 :     (asserts! (has-voted-join miner-to-vote) err-already-voted) ;; O(1)</span></a>
-<a name="360"><span class="lineNum">     360 </span>                :<span class="lineCov">        807 :     (map-set map-join-request-voter </span></a>
-<a name="361"><span class="lineNum">     361 </span>                :<span class="lineCov">        807 :       {miner-to-vote: miner-to-vote, voter: tx-sender} </span></a>
-<a name="362"><span class="lineNum">     362 </span>                :<span class="lineCov">        807 :       {value: true})</span></a>
-<a name="363"><span class="lineNum">     363 </span>                :<span class="lineCov">        807 :     (if (is-some (get value (map-get? map-votes-accept-join {address: miner-to-vote}))) </span></a>
-<a name="364"><span class="lineNum">     364 </span>           [<span class="branchCov" title="Branch 0 was taken 208 times"> + </span>]:<span class="lineCov">        208 :       (map-set map-votes-accept-join {address: miner-to-vote} {value: (+ (unwrap-panic (get value (map-get? map-votes-accept-join {address: miner-to-vote}))) u1)})</span></a>
-<a name="365"><span class="lineNum">     365 </span>           [<span class="branchCov" title="Branch 1 was taken 599 times"> + </span>]:<span class="lineCov">        599 :       (map-set map-votes-accept-join {address: miner-to-vote} {value: u1}))</span></a>
-<a name="366"><span class="lineNum">     366 </span>                :<span class="lineCov">        807 :     (ok true)))</span></a>
+<a name="356"><span class="lineNum">     356 </span>                :<span class="lineNoCov">          0 : (begin</span></a>
+<a name="357"><span class="lineNum">     357 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (asserts! (check-is-waiting-now miner-to-vote) err-not-asked-to-join) ;; map_is_waiting</span></a>
+<a name="358"><span class="lineNum">     358 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (unwrap! (check-is-miner-when-requested-join miner-to-vote) err-cant-unwrap-check-miner) err-no-vote-permission)</span></a>
+<a name="359"><span class="lineNum">     359 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (has-voted-join miner-to-vote) err-already-voted) ;; O(1)</span></a>
+<a name="360"><span class="lineNum">     360 </span>                :<span class="lineNoCov">          0 :     (map-set map-join-request-voter </span></a>
+<a name="361"><span class="lineNum">     361 </span>                :<span class="lineNoCov">          0 :       {miner-to-vote: miner-to-vote, voter: tx-sender} </span></a>
+<a name="362"><span class="lineNum">     362 </span>                :<span class="lineNoCov">          0 :       {value: true})</span></a>
+<a name="363"><span class="lineNum">     363 </span>                :<span class="lineNoCov">          0 :     (if (is-some (get value (map-get? map-votes-accept-join {address: miner-to-vote}))) </span></a>
+<a name="364"><span class="lineNum">     364 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (map-set map-votes-accept-join {address: miner-to-vote} {value: (+ (unwrap-panic (get value (map-get? map-votes-accept-join {address: miner-to-vote}))) u1)})</span></a>
+<a name="365"><span class="lineNum">     365 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (map-set map-votes-accept-join {address: miner-to-vote} {value: u1}))</span></a>
+<a name="366"><span class="lineNum">     366 </span>                :<span class="lineNoCov">          0 :     (ok true)))</span></a>
 <a name="367"><span class="lineNum">     367 </span>                :            : </a>
 <a name="368"><span class="lineNum">     368 </span>                :            : (define-public (vote-negative-join-request (miner-to-vote principal))</a>
-<a name="369"><span class="lineNum">     369 </span>                :<span class="lineCov">         90 : (begin</span></a>
-<a name="370"><span class="lineNum">     370 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">         90 :   (asserts! (check-is-waiting-now miner-to-vote) err-not-asked-to-join)</span></a>
-<a name="371"><span class="lineNum">     371 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">         90 :     (asserts! (unwrap! (check-is-miner-when-requested-join miner-to-vote) err-cant-unwrap-check-miner) err-no-vote-permission)</span></a>
-<a name="372"><span class="lineNum">     372 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">         90 :     (asserts! (has-voted-join miner-to-vote) err-already-voted)    </span></a>
-<a name="373"><span class="lineNum">     373 </span>                :<span class="lineCov">         90 :     (map-set map-join-request-voter </span></a>
-<a name="374"><span class="lineNum">     374 </span>                :<span class="lineCov">         90 :       {miner-to-vote: miner-to-vote, voter: tx-sender} </span></a>
-<a name="375"><span class="lineNum">     375 </span>                :<span class="lineCov">         90 :       {value: true})</span></a>
-<a name="376"><span class="lineNum">     376 </span>                :<span class="lineCov">         90 :     (if (is-some (get value (map-get? map-votes-reject-join {address: miner-to-vote}))) </span></a>
-<a name="377"><span class="lineNum">     377 </span>           [<span class="branchCov" title="Branch 0 was taken 89 times"> + </span>]:<span class="lineCov">         89 :       (map-set map-votes-reject-join {address: miner-to-vote} {value: (+ (unwrap-panic (get value (map-get? map-votes-reject-join {address: miner-to-vote}))) u1)})</span></a>
-<a name="378"><span class="lineNum">     378 </span>           [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          1 :       (map-set map-votes-reject-join {address: miner-to-vote} {value: u1}))  </span></a>
-<a name="379"><span class="lineNum">     379 </span>                :<span class="lineCov">         90 :     (some</span></a>
-<a name="380"><span class="lineNum">     380 </span>                :<span class="lineCov">         90 :       (if (is-vote-rejected-join (unwrap-panic (get value (map-get? map-votes-reject-join {address: miner-to-vote}))) (unwrap-panic (get-k-at-block-asked-to-join miner-to-vote)) (unwrap-panic (get-n-at-block-asked-to-join miner-to-vote)))</span></a>
+<a name="369"><span class="lineNum">     369 </span>                :<span class="lineNoCov">          0 : (begin</span></a>
+<a name="370"><span class="lineNum">     370 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (asserts! (check-is-waiting-now miner-to-vote) err-not-asked-to-join)</span></a>
+<a name="371"><span class="lineNum">     371 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (unwrap! (check-is-miner-when-requested-join miner-to-vote) err-cant-unwrap-check-miner) err-no-vote-permission)</span></a>
+<a name="372"><span class="lineNum">     372 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (has-voted-join miner-to-vote) err-already-voted)    </span></a>
+<a name="373"><span class="lineNum">     373 </span>                :<span class="lineNoCov">          0 :     (map-set map-join-request-voter </span></a>
+<a name="374"><span class="lineNum">     374 </span>                :<span class="lineNoCov">          0 :       {miner-to-vote: miner-to-vote, voter: tx-sender} </span></a>
+<a name="375"><span class="lineNum">     375 </span>                :<span class="lineNoCov">          0 :       {value: true})</span></a>
+<a name="376"><span class="lineNum">     376 </span>                :<span class="lineNoCov">          0 :     (if (is-some (get value (map-get? map-votes-reject-join {address: miner-to-vote}))) </span></a>
+<a name="377"><span class="lineNum">     377 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (map-set map-votes-reject-join {address: miner-to-vote} {value: (+ (unwrap-panic (get value (map-get? map-votes-reject-join {address: miner-to-vote}))) u1)})</span></a>
+<a name="378"><span class="lineNum">     378 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (map-set map-votes-reject-join {address: miner-to-vote} {value: u1}))  </span></a>
+<a name="379"><span class="lineNum">     379 </span>                :<span class="lineNoCov">          0 :     (some</span></a>
+<a name="380"><span class="lineNum">     380 </span>                :<span class="lineNoCov">          0 :       (if (is-vote-rejected-join (unwrap-panic (get value (map-get? map-votes-reject-join {address: miner-to-vote}))) (unwrap-panic (get-k-at-block-asked-to-join miner-to-vote)) (unwrap-panic (get-n-at-block-asked-to-join miner-to-vote)))</span></a>
 <a name="381"><span class="lineNum">     381 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :         (reject-miner-in-pool miner-to-vote) </span></a>
-<a name="382"><span class="lineNum">     382 </span>           [<span class="branchCov" title="Branch 1 was taken 90 times"> + </span>]:<span class="lineCov">         90 :         false))</span></a>
-<a name="383"><span class="lineNum">     383 </span>                :<span class="lineCov">         90 :     (ok true)))</span></a>
+<a name="382"><span class="lineNum">     382 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :         false))</span></a>
+<a name="383"><span class="lineNum">     383 </span>                :<span class="lineNoCov">          0 :     (ok true)))</span></a>
 <a name="384"><span class="lineNum">     384 </span>                :            : </a>
 <a name="385"><span class="lineNum">     385 </span>                :            : (define-public (quit-waiting-list) </a>
 <a name="386"><span class="lineNum">     386 </span>                :<span class="lineNoCov">          0 :   (begin </span></a>
@@ -470,17 +470,17 @@
 <a name="399"><span class="lineNum">     399 </span>                :<span class="lineNoCov">          0 :       (ok (clear-votes-map-join-vote contract-caller)))))</span></a>
 <a name="400"><span class="lineNum">     400 </span>                :            : </a>
 <a name="401"><span class="lineNum">     401 </span>                :            : (define-private (accept-miner-in-pool (miner principal)) </a>
-<a name="402"><span class="lineNum">     402 </span>                :<span class="lineCov">        598 : (begin </span></a>
-<a name="403"><span class="lineNum">     403 </span>                :<span class="lineCov">        598 :   (let ((pending-accept-result (as-max-len? (concat (var-get pending-accept-list) (list miner)) u300)))</span></a>
-<a name="404"><span class="lineNum">     404 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">        598 :   (asserts! (is-some pending-accept-result) err-list-length-exceeded) ;; O(1) </span></a>
-<a name="405"><span class="lineNum">     405 </span>                :<span class="lineCov">        598 :   (map-set map-warnings {address: miner} {value: u0})</span></a>
-<a name="406"><span class="lineNum">     406 </span>                :<span class="lineCov">        598 :   (map-set balance miner u0)</span></a>
-<a name="407"><span class="lineNum">     407 </span>                :<span class="lineCov">        598 :   (var-set miner-to-remove-votes-join miner)</span></a>
-<a name="408"><span class="lineNum">     408 </span>                :<span class="lineCov">        598 :   (var-set waiting-list (unwrap-panic (as-max-len? (unwrap-panic (remove-principal-waiting-list miner)) u300))) ;; O(N)</span></a>
-<a name="409"><span class="lineNum">     409 </span>                :<span class="lineCov">        598 :   (map-delete map-is-waiting {address: miner})</span></a>
-<a name="410"><span class="lineNum">     410 </span>                :<span class="lineCov">        598 :   (map-set map-is-pending {address: miner} {value: true})</span></a>
-<a name="411"><span class="lineNum">     411 </span>                :<span class="lineCov">        598 :   (clear-votes-map-join-vote miner)</span></a>
-<a name="412"><span class="lineNum">     412 </span>                :<span class="lineCov">        598 :   (ok (var-set pending-accept-list (unwrap-panic pending-accept-result))))))</span></a>
+<a name="402"><span class="lineNum">     402 </span>                :<span class="lineNoCov">          0 : (begin </span></a>
+<a name="403"><span class="lineNum">     403 </span>                :<span class="lineNoCov">          0 :   (let ((pending-accept-result (as-max-len? (concat (var-get pending-accept-list) (list miner)) u300)))</span></a>
+<a name="404"><span class="lineNum">     404 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (asserts! (is-some pending-accept-result) err-list-length-exceeded) ;; O(1) </span></a>
+<a name="405"><span class="lineNum">     405 </span>                :<span class="lineNoCov">          0 :   (map-set map-warnings {address: miner} {value: u0})</span></a>
+<a name="406"><span class="lineNum">     406 </span>                :<span class="lineNoCov">          0 :   (map-set balance miner u0)</span></a>
+<a name="407"><span class="lineNum">     407 </span>                :<span class="lineNoCov">          0 :   (var-set miner-to-remove-votes-join miner)</span></a>
+<a name="408"><span class="lineNum">     408 </span>                :<span class="lineNoCov">          0 :   (var-set waiting-list (unwrap-panic (as-max-len? (unwrap-panic (remove-principal-waiting-list miner)) u300))) ;; O(N)</span></a>
+<a name="409"><span class="lineNum">     409 </span>                :<span class="lineNoCov">          0 :   (map-delete map-is-waiting {address: miner})</span></a>
+<a name="410"><span class="lineNum">     410 </span>                :<span class="lineNoCov">          0 :   (map-set map-is-pending {address: miner} {value: true})</span></a>
+<a name="411"><span class="lineNum">     411 </span>                :<span class="lineNoCov">          0 :   (clear-votes-map-join-vote miner)</span></a>
+<a name="412"><span class="lineNum">     412 </span>                :<span class="lineNoCov">          0 :   (ok (var-set pending-accept-list (unwrap-panic pending-accept-result))))))</span></a>
 <a name="413"><span class="lineNum">     413 </span>                :            : </a>
 <a name="414"><span class="lineNum">     414 </span>                :            : (define-private (reject-miner-in-pool (miner principal)) </a>
 <a name="415"><span class="lineNum">     415 </span>                :<span class="lineNoCov">          0 : (begin </span></a>
@@ -492,95 +492,95 @@
 <a name="421"><span class="lineNum">     421 </span>                :<span class="lineNoCov">          0 :     true)))</span></a>
 <a name="422"><span class="lineNum">     422 </span>                :            : </a>
 <a name="423"><span class="lineNum">     423 </span>                :            : (define-private (clear-votes-map-join-vote (miner principal)) </a>
-<a name="424"><span class="lineNum">     424 </span>                :<span class="lineCov">        598 : (begin </span></a>
-<a name="425"><span class="lineNum">     425 </span>                :<span class="lineCov">        598 :   (map-delete map-votes-accept-join {address: (var-get miner-to-remove-votes-join)})</span></a>
-<a name="426"><span class="lineNum">     426 </span>                :<span class="lineCov">        598 :   (map-delete map-votes-reject-join {address: (var-get miner-to-remove-votes-join)})</span></a>
-<a name="427"><span class="lineNum">     427 </span>                :<span class="lineCov">        598 :   (map-delete map-block-asked-to-join {address: (var-get miner-to-remove-votes-join)})</span></a>
-<a name="428"><span class="lineNum">     428 </span>                :<span class="lineCov">        598 :   (map remove-map-record-join-vote (var-get miners-list))))</span></a>
+<a name="424"><span class="lineNum">     424 </span>                :<span class="lineNoCov">          0 : (begin </span></a>
+<a name="425"><span class="lineNum">     425 </span>                :<span class="lineNoCov">          0 :   (map-delete map-votes-accept-join {address: (var-get miner-to-remove-votes-join)})</span></a>
+<a name="426"><span class="lineNum">     426 </span>                :<span class="lineNoCov">          0 :   (map-delete map-votes-reject-join {address: (var-get miner-to-remove-votes-join)})</span></a>
+<a name="427"><span class="lineNum">     427 </span>                :<span class="lineNoCov">          0 :   (map-delete map-block-asked-to-join {address: (var-get miner-to-remove-votes-join)})</span></a>
+<a name="428"><span class="lineNum">     428 </span>                :<span class="lineNoCov">          0 :   (map remove-map-record-join-vote (var-get miners-list))))</span></a>
 <a name="429"><span class="lineNum">     429 </span>                :            : </a>
 <a name="430"><span class="lineNum">     430 </span>                :            : (define-private (remove-map-record-join-vote (miner principal))</a>
-<a name="431"><span class="lineNum">     431 </span>                :<span class="lineCov">        598 : (if (is-some (map-get? map-join-request-voter {miner-to-vote: (var-get miner-to-remove-votes-join), voter: miner})) </span></a>
-<a name="432"><span class="lineNum">     432 </span>           [<span class="branchCov" title="Branch 0 was taken 598 times"> + </span>]:<span class="lineCov">        598 :   (map-delete map-join-request-voter {miner-to-vote: (var-get miner-to-remove-votes-join), voter: miner})</span></a>
+<a name="431"><span class="lineNum">     431 </span>                :<span class="lineNoCov">          0 : (if (is-some (map-get? map-join-request-voter {miner-to-vote: (var-get miner-to-remove-votes-join), voter: miner})) </span></a>
+<a name="432"><span class="lineNum">     432 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (map-delete map-join-request-voter {miner-to-vote: (var-get miner-to-remove-votes-join), voter: miner})</span></a>
 <a name="433"><span class="lineNum">     433 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :   false))</span></a>
 <a name="434"><span class="lineNum">     434 </span>                :            : </a>
 <a name="435"><span class="lineNum">     435 </span>                :            : (define-private (is-in-voters-list (miner principal) (voters-list (list 300 principal))) </a>
 <a name="436"><span class="lineNum">     436 </span>                :<span class="lineNoCov">          0 : (is-some (index-of? voters-list miner)))</span></a>
 <a name="437"><span class="lineNum">     437 </span>                :            : </a>
 <a name="438"><span class="lineNum">     438 </span>                :            : (define-private (has-voted-join (miner principal)) </a>
-<a name="439"><span class="lineNum">     439 </span>                :<span class="lineCov">        897 : (not (if (is-some (get value (map-get? map-join-request-voter {miner-to-vote: miner, voter: tx-sender})))</span></a>
+<a name="439"><span class="lineNum">     439 </span>                :<span class="lineNoCov">          0 : (not (if (is-some (get value (map-get? map-join-request-voter {miner-to-vote: miner, voter: tx-sender})))</span></a>
 <a name="440"><span class="lineNum">     440 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :           (unwrap-panic (get value (map-get? map-join-request-voter {miner-to-vote: miner, voter: tx-sender})))</span></a>
-<a name="441"><span class="lineNum">     441 </span>           [<span class="branchCov" title="Branch 1 was taken 897 times"> + </span>]:<span class="lineCov">        897 :           false)))</span></a>
+<a name="441"><span class="lineNum">     441 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :           false)))</span></a>
 <a name="442"><span class="lineNum">     442 </span>                :            : </a>
 <a name="443"><span class="lineNum">     443 </span>                :            : (define-public (try-enter-pool)</a>
-<a name="444"><span class="lineNum">     444 </span>                :<span class="lineCov">        598 : (begin </span></a>
-<a name="445"><span class="lineNum">     445 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">        598 :   (asserts! (is-some (get value (map-get? map-votes-accept-join {address: tx-sender}))) err-not-asked-to-join)</span></a>
-<a name="446"><span class="lineNum">     446 </span>                :<span class="lineCov">        598 :   (if (is-vote-accepted (unwrap-panic (get value (map-get? map-votes-accept-join {address: tx-sender}))) (unwrap-panic (get-k-at-block-asked-to-join tx-sender)))</span></a>
-<a name="447"><span class="lineNum">     447 </span>           [<span class="branchCov" title="Branch 0 was taken 598 times"> + </span>]:<span class="lineCov">        598 :     (accept-miner-in-pool tx-sender) </span></a>
+<a name="444"><span class="lineNum">     444 </span>                :<span class="lineNoCov">          0 : (begin </span></a>
+<a name="445"><span class="lineNum">     445 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (asserts! (is-some (get value (map-get? map-votes-accept-join {address: tx-sender}))) err-not-asked-to-join)</span></a>
+<a name="446"><span class="lineNum">     446 </span>                :<span class="lineNoCov">          0 :   (if (is-vote-accepted (unwrap-panic (get value (map-get? map-votes-accept-join {address: tx-sender}))) (unwrap-panic (get-k-at-block-asked-to-join tx-sender)))</span></a>
+<a name="447"><span class="lineNum">     447 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (accept-miner-in-pool tx-sender) </span></a>
 <a name="448"><span class="lineNum">     448 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (ok false))))</span></a>
 <a name="449"><span class="lineNum">     449 </span>                :            : </a>
 <a name="450"><span class="lineNum">     450 </span>                :            : (define-public (add-pending-miners-to-pool) </a>
-<a name="451"><span class="lineNum">     451 </span>                :<span class="lineCov">          2 : (begin</span></a>
-<a name="452"><span class="lineNum">     452 </span>                :<span class="lineCov">          2 :   (let ((len-pending-accept-list (len (var-get pending-accept-list))))</span></a>
-<a name="453"><span class="lineNum">     453 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">          2 :     (asserts! (not (is-eq len-pending-accept-list u0)) err-no-pending-miners)</span></a>
-<a name="454"><span class="lineNum">     454 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">          2 :     (asserts! (x-blocks-passed blocks-to-pass) err-more-blocks-to-pass)</span></a>
-<a name="455"><span class="lineNum">     455 </span>                :<span class="lineCov">          2 :     (map add-miner-to-pool (var-get pending-accept-list))</span></a>
-<a name="456"><span class="lineNum">     456 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">          2 :     (asserts! (is-some (as-max-len? (concat (var-get miners-list) (var-get pending-accept-list)) u300)) err-list-length-exceeded)</span></a>
-<a name="457"><span class="lineNum">     457 </span>                :<span class="lineCov">          2 :     (var-set miners-list (unwrap-panic (as-max-len? (concat (var-get miners-list) (var-get pending-accept-list)) u300)))</span></a>
-<a name="458"><span class="lineNum">     458 </span>                :<span class="lineCov">          2 :     (var-set n (+ (var-get n) len-pending-accept-list))</span></a>
-<a name="459"><span class="lineNum">     459 </span>                :<span class="lineCov">          2 :     (var-set pending-accept-list (list ))</span></a>
-<a name="460"><span class="lineNum">     460 </span>                :<span class="lineCov">          2 :     (var-set last-join-done block-height)</span></a>
-<a name="461"><span class="lineNum">     461 </span>                :<span class="lineCov">          2 :     (some (update-threshold))</span></a>
-<a name="462"><span class="lineNum">     462 </span>                :<span class="lineCov">          2 :     (ok true))))</span></a>
+<a name="451"><span class="lineNum">     451 </span>                :<span class="lineNoCov">          0 : (begin</span></a>
+<a name="452"><span class="lineNum">     452 </span>                :<span class="lineNoCov">          0 :   (let ((len-pending-accept-list (len (var-get pending-accept-list))))</span></a>
+<a name="453"><span class="lineNum">     453 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (not (is-eq len-pending-accept-list u0)) err-no-pending-miners)</span></a>
+<a name="454"><span class="lineNum">     454 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (x-blocks-passed blocks-to-pass) err-more-blocks-to-pass)</span></a>
+<a name="455"><span class="lineNum">     455 </span>                :<span class="lineNoCov">          0 :     (map add-miner-to-pool (var-get pending-accept-list))</span></a>
+<a name="456"><span class="lineNum">     456 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (is-some (as-max-len? (concat (var-get miners-list) (var-get pending-accept-list)) u300)) err-list-length-exceeded)</span></a>
+<a name="457"><span class="lineNum">     457 </span>                :<span class="lineNoCov">          0 :     (var-set miners-list (unwrap-panic (as-max-len? (concat (var-get miners-list) (var-get pending-accept-list)) u300)))</span></a>
+<a name="458"><span class="lineNum">     458 </span>                :<span class="lineNoCov">          0 :     (var-set n (+ (var-get n) len-pending-accept-list))</span></a>
+<a name="459"><span class="lineNum">     459 </span>                :<span class="lineNoCov">          0 :     (var-set pending-accept-list (list ))</span></a>
+<a name="460"><span class="lineNum">     460 </span>                :<span class="lineNoCov">          0 :     (var-set last-join-done block-height)</span></a>
+<a name="461"><span class="lineNum">     461 </span>                :<span class="lineNoCov">          0 :     (some (update-threshold))</span></a>
+<a name="462"><span class="lineNum">     462 </span>                :<span class="lineNoCov">          0 :     (ok true))))</span></a>
 <a name="463"><span class="lineNum">     463 </span>                :            : </a>
 <a name="464"><span class="lineNum">     464 </span>                :            : (define-private (update-threshold) </a>
-<a name="465"><span class="lineNum">     465 </span>                :<span class="lineCov">          2 : (let ((n-now (var-get n))) </span></a>
-<a name="466"><span class="lineNum">     466 </span>                :<span class="lineCov">          2 :   (if </span></a>
-<a name="467"><span class="lineNum">     467 </span>                :<span class="lineCov">          2 :     (or </span></a>
-<a name="468"><span class="lineNum">     468 </span>           [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span>]:<span class="lineCov">          2 :       (is-eq n-now u1) </span></a>
-<a name="469"><span class="lineNum">     469 </span>           [<span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          2 :       (is-eq n-now u2)) </span></a>
+<a name="465"><span class="lineNum">     465 </span>                :<span class="lineNoCov">          0 : (let ((n-now (var-get n))) </span></a>
+<a name="466"><span class="lineNum">     466 </span>                :<span class="lineNoCov">          0 :   (if </span></a>
+<a name="467"><span class="lineNum">     467 </span>                :<span class="lineNoCov">          0 :     (or </span></a>
+<a name="468"><span class="lineNum">     468 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (is-eq n-now u1) </span></a>
+<a name="469"><span class="lineNum">     469 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (is-eq n-now u2)) </span></a>
 <a name="470"><span class="lineNum">     470 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (var-set k u1)</span></a>
-<a name="471"><span class="lineNum">     471 </span>           [<span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          2 :     (var-set k (/ (* (var-get k-percentage) (- n-now u1)) u100)))))</span></a>
+<a name="471"><span class="lineNum">     471 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (var-set k (/ (* (var-get k-percentage) (- n-now u1)) u100)))))</span></a>
 <a name="472"><span class="lineNum">     472 </span>                :            : </a>
 <a name="473"><span class="lineNum">     473 </span>                :            : (define-private (add-miner-to-pool (miner principal))</a>
-<a name="474"><span class="lineNum">     474 </span>                :<span class="lineCov">        598 : (begin </span></a>
-<a name="475"><span class="lineNum">     475 </span>                :<span class="lineCov">        598 :   (map-delete map-is-pending {address: miner})</span></a>
-<a name="476"><span class="lineNum">     476 </span>                :<span class="lineCov">        598 :   (map-set map-is-miner {address: miner} {value: true})</span></a>
-<a name="477"><span class="lineNum">     477 </span>                :<span class="lineCov">        598 :   (map-set map-block-joined {address: miner} {block-height: block-height})</span></a>
-<a name="478"><span class="lineNum">     478 </span>                :<span class="lineCov">        598 :   (ok true)))</span></a>
+<a name="474"><span class="lineNum">     474 </span>                :<span class="lineNoCov">          0 : (begin </span></a>
+<a name="475"><span class="lineNum">     475 </span>                :<span class="lineNoCov">          0 :   (map-delete map-is-pending {address: miner})</span></a>
+<a name="476"><span class="lineNum">     476 </span>                :<span class="lineNoCov">          0 :   (map-set map-is-miner {address: miner} {value: true})</span></a>
+<a name="477"><span class="lineNum">     477 </span>                :<span class="lineNoCov">          0 :   (map-set map-block-joined {address: miner} {block-height: block-height})</span></a>
+<a name="478"><span class="lineNum">     478 </span>                :<span class="lineNoCov">          0 :   (ok true)))</span></a>
 <a name="479"><span class="lineNum">     479 </span>                :            : </a>
 <a name="480"><span class="lineNum">     480 </span>                :            : (define-private (x-blocks-passed (x uint)) </a>
-<a name="481"><span class="lineNum">     481 </span>                :<span class="lineCov">          2 : (if (&gt;= (- block-height (var-get last-join-done)) x)</span></a>
-<a name="482"><span class="lineNum">     482 </span>           [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span>]:<span class="lineCov">          2 :   true</span></a>
+<a name="481"><span class="lineNum">     481 </span>                :<span class="lineNoCov">          0 : (if (&gt;= (- block-height (var-get last-join-done)) x)</span></a>
+<a name="482"><span class="lineNum">     482 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   true</span></a>
 <a name="483"><span class="lineNum">     483 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :   false))</span></a>
 <a name="484"><span class="lineNum">     484 </span>                :            : </a>
 <a name="485"><span class="lineNum">     485 </span>                :            : (define-private (get-k-at-block-asked-to-join (miner-to-vote principal))</a>
-<a name="486"><span class="lineNum">     486 </span>                :<span class="lineCov">        690 : (let ((block-asked-to-join (get value (map-get? map-block-asked-to-join {address: miner-to-vote}))))</span></a>
-<a name="487"><span class="lineNum">     487 </span>                :<span class="lineCov">        690 :   (begin </span></a>
-<a name="488"><span class="lineNum">     488 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">        690 :     (asserts! (is-some block-asked-to-join) err-not-asked-to-join)</span></a>
-<a name="489"><span class="lineNum">     489 </span>                :<span class="lineCov">        690 :     (if </span></a>
-<a name="490"><span class="lineNum">     490 </span>                :<span class="lineCov">        690 :       (is-eq </span></a>
-<a name="491"><span class="lineNum">     491 </span>                :<span class="lineCov">        690 :         (unwrap-panic block-asked-to-join) </span></a>
-<a name="492"><span class="lineNum">     492 </span>                :<span class="lineCov">        690 :         block-height) </span></a>
-<a name="493"><span class="lineNum">     493 </span>           [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span>]:<span class="lineCov">          1 :       (ok (var-get k)) </span></a>
-<a name="494"><span class="lineNum">     494 </span>           [<span class="branchCov" title="Branch 1 was taken 689 times"> + </span>]:<span class="lineCov">        689 :       (at-block </span></a>
-<a name="495"><span class="lineNum">     495 </span>                :<span class="lineCov">        689 :       (unwrap-panic </span></a>
-<a name="496"><span class="lineNum">     496 </span>                :<span class="lineCov">        689 :         (get-block-info? id-header-hash </span></a>
-<a name="497"><span class="lineNum">     497 </span>                :<span class="lineCov">        689 :           (unwrap-panic block-asked-to-join))) </span></a>
-<a name="498"><span class="lineNum">     498 </span>                :<span class="lineCov">        689 :             (ok (var-get k)))))))</span></a>
+<a name="486"><span class="lineNum">     486 </span>                :<span class="lineNoCov">          0 : (let ((block-asked-to-join (get value (map-get? map-block-asked-to-join {address: miner-to-vote}))))</span></a>
+<a name="487"><span class="lineNum">     487 </span>                :<span class="lineNoCov">          0 :   (begin </span></a>
+<a name="488"><span class="lineNum">     488 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (is-some block-asked-to-join) err-not-asked-to-join)</span></a>
+<a name="489"><span class="lineNum">     489 </span>                :<span class="lineNoCov">          0 :     (if </span></a>
+<a name="490"><span class="lineNum">     490 </span>                :<span class="lineNoCov">          0 :       (is-eq </span></a>
+<a name="491"><span class="lineNum">     491 </span>                :<span class="lineNoCov">          0 :         (unwrap-panic block-asked-to-join) </span></a>
+<a name="492"><span class="lineNum">     492 </span>                :<span class="lineNoCov">          0 :         block-height) </span></a>
+<a name="493"><span class="lineNum">     493 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (ok (var-get k)) </span></a>
+<a name="494"><span class="lineNum">     494 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (at-block </span></a>
+<a name="495"><span class="lineNum">     495 </span>                :<span class="lineNoCov">          0 :       (unwrap-panic </span></a>
+<a name="496"><span class="lineNum">     496 </span>                :<span class="lineNoCov">          0 :         (get-block-info? id-header-hash </span></a>
+<a name="497"><span class="lineNum">     497 </span>                :<span class="lineNoCov">          0 :           (unwrap-panic block-asked-to-join))) </span></a>
+<a name="498"><span class="lineNum">     498 </span>                :<span class="lineNoCov">          0 :             (ok (var-get k)))))))</span></a>
 <a name="499"><span class="lineNum">     499 </span>                :            : </a>
 <a name="500"><span class="lineNum">     500 </span>                :            : (define-private (get-n-at-block-asked-to-join (miner-to-vote principal)) </a>
-<a name="501"><span class="lineNum">     501 </span>                :<span class="lineCov">         92 : (let ((block-asked-to-join (get value (map-get? map-block-asked-to-join {address: miner-to-vote}))))</span></a>
-<a name="502"><span class="lineNum">     502 </span>                :<span class="lineCov">         92 :   (begin </span></a>
-<a name="503"><span class="lineNum">     503 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">         92 :     (asserts! (is-some block-asked-to-join) err-not-asked-to-join)</span></a>
-<a name="504"><span class="lineNum">     504 </span>                :<span class="lineCov">         92 :     (if </span></a>
-<a name="505"><span class="lineNum">     505 </span>                :<span class="lineCov">         92 :       (is-eq </span></a>
-<a name="506"><span class="lineNum">     506 </span>                :<span class="lineCov">         92 :         (unwrap-panic block-asked-to-join) block-height) </span></a>
-<a name="507"><span class="lineNum">     507 </span>           [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span>]:<span class="lineCov">          1 :       (ok (var-get n)) </span></a>
-<a name="508"><span class="lineNum">     508 </span>           [<span class="branchCov" title="Branch 1 was taken 91 times"> + </span>]:<span class="lineCov">         91 :       (at-block  </span></a>
-<a name="509"><span class="lineNum">     509 </span>                :<span class="lineCov">         91 :       (unwrap-panic </span></a>
-<a name="510"><span class="lineNum">     510 </span>                :<span class="lineCov">         91 :         (get-block-info? id-header-hash </span></a>
-<a name="511"><span class="lineNum">     511 </span>                :<span class="lineCov">         91 :           (unwrap-panic block-asked-to-join))) </span></a>
-<a name="512"><span class="lineNum">     512 </span>                :<span class="lineCov">         91 :             (ok (var-get n)))))))</span></a>
+<a name="501"><span class="lineNum">     501 </span>                :<span class="lineNoCov">          0 : (let ((block-asked-to-join (get value (map-get? map-block-asked-to-join {address: miner-to-vote}))))</span></a>
+<a name="502"><span class="lineNum">     502 </span>                :<span class="lineNoCov">          0 :   (begin </span></a>
+<a name="503"><span class="lineNum">     503 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (is-some block-asked-to-join) err-not-asked-to-join)</span></a>
+<a name="504"><span class="lineNum">     504 </span>                :<span class="lineNoCov">          0 :     (if </span></a>
+<a name="505"><span class="lineNum">     505 </span>                :<span class="lineNoCov">          0 :       (is-eq </span></a>
+<a name="506"><span class="lineNum">     506 </span>                :<span class="lineNoCov">          0 :         (unwrap-panic block-asked-to-join) block-height) </span></a>
+<a name="507"><span class="lineNum">     507 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (ok (var-get n)) </span></a>
+<a name="508"><span class="lineNum">     508 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (at-block  </span></a>
+<a name="509"><span class="lineNum">     509 </span>                :<span class="lineNoCov">          0 :       (unwrap-panic </span></a>
+<a name="510"><span class="lineNum">     510 </span>                :<span class="lineNoCov">          0 :         (get-block-info? id-header-hash </span></a>
+<a name="511"><span class="lineNum">     511 </span>                :<span class="lineNoCov">          0 :           (unwrap-panic block-asked-to-join))) </span></a>
+<a name="512"><span class="lineNum">     512 </span>                :<span class="lineNoCov">          0 :             (ok (var-get n)))))))</span></a>
 <a name="513"><span class="lineNum">     513 </span>                :            : </a>
 <a name="514"><span class="lineNum">     514 </span>                :            : ;; LEAVING FLOW</a>
 <a name="515"><span class="lineNum">     515 </span>                :            : </a>
@@ -613,15 +613,15 @@
 <a name="542"><span class="lineNum">     542 </span>                :            : ;; REMOVING FLOW</a>
 <a name="543"><span class="lineNum">     543 </span>                :            : </a>
 <a name="544"><span class="lineNum">     544 </span>                :            : (define-public (propose-removal (miner-to-remove principal))</a>
-<a name="545"><span class="lineNum">     545 </span>                :<span class="lineCov">          1 : (begin </span></a>
-<a name="546"><span class="lineNum">     546 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">          1 :   (asserts! (not (is-eq (var-get n) u1)) err-cant-remove-when-alone-in-pool)</span></a>
-<a name="547"><span class="lineNum">     547 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">          1 :   (asserts! (check-is-miner-now contract-caller) err-not-in-miner-map) </span></a>
-<a name="548"><span class="lineNum">     548 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">          1 :   (asserts! (check-is-miner-now miner-to-remove) err-not-in-miner-map-miner-to-remove)</span></a>
-<a name="549"><span class="lineNum">     549 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">          1 :   (asserts! (not (check-is-proposed-for-removal-now miner-to-remove)) err-already-proposed-for-removal) </span></a>
-<a name="550"><span class="lineNum">     550 </span>                :<span class="lineCov">          1 :   (map-set map-block-proposed-to-remove {address: miner-to-remove} {value: block-height})</span></a>
-<a name="551"><span class="lineNum">     551 </span>                :<span class="lineCov">          1 :   (map-set map-is-proposed-for-removal {address: miner-to-remove} {value: true})</span></a>
-<a name="552"><span class="lineNum">     552 </span>                :<span class="lineCov">          1 :   (var-set proposed-removal-list (unwrap! (as-max-len? (concat (var-get proposed-removal-list) (list miner-to-remove )) u300) err-list-length-exceeded))</span></a>
-<a name="553"><span class="lineNum">     553 </span>                :<span class="lineCov">          1 :   (ok true)))</span></a>
+<a name="545"><span class="lineNum">     545 </span>                :<span class="lineNoCov">          0 : (begin </span></a>
+<a name="546"><span class="lineNum">     546 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (asserts! (not (is-eq (var-get n) u1)) err-cant-remove-when-alone-in-pool)</span></a>
+<a name="547"><span class="lineNum">     547 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (asserts! (check-is-miner-now contract-caller) err-not-in-miner-map) </span></a>
+<a name="548"><span class="lineNum">     548 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (asserts! (check-is-miner-now miner-to-remove) err-not-in-miner-map-miner-to-remove)</span></a>
+<a name="549"><span class="lineNum">     549 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (asserts! (not (check-is-proposed-for-removal-now miner-to-remove)) err-already-proposed-for-removal) </span></a>
+<a name="550"><span class="lineNum">     550 </span>                :<span class="lineNoCov">          0 :   (map-set map-block-proposed-to-remove {address: miner-to-remove} {value: block-height})</span></a>
+<a name="551"><span class="lineNum">     551 </span>                :<span class="lineNoCov">          0 :   (map-set map-is-proposed-for-removal {address: miner-to-remove} {value: true})</span></a>
+<a name="552"><span class="lineNum">     552 </span>                :<span class="lineNoCov">          0 :   (var-set proposed-removal-list (unwrap! (as-max-len? (concat (var-get proposed-removal-list) (list miner-to-remove )) u300) err-list-length-exceeded))</span></a>
+<a name="553"><span class="lineNum">     553 </span>                :<span class="lineNoCov">          0 :   (ok true)))</span></a>
 <a name="554"><span class="lineNum">     554 </span>                :            : </a>
 <a name="555"><span class="lineNum">     555 </span>                :            : (define-public (vote-positive-remove-request (miner-to-vote principal))</a>
 <a name="556"><span class="lineNum">     556 </span>                :<span class="lineNoCov">          0 : (begin</span></a>
@@ -725,14 +725,14 @@
 <a name="654"><span class="lineNum">     654 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :   false))</span></a>
 <a name="655"><span class="lineNum">     655 </span>                :            : </a>
 <a name="656"><span class="lineNum">     656 </span>                :            : (define-private (get-k-at-block-proposed-removal (miner-to-vote principal)) </a>
-<a name="657"><span class="lineNum">     657 </span>                :<span class="lineCov">          1 : (let ((block-proposed-to-remove (get value (map-get? map-block-proposed-to-remove {address: miner-to-vote}))))</span></a>
-<a name="658"><span class="lineNum">     658 </span>                :<span class="lineCov">          1 :   (begin </span></a>
-<a name="659"><span class="lineNum">     659 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">          1 :     (asserts! (is-some block-proposed-to-remove) err-not-proposed-for-removal)</span></a>
-<a name="660"><span class="lineNum">     660 </span>                :<span class="lineCov">          1 :     (if </span></a>
-<a name="661"><span class="lineNum">     661 </span>                :<span class="lineCov">          1 :       (is-eq (unwrap-panic </span></a>
-<a name="662"><span class="lineNum">     662 </span>                :<span class="lineCov">          1 :         block-proposed-to-remove) </span></a>
-<a name="663"><span class="lineNum">     663 </span>                :<span class="lineCov">          1 :         block-height) </span></a>
-<a name="664"><span class="lineNum">     664 </span>           [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span>]:<span class="lineCov">          1 :       (ok (var-get k)) </span></a>
+<a name="657"><span class="lineNum">     657 </span>                :<span class="lineNoCov">          0 : (let ((block-proposed-to-remove (get value (map-get? map-block-proposed-to-remove {address: miner-to-vote}))))</span></a>
+<a name="658"><span class="lineNum">     658 </span>                :<span class="lineNoCov">          0 :   (begin </span></a>
+<a name="659"><span class="lineNum">     659 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (is-some block-proposed-to-remove) err-not-proposed-for-removal)</span></a>
+<a name="660"><span class="lineNum">     660 </span>                :<span class="lineNoCov">          0 :     (if </span></a>
+<a name="661"><span class="lineNum">     661 </span>                :<span class="lineNoCov">          0 :       (is-eq (unwrap-panic </span></a>
+<a name="662"><span class="lineNum">     662 </span>                :<span class="lineNoCov">          0 :         block-proposed-to-remove) </span></a>
+<a name="663"><span class="lineNum">     663 </span>                :<span class="lineNoCov">          0 :         block-height) </span></a>
+<a name="664"><span class="lineNum">     664 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (ok (var-get k)) </span></a>
 <a name="665"><span class="lineNum">     665 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (at-block </span></a>
 <a name="666"><span class="lineNum">     666 </span>                :<span class="lineNoCov">          0 :         (unwrap-panic </span></a>
 <a name="667"><span class="lineNum">     667 </span>                :<span class="lineNoCov">          0 :           (get-block-info? id-header-hash </span></a>
@@ -740,14 +740,14 @@
 <a name="669"><span class="lineNum">     669 </span>                :<span class="lineNoCov">          0 :               (ok (var-get k)))))))</span></a>
 <a name="670"><span class="lineNum">     670 </span>                :            : </a>
 <a name="671"><span class="lineNum">     671 </span>                :            : (define-private (get-n-at-block-proposed-removal (miner-to-vote principal))</a>
-<a name="672"><span class="lineNum">     672 </span>                :<span class="lineCov">          1 : (let ((block-proposed-to-remove (get value (map-get? map-block-proposed-to-remove {address: miner-to-vote})))) </span></a>
-<a name="673"><span class="lineNum">     673 </span>                :<span class="lineCov">          1 :   (begin </span></a>
-<a name="674"><span class="lineNum">     674 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">          1 :     (asserts! (is-some block-proposed-to-remove) err-not-proposed-for-removal)</span></a>
-<a name="675"><span class="lineNum">     675 </span>                :<span class="lineCov">          1 :     (if </span></a>
-<a name="676"><span class="lineNum">     676 </span>                :<span class="lineCov">          1 :       (is-eq (unwrap-panic </span></a>
-<a name="677"><span class="lineNum">     677 </span>                :<span class="lineCov">          1 :         block-proposed-to-remove) </span></a>
-<a name="678"><span class="lineNum">     678 </span>                :<span class="lineCov">          1 :         block-height) </span></a>
-<a name="679"><span class="lineNum">     679 </span>           [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span>]:<span class="lineCov">          1 :       (ok (var-get n)) </span></a>
+<a name="672"><span class="lineNum">     672 </span>                :<span class="lineNoCov">          0 : (let ((block-proposed-to-remove (get value (map-get? map-block-proposed-to-remove {address: miner-to-vote})))) </span></a>
+<a name="673"><span class="lineNum">     673 </span>                :<span class="lineNoCov">          0 :   (begin </span></a>
+<a name="674"><span class="lineNum">     674 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (is-some block-proposed-to-remove) err-not-proposed-for-removal)</span></a>
+<a name="675"><span class="lineNum">     675 </span>                :<span class="lineNoCov">          0 :     (if </span></a>
+<a name="676"><span class="lineNum">     676 </span>                :<span class="lineNoCov">          0 :       (is-eq (unwrap-panic </span></a>
+<a name="677"><span class="lineNum">     677 </span>                :<span class="lineNoCov">          0 :         block-proposed-to-remove) </span></a>
+<a name="678"><span class="lineNum">     678 </span>                :<span class="lineNoCov">          0 :         block-height) </span></a>
+<a name="679"><span class="lineNum">     679 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (ok (var-get n)) </span></a>
 <a name="680"><span class="lineNum">     680 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (at-block </span></a>
 <a name="681"><span class="lineNum">     681 </span>                :<span class="lineNoCov">          0 :         (unwrap-panic </span></a>
 <a name="682"><span class="lineNum">     682 </span>                :<span class="lineNoCov">          0 :           (get-block-info? id-header-hash </span></a>
@@ -876,10 +876,10 @@
 <a name="805"><span class="lineNum">     805 </span>                :            : ;; ELECTION FUNCTIONS</a>
 <a name="806"><span class="lineNum">     806 </span>                :            : </a>
 <a name="807"><span class="lineNum">     807 </span>                :            : (define-private (is-vote-accepted (votes-number uint) (k-local uint))</a>
-<a name="808"><span class="lineNum">     808 </span>                :<span class="lineCov">        598 : (if </span></a>
-<a name="809"><span class="lineNum">     809 </span>                :<span class="lineCov">        598 :   (is-eq k-local u0) ;; k is 0 for n=1, n=2 </span></a>
+<a name="808"><span class="lineNum">     808 </span>                :<span class="lineNoCov">          0 : (if </span></a>
+<a name="809"><span class="lineNum">     809 </span>                :<span class="lineNoCov">          0 :   (is-eq k-local u0) ;; k is 0 for n=1, n=2 </span></a>
 <a name="810"><span class="lineNum">     810 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (&gt;= votes-number u1) </span></a>
-<a name="811"><span class="lineNum">     811 </span>           [<span class="branchCov" title="Branch 1 was taken 598 times"> + </span>]:<span class="lineCov">        598 :     (&gt;= votes-number k-local)))</span></a>
+<a name="811"><span class="lineNum">     811 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (&gt;= votes-number k-local)))</span></a>
 <a name="812"><span class="lineNum">     812 </span>                :            : </a>
 <a name="813"><span class="lineNum">     813 </span>                :            : (define-private (is-democratic-vote-accepted-notifier (votes-number uint) (k-local uint))</a>
 <a name="814"><span class="lineNum">     814 </span>                :<span class="lineNoCov">          0 : (if </span></a>
@@ -888,12 +888,12 @@
 <a name="817"><span class="lineNum">     817 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (&gt;= votes-number (/ k-local u2))))</span></a>
 <a name="818"><span class="lineNum">     818 </span>                :            : </a>
 <a name="819"><span class="lineNum">     819 </span>                :            : (define-private (is-vote-rejected-join (votes-number uint) (k-local uint) (n-local uint))</a>
-<a name="820"><span class="lineNum">     820 </span>                :<span class="lineCov">         90 : (if </span></a>
-<a name="821"><span class="lineNum">     821 </span>                :<span class="lineCov">         90 :   (is-eq n-local u1) </span></a>
+<a name="820"><span class="lineNum">     820 </span>                :<span class="lineNoCov">          0 : (if </span></a>
+<a name="821"><span class="lineNum">     821 </span>                :<span class="lineNoCov">          0 :   (is-eq n-local u1) </span></a>
 <a name="822"><span class="lineNum">     822 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (&gt;= votes-number u1) </span></a>
-<a name="823"><span class="lineNum">     823 </span>           [<span class="branchCov" title="Branch 1 was taken 90 times"> + </span>]:<span class="lineCov">         90 :   (if (is-eq n-local u2) </span></a>
+<a name="823"><span class="lineNum">     823 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (if (is-eq n-local u2) </span></a>
 <a name="824"><span class="lineNum">     824 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (&gt;= votes-number u2) </span></a>
-<a name="825"><span class="lineNum">     825 </span>           [<span class="branchCov" title="Branch 1 was taken 90 times"> + </span>]:<span class="lineCov">         90 :     (&gt;= votes-number (+ (- n-local k-local) u1)))))</span></a>
+<a name="825"><span class="lineNum">     825 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (&gt;= votes-number (+ (- n-local k-local) u1)))))</span></a>
 <a name="826"><span class="lineNum">     826 </span>                :            : </a>
 <a name="827"><span class="lineNum">     827 </span>                :            : </a>
 <a name="828"><span class="lineNum">     828 </span>                :            : (define-private (is-vote-rejected-remove (votes-number uint) (k-local uint) (n-local uint))</a>
@@ -945,9 +945,9 @@
 <a name="874"><span class="lineNum">     874 </span>                :            : ;; LIST PROCESSING FUNCTIONS</a>
 <a name="875"><span class="lineNum">     875 </span>                :            : </a>
 <a name="876"><span class="lineNum">     876 </span>                :            : (define-private (remove-principal-waiting-list (miner principal))</a>
-<a name="877"><span class="lineNum">     877 </span>                :<span class="lineCov">        598 : (begin</span></a>
-<a name="878"><span class="lineNum">     878 </span>                :<span class="lineCov">        598 :     (var-set waiting-list-miner-to-remove miner) </span></a>
-<a name="879"><span class="lineNum">     879 </span>                :<span class="lineCov">        598 :     (ok (filter is-principal-in-waiting-list (var-get waiting-list))))) </span></a>
+<a name="877"><span class="lineNum">     877 </span>                :<span class="lineNoCov">          0 : (begin</span></a>
+<a name="878"><span class="lineNum">     878 </span>                :<span class="lineNoCov">          0 :     (var-set waiting-list-miner-to-remove miner) </span></a>
+<a name="879"><span class="lineNum">     879 </span>                :<span class="lineNoCov">          0 :     (ok (filter is-principal-in-waiting-list (var-get waiting-list))))) </span></a>
 <a name="880"><span class="lineNum">     880 </span>                :            : </a>
 <a name="881"><span class="lineNum">     881 </span>                :            : (define-private (remove-principal-pending-accept-list (miner principal))</a>
 <a name="882"><span class="lineNum">     882 </span>                :<span class="lineNoCov">          0 : (begin </span></a>
@@ -967,33 +967,33 @@
 <a name="896"><span class="lineNum">     896 </span>                :            : ;; MINER STATUS FUNCTIONS</a>
 <a name="897"><span class="lineNum">     897 </span>                :            : </a>
 <a name="898"><span class="lineNum">     898 </span>                :            : (define-private (check-is-miner-when-requested-join (miner-to-vote principal))</a>
-<a name="899"><span class="lineNum">     899 </span>                :<span class="lineCov">        897 : (ok </span></a>
-<a name="900"><span class="lineNum">     900 </span>                :<span class="lineCov">        897 :   (if </span></a>
-<a name="901"><span class="lineNum">     901 </span>                :<span class="lineCov">        897 :     (is-some </span></a>
-<a name="902"><span class="lineNum">     902 </span>                :<span class="lineCov">        897 :       (if </span></a>
-<a name="903"><span class="lineNum">     903 </span>                :<span class="lineCov">        897 :         (is-eq  </span></a>
-<a name="904"><span class="lineNum">     904 </span>                :<span class="lineCov">        897 :           (unwrap! (get value (map-get? map-block-asked-to-join {address: miner-to-vote})) err-cant-unwrap-asked-to-join) </span></a>
-<a name="905"><span class="lineNum">     905 </span>                :<span class="lineCov">        897 :           block-height)</span></a>
+<a name="899"><span class="lineNum">     899 </span>                :<span class="lineNoCov">          0 : (ok </span></a>
+<a name="900"><span class="lineNum">     900 </span>                :<span class="lineNoCov">          0 :   (if </span></a>
+<a name="901"><span class="lineNum">     901 </span>                :<span class="lineNoCov">          0 :     (is-some </span></a>
+<a name="902"><span class="lineNum">     902 </span>                :<span class="lineNoCov">          0 :       (if </span></a>
+<a name="903"><span class="lineNum">     903 </span>                :<span class="lineNoCov">          0 :         (is-eq  </span></a>
+<a name="904"><span class="lineNum">     904 </span>                :<span class="lineNoCov">          0 :           (unwrap! (get value (map-get? map-block-asked-to-join {address: miner-to-vote})) err-cant-unwrap-asked-to-join) </span></a>
+<a name="905"><span class="lineNum">     905 </span>                :<span class="lineNoCov">          0 :           block-height)</span></a>
 <a name="906"><span class="lineNum">     906 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :         (get value (map-get? map-is-miner {address: contract-caller})) </span></a>
-<a name="907"><span class="lineNum">     907 </span>           [<span class="branchCov" title="Branch 1 was taken 897 times"> + </span>]:<span class="lineCov">        897 :         (at-block </span></a>
-<a name="908"><span class="lineNum">     908 </span>                :<span class="lineCov">        897 :           (unwrap! </span></a>
-<a name="909"><span class="lineNum">     909 </span>                :<span class="lineCov">        897 :             (get-block-info? id-header-hash </span></a>
-<a name="910"><span class="lineNum">     910 </span>                :<span class="lineCov">        897 :               (unwrap! (get value (map-get? map-block-asked-to-join {address: miner-to-vote})) err-cant-unwrap-asked-to-join)) </span></a>
-<a name="911"><span class="lineNum">     911 </span>                :<span class="lineCov">        897 :           err-cant-unwrap-block-info) </span></a>
-<a name="912"><span class="lineNum">     912 </span>                :<span class="lineCov">        897 :           (get value (map-get? map-is-miner {address: contract-caller})))))</span></a>
-<a name="913"><span class="lineNum">     913 </span>           [<span class="branchCov" title="Branch 0 was taken 897 times"> + </span>]:<span class="lineCov">        897 :     (if </span></a>
-<a name="914"><span class="lineNum">     914 </span>                :<span class="lineCov">        897 :       (is-eq </span></a>
-<a name="915"><span class="lineNum">     915 </span>                :<span class="lineCov">        897 :         (unwrap! </span></a>
-<a name="916"><span class="lineNum">     916 </span>                :<span class="lineCov">        897 :           (get value (map-get? map-block-asked-to-join {address: miner-to-vote})) </span></a>
-<a name="917"><span class="lineNum">     917 </span>                :<span class="lineCov">        897 :         err-cant-unwrap-asked-to-join) </span></a>
-<a name="918"><span class="lineNum">     918 </span>                :<span class="lineCov">        897 :         block-height) </span></a>
+<a name="907"><span class="lineNum">     907 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :         (at-block </span></a>
+<a name="908"><span class="lineNum">     908 </span>                :<span class="lineNoCov">          0 :           (unwrap! </span></a>
+<a name="909"><span class="lineNum">     909 </span>                :<span class="lineNoCov">          0 :             (get-block-info? id-header-hash </span></a>
+<a name="910"><span class="lineNum">     910 </span>                :<span class="lineNoCov">          0 :               (unwrap! (get value (map-get? map-block-asked-to-join {address: miner-to-vote})) err-cant-unwrap-asked-to-join)) </span></a>
+<a name="911"><span class="lineNum">     911 </span>                :<span class="lineNoCov">          0 :           err-cant-unwrap-block-info) </span></a>
+<a name="912"><span class="lineNum">     912 </span>                :<span class="lineNoCov">          0 :           (get value (map-get? map-is-miner {address: contract-caller})))))</span></a>
+<a name="913"><span class="lineNum">     913 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (if </span></a>
+<a name="914"><span class="lineNum">     914 </span>                :<span class="lineNoCov">          0 :       (is-eq </span></a>
+<a name="915"><span class="lineNum">     915 </span>                :<span class="lineNoCov">          0 :         (unwrap! </span></a>
+<a name="916"><span class="lineNum">     916 </span>                :<span class="lineNoCov">          0 :           (get value (map-get? map-block-asked-to-join {address: miner-to-vote})) </span></a>
+<a name="917"><span class="lineNum">     917 </span>                :<span class="lineNoCov">          0 :         err-cant-unwrap-asked-to-join) </span></a>
+<a name="918"><span class="lineNum">     918 </span>                :<span class="lineNoCov">          0 :         block-height) </span></a>
 <a name="919"><span class="lineNum">     919 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (unwrap-panic (get value (map-get? map-is-miner {address: contract-caller}))) </span></a>
-<a name="920"><span class="lineNum">     920 </span>           [<span class="branchCov" title="Branch 1 was taken 897 times"> + </span>]:<span class="lineCov">        897 :       (at-block</span></a>
-<a name="921"><span class="lineNum">     921 </span>                :<span class="lineCov">        897 :         (unwrap! </span></a>
-<a name="922"><span class="lineNum">     922 </span>                :<span class="lineCov">        897 :           (get-block-info? id-header-hash </span></a>
-<a name="923"><span class="lineNum">     923 </span>                :<span class="lineCov">        897 :             (unwrap-panic (get value (map-get? map-block-asked-to-join {address: miner-to-vote}))))</span></a>
-<a name="924"><span class="lineNum">     924 </span>                :<span class="lineCov">        897 :         err-cant-unwrap-block-info)</span></a>
-<a name="925"><span class="lineNum">     925 </span>                :<span class="lineCov">        897 :         (unwrap-panic (get value (map-get? map-is-miner {address: contract-caller})))))</span></a>
+<a name="920"><span class="lineNum">     920 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (at-block</span></a>
+<a name="921"><span class="lineNum">     921 </span>                :<span class="lineNoCov">          0 :         (unwrap! </span></a>
+<a name="922"><span class="lineNum">     922 </span>                :<span class="lineNoCov">          0 :           (get-block-info? id-header-hash </span></a>
+<a name="923"><span class="lineNum">     923 </span>                :<span class="lineNoCov">          0 :             (unwrap-panic (get value (map-get? map-block-asked-to-join {address: miner-to-vote}))))</span></a>
+<a name="924"><span class="lineNum">     924 </span>                :<span class="lineNoCov">          0 :         err-cant-unwrap-block-info)</span></a>
+<a name="925"><span class="lineNum">     925 </span>                :<span class="lineNoCov">          0 :         (unwrap-panic (get value (map-get? map-is-miner {address: contract-caller})))))</span></a>
 <a name="926"><span class="lineNum">     926 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :   false)))</span></a>
 <a name="927"><span class="lineNum">     927 </span>                :            : </a>
 <a name="928"><span class="lineNum">     928 </span>                :            : (define-private (check-is-miner-when-requested-remove (miner-to-vote principal))</a>
@@ -1030,19 +1030,19 @@
 <a name="959"><span class="lineNum">     959 </span>                :<span class="lineNoCov">          0 : (get value (map-get? map-is-miner {address: contract-caller})))</span></a>
 <a name="960"><span class="lineNum">     960 </span>                :            : </a>
 <a name="961"><span class="lineNum">     961 </span>                :            : (define-private (check-is-miner-now (miner principal))</a>
-<a name="962"><span class="lineNum">     962 </span>                :<span class="lineCov">        601 : (if (is-some (get value (map-get? map-is-miner {address: miner})))</span></a>
-<a name="963"><span class="lineNum">     963 </span>           [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span>]:<span class="lineCov">          2 :   (unwrap-panic (get value (map-get? map-is-miner {address: miner})))</span></a>
-<a name="964"><span class="lineNum">     964 </span>           [<span class="branchCov" title="Branch 1 was taken 599 times"> + </span>]:<span class="lineCov">        599 :   false))</span></a>
+<a name="962"><span class="lineNum">     962 </span>                :<span class="lineNoCov">          0 : (if (is-some (get value (map-get? map-is-miner {address: miner})))</span></a>
+<a name="963"><span class="lineNum">     963 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (unwrap-panic (get value (map-get? map-is-miner {address: miner})))</span></a>
+<a name="964"><span class="lineNum">     964 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :   false))</span></a>
 <a name="965"><span class="lineNum">     965 </span>                :            : </a>
 <a name="966"><span class="lineNum">     966 </span>                :            : (define-private (check-is-proposed-for-removal-now (miner principal))</a>
-<a name="967"><span class="lineNum">     967 </span>                :<span class="lineCov">          1 : (if (is-some (get value (map-get? map-is-proposed-for-removal {address: miner})))</span></a>
+<a name="967"><span class="lineNum">     967 </span>                :<span class="lineNoCov">          0 : (if (is-some (get value (map-get? map-is-proposed-for-removal {address: miner})))</span></a>
 <a name="968"><span class="lineNum">     968 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (unwrap-panic (get value (map-get? map-is-proposed-for-removal {address: miner})))</span></a>
-<a name="969"><span class="lineNum">     969 </span>           [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          1 :   false))</span></a>
+<a name="969"><span class="lineNum">     969 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :   false))</span></a>
 <a name="970"><span class="lineNum">     970 </span>                :            : </a>
 <a name="971"><span class="lineNum">     971 </span>                :            : (define-private (check-is-waiting-now (miner principal))</a>
-<a name="972"><span class="lineNum">     972 </span>                :<span class="lineCov">       1496 : (if (is-some (get value (map-get? map-is-waiting {address: miner})))</span></a>
-<a name="973"><span class="lineNum">     973 </span>           [<span class="branchCov" title="Branch 0 was taken 897 times"> + </span>]:<span class="lineCov">        897 :   (unwrap-panic (get value (map-get? map-is-waiting {address: miner})))</span></a>
-<a name="974"><span class="lineNum">     974 </span>           [<span class="branchCov" title="Branch 1 was taken 599 times"> + </span>]:<span class="lineCov">        599 :   false))</span></a>
+<a name="972"><span class="lineNum">     972 </span>                :<span class="lineNoCov">          0 : (if (is-some (get value (map-get? map-is-waiting {address: miner})))</span></a>
+<a name="973"><span class="lineNum">     973 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (unwrap-panic (get value (map-get? map-is-waiting {address: miner})))</span></a>
+<a name="974"><span class="lineNum">     974 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :   false))</span></a>
 <a name="975"><span class="lineNum">     975 </span>                :            : </a>
 <a name="976"><span class="lineNum">     976 </span>                :            : (define-private (check-is-pending-now (miner principal))</a>
 <a name="977"><span class="lineNum">     977 </span>                :<span class="lineNoCov">          0 : (if (is-some (get value (map-get? map-is-pending {address: miner})))</span></a>
@@ -1091,13 +1091,13 @@
 <a name="1020"><span class="lineNum">    1020 </span>                :<span class="lineNoCov">          0 : (var-get total-rewarded))</span></a>
 <a name="1021"><span class="lineNum">    1021 </span>                :            : </a>
 <a name="1022"><span class="lineNum">    1022 </span>                :            : (define-read-only (get-waiting-list) </a>
-<a name="1023"><span class="lineNum">    1023 </span>                :<span class="lineCov">          2 : (var-get waiting-list))</span></a>
+<a name="1023"><span class="lineNum">    1023 </span>                :<span class="lineNoCov">          0 : (var-get waiting-list))</span></a>
 <a name="1024"><span class="lineNum">    1024 </span>                :            : </a>
 <a name="1025"><span class="lineNum">    1025 </span>                :            : (define-read-only (get-miners-list) </a>
-<a name="1026"><span class="lineNum">    1026 </span>                :<span class="lineCov">          2 : (var-get miners-list))</span></a>
+<a name="1026"><span class="lineNum">    1026 </span>                :<span class="lineNoCov">          0 : (var-get miners-list))</span></a>
 <a name="1027"><span class="lineNum">    1027 </span>                :            : </a>
 <a name="1028"><span class="lineNum">    1028 </span>                :            : (define-read-only (get-pending-accept-list) </a>
-<a name="1029"><span class="lineNum">    1029 </span>                :<span class="lineCov">          2 : (var-get pending-accept-list ))</span></a>
+<a name="1029"><span class="lineNum">    1029 </span>                :<span class="lineNoCov">          0 : (var-get pending-accept-list ))</span></a>
 <a name="1030"><span class="lineNum">    1030 </span>                :            : </a>
 <a name="1031"><span class="lineNum">    1031 </span>                :            : (define-read-only (get-proposed-removal-list) </a>
 <a name="1032"><span class="lineNum">    1032 </span>                :<span class="lineNoCov">          0 : (var-get proposed-removal-list ))</span></a>
@@ -1118,9 +1118,9 @@
 <a name="1047"><span class="lineNum">    1047 </span>                :<span class="lineNoCov">          0 : (ok block-height))</span></a>
 <a name="1048"><span class="lineNum">    1048 </span>                :            : </a>
 <a name="1049"><span class="lineNum">    1049 </span>                :            : (define-private (is-principal-in-waiting-list (miner principal))</a>
-<a name="1050"><span class="lineNum">    1050 </span>                :<span class="lineCov">      89700 : (not (is-eq </span></a>
-<a name="1051"><span class="lineNum">    1051 </span>                :<span class="lineCov">      89700 :   (var-get waiting-list-miner-to-remove)</span></a>
-<a name="1052"><span class="lineNum">    1052 </span>                :<span class="lineCov">      89700 :   miner)))</span></a>
+<a name="1050"><span class="lineNum">    1050 </span>                :<span class="lineNoCov">          0 : (not (is-eq </span></a>
+<a name="1051"><span class="lineNum">    1051 </span>                :<span class="lineNoCov">          0 :   (var-get waiting-list-miner-to-remove)</span></a>
+<a name="1052"><span class="lineNum">    1052 </span>                :<span class="lineNoCov">          0 :   miner)))</span></a>
 <a name="1053"><span class="lineNum">    1053 </span>                :            : </a>
 <a name="1054"><span class="lineNum">    1054 </span>                :            : (define-private (is-principal-in-pending-accept-list (miner principal))</a>
 <a name="1055"><span class="lineNum">    1055 </span>                :<span class="lineNoCov">          0 : (not (is-eq </span></a>

@@ -382,6 +382,22 @@
         false))
     (ok true)))
 
+(define-public (quit-waiting-list) 
+  (begin 
+    (asserts! (check-is-waiting-now contract-caller) err-not-asked-to-join)
+    (asserts! 
+      (<= 
+        blocks-to-pass
+        (- block-height 
+          (default-to block-height 
+            (get value 
+              (map-get? map-block-asked-to-join {address: contract-caller}))))) err-more-blocks-to-pass)
+    (let ((remove-result (unwrap-panic (remove-principal-waiting-list contract-caller))))
+      (var-set miner-to-remove-votes-join contract-caller)
+      (var-set waiting-list remove-result)
+      (map-delete map-is-waiting {address: contract-caller})
+      (ok (clear-votes-map-join-vote contract-caller)))))
+
 (define-private (accept-miner-in-pool (miner principal)) 
 (begin 
   (let ((pending-accept-result (as-max-len? (concat (var-get pending-accept-list) (list miner)) u300)))
@@ -574,6 +590,21 @@
       (ok false)))
   (ok true)))
 
+(define-public (quit-proposed-removal-list) 
+  (begin 
+    (asserts! 
+      (<= 
+        blocks-to-pass
+        (- block-height 
+          (default-to block-height 
+            (get value 
+              (map-get? map-block-proposed-to-remove {address: contract-caller}))))) err-more-blocks-to-pass)
+    (let ((remove-result (unwrap-panic (remove-principal-proposed-removal-list contract-caller))))
+      (var-set miner-to-remove-votes-remove contract-caller)
+      (var-set proposed-removal-list remove-result)
+      (map-delete map-is-proposed-for-removal {address: contract-caller})
+      (ok (clear-votes-map-remove-vote contract-caller)))))
+
 (define-private (process-removal (miner principal))
 (begin 
   (let ((remove-result (unwrap-panic (remove-principal-miners-list miner)))
@@ -668,6 +699,7 @@
 (define-public (end-vote-notifier) 
 (begin 
   (asserts! (>= block-height (var-get notifier-vote-end-block)) err-voting-still-active)
+  (var-set notifier-vote-active false)
   (end-vote-notifier-private)))
 
 (define-private (end-vote-notifier-private) 

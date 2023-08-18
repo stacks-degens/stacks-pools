@@ -41,7 +41,7 @@
 (define-constant err-cant-unwrap-rewarded-block (err u1004))
 
 (define-constant notifier-election-blocks-to-pass u144)
-(define-constant blocks-to-pass u5)
+(define-constant blocks-to-pass u100)
 
 (define-map balance principal uint)
 (define-map claimed-rewards { block-number: uint } { claimed: bool })
@@ -54,7 +54,7 @@
 (define-map map-block-joined { address: principal } { block-height: uint })
 (define-map map-balance-xBTC { address: principal } { value: uint })
 (define-map auto-exchange { address: principal } { value: bool })
-(define-map btc-address { address: principal } { btc-address: {hashbytes: (buff 20), version: (buff 1)} })
+(define-map btc-address { address: principal } { btc-address: (string-ascii 41) })
 
 (define-map map-votes-accept-join { address: principal } { value: uint })
 (define-map map-votes-reject-join { address: principal } { value: uint })
@@ -268,7 +268,7 @@
 (define-read-only (get-miner-btc-address (miner-address principal))
   (map-get? btc-address {address: miner-address}))
 
-(define-public (set-my-btc-address (new-btc-address {hashbytes: (buff 20), version: (buff 1)})) 
+(define-public (set-my-btc-address (new-btc-address (string-ascii 41))) 
   (ok (map-set btc-address {address: tx-sender} {btc-address: new-btc-address})))
 
 ;; deposit funds
@@ -342,7 +342,7 @@
 
 ;; JOINING FLOW
 
-(define-public (ask-to-join (my-btc-address {hashbytes: (buff 20), version: (buff 1)}))
+(define-public (ask-to-join (my-btc-address (string-ascii 41)))
 (begin 
   (asserts! (not (check-is-miner-now contract-caller)) err-already-joined) 
   (asserts! (not (check-is-waiting-now contract-caller)) err-already-asked-to-join) 

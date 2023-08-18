@@ -1,8 +1,8 @@
 {
-  "name": "arkadiko-dao-clarity",
+  "name": "Decentralized Stacks Pools",
   "author": {
-    "name": "Philip De Smedt",
-    "email": "philip.desmedt@gmail.com"
+    "name": "Stacks Degens",
+    "email": "stacksdegensteam@gmail.com"
   },
   "repository": "https://github.com/philipdesmedt/arkadiko-dao.git",
   "private": true,
@@ -29,6 +29,7 @@
     "@stacks/transactions": "^6.5.0",
     "@types/node": "^16.7.13",
     "bitcoinjs-lib": "^6.1.3",
+    "buffer": "^6.0.3",
     "micro-btc-signer": "^0.2.0",
     "mocha": "^10.2.0",
     "node-fetch": "^2.6.7",
