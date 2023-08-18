@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2023-08-18 21:05:31</td>
+            <td class="headerValue">2023-08-18 21:53:02</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">21</td>
@@ -177,9 +177,9 @@
 <a name="106"><span class="lineNum">     106 </span>                :            : (define-map burn-block-rewards { burn-height: uint } { reward: uint })</a>
 <a name="107"><span class="lineNum">     107 </span>                :            : (define-map updated-sc-balances { reward-cycle: uint } { updated: bool, stackers-list: (list 300 principal) })</a>
 <a name="108"><span class="lineNum">     108 </span>                :            : (define-map already-rewarded { burn-block-height: uint } { value: bool })</a>
-<a name="109"><span class="lineNum">     109 </span>                :<span class="lineCov">         39 : (allow-contract-caller (as-contract tx-sender) none)</span></a>
+<a name="109"><span class="lineNum">     109 </span>                :<span class="lineCov">         41 : (allow-contract-caller (as-contract tx-sender) none)</span></a>
 <a name="110"><span class="lineNum">     110 </span>                :            : </a>
-<a name="111"><span class="lineNum">     111 </span>                :<span class="lineCov">         39 : (map-set user-data {address: tx-sender} {is-in-pool: true, delegated-balance: u0, locked-balance: u0, until-burn-ht: none})</span></a>
+<a name="111"><span class="lineNum">     111 </span>                :<span class="lineCov">         41 : (map-set user-data {address: tx-sender} {is-in-pool: true, delegated-balance: u0, locked-balance: u0, until-burn-ht: none})</span></a>
 <a name="112"><span class="lineNum">     112 </span>                :            : </a>
 <a name="113"><span class="lineNum">     113 </span>                :            : ;; Public functions</a>
 <a name="114"><span class="lineNum">     114 </span>                :            : </a>
@@ -246,11 +246,11 @@
 <a name="175"><span class="lineNum">     175 </span>                :<span class="lineCov">         21 :   (ok true)))</span></a>
 <a name="176"><span class="lineNum">     176 </span>                :            : </a>
 <a name="177"><span class="lineNum">     177 </span>                :            : (define-public (allow-contract-caller (caller principal) (until-burn-ht (optional uint)))</a>
-<a name="178"><span class="lineNum">     178 </span>                :<span class="lineCov">         39 : (begin</span></a>
-<a name="179"><span class="lineNum">     179 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">         39 :   (asserts! (is-eq tx-sender contract-caller) err-stacking-permission-denied)</span></a>
-<a name="180"><span class="lineNum">     180 </span>                :<span class="lineCov">         39 :   (ok (map-set allowance-contract-callers</span></a>
-<a name="181"><span class="lineNum">     181 </span>                :<span class="lineCov">         39 :         { sender: tx-sender, contract-caller: caller}</span></a>
-<a name="182"><span class="lineNum">     182 </span>                :<span class="lineCov">         39 :         { until-burn-ht: until-burn-ht}))))</span></a>
+<a name="178"><span class="lineNum">     178 </span>                :<span class="lineCov">         41 : (begin</span></a>
+<a name="179"><span class="lineNum">     179 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineCov">         41 :   (asserts! (is-eq tx-sender contract-caller) err-stacking-permission-denied)</span></a>
+<a name="180"><span class="lineNum">     180 </span>                :<span class="lineCov">         41 :   (ok (map-set allowance-contract-callers</span></a>
+<a name="181"><span class="lineNum">     181 </span>                :<span class="lineCov">         41 :         { sender: tx-sender, contract-caller: caller}</span></a>
+<a name="182"><span class="lineNum">     182 </span>                :<span class="lineCov">         41 :         { until-burn-ht: until-burn-ht}))))</span></a>
 <a name="183"><span class="lineNum">     183 </span>                :            : </a>
 <a name="184"><span class="lineNum">     184 </span>                :            : ;; revoke contract-caller authorization to call stacking methods</a>
 <a name="185"><span class="lineNum">     185 </span>                :            : (define-public (disallow-contract-caller (caller principal))</a>
