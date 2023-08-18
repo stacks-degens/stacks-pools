@@ -75,15 +75,15 @@ mnemonic = "benefit raw tape silver pulp spell disorder sun gate finish plastic 
 balance = 100_000_000_000_000
 # stx_address: ST3CD3T03P3Z8RMAYR7S6BZQ65QNYS9W18QHHJ4KM
 
-# [accounts.wallet_11]
-# mnemonic = "aisle excuse bachelor depart live flag essay improve coffee lumber water acquire muffin medal cart crouch language squeeze satoshi staff mean rubber cereal fog"
-# balance = 100_000_000_000_000
-# # stx_address: ST37ZZMNV6T9Q7SFMHA01070F2QKZ9XPF06WPD527
+[accounts.wallet_11]
+mnemonic = "aisle excuse bachelor depart live flag essay improve coffee lumber water acquire muffin medal cart crouch language squeeze satoshi staff mean rubber cereal fog"
+balance = 100_000_000_000_000
+# stx_address: ST37ZZMNV6T9Q7SFMHA01070F2QKZ9XPF06WPD527
 
-# [accounts.wallet_12]
-# mnemonic = "viable episode stumble piano pill glad reopen arena collect crew unhappy hair ripple sad scout open miss title zero author nation number miss slogan"
-# balance = 100_000_000_000_000
-# # stx_address: ST3K7SXC4V640YW26XBXR5PB21N7XFZ1ECKNF2C8B
+[accounts.wallet_12]
+mnemonic = "viable episode stumble piano pill glad reopen arena collect crew unhappy hair ripple sad scout open miss title zero author nation number miss slogan"
+balance = 100_000_000_000_000
+# stx_address: ST3K7SXC4V640YW26XBXR5PB21N7XFZ1ECKNF2C8B
 
 # [accounts.wallet_13]
 # mnemonic = "net lottery abuse galaxy cook strategy fix lunar kite draw escape ostrich release journey bonus cycle vacuum leaf mule angle chuckle deposit employ erode"

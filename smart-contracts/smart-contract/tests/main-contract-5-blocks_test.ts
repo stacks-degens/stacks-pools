@@ -23,8 +23,8 @@ const WITHDRAW = 'withdraw-stx';
 const GET_BALANCE = 'get-balance';
 const GET_REWARD_AT_BLOCK_READ = 'get-reward-at-block-read';
 const REWARD_DISTRIBUTION = 'reward-distribution';
-const GET_DATA_WAITING_MINER = 'get-all-data-waiting-miners'
-const GET_DATA_REMOVAL = 'get-all-data-miners-proposed-for-removal'
+const GET_DATA_WAITING_MINER = 'get-all-data-waiting-miners';
+const GET_DATA_REMOVAL = 'get-all-data-miners-proposed-for-removal';
 const err_insufficient_balance = '(err u1001)';
 const err_missing_balance = '(err u1002)';
 const LEAVE_POOL = 'leave-pool';
@@ -50,6 +50,12 @@ const err_already_proposed_for_notifier = '(err u121)';
 const err_not_proposed_notifier = '(err u124)';
 const err_already_notifier = '(err u125)';
 const err_no_voting_period = '(err u129)';
+const btcAddressVersionUintArray = Uint8Array.from(Buffer.from('00', 'hex'));
+const publicKeyHex = '02e8f7dc91e49a577ce9ea8989c7184aea8886fe5250f02120dc6f98e3619679b0';
+const publicKey = Buffer.from(publicKeyHex, 'hex');
+const pKhash160 = crypto.hash160(publicKey);
+const btcHashBuffer = pKhash160;
+const btcUintArray = Uint8Array.from(btcHashBuffer);
 
 Clarinet.test({
   name: 'Get All Data Waiting 300 Miners',
@@ -63,7 +69,17 @@ Clarinet.test({
     for (let i = 1; i <= 299; i++) {
       const miner = accounts.get(`wallet_${i}`)!;
       block = chain.mineBlock([
-        Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(miner.address)], miner.address),
+        Tx.contractCall(
+          CONTRACT_NAME,
+          ASK_TO_JOIN,
+          [
+            types.tuple({
+              version: types.buffer(Buffer.from('00', 'hex')),
+              hashbytes: types.buffer(Buffer.from(publicKeyHex, 'hex')),
+            }),
+          ],
+          miner.address
+        ),
       ]);
       if (i == 1) waiting_list.push(`${miner.address}`);
       else waiting_list.push(` ${miner.address}`);
@@ -100,26 +116,51 @@ Clarinet.test({
     assertEquals(block.height, 653);
 
     block = chain.mineBlock([
-      Tx.contractCall(CONTRACT_NAME, ASK_TO_JOIN, [types.ascii(accounts.get(`wallet_${300}`)!.address)], accounts.get(`wallet_${300}`)!.address),
-      Tx.contractCall(CONTRACT_NAME, GET_DATA_WAITING_MINER, [types.list([types.principal(accounts.get(`wallet_${300}`)!.address)])], deployer.address),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        ASK_TO_JOIN,
+        [types.ascii(accounts.get(`wallet_${300}`)!.address)],
+        accounts.get(`wallet_${300}`)!.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        GET_DATA_WAITING_MINER,
+        [types.list([types.principal(accounts.get(`wallet_${300}`)!.address)])],
+        deployer.address
+      ),
     ]);
 
     for (let i = 91; i <= 299; i++) {
       const miner = accounts.get(`wallet_${300}`)!;
       block = chain.mineBlock([
-        Tx.contractCall(CONTRACT_NAME, VOTE_POSITIVE_JOIN, [types.principal(miner.address)], accounts.get(`wallet_${i}`)!.address),
+        Tx.contractCall(
+          CONTRACT_NAME,
+          VOTE_POSITIVE_JOIN,
+          [types.principal(miner.address)],
+          accounts.get(`wallet_${i}`)!.address
+        ),
       ]);
     }
 
     for (let i = 1; i <= 90; i++) {
       const miner = accounts.get(`wallet_${300}`)!;
       block = chain.mineBlock([
-        Tx.contractCall(CONTRACT_NAME, VOTE_NEGATIVE_JOIN, [types.principal(miner.address)], accounts.get(`wallet_${i}`)!.address),
+        Tx.contractCall(
+          CONTRACT_NAME,
+          VOTE_NEGATIVE_JOIN,
+          [types.principal(miner.address)],
+          accounts.get(`wallet_${i}`)!.address
+        ),
       ]);
     }
 
     block = chain.mineBlock([
-      Tx.contractCall(CONTRACT_NAME, GET_DATA_WAITING_MINER, [types.list([types.principal(accounts.get(`wallet_${300}`)!.address)])], deployer.address),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        GET_DATA_WAITING_MINER,
+        [types.list([types.principal(accounts.get(`wallet_${300}`)!.address)])],
+        deployer.address
+      ),
     ]);
   },
 });
@@ -173,8 +214,18 @@ Clarinet.test({
     assertEquals(block.height, 653);
 
     block = chain.mineBlock([
-      Tx.contractCall(CONTRACT_NAME, PROPOSE_REMOVAL, [types.principal(accounts.get(`wallet_${299}`)!.address)], deployer.address),
-      Tx.contractCall(CONTRACT_NAME, GET_DATA_REMOVAL, [types.list([types.principal(accounts.get(`wallet_${299}`)!.address)])], deployer.address),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        PROPOSE_REMOVAL,
+        [types.principal(accounts.get(`wallet_${299}`)!.address)],
+        deployer.address
+      ),
+      Tx.contractCall(
+        CONTRACT_NAME,
+        GET_DATA_REMOVAL,
+        [types.list([types.principal(accounts.get(`wallet_${299}`)!.address)])],
+        deployer.address
+      ),
     ]);
   },
 });
