@@ -22,6 +22,9 @@
 ;; Half cycle length is 1050 for mainnet
 (define-constant half-cycle-length (/ (get reward-cycle-length (unwrap-panic (contract-call? 'ST000000000000000000002AMW42H.pox-3 get-pox-info))) u2))
 
+ ;; minimum amount for the liquidity provider to transfer after deploy in microSTX (STX * 10^-6)
+(define-constant minimum-deposit-amount-liquidity-provider u10000000000)
+
 (define-constant err-only-liquidity-provider (err u100))
 (define-constant err-already-in-pool (err u101))
 (define-constant err-not-in-pool (err u102))
@@ -79,7 +82,6 @@
 (define-data-var reward-cycle-to-distribute-rewards uint u0)
 (define-data-var temp-current-reward uint u0)
 ;; common data vars
-(define-data-var minimum-deposit-amount-liquidity-provider uint u10000000000) ;; minimum amount for the liquidity provider to transfer after deploy in microSTX (STX * 10^-6)
 (define-data-var stackers-list (list 300 principal) (list tx-sender))
 (define-data-var liquidity-provider principal tx-sender)
 (define-data-var active bool true)
@@ -116,7 +118,7 @@
 (define-public (deposit-stx-liquidity-provider (amount uint)) 
 (begin 
   (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider)
-  (asserts! (>= amount (var-get minimum-deposit-amount-liquidity-provider)) err-future-reward-not-covered)
+  (asserts! (>= amount minimum-deposit-amount-liquidity-provider) err-future-reward-not-covered)
   (try! (stx-transfer? amount tx-sender pool-contract))
   (var-set sc-total-balance (+ amount (var-get sc-total-balance)))
   (var-set sc-owned-balance (+ amount (var-get sc-owned-balance)))
@@ -141,7 +143,7 @@
 (begin 
   (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider)
   (asserts! (>= (var-get sc-owned-balance) amount) err-insufficient-funds) 
-  (asserts! (>= amount (var-get minimum-deposit-amount-liquidity-provider)) err-future-reward-not-covered)
+  (asserts! (>= amount minimum-deposit-amount-liquidity-provider) err-future-reward-not-covered)
   (var-set sc-owned-balance (- (var-get sc-owned-balance) amount))
   (var-set sc-reserved-balance (+ (var-get sc-reserved-balance) amount))
   (ok true)))
@@ -235,22 +237,18 @@
       (user-locked-balance (default-to u0 (get locked-balance (map-get? user-data {address: stacker}))))) 
   (ok 
     ;; if burn-block-height < user's unlock burn block height, then user's balances 
-    (if 
-        (< 
-          burn-block-height 
-          user-until-burn-ht) 
-        (begin 
-          (var-set calc-locked-balance 
-            (+ 
-              (var-get calc-locked-balance) 
-              user-locked-balance))
-          (var-set calc-delegated-balance 
-            (+ 
-              (var-get calc-delegated-balance) 
-              user-delegated-balance))) 
-        (begin 
-          (var-set calc-locked-balance (var-get calc-locked-balance))
-          (var-set calc-delegated-balance (var-get calc-delegated-balance)))))))
+    (and (< 
+      burn-block-height 
+      user-until-burn-ht) 
+      (begin 
+        (var-set calc-locked-balance 
+          (+ 
+            (var-get calc-locked-balance) 
+            user-locked-balance))
+        (var-set calc-delegated-balance 
+          (+ 
+            (var-get calc-delegated-balance) 
+            user-delegated-balance)))))))
 
 ;; The rewards will be distributed. At that moment, the SC balance should have been updated and the stackers' weights calculated
 (define-public (reward-distribution (rewarded-burn-block uint))
@@ -261,8 +259,7 @@
           (asserts! (< rewarded-burn-block burn-block-height) err-no-reward-yet)
           (asserts! (check-won-block-rewards rewarded-burn-block) err-no-reward-for-this-block)
           (asserts! (is-none (map-get? already-rewarded {burn-block-height: rewarded-burn-block})) err-already-rewarded-block)
-          (var-set burn-block-to-distribute-rewards rewarded-burn-block)
-          (var-set amount-rewarded (+ (var-get amount-rewarded) (default-to u0 (get reward (map-get? burn-block-rewards { burn-height: (var-get burn-block-to-distribute-rewards)})))))
+          (var-set amount-rewarded (+ (var-get amount-rewarded) (default-to u0 (get reward (map-get? burn-block-rewards { burn-height: rewarded-burn-block})))))
           (var-set blocks-rewarded (+ (var-get blocks-rewarded) u1))
           (map-set already-rewarded {burn-block-height: rewarded-burn-block} {value: true})
           (var-set reward-cycle-to-distribute-rewards reward-cycle)
@@ -386,7 +383,8 @@
 (define-private (lock-delegated-stx (user principal))
 (let ((start-burn-ht (+ burn-block-height u1))
       (pox-address (var-get pool-pox-address))
-      (buffer-amount u0)
+      ;; changed buffer-amount (commission) to 0, kept structure
+      (buffer-amount u0) 
       (user-account (stx-account user))
       (allowed-amount (min (get-delegated-amount user) (+ (get locked user-account) (get unlocked user-account))))
       (amount-ustx (if (> allowed-amount buffer-amount) (- allowed-amount buffer-amount) allowed-amount)))
@@ -512,7 +510,7 @@
 ;; Weight calculation functions
 
 ;; calculating one stacker's weight inside pool based on his balances
-(define-private (weight-calculator (stacker principal) (stacker-locked uint) (total-locked uint) (liquidity-provider-locked uint)) 
+(define-private (weight-calculator (stacker-locked uint) (total-locked uint) (liquidity-provider-locked uint)) 
 (begin 
   (asserts! (> (+ total-locked liquidity-provider-locked) u0) err-no-locked-funds) 
   (ok (/ (* stacker-locked ONE-6) (+ total-locked liquidity-provider-locked)))))
@@ -544,12 +542,10 @@
         (if 
           (is-eq stacker (var-get liquidity-provider)) 
           (weight-calculator 
-            stacker 
             liquidity-provider-contribution
             total-locked-at-reward-cycle 
             liquidity-provider-reserved-at-reward-cycle)
           (weight-calculator 
-            stacker 
             stacker-locked-at-reward-cycle 
             total-locked-at-reward-cycle 
             liquidity-provider-reserved-at-reward-cycle))))
@@ -600,44 +596,34 @@
 (var-set sc-owned-balance (- (var-get sc-owned-balance) amount-ustx)))
 
 (define-private (check-can-decrement-delegated-balance (amount-ustx uint)) 
-(if 
+(not 
   (< 
     (var-get sc-delegated-balance) 
-    amount-ustx) 
-  false
-true))
+    amount-ustx)))
 
 (define-private (check-can-decrement-locked-balance (amount-ustx uint)) 
-(if 
+(not 
   (< 
     (var-get sc-locked-balance) 
-    amount-ustx) 
-  false
-true))
+    amount-ustx)))
 
 (define-private (check-can-decrement-reserved-balance (amount-ustx uint)) 
-(if 
+(not
   (< 
     (var-get sc-reserved-balance) 
-    amount-ustx) 
-  false
-true))
+    amount-ustx)))
 
 (define-private (check-can-decrement-total-balance (amount-ustx uint)) 
-(if 
+(not
   (< 
     (var-get sc-total-balance) 
-    amount-ustx) 
-  false
-true))
+    amount-ustx)))
 
 (define-private (check-can-decrement-owned-balance (amount-ustx uint)) 
-(if 
+(not
   (< 
     (var-get sc-owned-balance) 
-    amount-ustx) 
-  false
-true))
+    amount-ustx)))
 
 (define-private (min (amount-1 uint) (amount-2 uint))
   (if (< amount-1 amount-2)
@@ -752,7 +738,7 @@ true))
 (var-get return-div))
 
 (define-read-only (get-minimum-deposit-liquidity-provider) 
-(var-get minimum-deposit-amount-liquidity-provider))
+minimum-deposit-amount-liquidity-provider)
 
 (define-read-only (was-block-claimed (rewarded-burn-block uint))
 (map-get? already-rewarded {burn-block-height: rewarded-burn-block}))

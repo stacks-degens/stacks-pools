@@ -1,6 +1,6 @@
 [project]
-name = 'Decentralized Stacks Pools'
-description = 'Decentralized Stacks Pools'
+name = 'DecentralizedStacksPools'
+description = 'DecentralizedStacksPools'
 authors = []
 telemetry = false
 cache_dir = '.cache'

@@ -35,12 +35,9 @@
 
 ;; deposit funds
 (define-public (deposit-stx (amount uint))
-(let ((sender tx-sender)
-      (balance-sender (map-get? balance sender)))
+(let ((balance-sender (map-get? balance tx-sender)))
   (try! (stx-transfer? amount tx-sender (as-contract tx-sender)))
-  (if (is-none balance-sender) 
-    (ok (map-set balance sender amount))
-    (ok (map-set balance sender (+ (unwrap! balance-sender err-missing-balance) amount))))))
+    (ok (map-set balance tx-sender (+ (default-to u0 balance-sender) amount)))))
 
 ;; withdraw funds
 (define-public (withdraw-stx (amount uint)) 
