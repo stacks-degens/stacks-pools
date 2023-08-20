@@ -1,5 +1,20 @@
 ## Decentralized Mining Pool Frontend
 
+### **Existing accounts in Stacking Pool Testnet**
+
+<br>
+
+- Deployer
+
+```js
+address = 'ST02D2KP0630FS1BCJ7YM4TYMDH6NS9QKR0B57R3';
+mnemonic =
+  'athlete nothing pilot stem limb dream amazing glove gasp you key digital process glad thought border type donate slow index unlock say tribe oak';
+privateKey = 'c2eae79ad466a0a98d64e24fc27d0a8eaf75891c9029d5f821a67743affa874201';
+publicKey = '0257f48a1505f05acc1ff4e5cf274f248f9ca736f6da87ea7b06d479d80218db86';
+btcAddress = 'mfXkTvKbVP56WkxDDfnaeK17kgxvfgcsUJ';
+```
+
 ### **Existing accounts in Mining Pool Testnet**
 
 <br>
