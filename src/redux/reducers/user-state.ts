@@ -15,7 +15,6 @@ export const defaultUserState: IUserState = {
   userSession,
   miningUserRole: 'Viewer',
   stackingUserRole: 'Viewer',
-  // theme: 'light',
 };
 
 export type Theme = 'light' | 'dark';

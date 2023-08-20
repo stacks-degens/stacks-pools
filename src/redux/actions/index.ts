@@ -33,6 +33,7 @@ export const updateUserRoleActionMining = (newRole: string) => {
 };
 
 export const updateAppThemeAction = (newTheme: string) => {
+  localStorage.setItem('theme', newTheme);
   return { type: UPDATE_APP_THEME, payload: newTheme };
 };
 
