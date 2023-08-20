@@ -6,11 +6,14 @@ import { createTransform, persistReducer, persistStore } from 'redux-persist';
 import { encryptTransform } from 'redux-persist-transform-encrypt';
 import storage from 'redux-persist/lib/storage';
 import { AppConfig, UserSession } from '@stacks/connect';
+import { userSession } from '../reducers/user-state';
 
-import crypto from 'crypto';
-
+// not used
 const generateSecretKey = () => {
-  return crypto.randomBytes(32).toString('hex'); // Generates a 64-character hex key
+  const rand = 10000000 + Math.random() * 10000000;
+  return Math.floor(rand).toString();
+  // return parseInt(Math.floor(Math.random() * 10000).toString(), 16);
+  // crypto.randomBytes(32).toString('hex'); // Generates a 64-character hex key
 };
 
 const UserSesssionPersistTransform = createTransform(
@@ -18,16 +21,18 @@ const UserSesssionPersistTransform = createTransform(
     console.log('inbount', key, inboundState);
     const appConfig = new AppConfig(['store_write', 'publish_data']);
     const userSession = new UserSession({ appConfig });
-    return inboundState;
+    // return inboundState;
+    return !userSession.isUserSignedIn() ? inboundState : { ...inboundState, userSession };
     // return { ...inboundState, userSession };
   },
   (outboundState: IinitialState, key: string | number) => {
     console.log('outbound', key);
     const appConfig = new AppConfig(['store_write', 'publish_data']);
     const userSession = new UserSession({ appConfig });
+    return !userSession.isUserSignedIn() ? outboundState : { ...outboundState, userSession };
     return outboundState;
   },
-  { whitelist: ['theme'] }
+  { whitelist: userSession.isUserSignedIn() ? ['theme'] : [] }
 );
 
 const persistConfig = {
@@ -36,14 +41,14 @@ const persistConfig = {
   transforms: [
     // UserSesssionPersistTransform,
     encryptTransform({
-      // secretKey: 'somekey',
-      secretKey: generateSecretKey(),
+      secretKey: userSession.isUserSignedIn() ? userSession.loadUserData().profile.stxAddress['testnet'] : 'signed-out',
+      // secretKey: 'hello',
       onError: function (error) {
         console.log(error);
       },
     }),
   ],
-  whitelist: ['theme'],
+  whitelist: userSession.isUserSignedIn() ? ['theme'] : [],
   // blacklist: [''],
 };
 
