@@ -18,7 +18,8 @@ type ApiUrl = Record<networkType, string>;
 
 // works on our website
 export const apiUrl: ApiUrl = {
-  mainnet: 'https://fittest-newest-voice.stacks-mainnet.quiknode.pro/19b669b51a14297cb7b723105b815f2243338987',
+  mainnet:
+    'https://responsive-cosmopolitan-panorama.stacks-mainnet.quiknode.pro/3a26316cbf4275e95002802aa24e9e19cf744239',
   testnet: 'https://cold-alpha-spring.stacks-testnet.quiknode.pro/a28b33a78e1ee89cc89e2c0eb02b4790cbbb671f',
   devnet: 'http://localhost:3999',
 };
