@@ -1,0 +1,57 @@
+.homePageLink {
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.homePageLink:hover {
+  border-bottom: 1px solid #ab4c2b;
+  color: #ab4c2b !important;
+  transition: color 0.3s ease-in, border 0.3s ease-in;
+}
+
+.home-page-main-container {
+  height: auto;
+  padding-inline: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  overflow-wrap: break-word;
+}
+
+@media screen and (max-width: 575px) {
+  .home-page-main-container .page-heading-title {
+    margin-bottom: 20px;
+    height: 100px;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 991px) {
+  .home-page-main-container .page-heading-title {
+    margin-bottom: 60px;
+    height: 120px;
+  }
+
+  .home-page-main-container .page-heading-title h2 {
+    font-size: 30px;
+  }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1180px) {
+  .home-page-main-container .page-heading-title {
+    margin-bottom: 60px;
+  }
+
+  .home-page-main-container .page-heading-title h2 {
+    font-size: 28px;
+  }
+}
+
+@media screen and (min-width: 1181px) {
+  .home-page-main-container .page-heading-title {
+    margin-bottom: 60px;
+  }
+
+  .home-page-main-container .page-heading-title h2 {
+    font-size: 28px;
+  }
+}

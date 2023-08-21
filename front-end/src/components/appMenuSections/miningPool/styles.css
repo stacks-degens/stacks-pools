@@ -1,0 +1,207 @@
+table {
+  border-top: 1px solid #f9b11c;
+  border-left: 2px solid #f9b11c;
+  border-right: 2px solid #f9b11c;
+}
+
+table th {
+  font-weight: bold !important;
+}
+
+.css-11xur9t-MuiPaper-root-MuiTableContainer-root {
+  border: 1px solid #f9b11c;
+  box-shadow: 1px 3px 4px #ed693c, -1px 0px 4px #fdc60b !important;
+  background-color: #fef9f7 !important;
+}
+
+.miningpool-status-page-main-container,
+.miningpool-miners-page-main-container {
+  height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.miningpool-status-page-main-container .page-heading-title,
+.miningpool-miners-page-main-container .page-heading-title {
+  height: 100px;
+}
+
+/* the main page where I am displaying the table */
+.miningpool-miners-page-main-container .principal-content-profile-page {
+  height: calc(100vh - 160px);
+  margin: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.miningpool-status-page-main-container .principal-content-profile-page {
+  height: calc(100vh - 160px);
+  margin: 0;
+  width: 100%;
+}
+
+@media screen and (max-width: 575px) {
+  /* the container with the information */
+  .miningpool-status-page-main-container .main-info-container-normal-user {
+    width: 90%;
+  }
+
+  /* the sections I'm displaying in the main container */
+  .miningpool-status-page-main-container .content-sections-title-info-container span {
+    font-size: 14px;
+  }
+
+  /* the result of the section above */
+  .miningpool-status-page-main-container .title-info-container {
+    font-size: 14px;
+  }
+
+  /* the result of the section above */
+  .result-of-content-section {
+    font-size: 10.6px;
+  }
+
+  table th {
+    font-size: 13px !important;
+    font-weight: bold !important;
+  }
+
+  table td {
+    font-size: 11px !important;
+  }
+
+  /* if we want to make the table bigger, but I don't guarantee it will be horizontally centered on every scrren */
+  /* .miningpool-miners-page-main-container .principal-content-profile-page {
+    margin-left: -40px;
+    width: 120%;
+  } */
+
+  /* .miningpool-miners-page-main-container .principal-content-profile-page td {
+    width: auto !important;
+  } */
+}
+
+@media screen and (min-width: 576px) and (max-width: 991px) {
+  .single-miner-page-main-container .info-container-profile-page {
+    margin-bottom: 0 !important;
+  }
+  .miningpool-status-page-main-container .main-info-container-normal-user {
+    margin-bottom: 0 !important;
+  }
+
+  .miningpool-status-page-main-container .page-heading-title,
+  .miningpool-miners-page-main-container .page-heading-title {
+    height: 120px;
+  }
+
+  .miningpool-status-page-main-container .page-heading-title h2,
+  .miningpool-miners-page-main-container .page-heading-title h2 {
+    font-size: 30px;
+  }
+
+  .miningpool-status-page-main-container .main-info-container-normal-user,
+  .miningpool-miners-page-main-container .principal-content-profile-page {
+    margin-top: 80px;
+  }
+
+  .miningpool-status-page-main-container .info-container-mining-pool-status-page {
+    width: 500px;
+  }
+
+  .miningpool-status-page-main-container .title-info-container {
+    font-size: 20px;
+  }
+
+  .miningpool-status-page-main-container .content-sections-title-info-container span {
+    font-size: 22px;
+  }
+
+  .result-of-content-section {
+    font-size: 17.5px;
+  }
+
+  table th {
+    font-size: 14px !important;
+    font-weight: bold !important;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  table td {
+    font-size: 15px !important;
+  }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1180px) {
+  .miningpool-status-page-main-container .main-info-container-normal-user {
+    margin-top: 90px;
+  }
+
+  .miningpool-miners-page-main-container .page-heading-title {
+    margin-bottom: 40px;
+  }
+
+  .miningpool-status-page-main-container .page-heading-title h2,
+  .miningpool-miners-page-main-container .page-heading-title h2 {
+    font-size: 28px;
+  }
+
+  .miningpool-status-page-main-container .title-info-container,
+  .miningpool-status-page-main-container .content-sections-title-info-container span,
+  .result-of-content-section {
+    font-size: 20px;
+  }
+
+  .miningpool-status-page-main-container .info-container-mining-pool-status-page {
+    width: 560px;
+  }
+
+  table th {
+    font-size: 14px !important;
+    font-weight: bold !important;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  table td {
+    font-size: 15px !important;
+  }
+}
+
+@media screen and (min-width: 1181px) {
+  .miningpool-status-page-main-container .main-info-container-normal-user {
+    margin-top: 90px;
+  }
+
+  .miningpool-miners-page-main-container .page-heading-title {
+    margin-bottom: 40px;
+  }
+
+  .miningpool-status-page-main-container .page-heading-title h2,
+  .miningpool-miners-page-main-container .page-heading-title h2 {
+    font-size: 28px;
+  }
+
+  .miningpool-status-page-main-container .title-info-container,
+  .miningpool-status-page-main-container .content-sections-title-info-container span,
+  .result-of-content-section {
+    font-size: 20px;
+  }
+
+  .miningpool-status-page-main-container .info-container-mining-pool-status-page {
+    width: 560px;
+  }
+
+  table th {
+    font-size: 14px !important;
+    font-weight: bold !important;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  table td {
+    font-size: 15px !important;
+  }
+}
