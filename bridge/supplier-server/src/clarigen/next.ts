@@ -1859,7 +1859,7 @@ export const contracts = {
     constants: {},
     fungible_tokens: [],
     non_fungible_tokens: [],
-    contractName: 'degen-bridge-testnet-v1',
+    contractName: 'degen-bridge-testnet-v3',
   },
   ftTrait: {
     functions: {},

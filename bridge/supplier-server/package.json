@@ -46,7 +46,7 @@
     "cjs-loader": "^0.1.0",
     "cross-fetch": "^3.1.5",
     "dotenv": "^16.1.0",
-    "electrum-client-sl": "0.1.2",
+    "electrum-client-sl": "0.1.4",
     "fastify": "^4.2.0",
     "follow-redirects": "^1.15.1",
     "inquirer": "^8.2.0",

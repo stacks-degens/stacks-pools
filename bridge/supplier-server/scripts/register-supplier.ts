@@ -38,8 +38,11 @@ async function run() {
   }
 
   const stxAddress = getStxAddress();
+  console.log('stxAddress', stxAddress);
   const btcAddress = getBtcAddress();
+  console.log('btcAddress', btcAddress);
   const balances = await getBalances();
+  console.log('balances', balances);
   const network = getStxNetwork();
   const networkKey = getNetworkKey();
 
