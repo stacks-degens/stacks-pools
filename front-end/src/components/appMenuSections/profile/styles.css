@@ -1,0 +1,459 @@
+.profile-page-main-container,
+.single-miner-page-main-container {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.profile-page-main-container .page-heading-title,
+.single-miner-page-main-container .page-heading-title {
+  height: 100px;
+}
+
+.profile-page-main-container .principal-content-profile-page,
+.single-miner-page-main-container .principal-content-profile-page {
+  width: 100%;
+}
+
+@media screen and (max-width: 575px) {
+  /* the introduction container (the orange rectangle)  */
+  .profile-page-main-container .intro-container-profile-page,
+  .single-miner-page-main-container .intro-container-profile-page {
+    width: 90%;
+  }
+
+  /* the container which hold the about and actions containers */
+  .profile-page-main-container .main-info-container,
+  .single-miner-page-main-container .main-info-container-normal-user {
+    width: 89%;
+    flex-direction: column;
+    margin-inline: auto;
+    justify-content: start;
+    align-items: center;
+    margin-top: 30px;
+  }
+
+  /* the about and actions containers */
+  .profile-page-main-container .info-container-profile-page,
+  .single-miner-page-main-container .info-container-profile-page {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+  /* profile page intro lateral information */
+  .profile-page-main-container .intro-sides {
+    font-size: 13px;
+  }
+
+  /* profile page intro central information (current role) */
+  .profile-page-main-container .intro-center-side,
+  .single-miner-page-main-container .intro-center-side {
+    font-size: 15px;
+  }
+
+  .profile-page-main-container .intro-icon-container,
+  .single-miner-page-main-container .intro-icon-container {
+    width: 90px;
+    height: 90px;
+  }
+
+  /* about and actions heading title */
+  .profile-page-main-container .title-info-container,
+  .single-miner-page-main-container .title-info-container {
+    font-size: 14px;
+  }
+
+  /* the about and actions containers */
+  .profile-page-main-container .content-info-container,
+  .single-miner-page-main-container .content-info-container {
+    height: auto;
+  }
+
+  /* the sections I'm displaying in the main container */
+  .profile-page-main-container .content-sections-title-info-container span,
+  .single-miner-page-main-container .content-sections-title-info-container span {
+    font-size: 14px;
+  }
+
+  /* the result of the section above */
+  .result-of-content-section {
+    font-size: 10.6px;
+  }
+
+  /* autoexchange button container */
+  .profile-page-main-container .autoexchange-button-container {
+    width: 80%;
+    margin-inline: auto;
+    margin-top: 10px;
+  }
+
+  /* autoexchange button from about container on profile page */
+  .profile-page-main-container .autoexchange-button-container button {
+    font-size: 14px;
+  }
+
+  /*every input container in the actions container on profile page */
+  .profile-page-main-container
+    .principal-content-profile-page
+    .main-info-container
+    .actions-container-profile-page
+    .content-info-container
+    .input-line-actions-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* the label and input container from actions container on profile page */
+  .input-line-actions-container .label-and-input-container-actions-container {
+    width: 100% !important;
+  }
+
+  /* the input line from actions container on profile page */
+  .custom-input {
+    box-sizing: border-box;
+    height: 38px;
+  }
+
+  /* the input button container from actions container on profile page */
+  .button-container-action-container {
+    width: 80%;
+  }
+
+  /* the input button from actions container on profile page */
+  .button-container-action-container button {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  /* leave pool button container from actions container */
+  .leave-pool-button-action-container {
+    width: 65%;
+    margin-inline: auto;
+  }
+
+  /* the leave pool button */
+  .leave-pool-button-action-container button {
+    font-size: 14px !important;
+  }
+
+  /* the alignment of the leave pool button */
+  .leave-pool-button-action-container div.flex-right {
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  /* the alert container when clicking the leave pool button when you are the notifier */
+  .alert-container-actions-container {
+    margin-top: 20px !important;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 991px) {
+  .profile-page-main-container .page-heading-title,
+  .single-miner-page-main-container .page-heading-title {
+    height: 120px;
+  }
+
+  .profile-page-main-container .page-heading-title h2,
+  .single-miner-page-main-container .page-heading-title h2 {
+    font-size: 30px;
+  }
+
+  .profile-page-main-container .main-info-container,
+  .single-miner-page-main-container .main-info-container-normal-user {
+    width: 89%;
+    flex-direction: column;
+    margin-inline: auto;
+    justify-content: start;
+    align-items: center;
+    margin-top: 60px;
+  }
+
+  .profile-page-main-container .info-container-profile-page,
+  .single-miner-page-main-container .info-container-profile-page {
+    width: 80%;
+    margin-bottom: 60px;
+    height: auto !important;
+  }
+
+  .profile-page-main-container .title-info-container,
+  .single-miner-page-main-container .title-info-container {
+    font-size: 20px;
+  }
+
+  .profile-page-main-container .content-sections-title-info-container span,
+  .single-miner-page-main-container .content-sections-title-info-container span {
+    font-size: 22px;
+  }
+
+  .profile-page-main-container .content-sections-title-info-container .result-of-content-section,
+  .single-miner-page-main-container .content-sections-title-info-container .result-of-content-section {
+    font-size: 20px;
+  }
+
+  /* profile page intro lateral information */
+  .profile-page-main-container .intro-sides {
+    font-size: 16px;
+  }
+
+  /* profile page intro central information (current role) */
+  .profile-page-main-container .intro-center-side,
+  .single-miner-page-main-container .intro-center-side {
+    font-size: 22px;
+  }
+
+  /* autoexchange button container */
+  .profile-page-main-container .autoexchange-button-container {
+    width: 80%;
+    margin-inline: auto;
+    margin-top: 10px;
+  }
+
+  .leave-pool-button-action-container {
+    margin-top: 20px;
+  }
+
+  /* autoexchange button from about container on profile page */
+  .profile-page-main-container .autoexchange-button-container button,
+  .leave-pool-button-action-container button,
+  .button-container-action-container button {
+    font-size: 20px;
+    width: 180px;
+    height: 45px;
+  }
+
+  .button-container-action-container button {
+    margin-bottom: 5px;
+  }
+
+  /* the input line from actions container on profile page */
+  .custom-input {
+    box-sizing: border-box;
+    height: 45px;
+  }
+
+  .input-line-actions-container {
+    align-items: end !important;
+  }
+  .alert-container-actions-container {
+    margin-top: 20px !important;
+  }
+
+  .profile-page-main-container .content-info-container,
+  .single-miner-page-main-container .principal-content-profile-page {
+    height: auto;
+  }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1180px) {
+  .single-miner-page-main-container .principal-content-profile-page {
+    margin-bottom: 40px;
+  }
+
+  .profile-page-main-container .page-heading-title h2,
+  .single-miner-page-main-container .page-heading-title h2 {
+    font-size: 28px;
+  }
+
+  /* profile page intro lateral information */
+  .profile-page-main-container .intro-sides {
+    font-size: 16px;
+  }
+
+  /* profile page intro central information (current role) */
+  .profile-page-main-container .intro-center-side,
+  .single-miner-page-main-container .intro-center-side {
+    font-size: 22px;
+  }
+
+  .profile-page-main-container .main-info-container {
+    width: 89%;
+    flex-direction: column;
+    margin-inline: auto;
+    justify-content: start;
+    align-items: center;
+    margin-top: 60px;
+  }
+
+  .profile-page-main-container .info-container-profile-page {
+    width: 80%;
+    margin-bottom: 60px;
+    height: auto !important;
+  }
+
+  .single-miner-page-main-container .info-container-profile-page {
+    width: 560px;
+    margin-bottom: 60px;
+    height: auto !important;
+  }
+
+  .profile-page-main-container .title-info-container,
+  .single-miner-page-main-container .title-info-container {
+    font-size: 20px;
+  }
+
+  .profile-page-main-container .content-sections-title-info-container span,
+  .single-miner-page-main-container .content-sections-title-info-container span {
+    font-size: 20px;
+  }
+
+  .profile-page-main-container .content-sections-title-info-container .result-of-content-section,
+  .single-miner-page-main-container .content-sections-title-info-container .result-of-content-section {
+    font-size: 20px;
+  }
+
+  /* autoexchange button container */
+  .profile-page-main-container .autoexchange-button-container {
+    width: 70%;
+    margin-inline: auto;
+    margin-top: 10px;
+  }
+
+  .leave-pool-button-action-container {
+    margin-top: 20px;
+  }
+
+  /* autoexchange button from about container on profile page */
+  .profile-page-main-container .autoexchange-button-container button,
+  .leave-pool-button-action-container button,
+  .button-container-action-container button {
+    font-size: 20px;
+    width: 180px;
+    height: 45px;
+  }
+
+  .button-container-action-container button {
+    margin-bottom: 5px;
+  }
+
+  /* the input line from actions container on profile page */
+  .custom-input {
+    box-sizing: border-box;
+    height: 45px;
+  }
+
+  .input-line-actions-container {
+    align-items: end !important;
+  }
+  .alert-container-actions-container {
+    margin-top: 20px !important;
+  }
+
+  .profile-page-main-container .content-info-container,
+  .single-miner-page-main-container .principal-content-profile-page {
+    height: auto;
+  }
+
+  .custom-label {
+    font-size: 13px !important;
+  }
+}
+
+@media screen and (min-width: 1181px) {
+  /* the intro label from single miner page (the orange banner) */
+  .single-miner-page-main-container .intro-container-profile-page {
+    width: 70%;
+  }
+
+  .profile-page-main-container .intro-container-profile-page {
+    width: 90%;
+  }
+
+  .single-miner-page-main-container .principal-content-profile-page {
+    margin-bottom: 40px;
+  }
+
+  .profile-page-main-container .page-heading-title h2,
+  .single-miner-page-main-container .page-heading-title h2 {
+    font-size: 28px;
+  }
+
+  /* profile page intro lateral information */
+  .profile-page-main-container .intro-sides {
+    font-size: 16px;
+  }
+
+  /* profile page intro central information (current role) */
+  .profile-page-main-container .intro-center-side,
+  .single-miner-page-main-container .intro-center-side {
+    font-size: 22px;
+  }
+
+  .profile-page-main-container .main-info-container {
+    width: 85%;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 50px;
+  }
+
+  .profile-page-main-container .info-container-profile-page {
+    width: 47%;
+    margin-bottom: 50px;
+    height: auto !important;
+  }
+
+  .single-miner-page-main-container .info-container-profile-page {
+    width: 560px;
+    margin-bottom: 60px;
+    height: auto !important;
+  }
+
+  .profile-page-main-container .title-info-container,
+  .single-miner-page-main-container .title-info-container {
+    font-size: 20px;
+  }
+
+  .profile-page-main-container .content-sections-title-info-container span,
+  .single-miner-page-main-container .content-sections-title-info-container span {
+    font-size: 20px;
+  }
+
+  .profile-page-main-container .content-sections-title-info-container .result-of-content-section {
+    font-size: 17px;
+  }
+
+  .single-miner-page-main-container .content-sections-title-info-container .result-of-content-section {
+    font-size: 20px;
+  }
+
+  /* autoexchange button container */
+  .profile-page-main-container .autoexchange-button-container {
+    width: 170px;
+  }
+
+  /* autoexchange button from about container on profile page */
+  .profile-page-main-container .autoexchange-button-container button,
+  .leave-pool-button-action-container button,
+  .button-container-action-container button {
+    font-size: 18px;
+    width: 170px;
+    height: 45px;
+  }
+
+  .button-container-action-container button {
+    margin-bottom: 5px;
+  }
+
+  /* the input line from actions container on profile page */
+  .custom-input {
+    box-sizing: border-box;
+    height: 45px;
+  }
+
+  .input-line-actions-container {
+    align-items: end !important;
+  }
+
+  .profile-page-main-container .content-info-container {
+    height: 100%;
+  }
+
+  .single-miner-page-main-container .principal-content-profile-page {
+    height: auto;
+  }
+
+  .custom-label {
+    font-size: 12px !important;
+  }
+}

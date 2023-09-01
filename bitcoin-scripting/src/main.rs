@@ -25,9 +25,6 @@ fn main() {
 
     // p2tr(Some(SEED), client);
 
-    //dsa
-    Test_tap_with_tap();
-
     // let client = Client::new("ssl://localhost:18443/").unwrap();
     // let header = client.block_headers_subscribe().unwrap();
     // println!("test client {:?}",);

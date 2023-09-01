@@ -1,0 +1,196 @@
+.voting-status-page-main-container,
+.voting-notifier-page-main-container,
+.voting-joiners-page-main-container,
+.voting-removals-page-main-container {
+  height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.voting-status-page-main-container .page-heading-title,
+.voting-notifier-page-main-container .page-heading-title,
+.voting-joiners-page-main-container .page-heading-title,
+.voting-removals-page-main-container .page-heading-title {
+  height: 100px;
+}
+
+.voting-joiners-page-main-container .principal-content-profile-page,
+.voting-removals-page-main-container .principal-content-profile-page {
+  height: calc(100vh - 160px);
+  margin: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* the main page where I am displaying the table */
+.voting-status-page-main-container .principal-content-profile-page,
+.voting-notifier-page-main-container .principal-content-profile-page {
+  height: calc(100vh - 160px);
+  margin: 0 !important;
+  width: 100%;
+}
+
+@media screen and (max-width: 575px) {
+  /* the container with the information */
+  .voting-status-page-main-container .main-info-container-normal-user,
+  .voting-notifier-page-main-container .main-info-container-normal-user {
+    width: 90%;
+  }
+
+  /* the sections I'm displaying in the main container */
+  .voting-status-page-main-container .content-sections-title-info-container span,
+  .voting-notifier-page-main-container .content-sections-title-info-container span {
+    font-size: 14px;
+  }
+
+  /* the result of the section above */
+  .voting-status-page-main-container .title-info-container,
+  .voting-notifier-page-main-container .title-info-container {
+    font-size: 14px;
+  }
+
+  /* the result of the section above */
+  .result-of-content-section {
+    font-size: 10.6px;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 991px) {
+  .voting-status-page-main-container .page-heading-title,
+  .voting-notifier-page-main-container .page-heading-title,
+  .voting-joiners-page-main-container .page-heading-title,
+  .voting-removals-page-main-container .page-heading-title {
+    height: 120px;
+  }
+
+  .voting-status-page-main-container .page-heading-title h2,
+  .voting-notifier-page-main-container .page-heading-title h2,
+  .voting-joiners-page-main-container .page-heading-title h2,
+  .voting-removals-page-main-container .page-heading-title h2 {
+    font-size: 30px;
+  }
+
+  .voting-status-page-main-container .main-info-container-normal-user,
+  .voting-notifier-page-main-container .main-info-container-normal-user,
+  .voting-joiners-page-main-container .principal-content-profile-page,
+  .voting-removals-page-main-container .principal-content-profile-page {
+    margin-top: 80px;
+  }
+
+  .voting-status-page-main-container .info-container-voting-status-page,
+  .voting-notifier-page-main-container .info-container-voting-status-page {
+    width: 500px;
+  }
+
+  .voting-status-page-main-container .title-info-container,
+  .voting-notifier-page-main-container .title-info-container {
+    font-size: 20px;
+  }
+
+  .voting-status-page-main-container .content-sections-title-info-container span,
+  .voting-notifier-page-main-container .content-sections-title-info-container span {
+    font-size: 22px;
+  }
+
+  .voting-notifier-page-main-container .footer-end-vote-button-container {
+    margin-top: -15px;
+    margin-bottom: 10px;
+  }
+
+  .voting-notifier-page-main-container .footer-end-vote-button-container button {
+    font-size: 20px;
+    padding-block: 15px;
+  }
+
+  .result-of-content-section {
+    font-size: 17.5px !important;
+  }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1180px) {
+  .voting-status-page-main-container .main-info-container-normal-user,
+  .voting-notifier-page-main-container .main-info-container-normal-user {
+    margin-top: 80px;
+  }
+
+  .voting-joiners-page-main-container .page-heading-title,
+  .voting-removals-page-main-container .page-heading-title {
+    margin-bottom: 40px;
+  }
+
+  .voting-status-page-main-container .page-heading-title h2,
+  .voting-notifier-page-main-container .page-heading-title h2,
+  .voting-joiners-page-main-container .page-heading-title h2,
+  .voting-removals-page-main-container .page-heading-title h2 {
+    font-size: 28px;
+  }
+
+  .voting-status-page-main-container .title-info-container,
+  .voting-notifier-page-main-container .title-info-container,
+  .voting-status-page-main-container .content-sections-title-info-container span,
+  .voting-notifier-page-main-container .content-sections-title-info-container span,
+  .result-of-content-section {
+    font-size: 20px;
+  }
+
+  .voting-status-page-main-container .info-container-voting-status-page,
+  .voting-notifier-page-main-container .info-container-voting-status-page {
+    width: 560px;
+  }
+
+  .voting-notifier-page-main-container .footer-end-vote-button-container {
+    margin-top: -15px;
+    margin-bottom: 15px;
+  }
+
+  .voting-notifier-page-main-container .footer-end-vote-button-container button {
+    font-size: 20px;
+    width: 180px;
+    height: 45px;
+  }
+}
+
+@media screen and (min-width: 1181px) {
+  .voting-status-page-main-container .main-info-container-normal-user,
+  .voting-notifier-page-main-container .main-info-container-normal-user {
+    margin-top: 80px;
+  }
+
+  .voting-joiners-page-main-container .page-heading-title,
+  .voting-removals-page-main-container .page-heading-title {
+    margin-bottom: 40px;
+  }
+
+  .voting-status-page-main-container .page-heading-title h2,
+  .voting-notifier-page-main-container .page-heading-title h2,
+  .voting-joiners-page-main-container .page-heading-title h2,
+  .voting-removals-page-main-container .page-heading-title h2 {
+    font-size: 28px;
+  }
+
+  .voting-status-page-main-container .title-info-container,
+  .voting-notifier-page-main-container .title-info-container,
+  .voting-status-page-main-container .content-sections-title-info-container span,
+  .voting-notifier-page-main-container .content-sections-title-info-container span,
+  .result-of-content-section {
+    font-size: 20px;
+  }
+
+  .voting-status-page-main-container .info-container-voting-status-page,
+  .voting-notifier-page-main-container .info-container-voting-status-page {
+    width: 560px;
+  }
+
+  .voting-notifier-page-main-container .footer-end-vote-button-container {
+    margin-top: -15px;
+    margin-bottom: 15px;
+  }
+
+  .voting-notifier-page-main-container .footer-end-vote-button-container button {
+    font-size: 20px;
+    width: 180px;
+    height: 45px;
+  }
+}

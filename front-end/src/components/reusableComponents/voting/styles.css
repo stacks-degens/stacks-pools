@@ -1,0 +1,45 @@
+.info-container-voting-status-page {
+  width: 470px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 2px solid #f9b11c;
+  box-shadow: 1px 1px 4px #ed693c, -1px -1px 4px #fdc60b;
+}
+
+.footer-end-vote-button-container {
+  height: 50px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 575px) {
+  /* the container with the Start vote button */
+  .voting-status-page-main-container .footer-end-vote-button-container,
+  .voting-notifier-page-main-container .footer-end-vote-button-container {
+    margin-top: -15px;
+    margin-bottom: 10px;
+  }
+
+  .voting-status-page-main-container .footer-end-vote-button-container button,
+  .voting-notifier-page-main-container .footer-end-vote-button-container button {
+    font-size: 14px;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 991px) {
+  .voting-status-page-main-container .footer-end-vote-button-container,
+  .voting-notifier-page-main-container .footer-end-vote-button-container {
+    margin-top: -15px;
+    margin-bottom: 10px;
+  }
+
+  .voting-status-page-main-container .footer-end-vote-button-container button,
+  .voting-notifier-page-main-container .footer-end-vote-button-container button {
+    font-size: 20px;
+    padding-block: 15px;
+  }
+}

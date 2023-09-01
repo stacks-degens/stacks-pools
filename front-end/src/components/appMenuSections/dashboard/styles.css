@@ -1,0 +1,108 @@
+.dashboard-page-main-container {
+  height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.dashboard-page-main-container .page-heading-title {
+  height: 100px;
+}
+
+.dashboard-page-main-container .principal-content-profile-page {
+  height: calc(100vh - 160px);
+  margin: 0;
+  width: 100%;
+}
+
+@media screen and (max-width: 575px) {
+  /* the container with the information */
+  .dashboard-page-main-container .main-info-container-normal-user {
+    width: 90%;
+  }
+
+  /* the sections I'm displaying in the main container */
+  .dashboard-page-main-container .content-sections-title-info-container span {
+    font-size: 14px;
+  }
+
+  /* the result of the section above */
+  .dashboard-page-main-container .title-info-container {
+    font-size: 14px;
+  }
+
+  /* the result of the section above */
+  .result-of-content-section {
+    font-size: 10.6px;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 991px) {
+  .dashboard-page-main-container .page-heading-title {
+    height: 120px;
+  }
+
+  .dashboard-page-main-container .page-heading-title h2 {
+    font-size: 30px;
+  }
+
+  .dashboard-page-main-container .main-info-container-normal-user {
+    margin-top: 80px;
+  }
+
+  .dashboard-page-main-container .info-container-dashboard-page {
+    width: 500px;
+  }
+
+  .dashboard-page-main-container .title-info-container {
+    font-size: 20px;
+  }
+
+  .dashboard-page-main-container .content-sections-title-info-container span {
+    font-size: 22px;
+  }
+
+  .result-of-content-section {
+    font-size: 17.5px;
+  }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1180px) {
+  .dashboard-page-main-container .main-info-container-normal-user {
+    margin-top: 90px;
+  }
+
+  .dashboard-page-main-container .page-heading-title h2 {
+    font-size: 28px;
+  }
+
+  .dashboard-page-main-container .content-sections-title-info-container span,
+  .dashboard-page-main-container .title-info-container,
+  .result-of-content-section {
+    font-size: 20px;
+  }
+
+  .dashboard-page-main-container .info-container-dashboard-page {
+    width: 560px;
+  }
+}
+
+@media screen and (min-width: 1181px) {
+  .dashboard-page-main-container .main-info-container-normal-user {
+    margin-top: 90px;
+  }
+
+  .dashboard-page-main-container .page-heading-title h2 {
+    font-size: 28px;
+  }
+
+  .dashboard-page-main-container .content-sections-title-info-container span,
+  .dashboard-page-main-container .title-info-container,
+  .result-of-content-section {
+    font-size: 20px;
+  }
+
+  .dashboard-page-main-container .info-container-dashboard-page {
+    width: 560px;
+  }
+}

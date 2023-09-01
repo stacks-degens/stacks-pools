@@ -1,7 +1,16 @@
 ;; exhchange utilities
 (use-trait ft-trait .trait-sip-010.sip-010-trait)
 
+(define-map approved-tokens {token: principal} {approved: bool})
+
+(define-constant err-forbidden (err u100))
+(define-constant err-token-not-approved (err u999))
+
+(define-constant contract-admin tx-sender)
 (define-constant ONE_8 u100000000)
+
+(map-set approved-tokens {token: .token-wbtc} {approved: true})
+(map-set approved-tokens {token: .token-wstx} {approved: true})
 
 (define-private (to-one-8 (a uint))
   (* a ONE_8))
@@ -33,15 +42,18 @@
         get-helper-result 
         (- ONE_8 (unwrap-panic fee-amount))))
     (converted-amount-slippeage (minus-percent converted-amount slippeage)))
+    (asserts! 
+    (and 
+      (get-approved-token token-x)
+      (get-approved-token token-y))
+    err-token-not-approved)
     (ok (contract-call? 
         .amm-swap-pool-v1-1 swap-helper
           token-x-trait
           token-y-trait
           ONE_8
           multiplied-amount
-        (some converted-amount-slippeage)))
-    ;; (ok converted-amount)
-    ))
+        (some converted-amount-slippeage)))))
 
 (define-public (swap-bridge-stx-btc 
                   (token-x-trait <ft-trait>) 
@@ -62,16 +74,21 @@
         get-helper-result 
         (- ONE_8 (unwrap-panic fee-amount))))
     (xbtc-amount-slippeage (minus-percent xbtc-amount slippeage))
-    (xbtc-to-send (/ (* xbtc-amount u95) u100)))
-    (try! (contract-call? 
+    (swap-result 
+      (try! (contract-call? 
         .amm-swap-pool-v1-1 swap-helper
           token-x-trait
           token-y-trait
           ONE_8
           multiplied-amount
-        (some xbtc-amount-slippeage)))
-    (try! (contract-call? .degen-bridge-testnet-v3 initiate-outbound-swap xbtc-to-send btc-version btc-hash supplier-id))
-    (ok xbtc-to-send)))
+        (some xbtc-amount-slippeage)))))
+    (try! 
+      (contract-call? .degen-bridge-testnet-v3 initiate-outbound-swap 
+                          swap-result 
+                          btc-version 
+                          btc-hash 
+                          supplier-id))
+    (ok swap-result)))
 
 (define-public (swap-preview (token-x-trait <ft-trait>) (token-y-trait <ft-trait>) (multiplied-amount uint) (slippeage uint)) 
   (let (
@@ -86,3 +103,14 @@
         (- ONE_8 (unwrap-panic fee-amount))))
     (converted-amount-slippeage (minus-percent converted-amount slippeage)))
       (ok converted-amount)))
+
+(define-public (set-approved-token (token principal))
+(begin 
+  (asserts! (is-eq contract-caller contract-admin) err-forbidden)
+  (ok (map-set approved-tokens {token: token} {approved: true}))))
+
+(define-read-only (get-approved-token (token principal))
+(begin
+  (default-to false 
+    (get approved 
+      (map-get? approved-tokens {token: token})))))

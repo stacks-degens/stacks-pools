@@ -1,5 +1,5 @@
 
-;; The Stacking Pool Contract Designed For Testing
+;; Main Stacking Pool Contract
 
 
 ;; Flow
@@ -22,6 +22,9 @@
 ;; Half cycle length is 1050 for mainnet
 (define-constant half-cycle-length (/ (get reward-cycle-length (unwrap-panic (contract-call? 'ST000000000000000000002AMW42H.pox-3 get-pox-info))) u2))
 
+ ;; minimum amount for the liquidity provider to transfer after deploy in microSTX (STX * 10^-6)
+(define-constant minimum-deposit-amount-liquidity-provider u10000000000)
+
 (define-constant err-only-liquidity-provider (err u100))
 (define-constant err-already-in-pool (err u101))
 (define-constant err-not-in-pool (err u102))
@@ -30,6 +33,7 @@
 (define-constant err-allow-pool-in-SC-first (err u195))
 (define-constant err-allow-pool-in-pox-2-first (err u199))
 (define-constant err-insufficient-funds (err u200))
+(define-constant err-revoke-delegation-in-pox-first (err u201))
 (define-constant err-disallow-pool-in-pox-2-first (err u299))
 (define-constant err-full-stacking-pool (err u300))
 (define-constant err-same-value (err u325))
@@ -76,9 +80,8 @@
 (define-data-var reward-cycle-to-calculate-weight uint u0)
 (define-data-var burn-block-to-distribute-rewards uint u0)
 (define-data-var reward-cycle-to-distribute-rewards uint u0)
-
+(define-data-var temp-current-reward uint u0)
 ;; common data vars
-(define-data-var minimum-deposit-amount-liquidity-provider uint u10000000000) ;; minimum amount for the liquidity provider to transfer after deploy in microSTX (STX * 10^-6)
 (define-data-var stackers-list (list 300 principal) (list tx-sender))
 (define-data-var liquidity-provider principal tx-sender)
 (define-data-var active bool true)
@@ -97,6 +100,7 @@
 ;; data maps
 
 (define-map user-data { address: principal } {is-in-pool:bool, delegated-balance: uint, locked-balance:uint, until-burn-ht: (optional uint) })
+(define-map user-revoked-delegation principal bool)
 (define-map pox-addr-indices uint uint)
 (define-map last-aggregation uint uint)
 (define-map allowance-contract-callers { sender: principal, contract-caller: principal} { until-burn-ht: (optional uint)})
@@ -113,16 +117,16 @@
 
 (define-public (deposit-stx-liquidity-provider (amount uint)) 
 (begin 
-  (asserts! (is-eq tx-sender (var-get liquidity-provider)) err-only-liquidity-provider)
-  (asserts! (>= amount (var-get minimum-deposit-amount-liquidity-provider)) err-future-reward-not-covered)
-  (try! (stx-transfer? amount tx-sender pool-contract))
+  (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider)
+  (asserts! (>= amount minimum-deposit-amount-liquidity-provider) err-future-reward-not-covered)
+  (try! (stx-transfer? amount contract-caller pool-contract))
   (var-set sc-total-balance (+ amount (var-get sc-total-balance)))
   (var-set sc-owned-balance (+ amount (var-get sc-owned-balance)))
   (ok true)))
 
 (define-public (withdraw-stx-liquidity-provider (amount uint)) 
 (begin 
-  (asserts! (is-eq tx-sender (var-get liquidity-provider)) err-only-liquidity-provider)
+  (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider)
   (asserts! 
     (and 
       (check-can-decrement-owned-balance amount) 
@@ -137,9 +141,9 @@
 
 (define-public (reserve-funds-future-rewards (amount uint)) 
 (begin 
-  (asserts! (is-eq tx-sender (var-get liquidity-provider)) err-only-liquidity-provider)
+  (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider)
   (asserts! (>= (var-get sc-owned-balance) amount) err-insufficient-funds) 
-  (asserts! (>= amount (var-get minimum-deposit-amount-liquidity-provider)) err-future-reward-not-covered)
+  (asserts! (>= amount minimum-deposit-amount-liquidity-provider) err-future-reward-not-covered)
   (var-set sc-owned-balance (- (var-get sc-owned-balance) amount))
   (var-set sc-reserved-balance (+ (var-get sc-reserved-balance) amount))
   (ok true)))
@@ -148,7 +152,7 @@
 (begin 
   (asserts! 
     (is-eq 
-      tx-sender 
+      contract-caller 
       (var-get liquidity-provider)) 
   err-only-liquidity-provider)
   (asserts! (can-withdraw-extra-reserved-now) err-cant-withdraw-now)
@@ -168,38 +172,34 @@
 (define-public (join-stacking-pool)
 (begin
   (asserts! (check-pool-SC-pox-2-allowance) err-allow-pool-in-pox-2-first)
-  ;; (asserts! (check-caller-allowed) err-allow-pool-in-SC-first)
-  (asserts! (is-none (map-get? user-data {address: tx-sender})) err-already-in-pool)
-  (var-set stackers-list (unwrap! (as-max-len? (concat (var-get stackers-list) (list tx-sender )) u300) err-full-stacking-pool)) 
-  (map-set user-data {address: tx-sender} {is-in-pool: true, delegated-balance: u0, locked-balance: u0, until-burn-ht: none})
+  (asserts! (is-none (map-get? user-data {address: contract-caller})) err-already-in-pool)
+  (var-set stackers-list (unwrap! (as-max-len? (concat (var-get stackers-list) (list contract-caller )) u300) err-full-stacking-pool)) 
+  (map-set user-data {address: contract-caller} {is-in-pool: true, delegated-balance: u0, locked-balance: u0, until-burn-ht: none})
   (ok true)))
 
 (define-public (allow-contract-caller (caller principal) (until-burn-ht (optional uint)))
 (begin
   (asserts! (is-eq tx-sender contract-caller) err-stacking-permission-denied)
   (ok (map-set allowance-contract-callers
-        { sender: tx-sender, contract-caller: caller}
+        { sender: contract-caller, contract-caller: caller}
         { until-burn-ht: until-burn-ht}))))
 
 ;; revoke contract-caller authorization to call stacking methods
 (define-public (disallow-contract-caller (caller principal))
 (begin
   (asserts! (is-eq tx-sender contract-caller) err-stacking-permission-denied)
-  (ok (map-delete allowance-contract-callers { sender: tx-sender, contract-caller: caller}))))
+  (ok (map-delete allowance-contract-callers { sender: contract-caller, contract-caller: caller}))))
 
 (define-public (quit-stacking-pool)
 (begin
+  (asserts! (is-none (get-check-delegation contract-caller)) err-revoke-delegation-in-pox-first)
   (asserts! (not (check-pool-SC-pox-2-allowance)) err-disallow-pool-in-pox-2-first)
-  (asserts! (is-some (map-get? user-data {address: tx-sender})) err-not-in-pool)
-  (asserts! (not (is-eq tx-sender (var-get liquidity-provider))) err-liquidity-provider-not-permitted)
-  (let ((result-revoke
-          ;; calls revoke and ignores result
-          (contract-call? 'ST000000000000000000002AMW42H.pox-3 revoke-delegate-stx)))
-
-      (try! (disallow-contract-caller pool-contract))
-      (var-set stackers-list (filter remove-stacker-stackers-list (var-get stackers-list))) 
-      (map-delete user-data {address: tx-sender})
-      (ok true))))
+  (asserts! (is-some (map-get? user-data {address: contract-caller})) err-not-in-pool)
+  (asserts! (not (is-eq contract-caller (var-get liquidity-provider))) err-liquidity-provider-not-permitted)
+    (try! (disallow-contract-caller pool-contract))
+    (var-set stackers-list (filter remove-stacker-stackers-list (var-get stackers-list))) 
+    (map-delete user-data {address: contract-caller})
+    (ok true)))
 
 ;; The SC balances need to be updated during the first half of every Prepare Phase
 ;; Everyone can call the function in order to recalculate each stacker's weight inside the pool
@@ -237,22 +237,18 @@
       (user-locked-balance (default-to u0 (get locked-balance (map-get? user-data {address: stacker}))))) 
   (ok 
     ;; if burn-block-height < user's unlock burn block height, then user's balances 
-    (if 
-        (< 
-          burn-block-height 
-          user-until-burn-ht) 
-        (begin 
-          (var-set calc-locked-balance 
-            (+ 
-              (var-get calc-locked-balance) 
-              user-locked-balance))
-          (var-set calc-delegated-balance 
-            (+ 
-              (var-get calc-delegated-balance) 
-              user-delegated-balance))) 
-        (begin 
-          (var-set calc-locked-balance (var-get calc-locked-balance))
-          (var-set calc-delegated-balance (var-get calc-delegated-balance)))))))
+    (and (< 
+      burn-block-height 
+      user-until-burn-ht) 
+      (begin 
+        (var-set calc-locked-balance 
+          (+ 
+            (var-get calc-locked-balance) 
+            user-locked-balance))
+        (var-set calc-delegated-balance 
+          (+ 
+            (var-get calc-delegated-balance) 
+            user-delegated-balance)))))))
 
 ;; The rewards will be distributed. At that moment, the SC balance should have been updated and the stackers' weights calculated
 (define-public (reward-distribution (rewarded-burn-block uint))
@@ -263,19 +259,18 @@
           (asserts! (< rewarded-burn-block burn-block-height) err-no-reward-yet)
           (asserts! (check-won-block-rewards rewarded-burn-block) err-no-reward-for-this-block)
           (asserts! (is-none (map-get? already-rewarded {burn-block-height: rewarded-burn-block})) err-already-rewarded-block)
-          (var-set burn-block-to-distribute-rewards rewarded-burn-block)
-          (var-set amount-rewarded (+ (var-get amount-rewarded) (default-to u0 (get reward (map-get? burn-block-rewards { burn-height: (var-get burn-block-to-distribute-rewards)})))))
+          (var-set amount-rewarded (+ (var-get amount-rewarded) (default-to u0 (get reward (map-get? burn-block-rewards { burn-height: rewarded-burn-block})))))
           (var-set blocks-rewarded (+ (var-get blocks-rewarded) u1))
           (map-set already-rewarded {burn-block-height: rewarded-burn-block} {value: true})
           (var-set reward-cycle-to-distribute-rewards reward-cycle)
           (match (map-get? calculated-weights-reward-cycles {reward-cycle: reward-cycle}) 
             calculated (ok 
-                        (transfer-rewards-all-stackers stackers-list-for-reward-cycle))
+                          (transfer-rewards-all-stackers stackers-list-for-reward-cycle))
             err-weights-not-calculated)))
 
 ;; delegating stx to the pool SC
 (define-public (delegate-stx (amount-ustx uint))
-(let ((user tx-sender)
+(let ((user contract-caller)
       (current-cycle (contract-call? 'ST000000000000000000002AMW42H.pox-3 current-pox-reward-cycle)))
   (asserts! (check-caller-allowed) err-stacking-permission-denied)
   (asserts! (check-pool-SC-pox-2-allowance) err-allow-pool-in-pox-2-first)
@@ -306,23 +301,23 @@
 
 (define-public (set-pool-pox-address (new-pool-pox-address {hashbytes: (buff 32), version: (buff 1)})) 
 (begin 
-  (asserts! (is-eq tx-sender (var-get liquidity-provider)) err-only-liquidity-provider)
+  (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider)
   (ok (var-set pool-pox-address new-pool-pox-address))))
 
 (define-public (set-active (is-active bool))
 (begin
-  (asserts! (is-eq tx-sender (var-get liquidity-provider)) err-only-liquidity-provider)    
+  (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider)    
   (ok (var-set active is-active))))
 
 (define-public (set-liquidity-provider (new-liquidity-provider principal)) 
 (begin 
-  (asserts! (is-eq tx-sender (var-get liquidity-provider)) err-only-liquidity-provider)
+  (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider)
   (asserts! (is-some (map-get? user-data {address: new-liquidity-provider})) err-not-in-pool) ;; new liquidity provider should be in pool
   (ok (var-set liquidity-provider new-liquidity-provider))))
 
 (define-public (update-return (new-return-value uint)) 
 (begin 
-  (asserts! (is-eq tx-sender (var-get liquidity-provider)) err-only-liquidity-provider) 
+  (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider) 
   (asserts! (<= new-return-value max-return-div-accepted) err-return-div-exceeds-maximum)
   (asserts! (not (is-eq new-return-value (var-get return-div))) err-same-value)
   (var-set return-div new-return-value)
@@ -355,7 +350,7 @@
         ;; Calls revoke and ignores result
         (contract-call? 'ST000000000000000000002AMW42H.pox-3 revoke-delegate-stx))
       (user-delegated-balance 
-        (default-to u0 (get delegated-balance (map-get? user-data {address: tx-sender})))))
+        (default-to u0 (get delegated-balance (map-get? user-data {address: contract-caller})))))
       (if 
           (is-ok result-revoke) 
           (if 
@@ -374,11 +369,11 @@
               (increment-sc-delegated-balance amount-ustx)
               (map-set 
                 user-data 
-                  {address: tx-sender} 
+                  {address: contract-caller} 
                   {
-                    is-in-pool: (default-to false (get is-in-pool (map-get? user-data {address: tx-sender}))),                    
+                    is-in-pool: (default-to false (get is-in-pool (map-get? user-data {address: contract-caller}))),                    
                     delegated-balance: amount-ustx, 
-                    locked-balance: (default-to u0 (get locked-balance (map-get? user-data {address: tx-sender}))),
+                    locked-balance: (default-to u0 (get locked-balance (map-get? user-data {address: contract-caller}))),
                     until-burn-ht: until-burn-ht})
               (print "sc delegated balance")
               (print (var-get sc-delegated-balance))
@@ -388,7 +383,8 @@
 (define-private (lock-delegated-stx (user principal))
 (let ((start-burn-ht (+ burn-block-height u1))
       (pox-address (var-get pool-pox-address))
-      (buffer-amount u0)
+      ;; changed buffer-amount (commission) to 0, kept structure
+      (buffer-amount u0) 
       (user-account (stx-account user))
       (allowed-amount (min (get-delegated-amount user) (+ (get locked user-account) (get unlocked user-account))))
       (amount-ustx (if (> allowed-amount buffer-amount) (- allowed-amount buffer-amount) allowed-amount)))
@@ -445,7 +441,7 @@
                 pox-address 
                 (- 
                   amount-ustx 
-                  (default-to u0 (get locked-balance (map-get? user-data {address: tx-sender})))))
+                  (default-to u0 (get locked-balance (map-get? user-data {address: user})))))
                 success-increase (begin
                                   (print "success-increase")
                                   (print success-increase)
@@ -480,20 +476,19 @@
 
 (define-private (transfer-reward-one-stacker (stacker principal)) 
 (let (
-      (reward (* u490 (default-to u0 (get reward (map-get? burn-block-rewards { burn-height: (var-get burn-block-to-distribute-rewards)}))))) ;; hardcoded reward for tests 
-      ;; (reward 
-      ;;   (unwrap! (preview-exchange-reward 
-      ;;     (default-to u0 
-      ;;       (get reward 
-      ;;         (map-get? burn-block-rewards { burn-height: (var-get burn-block-to-distribute-rewards)}))) 
-      ;;     u5) err-cant-unwrap-exchange-preview))
+      ;; hardcoded reward for testing
+      (reward  
+        (* u426 
+          (default-to u0 
+            (get reward 
+              (map-get? burn-block-rewards { burn-height: (var-get burn-block-to-distribute-rewards)}))))) 
       (stacker-weight 
         (default-to u0 
           (get weight-percentage 
             (map-get? stacker-weights-per-reward-cycle {stacker: stacker, reward-cycle: (var-get reward-cycle-to-distribute-rewards)}))))
       (stacker-reward (/ (* stacker-weight reward) ONE-6))) 
-      
-        (if (> stacker-weight u0) 
+      (if (> stacker-weight u0) 
+
           (match (as-contract (stx-transfer? stacker-reward tx-sender stacker))
             success 
               (begin 
@@ -512,7 +507,7 @@
 ;; Weight calculation functions
 
 ;; calculating one stacker's weight inside pool based on his balances
-(define-private (weight-calculator (stacker principal) (stacker-locked uint) (total-locked uint) (liquidity-provider-locked uint)) 
+(define-private (weight-calculator (stacker-locked uint) (total-locked uint) (liquidity-provider-locked uint)) 
 (begin 
   (asserts! (> (+ total-locked liquidity-provider-locked) u0) err-no-locked-funds) 
   (ok (/ (* stacker-locked ONE-6) (+ total-locked liquidity-provider-locked)))))
@@ -544,12 +539,10 @@
         (if 
           (is-eq stacker (var-get liquidity-provider)) 
           (weight-calculator 
-            stacker 
             liquidity-provider-contribution
             total-locked-at-reward-cycle 
             liquidity-provider-reserved-at-reward-cycle)
           (weight-calculator 
-            stacker 
             stacker-locked-at-reward-cycle 
             total-locked-at-reward-cycle 
             liquidity-provider-reserved-at-reward-cycle))))
@@ -579,7 +572,7 @@
 (define-private (register-block-reward (burn-height uint)) 
 (map-set burn-block-rewards {burn-height: burn-height} {reward: (default-to u0 (get payout (get-burn-block-info? pox-addrs burn-height)))}))
 
-(define-private (remove-stacker-stackers-list (address principal)) (not (is-eq tx-sender address)))
+(define-private (remove-stacker-stackers-list (address principal)) (not (is-eq contract-caller address)))
 
 (define-private (increment-sc-delegated-balance (amount-ustx uint)) 
 (var-set sc-delegated-balance (+ (var-get sc-delegated-balance) amount-ustx)))
@@ -600,44 +593,34 @@
 (var-set sc-owned-balance (- (var-get sc-owned-balance) amount-ustx)))
 
 (define-private (check-can-decrement-delegated-balance (amount-ustx uint)) 
-(if 
+(not 
   (< 
     (var-get sc-delegated-balance) 
-    amount-ustx) 
-  false
-true))
+    amount-ustx)))
 
 (define-private (check-can-decrement-locked-balance (amount-ustx uint)) 
-(if 
+(not 
   (< 
     (var-get sc-locked-balance) 
-    amount-ustx) 
-  false
-true))
+    amount-ustx)))
 
 (define-private (check-can-decrement-reserved-balance (amount-ustx uint)) 
-(if 
+(not
   (< 
     (var-get sc-reserved-balance) 
-    amount-ustx) 
-  false
-true))
+    amount-ustx)))
 
 (define-private (check-can-decrement-total-balance (amount-ustx uint)) 
-(if 
+(not
   (< 
     (var-get sc-total-balance) 
-    amount-ustx) 
-  false
-true))
+    amount-ustx)))
 
 (define-private (check-can-decrement-owned-balance (amount-ustx uint)) 
-(if 
+(not
   (< 
     (var-get sc-owned-balance) 
-    amount-ustx) 
-  false
-true))
+    amount-ustx)))
 
 (define-private (min (amount-1 uint) (amount-2 uint))
   (if (< amount-1 amount-2)
@@ -650,7 +633,7 @@ true))
 ;; Read-only helper functions
 
 (define-read-only (get-stx-account)
-(stx-account tx-sender))
+(stx-account contract-caller))
 
 (define-read-only (get-pool-members) 
 (var-get stackers-list))
@@ -670,7 +653,7 @@ true))
       (< burn-block-height expires-at))))
 
 (define-read-only (is-in-pool) 
-(default-to false (get is-in-pool (map-get? user-data {address: tx-sender}))))
+(default-to false (get is-in-pool (map-get? user-data {address: contract-caller}))))
 
 (define-read-only (get-stacker-weight (stacker principal) (reward-cycle uint)) 
 (get weight-percentage (map-get? stacker-weights-per-reward-cycle {stacker: stacker, reward-cycle: reward-cycle})))
@@ -691,7 +674,10 @@ true))
 (map-get? user-data {address: user}))
 
 (define-read-only (check-pool-SC-pox-2-allowance)
-(is-some (contract-call? 'ST000000000000000000002AMW42H.pox-3 get-allowance-contract-callers tx-sender pool-contract)))
+(is-some (contract-call? 'ST000000000000000000002AMW42H.pox-3 get-allowance-contract-callers contract-caller pool-contract)))
+
+(define-read-only (get-check-delegation (stacker principal))
+(contract-call? 'ST000000000000000000002AMW42H.pox-3 get-check-delegation stacker))
 
 (define-read-only (get-pox-addr-indices (reward-cycle uint))
 (map-get? pox-addr-indices reward-cycle))
@@ -749,7 +735,7 @@ true))
 (var-get return-div))
 
 (define-read-only (get-minimum-deposit-liquidity-provider) 
-(var-get minimum-deposit-amount-liquidity-provider))
+minimum-deposit-amount-liquidity-provider)
 
-	(define-read-only (was-block-claimed (rewarded-burn-block uint))
+(define-read-only (was-block-claimed (rewarded-burn-block uint))
 (map-get? already-rewarded {burn-block-height: rewarded-burn-block}))

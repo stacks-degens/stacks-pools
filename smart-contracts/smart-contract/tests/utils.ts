@@ -1,9 +1,6 @@
-import { Account, Chain } from "./deps.ts";
-import {
-  getPartialStackedByCycle,
-  getRewardSetPoxAddress,
-} from "./client/pox-2-client.ts";
-import { poxAddrPool1 } from "./constants.ts";
+import { Account, Chain } from './deps.ts';
+import { getPartialStackedByCycle, getRewardSetPoxAddress } from './client/pox-2-client.ts';
+import { poxAddrPool1 } from './constants.ts';
 
 export function expectPartialStackedByCycle(
   poxAddr: { version: string; hashbytes: string },
@@ -20,7 +17,7 @@ export function expectPartialStackedByCycle(
     deployer
   ).result;
   if (amountUstx) {
-    result.expectSome().expectTuple()["stacked-amount"].expectUint(amountUstx);
+    result.expectSome().expectTuple()['stacked-amount'].expectUint(amountUstx);
   } else {
     result.expectNone();
   }
@@ -35,7 +32,7 @@ export function expectTotalStackedByCycle(
 ) {
   const result = getRewardSetPoxAddress(cycle, index, chain, user).result;
   if (amountUstx) {
-    result.expectSome().expectTuple()["total-ustx"].expectUint(amountUstx);
+    result.expectSome().expectTuple()['total-ustx'].expectUint(amountUstx);
   } else {
     result.expectNone();
   }
