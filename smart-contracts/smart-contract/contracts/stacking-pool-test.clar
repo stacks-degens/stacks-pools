@@ -24,6 +24,7 @@
 
  ;; minimum amount for the liquidity provider to transfer after deploy in microSTX (STX * 10^-6)
 (define-constant minimum-deposit-amount-liquidity-provider u10000000000)
+(define-constant commission u2)
 
 (define-constant err-only-liquidity-provider (err u100))
 (define-constant err-already-in-pool (err u101))
@@ -263,6 +264,7 @@
           (var-set blocks-rewarded (+ (var-get blocks-rewarded) u1))
           (map-set already-rewarded {burn-block-height: rewarded-burn-block} {value: true})
           (var-set reward-cycle-to-distribute-rewards reward-cycle)
+          (var-set burn-block-to-distribute-rewards rewarded-burn-block)
           (match (map-get? calculated-weights-reward-cycles {reward-cycle: reward-cycle}) 
             calculated (ok 
                           (transfer-rewards-all-stackers stackers-list-for-reward-cycle))
@@ -472,33 +474,37 @@
 ;; Rewards transferring functions
 
 (define-private (transfer-rewards-all-stackers (stackers-list-before-cycle (list 300 principal)))
-(map transfer-reward-one-stacker stackers-list-before-cycle))
+(let ((current-reward
+        (* u426
+          (default-to u0
+            (get reward
+              (map-get? burn-block-rewards { burn-height: (var-get burn-block-to-distribute-rewards)})))))
+      (management-commission (/ (* commission current-reward) u100))
+      (distributed-reward (- current-reward management-commission)))
+  (var-set temp-current-reward distributed-reward)
+  (try! (as-contract (stx-transfer? management-commission tx-sender (var-get liquidity-provider))))
+  (ok (map transfer-reward-one-stacker stackers-list-before-cycle))))
 
 (define-private (transfer-reward-one-stacker (stacker principal)) 
 (let (
       ;; hardcoded reward for testing
-      (reward  
-        (* u426 
-          (default-to u0 
-            (get reward 
-              (map-get? burn-block-rewards { burn-height: (var-get burn-block-to-distribute-rewards)}))))) 
-      (stacker-weight 
-        (default-to u0 
-          (get weight-percentage 
+      (reward (var-get temp-current-reward))
+      (stacker-weight
+        (default-to u0
+          (get weight-percentage
             (map-get? stacker-weights-per-reward-cycle {stacker: stacker, reward-cycle: (var-get reward-cycle-to-distribute-rewards)}))))
-      (stacker-reward (/ (* stacker-weight reward) ONE-6))) 
-      (if (> stacker-weight u0) 
-
-          (match (as-contract (stx-transfer? stacker-reward tx-sender stacker))
-            success 
-              (begin 
-                (if 
-                  (not (check-can-decrement-reserved-balance stacker-reward))
-                  (decrement-sc-owned-balance stacker-reward)
-                  (decrement-sc-reserved-balance stacker-reward)) 
-                (ok true))
-            error (err error)) 
-          (ok false))))
+      (stacker-reward (/ (* stacker-weight reward) ONE-6)))
+  (if (> stacker-weight u0)
+    (match (as-contract (stx-transfer? stacker-reward tx-sender stacker))
+      success
+        (begin
+          (if
+            (not (check-can-decrement-reserved-balance stacker-reward))
+            (decrement-sc-owned-balance stacker-reward)
+            (decrement-sc-reserved-balance stacker-reward)) 
+          (ok true))
+      error (err error))
+    (ok false))))
 
 
 (define-private (preview-exchange-reward (sats-amount uint) (slippeage uint)) 

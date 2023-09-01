@@ -62,6 +62,8 @@
 (define-data-var next-swapper-id uint u0)
 (define-data-var next-outbound-id uint u0)
 
+(define-constant commission u2)
+
 (define-constant MIN_EXPIRATION u250)
 (define-constant ESCROW_EXPIRATION u200)
 (define-constant OUTBOUND_EXPIRATION u200)
@@ -477,8 +479,10 @@
       (supplier (unwrap! (map-get? supplier-by-id supplier-id) ERR_INVALID_SUPPLIER))
       (fee-rate (default-to 0 (get outbound-fee supplier)))
       (sats (try! (get-swap-amount xbtc fee-rate (get outbound-base-fee supplier))))
+      (sats-commissioned (/ (* commission sats) u100))
+      (sats-to-send (- sats sats-commissioned))
       (swap {
-        sats: sats,
+        sats: sats-to-send, ;; TODO: degens - check if automatically taken correct on front-end
         xbtc: xbtc,
         supplier: supplier-id,
         version: btc-version,
