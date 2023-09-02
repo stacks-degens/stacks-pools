@@ -24,7 +24,7 @@
 
  ;; minimum amount for the liquidity provider to transfer after deploy in microSTX (STX * 10^-6)
 (define-constant minimum-deposit-amount-liquidity-provider u10000000000)
-(define-constant commission u2)
+(define-constant maintenance u2)
 
 (define-constant err-only-liquidity-provider (err u100))
 (define-constant err-already-in-pool (err u101))
@@ -385,7 +385,6 @@
 (define-private (lock-delegated-stx (user principal))
 (let ((start-burn-ht (+ burn-block-height u1))
       (pox-address (var-get pool-pox-address))
-      ;; changed buffer-amount (commission) to 0, kept structure
       (buffer-amount u0) 
       (user-account (stx-account user))
       (allowed-amount (min (get-delegated-amount user) (+ (get locked user-account) (get unlocked user-account))))
@@ -479,10 +478,10 @@
           (default-to u0
             (get reward
               (map-get? burn-block-rewards { burn-height: (var-get burn-block-to-distribute-rewards)})))))
-      (management-commission (/ (* commission current-reward) u100))
-      (distributed-reward (- current-reward management-commission)))
+      (management-maintenance (/ (* maintenance current-reward) u100))
+      (distributed-reward (- current-reward management-maintenance)))
   (var-set temp-current-reward distributed-reward)
-  (try! (as-contract (stx-transfer? management-commission tx-sender (var-get liquidity-provider))))
+  (try! (as-contract (stx-transfer? management-maintenance tx-sender (var-get liquidity-provider))))
   (ok (map transfer-reward-one-stacker stackers-list-before-cycle))))
 
 (define-private (transfer-reward-one-stacker (stacker principal)) 
@@ -745,3 +744,14 @@ minimum-deposit-amount-liquidity-provider)
 
 (define-read-only (was-block-claimed (rewarded-burn-block uint))
 (map-get? already-rewarded {burn-block-height: rewarded-burn-block}))
+
+;; check if pool pox address has won the rewards for a given burn height
+(define-read-only (has-won-burn-block (burn-height uint)) 
+(let ((reward-pox-addr-list (default-to (list ) (get addrs (get-burn-block-info? pox-addrs burn-height))))) 
+  (if 
+    (is-some (index-of? reward-pox-addr-list (var-get pool-pox-address))) 
+    true
+    false)))
+
+(define-read-only (already-rewarded-burn-block (burn-height uint))
+(is-some (map-get? burn-block-rewards {burn-height: burn-height})))
