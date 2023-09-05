@@ -5,7 +5,6 @@ import colors from '../../../consts/colorPallete';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 import { useEffect, useState } from 'react';
-import { apiMapping, network } from '../../../consts/network';
 
 interface IAboutContainerStackingProps {
   currentRole: string;
@@ -14,6 +13,10 @@ interface IAboutContainerStackingProps {
   explorerLink: string | undefined;
   delegatedToPool: number | null;
   userUntilBurnHt: number | null;
+  currentBurnBlockHeight: number | null;
+  currentCycle: number | null;
+  preparePhaseStartBlockHeight: number | null;
+  rewardPhaseStartBlockHeight: number | null;
 }
 
 const AboutContainerStacking = ({
@@ -23,24 +26,13 @@ const AboutContainerStacking = ({
   delegatedToPool,
   userUntilBurnHt,
   explorerLink,
+  currentBurnBlockHeight,
+  currentCycle,
+  preparePhaseStartBlockHeight,
+  rewardPhaseStartBlockHeight,
 }: IAboutContainerStackingProps) => {
-  const [currentBtcBlock, setCurrentBtcBlock] = useState(0);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
   const [btcBlockRetrieved, setBtcBlockRetrieved] = useState(false);
-
-  useEffect(() => {
-    const getCurrentBlock = async () => {
-      const blockInfoResult = await fetch(`${apiMapping[network]('').blockInfo}`)
-        .then((res) => res.json())
-        .then((res) => res.results[0]['burn_block_height']);
-
-      if (await blockInfoResult) {
-        setCurrentBtcBlock(blockInfoResult);
-        setBtcBlockRetrieved(true);
-      }
-    };
-    getCurrentBlock();
-  }, [setCurrentBtcBlock]);
 
   return (
     <div
@@ -76,9 +68,31 @@ const AboutContainerStacking = ({
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Current Bitcoin Block:</span>
           <div className="write-just-on-one-line result-of-content-section">
-            {currentBtcBlock !== null ? currentBtcBlock : ''}
+            {currentBurnBlockHeight !== null ? currentBurnBlockHeight : ''}
           </div>
         </div>
+
+        <div className="content-sections-title-info-container bottom-margins">
+          <span className="bold-font">Current Stacking Cycle:</span>
+          <div className="write-just-on-one-line result-of-content-section">
+            {currentCycle !== null ? currentCycle : ''}
+          </div>
+        </div>
+
+        <div className="content-sections-title-info-container bottom-margins">
+          <span className="bold-font">First Bitcoin Block Height of the next prepare phrase:</span>
+          <div className="write-just-on-one-line result-of-content-section">
+            {preparePhaseStartBlockHeight !== null ? preparePhaseStartBlockHeight : ''}
+          </div>
+        </div>
+
+        <div className="content-sections-title-info-container bottom-margins">
+          <span className="bold-font">First Bitcoin Block Height of the next reward phrase:</span>
+          <div className="write-just-on-one-line result-of-content-section">
+            {rewardPhaseStartBlockHeight !== null ? rewardPhaseStartBlockHeight : ''}
+          </div>
+        </div>
+
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Connected wallet:</span>
           <div className="write-just-on-one-line result-of-content-section">

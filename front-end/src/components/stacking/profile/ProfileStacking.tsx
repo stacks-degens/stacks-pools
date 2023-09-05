@@ -9,7 +9,7 @@ import './styles.css';
 import colors from '../../../consts/colorPallete';
 import { useEffect, useState } from 'react';
 import StackerProfile from './StackerProfile';
-import { network, getExplorerUrl } from '../../../consts/network';
+import { network, getExplorerUrl, apiMapping } from '../../../consts/network';
 import { readOnlyLockedBalanceUser } from '../../../consts/readOnly';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -23,6 +23,12 @@ const ProfileStacking = () => {
   const [userUntilBurnHt, setUserUntilBurnHt] = useState<number>(0);
   const userSession = useAppSelector(selectUserSessionState);
   const localNetwork = network === 'devnet' ? 'testnet' : network;
+  const [currentBurnBlockHeight, setCurrentBurnBlockHeight] = useState<number>(0);
+  // const [blocksUntilPreparePhase, setBlocksUntilPreparePhase] = useState<number>(0);
+  // const [blocksUntilPreparePhase, setBlocksUntilPreparePhase] = useState<number>(0);
+  const [preparePhaseStartBlockHeight, setPreparePhaseStartBlockHeight] = useState<number>(0);
+  const [rewardPhaseStartBlockHeight, setRewardPhaseStartBlockHeigh] = useState<number>(0);
+  const [currentCycle, setCurrentCycle] = useState<number>(0);
   const navigate = useNavigate();
   const location = useLocation();
   const basePath = '/stacking/dashboard';
@@ -76,6 +82,22 @@ const ProfileStacking = () => {
     getLockedBalance();
   }, [userAddress]);
 
+  useEffect(() => {
+    const getCurrentBlockInfo = async () => {
+      console.log(`${apiMapping[network]().stackingInfo}`);
+      const blockInfoResult = await fetch(`${apiMapping[network]().stackingInfo}`)
+        .then((res) => res.json())
+        .then((res) => res);
+      if (await blockInfoResult) {
+        setCurrentBurnBlockHeight(blockInfoResult['current_burnchain_block_height']);
+        setCurrentCycle(blockInfoResult['current_cycle']['id']);
+        setPreparePhaseStartBlockHeight(blockInfoResult['next_cycle']['prepare_phase_start_block_height']);
+        setRewardPhaseStartBlockHeigh(blockInfoResult['next_cycle']['reward_phase_start_block_height']);
+      }
+    };
+    getCurrentBlockInfo();
+  }, [setCurrentBurnBlockHeight, setCurrentCycle, setPreparePhaseStartBlockHeight, setRewardPhaseStartBlockHeigh]);
+
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
   return (
     <div
@@ -98,6 +120,10 @@ const ProfileStacking = () => {
           lockedInPool={lockedInPool}
           delegatedToPool={delegatedToPool}
           userUntilBurnHt={userUntilBurnHt}
+          currentBurnBlockHeight={currentBurnBlockHeight}
+          currentCycle={currentCycle}
+          preparePhaseStartBlockHeight={preparePhaseStartBlockHeight}
+          rewardPhaseStartBlockHeight={rewardPhaseStartBlockHeight}
         />
       )}
     </div>

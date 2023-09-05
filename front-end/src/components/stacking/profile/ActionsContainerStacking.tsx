@@ -17,14 +17,27 @@ import { Alert } from '@mui/material';
 import { ElectricBolt } from '@mui/icons-material';
 import ActionsContainerProviderStacking from './ActionsContainerProviderStacking';
 import MouseOverPopover from './MouseOverPopover';
+import { network } from '../../../consts/network';
 
 interface IActionsContainerStackingProps {
   userAddress: string | null;
   currentRole: string;
   delegatedToPool: number | null;
+  currentBurnBlockHeight: number;
+  currentCycle: number;
+  preparePhaseStartBlockHeight: number;
+  rewardPhaseStartBlockHeight: number;
 }
 
-const ActionsContainerStacking = ({ userAddress, currentRole, delegatedToPool }: IActionsContainerStackingProps) => {
+const ActionsContainerStacking = ({
+  userAddress,
+  currentRole,
+  delegatedToPool,
+  currentBurnBlockHeight,
+  currentCycle,
+  preparePhaseStartBlockHeight,
+  rewardPhaseStartBlockHeight,
+}: IActionsContainerStackingProps) => {
   const [showAlertLeavePool, setShowAlertLeavePool] = useState<boolean>(false);
   const [leavePoolButtonClicked, setLeavePoolButtonClicked] = useState<boolean>(false);
   const [disableLeavePoolButton, setDisableLeavePoolButton] = useState<boolean>(false);
@@ -34,6 +47,38 @@ const ActionsContainerStacking = ({ userAddress, currentRole, delegatedToPool }:
   const [claimRewardsInputAmount, setClaimRewardsInputAmount] = useState<number | null>(null);
   const [currentLiquidityProvider, setCurrentLiquidityProvider] = useState<string | null>(null);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
+
+  const numberOfBlocksPreparePhase = rewardPhaseStartBlockHeight - preparePhaseStartBlockHeight;
+  const numberOfBlocksRewardPhase = numberOfBlocksPreparePhase * 20;
+  const numberOfBlocksPerCycle = numberOfBlocksPreparePhase + numberOfBlocksRewardPhase;
+
+  const messageDelegate = `Remaining blocks to delegate for cycle ${currentCycle + 1}: ${
+    preparePhaseStartBlockHeight - currentBurnBlockHeight - 1
+  } blocks`;
+
+  let messageUpdateBalances = '';
+  if (currentBurnBlockHeight - preparePhaseStartBlockHeight + numberOfBlocksPerCycle < numberOfBlocksPreparePhase / 2) {
+    const remaining = preparePhaseStartBlockHeight + numberOfBlocksPreparePhase / 2 - currentBurnBlockHeight;
+    messageUpdateBalances = `Remaining blocks to update balances for cycle: ${currentCycle}: ${remaining} blocks`;
+  } else {
+    const remaining = preparePhaseStartBlockHeight - currentBurnBlockHeight;
+    messageUpdateBalances = `You can call start calling update-balances in ${remaining} blocks. It can be called for the next ${
+      numberOfBlocksPreparePhase / 2
+    } blocks after the starting period.`;
+  }
+
+  let messageStackFundsMultipleUsers = '';
+  if (currentBurnBlockHeight - preparePhaseStartBlockHeight + numberOfBlocksPerCycle >= numberOfBlocksPerCycle / 2) {
+    // possible now -> remaining time to call it: x blocks
+    let remaining = preparePhaseStartBlockHeight - currentBurnBlockHeight - 1;
+    messageStackFundsMultipleUsers = `Remaining blocks to stack for cycle: ${currentCycle + 1}: ${remaining} blocks`;
+  } else {
+    // not yet -> in x blocks available
+    let remaining = preparePhaseStartBlockHeight - numberOfBlocksPerCycle / 2 - currentBurnBlockHeight;
+    messageStackFundsMultipleUsers = `You can call start calling stack funds multiple in ${remaining} blocks. It can be called for the next ${
+      numberOfBlocksPerCycle / 2
+    } blocks.`;
+  }
 
   const claimRewards = async () => {
     if (claimRewardsInputAmount !== null) {
@@ -148,36 +193,44 @@ const ActionsContainerStacking = ({ userAddress, currentRole, delegatedToPool }:
         className="content-info-container-stacking justify-content-between"
       >
         <div>
-          {currentRole === 'Provider' && <ActionsContainerProviderStacking userAddress={userAddress} /> && (
-            <div className="flex-container align-items-center input-line-actions-container-stacking">
-              <div className="width-55 label-and-input-container-actions-container">
-                <label className="custom-label">Lock funds for the next cycle</label>
-                <div className="bottom-margins">
-                  <input
-                    className="custom-input"
-                    type="text"
-                    id="listId"
-                    placeholder="principal, principal, principal etc."
-                  ></input>
+          {currentRole === 'Provider' && (
+              <ActionsContainerProviderStacking
+                userAddress={userAddress}
+                currentBurnBlockHeight={currentBurnBlockHeight}
+                currentCycle={currentCycle}
+                preparePhaseStartBlockHeight={preparePhaseStartBlockHeight}
+                rewardPhaseStartBlockHeight={rewardPhaseStartBlockHeight}
+              />
+            ) && (
+              <div className="flex-container align-items-center input-line-actions-container-stacking">
+                <div className="width-55 label-and-input-container-actions-container">
+                  <label className="custom-label">Lock funds for the next cycle</label>
+                  <div className="bottom-margins">
+                    <input
+                      className="custom-input"
+                      type="text"
+                      id="listId"
+                      placeholder="principal, principal, principal etc."
+                    ></input>
+                  </div>
+                </div>
+                <div className="button-container-stacking-action-container-stacking">
+                  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <span style={{ marginRight: '5px', fontSize: '10px', display: 'flex', marginTop: 'auto' }}>
+                      <MouseOverPopover severityType="info" text={messageStackFundsMultipleUsers} />
+                    </span>
+                    <button
+                      className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+                      onClick={() => {
+                        onClickStackFunds();
+                      }}
+                    >
+                      Stack Funds Multiple Users
+                    </button>
+                  </div>
                 </div>
               </div>
-              <div className="button-container-stacking-action-container-stacking">
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                  <span style={{ marginRight: '5px', fontSize: '10px', display: 'flex', marginTop: 'auto' }}>
-                    <MouseOverPopover />
-                  </span>
-                  <button
-                    className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
-                    onClick={() => {
-                      onClickStackFunds();
-                    }}
-                  >
-                    Stack Funds Multiple Users
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
+            )}
 
           <div className="flex-container align-items-center input-line-actions-container-stacking">
             <div className="width-55 label-and-input-container-actions-container">
@@ -198,7 +251,7 @@ const ActionsContainerStacking = ({ userAddress, currentRole, delegatedToPool }:
             <div className="button-container-stacking-action-container-stacking">
               <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <span style={{ marginRight: '5px', fontSize: '10px', display: 'flex', marginTop: 'auto' }}>
-                  <MouseOverPopover />
+                  <MouseOverPopover severityType="info" text={messageDelegate} />
                 </span>
                 <button
                   className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
@@ -231,7 +284,7 @@ const ActionsContainerStacking = ({ userAddress, currentRole, delegatedToPool }:
             <div className="button-container-stacking-action-container-stacking">
               <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <span style={{ marginRight: '5px', fontSize: '10px', display: 'flex', marginTop: 'auto' }}>
-                  <MouseOverPopover />
+                  <MouseOverPopover severityType="info" text={messageDelegate} />
                 </span>
                 <button
                   className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
@@ -250,7 +303,7 @@ const ActionsContainerStacking = ({ userAddress, currentRole, delegatedToPool }:
             <div className="flex-right">
               <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <span style={{ marginRight: '5px', fontSize: '10px', display: 'flex', marginTop: 'auto' }}>
-                  <MouseOverPopover />
+                  <MouseOverPopover severityType="warning" text={messageUpdateBalances} />
                 </span>
                 <button
                   className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
@@ -287,7 +340,15 @@ const ActionsContainerStacking = ({ userAddress, currentRole, delegatedToPool }:
             </div>
           </div>
         </div>
-        {currentRole === 'Provider' && <ActionsContainerProviderStacking userAddress={userAddress} />}
+        {currentRole === 'Provider' && (
+          <ActionsContainerProviderStacking
+            userAddress={userAddress}
+            currentBurnBlockHeight={currentBurnBlockHeight}
+            currentCycle={currentCycle}
+            preparePhaseStartBlockHeight={preparePhaseStartBlockHeight}
+            rewardPhaseStartBlockHeight={rewardPhaseStartBlockHeight}
+          />
+        )}
         {leavePoolButtonClicked && showAlertLeavePool && (
           <div className="block-margins-auto alert-container-stacking-actions-container-stacking">
             <Alert

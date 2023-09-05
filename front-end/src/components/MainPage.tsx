@@ -15,14 +15,6 @@ import DashboardStacking from './stacking/dashboard/DashboardStacking';
 import ProfileStacking from './stacking/profile/ProfileStacking';
 import { useEffect } from 'react';
 
-const RedirectToGoogle = () => {
-  useEffect(() => {
-    window.location.href = 'https://degenlab.io';
-  }, []);
-
-  return null;
-};
-
 const RedirectToDashboard = () => {
   const navigate = useNavigate();
 
@@ -44,7 +36,7 @@ const MainPage = () => {
         <HeaderBar />
       </div>
       <Routes>
-        <Route path="/" element={<RedirectToGoogle />} />
+        <Route path="/" element={<Home />} />
         {/* <Route path="mining/dashboard" index element={<Dashboard />} />
         <Route path="/mining/pool/miners" element={<MiningPool />} />
         <Route path="/mining/voting" element={<Voting />} />

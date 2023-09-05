@@ -11,12 +11,23 @@ import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 import { Alert } from '@mui/material';
 import MouseOverPopover from './MouseOverPopover';
+import { network } from '../../../consts/network';
 
 interface IActionsContainerStackingProps {
   userAddress: string | null;
+  currentBurnBlockHeight: number;
+  currentCycle: number;
+  preparePhaseStartBlockHeight: number;
+  rewardPhaseStartBlockHeight: number;
 }
 
-const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStackingProps) => {
+const ActionsContainerProviderStacking = ({
+  userAddress,
+  currentBurnBlockHeight,
+  currentCycle,
+  preparePhaseStartBlockHeight,
+  rewardPhaseStartBlockHeight,
+}: IActionsContainerStackingProps) => {
   const [depositAmountInput, setDepositAmountInput] = useState<number | null>(null);
   const [lockInPoolAmountInput, setLockInPoolAmountInput] = useState<number | null>(null);
   const [newLiquidityProvider, setNewLiquidityProvider] = useState<string | null>(null);
@@ -24,6 +35,23 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
   const [invalidNewProviderAddress, setInvalidNewProviderAddress] = useState<boolean>(false);
   const [invalidNewProviderAlertOpen, setInvalidNewProviderAlertOpen] = useState<boolean>(false);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
+
+  const numberOfBlocksPreparePhase = rewardPhaseStartBlockHeight - preparePhaseStartBlockHeight;
+  const numberOfBlocksRewardPhase = numberOfBlocksPreparePhase * 20;
+  const numberOfBlocksPerCycle = numberOfBlocksPreparePhase + numberOfBlocksRewardPhase;
+  const unlockNumberOfBlocks = network === 'mainnet' ? 750 : 375;
+
+  let messageUnlock = '';
+  if (currentBurnBlockHeight - preparePhaseStartBlockHeight + numberOfBlocksPerCycle < unlockNumberOfBlocks) {
+    const remaining =
+      preparePhaseStartBlockHeight - numberOfBlocksPerCycle + unlockNumberOfBlocks - currentBurnBlockHeight;
+    messageUnlock = `Remaining blocks to unlock extra-locked liquidity for cycle: ${currentCycle}: ${remaining} blocks`;
+  } else {
+    const remaining = preparePhaseStartBlockHeight - currentBurnBlockHeight;
+    messageUnlock = `You can call start calling unlock-extra-liqudity in ${remaining} blocks. It can be called for the next ${
+      numberOfBlocksPreparePhase / 2
+    } blocks.`;
+  }
 
   const handleUpdateLiquidityProvider = () => {
     if (newLiquidityProvider !== null) {
@@ -135,7 +163,7 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
         <div className="flex-right">
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <span style={{ marginRight: '5px', fontSize: '10px', display: 'flex', marginTop: 'auto' }}>
-              <MouseOverPopover />
+              <MouseOverPopover severityType="info" text={messageUnlock} />
             </span>
             <button
               className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}

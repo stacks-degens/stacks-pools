@@ -2,9 +2,14 @@ import * as React from 'react';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import { Alert } from '@mui/material';
+import { Alert, AlertColor } from '@mui/material';
 
-const MouseOverPopover = () => {
+interface IMouseOverPopover {
+  text: string;
+  severityType: AlertColor;
+}
+
+const MouseOverPopover = ({ text, severityType }: IMouseOverPopover) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -46,7 +51,7 @@ const MouseOverPopover = () => {
         disableRestoreFocus
       >
         <Typography sx={{ p: 0 }}>
-          <Alert severity="info">Please enter here what you want to say to the user.</Alert>
+          <Alert severity={severityType}>{text}</Alert>
         </Typography>
       </Popover>
     </div>

@@ -7,10 +7,9 @@ export type networkType = 'mainnet' | 'testnet' | 'devnet';
 
 type ApiMapping = Record<
   networkType,
-  (accountAddress: string) => {
-    balance: string;
-    nftsOwned: string;
+  () => {
     blockInfo: string;
+    stackingInfo: string;
   }
 >;
 
@@ -40,20 +39,17 @@ const explorerUrl: ExplorerUrl = {
 };
 
 export const apiMapping: ApiMapping = {
-  mainnet: (accountAddress: string) => ({
-    balance: `${apiUrl.mainnet}/extended/v1/address/${accountAddress}/balances`,
-    nftsOwned: `${apiUrl.mainnet}/extended/v1/tokens/nft/holdings?principal=${accountAddress}&&`,
+  mainnet: () => ({
     blockInfo: `${apiUrl.mainnet}/extended/v1/block`,
+    stackingInfo: `${apiUrl.mainnet}/v2/pox`,
   }),
-  testnet: (accountAddress: string) => ({
-    balance: `${apiUrl.testnet}/extended/v1/address/${accountAddress}/balances`,
-    nftsOwned: `${apiUrl.testnet}/extended/v1/tokens/nft/holdings?principal=${accountAddress}&&`,
+  testnet: () => ({
     blockInfo: `${apiUrl.testnet}/extended/v1/block`,
+    stackingInfo: `${apiUrl.testnet}/v2/pox`,
   }),
-  devnet: (accountAddress: string) => ({
-    balance: `${apiUrl.devnet}/extended/v1/address/${accountAddress}/balances`,
-    nftsOwned: `${apiUrl.devnet}/extended/v1/tokens/nft/holdings?principal=${accountAddress}&&`,
+  devnet: () => ({
     blockInfo: `${apiUrl.devnet}/extended/v1/block`,
+    stackingInfo: `${apiUrl.devnet}/v2/pox`,
   }),
 };
 
