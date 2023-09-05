@@ -16,6 +16,7 @@ import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 import { Alert } from '@mui/material';
 import { ElectricBolt } from '@mui/icons-material';
 import ActionsContainerProviderStacking from './ActionsContainerProviderStacking';
+import MouseOverPopover from './MouseOverPopover';
 
 interface IActionsContainerStackingProps {
   userAddress: string | null;
@@ -161,14 +162,19 @@ const ActionsContainerStacking = ({ userAddress, currentRole, delegatedToPool }:
                 </div>
               </div>
               <div className="button-container-stacking-action-container-stacking">
-                <button
-                  className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
-                  onClick={() => {
-                    onClickStackFunds();
-                  }}
-                >
-                  Stack Funds Multiple Users
-                </button>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <span style={{ marginRight: '5px', fontSize: '10px', display: 'flex', marginTop: 'auto' }}>
+                    <MouseOverPopover />
+                  </span>
+                  <button
+                    className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+                    onClick={() => {
+                      onClickStackFunds();
+                    }}
+                  >
+                    Stack Funds Multiple Users
+                  </button>
+                </div>
               </div>
             </div>
           )}
@@ -190,15 +196,20 @@ const ActionsContainerStacking = ({ userAddress, currentRole, delegatedToPool }:
               </div>
             </div>
             <div className="button-container-stacking-action-container-stacking">
-              <button
-                className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
-                disabled={!!delegatedToPool}
-                onClick={() => {
-                  if (delegateAmountInput !== null) delegateAmount(delegateAmountInput);
-                }}
-              >
-                Delegate
-              </button>
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <span style={{ marginRight: '5px', fontSize: '10px', display: 'flex', marginTop: 'auto' }}>
+                  <MouseOverPopover />
+                </span>
+                <button
+                  className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+                  disabled={!!delegatedToPool}
+                  onClick={() => {
+                    if (delegateAmountInput !== null) delegateAmount(delegateAmountInput);
+                  }}
+                >
+                  Delegate
+                </button>
+              </div>
             </div>
           </div>
           <div className="flex-container align-items-center input-line-actions-container-stacking">
@@ -218,26 +229,36 @@ const ActionsContainerStacking = ({ userAddress, currentRole, delegatedToPool }:
               </div>
             </div>
             <div className="button-container-stacking-action-container-stacking">
-              <button
-                className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
-                disabled={!delegatedToPool}
-                onClick={() => {
-                  if (increaseDelegateAmountInput && delegatedToPool)
-                    increaseDelegateAmount(delegatedToPool, increaseDelegateAmountInput);
-                }}
-              >
-                Increase delegate
-              </button>
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <span style={{ marginRight: '5px', fontSize: '10px', display: 'flex', marginTop: 'auto' }}>
+                  <MouseOverPopover />
+                </span>
+                <button
+                  className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+                  disabled={!delegatedToPool}
+                  onClick={() => {
+                    if (increaseDelegateAmountInput && delegatedToPool)
+                      increaseDelegateAmount(delegatedToPool, increaseDelegateAmountInput);
+                  }}
+                >
+                  Increase delegate
+                </button>
+              </div>
             </div>
           </div>
           <div className="content-sections-title-info-container leave-pool-button-action-container-stacking">
             <div className="flex-right">
-              <button
-                className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
-                onClick={updateScBalances}
-              >
-                Update Pool Balances
-              </button>
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <span style={{ marginRight: '5px', fontSize: '10px', display: 'flex', marginTop: 'auto' }}>
+                  <MouseOverPopover />
+                </span>
+                <button
+                  className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+                  onClick={updateScBalances}
+                >
+                  Update Pool Balances
+                </button>
+              </div>
             </div>
           </div>
           <div className="flex-container align-items-center input-line-actions-container-stacking">

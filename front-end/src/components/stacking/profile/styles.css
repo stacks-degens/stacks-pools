@@ -1,6 +1,10 @@
 @import '../../../css/inputs/styles.css';
 @import '../../../css/buttons/styles.css';
 
+.info-icon-profile-page-stacking .css-i4bv87-MuiSvgIcon-root {
+  font-size: 15px !important;
+}
+
 .yellow-icon {
   color: #f9b11c !important;
 }

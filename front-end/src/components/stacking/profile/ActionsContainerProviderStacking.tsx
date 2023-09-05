@@ -10,6 +10,7 @@ import {
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 import { Alert } from '@mui/material';
+import MouseOverPopover from './MouseOverPopover';
 
 interface IActionsContainerStackingProps {
   userAddress: string | null;
@@ -132,14 +133,19 @@ const ActionsContainerProviderStacking = ({ userAddress }: IActionsContainerStac
       </div>
       <div className="content-sections-title-info-container leave-pool-button-action-container-stacking">
         <div className="flex-right">
-          <button
-            className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
-            onClick={() => {
-              unlockExtraStx();
-            }}
-          >
-            Unlock extra STX locked
-          </button>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <span style={{ marginRight: '5px', fontSize: '10px', display: 'flex', marginTop: 'auto' }}>
+              <MouseOverPopover />
+            </span>
+            <button
+              className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+              onClick={() => {
+                unlockExtraStx();
+              }}
+            >
+              Unlock extra STX locked
+            </button>
+          </div>
         </div>
       </div>
 
