@@ -1,6 +1,6 @@
 import '../App.css';
 import HeaderBar from './HeaderBar';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import MiningPool from './appMenuSections/miningPool/MiningPool';
 import Voting from './appMenuSections/voting/Voting';
 import Home from '../components/appMenuSections/home/Home';
@@ -13,6 +13,25 @@ import VotingNotifier from './appMenuSections/voting/VotingNotifier';
 import MinerProfileDetails from './appMenuSections/profile/MinerProfileDetails';
 import DashboardStacking from './stacking/dashboard/DashboardStacking';
 import ProfileStacking from './stacking/profile/ProfileStacking';
+import { useEffect } from 'react';
+
+const RedirectToGoogle = () => {
+  useEffect(() => {
+    window.location.href = 'https://degenlab.io';
+  }, []);
+
+  return null;
+};
+
+const RedirectToDashboard = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate('/stacking/dashboard');
+  }, [navigate]);
+
+  return null;
+};
 
 const MainPage = () => {
   return (
@@ -25,7 +44,7 @@ const MainPage = () => {
         <HeaderBar />
       </div>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<RedirectToGoogle />} />
         {/* <Route path="mining/dashboard" index element={<Dashboard />} />
         <Route path="/mining/pool/miners" element={<MiningPool />} />
         <Route path="/mining/voting" element={<Voting />} />
@@ -35,6 +54,7 @@ const MainPage = () => {
         <Route path="/mining/voting/removals" element={<VotingRemovals />} />
         <Route path="/mining/voting/notifier" element={<VotingNotifier />} /> */}
         <Route path="/profile/:address" element={<MinerProfileDetails />} />
+        <Route path="/stacking" element={<RedirectToDashboard />} />
         <Route path="/stacking/dashboard" element={<DashboardStacking />} />
         <Route path="/stacking/myProfile" element={<ProfileStacking />} />
         <Route path="*" element={<Navigate to="/" />} />

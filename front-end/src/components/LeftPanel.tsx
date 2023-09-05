@@ -50,7 +50,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
   const [openMiningPoolMenu, setOpenMiningPoolMenu] = useState<boolean>(false);
   const [openVotingMenu, setOpenVotingMenu] = useState<boolean>(false);
-  const [openStackingMenu, setOpenStackingMenu] = useState<boolean>(false);
+  const [openStackingMenu, setOpenStackingMenu] = useState<boolean>(true);
   const [openMiningMenu, setOpenMiningMenu] = useState<boolean>(false);
 
   const location = useLocation();
