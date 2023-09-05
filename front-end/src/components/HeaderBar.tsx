@@ -6,6 +6,8 @@ import colors from '../consts/colorPallete';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { selectCurrentTheme } from '../redux/reducers/user-state';
 import { updateAppThemeAction } from '../redux/actions';
+import lightLogo from '../logos/lightLogo.png';
+import darkLogo from '../logos/darkLogo.png';
 
 const HeaderBar = () => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
@@ -31,6 +33,11 @@ const HeaderBar = () => {
               <CardHeader
                 action={<FormControlLabel control={<LeftPanel currentTheme={appCurrentTheme} />} label="" />}
               />
+            </Grid>
+            <Grid item>
+              <div style={{ width: '50px', height: 'auto', marginTop: '3px' }}>
+                <img style={{ width: '100%' }} src={appCurrentTheme === 'dark' ? lightLogo : darkLogo} alt="logo" />
+              </div>
             </Grid>
             <Grid item>
               <Box>
