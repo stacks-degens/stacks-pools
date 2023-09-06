@@ -307,13 +307,23 @@ export const ContractUpdateScBalancesStacking = () => {
 
 //deposit-stx-liquidity-provider
 // args: (amount uint)
-// what does it do: deposits stx into user's account
+// what does it do: deposits stx from user's account
 
 export const ContractDepositSTXStacking = (amount: number, userAddress: string) => {
   const type = 'stacking';
   const convertedArgs = [uintCV(amount * 1000000)];
   const postConditions = createPostConditionSTXTransferToContract(userAddress, amount * 1000000);
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.depositStx, [postConditions]);
+};
+
+// withdraw-stx-liquidity-provider
+// args: (amount uint)
+// what does it do: withdraws stx to user's account
+export const ContractWithdrawSTXStacking = (amount: number, userAddress: string) => {
+  const type = 'stacking';
+  const convertedArgs = [uintCV(amount * 1000000)];
+  const postConditions = createPostConditionSTXTransferToContract(userAddress, amount * 1000000);
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.withdrawStx, [postConditions]);
 };
 
 //set-liquidity-provider

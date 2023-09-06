@@ -607,6 +607,36 @@ export const readOnlyGetMinimumDepositLiquidityProviderStacking = async () => {
   return cvToJSON(minimumDeposit).value;
 };
 
+//has-won-burn-block
+// args: none
+// what does it do: return if the block was won by the liquidity provider's address
+// returns: number
+
+export const readOnlyHasWonBurnBlock = async (blockHeight: number) => {
+  const type = 'stacking';
+  const hasWon = await ReadOnlyFunctions(
+    type,
+    [uintCV(blockHeight)],
+    functionMapping[type].readOnlyFunctions.hasWonBurnBlock
+  );
+  return cvToJSON(hasWon).value;
+};
+
+//already-rewarded-burn-block
+// args: none
+// what does it do: return if the reward was already claimed by the pool
+// returns: number
+
+export const readOnlyAlreadyRewardedBurnBlock = async (blockHeight: number) => {
+  const type = 'stacking';
+  const alreadyRewarded = await ReadOnlyFunctions(
+    type,
+    [uintCV(blockHeight)],
+    functionMapping[type].readOnlyFunctions.alreadyRewardedBurnBlock
+  );
+  return cvToJSON(alreadyRewarded).value;
+};
+
 //get-allowance-contract-callers
 //args (sender:principal, callingContract: principal)
 //what does it do: returns null -> false or some value -> true

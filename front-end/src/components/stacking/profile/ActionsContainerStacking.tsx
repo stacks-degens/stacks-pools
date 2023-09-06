@@ -10,7 +10,12 @@ import {
   ContractStackManySTX,
   ContractUpdateScBalancesStacking,
 } from '../../../consts/smartContractFunctions';
-import { readOnlyClaimedBlockStatusStacking, readOnlyGetLiquidityProvider } from '../../../consts/readOnly';
+import {
+  readOnlyAlreadyRewardedBurnBlock,
+  readOnlyClaimedBlockStatusStacking,
+  readOnlyGetLiquidityProvider,
+  readOnlyHasWonBurnBlock,
+} from '../../../consts/readOnly';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 import { Alert } from '@mui/material';
@@ -39,13 +44,19 @@ const ActionsContainerStacking = ({
   rewardPhaseStartBlockHeight,
 }: IActionsContainerStackingProps) => {
   const [showAlertLeavePool, setShowAlertLeavePool] = useState<boolean>(false);
+  const [showAlertClaimReward, setShowAlertClaimReward] = useState<boolean>(false);
   const [leavePoolButtonClicked, setLeavePoolButtonClicked] = useState<boolean>(false);
+  const [claimRewardsButtonClicked, setClaimRewardsButtonClicked] = useState<boolean>(false);
   const [disableLeavePoolButton, setDisableLeavePoolButton] = useState<boolean>(false);
   const [delegateAmountInput, setDelegateAmountInput] = useState<number | null>(null);
   const [increaseDelegateAmountInput, setIncreaseDelegateAmountInput] = useState<number | null>(null);
+  const [canCallClaim, setCanCallClaim] = useState<boolean>(true);
 
   const [claimRewardsInputAmount, setClaimRewardsInputAmount] = useState<number | null>(null);
   const [currentLiquidityProvider, setCurrentLiquidityProvider] = useState<string | null>(null);
+  const [hasWonBurnBlock, setHasWonBurnBlock] = useState<boolean>(true);
+  const [alreadyRewardedBurnBlock, setAlreadyRewardedBurnBlock] = useState<boolean>(true);
+
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   const numberOfBlocksPreparePhase = rewardPhaseStartBlockHeight - preparePhaseStartBlockHeight;
@@ -85,18 +96,6 @@ const ActionsContainerStacking = ({
     } blocks.`;
     canCallStackFundsMultipleUsers = false;
   }
-
-  const claimRewards = async () => {
-    if (claimRewardsInputAmount !== null) {
-      const wasBlockClaimed = await readOnlyClaimedBlockStatusStacking(claimRewardsInputAmount);
-      console.log(wasBlockClaimed);
-      if (wasBlockClaimed === null) {
-        ContractRewardDistributionStacking(claimRewardsInputAmount);
-      } else {
-        alert('Block already claimed');
-      }
-    }
-  };
 
   const updateScBalances = async () => {
     ContractUpdateScBalancesStacking();
@@ -149,15 +148,45 @@ const ActionsContainerStacking = ({
     getCurrentLiquidityProvider();
   }, [currentLiquidityProvider]);
 
+  useEffect(() => {
+    const getHasWonBurnBlock = async () => {
+      if (claimRewardsInputAmount) {
+        const hasWon = await readOnlyHasWonBurnBlock(claimRewardsInputAmount);
+        setHasWonBurnBlock(hasWon);
+      }
+    };
+    getHasWonBurnBlock();
+  }, [claimRewardsInputAmount]);
+
+  useEffect(() => {
+    const getAlreadyRewardedBurnBlock = async () => {
+      if (claimRewardsInputAmount) {
+        const hasWon = await readOnlyAlreadyRewardedBurnBlock(claimRewardsInputAmount);
+        setAlreadyRewardedBurnBlock(hasWon);
+      }
+    };
+    getAlreadyRewardedBurnBlock();
+  }, [claimRewardsInputAmount]);
+
   const leavePool = () => {
     setLeavePoolButtonClicked(true);
     if (currentLiquidityProvider !== null && currentLiquidityProvider !== userAddress) {
       ContractLeavePoolStacking();
     } else if (currentLiquidityProvider !== null && currentLiquidityProvider === userAddress) {
-      console.log("you art the provider, you can't leave pool");
+      console.log("you are the provider, you can't leave pool");
 
       setShowAlertLeavePool(true);
       setDisableLeavePoolButton(true);
+    }
+  };
+
+  const claimRewards = async () => {
+    setClaimRewardsButtonClicked(true);
+
+    if (claimRewardsInputAmount !== null && !alreadyRewardedBurnBlock && hasWonBurnBlock) {
+      ContractRewardDistributionStacking(claimRewardsInputAmount);
+    } else {
+      setShowAlertClaimReward(true);
     }
   };
 
@@ -322,6 +351,19 @@ const ActionsContainerStacking = ({
               </div>
             </div>
           </div>
+          {claimRewardsButtonClicked && showAlertClaimReward && (
+            <div className="block-margins-auto alert-container-stacking-actions-container-stacking">
+              <Alert
+                severity="warning"
+                onClose={() => {
+                  setClaimRewardsButtonClicked(false);
+                  setShowAlertClaimReward(false);
+                }}
+              >
+                The given block height is not claimable. It was already claimed or it was not won by the stacking pool.
+              </Alert>
+            </div>
+          )}
           <div className="flex-container align-items-center input-line-actions-container-stacking">
             <div className="width-55 label-and-input-container-actions-container">
               <label className="custom-label">Insert block height</label>
@@ -332,9 +374,14 @@ const ActionsContainerStacking = ({
                   onChange={(e) => {
                     const inputAmount = e.target.value;
                     const inputAmountToInt = parseInt(inputAmount);
-                    setClaimRewardsInputAmount(inputAmountToInt);
-                    console.log('claim rewards input', inputAmount);
+                    if (inputAmountToInt < currentBurnBlockHeight) {
+                      setCanCallClaim(true);
+                      setClaimRewardsInputAmount(inputAmountToInt);
+                    } else {
+                      setCanCallClaim(false);
+                    }
                   }}
+                  max={currentBurnBlockHeight - 1}
                 ></input>
               </div>
             </div>
@@ -342,6 +389,7 @@ const ActionsContainerStacking = ({
               <button
                 className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
                 onClick={claimRewards}
+                disabled={!canCallClaim}
               >
                 Claim rewards
               </button>

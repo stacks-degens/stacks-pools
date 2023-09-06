@@ -750,10 +750,10 @@ minimum-deposit-amount-liquidity-provider)
 ;; check if pool pox address has won the rewards for a given burn height
 (define-read-only (has-won-burn-block (burn-height uint)) 
 (let ((reward-pox-addr-list (default-to (list ) (get addrs (get-burn-block-info? pox-addrs burn-height))))) 
-  (if 
-    (is-some (index-of? reward-pox-addr-list (var-get pool-pox-address))) 
-    true
-    false)))
+  (is-some (index-of? reward-pox-addr-list (var-get pool-pox-address)))))
 
 (define-read-only (already-rewarded-burn-block (burn-height uint))
 (is-some (map-get? burn-block-rewards {burn-height: burn-height})))
+
+(define-read-only (updated-balances-given-cycle (given-cycle uint))
+(default-to false (get updated (map-get? updated-sc-balances { reward-cycle: given-cycle }))))

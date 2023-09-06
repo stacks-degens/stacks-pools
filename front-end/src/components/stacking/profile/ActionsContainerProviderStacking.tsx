@@ -6,6 +6,7 @@ import {
   ContractSetNewBtcPoxAddress,
   ContractSetNewLiquidityProvider,
   ContractUnlockExtraReserveFundsStacking,
+  ContractWithdrawSTXStacking,
 } from '../../../consts/smartContractFunctions';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
@@ -29,6 +30,7 @@ const ActionsContainerProviderStacking = ({
   rewardPhaseStartBlockHeight,
 }: IActionsContainerStackingProps) => {
   const [depositAmountInput, setDepositAmountInput] = useState<number | null>(null);
+  const [withdrawAmountInput, setWithdrawAmountInput] = useState<number | null>(null);
   const [lockInPoolAmountInput, setLockInPoolAmountInput] = useState<number | null>(null);
   const [newLiquidityProvider, setNewLiquidityProvider] = useState<string | null>(null);
   const [newPoolPoxAddressPubKey, setNewPoolPoxAddressPubKey] = useState<string | null>(null);
@@ -89,6 +91,20 @@ const ActionsContainerProviderStacking = ({
     }
   };
 
+  const withdrawAmount = () => {
+    if (withdrawAmountInput !== null && !isNaN(withdrawAmountInput)) {
+      if (withdrawAmountInput < 0.000001) {
+        alert('You need to input more');
+        console.log('you need to input more');
+      } else {
+        console.log(withdrawAmountInput);
+        if (userAddress !== null) {
+          ContractWithdrawSTXStacking(withdrawAmountInput, userAddress);
+        }
+      }
+    }
+  };
+
   const lockInPool = () => {
     if (lockInPoolAmountInput !== null && !isNaN(lockInPoolAmountInput)) {
       if (lockInPoolAmountInput < 0.000001) {
@@ -132,6 +148,33 @@ const ActionsContainerProviderStacking = ({
             }}
           >
             Deposit
+          </button>
+        </div>
+      </div>
+      <div className="flex-container align-items-center input-line-actions-container-stacking">
+        <div className="width-55 label-and-input-container-actions-container">
+          <label className="custom-label">Insert amount of STX</label>
+          <div className="bottom-margins">
+            <input
+              className="custom-input"
+              type="number"
+              onChange={(e) => {
+                const inputAmount = e.target.value;
+                const inputAmountToInt = parseFloat(inputAmount);
+                setWithdrawAmountInput(inputAmountToInt);
+                console.log('deposit input', inputAmount);
+              }}
+            ></input>
+          </div>
+        </div>
+        <div className="button-container-stacking-action-container-stacking">
+          <button
+            className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+            onClick={() => {
+              withdrawAmount();
+            }}
+          >
+            Withdraw
           </button>
         </div>
       </div>
