@@ -53,7 +53,7 @@ const Home = () => {
             address you want to sign in with, from{' '}
             <a
               className="homePageLink"
-              href="https://github.com/stacks-degens/starters-front-end/tree/profile-pages-design#accounts-in-mining-pool"
+              href="https://github.com/stacks-degens/starters-front-end#readme"
               target="_blank"
               style={{ color: colors[appCurrentTheme].defaultOrange }}
             >
