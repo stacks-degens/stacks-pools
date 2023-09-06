@@ -19,20 +19,11 @@ type ApiUrl = Record<networkType, string>;
 export const apiUrl: ApiUrl = {
   mainnet:
     'https://responsive-cosmopolitan-panorama.stacks-mainnet.quiknode.pro/3a26316cbf4275e95002802aa24e9e19cf744239',
-  //'https://api.testnet.hiro.so',
   testnet: 'https://cold-alpha-spring.stacks-testnet.quiknode.pro/a28b33a78e1ee89cc89e2c0eb02b4790cbbb671f',
   devnet: 'http://localhost:3999',
 };
 
 // works locally
-// export const apiUrl: ApiUrl = {
-//   mainnet:
-//     'https://responsive-cosmopolitan-panorama.stacks-mainnet.quiknode.pro/3a26316cbf4275e95002802aa24e9e19cf744239',
-//   testnet: 'https://cold-alpha-spring.stacks-testnet.quiknode.pro/a28b33a78e1ee89cc89e2c0eb02b4790cbbb671f',
-//   devnet: 'http://localhost:3999',
-// };
-
-// // works locally
 // export const apiUrl: ApiUrl = {
 //   mainnet: 'https://api.mainnet.hiro.so',
 //   testnet: 'https://api.testnet.hiro.so',
