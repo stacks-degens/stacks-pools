@@ -208,7 +208,7 @@
 (define-public (update-sc-balances)
 (let (
   (next-reward-cycle (get-next-reward-cycle))
-  (next-reward-cycle-first-block (contract-call? 'ST000000000000000000002AMW42H.pox-3 reward-cycle-to-burn-height (get-next-reward-cycle)))) 
+  (next-reward-cycle-first-block (contract-call? 'ST000000000000000000002AMW42H.pox-3 reward-cycle-to-burn-height (get-next-reward-cycle))))
 (begin 
   ;; check current block to be inside the first half of the current reward cycle's prepare phase
   (asserts! 
@@ -731,12 +731,17 @@
       (var-get sc-locked-balance) 
       (var-get return-div))))
 
-(define-read-only (can-withdraw-extra-reserved-now) 
-;; liquidity provider can only withdraw extra reserved balance within the last 10 blocks of a reward cycle
-(let ((mod-burn-height (mod burn-block-height REWARD_CYCLE_LENGTH))
-      (start-value (- REWARD_CYCLE_LENGTH u10))
-      (end-value (- REWARD_CYCLE_LENGTH u1))) 
-  (and (>= mod-burn-height start-value) (<= mod-burn-height end-value))))
+;; The extra reserved funds can be withdrawn during the first 750 blocks of the cycle
+(define-read-only (can-withdraw-extra-reserved-now)
+(let ((current-cycle 
+        (contract-call? 'ST000000000000000000002AMW42H.pox-3 burn-height-to-reward-cycle burn-block-height))) 
+    (< 
+      burn-block-height 
+      (- 
+        (+ 
+          (contract-call? 'ST000000000000000000002AMW42H.pox-3 reward-cycle-to-burn-height current-cycle) 
+          half-cycle-length) 
+      u300))))
 
 (define-read-only (get-return) 
 (var-get return-div))

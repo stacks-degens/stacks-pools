@@ -29,7 +29,15 @@ import {
   UserRoleStacking,
 } from '../redux/reducers/user-state';
 import { useState } from 'react';
-import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material';
+import {
+  ExpandLess,
+  ExpandMore,
+  Help,
+  HowToReg,
+  IntegrationInstructions,
+  QuestionAnswer,
+  StarBorder,
+} from '@mui/icons-material';
 import { Collapse } from '@mui/material';
 import '../css/navbars/styles.css';
 
@@ -197,6 +205,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
               </ListItem>
               <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
             </div>
+
             {(currentRoleStacking === 'Provider' || currentRoleStacking === 'Stacker') && (
               <div>
                 <ListItem
@@ -219,8 +228,34 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                     />
                   </ListItemButton>
                 </ListItem>
+                <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
               </div>
             )}
+            <div>
+              <ListItem
+                className={location.pathname === '/stacking/dashboard' ? 'active-custom' : ''}
+                onClick={toggleDrawer(anchor, false)}
+                onKeyDown={toggleDrawer(anchor, false)}
+              >
+                <ListItemButton
+                  component={Link}
+                  to={
+                    'https://stacksdegens.notion.site/Walkthrough-Decentralized-Stacking-Pool-c1c10e3393324297aa8dcc28c1fe253c?pvs=4'
+                  }
+                  target="_new"
+                  className="padding-left-sidebar-main-sections"
+                >
+                  <ListItemIcon>
+                    <Help style={{ color: colors[appCurrentTheme].primary }}></Help>
+                  </ListItemIcon>
+                  <ListItemText
+                    className="navbar-sections-font-size"
+                    style={{ color: colors[appCurrentTheme].primary }}
+                    primary="How to Stack"
+                  />
+                </ListItemButton>
+              </ListItem>
+            </div>
           </Collapse>
           <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
           <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
