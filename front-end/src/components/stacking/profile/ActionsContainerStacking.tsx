@@ -57,27 +57,33 @@ const ActionsContainerStacking = ({
   } blocks`;
 
   let messageUpdateBalances = '';
+  let canCallUpdateBalances = false;
   if (currentBurnBlockHeight - preparePhaseStartBlockHeight + numberOfBlocksPerCycle < numberOfBlocksPreparePhase / 2) {
     const remaining = preparePhaseStartBlockHeight + numberOfBlocksPreparePhase / 2 - currentBurnBlockHeight;
     messageUpdateBalances = `Remaining blocks to update balances for cycle: ${currentCycle}: ${remaining} blocks`;
+    canCallUpdateBalances = true;
   } else {
     const remaining = preparePhaseStartBlockHeight - currentBurnBlockHeight;
     messageUpdateBalances = `You can call start calling update-balances in ${remaining} blocks. It can be called for the next ${
       numberOfBlocksPreparePhase / 2
     } blocks after the starting period.`;
+    canCallUpdateBalances = false;
   }
 
   let messageStackFundsMultipleUsers = '';
+  let canCallStackFundsMultipleUsers = false;
   if (currentBurnBlockHeight - preparePhaseStartBlockHeight + numberOfBlocksPerCycle >= numberOfBlocksPerCycle / 2) {
     // possible now -> remaining time to call it: x blocks
     let remaining = preparePhaseStartBlockHeight - currentBurnBlockHeight - 1;
     messageStackFundsMultipleUsers = `Remaining blocks to stack for cycle: ${currentCycle + 1}: ${remaining} blocks`;
+    canCallStackFundsMultipleUsers = true;
   } else {
     // not yet -> in x blocks available
     let remaining = preparePhaseStartBlockHeight - numberOfBlocksPerCycle / 2 - currentBurnBlockHeight;
     messageStackFundsMultipleUsers = `You can call start calling stack funds multiple in ${remaining} blocks. It can be called for the next ${
       numberOfBlocksPerCycle / 2
     } blocks.`;
+    canCallStackFundsMultipleUsers = false;
   }
 
   const claimRewards = async () => {
@@ -224,6 +230,7 @@ const ActionsContainerStacking = ({
                       onClick={() => {
                         onClickStackFunds();
                       }}
+                      disabled={!canCallStackFundsMultipleUsers}
                     >
                       Stack Funds Multiple Users
                     </button>
@@ -308,6 +315,7 @@ const ActionsContainerStacking = ({
                 <button
                   className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
                   onClick={updateScBalances}
+                  disabled={!canCallUpdateBalances}
                 >
                   Update Pool Balances
                 </button>

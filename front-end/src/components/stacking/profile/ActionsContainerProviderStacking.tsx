@@ -42,15 +42,18 @@ const ActionsContainerProviderStacking = ({
   const unlockNumberOfBlocks = network === 'mainnet' ? 750 : 375;
 
   let messageUnlock = '';
+  let canCallUpdateBalances = false;
   if (currentBurnBlockHeight - preparePhaseStartBlockHeight + numberOfBlocksPerCycle < unlockNumberOfBlocks) {
     const remaining =
       preparePhaseStartBlockHeight - numberOfBlocksPerCycle + unlockNumberOfBlocks - currentBurnBlockHeight;
     messageUnlock = `Remaining blocks to unlock extra-locked liquidity for cycle: ${currentCycle}: ${remaining} blocks`;
+    canCallUpdateBalances = true;
   } else {
     const remaining = preparePhaseStartBlockHeight - currentBurnBlockHeight;
     messageUnlock = `You can call start calling unlock-extra-liqudity in ${remaining} blocks. It can be called for the next ${
       numberOfBlocksPreparePhase / 2
     } blocks.`;
+    canCallUpdateBalances = false;
   }
 
   const handleUpdateLiquidityProvider = () => {
@@ -170,6 +173,7 @@ const ActionsContainerProviderStacking = ({
               onClick={() => {
                 unlockExtraStx();
               }}
+              disabled={!canCallUpdateBalances}
             >
               Unlock extra STX locked
             </button>
