@@ -62,15 +62,16 @@
 (define-constant pool-contract (as-contract tx-sender))
 (define-constant pox-2-contract (as-contract 'ST000000000000000000002AMW42H.pox-3))
 (define-constant blocks-to-pass-until-reward u101)
-(define-constant max-return-div-accepted u20)
+(define-constant max-return-div-accepted u333)
 (define-constant ONE-6 u1000000)
 ;; liquidity provider data vars
 (define-data-var sc-total-balance uint u0)
 (define-data-var sc-owned-balance uint u0)
 (define-data-var sc-reserved-balance uint u0)
   ;; (the percentage of the locked balance assured by the liquidity provider) ^ -1,
-  ;; return-div = u20 => the liquidity provider is ready to grant a maximum of 5% of the total locked balance.
-(define-data-var return-div uint u20)  
+  ;; return-div = u200 => the liquidity provider is ready to grant a maximum of 0.5% of the total locked balance.
+  ;; the general returns during cycles 64-66 was about 0.15-0.2% of the stacked amount 
+(define-data-var return-div uint u200)  
 ;; stackers data vars
 (define-data-var sc-delegated-balance uint u0)
 (define-data-var sc-locked-balance uint u0)
@@ -119,7 +120,7 @@
 (define-public (deposit-stx-liquidity-provider (amount uint)) 
 (begin 
   (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider)
-  (asserts! (>= amount minimum-deposit-amount-liquidity-provider) err-future-reward-not-covered)
+  ;; (asserts! (>= amount minimum-deposit-amount-liquidity-provider) err-future-reward-not-covered)
   (try! (stx-transfer? amount contract-caller pool-contract))
   (var-set sc-total-balance (+ amount (var-get sc-total-balance)))
   (var-set sc-owned-balance (+ amount (var-get sc-owned-balance)))
@@ -312,11 +313,11 @@
   (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider)    
   (ok (var-set active is-active))))
 
-(define-public (set-liquidity-provider (new-liquidity-provider principal)) 
-(begin 
-  (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider)
-  (asserts! (is-some (map-get? user-data {address: new-liquidity-provider})) err-not-in-pool) ;; new liquidity provider should be in pool
-  (ok (var-set liquidity-provider new-liquidity-provider))))
+;; (define-public (set-liquidity-provider (new-liquidity-provider principal)) 
+;; (begin 
+;;   (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider)
+;;   (asserts! (is-some (map-get? user-data {address: new-liquidity-provider})) err-not-in-pool) ;; new liquidity provider should be in pool
+;;   (ok (var-set liquidity-provider new-liquidity-provider))))
 
 (define-public (update-return (new-return-value uint)) 
 (begin 
@@ -706,9 +707,6 @@
 
 (define-read-only (get-blocks-rewarded) 
 (var-get blocks-rewarded))
-
-(define-read-only (get-stacked-this-cycle) 
-(var-get sc-locked-balance))
 
 (define-private (check-is-liquidity-provider (address principal)) 
 (is-eq address (var-get liquidity-provider)))
