@@ -1,5 +1,5 @@
 import './styles.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   ContractDepositSTXStacking,
   ContractReserveFundsFutureRewardsStacking,
@@ -13,6 +13,10 @@ import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 import { Alert } from '@mui/material';
 import MouseOverPopover from './MouseOverPopover';
 import { network } from '../../../consts/network';
+import {
+  readOnlyGetMinimumDepositLiquidityProviderStacking,
+  readOnlyGetSCOwnedBalance,
+} from '../../../consts/readOnly';
 
 interface IActionsContainerStackingProps {
   userAddress: string | null;
@@ -21,6 +25,11 @@ interface IActionsContainerStackingProps {
   preparePhaseStartBlockHeight: number;
   rewardPhaseStartBlockHeight: number;
 }
+
+const to2Digits = (n: number) => {
+  const toInt = 1000000;
+  return Math.floor((n / toInt) * 100) / 100;
+};
 
 const ActionsContainerProviderStacking = ({
   userAddress,
@@ -36,6 +45,9 @@ const ActionsContainerProviderStacking = ({
   const [newPoolPoxAddressPubKey, setNewPoolPoxAddressPubKey] = useState<string | null>(null);
   const [invalidNewProviderAddress, setInvalidNewProviderAddress] = useState<boolean>(false);
   const [invalidNewProviderAlertOpen, setInvalidNewProviderAlertOpen] = useState<boolean>(false);
+  const [minimumDepositProvider, setMinimumDepositProvider] = useState<number | null>(null);
+  const [ownedBalance, setOwnedBalance] = useState<number | null>(null);
+
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   const numberOfBlocksPreparePhase = rewardPhaseStartBlockHeight - preparePhaseStartBlockHeight;
@@ -43,12 +55,18 @@ const ActionsContainerProviderStacking = ({
   const numberOfBlocksPerCycle = numberOfBlocksPreparePhase + numberOfBlocksRewardPhase;
   const unlockNumberOfBlocks = network === 'mainnet' ? 750 : 375;
 
-  // let messageReserve = '';
-  // if (amountDeposited) {
-  //   messageReserve = 'To reserve a given amount first you have to deposit it.';
-  // } else {
-  //   messageReserve = `You can reserve up to ${amountDeposited}. You have to reserve at least ${mininumRequired}`;
-  // }
+  let messageReserve = '';
+  if (ownedBalance !== null && minimumDepositProvider !== null) {
+    if (!ownedBalance) {
+      messageReserve = 'To reserve a given amount first you have to deposit it.';
+    } else if (ownedBalance < minimumDepositProvider) {
+      messageReserve = `You have to deposit ${
+        minimumDepositProvider - ownedBalance
+      } STX more in order to succesfully call the reserve function.`;
+    } else {
+      messageReserve = `You have deposited and can reserve up to ${ownedBalance}. The minimum amount for the tx to pass is ${minimumDepositProvider}`;
+    }
+  }
 
   let messageUnlock = '';
   let canCallUpdateBalances = false;
@@ -64,6 +82,9 @@ const ActionsContainerProviderStacking = ({
     } blocks.`;
     canCallUpdateBalances = false;
   }
+
+  let messageDeposit = `The deposit function is the first step to ensure the rewards for the pool. The amount deposited can then be reserved. For a smooth experience, deposit the required locked amount in one tx: ${minimumDepositProvider}.`;
+  let messageWithdraw = `You have ${ownedBalance} STX that can be withdrawn from the smart contract.`;
 
   const handleUpdateLiquidityProvider = () => {
     if (newLiquidityProvider !== null) {
@@ -124,6 +145,25 @@ const ActionsContainerProviderStacking = ({
     ContractUnlockExtraReserveFundsStacking();
   };
 
+  useEffect(() => {
+    const getSCOwnedBalance = async () => {
+      const stacks = await readOnlyGetSCOwnedBalance();
+      setOwnedBalance(to2Digits(stacks));
+    };
+    getSCOwnedBalance();
+  }, [ownedBalance]);
+
+  useEffect(() => {
+    const getMinimumDepositProvider = async () => {
+      if (userAddress) {
+        const minimum = await readOnlyGetMinimumDepositLiquidityProviderStacking();
+        setMinimumDepositProvider(to2Digits(minimum));
+      }
+    };
+
+    getMinimumDepositProvider();
+  }, [userAddress]);
+
   return (
     <div>
       <div className="flex-container align-items-center input-line-actions-container-stacking">
@@ -142,16 +182,22 @@ const ActionsContainerProviderStacking = ({
           </div>
         </div>
         <div className="button-container-stacking-action-container-stacking">
-          <button
-            className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
-            onClick={() => {
-              depositAmount();
-            }}
-          >
-            Deposit
-          </button>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <span style={{ marginRight: '5px', fontSize: '10px', display: 'flex', marginTop: 'auto' }}>
+              <MouseOverPopover severityType="info" text={messageDeposit} />
+            </span>
+            <button
+              className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+              onClick={() => {
+                depositAmount();
+              }}
+            >
+              Deposit
+            </button>
+          </div>
         </div>
       </div>
+
       <div className="flex-container align-items-center input-line-actions-container-stacking">
         <div className="width-55 label-and-input-container-actions-container">
           <label className="custom-label">Insert amount of STX</label>
@@ -168,16 +214,22 @@ const ActionsContainerProviderStacking = ({
           </div>
         </div>
         <div className="button-container-stacking-action-container-stacking">
-          <button
-            className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
-            onClick={() => {
-              withdrawAmount();
-            }}
-          >
-            Withdraw
-          </button>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <span style={{ marginRight: '5px', fontSize: '10px', display: 'flex', marginTop: 'auto' }}>
+              <MouseOverPopover severityType="info" text={messageWithdraw} />
+            </span>
+            <button
+              className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+              onClick={() => {
+                withdrawAmount();
+              }}
+            >
+              Withdraw
+            </button>
+          </div>
         </div>
       </div>
+
       <div className="flex-container align-items-center input-line-actions-container-stacking">
         <div className="width-55 label-and-input-container-actions-container">
           <label className="custom-label">Insert amount of STX</label>
@@ -194,24 +246,23 @@ const ActionsContainerProviderStacking = ({
           </div>
         </div>
         <div className="button-container-stacking-action-container-stacking">
-          <div className="flex-right">
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <span style={{ marginRight: '5px', fontSize: '10px', display: 'flex', marginTop: 'auto' }}>
-                <MouseOverPopover severityType="info" text={messageUnlock} />
-              </span>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <span style={{ marginRight: '5px', fontSize: '10px', display: 'flex', marginTop: 'auto' }}>
+              <MouseOverPopover severityType="info" text={messageReserve} />
+            </span>
 
-              <button
-                className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
-                onClick={() => {
-                  lockInPool();
-                }}
-              >
-                Reserve in pool
-              </button>
-            </div>
+            <button
+              className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+              onClick={() => {
+                lockInPool();
+              }}
+            >
+              Reserve in pool
+            </button>
           </div>
         </div>
       </div>
+
       <div className="content-sections-title-info-container leave-pool-button-action-container-stacking">
         <div className="flex-right">
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

@@ -22,6 +22,11 @@ interface IAboutContainerStackingProps {
   rewardPhaseStartBlockHeight: number | null;
 }
 
+const to2Digits = (n: number) => {
+  const toInt = 1000000;
+  return Math.floor((n / toInt) * 100) / 100;
+};
+
 const AboutContainerStacking = ({
   currentRole,
   connectedWallet,
@@ -114,11 +119,11 @@ const AboutContainerStacking = ({
 
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">
-            Delegated to the pool:{' '}
+            Address’ delegated funds to the pool:{' '}
             {delegatedToPool !== null && delegatedToPool !== 0 && userUntilBurnHt !== null
-              ? `${delegatedToPool / 1000000} STX until Bitcoin block ${userUntilBurnHt}`
+              ? `${to2Digits(delegatedToPool)} STX until Bitcoin block ${userUntilBurnHt}.`
               : delegatedToPool !== null && delegatedToPool !== 0 && userUntilBurnHt === null
-              ? ''
+              ? 'The last burn block height for delegated funds has been reached, and the delegation has expired.'
               : delegatedToPool === null || delegatedToPool === 0
               ? 'No funds delegated to the Stacking Pool'
               : 'No delegated funds'}
@@ -129,7 +134,7 @@ const AboutContainerStacking = ({
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">
             Locked in pool:{' '}
-            {lockedInPool !== null && lockedInPool !== 0 ? `${lockedInPool / 1000000} STX` : 'No locked funds'}
+            {lockedInPool !== null && lockedInPool !== 0 ? `${to2Digits(lockedInPool)} STX` : 'No locked funds'}
           </span>
           <span className="result-of-content-section"></span>
         </div>
