@@ -18,7 +18,7 @@ import {
 } from '../../../consts/readOnly';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
-import { Alert } from '@mui/material';
+import { Alert, Checkbox } from '@mui/material';
 import { ElectricBolt } from '@mui/icons-material';
 import ActionsContainerProviderStacking from './ActionsContainerProviderStacking';
 import MouseOverPopover from './MouseOverPopover';
@@ -28,6 +28,9 @@ interface IActionsContainerStackingProps {
   userAddress: string | null;
   currentRole: string;
   delegatedToPool: number | null;
+  stacksAmountThisCycle: number;
+  reservedAmount: number;
+  returnCovered: number;
   currentBurnBlockHeight: number;
   currentCycle: number;
   preparePhaseStartBlockHeight: number;
@@ -38,19 +41,30 @@ const ActionsContainerStacking = ({
   userAddress,
   currentRole,
   delegatedToPool,
+  stacksAmountThisCycle,
+  reservedAmount,
+  returnCovered,
   currentBurnBlockHeight,
   currentCycle,
   preparePhaseStartBlockHeight,
   rewardPhaseStartBlockHeight,
 }: IActionsContainerStackingProps) => {
   const [showAlertLeavePool, setShowAlertLeavePool] = useState<boolean>(false);
-  const [showAlertClaimReward, setShowAlertClaimReward] = useState<boolean>(false);
   const [leavePoolButtonClicked, setLeavePoolButtonClicked] = useState<boolean>(false);
-  const [claimRewardsButtonClicked, setClaimRewardsButtonClicked] = useState<boolean>(false);
   const [disableLeavePoolButton, setDisableLeavePoolButton] = useState<boolean>(false);
+
+  const [claimRewardsButtonClicked, setClaimRewardsButtonClicked] = useState<boolean>(false);
+  const [canCallClaim, setCanCallClaim] = useState<boolean>(true);
+  const [showAlertClaimReward, setShowAlertClaimReward] = useState<boolean>(false);
+
+  const [delegateButtonClicked, setDelegateButtonClicked] = useState<boolean>(false);
+  // const [canCallClaim, setCanCallClaim] = useState<boolean>(true);
+  const [delegateCheckboxClicked, setDelegateCheckboxClicked] = useState<boolean>(false);
+  const [showAlertCanSafelyDelegate, setShowAlertCanSafelyDelegate] = useState<boolean>(false);
+  // not canSafelyDelegate && checkbox not clicked -> disable button
+
   const [delegateAmountInput, setDelegateAmountInput] = useState<number | null>(null);
   const [increaseDelegateAmountInput, setIncreaseDelegateAmountInput] = useState<number | null>(null);
-  const [canCallClaim, setCanCallClaim] = useState<boolean>(true);
 
   const [claimRewardsInputAmount, setClaimRewardsInputAmount] = useState<number | null>(null);
   const [currentLiquidityProvider, setCurrentLiquidityProvider] = useState<string | null>(null);
@@ -106,9 +120,14 @@ const ActionsContainerStacking = ({
       if (amount < 0.000001) {
         alert('You need to input more');
       } else {
-        console.log(amount);
         if (userAddress !== null) {
-          ContractDelegateSTXStacking(amount, userAddress);
+          if (
+            reservedAmount * returnCovered <
+              stacksAmountThisCycle + (delegateAmountInput === null ? 0 : delegateAmountInput) &&
+            !delegateCheckboxClicked
+          ) {
+            setShowAlertCanSafelyDelegate(true);
+          } else ContractDelegateSTXStacking(amount, userAddress);
         }
       }
     }
@@ -119,7 +138,6 @@ const ActionsContainerStacking = ({
       if (amount < 0.000001) {
         alert('You need to input more');
       } else {
-        console.log(amount);
         if (userAddress !== null) {
           ContractDelegateSTXStacking(amount + alreadyDelegated, userAddress);
         }
@@ -173,8 +191,6 @@ const ActionsContainerStacking = ({
     if (currentLiquidityProvider !== null && currentLiquidityProvider !== userAddress) {
       ContractLeavePoolStacking();
     } else if (currentLiquidityProvider !== null && currentLiquidityProvider === userAddress) {
-      console.log("you are the provider, you can't leave pool");
-
       setShowAlertLeavePool(true);
       setDisableLeavePoolButton(true);
     }
@@ -201,6 +217,10 @@ const ActionsContainerStacking = ({
   useEffect(() => {
     if (leavePoolButtonClicked && showAlertLeavePool) setDisableLeavePoolButton(true);
   }, [leavePoolButtonClicked, showAlertLeavePool]);
+
+  const toggleCheckboxValue = () => {
+    setDelegateCheckboxClicked(!delegateCheckboxClicked);
+  };
 
   return (
     <div
@@ -268,6 +288,22 @@ const ActionsContainerStacking = ({
               </div>
             )}
 
+          {delegateAmountInput !== null &&
+            reservedAmount * returnCovered < stacksAmountThisCycle + delegateAmountInput &&
+            showAlertCanSafelyDelegate && (
+              <div className="block-margins-auto alert-container-stacking-actions-container-stacking">
+                <Alert
+                  severity="warning"
+                  onClose={() => {
+                    setShowAlertCanSafelyDelegate(false);
+                  }}
+                >
+                  I acknowledge that the amount entered combined with the already stacked pool amount is more than the
+                  stacked amount covered by the pool.
+                  <Checkbox checked={delegateCheckboxClicked} onClick={() => toggleCheckboxValue()} />
+                </Alert>
+              </div>
+            )}
           <div className="flex-container align-items-center input-line-actions-container-stacking">
             <div className="width-55 label-and-input-container-actions-container">
               <label className="custom-label">Insert amount of STX to delegate</label>
@@ -279,7 +315,6 @@ const ActionsContainerStacking = ({
                     const inputAmount = e.target.value;
                     const inputAmountToInt = parseFloat(inputAmount);
                     setDelegateAmountInput(inputAmountToInt);
-                    console.log('delegate input', inputAmount);
                   }}
                 ></input>
               </div>
@@ -291,7 +326,13 @@ const ActionsContainerStacking = ({
                 </span>
                 <button
                   className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
-                  disabled={!!delegatedToPool}
+                  disabled={
+                    !!delegatedToPool ||
+                    (reservedAmount * returnCovered <
+                      stacksAmountThisCycle + (delegateAmountInput === null ? 0 : delegateAmountInput) &&
+                      showAlertCanSafelyDelegate &&
+                      !delegateCheckboxClicked)
+                  }
                   onClick={() => {
                     if (delegateAmountInput !== null) delegateAmount(delegateAmountInput);
                   }}
@@ -312,7 +353,6 @@ const ActionsContainerStacking = ({
                     const inputAmount = e.target.value;
                     const inputAmountToInt = parseFloat(inputAmount);
                     setIncreaseDelegateAmountInput(inputAmountToInt);
-                    console.log('increase deposit input', inputAmount);
                   }}
                 ></input>
               </div>

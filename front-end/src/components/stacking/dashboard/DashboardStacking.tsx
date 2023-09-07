@@ -15,7 +15,8 @@ import {
   readOnlyGetLiquidityProvider,
   readOnlyGetMinimumDepositLiquidityProviderStacking,
   readOnlyGetReturnStacking,
-  readOnlyGetStackAmounThisCycleStacking,
+  readOnlyGetSCLockedBalance,
+  readOnlyGetSCReservedBalance,
   ReadOnlyGetStackersList,
 } from '../../../consts/readOnly';
 import { network } from '../../../consts/network';
@@ -24,6 +25,11 @@ import { contractMapping } from '../../../consts/contract';
 
 import { AppConfig, UserSession } from '@stacks/connect';
 
+const to2Digits = (n: number) => {
+  const toInt = 1000000;
+  return Math.floor((n / toInt) * 100) / 100;
+};
+
 const DashboardStacking = () => {
   const currentRole: UserRoleStacking = useAppSelector(selectCurrentUserRoleStacking);
   const [currentLiquidityProvider, setCurrentLiquidityProvider] = useState<string | null>(null);
@@ -31,6 +37,7 @@ const DashboardStacking = () => {
   const [blocksRewarded, setBlocksRewarded] = useState<number | null>(null);
   const [bitcoinRewards, setBitcoinRewards] = useState<number | null>(null);
   const [stacksAmountThisCycle, setStacksAmountThisCycle] = useState<number | null>(null);
+  const [reservedAmount, setReservedAmount] = useState<number | null>(null);
   const [returnCovered, setReturnCovered] = useState<number | null>(null);
   const [minimumDepositProvider, setMinimumDepositProvider] = useState<number | null>(null);
   const [userAddress, setUserAddress] = useState<string | null>(null);
@@ -45,8 +52,6 @@ const DashboardStacking = () => {
     } else {
       const defaultAddressWhenUserNotLoggedIn = contractMapping.stacking[network].owner;
       setUserAddress(defaultAddressWhenUserNotLoggedIn);
-      // console.log('user session logged in', userSession);
-      console.log('user address NOT logged in', userAddress);
     }
   }, []);
 
@@ -76,7 +81,7 @@ const DashboardStacking = () => {
     const getMinimumDepositProvider = async () => {
       if (userAddress) {
         const minimum = await readOnlyGetMinimumDepositLiquidityProviderStacking();
-        setMinimumDepositProvider(parseFloat(minimum));
+        setMinimumDepositProvider(to2Digits(minimum));
       }
     };
 
@@ -110,21 +115,31 @@ const DashboardStacking = () => {
     const getBitcoinRewards = async () => {
       if (userAddress) {
         const bitcoin = await readOnlyGetBitcoinRewardsStacking();
-        setBitcoinRewards(bitcoin);
+        setBitcoinRewards(to2Digits(bitcoin));
       }
     };
     getBitcoinRewards();
   }, [bitcoinRewards, userAddress]);
 
   useEffect(() => {
-    const getStacksAmountThisCycle = async () => {
+    const getSCLockedBalance = async () => {
       if (userAddress) {
-        const stacks = await readOnlyGetStackAmounThisCycleStacking();
-        setStacksAmountThisCycle(stacks);
+        const stacks = await readOnlyGetSCLockedBalance();
+        setStacksAmountThisCycle(to2Digits(stacks));
       }
     };
-    getStacksAmountThisCycle();
+    getSCLockedBalance();
   }, [stacksAmountThisCycle, userAddress]);
+
+  useEffect(() => {
+    const getReservedAmount = async () => {
+      if (userAddress) {
+        const stacks = await readOnlyGetSCReservedBalance();
+        setReservedAmount(to2Digits(stacks));
+      }
+    };
+    getReservedAmount();
+  }, [reservedAmount, userAddress]);
 
   return (
     <div className="dashboard-page-main-container">
@@ -141,6 +156,7 @@ const DashboardStacking = () => {
             blocksRewarded={blocksRewarded}
             bitcoinRewards={bitcoinRewards}
             stacksAmountThisCycle={stacksAmountThisCycle}
+            reservedAmount={reservedAmount}
             returnCovered={returnCovered}
             minimumDepositProvider={minimumDepositProvider}
             userAddress={userAddress}

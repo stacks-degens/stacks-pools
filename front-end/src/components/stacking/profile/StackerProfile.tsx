@@ -10,6 +10,9 @@ interface IStackerProfileProps {
   userAddress: string | null;
   lockedInPool: number | null;
   delegatedToPool: number | null;
+  stacksAmountThisCycle: number | null;
+  reservedAmount: number | null;
+  returnCovered: number | null;
   userUntilBurnHt: number | null;
   currentBurnBlockHeight: number | null;
   currentCycle: number | null;
@@ -24,13 +27,24 @@ const StackerProfile = ({
   userAddress,
   lockedInPool,
   delegatedToPool,
+  stacksAmountThisCycle,
+  reservedAmount,
+  returnCovered,
   userUntilBurnHt,
   currentBurnBlockHeight,
   currentCycle,
   preparePhaseStartBlockHeight,
   rewardPhaseStartBlockHeight,
 }: IStackerProfileProps) => {
-  if (currentBurnBlockHeight && currentCycle && preparePhaseStartBlockHeight && rewardPhaseStartBlockHeight)
+  if (
+    currentBurnBlockHeight &&
+    currentCycle &&
+    preparePhaseStartBlockHeight &&
+    rewardPhaseStartBlockHeight &&
+    reservedAmount &&
+    returnCovered &&
+    stacksAmountThisCycle
+  )
     return (
       <div>
         <div className="principal-content-profile-page">
@@ -48,6 +62,9 @@ const StackerProfile = ({
               lockedInPool={lockedInPool}
               explorerLink={explorerLink}
               delegatedToPool={delegatedToPool}
+              reservedAmount={reservedAmount}
+              stacksAmountThisCycle={stacksAmountThisCycle}
+              returnCovered={returnCovered}
               userUntilBurnHt={userUntilBurnHt}
               currentBurnBlockHeight={currentBurnBlockHeight}
               currentCycle={currentCycle}
@@ -58,7 +75,10 @@ const StackerProfile = ({
               <ActionsContainerStacking
                 userAddress={userAddress}
                 currentRole={currentRole}
+                stacksAmountThisCycle={stacksAmountThisCycle}
                 delegatedToPool={delegatedToPool}
+                reservedAmount={reservedAmount}
+                returnCovered={returnCovered}
                 currentBurnBlockHeight={currentBurnBlockHeight}
                 currentCycle={currentCycle}
                 preparePhaseStartBlockHeight={preparePhaseStartBlockHeight}

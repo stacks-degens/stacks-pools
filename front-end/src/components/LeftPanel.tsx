@@ -232,11 +232,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
               </div>
             )}
             <div>
-              <ListItem
-                className={location.pathname === '/stacking/dashboard' ? 'active-custom' : ''}
-                onClick={toggleDrawer(anchor, false)}
-                onKeyDown={toggleDrawer(anchor, false)}
-              >
+              <ListItem onClick={toggleDrawer(anchor, false)} onKeyDown={toggleDrawer(anchor, false)}>
                 <ListItemButton
                   component={Link}
                   to={
@@ -246,11 +242,11 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                   className="padding-left-sidebar-main-sections"
                 >
                   <ListItemIcon>
-                    <Help style={{ color: colors[appCurrentTheme].primary }}></Help>
+                    <Help style={{ color: colors[appCurrentTheme].secondary }}></Help>
                   </ListItemIcon>
                   <ListItemText
                     className="navbar-sections-font-size"
-                    style={{ color: colors[appCurrentTheme].primary }}
+                    style={{ color: colors[appCurrentTheme].secondary }}
                     primary="How to Stack"
                   />
                 </ListItemButton>

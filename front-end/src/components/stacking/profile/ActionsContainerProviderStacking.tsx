@@ -43,6 +43,13 @@ const ActionsContainerProviderStacking = ({
   const numberOfBlocksPerCycle = numberOfBlocksPreparePhase + numberOfBlocksRewardPhase;
   const unlockNumberOfBlocks = network === 'mainnet' ? 750 : 375;
 
+  // let messageReserve = '';
+  // if (amountDeposited) {
+  //   messageReserve = 'To reserve a given amount first you have to deposit it.';
+  // } else {
+  //   messageReserve = `You can reserve up to ${amountDeposited}. You have to reserve at least ${mininumRequired}`;
+  // }
+
   let messageUnlock = '';
   let canCallUpdateBalances = false;
   if (currentBurnBlockHeight - preparePhaseStartBlockHeight + numberOfBlocksPerCycle < unlockNumberOfBlocks) {
@@ -81,9 +88,7 @@ const ActionsContainerProviderStacking = ({
     if (depositAmountInput !== null && !isNaN(depositAmountInput)) {
       if (depositAmountInput < 0.000001) {
         alert('You need to input more');
-        console.log('you need to input more');
       } else {
-        console.log(depositAmountInput);
         if (userAddress !== null) {
           ContractDepositSTXStacking(depositAmountInput, userAddress);
         }
@@ -95,9 +100,7 @@ const ActionsContainerProviderStacking = ({
     if (withdrawAmountInput !== null && !isNaN(withdrawAmountInput)) {
       if (withdrawAmountInput < 0.000001) {
         alert('You need to input more');
-        console.log('you need to input more');
       } else {
-        console.log(withdrawAmountInput);
         if (userAddress !== null) {
           ContractWithdrawSTXStacking(withdrawAmountInput, userAddress);
         }
@@ -110,7 +113,6 @@ const ActionsContainerProviderStacking = ({
       if (lockInPoolAmountInput < 0.000001) {
         alert('You need to input more');
       } else {
-        console.log(lockInPoolAmountInput);
         if (userAddress !== null) {
           ContractReserveFundsFutureRewardsStacking(lockInPoolAmountInput, userAddress);
         }
@@ -135,7 +137,6 @@ const ActionsContainerProviderStacking = ({
                 const inputAmount = e.target.value;
                 const inputAmountToInt = parseFloat(inputAmount);
                 setDepositAmountInput(inputAmountToInt);
-                console.log('deposit input', inputAmount);
               }}
             ></input>
           </div>
@@ -162,7 +163,6 @@ const ActionsContainerProviderStacking = ({
                 const inputAmount = e.target.value;
                 const inputAmountToInt = parseFloat(inputAmount);
                 setWithdrawAmountInput(inputAmountToInt);
-                console.log('deposit input', inputAmount);
               }}
             ></input>
           </div>
@@ -189,20 +189,27 @@ const ActionsContainerProviderStacking = ({
                 const inputAmount = e.target.value;
                 const inputAmountToInt = parseFloat(inputAmount);
                 setLockInPoolAmountInput(inputAmountToInt);
-                console.log('lock in pool input', inputAmount);
               }}
             ></input>
           </div>
         </div>
         <div className="button-container-stacking-action-container-stacking">
-          <button
-            className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
-            onClick={() => {
-              lockInPool();
-            }}
-          >
-            Lock in pool
-          </button>
+          <div className="flex-right">
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <span style={{ marginRight: '5px', fontSize: '10px', display: 'flex', marginTop: 'auto' }}>
+                <MouseOverPopover severityType="info" text={messageUnlock} />
+              </span>
+
+              <button
+                className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
+                onClick={() => {
+                  lockInPool();
+                }}
+              >
+                Reserve in pool
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <div className="content-sections-title-info-container leave-pool-button-action-container-stacking">
@@ -218,7 +225,7 @@ const ActionsContainerProviderStacking = ({
               }}
               disabled={!canCallUpdateBalances}
             >
-              Unlock extra STX locked
+              Unlock extra STX reserved
             </button>
           </div>
         </div>
@@ -268,7 +275,6 @@ const ActionsContainerProviderStacking = ({
               type="text"
               placeholder="0 versioned (legacy P2PKH) btc address' public key"
               onChange={(e) => {
-                console.log(e);
                 setNewPoolPoxAddressPubKey(e.target.value);
               }}
             ></input>
@@ -278,7 +284,6 @@ const ActionsContainerProviderStacking = ({
           <button
             className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
             onClick={() => {
-              console.log(newPoolPoxAddressPubKey);
               if (newPoolPoxAddressPubKey !== null) ContractSetNewBtcPoxAddress(newPoolPoxAddressPubKey);
             }}
           >

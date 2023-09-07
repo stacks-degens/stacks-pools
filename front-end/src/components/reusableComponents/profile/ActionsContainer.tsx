@@ -63,7 +63,6 @@ const ActionsContainer = ({ currentNotifier, userAddress }: IActionsContainerPro
       if (depositAmountInput < 0.000001) {
         alert('You need to input more');
       } else {
-        console.log(depositAmountInput);
         if (userAddress !== null) ContractDepositSTXMining(depositAmountInput, userAddress);
       }
     }
@@ -74,8 +73,6 @@ const ActionsContainer = ({ currentNotifier, userAddress }: IActionsContainerPro
     if (currentNotifier !== null && currentNotifier !== userAddress) {
       ContractLeavePoolMining();
     } else if (currentNotifier !== null && currentNotifier === userAddress) {
-      console.log("you are the notifier, you can't leave pool");
-
       setShowAlertLeavePool(true);
       setDisableLeavePoolButton(true);
     }
@@ -132,7 +129,6 @@ const ActionsContainer = ({ currentNotifier, userAddress }: IActionsContainerPro
                     const inputAmount = e.target.value;
                     const inputAmountToInt = parseInt(inputAmount);
                     setClaimRewardsInputAmount(inputAmountToInt);
-                    console.log('claim rewards input', inputAmount);
                   }}
                 ></input>
               </div>
@@ -175,7 +171,6 @@ const ActionsContainer = ({ currentNotifier, userAddress }: IActionsContainerPro
                     const inputAmount = e.target.value;
                     const inputAmountToInt = parseFloat(inputAmount);
                     setDepositAmountInput(inputAmountToInt);
-                    console.log('deposit input', inputAmount);
                   }}
                 ></input>
               </div>
@@ -200,7 +195,6 @@ const ActionsContainer = ({ currentNotifier, userAddress }: IActionsContainerPro
                     const inputAmount = e.target.value;
                     const inputAmountToInt = parseFloat(inputAmount);
                     setWithdrawAmountInput(inputAmountToInt);
-                    console.log('withdraw input', inputAmount);
                   }}
                 ></input>
               </div>

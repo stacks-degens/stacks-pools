@@ -12,6 +12,7 @@ interface DashboardStackingInfoProps {
   blocksRewarded: number | null; //this is for the slots won
   bitcoinRewards: number | null;
   stacksAmountThisCycle: number | null;
+  reservedAmount: number | null;
   returnCovered: number | null;
   minimumDepositProvider: number | null;
   userAddress: string | null;
@@ -24,6 +25,7 @@ const DashboardStackingInfo = ({
   blocksRewarded,
   bitcoinRewards,
   stacksAmountThisCycle,
+  reservedAmount,
   returnCovered,
   minimumDepositProvider,
   userAddress,
@@ -32,7 +34,6 @@ const DashboardStackingInfo = ({
   //null is false (so ALert comes up) and
   //some value for true, but I don't know the type of that value ->
   //see if I have to change the type of aloowanceStatus
-  console.log(currentRole);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   const allowPoolInPoxSc = () => {
@@ -84,14 +85,22 @@ const DashboardStackingInfo = ({
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Bitcoin Rewards: </span>
-          <span className="result-of-content-section">
-            {bitcoinRewards !== null ? bitcoinRewards / 1000000 + ' BTC' : ''}
-          </span>
+          <span className="result-of-content-section">{bitcoinRewards !== null ? bitcoinRewards + ' BTC' : ''}</span>
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Total stacked this cycle: </span>
           <span className="result-of-content-section">
-            {stacksAmountThisCycle !== null ? stacksAmountThisCycle / 1000000 + ' STX' : ''}
+            {stacksAmountThisCycle !== null ? stacksAmountThisCycle + ' STX' : ''}
+          </span>
+        </div>
+        <div className="content-sections-title-info-container">
+          <span className="bold-font">Total guaranteed: </span>
+          <span className="result-of-content-section">{reservedAmount !== null ? reservedAmount + ' STX' : ''}</span>
+        </div>
+        <div className="content-sections-title-info-container">
+          <span className="bold-font">Stacked amount covered by the pool: </span>
+          <span className="result-of-content-section">
+            {reservedAmount !== null && returnCovered !== null ? reservedAmount * returnCovered + ' STX' : ''}
           </span>
         </div>
         <div className="content-sections-title-info-container">
@@ -103,7 +112,7 @@ const DashboardStackingInfo = ({
         <div className="content-sections-title-info-container">
           <span className="bold-font">Minimum return Liquidity Provider: </span>
           <span className="result-of-content-section">
-            {minimumDepositProvider !== null ? minimumDepositProvider / 1000000 + ' STX' : ''}
+            {minimumDepositProvider !== null ? minimumDepositProvider + ' STX' : ''}
           </span>
         </div>
       </div>

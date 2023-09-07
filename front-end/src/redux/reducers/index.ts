@@ -44,7 +44,6 @@ const mainReducer = (state = initialState, action: IreduxAction) => {
       return state;
     case DISCONNECT_USER_SESSION:
       state.userState.userSession.signUserOut('/dashboard');
-      console.log('Disconnect');
       return state;
     case UPDATE_USER_ROLE_MINING:
       return { ...state, userState: { ...state.userState, miningUserRole: action.payload } };

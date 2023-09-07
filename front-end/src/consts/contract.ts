@@ -129,7 +129,9 @@ interface IFunctionMapping {
       getStackersList: string;
       getBlocksRewarded: string;
       getBitcoinRewards: string;
-      getTotalStackedThisCycle: string;
+      getSCLockedBalance: string;
+      getSCOwnedBalance: string;
+      getSCReservedBalance: string;
       getAddressStatus: string;
       wasBlockClaimed: string;
       getReturnCovered: string;
@@ -219,7 +221,9 @@ export const functionMapping: IFunctionMapping = {
       getStackersList: 'get-pool-members',
       getBlocksRewarded: 'get-blocks-rewarded',
       getBitcoinRewards: 'get-amount-rewarded',
-      getTotalStackedThisCycle: 'get-stacked-this-cycle',
+      getSCLockedBalance: 'get-SC-locked-balance',
+      getSCOwnedBalance: 'get-SC-owned-balance',
+      getSCReservedBalance: 'get-SC-reserved-balance',
       getAddressStatus: 'get-address-status',
       wasBlockClaimed: 'was-block-claimed',
       getReturnCovered: 'get-return',

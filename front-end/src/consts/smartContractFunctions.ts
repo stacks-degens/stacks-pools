@@ -353,8 +353,8 @@ export const ContractSetNewBtcPoxAddress = (publicKey: string) => {
 export const ContractReserveFundsFutureRewardsStacking = (amount: number, userAddress: string) => {
   const type = 'stacking';
   const convertedArgs = [uintCV(amount * 1000000)];
-  const postConditions = createPostConditionSTXTransferToContract(userAddress, amount * 1000000);
-  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.lockInPool, [postConditions]);
+  // const postConditions = createPostConditionSTXTransferToContract(userAddress, amount * 1000000);
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.lockInPool, []);
 };
 
 //unlock-extra-reserved-funds
@@ -378,7 +378,6 @@ export const ContractAllowInPoolPoxScStacking = () => {
     ),
     noneCV(),
   ];
-  // console.log(address);
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.allowContractCaller, []);
 };
 

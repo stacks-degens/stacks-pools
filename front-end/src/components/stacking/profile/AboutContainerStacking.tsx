@@ -12,6 +12,9 @@ interface IAboutContainerStackingProps {
   lockedInPool: number | null;
   explorerLink: string | undefined;
   delegatedToPool: number | null;
+  stacksAmountThisCycle: number | null;
+  reservedAmount: number | null;
+  returnCovered: number | null;
   userUntilBurnHt: number | null;
   currentBurnBlockHeight: number | null;
   currentCycle: number | null;
@@ -24,6 +27,9 @@ const AboutContainerStacking = ({
   connectedWallet,
   lockedInPool,
   delegatedToPool,
+  stacksAmountThisCycle,
+  reservedAmount,
+  returnCovered,
   userUntilBurnHt,
   explorerLink,
   currentBurnBlockHeight,
@@ -54,6 +60,7 @@ const AboutContainerStacking = ({
           <div className="title-info-container bold-font">ABOUT</div>
         </div>
       </div>
+
       <div
         style={{
           backgroundColor: colors[appCurrentTheme].infoContainers,
@@ -99,10 +106,12 @@ const AboutContainerStacking = ({
             {connectedWallet !== null ? connectedWallet : ''}
           </div>
         </div>
+
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Role: {currentRole === 'NormalUserStacking' ? 'Normal User' : currentRole}</span>
           <span className="result-of-content-section"></span>
         </div>
+
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">
             Delegated to the pool:{' '}
@@ -116,6 +125,7 @@ const AboutContainerStacking = ({
           </span>
           <span className="result-of-content-section"></span>
         </div>
+
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">
             Locked in pool:{' '}
@@ -123,6 +133,19 @@ const AboutContainerStacking = ({
           </span>
           <span className="result-of-content-section"></span>
         </div>
+
+        <div className="content-sections-title-info-container">
+          <span className="bold-font">Total guaranteed: </span>
+          <span className="result-of-content-section">{reservedAmount !== null ? reservedAmount + ' STX' : ''}</span>
+        </div>
+
+        <div className="content-sections-title-info-container">
+          <span className="bold-font">Stacked amount covered by the pool: </span>
+          <span className="result-of-content-section">
+            {reservedAmount !== null && returnCovered !== null ? reservedAmount * returnCovered + ' STX' : ''}
+          </span>
+        </div>
+
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Link to explorer: </span>
           <button

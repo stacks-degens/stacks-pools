@@ -10,22 +10,33 @@ import colors from '../../../consts/colorPallete';
 import { useEffect, useState } from 'react';
 import StackerProfile from './StackerProfile';
 import { network, getExplorerUrl, apiMapping } from '../../../consts/network';
-import { readOnlyLockedBalanceUser } from '../../../consts/readOnly';
+import {
+  readOnlyGetReturnStacking,
+  readOnlyGetSCLockedBalance,
+  readOnlyGetSCReservedBalance,
+  readOnlyLockedBalanceUser,
+} from '../../../consts/readOnly';
 import { useLocation, useNavigate } from 'react-router-dom';
+
+const to2Digits = (n: number) => {
+  const toInt = 1000000;
+  return Math.floor((n / toInt) * 100) / 100;
+};
 
 const ProfileStacking = () => {
   const currentRole: UserRoleStacking = useAppSelector(selectCurrentUserRoleStacking);
   const [userAddress, setUserAddress] = useState<string | null>(null);
   const [connectedWallet, setConnectedWallet] = useState<string | null>(null);
   const [explorerLink, setExplorerLink] = useState<string | undefined>(undefined);
+  const [stacksAmountThisCycle, setStacksAmountThisCycle] = useState<number | null>(null);
   const [lockedInPool, setLockedInPool] = useState<number>(0);
   const [delegatedToPool, setDelegatedToPool] = useState<number>(0);
   const [userUntilBurnHt, setUserUntilBurnHt] = useState<number>(0);
+  const [reservedAmount, setReservedAmount] = useState<number | null>(null);
+  const [returnCovered, setReturnCovered] = useState<number | null>(null);
   const userSession = useAppSelector(selectUserSessionState);
   const localNetwork = network === 'devnet' ? 'testnet' : network;
   const [currentBurnBlockHeight, setCurrentBurnBlockHeight] = useState<number>(0);
-  // const [blocksUntilPreparePhase, setBlocksUntilPreparePhase] = useState<number>(0);
-  // const [blocksUntilPreparePhase, setBlocksUntilPreparePhase] = useState<number>(0);
   const [preparePhaseStartBlockHeight, setPreparePhaseStartBlockHeight] = useState<number>(0);
   const [rewardPhaseStartBlockHeight, setRewardPhaseStartBlockHeigh] = useState<number>(0);
   const [currentCycle, setCurrentCycle] = useState<number>(0);
@@ -69,7 +80,6 @@ const ProfileStacking = () => {
     const getLockedBalance = async () => {
       if (userSession.isUserSignedIn() && (currentRole === 'Stacker' || currentRole === 'Provider')) {
         const wallet = userSession.loadUserData().profile.stxAddress[localNetwork];
-        console.log(wallet);
         const userLockedData = await readOnlyLockedBalanceUser(wallet, 'locked-balance');
         const userDelegatedData = await readOnlyLockedBalanceUser(wallet, 'delegated-balance');
         const userUntilBurnHtData = await readOnlyLockedBalanceUser(wallet, 'until-burn-ht');
@@ -83,8 +93,38 @@ const ProfileStacking = () => {
   }, [userAddress]);
 
   useEffect(() => {
+    const getReturnCovered = async () => {
+      if (userAddress) {
+        const returnValue = await readOnlyGetReturnStacking();
+        setReturnCovered(parseFloat(returnValue));
+      }
+    };
+
+    getReturnCovered();
+  }, [userAddress]);
+
+  useEffect(() => {
+    const getReservedAmount = async () => {
+      if (userAddress) {
+        const stacks = await readOnlyGetSCReservedBalance();
+        setReservedAmount(to2Digits(stacks));
+      }
+    };
+    getReservedAmount();
+  }, [reservedAmount, userAddress]);
+
+  useEffect(() => {
+    const getSCLockedBalance = async () => {
+      if (userAddress) {
+        const stacks = await readOnlyGetSCLockedBalance();
+        setStacksAmountThisCycle(to2Digits(stacks));
+      }
+    };
+    getSCLockedBalance();
+  }, [stacksAmountThisCycle, userAddress]);
+
+  useEffect(() => {
     const getCurrentBlockInfo = async () => {
-      console.log(`${apiMapping[network]().stackingInfo}`);
       const blockInfoResult = await fetch(`${apiMapping[network]().stackingInfo}`)
         .then((res) => res.json())
         .then((res) => res);
@@ -118,7 +158,10 @@ const ProfileStacking = () => {
           explorerLink={explorerLink}
           userAddress={userAddress}
           lockedInPool={lockedInPool}
+          stacksAmountThisCycle={stacksAmountThisCycle}
           delegatedToPool={delegatedToPool}
+          reservedAmount={reservedAmount}
+          returnCovered={returnCovered}
           userUntilBurnHt={userUntilBurnHt}
           currentBurnBlockHeight={currentBurnBlockHeight}
           currentCycle={currentCycle}
