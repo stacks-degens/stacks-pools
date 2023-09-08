@@ -24,11 +24,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { contractMapping } from '../../../consts/contract';
 
 import { AppConfig, UserSession } from '@stacks/connect';
-
-const to2Digits = (n: number) => {
-  const toInt = 1000000;
-  return Math.floor((n / toInt) * 100) / 100;
-};
+import { convertDigits } from '../../../consts/converter';
 
 const DashboardStacking = () => {
   const currentRole: UserRoleStacking = useAppSelector(selectCurrentUserRoleStacking);
@@ -81,7 +77,7 @@ const DashboardStacking = () => {
     const getMinimumDepositProvider = async () => {
       if (userAddress) {
         const minimum = await readOnlyGetMinimumDepositLiquidityProviderStacking();
-        setMinimumDepositProvider(to2Digits(minimum));
+        setMinimumDepositProvider(convertDigits(minimum));
       }
     };
 
@@ -115,7 +111,7 @@ const DashboardStacking = () => {
     const getBitcoinRewards = async () => {
       if (userAddress) {
         const bitcoin = await readOnlyGetBitcoinRewardsStacking();
-        setBitcoinRewards(to2Digits(bitcoin));
+        setBitcoinRewards(convertDigits(bitcoin));
       }
     };
     getBitcoinRewards();
@@ -125,7 +121,7 @@ const DashboardStacking = () => {
     const getSCLockedBalance = async () => {
       if (userAddress) {
         const stacks = await readOnlyGetSCLockedBalance();
-        setStacksAmountThisCycle(to2Digits(stacks));
+        setStacksAmountThisCycle(convertDigits(stacks));
       }
     };
     getSCLockedBalance();
@@ -135,7 +131,7 @@ const DashboardStacking = () => {
     const getReservedAmount = async () => {
       if (userAddress) {
         const stacks = await readOnlyGetSCReservedBalance();
-        setReservedAmount(to2Digits(stacks));
+        setReservedAmount(convertDigits(stacks));
       }
     };
     getReservedAmount();

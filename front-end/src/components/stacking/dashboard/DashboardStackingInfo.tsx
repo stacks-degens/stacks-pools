@@ -4,6 +4,7 @@ import './styles.css';
 import colors from '../../../consts/colorPallete';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { ContractAllowInPoolPoxScStacking, ContractJoinPoolStacking } from '../../../consts/smartContractFunctions';
+import { GlobalStyles, Paper } from '@mui/material';
 
 interface DashboardStackingInfoProps {
   currentRole: UserRoleStacking;
@@ -72,12 +73,18 @@ const DashboardStackingInfo = ({
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">List of stackers: </span>
-          {stackersList.length !== 0 &&
-            stackersList.map((data: string, index: number) => (
-              <div className="result-of-content-section" key={index}>
-                {data}
-              </div>
-            ))}
+          <Paper style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting, maxHeight: 75, overflow: 'auto'}} elevation={0}>
+            <GlobalStyles styles={{
+              '*::-webkit-scrollbar': {width: '0.1em'},
+              '*::-webkit-scrollbar-thumb': {backgroundColor: colors[appCurrentTheme].colorWriting},
+            }}/>
+              {stackersList.length !== 0 &&
+              stackersList.map((data: string, index: number) => (
+                <div className="result-of-content-section" key={index}>
+                  {data}
+                </div>
+              ))}
+          </Paper>
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Number of Slots Won: </span>

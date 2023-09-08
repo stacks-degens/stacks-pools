@@ -43,3 +43,10 @@ export const fromResultToList = (result: ClarityValue, start: number, end: numbe
 
   return listCV(convertedArg);
 };
+
+export const convertDigits = (n: number) => {
+  const toStx = 1000000;
+  const numberOfDigits = 2;
+
+  return Math.floor((n / toStx) * Math.pow(10, numberOfDigits)) / Math.pow(10, numberOfDigits);
+};

@@ -17,6 +17,7 @@ import {
   readOnlyGetMinimumDepositLiquidityProviderStacking,
   readOnlyGetSCOwnedBalance,
 } from '../../../consts/readOnly';
+import { convertDigits } from '../../../consts/converter';
 
 interface IActionsContainerStackingProps {
   userAddress: string | null;
@@ -25,11 +26,6 @@ interface IActionsContainerStackingProps {
   preparePhaseStartBlockHeight: number;
   rewardPhaseStartBlockHeight: number;
 }
-
-const to2Digits = (n: number) => {
-  const toInt = 1000000;
-  return Math.floor((n / toInt) * 100) / 100;
-};
 
 const ActionsContainerProviderStacking = ({
   userAddress,
@@ -148,7 +144,7 @@ const ActionsContainerProviderStacking = ({
   useEffect(() => {
     const getSCOwnedBalance = async () => {
       const stacks = await readOnlyGetSCOwnedBalance();
-      setOwnedBalance(to2Digits(stacks));
+      setOwnedBalance(convertDigits(stacks));
     };
     getSCOwnedBalance();
   }, [ownedBalance]);
@@ -157,7 +153,7 @@ const ActionsContainerProviderStacking = ({
     const getMinimumDepositProvider = async () => {
       if (userAddress) {
         const minimum = await readOnlyGetMinimumDepositLiquidityProviderStacking();
-        setMinimumDepositProvider(to2Digits(minimum));
+        setMinimumDepositProvider(convertDigits(minimum));
       }
     };
 

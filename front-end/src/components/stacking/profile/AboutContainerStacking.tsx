@@ -1,10 +1,14 @@
 import { CallMade } from '@mui/icons-material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LinearProgress from '@mui/material/LinearProgress';
 import './styles.css';
 import colors from '../../../consts/colorPallete';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 import { useEffect, useState } from 'react';
+import { Box } from '@mui/material';
+import { convertDigits } from '../../../consts/converter';
+
 
 interface IAboutContainerStackingProps {
   currentRole: string;
@@ -21,11 +25,6 @@ interface IAboutContainerStackingProps {
   preparePhaseStartBlockHeight: number | null;
   rewardPhaseStartBlockHeight: number | null;
 }
-
-const to2Digits = (n: number) => {
-  const toInt = 1000000;
-  return Math.floor((n / toInt) * 100) / 100;
-};
 
 const AboutContainerStacking = ({
   currentRole,
@@ -44,6 +43,8 @@ const AboutContainerStacking = ({
 }: IAboutContainerStackingProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
   const [btcBlockRetrieved, setBtcBlockRetrieved] = useState(false);
+  const value1 = 40;
+  const value2 = 30;
 
   return (
     <div
@@ -63,6 +64,32 @@ const AboutContainerStacking = ({
             <AccountCircleIcon className="icon-info-container yellow-icon" />
           </div>
           <div className="title-info-container bold-font">ABOUT</div>
+        </div>
+      </div>
+
+      <div
+        style={{
+          backgroundColor: colors[appCurrentTheme].infoContainers,
+          color: colors[appCurrentTheme].colorWriting,
+          borderBottom: `1px solid ${colors[appCurrentTheme].colorWriting}`,
+        }}
+        className="heading-info-container"
+      >
+        <div className="heading-title-info-container" >
+          <Box sx={{ width: '100%' }}>
+            <LinearProgress
+              variant='buffer'
+              value={value1 < value2 ? value1 : value2}
+              valueBuffer={value1 < value2 ? value2 : value1}
+              sx={{
+                "& .MuiLinearProgress-bar1Buffer": {backgroundColor: value1 <= value2 ? "#444444" : "#777777"},
+                "& .MuiLinearProgress-bar2Buffer": {backgroundColor: value1 <= value2 ? "#777777" : "#444444"},
+                "& .MuiLinearProgress-dashed": {animation: 'none', backgroundColor: "#eeeeee", backgroundImage: 'none'},
+                height: 8,
+                borderRadius: 3,
+              }}
+            />
+          </Box>
         </div>
       </div>
 
@@ -121,7 +148,7 @@ const AboutContainerStacking = ({
           <span className="bold-font">
             Address’ delegated funds to the pool:{' '}
             {delegatedToPool !== null && delegatedToPool !== 0 && userUntilBurnHt !== null
-              ? `${to2Digits(delegatedToPool)} STX until Bitcoin block ${userUntilBurnHt}.`
+              ? `${convertDigits(delegatedToPool)} STX until Bitcoin block ${userUntilBurnHt}.`
               : delegatedToPool !== null && delegatedToPool !== 0 && userUntilBurnHt === null
               ? 'The last burn block height for delegated funds has been reached, and the delegation has expired.'
               : delegatedToPool === null || delegatedToPool === 0
@@ -134,7 +161,7 @@ const AboutContainerStacking = ({
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">
             Locked in pool:{' '}
-            {lockedInPool !== null && lockedInPool !== 0 ? `${to2Digits(lockedInPool)} STX` : 'No locked funds'}
+            {lockedInPool !== null && lockedInPool !== 0 ? `${convertDigits(lockedInPool)} STX` : 'No locked funds'}
           </span>
           <span className="result-of-content-section"></span>
         </div>

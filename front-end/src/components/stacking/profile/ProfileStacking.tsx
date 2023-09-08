@@ -17,11 +17,7 @@ import {
   readOnlyLockedBalanceUser,
 } from '../../../consts/readOnly';
 import { useLocation, useNavigate } from 'react-router-dom';
-
-const to2Digits = (n: number) => {
-  const toInt = 1000000;
-  return Math.floor((n / toInt) * 100) / 100;
-};
+import { convertDigits } from '../../../consts/converter';
 
 const ProfileStacking = () => {
   const currentRole: UserRoleStacking = useAppSelector(selectCurrentUserRoleStacking);
@@ -107,7 +103,7 @@ const ProfileStacking = () => {
     const getReservedAmount = async () => {
       if (userAddress) {
         const stacks = await readOnlyGetSCReservedBalance();
-        setReservedAmount(to2Digits(stacks));
+        setReservedAmount(convertDigits(stacks));
       }
     };
     getReservedAmount();
@@ -117,7 +113,7 @@ const ProfileStacking = () => {
     const getSCLockedBalance = async () => {
       if (userAddress) {
         const stacks = await readOnlyGetSCLockedBalance();
-        setStacksAmountThisCycle(to2Digits(stacks));
+        setStacksAmountThisCycle(convertDigits(stacks));
       }
     };
     getSCLockedBalance();

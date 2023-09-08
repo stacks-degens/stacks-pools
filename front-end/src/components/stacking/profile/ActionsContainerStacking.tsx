@@ -296,6 +296,7 @@ const ActionsContainerStacking = ({
                   severity="warning"
                   onClose={() => {
                     setShowAlertCanSafelyDelegate(false);
+                    setDelegateCheckboxClicked(false);
                   }}
                 >
                   I acknowledge that the amount entered combined with the already stacked pool amount is more than the
