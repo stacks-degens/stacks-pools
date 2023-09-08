@@ -119,14 +119,14 @@ const AboutContainerStacking = ({
         </div>
 
         <div className="content-sections-title-info-container bottom-margins">
-          <span className="bold-font">First Bitcoin Block Height of the next prepare phrase:</span>
+          <span className="bold-font">First Bitcoin Block Height of the next prepare phase:</span>
           <div className="write-just-on-one-line result-of-content-section">
             {preparePhaseStartBlockHeight !== null ? preparePhaseStartBlockHeight : ''}
           </div>
         </div>
 
         <div className="content-sections-title-info-container bottom-margins">
-          <span className="bold-font">First Bitcoin Block Height of the next reward phrase:</span>
+          <span className="bold-font">First Bitcoin Block Height of the next reward phase:</span>
           <div className="write-just-on-one-line result-of-content-section">
             {rewardPhaseStartBlockHeight !== null ? rewardPhaseStartBlockHeight : ''}
           </div>

@@ -122,7 +122,6 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
       </List>
       <Divider style={{ backgroundColor: colors[appCurrentTheme].accent2 }} />
       <List style={{ backgroundColor: colors[appCurrentTheme].accent2 }}>
-        {/* TODO: keep what fits best, this */}
         <div style={{ marginTop: -10 }}>
           <ListItem
             className={location.pathname === '/' ? 'active-custom' : ''}
@@ -144,12 +143,6 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
           <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
           <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
         </div>
-        {/* TODO: or this  */}
-        {/* <List
-        style={{ backgroundColor: colors[currentTheme].accent2 }}
-        component="nav"
-        aria-labelledby="nested-list-subheader"
-      > */}
         <div>
           <ListItem
             className={

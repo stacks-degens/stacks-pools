@@ -17,7 +17,7 @@ const Authenticate = () => {
         authOptions={{
           appDetails: {
             name: 'Stacks Decentralized Pools',
-            icon: 'https://res.cloudinary.com/dltehevwk/image/upload/v1690910281/pools-logo.png',
+            icon: 'https://res.cloudinary.com/dltehevwk/image/upload/v1694105316/degen_lab/logo/512/logo_light_full_transparent.png',
           },
           redirectTo: '/',
           onFinish: () => {

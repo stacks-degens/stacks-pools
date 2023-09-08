@@ -35,9 +35,11 @@ const HeaderBar = () => {
               />
             </Grid>
             <Grid item>
-              <div style={{ width: '50px', height: 'auto', marginTop: '3px' }}>
-                <img style={{ width: '100%' }} src={appCurrentTheme === 'dark' ? lightLogo : darkLogo} alt="logo" />
-              </div>
+              <a href="https://degenlab.io">
+                <div style={{ width: '50px', height: 'auto', marginTop: '3px' }}>
+                  <img style={{ width: '100%' }} src={appCurrentTheme === 'dark' ? lightLogo : darkLogo} alt="logo" />
+                </div>
+              </a>
             </Grid>
             <Grid item>
               <Box>
