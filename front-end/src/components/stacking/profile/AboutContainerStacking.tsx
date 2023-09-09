@@ -1,12 +1,13 @@
-import { CallMade } from '@mui/icons-material';
+import { CallMade, ExpandMore } from '@mui/icons-material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LinearProgress from '@mui/material/LinearProgress';
+import { ExpandLess } from '@mui/icons-material';
 import './styles.css';
 import colors from '../../../consts/colorPallete';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 import { useEffect, useState } from 'react';
-import { Box } from '@mui/material';
+import { Box, Divider, ListItem, ListItemButton, Table, TableCell, TableHead, TableRow } from '@mui/material';
 import { convertDigits } from '../../../consts/converter';
 
 
@@ -20,10 +21,10 @@ interface IAboutContainerStackingProps {
   reservedAmount: number | null;
   returnCovered: number | null;
   userUntilBurnHt: number | null;
-  currentBurnBlockHeight: number | null;
+  currentBurnBlockHeight: number;
   currentCycle: number | null;
-  preparePhaseStartBlockHeight: number | null;
-  rewardPhaseStartBlockHeight: number | null;
+  preparePhaseStartBlockHeight: number;
+  rewardPhaseStartBlockHeight: number;
 }
 
 const AboutContainerStacking = ({
@@ -42,9 +43,15 @@ const AboutContainerStacking = ({
   rewardPhaseStartBlockHeight,
 }: IAboutContainerStackingProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
+  const [isProgressExpandButtonClicked, setIsProgressExpandButtonClicked] = useState<boolean>(false);
   const [btcBlockRetrieved, setBtcBlockRetrieved] = useState(false);
-  const value1 = 40;
-  const value2 = 30;
+
+  const numberOfBlocksPreparePhase = rewardPhaseStartBlockHeight - preparePhaseStartBlockHeight;
+  const numberOfBlocksRewardPhase = numberOfBlocksPreparePhase * 20;
+  const numberOfBlocksPerCycle = numberOfBlocksPreparePhase + numberOfBlocksRewardPhase;
+
+  const currentBlockHeight = 80;//(currentBurnBlockHeight - preparePhaseStartBlockHeight) * 100 / numberOfBlocksPerCycle;
+  const preparePhase = numberOfBlocksPreparePhase * 100 / numberOfBlocksPerCycle;
 
   return (
     <div
@@ -72,23 +79,63 @@ const AboutContainerStacking = ({
           backgroundColor: colors[appCurrentTheme].infoContainers,
           color: colors[appCurrentTheme].colorWriting,
           borderBottom: `1px solid ${colors[appCurrentTheme].colorWriting}`,
+          height: 'auto',
         }}
         className="heading-info-container"
       >
-        <div className="heading-title-info-container" >
-          <Box sx={{ width: '100%' }}>
+        <div>
+          <Box>
             <LinearProgress
               variant='buffer'
-              value={value1 < value2 ? value1 : value2}
-              valueBuffer={value1 < value2 ? value2 : value1}
+              value={preparePhase < currentBlockHeight ? preparePhase : currentBlockHeight}
+              valueBuffer={preparePhase < currentBlockHeight ? currentBlockHeight : preparePhase}
               sx={{
-                "& .MuiLinearProgress-bar1Buffer": {backgroundColor: value1 <= value2 ? "#444444" : "#777777"},
-                "& .MuiLinearProgress-bar2Buffer": {backgroundColor: value1 <= value2 ? "#777777" : "#444444"},
-                "& .MuiLinearProgress-dashed": {animation: 'none', backgroundColor: "#eeeeee", backgroundImage: 'none'},
-                height: 8,
+                "& .MuiLinearProgress-bar1Buffer": { // Prepare phase
+                  backgroundColor: currentBlockHeight <= preparePhase ? "#444444" : "#777777",
+                },
+
+                "& .MuiLinearProgress-bar2Buffer": { // Current block
+                  backgroundColor: currentBlockHeight <= preparePhase ? "#777777" : "#444444",
+                },
+
+                "& .MuiLinearProgress-dashed": { // Reward phase
+                  animation: 'none',
+                  backgroundColor: "#eeeeee",
+                  backgroundImage: 'none',
+                },
+
+                height: 20,
                 borderRadius: 3,
+                marginTop: '15px',
               }}
             />
+            <ListItem sx={{ marginTop: '10px' }} onClick={() => setIsProgressExpandButtonClicked(!isProgressExpandButtonClicked)}>
+              <ListItemButton sx={{ display: 'flex', alignContent: 'center', justifyContent: 'center', borderRadius: 4 }}>
+                {!isProgressExpandButtonClicked && <ExpandMore fontSize='large' />}
+                {isProgressExpandButtonClicked && <ExpandLess fontSize='large' />}
+              </ListItemButton>
+            </ListItem>
+            {isProgressExpandButtonClicked && 
+              <div style={{ marginBottom: '10px' }}>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <div style={{ backgroundColor: '#777777', height: '20px', width: '1%', marginRight: '10px', borderRadius: 4 }} />
+                  <div style={{ fontSize: '16px', marginRight: '50px' }}>Prepare Phase</div>
+                  <div style={{ fontSize: '16px' }}>{preparePhaseStartBlockHeight} - {preparePhaseStartBlockHeight + numberOfBlocksPreparePhase}</div>
+                </div>
+                <br/>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <div style={{ backgroundColor: '#444444', height: '20px', width: '1%', marginRight: '10px', borderRadius: 4 }} />
+                  <div style={{ fontSize: '16px', marginRight: '50px' }}>Current Block Height</div>
+                  <div style={{ fontSize: '16px' }}>{currentBurnBlockHeight}</div>
+                </div>
+                <br/>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <div style={{ backgroundColor: '#eeeeee', height: '20px', width: '1%', marginRight: '10px', borderRadius: 4 }} />
+                  <div style={{ fontSize: '16px', marginRight: '50px' }}>Reward Phase</div>
+                  <div style={{ fontSize: '16px' }}>{preparePhaseStartBlockHeight + numberOfBlocksPreparePhase} - {preparePhaseStartBlockHeight + numberOfBlocksPerCycle}</div>
+                </div>
+              </div>
+            }
           </Box>
         </div>
       </div>
