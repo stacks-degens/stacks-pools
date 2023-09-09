@@ -73,12 +73,22 @@ const DashboardStackingInfo = ({
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">List of stackers: </span>
-          <Paper style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting, maxHeight: 75, overflow: 'auto'}} elevation={0}>
-            <GlobalStyles styles={{
-              '*::-webkit-scrollbar': {width: '0.1em'},
-              '*::-webkit-scrollbar-thumb': {backgroundColor: colors[appCurrentTheme].colorWriting},
-            }}/>
-              {stackersList.length !== 0 &&
+          <Paper
+            style={{
+              backgroundColor: colors[appCurrentTheme].infoContainers,
+              color: colors[appCurrentTheme].colorWriting,
+              maxHeight: 70,
+              overflow: 'auto',
+            }}
+            elevation={0}
+          >
+            <GlobalStyles
+              styles={{
+                '*::-webkit-scrollbar': { width: '0.1em' },
+                '*::-webkit-scrollbar-thumb': { backgroundColor: colors[appCurrentTheme].colorWriting },
+              }}
+            />
+            {stackersList.length !== 0 &&
               stackersList.map((data: string, index: number) => (
                 <div className="result-of-content-section" key={index}>
                   {data}

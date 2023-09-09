@@ -93,7 +93,7 @@ const Home = () => {
             <div style={{ marginTop: 10 }}></div>- From the accounts list choose the `Deployer` one and copy its
             `mnemonic`. <br></br>
             <div style={{ marginTop: 10 }}></div>- Open your Hiro/Leather wallet and connect to the `Liquidity Provider`
-            account using the mnemonic copied before
+            account, <br></br> select `Use existing key` option and write the mnemonic copied before
           </div>
         </div>
       </div>

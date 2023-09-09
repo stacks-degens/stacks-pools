@@ -10,7 +10,6 @@ import { useEffect, useState } from 'react';
 import { Box, Divider, ListItem, ListItemButton, Table, TableCell, TableHead, TableRow } from '@mui/material';
 import { convertDigits } from '../../../consts/converter';
 
-
 interface IAboutContainerStackingProps {
   currentRole: string;
   connectedWallet: string | null;
@@ -50,8 +49,8 @@ const AboutContainerStacking = ({
   const numberOfBlocksRewardPhase = numberOfBlocksPreparePhase * 20;
   const numberOfBlocksPerCycle = numberOfBlocksPreparePhase + numberOfBlocksRewardPhase;
 
-  const currentBlockHeight = 80;//(currentBurnBlockHeight - preparePhaseStartBlockHeight) * 100 / numberOfBlocksPerCycle;
-  const preparePhase = numberOfBlocksPreparePhase * 100 / numberOfBlocksPerCycle;
+  const currentBlockHeight = 80; //(currentBurnBlockHeight - preparePhaseStartBlockHeight) * 100 / numberOfBlocksPerCycle;
+  const preparePhase = (numberOfBlocksPreparePhase * 100) / numberOfBlocksPerCycle;
 
   return (
     <div
@@ -86,21 +85,24 @@ const AboutContainerStacking = ({
         <div>
           <Box>
             <LinearProgress
-              variant='buffer'
+              variant="buffer"
               value={preparePhase < currentBlockHeight ? preparePhase : currentBlockHeight}
               valueBuffer={preparePhase < currentBlockHeight ? currentBlockHeight : preparePhase}
               sx={{
-                "& .MuiLinearProgress-bar1Buffer": { // Prepare phase
-                  backgroundColor: currentBlockHeight <= preparePhase ? "#444444" : "#777777",
+                '& .MuiLinearProgress-bar1Buffer': {
+                  // Prepare phase
+                  backgroundColor: currentBlockHeight <= preparePhase ? '#444444' : '#777777',
                 },
 
-                "& .MuiLinearProgress-bar2Buffer": { // Current block
-                  backgroundColor: currentBlockHeight <= preparePhase ? "#777777" : "#444444",
+                '& .MuiLinearProgress-bar2Buffer': {
+                  // Current block
+                  backgroundColor: currentBlockHeight <= preparePhase ? '#777777' : '#444444',
                 },
 
-                "& .MuiLinearProgress-dashed": { // Reward phase
+                '& .MuiLinearProgress-dashed': {
+                  // Reward phase
                   animation: 'none',
-                  backgroundColor: "#eeeeee",
+                  backgroundColor: '#eeeeee',
                   backgroundImage: 'none',
                 },
 
@@ -109,33 +111,67 @@ const AboutContainerStacking = ({
                 marginTop: '15px',
               }}
             />
-            <ListItem sx={{ marginTop: '10px' }} onClick={() => setIsProgressExpandButtonClicked(!isProgressExpandButtonClicked)}>
-              <ListItemButton sx={{ display: 'flex', alignContent: 'center', justifyContent: 'center', borderRadius: 4 }}>
-                {!isProgressExpandButtonClicked && <ExpandMore fontSize='large' />}
-                {isProgressExpandButtonClicked && <ExpandLess fontSize='large' />}
+            <ListItem
+              sx={{ marginTop: '10px' }}
+              onClick={() => setIsProgressExpandButtonClicked(!isProgressExpandButtonClicked)}
+            >
+              <ListItemButton
+                sx={{ display: 'flex', alignContent: 'center', justifyContent: 'center', borderRadius: 4 }}
+              >
+                {!isProgressExpandButtonClicked && <ExpandMore fontSize="large" />}
+                {isProgressExpandButtonClicked && <ExpandLess fontSize="large" />}
               </ListItemButton>
             </ListItem>
-            {isProgressExpandButtonClicked && 
+            {isProgressExpandButtonClicked && (
               <div style={{ marginBottom: '10px' }}>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <div style={{ backgroundColor: '#777777', height: '20px', width: '1%', marginRight: '10px', borderRadius: 4 }} />
+                  <div
+                    style={{
+                      backgroundColor: '#777777',
+                      height: '20px',
+                      width: '1%',
+                      marginRight: '10px',
+                      borderRadius: 4,
+                    }}
+                  />
                   <div style={{ fontSize: '16px', marginRight: '50px' }}>Prepare Phase</div>
-                  <div style={{ fontSize: '16px' }}>{preparePhaseStartBlockHeight} - {preparePhaseStartBlockHeight + numberOfBlocksPreparePhase}</div>
+                  <div style={{ fontSize: '16px' }}>
+                    {preparePhaseStartBlockHeight} - {preparePhaseStartBlockHeight + numberOfBlocksPreparePhase}
+                  </div>
                 </div>
-                <br/>
+                <br />
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <div style={{ backgroundColor: '#444444', height: '20px', width: '1%', marginRight: '10px', borderRadius: 4 }} />
+                  <div
+                    style={{
+                      backgroundColor: '#444444',
+                      height: '20px',
+                      width: '1%',
+                      marginRight: '10px',
+                      borderRadius: 4,
+                    }}
+                  />
                   <div style={{ fontSize: '16px', marginRight: '50px' }}>Current Block Height</div>
                   <div style={{ fontSize: '16px' }}>{currentBurnBlockHeight}</div>
                 </div>
-                <br/>
+                <br />
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <div style={{ backgroundColor: '#eeeeee', height: '20px', width: '1%', marginRight: '10px', borderRadius: 4 }} />
+                  <div
+                    style={{
+                      backgroundColor: '#eeeeee',
+                      height: '20px',
+                      width: '1%',
+                      marginRight: '10px',
+                      borderRadius: 4,
+                    }}
+                  />
                   <div style={{ fontSize: '16px', marginRight: '50px' }}>Reward Phase</div>
-                  <div style={{ fontSize: '16px' }}>{preparePhaseStartBlockHeight + numberOfBlocksPreparePhase} - {preparePhaseStartBlockHeight + numberOfBlocksPerCycle}</div>
+                  <div style={{ fontSize: '16px' }}>
+                    {preparePhaseStartBlockHeight + numberOfBlocksPreparePhase} -{' '}
+                    {preparePhaseStartBlockHeight + numberOfBlocksPerCycle}
+                  </div>
                 </div>
               </div>
-            }
+            )}
           </Box>
         </div>
       </div>
