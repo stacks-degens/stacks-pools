@@ -1,5 +1,5 @@
-import { StacksMocknet, StacksMainnet, StacksTestnet, StacksNetwork } from '@stacks/network';
-import { apiUrl, network, transactionUrl } from './network';
+import { StacksMocknet, StacksMainnet, StacksTestnet } from '@stacks/network';
+import { apiUrl, development, network, transactionUrl } from './network';
 import { contractMapping, functionMapping } from './contract';
 import { openContractCall, FinishedTxData } from '@stacks/connect';
 import {
@@ -24,10 +24,10 @@ import { crypto } from 'bitcoinjs-lib';
 
 const contractNetwork =
   network === 'mainnet'
-    ? new StacksMainnet({ url: apiUrl[network] })
+    ? new StacksMainnet({ url: apiUrl[development][network] })
     : network === 'testnet'
-    ? new StacksTestnet({ url: apiUrl[network] })
-    : new StacksMocknet({ url: apiUrl[network] });
+    ? new StacksTestnet({ url: apiUrl[development][network] })
+    : new StacksMocknet({ url: apiUrl[development][network] });
 
 const CallFunctions = (
   type: 'mining' | 'stacking' | 'pox',
@@ -45,8 +45,8 @@ const CallFunctions = (
     postConditionMode: PostConditionMode.Deny,
     postConditions: post_condition_args,
     onFinish: (data: FinishedTxData) => {
-      console.log(transactionUrl[network](data.txId).explorerUrl);
-      console.log(transactionUrl[network](data.txId).apiUrl);
+      console.log(transactionUrl(data.txId).explorerUrl);
+      console.log(transactionUrl(data.txId).apiUrl);
     },
     onCancel: () => {
       console.log('onCancel:', 'Transaction was canceled');

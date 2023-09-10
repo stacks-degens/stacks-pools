@@ -1,14 +1,5 @@
 import { networkType } from './network';
 
-// type ContractMapping = Record<
-//   networkType,
-//   {
-//     contractAddress: string;
-//     contractName: string;
-//     owner: string;
-//   }
-// >;
-
 type NetworkTypeMiningAndStacking = Record<
   networkType,
   {

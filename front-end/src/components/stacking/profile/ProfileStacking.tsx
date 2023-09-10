@@ -68,7 +68,7 @@ const ProfileStacking = () => {
 
   useEffect(() => {
     if (userAddress !== null) {
-      setExplorerLink(getExplorerUrl[network](userAddress).explorerUrl);
+      setExplorerLink(getExplorerUrl(userAddress).explorerUrl);
     }
   }, [explorerLink, userAddress]);
 
@@ -121,14 +121,19 @@ const ProfileStacking = () => {
 
   useEffect(() => {
     const getCurrentBlockInfo = async () => {
-      const blockInfoResult = await fetch(`${apiMapping[network]().stackingInfo}`)
+      const blockInfoResult = await fetch(`${apiMapping.stackingInfo}`)
         .then((res) => res.json())
         .then((res) => res);
       if (await blockInfoResult) {
-        let cycleBlockNr = (blockInfoResult['next_cycle']['reward_phase_start_block_height'] - blockInfoResult['next_cycle']['prepare_phase_start_block_height']) * 21;
+        let cycleBlockNr =
+          (blockInfoResult['next_cycle']['reward_phase_start_block_height'] -
+            blockInfoResult['next_cycle']['prepare_phase_start_block_height']) *
+          21;
         setCurrentBurnBlockHeight(blockInfoResult['current_burnchain_block_height']);
         setCurrentCycle(blockInfoResult['current_cycle']['id']);
-        setPreparePhaseStartBlockHeight(blockInfoResult['next_cycle']['prepare_phase_start_block_height']- cycleBlockNr);
+        setPreparePhaseStartBlockHeight(
+          blockInfoResult['next_cycle']['prepare_phase_start_block_height'] - cycleBlockNr
+        );
         setRewardPhaseStartBlockHeigh(blockInfoResult['next_cycle']['reward_phase_start_block_height'] - cycleBlockNr);
       }
     };

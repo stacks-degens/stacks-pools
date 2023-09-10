@@ -1,5 +1,5 @@
 import { StacksMocknet, StacksMainnet, StacksTestnet } from '@stacks/network';
-import { apiUrl, network } from './network';
+import { apiUrl, development, network } from './network';
 import { contractMapping, functionMapping } from './contract';
 import {
   callReadOnlyFunction,
@@ -15,10 +15,10 @@ import { userSession } from '../redux/reducers/user-state';
 
 const contractNetwork =
   network === 'mainnet'
-    ? new StacksMainnet({ url: apiUrl[network] })
+    ? new StacksMainnet({ url: apiUrl[development][network] })
     : network === 'testnet'
-    ? new StacksTestnet({ url: apiUrl[network] })
-    : new StacksMocknet({ url: apiUrl[network] });
+    ? new StacksTestnet({ url: apiUrl[development][network] })
+    : new StacksMocknet({ url: apiUrl[development][network] });
 
 const localNetwork = network === 'devnet' ? 'testnet' : network;
 
