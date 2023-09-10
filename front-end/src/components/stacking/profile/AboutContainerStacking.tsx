@@ -6,7 +6,7 @@ import './styles.css';
 import colors from '../../../consts/colorPallete';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Box, Divider, ListItem, ListItemButton, Table, TableCell, TableHead, TableRow } from '@mui/material';
 import { convertDigits } from '../../../consts/converter';
 
@@ -26,6 +26,10 @@ interface IAboutContainerStackingProps {
   rewardPhaseStartBlockHeight: number;
 }
 
+const numberWithCommas = (x: number) => {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};
+
 const AboutContainerStacking = ({
   currentRole,
   connectedWallet,
@@ -42,6 +46,15 @@ const AboutContainerStacking = ({
   rewardPhaseStartBlockHeight,
 }: IAboutContainerStackingProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
+  const divRef = useRef(null);
+  const [divWidth, setDivWidth] = useState(0);
+
+  useEffect(() => {
+    if (divRef.current && divRef.current['offsetWidth'] > 100) {
+      setDivWidth(divRef.current['offsetWidth']);
+    }
+  }, []);
+
   const [isProgressExpandButtonClicked, setIsProgressExpandButtonClicked] = useState<boolean>(false);
   const [btcBlockRetrieved, setBtcBlockRetrieved] = useState(false);
 
@@ -49,7 +62,7 @@ const AboutContainerStacking = ({
   const numberOfBlocksRewardPhase = numberOfBlocksPreparePhase * 20;
   const numberOfBlocksPerCycle = numberOfBlocksPreparePhase + numberOfBlocksRewardPhase;
 
-  const currentBlockHeight = 80; //(currentBurnBlockHeight - preparePhaseStartBlockHeight) * 100 / numberOfBlocksPerCycle;
+  const currentBlockHeight = ((currentBurnBlockHeight - preparePhaseStartBlockHeight) * 100) / numberOfBlocksPerCycle;
   const preparePhase = (numberOfBlocksPreparePhase * 100) / numberOfBlocksPerCycle;
 
   return (
@@ -84,6 +97,20 @@ const AboutContainerStacking = ({
       >
         <div>
           <Box>
+            <div
+              ref={divRef}
+              style={{
+                marginTop: '10px',
+                marginLeft:
+                  currentBlockHeight >= (divWidth - 50) / (divWidth / 100)
+                    ? (divWidth - 50) / (divWidth / 100) + '%'
+                    : currentBlockHeight < 50 / (divWidth / 100)
+                    ? '0%'
+                    : currentBlockHeight - 50 / (divWidth / 100) + '%',
+              }}
+            >
+              Current Block
+            </div>
             <LinearProgress
               variant="buffer"
               value={preparePhase < currentBlockHeight ? preparePhase : currentBlockHeight}
@@ -97,6 +124,7 @@ const AboutContainerStacking = ({
                 '& .MuiLinearProgress-bar2Buffer': {
                   // Current block
                   backgroundColor: currentBlockHeight <= preparePhase ? '#777777' : '#444444',
+                  borderRight: divWidth / 150 + 'px solid red',
                 },
 
                 '& .MuiLinearProgress-dashed': {
@@ -111,6 +139,14 @@ const AboutContainerStacking = ({
                 marginTop: '15px',
               }}
             />
+            <div style={{ marginLeft: '-15px', marginTop: '-5px', marginBottom: '-20px' }}>
+              <TableCell style={{ borderBottom: 'none', width: preparePhase + '%' }} align="left">
+                Prepare Phase
+              </TableCell>
+              <TableCell style={{ borderBottom: 'none' }} align="center">
+                Reward Phase
+              </TableCell>
+            </div>
             <ListItem
               sx={{ marginTop: '10px' }}
               onClick={() => setIsProgressExpandButtonClicked(!isProgressExpandButtonClicked)}
@@ -123,53 +159,70 @@ const AboutContainerStacking = ({
               </ListItemButton>
             </ListItem>
             {isProgressExpandButtonClicked && (
-              <div style={{ marginBottom: '10px' }}>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <div
-                    style={{
-                      backgroundColor: '#777777',
-                      height: '20px',
-                      width: '1%',
-                      marginRight: '10px',
-                      borderRadius: 4,
-                    }}
-                  />
-                  <div style={{ fontSize: '16px', marginRight: '50px' }}>Prepare Phase</div>
-                  <div style={{ fontSize: '16px' }}>
-                    {preparePhaseStartBlockHeight} - {preparePhaseStartBlockHeight + numberOfBlocksPreparePhase}
-                  </div>
-                </div>
-                <br />
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <div
-                    style={{
-                      backgroundColor: '#444444',
-                      height: '20px',
-                      width: '1%',
-                      marginRight: '10px',
-                      borderRadius: 4,
-                    }}
-                  />
-                  <div style={{ fontSize: '16px', marginRight: '50px' }}>Current Block Height</div>
-                  <div style={{ fontSize: '16px' }}>{currentBurnBlockHeight}</div>
-                </div>
-                <br />
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <div
-                    style={{
-                      backgroundColor: '#eeeeee',
-                      height: '20px',
-                      width: '1%',
-                      marginRight: '10px',
-                      borderRadius: 4,
-                    }}
-                  />
-                  <div style={{ fontSize: '16px', marginRight: '50px' }}>Reward Phase</div>
-                  <div style={{ fontSize: '16px' }}>
-                    {preparePhaseStartBlockHeight + numberOfBlocksPreparePhase} -{' '}
-                    {preparePhaseStartBlockHeight + numberOfBlocksPerCycle}
-                  </div>
-                </div>
+              <div>
+                <TableRow>
+                  <TableCell style={{ borderBottom: 'none', width: '60%' }}>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <div
+                        style={{
+                          backgroundColor: '#777777',
+                          height: '20px',
+                          width: '7%',
+                          marginRight: '10px',
+                          borderRadius: 4,
+                        }}
+                      />
+                      <div style={{ fontSize: '16px' }}>Prepare Phase</div>
+                    </div>
+                  </TableCell>
+                  <TableCell style={{ borderBottom: 'none' }}>
+                    <div style={{ fontSize: '16px' }}>
+                      {numberWithCommas(preparePhaseStartBlockHeight)} -{' '}
+                      {numberWithCommas(preparePhaseStartBlockHeight + numberOfBlocksPreparePhase)}
+                    </div>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell style={{ borderBottom: 'none', width: '60%' }}>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <div
+                        style={{
+                          backgroundColor: '#444444',
+                          height: '20px',
+                          width: '7%',
+                          marginRight: '10px',
+                          borderRadius: 4,
+                        }}
+                      />
+                      <div style={{ fontSize: '16px' }}>Current Block</div>
+                    </div>
+                  </TableCell>
+                  <TableCell style={{ borderBottom: 'none' }}>
+                    <div style={{ fontSize: '16px' }}>{numberWithCommas(currentBurnBlockHeight)}</div>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell style={{ borderBottom: 'none', width: '60%' }}>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <div
+                        style={{
+                          backgroundColor: '#eeeeee',
+                          height: '20px',
+                          width: '7%',
+                          marginRight: '10px',
+                          borderRadius: 4,
+                        }}
+                      />
+                      <div style={{ fontSize: '16px' }}>Reward Phase</div>
+                    </div>
+                  </TableCell>
+                  <TableCell style={{ borderBottom: 'none' }}>
+                    <div style={{ fontSize: '16px' }}>
+                      {numberWithCommas(preparePhaseStartBlockHeight + numberOfBlocksPreparePhase)} -{' '}
+                      {numberWithCommas(preparePhaseStartBlockHeight + numberOfBlocksPerCycle)}
+                    </div>
+                  </TableCell>
+                </TableRow>
               </div>
             )}
           </Box>
@@ -193,40 +246,34 @@ const AboutContainerStacking = ({
             {currentBurnBlockHeight !== null ? currentBurnBlockHeight : ''}
           </div>
         </div>
-
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Current Stacking Cycle:</span>
           <div className="write-just-on-one-line result-of-content-section">
             {currentCycle !== null ? currentCycle : ''}
           </div>
         </div>
-
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">First Bitcoin Block Height of the next prepare phase:</span>
           <div className="write-just-on-one-line result-of-content-section">
             {preparePhaseStartBlockHeight !== null ? preparePhaseStartBlockHeight : ''}
           </div>
         </div>
-
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">First Bitcoin Block Height of the next reward phase:</span>
           <div className="write-just-on-one-line result-of-content-section">
             {rewardPhaseStartBlockHeight !== null ? rewardPhaseStartBlockHeight : ''}
           </div>
         </div>
-
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Connected wallet:</span>
           <div className="write-just-on-one-line result-of-content-section">
             {connectedWallet !== null ? connectedWallet : ''}
           </div>
         </div>
-
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Role: {currentRole === 'NormalUserStacking' ? 'Normal User' : currentRole}</span>
           <span className="result-of-content-section"></span>
         </div>
-
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">
             Address’ delegated funds to the pool:{' '}
@@ -240,7 +287,6 @@ const AboutContainerStacking = ({
           </span>
           <span className="result-of-content-section"></span>
         </div>
-
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">
             Locked in pool:{' '}
@@ -248,19 +294,16 @@ const AboutContainerStacking = ({
           </span>
           <span className="result-of-content-section"></span>
         </div>
-
         <div className="content-sections-title-info-container">
           <span className="bold-font">Total guaranteed: </span>
-          <span className="result-of-content-section">{reservedAmount !== null ? reservedAmount + ' STX' : ''}</span>
+          <div className="result-of-content-section">{reservedAmount !== null ? reservedAmount + ' STX' : ''}</div>
         </div>
-
         <div className="content-sections-title-info-container">
           <span className="bold-font">Stacked amount covered by the pool: </span>
-          <span className="result-of-content-section">
+          <div className="result-of-content-section">
             {reservedAmount !== null && returnCovered !== null ? reservedAmount * returnCovered + ' STX' : ''}
-          </span>
+          </div>
         </div>
-
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Link to explorer: </span>
           <button
