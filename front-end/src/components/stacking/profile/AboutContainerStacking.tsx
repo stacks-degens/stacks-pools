@@ -7,8 +7,26 @@ import colors from '../../../consts/colorPallete';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 import { useEffect, useRef, useState } from 'react';
-import { Box, Divider, ListItem, ListItemButton, Table, TableCell, TableHead, TableRow } from '@mui/material';
+import {
+  Box,
+  Button,
+  CardHeader,
+  Dialog,
+  Divider,
+  FormControlLabel,
+  GlobalStyles,
+  Grid,
+  List,
+  ListItem,
+  ListItemButton,
+  Table,
+  TableCell,
+  TableHead,
+  TableRow,
+} from '@mui/material';
 import { convertDigits } from '../../../consts/converter';
+import { HighlightScope, BarChart } from '@mui/x-charts';
+import CloseIcon from '@mui/icons-material/Close';
 
 interface IAboutContainerStackingProps {
   currentRole: string;
@@ -57,6 +75,7 @@ const AboutContainerStacking = ({
 
   const [isProgressExpandButtonClicked, setIsProgressExpandButtonClicked] = useState<boolean>(false);
   const [btcBlockRetrieved, setBtcBlockRetrieved] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   const numberOfBlocksPreparePhase = rewardPhaseStartBlockHeight - preparePhaseStartBlockHeight;
   const numberOfBlocksRewardPhase = numberOfBlocksPreparePhase * 20;
@@ -64,6 +83,27 @@ const AboutContainerStacking = ({
 
   const currentBlockHeight = ((currentBurnBlockHeight - preparePhaseStartBlockHeight) * 100) / numberOfBlocksPerCycle;
   const preparePhase = (numberOfBlocksPreparePhase * 100) / numberOfBlocksPerCycle;
+
+  const barChartsParams = {
+    series: [
+      { data: [reservedAmount !== null ? reservedAmount * 5 : 0], label: 'Some Reward', color: '#eeeeee' }, // TODO: delete the * 5
+      {
+        data: [stacksAmountThisCycle !== null ? stacksAmountThisCycle * 5 : 0], // TODO: delete the * 5
+        label: 'Other Reward',
+        color: '#777777',
+      },
+      {
+        data: [returnCovered !== null && reservedAmount !== null ? returnCovered * reservedAmount * 10 : 0], // TODO: delete the * 10
+        label: 'Some Type Of Reward',
+        color: '#444444',
+      },
+    ],
+    height: window.screen.height * 0.7,
+  };
+
+  const changeDialogOpen = (isDialogOpen: boolean) => {
+    setDialogOpen(isDialogOpen);
+  };
 
   return (
     <div
@@ -147,17 +187,151 @@ const AboutContainerStacking = ({
                 Reward Phase
               </TableCell>
             </div>
-            <ListItem
-              sx={{ marginTop: '10px' }}
-              onClick={() => setIsProgressExpandButtonClicked(!isProgressExpandButtonClicked)}
-            >
-              <ListItemButton
-                sx={{ display: 'flex', alignContent: 'center', justifyContent: 'center', borderRadius: 4 }}
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+              <ListItem
+                sx={{ marginTop: '10px', width: '50%' }}
+                onClick={() => setIsProgressExpandButtonClicked(!isProgressExpandButtonClicked)}
               >
-                {!isProgressExpandButtonClicked && <ExpandMore fontSize="large" />}
-                {isProgressExpandButtonClicked && <ExpandLess fontSize="large" />}
-              </ListItemButton>
-            </ListItem>
+                <ListItemButton
+                  sx={{ display: 'flex', alignContent: 'center', justifyContent: 'center', borderRadius: 4 }}
+                >
+                  <Button size="large" sx={{ color: colors[appCurrentTheme].colorWriting }} disableRipple>
+                    Blocks Details
+                  </Button>
+                </ListItemButton>
+              </ListItem>
+              <ListItem sx={{ marginTop: '10px', width: '50%' }}>
+                <ListItemButton
+                  sx={{ display: 'flex', alignContent: 'center', justifyContent: 'center', borderRadius: 4 }}
+                  onClick={() => changeDialogOpen(true)}
+                >
+                  <Button
+                    size="large"
+                    sx={{ color: colors[appCurrentTheme].colorWriting, width: '100%' }}
+                    disableRipple
+                  >
+                    Reward Details
+                  </Button>
+                </ListItemButton>
+                <GlobalStyles
+                  styles={{
+                    '*::-webkit-scrollbar': { width: '0.1em', backgroundColor: colors[appCurrentTheme].primary },
+                    '*::-webkit-scrollbar-thumb': { backgroundColor: colors[appCurrentTheme].defaultOrange },
+                  }}
+                />
+                <Dialog open={dialogOpen}>
+                  <Box
+                    sx={{ width: 310, height: '100%' }}
+                    role="presentation"
+                    style={{
+                      backgroundColor: colors[appCurrentTheme].accent2,
+                      color: colors[appCurrentTheme].colorWriting,
+                    }}
+                  >
+                    <List style={{ backgroundColor: colors[appCurrentTheme].primary }}>
+                      <ListItem disablePadding>
+                        <div
+                          style={{
+                            width: 'auto',
+                            marginLeft: 'auto',
+                            marginRight: 'auto',
+                            marginTop: 2,
+                            marginBottom: 2,
+                          }}
+                        >
+                          <ListItemButton disableRipple onClick={() => changeDialogOpen(false)}>
+                            <CloseIcon fontSize="medium" style={{ color: '#ff0000' }} />
+                          </ListItemButton>
+                        </div>
+                      </ListItem>
+                    </List>
+
+                    <List style={{ backgroundColor: colors[appCurrentTheme].accent2 }}>
+                      <div>
+                        <div style={{ marginBottom: '-100px' }}>
+                          <TableRow>
+                            <TableCell style={{ borderBottom: 'none', width: '70%' }}>
+                              <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <div
+                                  style={{
+                                    backgroundColor: '#ffffff',
+                                    height: '12px',
+                                    width: '7%',
+                                    marginRight: '10px',
+                                  }}
+                                />
+                                <div style={{ fontSize: '16px' }}>Total Guaraneed</div>
+                              </div>
+                            </TableCell>
+                            <TableCell style={{ borderBottom: 'none' }}>
+                              <div style={{ fontSize: '16px' }}>
+                                {reservedAmount !== null ? numberWithCommas(reservedAmount) : 0}
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell style={{ borderBottom: 'none', width: '70%' }}>
+                              <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <div
+                                  style={{
+                                    backgroundColor: '#777777',
+                                    height: '12px',
+                                    width: '7%',
+                                    marginRight: '10px',
+                                  }}
+                                />
+                                <div style={{ fontSize: '16px' }}>Stacked This Cycle</div>
+                              </div>
+                            </TableCell>
+                            <TableCell style={{ borderBottom: 'none' }}>
+                              <div style={{ fontSize: '16px' }}>
+                                {stacksAmountThisCycle !== null ? numberWithCommas(stacksAmountThisCycle) : 0}
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell style={{ borderBottom: 'none', width: '70%' }}>
+                              <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <div
+                                  style={{
+                                    backgroundColor: '#444444',
+                                    height: '12px',
+                                    width: '7%',
+                                    marginRight: '10px',
+                                  }}
+                                />
+                                <div style={{ fontSize: '16px' }}>Amount Covered</div>
+                              </div>
+                            </TableCell>
+                            <TableCell style={{ borderBottom: 'none' }}>
+                              <div style={{ fontSize: '16px' }}>
+                                {returnCovered !== null && reservedAmount !== null
+                                  ? numberWithCommas(returnCovered * reservedAmount * 10) // TODO: delete the * 10
+                                  : 0}
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                        </div>
+                        <BarChart
+                          {...barChartsParams}
+                          series={barChartsParams.series.map((series) => ({
+                            ...series,
+                            highlightScope: {
+                              highlighted: 'item',
+                              faded: 'global',
+                            } as HighlightScope,
+                          }))}
+                          bottomAxis={null}
+                          leftAxis={null}
+                          legend={{ hidden: true }}
+                          tooltip={{ trigger: 'none' }}
+                        />
+                      </div>
+                    </List>
+                  </Box>
+                </Dialog>
+              </ListItem>
+            </div>
             {isProgressExpandButtonClicked && (
               <div>
                 <TableRow>
