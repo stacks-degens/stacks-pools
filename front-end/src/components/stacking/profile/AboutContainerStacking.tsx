@@ -260,7 +260,7 @@ const AboutContainerStacking = ({
                                     marginRight: '10px',
                                   }}
                                 />
-                                <div style={{ fontSize: '16px' }}>Total Guaraneed</div>
+                                <div style={{ fontSize: '16px' }}>Rewards Guaraneed</div>
                               </div>
                             </TableCell>
                             <TableCell style={{ borderBottom: 'none' }}>
