@@ -9,6 +9,7 @@
     "@mui/lab": "^5.0.0-alpha.128",
     "@mui/material": "^5.12.2",
     "@mui/styles": "^5.11.16",
+    "@mui/x-charts": "^6.0.0-alpha.10",
     "@reduxjs/toolkit": "^1.9.4",
     "@stacks/auth": "^6.5.4",
     "@stacks/connect": "^7.3.1",

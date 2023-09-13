@@ -19,7 +19,7 @@ import {
   readOnlyGetSCReservedBalance,
   ReadOnlyGetStackersList,
 } from '../../../consts/readOnly';
-import { network } from '../../../consts/network';
+import { network, apiMapping } from '../../../consts/network';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { contractMapping } from '../../../consts/contract';
 
@@ -37,9 +37,30 @@ const DashboardStacking = () => {
   const [returnCovered, setReturnCovered] = useState<number | null>(null);
   const [minimumDepositProvider, setMinimumDepositProvider] = useState<number | null>(null);
   const [userAddress, setUserAddress] = useState<string | null>(null);
+  const [currentBurnBlockHeight, setCurrentBurnBlockHeight] = useState<number>(0);
+  const [preparePhaseStartBlockHeight, setPreparePhaseStartBlockHeight] = useState<number>(0);
+  const [rewardPhaseStartBlockHeight, setRewardPhaseStartBlockHeigh] = useState<number>(0);
   const localNetwork = network === 'devnet' ? 'testnet' : network;
   const userSession = useAppSelector(selectUserSessionState);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
+
+  useEffect(() => {
+    const getCurrentBlockInfo = async () => {
+      const blockInfoResult = await fetch(`${apiMapping.stackingInfo}`)
+        .then((res) => res.json())
+        .then((res) => res);
+      if (await blockInfoResult) {
+        let cycleBlockNr =
+          (blockInfoResult['next_cycle']['reward_phase_start_block_height'] -
+            blockInfoResult['next_cycle']['prepare_phase_start_block_height']) *
+          21;
+        setCurrentBurnBlockHeight(blockInfoResult['current_burnchain_block_height']);
+        setPreparePhaseStartBlockHeight(blockInfoResult['next_cycle']['prepare_phase_start_block_height']);
+        setRewardPhaseStartBlockHeigh(blockInfoResult['next_cycle']['reward_phase_start_block_height'] - cycleBlockNr);
+      }
+    };
+    getCurrentBlockInfo();
+  }, [setCurrentBurnBlockHeight, setPreparePhaseStartBlockHeight, setRewardPhaseStartBlockHeigh]);
 
   useEffect(() => {
     if (userSession.isUserSignedIn()) {
@@ -156,6 +177,9 @@ const DashboardStacking = () => {
             returnCovered={returnCovered}
             minimumDepositProvider={minimumDepositProvider}
             userAddress={userAddress}
+            currentBurnBlockHeight={currentBurnBlockHeight}
+            preparePhaseStartBlockHeight={preparePhaseStartBlockHeight}
+            rewardPhaseStartBlockHeight={rewardPhaseStartBlockHeight}
           />
         </div>
       </div>
