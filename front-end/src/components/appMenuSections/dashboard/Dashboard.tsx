@@ -17,7 +17,11 @@ import colors from '../../../consts/colorPallete';
 import './styles.css';
 import { network } from '../../../consts/network';
 
-const Dashboard = () => {
+interface IDashboardProps {
+  currentBurnBlockHeight: number | null;
+}
+
+const Dashboard = ({ currentBurnBlockHeight }: IDashboardProps) => {
   const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);
   const [minersList, setMinersList] = useState<Array<string>>([]);
   const currentRole: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
@@ -86,6 +90,7 @@ const Dashboard = () => {
             stacksRewards={stacksRewards}
             userAddress={userAddress}
             currentRole={currentRole}
+            currentBurnBlockHeight={currentBurnBlockHeight}
           />
         </div>
       </div>
