@@ -86,14 +86,14 @@ const AboutContainerStacking = ({
 
   const barChartsParams = {
     series: [
-      { data: [reservedAmount !== null ? reservedAmount * 5 : 0], label: 'Some Reward', color: '#eeeeee' }, // TODO: delete the * 5
+      { data: [reservedAmount !== null ? reservedAmount * 2.5 : 0], label: 'Some Reward', color: '#eeeeee' }, // TODO: delete the * 2.5
       {
-        data: [stacksAmountThisCycle !== null ? stacksAmountThisCycle * 5 : 0], // TODO: delete the * 5
+        data: [stacksAmountThisCycle !== null ? stacksAmountThisCycle : 0],
         label: 'Other Reward',
         color: '#777777',
       },
       {
-        data: [returnCovered !== null && reservedAmount !== null ? returnCovered * reservedAmount * 10 : 0], // TODO: delete the * 10
+        data: [returnCovered !== null && reservedAmount !== null ? returnCovered * reservedAmount : 0],
         label: 'Some Type Of Reward',
         color: '#444444',
       },
@@ -306,7 +306,7 @@ const AboutContainerStacking = ({
                             <TableCell style={{ borderBottom: 'none' }}>
                               <div style={{ fontSize: '16px' }}>
                                 {returnCovered !== null && reservedAmount !== null
-                                  ? numberWithCommas(returnCovered * reservedAmount * 10) // TODO: delete the * 10
+                                  ? numberWithCommas(returnCovered * reservedAmount)
                                   : 0}
                               </div>
                             </TableCell>
