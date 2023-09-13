@@ -80,22 +80,34 @@ const AboutContainerStacking = ({
   const numberOfBlocksPreparePhase = (preparePhaseStartBlockHeight - rewardPhaseStartBlockHeight) / 20;
   const numberOfBlocksRewardPhase = numberOfBlocksPreparePhase * 20;
   const numberOfBlocksPerCycle = numberOfBlocksPreparePhase + numberOfBlocksRewardPhase;
-  console.log();
+
+  const slope =
+    returnCovered !== null && reservedAmount !== null ? (1.0 - 2.5) / (0.025 * returnCovered * reservedAmount) : 1;
+  const multiplier =
+    stacksAmountThisCycle !== null && returnCovered !== null && reservedAmount !== null
+      ? stacksAmountThisCycle > 0.025 * returnCovered * reservedAmount
+        ? 1
+        : 2.5 + slope * stacksAmountThisCycle
+      : 1;
 
   const currentBlockHeight = ((currentBurnBlockHeight - rewardPhaseStartBlockHeight) * 100) / numberOfBlocksPerCycle;
   const preparePhase = ((preparePhaseStartBlockHeight - rewardPhaseStartBlockHeight) * 100) / numberOfBlocksPerCycle;
 
   const barChartsParams = {
     series: [
-      { data: [reservedAmount !== null ? reservedAmount * 2.5 : 0], label: 'Some Reward', color: '#eeeeee' }, // TODO: delete the * 2.5
+      { data: [reservedAmount !== null ? reservedAmount * 2.5 : 0], color: '#eeeeee' },
       {
-        data: [stacksAmountThisCycle !== null ? stacksAmountThisCycle : 0],
-        label: 'Other Reward',
+        data: [
+          stacksAmountThisCycle !== null && returnCovered !== null && reservedAmount !== null
+            ? stacksAmountThisCycle < 0.001 * returnCovered * reservedAmount
+              ? 0.001 * returnCovered * reservedAmount
+              : stacksAmountThisCycle * multiplier
+            : 0,
+        ],
         color: '#777777',
       },
       {
         data: [returnCovered !== null && reservedAmount !== null ? returnCovered * reservedAmount : 0],
-        label: 'Some Type Of Reward',
         color: '#444444',
       },
     ],
