@@ -148,6 +148,10 @@
   width: 100%;
 }
 
+.about-section-phase-info {
+  font-size: 16px;
+}
+
 @media screen and (max-width: 575px) {
   /* the introduction container-stacking (the orange rectangle)  */
   .profile-page-main-container-stacking .intro-container-stacking-profile-page {
@@ -202,7 +206,16 @@
 
   /* the result of the section above */
   .result-of-content-section {
-    font-size: 10.6px;
+    font-size: 14px;
+  }
+
+  .result-of-content-section.connected-walled {
+    font-size: 10.6px !important;
+  }
+
+  .current-block,
+  .about-section-phase-info {
+    font-size: 14px;
   }
 
   /* autoexchange button container-stacking */

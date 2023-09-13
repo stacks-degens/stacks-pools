@@ -151,6 +151,7 @@ const AboutContainerStacking = ({
         <div>
           <Box>
             <div
+              className="current-block"
               ref={divRef}
               style={{
                 marginTop: '10px',
@@ -194,10 +195,10 @@ const AboutContainerStacking = ({
               }}
             />
             <div style={{ marginRight: '-15px', marginTop: '-5px', marginBottom: '-20px' }}>
-              <TableCell style={{ borderBottom: 'none' }} align="center">
+              <TableCell style={{ borderBottom: 'none', fontWeight: 'bold' }} align="center">
                 Reward Phase
               </TableCell>
-              <TableCell style={{ borderBottom: 'none', width: 100 - preparePhase + '%' }} align="left">
+              <TableCell style={{ borderBottom: 'none', width: 100 - preparePhase + '%', fontWeight: 'bold' }} align="left">
                 Prepare Phase
               </TableCell>
             </div>
@@ -360,11 +361,11 @@ const AboutContainerStacking = ({
                           borderRadius: 4,
                         }}
                       />
-                      <div style={{ fontSize: '16px' }}>Reward Phase</div>
+                      <div className="bold-font" style={{ fontSize: '16px' }}>Reward Phase</div>
                     </div>
                   </TableCell>
                   <TableCell style={{ borderBottom: 'none' }}>
-                    <div style={{ fontSize: '16px' }}>
+                    <div className="about-section-phase-info">
                       {numberWithCommas(rewardPhaseStartBlockHeight)} - {numberWithCommas(preparePhaseStartBlockHeight)}
                     </div>
                   </TableCell>
@@ -381,11 +382,13 @@ const AboutContainerStacking = ({
                           borderRadius: 4,
                         }}
                       />
-                      <div style={{ fontSize: '16px' }}>Current Block</div>
+                      <div className="bold-font" style={{ fontSize: '16px' }}>
+                        Current Block
+                      </div>
                     </div>
                   </TableCell>
                   <TableCell style={{ borderBottom: 'none' }}>
-                    <div style={{ fontSize: '16px' }}>{numberWithCommas(currentBurnBlockHeight)}</div>
+                    <div className="about-section-phase-info">{numberWithCommas(currentBurnBlockHeight)}</div>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -400,11 +403,11 @@ const AboutContainerStacking = ({
                           borderRadius: 4,
                         }}
                       />
-                      <div style={{ fontSize: '16px' }}>Prepare Phase</div>
+                      <div className="bold-font" style={{ fontSize: '16px' }}>Prepare Phase</div>
                     </div>
                   </TableCell>
                   <TableCell style={{ borderBottom: 'none' }}>
-                    <div style={{ fontSize: '16px' }}>
+                    <div className="about-section-phase-info">
                       {numberWithCommas(preparePhaseStartBlockHeight)} -{' '}
                       {numberWithCommas(rewardPhaseStartBlockHeight + numberOfBlocksPerCycle)}
                     </div>
@@ -453,7 +456,7 @@ const AboutContainerStacking = ({
         </div>
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Connected wallet:</span>
-          <div className="write-just-on-one-line result-of-content-section">
+          <div className="write-just-on-one-line result-of-content-section connected-walled">
             {connectedWallet !== null ? connectedWallet : ''}
           </div>
         </div>
