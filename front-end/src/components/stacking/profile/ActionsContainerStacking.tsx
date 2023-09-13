@@ -73,7 +73,7 @@ const ActionsContainerStacking = ({
 
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
-  const numberOfBlocksPreparePhase = rewardPhaseStartBlockHeight - preparePhaseStartBlockHeight;
+  const numberOfBlocksPreparePhase = (preparePhaseStartBlockHeight - rewardPhaseStartBlockHeight) / 20;
   const numberOfBlocksRewardPhase = numberOfBlocksPreparePhase * 20;
   const numberOfBlocksPerCycle = numberOfBlocksPreparePhase + numberOfBlocksRewardPhase;
 
@@ -83,28 +83,38 @@ const ActionsContainerStacking = ({
 
   let messageUpdateBalances = '';
   let canCallUpdateBalances = false;
-  if (currentBurnBlockHeight - preparePhaseStartBlockHeight + numberOfBlocksPerCycle < numberOfBlocksPreparePhase / 2) {
-    const remaining = preparePhaseStartBlockHeight + numberOfBlocksPreparePhase / 2 - currentBurnBlockHeight;
+  if (currentBurnBlockHeight > preparePhaseStartBlockHeight) {
+    const remaining = rewardPhaseStartBlockHeight + numberOfBlocksPerCycle - currentBurnBlockHeight;
     messageUpdateBalances = `Remaining blocks to update balances for cycle: ${currentCycle}: ${remaining} blocks`;
     canCallUpdateBalances = true;
   } else {
     const remaining = preparePhaseStartBlockHeight - currentBurnBlockHeight;
     messageUpdateBalances = `You can call start calling update-balances in ${remaining} blocks. It can be called for the next ${
-      numberOfBlocksPreparePhase / 2
+      numberOfBlocksPreparePhase - 1
     } blocks after the starting period.`;
     canCallUpdateBalances = false;
   }
 
   let messageStackFundsMultipleUsers = '';
   let canCallStackFundsMultipleUsers = false;
-  if (currentBurnBlockHeight - preparePhaseStartBlockHeight + numberOfBlocksPerCycle >= numberOfBlocksPerCycle / 2) {
-    // possible now -> remaining time to call it: x blocks
-    let remaining = preparePhaseStartBlockHeight - currentBurnBlockHeight - 1;
-    messageStackFundsMultipleUsers = `Remaining blocks to stack for cycle: ${currentCycle + 1}: ${remaining} blocks`;
-    canCallStackFundsMultipleUsers = true;
+  if (currentBurnBlockHeight - rewardPhaseStartBlockHeight >= numberOfBlocksPerCycle / 2) {
+    // in prepare phase
+    if (currentBurnBlockHeight - preparePhaseStartBlockHeight > 0) {
+      let remaining =
+        rewardPhaseStartBlockHeight + numberOfBlocksPerCycle - numberOfBlocksPerCycle / 2 - currentBurnBlockHeight;
+      messageStackFundsMultipleUsers = `You can call start calling stack funds multiple in ${remaining} blocks. It can be called for the next ${
+        numberOfBlocksPerCycle / 2 - numberOfBlocksPreparePhase
+      } blocks.`;
+      canCallStackFundsMultipleUsers = false;
+    } else {
+      // possible now -> remaining time to call it: x blocks
+      let remaining = preparePhaseStartBlockHeight - currentBurnBlockHeight - 1;
+      messageStackFundsMultipleUsers = `Remaining blocks to stack for cycle: ${currentCycle + 1}: ${remaining} blocks`;
+      canCallStackFundsMultipleUsers = true;
+    }
   } else {
     // not yet -> in x blocks available
-    let remaining = preparePhaseStartBlockHeight - numberOfBlocksPerCycle / 2 - currentBurnBlockHeight;
+    let remaining = rewardPhaseStartBlockHeight - numberOfBlocksPerCycle / 2 - currentBurnBlockHeight;
     messageStackFundsMultipleUsers = `You can call start calling stack funds multiple in ${remaining} blocks. It can be called for the next ${
       numberOfBlocksPerCycle / 2
     } blocks.`;
@@ -361,7 +371,7 @@ const ActionsContainerStacking = ({
             <div className="button-container-stacking-action-container-stacking">
               <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <span style={{ marginRight: '5px', fontSize: '10px', display: 'flex', marginTop: 'auto' }}>
-                  <MouseOverPopover severityType="info" text={messageDelegate} />
+                  <MouseOverPopover severityType="info" text={messageStackFundsMultipleUsers} />
                 </span>
                 <button
                   className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}

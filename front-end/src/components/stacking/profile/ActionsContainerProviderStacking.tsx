@@ -46,10 +46,10 @@ const ActionsContainerProviderStacking = ({
 
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
-  const numberOfBlocksPreparePhase = rewardPhaseStartBlockHeight - preparePhaseStartBlockHeight;
+  const numberOfBlocksPreparePhase = (preparePhaseStartBlockHeight - rewardPhaseStartBlockHeight) / 20;
   const numberOfBlocksRewardPhase = numberOfBlocksPreparePhase * 20;
   const numberOfBlocksPerCycle = numberOfBlocksPreparePhase + numberOfBlocksRewardPhase;
-  const unlockNumberOfBlocks = network === 'mainnet' ? 750 : 375;
+  const unlockNumberOfBlocks = network === 'mainnet' ? 750 : 225;
 
   let messageReserve = '';
   if (ownedBalance !== null && minimumDepositProvider !== null) {
@@ -66,16 +66,14 @@ const ActionsContainerProviderStacking = ({
 
   let messageUnlock = '';
   let canCallUpdateBalances = false;
-  if (currentBurnBlockHeight - preparePhaseStartBlockHeight + numberOfBlocksPerCycle < unlockNumberOfBlocks) {
-    const remaining =
-      preparePhaseStartBlockHeight - numberOfBlocksPerCycle + unlockNumberOfBlocks - currentBurnBlockHeight;
+  // is in the first x blocks in reward phase
+  if (currentBurnBlockHeight < rewardPhaseStartBlockHeight + unlockNumberOfBlocks) {
+    const remaining = rewardPhaseStartBlockHeight + unlockNumberOfBlocks - currentBurnBlockHeight;
     messageUnlock = `Remaining blocks to unlock extra-locked liquidity for cycle: ${currentCycle}: ${remaining} blocks`;
     canCallUpdateBalances = true;
   } else {
-    const remaining = preparePhaseStartBlockHeight - currentBurnBlockHeight;
-    messageUnlock = `You can call start calling unlock-extra-liqudity in ${remaining} blocks. It can be called for the next ${
-      numberOfBlocksPreparePhase / 2
-    } blocks.`;
+    const remaining = rewardPhaseStartBlockHeight + numberOfBlocksPerCycle - currentBurnBlockHeight;
+    messageUnlock = `You can call start calling unlock-extra-liqudity in ${remaining} blocks. It can be called for the next ${unlockNumberOfBlocks} blocks.`;
     canCallUpdateBalances = false;
   }
 
