@@ -1012,6 +1012,9 @@
 (define-read-only (get-k) 
 (var-get k))
 
+(define-read-only (get-n) 
+(var-get n))
+
 (define-read-only (get-notifier) 
 (var-get notifier))
 

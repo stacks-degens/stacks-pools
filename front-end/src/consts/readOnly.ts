@@ -131,6 +131,18 @@ export const ReadOnlyGetProposedRemovalListMining = async () => {
   return removalList;
 };
 
+// get-n
+// args: none
+// what does it do: returns the number of miners in the pool
+// return: uint
+
+export const ReadOnlyGetMinersNumber = async () => {
+  const type = 'mining';
+  const minersNumber: ClarityValue = await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getN);
+  console.log('number of miners:', minersNumber);
+  return minersNumber;
+};
+
 // get-all-data-miners-proposed-for-removal
 // args: (removal-miners-list (list 100 principal))
 // what does it do: it returns the details for every miner in the list for miners proposed for removal, passed as argument

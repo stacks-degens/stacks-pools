@@ -81,6 +81,7 @@ interface IFunctionMapping {
       wasBlockClaimed: string;
       getBalance: string;
       getK: string;
+      getN: string;
       getNotifier: string;
       getWaitingList: string;
       getMinersList: string;
@@ -173,6 +174,7 @@ export const functionMapping: IFunctionMapping = {
       wasBlockClaimed: 'was-block-claimed',
       getBalance: 'get-balance',
       getK: 'get-k',
+      getN: 'get-n',
       getNotifier: 'get-notifier',
       getWaitingList: 'get-waiting-list',
       getMinersList: 'get-miners-list',
