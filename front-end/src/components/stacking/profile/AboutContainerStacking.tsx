@@ -77,12 +77,13 @@ const AboutContainerStacking = ({
   const [btcBlockRetrieved, setBtcBlockRetrieved] = useState(false);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
-  const numberOfBlocksPreparePhase = rewardPhaseStartBlockHeight - preparePhaseStartBlockHeight;
+  const numberOfBlocksPreparePhase = (preparePhaseStartBlockHeight - rewardPhaseStartBlockHeight) / 20;
   const numberOfBlocksRewardPhase = numberOfBlocksPreparePhase * 20;
   const numberOfBlocksPerCycle = numberOfBlocksPreparePhase + numberOfBlocksRewardPhase;
+  console.log();
 
-  const currentBlockHeight = ((currentBurnBlockHeight - preparePhaseStartBlockHeight) * 100) / numberOfBlocksPerCycle;
-  const preparePhase = (numberOfBlocksPreparePhase * 100) / numberOfBlocksPerCycle;
+  const currentBlockHeight = ((currentBurnBlockHeight - rewardPhaseStartBlockHeight) * 100) / numberOfBlocksPerCycle;
+  const preparePhase = ((preparePhaseStartBlockHeight - rewardPhaseStartBlockHeight) * 100) / numberOfBlocksPerCycle;
 
   const barChartsParams = {
     series: [
@@ -159,12 +160,13 @@ const AboutContainerStacking = ({
                 '& .MuiLinearProgress-bar1Buffer': {
                   // Prepare phase
                   backgroundColor: currentBlockHeight <= preparePhase ? '#444444' : '#777777',
+                  borderRight: currentBlockHeight < preparePhase ? divWidth / 150 + 'px solid red' : 'none',
                 },
 
                 '& .MuiLinearProgress-bar2Buffer': {
                   // Current block
                   backgroundColor: currentBlockHeight <= preparePhase ? '#777777' : '#444444',
-                  borderRight: divWidth / 150 + 'px solid red',
+                  borderRight: currentBlockHeight > preparePhase ? divWidth / 150 + 'px solid red' : 'none',
                 },
 
                 '& .MuiLinearProgress-dashed': {
@@ -179,12 +181,12 @@ const AboutContainerStacking = ({
                 marginTop: '15px',
               }}
             />
-            <div style={{ marginLeft: '-15px', marginTop: '-5px', marginBottom: '-20px' }}>
-              <TableCell style={{ borderBottom: 'none', width: preparePhase + '%' }} align="left">
-                Prepare Phase
-              </TableCell>
+            <div style={{ marginRight: '-15px', marginTop: '-5px', marginBottom: '-20px' }}>
               <TableCell style={{ borderBottom: 'none' }} align="center">
                 Reward Phase
+              </TableCell>
+              <TableCell style={{ borderBottom: 'none', width: 100 - preparePhase + '%' }} align="left">
+                Prepare Phase
               </TableCell>
             </div>
             <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -346,13 +348,12 @@ const AboutContainerStacking = ({
                           borderRadius: 4,
                         }}
                       />
-                      <div style={{ fontSize: '16px' }}>Prepare Phase</div>
+                      <div style={{ fontSize: '16px' }}>Reward Phase</div>
                     </div>
                   </TableCell>
                   <TableCell style={{ borderBottom: 'none' }}>
                     <div style={{ fontSize: '16px' }}>
-                      {numberWithCommas(preparePhaseStartBlockHeight)} -{' '}
-                      {numberWithCommas(preparePhaseStartBlockHeight + numberOfBlocksPreparePhase)}
+                      {numberWithCommas(rewardPhaseStartBlockHeight)} - {numberWithCommas(preparePhaseStartBlockHeight)}
                     </div>
                   </TableCell>
                 </TableRow>
@@ -387,13 +388,13 @@ const AboutContainerStacking = ({
                           borderRadius: 4,
                         }}
                       />
-                      <div style={{ fontSize: '16px' }}>Reward Phase</div>
+                      <div style={{ fontSize: '16px' }}>Prepare Phase</div>
                     </div>
                   </TableCell>
                   <TableCell style={{ borderBottom: 'none' }}>
                     <div style={{ fontSize: '16px' }}>
-                      {numberWithCommas(preparePhaseStartBlockHeight + numberOfBlocksPreparePhase)} -{' '}
-                      {numberWithCommas(preparePhaseStartBlockHeight + numberOfBlocksPerCycle)}
+                      {numberWithCommas(preparePhaseStartBlockHeight)} -{' '}
+                      {numberWithCommas(rewardPhaseStartBlockHeight + numberOfBlocksPerCycle)}
                     </div>
                   </TableCell>
                 </TableRow>
