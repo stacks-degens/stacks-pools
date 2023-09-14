@@ -113,10 +113,18 @@ export const ContractTryEnterPoolMining = () => {
 // args: (btc-address principal)
 // what does it do: This function adds the user passed as argument to the waiting list
 
-export const ContractAskToJoinMining = (args: string) => {
-  const convertedArgs = [stringCV(args, 'ascii')];
+export const ContractAskToJoinMining = (pubKey: string) => {
   const type = 'mining';
-  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.askToJoin, []);
+  // To remove the next line after public key is successfully parsed
+  pubKey = '02e8f7dc91e49a577ce9ea8989c7184aea8886fe5250f02120dc6f98e3619679b0';
+
+  const version = '00';
+  const versionBuffer = Buffer.from(version, 'hex');
+  const pubKeyBuffer = Buffer.from(pubKey, 'hex');
+  const pKhash160 = crypto.hash160(pubKeyBuffer);
+  const functionArgs = [tupleCV({ hashbytes: bufferCV(pKhash160), version: bufferCV(versionBuffer) })];
+  console.log(functionArgs);
+  CallFunctions(type, functionArgs, functionMapping[type].publicFunctions.askToJoin, []);
 };
 
 // deposit-stx

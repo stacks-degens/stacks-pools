@@ -83,16 +83,14 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
     };
 
     fetchStatusStacking();
+
+    if (currentRoleStacking === 'Viewer') {
+      dispatch(updateUserRoleActionStacking(finalStatusStacking));
+    }
   }, [finalStatusStacking]);
 
   useEffect(() => {
     if (userSession.isUserSignedIn()) {
-      if (currentRoleMining === 'Viewer') {
-        dispatch(updateUserRoleActionMining(finalStatusMining));
-      }
-      if (currentRoleStacking === 'Viewer') {
-        dispatch(updateUserRoleActionStacking(finalStatusStacking));
-      }
       setDisplayLogoutIcon(true);
     }
   }, [displayLogoutIcon]);
@@ -112,6 +110,10 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
   //   };
 
   //   fetchStatus();
+
+  //   if (currentRoleMining === 'Viewer') {
+  //     dispatch(updateUserRoleActionMining(finalStatusMining));
+  //   }
   // }, [finalStatusMining]);
 
   // useEffect(() => {

@@ -14,6 +14,7 @@ interface DashboardInfoContainerProps {
   stacksRewards: number | null;
   userAddress: string | null;
   currentRole: UserRoleMining;
+  currentBurnBlockHeight: number | null;
 }
 const DashboardInfoContainer = ({
   notifier,
@@ -22,6 +23,7 @@ const DashboardInfoContainer = ({
   stacksRewards,
   userAddress,
   currentRole,
+  currentBurnBlockHeight,
 }: DashboardInfoContainerProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
@@ -49,6 +51,12 @@ const DashboardInfoContainer = ({
         style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting }}
         className="content-info-container-normal-user"
       >
+        <div className="content-sections-title-info-container">
+          <span className="bold-font">Current Bitcoin Block Height: </span>
+          <div className="result-of-content-section">
+            {currentBurnBlockHeight !== null ? currentBurnBlockHeight : ''}
+          </div>
+        </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Current Notifier: </span>
           <div className="result-of-content-section">{notifier !== null ? notifier : ''}</div>

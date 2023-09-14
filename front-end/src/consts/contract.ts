@@ -20,7 +20,7 @@ export const contractMapping: ContractMapping = {
     },
     testnet: {
       contractAddress: 'ST02D2KP0630FS1BCJ7YM4TYMDH6NS9QKR0B57R3',
-      contractName: 'main-contract-5-blocks-v2',
+      contractName: 'mining-pool-5-blocks-v2',
       owner: 'ST02D2KP0630FS1BCJ7YM4TYMDH6NS9QKR0B57R3',
     },
     devnet: {
