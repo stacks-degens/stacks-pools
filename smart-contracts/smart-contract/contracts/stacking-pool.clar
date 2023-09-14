@@ -42,6 +42,7 @@
 (define-constant err-not-delegated-that-amount (err u396))
 (define-constant err-no-locked-funds (err u456))
 (define-constant err-too-early (err u500))
+(define-constant err-too-late (err u501))
 (define-constant err-decrease-forbidden (err u503))
 (define-constant err-no-reward-yet (err u576))
 (define-constant err-not-enough-reserved-balance (err u579))
@@ -94,8 +95,8 @@
 ;; liqidity provider reward bitcoin address
 (define-data-var pool-pox-address {hashbytes: (buff 32), version: (buff 1)}
   {
-    version: 0x04,
-    hashbytes: 0x83ed66860315e334010bbfb76eb3eef887efee0a})
+    version: 0x00,
+    hashbytes: 0x93b631ace1dadc2eb177301610b2a019e320f36c})
 
 (define-data-var stx-buffer uint u0) ;; 0 STX
 
@@ -120,7 +121,6 @@
 (define-public (deposit-stx-liquidity-provider (amount uint)) 
 (begin 
   (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider)
-  ;; (asserts! (>= amount minimum-deposit-amount-liquidity-provider) err-future-reward-not-covered)
   (try! (stx-transfer? amount contract-caller pool-contract))
   (var-set sc-total-balance (+ amount (var-get sc-total-balance)))
   (var-set sc-owned-balance (+ amount (var-get sc-owned-balance)))
@@ -145,7 +145,7 @@
 (begin 
   (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider)
   (asserts! (>= (var-get sc-owned-balance) amount) err-insufficient-funds) 
-  (asserts! (>= amount minimum-deposit-amount-liquidity-provider) err-future-reward-not-covered)
+  (asserts! (>= (+ amount (var-get sc-reserved-balance)) minimum-deposit-amount-liquidity-provider) err-future-reward-not-covered)
   (var-set sc-owned-balance (- (var-get sc-owned-balance) amount))
   (var-set sc-reserved-balance (+ (var-get sc-reserved-balance) amount))
   (ok true)))
@@ -203,24 +203,22 @@
     (map-delete user-data {address: contract-caller})
     (ok true)))
 
-;; The SC balances need to be updated during the first half of every Prepare Phase
+(define-private (is-prepare-phase (next-reward-cycle-first-block uint))
+  (and 
+    (>= burn-block-height (- next-reward-cycle-first-block PREPARE_CYCLE_LENGTH))
+    (< burn-block-height next-reward-cycle-first-block)))
+
+;; The SC balances need to be updated during the Prepare Phase
 ;; Everyone can call the function in order to recalculate each stacker's weight inside the pool
 ;; This WILL directly AFFECT the reward distribution
+;; STX should not be stacked during these last 3 blocks as it many not be taken into the calculation
 (define-public (update-sc-balances)
 (let (
   (next-reward-cycle (get-next-reward-cycle))
-  (next-reward-cycle-first-block (contract-call? 'ST000000000000000000002AMW42H.pox-3 reward-cycle-to-burn-height (get-next-reward-cycle))))
+  (next-reward-cycle-first-block (contract-call? 'ST000000000000000000002AMW42H.pox-3 reward-cycle-to-burn-height next-reward-cycle)))
 (begin 
   ;; check current block to be inside the first half of the current reward cycle's prepare phase
-  (asserts! 
-    (<= 
-      burn-block-height 
-      (+ 
-        (- 
-          next-reward-cycle-first-block
-          PREPARE_CYCLE_LENGTH)
-        (/ PREPARE_CYCLE_LENGTH u2))) 
-  err-wrong-moment-to-update-balances)
+  (asserts! (is-prepare-phase next-reward-cycle-first-block) err-wrong-moment-to-update-balances)
   (asserts! (is-none (map-get? updated-sc-balances {reward-cycle: next-reward-cycle})) err-already-updated-balances)
   (var-set calc-locked-balance u0)
   (var-set calc-delegated-balance u0)
@@ -275,11 +273,13 @@
 ;; delegating stx to the pool SC
 (define-public (delegate-stx (amount-ustx uint))
 (let ((user contract-caller)
-      (current-cycle (contract-call? 'ST000000000000000000002AMW42H.pox-3 current-pox-reward-cycle)))
+      (current-cycle (contract-call? 'ST000000000000000000002AMW42H.pox-3 current-pox-reward-cycle))
+      (next-reward-cycle-first-block (contract-call? 'ST000000000000000000002AMW42H.pox-3 reward-cycle-to-burn-height (+ u1 current-cycle))))
   (asserts! (check-caller-allowed) err-stacking-permission-denied)
   (asserts! (check-pool-SC-pox-2-allowance) err-allow-pool-in-pox-2-first)
   
   (asserts! (is-in-pool) err-not-in-pool)
+  (asserts! (not (is-prepare-phase next-reward-cycle-first-block)) err-too-late)
   (try! (delegate-stx-inner amount-ustx (as-contract tx-sender) none))
   (try! (as-contract (lock-delegated-stx user)))
   (ok (maybe-stack-aggregation-commit current-cycle))))
@@ -288,7 +288,9 @@
 ;; This function can be called by automation, friends or family for user that have delegated once.
 ;; This function can be called only after the current cycle is half through
 (define-public (delegate-stack-stx (user principal))
-  (let ((current-cycle (contract-call? 'ST000000000000000000002AMW42H.pox-3 current-pox-reward-cycle)))
+  (let ((current-cycle (contract-call? 'ST000000000000000000002AMW42H.pox-3 current-pox-reward-cycle))
+        (next-reward-cycle-first-block (contract-call? 'ST000000000000000000002AMW42H.pox-3 reward-cycle-to-burn-height (+ u1 current-cycle))))
+    (asserts! (not (is-prepare-phase next-reward-cycle-first-block)) err-too-late)
     (asserts! (can-lock-now current-cycle) err-too-early)
     ;; Do 3.
     (try! (as-contract (lock-delegated-stx user)))
@@ -389,7 +391,7 @@
       (pox-address (var-get pool-pox-address))
       (buffer-amount u0) 
       (user-account (stx-account user))
-      (allowed-amount (min (get-delegated-amount user) (+ (get locked user-account) (get unlocked user-account))))
+      (allowed-amount (- (min (get-delegated-amount user) (+ (get locked user-account) (get unlocked user-account))) u1))
       (amount-ustx (if (> allowed-amount buffer-amount) (- allowed-amount buffer-amount) allowed-amount)))
   (asserts! (var-get active) err-pox-address-deactivated)
   (match (contract-call? 'ST000000000000000000002AMW42H.pox-3 delegate-stack-stx
@@ -601,42 +603,27 @@
 (var-set sc-owned-balance (- (var-get sc-owned-balance) amount-ustx)))
 
 (define-private (check-can-decrement-delegated-balance (amount-ustx uint)) 
-(not 
-  (< 
-    (var-get sc-delegated-balance) 
-    amount-ustx)))
+(not (< (var-get sc-delegated-balance) amount-ustx)))
 
 (define-private (check-can-decrement-locked-balance (amount-ustx uint)) 
-(not 
-  (< 
-    (var-get sc-locked-balance) 
-    amount-ustx)))
+(not (< (var-get sc-locked-balance) amount-ustx)))
 
 (define-private (check-can-decrement-reserved-balance (amount-ustx uint)) 
-(not
-  (< 
-    (var-get sc-reserved-balance) 
-    amount-ustx)))
+(not (< (var-get sc-reserved-balance) amount-ustx)))
 
 (define-private (check-can-decrement-total-balance (amount-ustx uint)) 
-(not
-  (< 
-    (var-get sc-total-balance) 
-    amount-ustx)))
+(not (< (var-get sc-total-balance) amount-ustx)))
 
 (define-private (check-can-decrement-owned-balance (amount-ustx uint)) 
-(not
-  (< 
-    (var-get sc-owned-balance) 
-    amount-ustx)))
+(not (< (var-get sc-owned-balance) amount-ustx)))
 
 (define-private (min (amount-1 uint) (amount-2 uint))
-  (if (< amount-1 amount-2)
-    amount-1
-    amount-2))
+(if (< amount-1 amount-2)
+  amount-1
+  amount-2))
 
 (define-private (get-next-reward-cycle) 
-(+ (contract-call? 'ST000000000000000000002AMW42H.pox-3 burn-height-to-reward-cycle burn-block-height) u1))
+(+ (contract-call? 'ST000000000000000000002AMW42H.pox-3 current-pox-reward-cycle) u1))
 
 ;; Read-only helper functions
 

@@ -20,7 +20,7 @@ const RedirectToDashboard = () => {
 
   useEffect(() => {
     navigate('/stacking/dashboard');
-  }, [navigate]);
+  }, []);
 
   return null;
 };
