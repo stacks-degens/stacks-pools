@@ -131,9 +131,7 @@ const ProfileStacking = () => {
           21;
         setCurrentBurnBlockHeight(blockInfoResult['current_burnchain_block_height']);
         setCurrentCycle(blockInfoResult['current_cycle']['id']);
-        setPreparePhaseStartBlockHeight(
-          blockInfoResult['next_cycle']['prepare_phase_start_block_height'] - cycleBlockNr
-        );
+        setPreparePhaseStartBlockHeight(blockInfoResult['next_cycle']['prepare_phase_start_block_height']);
         setRewardPhaseStartBlockHeigh(blockInfoResult['next_cycle']['reward_phase_start_block_height'] - cycleBlockNr);
       }
     };

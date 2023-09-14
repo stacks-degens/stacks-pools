@@ -37,13 +37,13 @@ const StackerProfile = ({
   rewardPhaseStartBlockHeight,
 }: IStackerProfileProps) => {
   if (
-    currentBurnBlockHeight &&
-    currentCycle &&
-    preparePhaseStartBlockHeight &&
-    rewardPhaseStartBlockHeight &&
-    reservedAmount &&
-    returnCovered &&
-    stacksAmountThisCycle
+    currentBurnBlockHeight !== null &&
+    currentCycle !== null &&
+    preparePhaseStartBlockHeight !== null &&
+    rewardPhaseStartBlockHeight !== null &&
+    reservedAmount !== null &&
+    returnCovered !== null &&
+    stacksAmountThisCycle !== null
   )
     return (
       <div>
