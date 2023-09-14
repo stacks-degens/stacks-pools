@@ -32,7 +32,7 @@ interface DashboardStackingInfoProps {
   returnCovered: number | null;
   minimumDepositProvider: number | null;
   userAddress: string | null;
-  currentBurnBlockHeight: number;
+  currentBurnBlockHeight: number | null;
   preparePhaseStartBlockHeight: number;
   rewardPhaseStartBlockHeight: number;
 }
@@ -79,7 +79,11 @@ const DashboardStackingInfo = ({
         : 2.5 + slope * stacksAmountThisCycle
       : 1;
 
-  const currentBlockHeight = ((currentBurnBlockHeight - rewardPhaseStartBlockHeight) * 100) / numberOfBlocksPerCycle;
+  const currentBlockHeight =
+    currentBurnBlockHeight !== null
+      ? ((currentBurnBlockHeight - rewardPhaseStartBlockHeight) * 100) / numberOfBlocksPerCycle
+      : ((0 - rewardPhaseStartBlockHeight) * 100) / numberOfBlocksPerCycle;
+
   const preparePhase = ((preparePhaseStartBlockHeight - rewardPhaseStartBlockHeight) * 100) / numberOfBlocksPerCycle;
 
   const barChartsParams = {
@@ -386,7 +390,9 @@ const DashboardStackingInfo = ({
                     </div>
                   </TableCell>
                   <TableCell style={{ borderBottom: 'none' }}>
-                    <div style={{ fontSize: '16px' }}>{numberWithCommas(currentBurnBlockHeight)}</div>
+                    <div style={{ fontSize: '16px' }}>
+                      {currentBurnBlockHeight !== null ? numberWithCommas(currentBurnBlockHeight) : ''}
+                    </div>
                   </TableCell>
                 </TableRow>
                 <TableRow>

@@ -18,12 +18,18 @@ import { apiMapping, getExplorerUrl, network } from '../consts/network';
 import { UserRoleStacking, selectCurrentUserRoleStacking, userSession } from '../redux/reducers/user-state';
 import { useAppSelector } from '../redux/store';
 import {
+  ReadOnlyGetStackersList,
+  readOnlyGetBitcoinRewardsStacking,
+  readOnlyGetBlocksRewardedStacking,
+  readOnlyGetLiquidityProvider,
+  readOnlyGetMinimumDepositLiquidityProviderStacking,
   readOnlyGetReturnStacking,
   readOnlyGetSCLockedBalance,
   readOnlyGetSCReservedBalance,
   readOnlyLockedBalanceUser,
 } from '../consts/readOnly';
 import { convertDigits } from '../consts/converter';
+import { contractMapping } from '../consts/contract';
 
 const RedirectToDashboard = () => {
   const navigate = useNavigate();
@@ -49,6 +55,11 @@ const MainPage = () => {
   const [userUntilBurnHt, setUserUntilBurnHt] = useState<number>(0);
   const [reservedAmount, setReservedAmount] = useState<number | null>(null);
   const [returnCovered, setReturnCovered] = useState<number | null>(null);
+  const [currentLiquidityProvider, setCurrentLiquidityProvider] = useState<string | null>(null);
+  const [stackersList, setStackersList] = useState<Array<string>>([]);
+  const [blocksRewarded, setBlocksRewarded] = useState<number | null>(null);
+  const [bitcoinRewards, setBitcoinRewards] = useState<number | null>(null);
+  const [minimumDepositProvider, setMinimumDepositProvider] = useState<number | null>(null);
   const currentRole: UserRoleStacking = useAppSelector(selectCurrentUserRoleStacking);
   const localNetwork = network === 'devnet' ? 'testnet' : network;
 
@@ -72,12 +83,12 @@ const MainPage = () => {
     getCurrentBlockInfo();
   }, [setCurrentBurnBlockHeight, setCurrentCycle, setPreparePhaseStartBlockHeight, setRewardPhaseStartBlockHeigh]);
 
-  useEffect(() => {
-    if (userSession.isUserSignedIn()) {
-      const args = userSession.loadUserData().profile.stxAddress[localNetwork];
-      setUserAddress(args);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (userSession.isUserSignedIn()) {
+  //     const args = userSession.loadUserData().profile.stxAddress[localNetwork];
+  //     setUserAddress(args);
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (userAddress !== null) {
@@ -122,6 +133,89 @@ const MainPage = () => {
     getReservedAmount();
   }, [reservedAmount, userAddress]);
 
+  // useEffect(() => {
+  //   const getCurrentBlockInfo = async () => {
+  //     const blockInfoResult = await fetch(`${apiMapping.stackingInfo}`)
+  //       .then((res) => res.json())
+  //       .then((res) => res);
+  //     if (await blockInfoResult) {
+  //       let cycleBlockNr =
+  //         (blockInfoResult['next_cycle']['reward_phase_start_block_height'] -
+  //           blockInfoResult['next_cycle']['prepare_phase_start_block_height']) *
+  //         21;
+  //       setCurrentBurnBlockHeight(blockInfoResult['current_burnchain_block_height']);
+  //       setPreparePhaseStartBlockHeight(blockInfoResult['next_cycle']['prepare_phase_start_block_height']);
+  //       setRewardPhaseStartBlockHeigh(blockInfoResult['next_cycle']['reward_phase_start_block_height'] - cycleBlockNr);
+  //     }
+  //   };
+  //   getCurrentBlockInfo();
+  // }, [setCurrentBurnBlockHeight, setPreparePhaseStartBlockHeight, setRewardPhaseStartBlockHeigh]);
+
+  useEffect(() => {
+    if (userSession.isUserSignedIn()) {
+      const args = userSession.loadUserData().profile.stxAddress[localNetwork];
+      setUserAddress(args);
+    } else {
+      const defaultAddressWhenUserNotLoggedIn = contractMapping.stacking[network].owner;
+      setUserAddress(defaultAddressWhenUserNotLoggedIn);
+    }
+  }, []);
+
+  useEffect(() => {
+    const getCurrentLiquidityProvider = async () => {
+      if (userAddress) {
+        const liquidityProvider = await readOnlyGetLiquidityProvider();
+        setCurrentLiquidityProvider(liquidityProvider);
+      }
+    };
+
+    getCurrentLiquidityProvider();
+  }, [currentLiquidityProvider, userAddress]);
+
+  useEffect(() => {
+    const getMinimumDepositProvider = async () => {
+      if (userAddress) {
+        const minimum = await readOnlyGetMinimumDepositLiquidityProviderStacking();
+        setMinimumDepositProvider(convertDigits(minimum));
+      }
+    };
+
+    getMinimumDepositProvider();
+  }, [userAddress]);
+
+  useEffect(() => {
+    const getStackersList = async () => {
+      if (userAddress) {
+        const { value } = await ReadOnlyGetStackersList();
+        const parsedStackersList =
+          value.length !== 0 ? value.map((stacker: { type: string; value: string }) => stacker.value) : [];
+        setStackersList(parsedStackersList);
+      }
+    };
+
+    getStackersList();
+  }, [userAddress]);
+
+  useEffect(() => {
+    const getBlocksRewarded = async () => {
+      if (userAddress) {
+        const blocks = await readOnlyGetBlocksRewardedStacking();
+        setBlocksRewarded(blocks);
+      }
+    };
+    getBlocksRewarded();
+  }, [blocksRewarded, userAddress]);
+
+  useEffect(() => {
+    const getBitcoinRewards = async () => {
+      if (userAddress) {
+        const bitcoin = await readOnlyGetBitcoinRewardsStacking();
+        setBitcoinRewards(convertDigits(bitcoin));
+      }
+    };
+    getBitcoinRewards();
+  }, [bitcoinRewards, userAddress]);
+
   useEffect(() => {
     const getSCLockedBalance = async () => {
       if (userAddress) {
@@ -131,6 +225,7 @@ const MainPage = () => {
     };
     getSCLockedBalance();
   }, [stacksAmountThisCycle, userAddress]);
+
   return (
     <div
       style={{
@@ -152,7 +247,26 @@ const MainPage = () => {
         <Route path="/mining/voting/notifier" element={<VotingNotifier />} /> */}
         <Route path="/profile/:address" element={<MinerProfileDetails />} />
         <Route path="/stacking" element={<RedirectToDashboard />} />
-        <Route path="/stacking/dashboard" element={<DashboardStacking />} />
+        <Route
+          path="/stacking/dashboard"
+          element={
+            <DashboardStacking
+              currentLiquidityProvider={currentLiquidityProvider}
+              stackersList={stackersList}
+              blocksRewarded={blocksRewarded}
+              bitcoinRewards={bitcoinRewards}
+              stacksAmountThisCycle={stacksAmountThisCycle}
+              reservedAmount={reservedAmount}
+              returnCovered={returnCovered}
+              minimumDepositProvider={minimumDepositProvider}
+              userAddress={userAddress}
+              currentBurnBlockHeight={currentBurnBlockHeight}
+              preparePhaseStartBlockHeight={preparePhaseStartBlockHeight}
+              rewardPhaseStartBlockHeight={rewardPhaseStartBlockHeight}
+              currentRole={currentRole}
+            />
+          }
+        />
         <Route
           path="/stacking/myProfile"
           element={
