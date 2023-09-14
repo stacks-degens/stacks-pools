@@ -15,6 +15,7 @@ interface DashboardInfoContainerProps {
   userAddress: string | null;
   currentRole: UserRoleMining;
   currentBurnBlockHeight: number | null;
+  minersNumber: number | null;
 }
 const DashboardInfoContainer = ({
   notifier,
@@ -24,6 +25,7 @@ const DashboardInfoContainer = ({
   userAddress,
   currentRole,
   currentBurnBlockHeight,
+  minersNumber,
 }: DashboardInfoContainerProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
@@ -60,6 +62,10 @@ const DashboardInfoContainer = ({
         <div className="content-sections-title-info-container">
           <span className="bold-font">Current Notifier: </span>
           <div className="result-of-content-section">{notifier !== null ? notifier : ''}</div>
+        </div>
+        <div className="content-sections-title-info-container">
+          <span className="bold-font">Number of Miners in the Pool: </span>
+          <div className="result-of-content-section">{minersNumber !== null ? minersNumber : 0}</div>
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Miners List: </span>

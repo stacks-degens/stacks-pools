@@ -9,6 +9,7 @@ import { useAppSelector } from '../../../redux/store';
 import {
   readOnlyGetBlocksWonMining,
   ReadOnlyGetMinersList,
+  ReadOnlyGetMinersNumber,
   readOnlyGetNotifier,
   readOnlyGetStacksRewardsMining,
 } from '../../../consts/readOnly';
@@ -24,6 +25,7 @@ interface IDashboardProps {
 const Dashboard = ({ currentBurnBlockHeight }: IDashboardProps) => {
   const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);
   const [minersList, setMinersList] = useState<Array<string>>([]);
+  const [minersNumber, setMinersNumber] = useState<number | null>(null);
   const currentRole: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
   const [userAddress, setUserAddress] = useState<string | null>(null);
   const [blocksWon, setBlocksWon] = useState<number | null>(null);
@@ -75,6 +77,14 @@ const Dashboard = ({ currentBurnBlockHeight }: IDashboardProps) => {
     getStacksRewards();
   }, [stacksRewards]);
 
+  useEffect(() => {
+    const getMinersNumber = async () => {
+      const minersNumber = await ReadOnlyGetMinersNumber();
+      setMinersNumber(minersNumber);
+    };
+    getMinersNumber();
+  }, [minersNumber]);
+
   return (
     <div className="dashboard-page-main-container">
       <div style={{ color: colors[appCurrentTheme].colorWriting }} className="page-heading-title">
@@ -91,6 +101,7 @@ const Dashboard = ({ currentBurnBlockHeight }: IDashboardProps) => {
             userAddress={userAddress}
             currentRole={currentRole}
             currentBurnBlockHeight={currentBurnBlockHeight}
+            minersNumber={minersNumber}
           />
         </div>
       </div>

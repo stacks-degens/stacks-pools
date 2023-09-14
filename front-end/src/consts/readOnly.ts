@@ -139,8 +139,7 @@ export const ReadOnlyGetProposedRemovalListMining = async () => {
 export const ReadOnlyGetMinersNumber = async () => {
   const type = 'mining';
   const minersNumber: ClarityValue = await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getN);
-  console.log('number of miners:', minersNumber);
-  return minersNumber;
+  return cvToJSON(minersNumber).value;
 };
 
 // get-all-data-miners-proposed-for-removal

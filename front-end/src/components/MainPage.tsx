@@ -31,6 +31,7 @@ const MainPage = () => {
   const [currentCycle, setCurrentCycle] = useState<number>(0);
   const [preparePhaseStartBlockHeight, setPreparePhaseStartBlockHeight] = useState<number>(0);
   const [rewardPhaseStartBlockHeight, setRewardPhaseStartBlockHeigh] = useState<number>(0);
+
   useEffect(() => {
     const getCurrentBlockInfo = async () => {
       const blockInfoResult = await fetch(`${apiMapping.stackingInfo}`)
