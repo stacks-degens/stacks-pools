@@ -1,30 +1,8 @@
-import { useEffect, useState } from 'react';
-import {
-  UserRoleStacking,
-  selectCurrentTheme,
-  selectCurrentUserRoleStacking,
-  selectUserSessionState,
-} from '../../../redux/reducers/user-state';
+import { UserRoleStacking, selectCurrentTheme } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
 import './styles.css';
 import colors from '../../../consts/colorPallete';
 import DashboardStackingInfo from './DashboardStackingInfo';
-import {
-  readOnlyGetBitcoinRewardsStacking,
-  readOnlyGetBlocksRewardedStacking,
-  readOnlyGetLiquidityProvider,
-  readOnlyGetMinimumDepositLiquidityProviderStacking,
-  readOnlyGetReturnStacking,
-  readOnlyGetSCLockedBalance,
-  readOnlyGetSCReservedBalance,
-  ReadOnlyGetStackersList,
-} from '../../../consts/readOnly';
-import { network, apiMapping } from '../../../consts/network';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { contractMapping } from '../../../consts/contract';
-
-import { AppConfig, UserSession } from '@stacks/connect';
-import { convertDigits } from '../../../consts/converter';
 
 interface IDashboardProps {
   currentRole: UserRoleStacking;
@@ -37,7 +15,7 @@ interface IDashboardProps {
   returnCovered: number | null;
   minimumDepositProvider: number | null;
   userAddress: string | null;
-  currentBurnBlockHeight: number | null;
+  currentBurnBlockHeight: number;
   preparePhaseStartBlockHeight: number;
   rewardPhaseStartBlockHeight: number;
 }

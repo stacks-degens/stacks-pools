@@ -42,7 +42,7 @@ const RedirectToDashboard = () => {
 };
 
 const MainPage = () => {
-  const [currentBurnBlockHeight, setCurrentBurnBlockHeight] = useState<number | null>(null);
+  const [currentBurnBlockHeight, setCurrentBurnBlockHeight] = useState<number>(0);
   const [currentCycle, setCurrentCycle] = useState<number>(0);
   const [preparePhaseStartBlockHeight, setPreparePhaseStartBlockHeight] = useState<number>(0);
   const [rewardPhaseStartBlockHeight, setRewardPhaseStartBlockHeigh] = useState<number>(0);
@@ -63,7 +63,6 @@ const MainPage = () => {
   const currentRole: UserRoleStacking = useAppSelector(selectCurrentUserRoleStacking);
   const localNetwork = network === 'devnet' ? 'testnet' : network;
 
-  console.log('currentRole MainPage:', currentRole);
   useEffect(() => {
     const getCurrentBlockInfo = async () => {
       const blockInfoResult = await fetch(`${apiMapping.stackingInfo}`)
@@ -271,20 +270,20 @@ const MainPage = () => {
           path="/stacking/myProfile"
           element={
             <ProfileStacking
-              currentBurnBlockHeight={currentBurnBlockHeight}
-              currentCycle={currentCycle}
-              preparePhaseStartBlockHeight={preparePhaseStartBlockHeight}
-              rewardPhaseStartBlockHeight={rewardPhaseStartBlockHeight}
-              connectedWallet={connectedWallet}
-              explorerLink={explorerLink}
-              userAddress={userAddress}
-              lockedInPool={lockedInPool}
-              stacksAmountThisCycle={stacksAmountThisCycle}
-              delegatedToPool={delegatedToPool}
-              reservedAmount={reservedAmount}
-              returnCovered={returnCovered}
-              userUntilBurnHt={userUntilBurnHt}
-              currentRole={currentRole}
+              currentBurnBlockHeight={currentBurnBlockHeight !== null ? currentBurnBlockHeight : 0}
+              currentCycle={currentCycle !== null ? currentCycle : 0}
+              preparePhaseStartBlockHeight={preparePhaseStartBlockHeight !== null ? preparePhaseStartBlockHeight : 0}
+              rewardPhaseStartBlockHeight={rewardPhaseStartBlockHeight !== null ? rewardPhaseStartBlockHeight : 0}
+              connectedWallet={connectedWallet !== null ? connectedWallet : ''}
+              explorerLink={explorerLink !== null ? explorerLink : ''}
+              userAddress={userAddress !== null ? userAddress : ''}
+              lockedInPool={lockedInPool !== null ? lockedInPool : 0}
+              stacksAmountThisCycle={stacksAmountThisCycle !== null ? stacksAmountThisCycle : 0}
+              delegatedToPool={delegatedToPool !== null ? delegatedToPool : 0}
+              reservedAmount={reservedAmount !== null ? reservedAmount : 0}
+              returnCovered={returnCovered !== null ? returnCovered : 0}
+              userUntilBurnHt={userUntilBurnHt !== null ? userUntilBurnHt : 0}
+              currentRole={currentRole !== null ? currentRole : 'Viewer'}
             />
           }
         />

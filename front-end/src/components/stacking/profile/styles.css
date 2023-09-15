@@ -206,11 +206,11 @@
 
   /* the result of the section above */
   .result-of-content-section {
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .result-of-content-section.connected-walled {
-    font-size: 10.6px !important;
+    font-size: 8.6px !important;
   }
 
   .current-block,
@@ -322,7 +322,7 @@
   }
 
   .profile-page-main-container-stacking .content-sections-title-info-container-stacking .result-of-content-section {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   /* profile page intro lateral information */
@@ -441,7 +441,7 @@
   }
 
   .profile-page-main-container-stacking .content-sections-title-info-container-stacking .result-of-content-section {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   /* autoexchange button container-stacking */
@@ -533,7 +533,7 @@
   }
 
   .profile-page-main-container-stacking .content-sections-title-info-container-stacking .result-of-content-section {
-    font-size: 17px;
+    font-size: 15px;
   }
 
   /* autoexchange button container-stacking */
