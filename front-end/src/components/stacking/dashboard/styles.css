@@ -3,7 +3,7 @@
 @import '../../../css/helpers/styles.css';
 
 .dashboard-page-main-container {
-  height: calc(100vh - 60px);
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -14,8 +14,8 @@
 }
 
 .dashboard-page-main-container .principal-content-profile-page {
-  height: calc(100vh - 160px);
   margin: 0;
+  margin-bottom: 60px;
   width: 100%;
 }
 
