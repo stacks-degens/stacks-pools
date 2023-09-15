@@ -20,6 +20,7 @@ import {
 import { HighlightScope, BarChart } from '@mui/x-charts';
 import CloseIcon from '@mui/icons-material/Close';
 import { useEffect, useRef, useState } from 'react';
+import { numberWithCommas } from '../../../consts/converter';
 
 interface DashboardStackingInfoProps {
   currentRole: UserRoleStacking;
@@ -36,10 +37,6 @@ interface DashboardStackingInfoProps {
   preparePhaseStartBlockHeight: number;
   rewardPhaseStartBlockHeight: number;
 }
-
-const numberWithCommas = (x: number) => {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-};
 
 const DashboardStackingInfo = ({
   currentRole,

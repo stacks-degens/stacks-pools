@@ -198,7 +198,10 @@ const AboutContainerStacking = ({
               <TableCell style={{ borderBottom: 'none', fontWeight: 'bold' }} align="center">
                 Reward Phase
               </TableCell>
-              <TableCell style={{ borderBottom: 'none', width: 100 - preparePhase + '%', fontWeight: 'bold' }} align="left">
+              <TableCell
+                style={{ borderBottom: 'none', width: 100 - preparePhase + '%', fontWeight: 'bold' }}
+                align="left"
+              >
                 Prepare Phase
               </TableCell>
             </div>
@@ -361,7 +364,9 @@ const AboutContainerStacking = ({
                           borderRadius: 4,
                         }}
                       />
-                      <div className="bold-font" style={{ fontSize: '16px' }}>Reward Phase</div>
+                      <div className="bold-font" style={{ fontSize: '16px' }}>
+                        Reward Phase
+                      </div>
                     </div>
                   </TableCell>
                   <TableCell style={{ borderBottom: 'none' }}>
@@ -403,7 +408,9 @@ const AboutContainerStacking = ({
                           borderRadius: 4,
                         }}
                       />
-                      <div className="bold-font" style={{ fontSize: '16px' }}>Prepare Phase</div>
+                      <div className="bold-font" style={{ fontSize: '16px' }}>
+                        Prepare Phase
+                      </div>
                     </div>
                   </TableCell>
                   <TableCell style={{ borderBottom: 'none' }}>
@@ -433,25 +440,25 @@ const AboutContainerStacking = ({
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Current Bitcoin Block:</span>
           <div className="write-just-on-one-line result-of-content-section">
-            {currentBurnBlockHeight !== null ? currentBurnBlockHeight : ''}
+            {currentBurnBlockHeight !== null ? numberWithCommas(currentBurnBlockHeight) : ''}
           </div>
         </div>
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Current Stacking Cycle:</span>
           <div className="write-just-on-one-line result-of-content-section">
-            {currentCycle !== null ? currentCycle : ''}
+            {currentCycle !== null ? numberWithCommas(currentCycle) : ''}
           </div>
         </div>
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">First Bitcoin Block Height of the reward phase:</span>
           <div className="write-just-on-one-line result-of-content-section">
-            {rewardPhaseStartBlockHeight !== null ? rewardPhaseStartBlockHeight : ''}
+            {rewardPhaseStartBlockHeight !== null ? numberWithCommas(rewardPhaseStartBlockHeight) : ''}
           </div>
         </div>
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">First Bitcoin Block Height of the prepare phase:</span>
           <div className="write-just-on-one-line result-of-content-section">
-            {preparePhaseStartBlockHeight !== null ? preparePhaseStartBlockHeight : ''}
+            {preparePhaseStartBlockHeight !== null ? numberWithCommas(preparePhaseStartBlockHeight) : ''}
           </div>
         </div>
         <div className="content-sections-title-info-container bottom-margins">
@@ -486,12 +493,16 @@ const AboutContainerStacking = ({
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Total guaranteed: </span>
-          <div className="result-of-content-section">{reservedAmount !== null ? reservedAmount + ' STX' : ''}</div>
+          <div className="result-of-content-section">
+            {reservedAmount !== null ? numberWithCommas(reservedAmount) + ' STX' : ''}
+          </div>
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Stacked amount covered by the pool: </span>
           <div className="result-of-content-section">
-            {reservedAmount !== null && returnCovered !== null ? reservedAmount * returnCovered + ' STX' : ''}
+            {reservedAmount !== null && returnCovered !== null
+              ? numberWithCommas(reservedAmount * returnCovered) + ' STX'
+              : ''}
           </div>
         </div>
         <div className="content-sections-title-info-container bottom-margins">
