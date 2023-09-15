@@ -9,6 +9,7 @@ import {
   CardHeader,
   Dialog,
   Divider,
+  Fade,
   FormControlLabel,
   GlobalStyles,
   Grid,
@@ -19,6 +20,7 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  Tooltip,
 } from '@mui/material';
 import { HighlightScope, BarChart } from '@mui/x-charts';
 import CloseIcon from '@mui/icons-material/Close';
@@ -26,6 +28,16 @@ import { useAppSelector } from '../../redux/store';
 import { selectCurrentTheme } from '../../redux/reducers/user-state';
 import { numberWithCommas } from '../../consts/converter';
 import { number } from 'bitcoinjs-lib/types/script';
+import { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
+import { styled } from '@mui/material/styles';
+
+const NoMaxWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))({
+  [`& .${tooltipClasses.tooltip}`]: {
+    maxWidth: 'none',
+  },
+});
 
 interface IStackingVisualArts {
   stacksAmountThisCycle: number | null;
@@ -49,6 +61,7 @@ export const StackingVisualArts = ({
   const [divWidth, setDivWidth] = useState(0);
   const [isProgressExpandButtonClicked, setIsProgressExpandButtonClicked] = useState<boolean>(false);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+  const [openTooltip, setOpenTooltip] = useState<boolean | null>(null);
 
   const changeDialogOpen = (isDialogOpen: boolean) => {
     setDialogOpen(isDialogOpen);
@@ -97,6 +110,10 @@ export const StackingVisualArts = ({
     height: window.screen.height * 0.7,
   };
 
+  const onTooltipClick = (state: boolean | null) => {
+    setOpenTooltip(openTooltip === state ? null : state);
+  };
+
   return (
     // <div
     //   style={{
@@ -124,35 +141,75 @@ export const StackingVisualArts = ({
         >
           Current Block
         </div>
-        <LinearProgress
-          variant="buffer"
-          value={preparePhase < currentBlockHeight ? preparePhase : currentBlockHeight}
-          valueBuffer={preparePhase < currentBlockHeight ? currentBlockHeight : preparePhase}
-          sx={{
-            '& .MuiLinearProgress-bar1Buffer': {
-              // Prepare phase
-              backgroundColor: currentBlockHeight <= preparePhase ? '#444444' : '#777777',
-              borderRight: currentBlockHeight < preparePhase ? divWidth / 150 + 'px solid red' : 'none',
-            },
-
-            '& .MuiLinearProgress-bar2Buffer': {
-              // Current block
-              backgroundColor: currentBlockHeight <= preparePhase ? '#777777' : '#444444',
-              borderRight: currentBlockHeight > preparePhase ? divWidth / 150 + 'px solid red' : 'none',
-            },
-
-            '& .MuiLinearProgress-dashed': {
-              // Reward phase
-              animation: 'none',
-              backgroundColor: '#eeeeee',
-              backgroundImage: 'none',
-            },
-
-            height: 20,
-            borderRadius: 3,
-            marginTop: '15px',
+        <NoMaxWidthTooltip
+          title={
+            <div style={{ fontSize: '16px' }}>
+              {preparePhase > currentBlockHeight && (
+                <div>
+                  <div>
+                    Blocks remaining until prepare phase: {preparePhaseStartBlockHeight - currentBurnBlockHeight}
+                  </div>
+                  <div>
+                    Blocks remaining until the end of this cycle:{' '}
+                    {rewardPhaseStartBlockHeight + numberOfBlocksPerCycle - currentBurnBlockHeight}
+                  </div>
+                </div>
+              )}
+              {preparePhase <= currentBlockHeight && (
+                <div>
+                  Blocks remaining until the end of this cycle:{' '}
+                  {rewardPhaseStartBlockHeight + numberOfBlocksPerCycle - currentBurnBlockHeight}
+                </div>
+              )}
+            </div>
+          }
+          placement="top"
+          followCursor
+          TransitionComponent={Fade}
+          TransitionProps={{ timeout: 600 }}
+          onClose={() => onTooltipClick(null)}
+          open={openTooltip === null ? false : openTooltip}
+          onMouseEnter={() => onTooltipClick(true)}
+          PopperProps={{
+            disablePortal: true,
           }}
-        />
+          disableFocusListener
+          disableTouchListener
+        >
+          <LinearProgress
+            variant="buffer"
+            value={preparePhase < currentBlockHeight ? preparePhase : currentBlockHeight}
+            valueBuffer={preparePhase < currentBlockHeight ? currentBlockHeight : preparePhase}
+            sx={{
+              ':hover': {
+                opacity: '0.7',
+              },
+              '& .MuiLinearProgress-bar1Buffer': {
+                // Prepare phase
+                backgroundColor: currentBlockHeight <= preparePhase ? '#444444' : '#777777',
+                borderRight: currentBlockHeight < preparePhase ? divWidth / 150 + 'px solid red' : 'none',
+              },
+
+              '& .MuiLinearProgress-bar2Buffer': {
+                // Current block
+                backgroundColor: currentBlockHeight <= preparePhase ? '#777777' : '#444444',
+                borderRight: currentBlockHeight > preparePhase ? divWidth / 150 + 'px solid red' : 'none',
+              },
+
+              '& .MuiLinearProgress-dashed': {
+                // Reward phase
+                animation: 'none',
+                backgroundColor: '#eeeeee',
+                backgroundImage: 'none',
+              },
+
+              height: 20,
+              borderRadius: 3,
+              marginTop: '15px',
+            }}
+            onClick={() => onTooltipClick(true)}
+          />
+        </NoMaxWidthTooltip>
         <div style={{ marginRight: '-15px', marginTop: '-5px', marginBottom: '-20px' }}>
           <TableCell style={{ borderBottom: 'none', fontWeight: 'bold' }} align="center">
             Reward Phase
