@@ -163,7 +163,7 @@ const DashboardStackingInfo = ({
           </span>
         </div>
         <div className="content-sections-title-info-container">
-          <span className="bold-font">Minimum return Liquidity Provider: </span>
+          <span className="bold-font">Minimum Required Liquidity: </span>
           <span className="result-of-content-section">
             {minimumDepositProvider !== null ? numberWithCommas(minimumDepositProvider) + ' STX' : ''}
           </span>

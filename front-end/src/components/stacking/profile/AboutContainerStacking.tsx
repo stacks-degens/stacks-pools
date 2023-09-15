@@ -8,7 +8,6 @@ import { useEffect, useRef, useState } from 'react';
 
 import { convertDigits } from '../../../consts/converter';
 import { StackingVisualArts } from '../StackingVIsualArts';
-// import { StackingVisualArts } from '../StackingVisualArts';
 interface IAboutContainerStackingProps {
   currentRole: string;
   connectedWallet: string | null;
@@ -45,55 +44,6 @@ const AboutContainerStacking = ({
   rewardPhaseStartBlockHeight,
 }: IAboutContainerStackingProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
-  // const divRef = useRef(null);
-  // const [divWidth, setDivWidth] = useState(0);
-
-  // useEffect(() => {
-  //   if (divRef.current && divRef.current['offsetWidth'] > 100) {
-  //     setDivWidth(divRef.current['offsetWidth']);
-  //   }
-  // }, []);
-
-  // const [isProgressExpandButtonClicked, setIsProgressExpandButtonClicked] = useState<boolean>(false);
-  const [btcBlockRetrieved, setBtcBlockRetrieved] = useState(false);
-  // const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-
-  // const numberOfBlocksPreparePhase = (preparePhaseStartBlockHeight - rewardPhaseStartBlockHeight) / 20;
-  // const numberOfBlocksRewardPhase = numberOfBlocksPreparePhase * 20;
-  // const numberOfBlocksPerCycle = numberOfBlocksPreparePhase + numberOfBlocksRewardPhase;
-
-  // const slope =
-  //   returnCovered !== null && reservedAmount !== null ? (1.0 - 2.5) / (0.025 * returnCovered * reservedAmount) : 1;
-  // const multiplier =
-  //   stacksAmountThisCycle !== null && returnCovered !== null && reservedAmount !== null
-  //     ? stacksAmountThisCycle > 0.025 * returnCovered * reservedAmount
-  //       ? 1
-  //       : 2.5 + slope * stacksAmountThisCycle
-  //     : 1;
-
-  // const currentBlockHeight = ((currentBurnBlockHeight - rewardPhaseStartBlockHeight) * 100) / numberOfBlocksPerCycle;
-  // const preparePhase = ((preparePhaseStartBlockHeight - rewardPhaseStartBlockHeight) * 100) / numberOfBlocksPerCycle;
-
-  // const barChartsParams = {
-  //   series: [
-  //     { data: [reservedAmount !== null ? reservedAmount * 2.5 : 0], color: '#eeeeee' },
-  //     {
-  //       data: [
-  //         stacksAmountThisCycle !== null && returnCovered !== null && reservedAmount !== null
-  //           ? stacksAmountThisCycle < 0.001 * returnCovered * reservedAmount
-  //             ? 0.001 * returnCovered * reservedAmount
-  //             : stacksAmountThisCycle * multiplier
-  //           : 0,
-  //       ],
-  //       color: '#777777',
-  //     },
-  //     {
-  //       data: [returnCovered !== null && reservedAmount !== null ? returnCovered * reservedAmount : 0],
-  //       color: '#444444',
-  //     },
-  //   ],
-  //   height: window.screen.height * 0.7,
-  // };
 
   return (
     <div
@@ -147,29 +97,11 @@ const AboutContainerStacking = ({
         }
       >
         <div className="content-sections-title-info-container bottom-margins">
-          <span className="bold-font">Current Bitcoin Block:</span>
-          <div className="write-just-on-one-line result-of-content-section">
-            {currentBurnBlockHeight !== null ? numberWithCommas(currentBurnBlockHeight) : ''}
-          </div>
-        </div>
-        <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Current Stacking Cycle:</span>
           <div className="write-just-on-one-line result-of-content-section">
             {currentCycle !== null ? numberWithCommas(currentCycle) : ''}
           </div>
         </div>
-        {/* <div className="content-sections-title-info-container bottom-margins">
-          <span className="bold-font">First Bitcoin Block Height of the reward phase:</span>
-          <div className="write-just-on-one-line result-of-content-section">
-            {rewardPhaseStartBlockHeight !== null ? numberWithCommas(rewardPhaseStartBlockHeight) : ''}
-          </div>
-        </div>
-        <div className="content-sections-title-info-container bottom-margins">
-          <span className="bold-font">First Bitcoin Block Height of the prepare phase:</span>
-          <div className="write-just-on-one-line result-of-content-section">
-            {preparePhaseStartBlockHeight !== null ? numberWithCommas(preparePhaseStartBlockHeight) : ''}
-          </div>
-        </div> */}
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Connected wallet:</span>
           <div className="write-just-on-one-line result-of-content-section connected-walled">
