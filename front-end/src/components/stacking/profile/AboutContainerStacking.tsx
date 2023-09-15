@@ -158,7 +158,7 @@ const AboutContainerStacking = ({
             {currentCycle !== null ? numberWithCommas(currentCycle) : ''}
           </div>
         </div>
-        <div className="content-sections-title-info-container bottom-margins">
+        {/* <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">First Bitcoin Block Height of the reward phase:</span>
           <div className="write-just-on-one-line result-of-content-section">
             {rewardPhaseStartBlockHeight !== null ? numberWithCommas(rewardPhaseStartBlockHeight) : ''}
@@ -169,7 +169,7 @@ const AboutContainerStacking = ({
           <div className="write-just-on-one-line result-of-content-section">
             {preparePhaseStartBlockHeight !== null ? numberWithCommas(preparePhaseStartBlockHeight) : ''}
           </div>
-        </div>
+        </div> */}
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Connected wallet:</span>
           <div className="write-just-on-one-line result-of-content-section connected-walled">

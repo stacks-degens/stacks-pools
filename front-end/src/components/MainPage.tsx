@@ -82,12 +82,12 @@ const MainPage = () => {
     getCurrentBlockInfo();
   }, [setCurrentBurnBlockHeight, setCurrentCycle, setPreparePhaseStartBlockHeight, setRewardPhaseStartBlockHeigh]);
 
-  // useEffect(() => {
-  //   if (userSession.isUserSignedIn()) {
-  //     const args = userSession.loadUserData().profile.stxAddress[localNetwork];
-  //     setUserAddress(args);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (userSession.isUserSignedIn()) {
+      const args = userSession.loadUserData().profile.stxAddress[localNetwork];
+      setConnectedWallet(args);
+    }
+  }, [connectedWallet]);
 
   useEffect(() => {
     if (userAddress !== null) {
