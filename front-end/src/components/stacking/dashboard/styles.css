@@ -2,6 +2,10 @@
 @import '../../../css/buttons/styles.css';
 @import '../../../css/helpers/styles.css';
 
+.info-section-phase-dashboard {
+  font-size: 16px;
+}
+
 .dashboard-page-main-container {
   height: auto;
   display: flex;
@@ -65,6 +69,10 @@
   /* the result of the section above */
   .result-of-content-section {
     font-size: 10.6px;
+  }
+
+  .info-section-phase-dashboard {
+    font-size: 14px;
   }
 }
 

@@ -199,10 +199,13 @@ const DashboardStackingInfo = ({
               }}
             />
             <div style={{ marginRight: '-15px', marginTop: '-5px', marginBottom: '-20px' }}>
-              <TableCell style={{ borderBottom: 'none' }} align="center">
+              <TableCell style={{ borderBottom: 'none', fontWeight: 'bold' }} align="center">
                 Reward Phase
               </TableCell>
-              <TableCell style={{ borderBottom: 'none', width: 100 - preparePhase + '%' }} align="left">
+              <TableCell
+                style={{ borderBottom: 'none', width: 100 - preparePhase + '%', fontWeight: 'bold' }}
+                align="left"
+              >
                 Prepare Phase
               </TableCell>
             </div>
@@ -365,11 +368,13 @@ const DashboardStackingInfo = ({
                           borderRadius: 4,
                         }}
                       />
-                      <div style={{ fontSize: '16px' }}>Reward Phase</div>
+                      <div className="bold-font" style={{ fontSize: '16px' }}>
+                        Reward Phase
+                      </div>
                     </div>
                   </TableCell>
                   <TableCell style={{ borderBottom: 'none' }}>
-                    <div style={{ fontSize: '16px' }}>
+                    <div className="info-section-phase-dashboard">
                       {numberWithCommas(rewardPhaseStartBlockHeight)} - {numberWithCommas(preparePhaseStartBlockHeight)}
                     </div>
                   </TableCell>
@@ -386,11 +391,13 @@ const DashboardStackingInfo = ({
                           borderRadius: 4,
                         }}
                       />
-                      <div style={{ fontSize: '16px' }}>Current Block</div>
+                      <div className="bold-font" style={{ fontSize: '16px' }}>
+                        Current Block
+                      </div>
                     </div>
                   </TableCell>
                   <TableCell style={{ borderBottom: 'none' }}>
-                    <div style={{ fontSize: '16px' }}>
+                    <div className="info-section-phase-dashboard">
                       {currentBurnBlockHeight !== null ? numberWithCommas(currentBurnBlockHeight) : ''}
                     </div>
                   </TableCell>
@@ -407,11 +414,13 @@ const DashboardStackingInfo = ({
                           borderRadius: 4,
                         }}
                       />
-                      <div style={{ fontSize: '16px' }}>Prepare Phase</div>
+                      <div className="bold-font" style={{ fontSize: '16px' }}>
+                        Prepare Phase
+                      </div>
                     </div>
                   </TableCell>
                   <TableCell style={{ borderBottom: 'none' }}>
-                    <div style={{ fontSize: '16px' }}>
+                    <div className="info-section-phase-dashboard">
                       {numberWithCommas(preparePhaseStartBlockHeight)} -{' '}
                       {numberWithCommas(rewardPhaseStartBlockHeight + numberOfBlocksPerCycle)}
                     </div>
