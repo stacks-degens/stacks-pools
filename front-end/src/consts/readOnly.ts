@@ -422,6 +422,21 @@ export const readOnlyGetCurrentBlockMining = async () => {
   return cvToJSON(currentBlock).value.value;
 };
 
+// get-pool-total-spend-per-block
+// args: none
+// what does it do: returns the amount the whole pool has to send to the PoX for each block
+// return: number
+
+export const readOnlyGetPoolSpendPerBlock = async () => {
+  const type = 'mining';
+  const currentNotifier = await ReadOnlyFunctions(
+    type,
+    [],
+    functionMapping[type].readOnlyFunctions.getPoolTotalSpendPerBlock
+  );
+  return cvToJSON(currentNotifier).value;
+};
+
 //exchange toggle for miners
 // get-auto-exchange
 // args: (address principal)

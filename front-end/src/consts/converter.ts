@@ -50,3 +50,7 @@ export const convertDigits = (n: number) => {
 
   return Math.floor((n / toStx) * Math.pow(10, numberOfDigits)) / Math.pow(10, numberOfDigits);
 };
+
+export const numberWithCommas = (x: number) => {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};

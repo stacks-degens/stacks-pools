@@ -93,6 +93,7 @@ interface IFunctionMapping {
       getBlocksWon: string;
       getTotalRewardsDistributed: string;
       getAllDataTotalWithdrawals: string;
+      getPoolTotalSpendPerBlock: string;
     };
     publicFunctions: {
       votePositiveJoinRequest: string;
@@ -186,6 +187,7 @@ export const functionMapping: IFunctionMapping = {
       getBlocksWon: 'get-blocks-won',
       getTotalRewardsDistributed: 'get-total-rewards-distributed',
       getAllDataTotalWithdrawals: 'get-all-data-total-withdrawals',
+      getPoolTotalSpendPerBlock: 'get-pool-total-spend-per-block',
     },
     publicFunctions: {
       votePositiveJoinRequest: 'vote-positive-join-request',
