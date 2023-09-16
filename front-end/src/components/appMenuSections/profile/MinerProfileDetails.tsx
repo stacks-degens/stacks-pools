@@ -68,7 +68,7 @@ const MinerProfileDetails = () => {
 
   useEffect(() => {
     if (address !== null) {
-      setExplorerLink(getExplorerUrl[network](address).explorerUrl);
+      setExplorerLink(getExplorerUrl(address).explorerUrl);
 
       // const getAddressStatus = async () => {
       //   const newStatus = await readOnlyAddressStatusMining(address);

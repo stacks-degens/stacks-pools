@@ -1,5 +1,5 @@
 import { StacksMocknet, StacksMainnet, StacksTestnet } from '@stacks/network';
-import { apiUrl, network } from './network';
+import { apiUrl, development, network } from './network';
 import { contractMapping, functionMapping } from './contract';
 import {
   callReadOnlyFunction,
@@ -15,10 +15,10 @@ import { userSession } from '../redux/reducers/user-state';
 
 const contractNetwork =
   network === 'mainnet'
-    ? new StacksMainnet({ url: apiUrl[network] })
+    ? new StacksMainnet({ url: apiUrl[development][network] })
     : network === 'testnet'
-    ? new StacksTestnet({ url: apiUrl[network] })
-    : new StacksMocknet({ url: apiUrl[network] });
+    ? new StacksTestnet({ url: apiUrl[development][network] })
+    : new StacksMocknet({ url: apiUrl[development][network] });
 
 const localNetwork = network === 'devnet' ? 'testnet' : network;
 
@@ -39,7 +39,6 @@ const ReadOnlyFunctions = async (
     functionArgs: function_args,
     senderAddress: userAddress,
   };
-  console.log(readOnlyResults);
   return callReadOnlyFunction(readOnlyResults);
 };
 
@@ -524,21 +523,6 @@ export const readOnlyGetBitcoinRewardsStacking = async () => {
   return cvToJSON(bitcoinRewards).value;
 };
 
-//get-stacked-this-cycle
-// args: none
-// what does it do: amound stacked this cycle
-// returns: number
-
-export const readOnlyGetStackAmounThisCycleStacking = async () => {
-  const type = 'stacking';
-  const stacksRewards = await ReadOnlyFunctions(
-    type,
-    [],
-    functionMapping[type].readOnlyFunctions.getTotalStackedThisCycle
-  );
-  return cvToJSON(stacksRewards).value;
-};
-
 // get-address-status
 // args: (principal: address)
 // what does it do: It returns the formatted status of the logged in user
@@ -607,9 +591,40 @@ export const readOnlyGetMinimumDepositLiquidityProviderStacking = async () => {
   return cvToJSON(minimumDeposit).value;
 };
 
+//has-won-burn-block
+// args: none
+// what does it do: return if the block was won by the liquidity provider's address
+// returns: number
+
+export const readOnlyHasWonBurnBlock = async (blockHeight: number) => {
+  const type = 'stacking';
+  const hasWon = await ReadOnlyFunctions(
+    type,
+    [uintCV(blockHeight)],
+    functionMapping[type].readOnlyFunctions.hasWonBurnBlock
+  );
+  return cvToJSON(hasWon).value;
+};
+
+//already-rewarded-burn-block
+// args: none
+// what does it do: return if the reward was already claimed by the pool
+// returns: number
+
+export const readOnlyAlreadyRewardedBurnBlock = async (blockHeight: number) => {
+  const type = 'stacking';
+  const alreadyRewarded = await ReadOnlyFunctions(
+    type,
+    [uintCV(blockHeight)],
+    functionMapping[type].readOnlyFunctions.alreadyRewardedBurnBlock
+  );
+  return cvToJSON(alreadyRewarded).value;
+};
+
 //get-allowance-contract-callers
-//args (sender:principal, callingContract: principal)
-//what does it do: returns null -> false or some value -> true
+// args (sender:principal, callingContract: principal)
+// what does it do: returns null -> false or some value -> true
+// returns: some(tuple)
 
 export const readOnlyGetAllowanceStacking = async (senderAddress: string) => {
   const type = 'pox';
@@ -619,6 +634,38 @@ export const readOnlyGetAllowanceStacking = async (senderAddress: string) => {
     convertedArgs,
     functionMapping[type].readOnlyFunctions.getAllowanceStatus
   );
-  console.log('allowance: ', cvToJSON(getAllowance));
   return cvToJSON(getAllowance).value;
+};
+
+//get-SC-locked-balance
+// args: none
+// what does it do: return the amount locked by the stackers for the next cycle
+// returns: number
+
+export const readOnlyGetSCLockedBalance = async () => {
+  const type = 'stacking';
+  const stacksRewards = await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getSCLockedBalance);
+  return cvToJSON(stacksRewards).value;
+};
+
+//get-SC-owned-balance
+// args: none
+// what does it do: return the amount deposited by the liquidity provider, but not reserved
+// returns: number
+
+export const readOnlyGetSCOwnedBalance = async () => {
+  const type = 'stacking';
+  const stacksRewards = await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getSCOwnedBalance);
+  return cvToJSON(stacksRewards).value;
+};
+
+//get-SC-reserved-balance
+// args: none
+// what does it do: return the amount reserved by the liquidity provider for covering rewards
+// returns: number
+
+export const readOnlyGetSCReservedBalance = async () => {
+  const type = 'stacking';
+  const stacksRewards = await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getSCReservedBalance);
+  return cvToJSON(stacksRewards).value;
 };

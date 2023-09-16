@@ -29,7 +29,15 @@ import {
   UserRoleStacking,
 } from '../redux/reducers/user-state';
 import { useState } from 'react';
-import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material';
+import {
+  ExpandLess,
+  ExpandMore,
+  Help,
+  HowToReg,
+  IntegrationInstructions,
+  QuestionAnswer,
+  StarBorder,
+} from '@mui/icons-material';
 import { Collapse } from '@mui/material';
 import '../css/navbars/styles.css';
 
@@ -50,7 +58,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
   const [openMiningPoolMenu, setOpenMiningPoolMenu] = useState<boolean>(false);
   const [openVotingMenu, setOpenVotingMenu] = useState<boolean>(false);
-  const [openStackingMenu, setOpenStackingMenu] = useState<boolean>(false);
+  const [openStackingMenu, setOpenStackingMenu] = useState<boolean>(true);
   const [openMiningMenu, setOpenMiningMenu] = useState<boolean>(false);
 
   const location = useLocation();
@@ -114,7 +122,6 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
       </List>
       <Divider style={{ backgroundColor: colors[appCurrentTheme].accent2 }} />
       <List style={{ backgroundColor: colors[appCurrentTheme].accent2 }}>
-        {/* TODO: keep what fits best, this */}
         <div style={{ marginTop: -10 }}>
           <ListItem
             className={location.pathname === '/' ? 'active-custom' : ''}
@@ -136,12 +143,6 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
           <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
           <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
         </div>
-        {/* TODO: or this  */}
-        {/* <List
-        style={{ backgroundColor: colors[currentTheme].accent2 }}
-        component="nav"
-        aria-labelledby="nested-list-subheader"
-      > */}
         <div>
           <ListItem
             className={
@@ -197,6 +198,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
               </ListItem>
               <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
             </div>
+
             {(currentRoleStacking === 'Provider' || currentRoleStacking === 'Stacker') && (
               <div>
                 <ListItem
@@ -219,8 +221,30 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                     />
                   </ListItemButton>
                 </ListItem>
+                <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
               </div>
             )}
+            <div>
+              <ListItem onClick={toggleDrawer(anchor, false)} onKeyDown={toggleDrawer(anchor, false)}>
+                <ListItemButton
+                  component={Link}
+                  to={
+                    'https://stacksdegens.notion.site/Walkthrough-Decentralized-Stacking-Pool-c1c10e3393324297aa8dcc28c1fe253c?pvs=4'
+                  }
+                  target="_new"
+                  className="padding-left-sidebar-main-sections"
+                >
+                  <ListItemIcon>
+                    <Help style={{ color: colors[appCurrentTheme].secondary }}></Help>
+                  </ListItemIcon>
+                  <ListItemText
+                    className="navbar-sections-font-size"
+                    style={{ color: colors[appCurrentTheme].secondary }}
+                    primary="How to Stack"
+                  />
+                </ListItemButton>
+              </ListItem>
+            </div>
           </Collapse>
           <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
           <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />

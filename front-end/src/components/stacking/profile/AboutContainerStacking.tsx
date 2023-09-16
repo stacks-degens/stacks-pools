@@ -1,46 +1,49 @@
-import { CallMade } from '@mui/icons-material';
+import { CallMade, ExpandMore } from '@mui/icons-material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import './styles.css';
 import colors from '../../../consts/colorPallete';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
-import { useEffect, useState } from 'react';
-import { apiMapping, network } from '../../../consts/network';
+import { useEffect, useRef, useState } from 'react';
 
+import { convertDigits } from '../../../consts/converter';
+import { StackingVisualArts } from '../StackingVIsualArts';
 interface IAboutContainerStackingProps {
   currentRole: string;
   connectedWallet: string | null;
   lockedInPool: number | null;
   explorerLink: string | undefined;
   delegatedToPool: number | null;
+  stacksAmountThisCycle: number | null;
+  reservedAmount: number | null;
+  returnCovered: number | null;
   userUntilBurnHt: number | null;
+  currentBurnBlockHeight: number;
+  currentCycle: number | null;
+  preparePhaseStartBlockHeight: number;
+  rewardPhaseStartBlockHeight: number;
 }
+
+const numberWithCommas = (x: number) => {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};
 
 const AboutContainerStacking = ({
   currentRole,
   connectedWallet,
   lockedInPool,
   delegatedToPool,
+  stacksAmountThisCycle,
+  reservedAmount,
+  returnCovered,
   userUntilBurnHt,
   explorerLink,
+  currentBurnBlockHeight,
+  currentCycle,
+  preparePhaseStartBlockHeight,
+  rewardPhaseStartBlockHeight,
 }: IAboutContainerStackingProps) => {
-  const [currentBtcBlock, setCurrentBtcBlock] = useState(0);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
-  const [btcBlockRetrieved, setBtcBlockRetrieved] = useState(false);
-
-  useEffect(() => {
-    const getCurrentBlock = async () => {
-      const blockInfoResult = await fetch(`${apiMapping[network]('').blockInfo}`)
-        .then((res) => res.json())
-        .then((res) => res.results[0]['burn_block_height']);
-
-      if (await blockInfoResult) {
-        setCurrentBtcBlock(blockInfoResult);
-        setBtcBlockRetrieved(true);
-      }
-    };
-    getCurrentBlock();
-  }, [setCurrentBtcBlock]);
 
   return (
     <div
@@ -62,6 +65,26 @@ const AboutContainerStacking = ({
           <div className="title-info-container bold-font">ABOUT</div>
         </div>
       </div>
+
+      <div
+        style={{
+          backgroundColor: colors[appCurrentTheme].infoContainers,
+          color: colors[appCurrentTheme].colorWriting,
+          borderBottom: `1px solid ${colors[appCurrentTheme].colorWriting}`,
+          height: 'auto',
+        }}
+        className="heading-info-container"
+      >
+        <StackingVisualArts
+          reservedAmount={reservedAmount}
+          stacksAmountThisCycle={stacksAmountThisCycle}
+          returnCovered={returnCovered}
+          currentBurnBlockHeight={currentBurnBlockHeight}
+          preparePhaseStartBlockHeight={preparePhaseStartBlockHeight}
+          rewardPhaseStartBlockHeight={rewardPhaseStartBlockHeight}
+        />
+      </div>
+
       <div
         style={{
           backgroundColor: colors[appCurrentTheme].infoContainers,
@@ -74,14 +97,14 @@ const AboutContainerStacking = ({
         }
       >
         <div className="content-sections-title-info-container bottom-margins">
-          <span className="bold-font">Current Bitcoin Block:</span>
+          <span className="bold-font">Current Stacking Cycle:</span>
           <div className="write-just-on-one-line result-of-content-section">
-            {currentBtcBlock !== null ? currentBtcBlock : ''}
+            {currentCycle !== null ? numberWithCommas(currentCycle) : ''}
           </div>
         </div>
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Connected wallet:</span>
-          <div className="write-just-on-one-line result-of-content-section">
+          <div className="write-just-on-one-line result-of-content-section connected-walled">
             {connectedWallet !== null ? connectedWallet : ''}
           </div>
         </div>
@@ -91,11 +114,11 @@ const AboutContainerStacking = ({
         </div>
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">
-            Delegated to the pool:{' '}
+            Address’ delegated funds to the pool:{' '}
             {delegatedToPool !== null && delegatedToPool !== 0 && userUntilBurnHt !== null
-              ? `${delegatedToPool / 1000000} STX until Bitcoin block ${userUntilBurnHt}`
+              ? `${convertDigits(delegatedToPool)} STX until Bitcoin block ${userUntilBurnHt}.`
               : delegatedToPool !== null && delegatedToPool !== 0 && userUntilBurnHt === null
-              ? ''
+              ? 'The last burn block height for delegated funds has been reached, and the delegation has expired.'
               : delegatedToPool === null || delegatedToPool === 0
               ? 'No funds delegated to the Stacking Pool'
               : 'No delegated funds'}
@@ -105,9 +128,23 @@ const AboutContainerStacking = ({
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">
             Locked in pool:{' '}
-            {lockedInPool !== null && lockedInPool !== 0 ? `${lockedInPool / 1000000} STX` : 'No locked funds'}
+            {lockedInPool !== null && lockedInPool !== 0 ? `${convertDigits(lockedInPool)} STX` : 'No locked funds'}
           </span>
           <span className="result-of-content-section"></span>
+        </div>
+        <div className="content-sections-title-info-container">
+          <span className="bold-font">Total guaranteed: </span>
+          <div className="result-of-content-section">
+            {reservedAmount !== null ? numberWithCommas(reservedAmount) + ' STX' : ''}
+          </div>
+        </div>
+        <div className="content-sections-title-info-container">
+          <span className="bold-font">Stacked amount covered by the pool: </span>
+          <div className="result-of-content-section">
+            {reservedAmount !== null && returnCovered !== null
+              ? numberWithCommas(reservedAmount * returnCovered) + ' STX'
+              : ''}
+          </div>
         </div>
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Link to explorer: </span>

@@ -1859,7 +1859,7 @@ export const contracts = {
     constants: {},
     fungible_tokens: [],
     non_fungible_tokens: [],
-    contractName: 'degen-bridge-testnet-v1',
+    contractName: 'degen-bridge-testnet-v3',
   },
   ftTrait: {
     functions: {},
@@ -3964,6 +3964,7 @@ export const contracts = {
   },
 } as const;
 
+
 export const deployments = {
   supplierWrapper: {
     devnet: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.supplier-wrapper',
@@ -3974,31 +3975,32 @@ export const deployments = {
   restrictedTokenTrait: {
     devnet: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.restricted-token-trait',
     simnet: 'SP3DX3H4FEYZJZ586MFBS25ZW3HZDMEW92260R2PR.restricted-token-trait',
-    testnet: 'ST19F1KWRKRF2BZMPW7MWV463K11WED2M39X1HR3A.restricted-token-trait',
-    mainnet: null,
+    testnet: 'ST02D2KP0630FS1BCJ7YM4TYMDH6NS9QKR0B57R3.restricted-token-trait',
+    mainnet: 'SP02D2KP0630FS1BCJ7YM4TYMDH6NS9QKTNCZR00.restricted-token-trait',
   },
   bridge: {
     devnet: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bridge',
     simnet: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bridge',
-    testnet: 'ST2QTSJYZF2ZTQPC574HFNGTQAEM2ZX8GHQEYDNT6.degen-bridge-testnet-v1',
-    mainnet: 'SP1WN90HKT0E1FWCJT9JFPMC8YP7XGBGFNZGHRVZX.bridge',
+    testnet: 'ST02D2KP0630FS1BCJ7YM4TYMDH6NS9QKR0B57R3.degen-bridge-testnet-v3',
+    mainnet: 'SP02D2KP0630FS1BCJ7YM4TYMDH6NS9QKTNCZR00.degen-bridge-testnet-v3',
   },
   ftTrait: {
     devnet: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.ft-trait',
     simnet: 'SP3DX3H4FEYZJZ586MFBS25ZW3HZDMEW92260R2PR.ft-trait',
-    testnet: 'ST19F1KWRKRF2BZMPW7MWV463K11WED2M39X1HR3A.ft-trait',
-    mainnet: null,
+    testnet: 'ST02D2KP0630FS1BCJ7YM4TYMDH6NS9QKR0B57R3.ft-trait',
+    mainnet: 'SP02D2KP0630FS1BCJ7YM4TYMDH6NS9QKTNCZR00.ft-trait',
+    // SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-010-trait-ft-standard
   },
   wrappedBitcoin: {
     devnet: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.Wrapped-Bitcoin',
     simnet: 'SP3DX3H4FEYZJZ586MFBS25ZW3HZDMEW92260R2PR.Wrapped-Bitcoin',
-    testnet: 'ST19F1KWRKRF2BZMPW7MWV463K11WED2M39X1HR3A.Wrapped-Bitcoin',
-    mainnet: 'SP3DX3H4FEYZJZ586MFBS25ZW3HZDMEW92260R2PR.Wrapped-Bitcoin',
+    testnet: 'ST02D2KP0630FS1BCJ7YM4TYMDH6NS9QKR0B57R3.Wrapped-Bitcoin',
+    mainnet: 'SP3DX3H4FEYZJZ586MFBS25ZW3HZDMEW92260R2PR.Wrapped-Bitcoin', // AlexGo
   },
   clarityBitcoin: {
     devnet: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.clarity-bitcoin',
     simnet: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.clarity-bitcoin',
-    testnet: 'ST19F1KWRKRF2BZMPW7MWV463K11WED2M39X1HR3A.clarity-bitcoin',
+    testnet: 'ST02D2KP0630FS1BCJ7YM4TYMDH6NS9QKR0B57R3.clarity-bitcoin',
     mainnet: 'SP1WN90HKT0E1FWCJT9JFPMC8YP7XGBGFNZGHRVZX.clarity-bitcoin',
   },
   testUtils: {
@@ -4008,6 +4010,7 @@ export const deployments = {
     mainnet: null,
   },
 } as const;
+
 
 export const simnetDeployment = [
   {

@@ -98,7 +98,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (userAddress !== null) {
-      setExplorerLink(getExplorerUrl[network](userAddress).explorerUrl);
+      setExplorerLink(getExplorerUrl(userAddress).explorerUrl);
     }
   }, [explorerLink, userAddress]);
 

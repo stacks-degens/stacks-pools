@@ -1,5 +1,5 @@
-import { StacksMocknet, StacksMainnet, StacksTestnet, StacksNetwork } from '@stacks/network';
-import { apiUrl, network, transactionUrl } from './network';
+import { StacksMocknet, StacksMainnet, StacksTestnet } from '@stacks/network';
+import { apiUrl, development, network, transactionUrl } from './network';
 import { contractMapping, functionMapping } from './contract';
 import { openContractCall, FinishedTxData } from '@stacks/connect';
 import {
@@ -24,10 +24,10 @@ import { crypto } from 'bitcoinjs-lib';
 
 const contractNetwork =
   network === 'mainnet'
-    ? new StacksMainnet({ url: apiUrl[network] })
+    ? new StacksMainnet({ url: apiUrl[development][network] })
     : network === 'testnet'
-    ? new StacksTestnet({ url: apiUrl[network] })
-    : new StacksMocknet({ url: apiUrl[network] });
+    ? new StacksTestnet({ url: apiUrl[development][network] })
+    : new StacksMocknet({ url: apiUrl[development][network] });
 
 const CallFunctions = (
   type: 'mining' | 'stacking' | 'pox',
@@ -45,8 +45,8 @@ const CallFunctions = (
     postConditionMode: PostConditionMode.Deny,
     postConditions: post_condition_args,
     onFinish: (data: FinishedTxData) => {
-      console.log(transactionUrl[network](data.txId).explorerUrl);
-      console.log(transactionUrl[network](data.txId).apiUrl);
+      console.log(transactionUrl(data.txId).explorerUrl);
+      console.log(transactionUrl(data.txId).apiUrl);
     },
     onCancel: () => {
       console.log('onCancel:', 'Transaction was canceled');
@@ -113,10 +113,18 @@ export const ContractTryEnterPoolMining = () => {
 // args: (btc-address principal)
 // what does it do: This function adds the user passed as argument to the waiting list
 
-export const ContractAskToJoinMining = (args: string) => {
-  const convertedArgs = [stringCV(args, 'ascii')];
+export const ContractAskToJoinMining = (pubKey: string) => {
   const type = 'mining';
-  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.askToJoin, []);
+  // To remove the next line after public key is successfully parsed
+  pubKey = '02e8f7dc91e49a577ce9ea8989c7184aea8886fe5250f02120dc6f98e3619679b0';
+
+  const version = '00';
+  const versionBuffer = Buffer.from(version, 'hex');
+  const pubKeyBuffer = Buffer.from(pubKey, 'hex');
+  const pKhash160 = crypto.hash160(pubKeyBuffer);
+  const functionArgs = [tupleCV({ hashbytes: bufferCV(pKhash160), version: bufferCV(versionBuffer) })];
+  console.log(functionArgs);
+  CallFunctions(type, functionArgs, functionMapping[type].publicFunctions.askToJoin, []);
 };
 
 // deposit-stx
@@ -307,13 +315,23 @@ export const ContractUpdateScBalancesStacking = () => {
 
 //deposit-stx-liquidity-provider
 // args: (amount uint)
-// what does it do: deposits stx into user's account
+// what does it do: deposits stx from user's account
 
 export const ContractDepositSTXStacking = (amount: number, userAddress: string) => {
   const type = 'stacking';
   const convertedArgs = [uintCV(amount * 1000000)];
   const postConditions = createPostConditionSTXTransferToContract(userAddress, amount * 1000000);
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.depositStx, [postConditions]);
+};
+
+// withdraw-stx-liquidity-provider
+// args: (amount uint)
+// what does it do: withdraws stx to user's account
+export const ContractWithdrawSTXStacking = (amount: number, userAddress: string) => {
+  const type = 'stacking';
+  const convertedArgs = [uintCV(amount * 1000000)];
+  const postConditions = createPostConditionSTXTransferToContract(userAddress, amount * 1000000);
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.withdrawStx, [postConditions]);
 };
 
 //set-liquidity-provider
@@ -343,8 +361,8 @@ export const ContractSetNewBtcPoxAddress = (publicKey: string) => {
 export const ContractReserveFundsFutureRewardsStacking = (amount: number, userAddress: string) => {
   const type = 'stacking';
   const convertedArgs = [uintCV(amount * 1000000)];
-  const postConditions = createPostConditionSTXTransferToContract(userAddress, amount * 1000000);
-  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.lockInPool, [postConditions]);
+  // const postConditions = createPostConditionSTXTransferToContract(userAddress, amount * 1000000);
+  CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.lockInPool, []);
 };
 
 //unlock-extra-reserved-funds
@@ -368,7 +386,6 @@ export const ContractAllowInPoolPoxScStacking = () => {
     ),
     noneCV(),
   ];
-  // console.log(address);
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.allowContractCaller, []);
 };
 

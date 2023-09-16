@@ -1,14 +1,5 @@
 import { networkType } from './network';
 
-// type ContractMapping = Record<
-//   networkType,
-//   {
-//     contractAddress: string;
-//     contractName: string;
-//     owner: string;
-//   }
-// >;
-
 type NetworkTypeMiningAndStacking = Record<
   networkType,
   {
@@ -29,7 +20,7 @@ export const contractMapping: ContractMapping = {
     },
     testnet: {
       contractAddress: 'ST02D2KP0630FS1BCJ7YM4TYMDH6NS9QKR0B57R3',
-      contractName: 'main-contract-5-blocks-v2',
+      contractName: 'mining-pool-5-blocks-v2',
       owner: 'ST02D2KP0630FS1BCJ7YM4TYMDH6NS9QKR0B57R3',
     },
     devnet: {
@@ -47,7 +38,7 @@ export const contractMapping: ContractMapping = {
     },
     testnet: {
       contractAddress: 'ST02D2KP0630FS1BCJ7YM4TYMDH6NS9QKR0B57R3',
-      contractName: 'stacking-pool',
+      contractName: 'stacking-pool-v2',
       owner: 'ST02D2KP0630FS1BCJ7YM4TYMDH6NS9QKR0B57R3',
     },
     devnet: {
@@ -129,11 +120,15 @@ interface IFunctionMapping {
       getStackersList: string;
       getBlocksRewarded: string;
       getBitcoinRewards: string;
-      getTotalStackedThisCycle: string;
+      getSCLockedBalance: string;
+      getSCOwnedBalance: string;
+      getSCReservedBalance: string;
       getAddressStatus: string;
       wasBlockClaimed: string;
       getReturnCovered: string;
       getMinimumDeposit: string;
+      hasWonBurnBlock: string;
+      alreadyRewardedBurnBlock: string;
       getUserData: string;
     };
     publicFunctions: {
@@ -142,6 +137,7 @@ interface IFunctionMapping {
       leavePool: string;
       rewardDistribution: string;
       depositStx: string;
+      withdrawStx: string;
       setLiquidityProvider: string;
       lockInPool: string;
       unlockExtraStxInPool: string;
@@ -216,11 +212,15 @@ export const functionMapping: IFunctionMapping = {
       getStackersList: 'get-pool-members',
       getBlocksRewarded: 'get-blocks-rewarded',
       getBitcoinRewards: 'get-amount-rewarded',
-      getTotalStackedThisCycle: 'get-stacked-this-cycle',
+      getSCLockedBalance: 'get-SC-locked-balance',
+      getSCOwnedBalance: 'get-SC-owned-balance',
+      getSCReservedBalance: 'get-SC-reserved-balance',
       getAddressStatus: 'get-address-status',
       wasBlockClaimed: 'was-block-claimed',
       getReturnCovered: 'get-return',
       getMinimumDeposit: 'get-minimum-deposit-liquidity-provider',
+      hasWonBurnBlock: 'has-won-burn-block',
+      alreadyRewardedBurnBlock: 'already-rewarded-burn-block',
       getUserData: 'get-user-data',
     },
     publicFunctions: {
@@ -229,6 +229,7 @@ export const functionMapping: IFunctionMapping = {
       leavePool: 'leave-pool',
       rewardDistribution: 'reward-distribution',
       depositStx: 'deposit-stx-liquidity-provider',
+      withdrawStx: 'withdraw-stx-liquidity-provider',
       setLiquidityProvider: 'set-liquidity-provider',
       lockInPool: 'reserve-funds-future-rewards',
       unlockExtraStxInPool: 'unlock-extra-reserved-funds',

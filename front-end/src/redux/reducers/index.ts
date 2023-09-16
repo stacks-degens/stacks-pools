@@ -33,7 +33,7 @@ const mainReducer = (state = initialState, action: IreduxAction) => {
       showConnect({
         appDetails: {
           name: 'Stacks Decentralized Pools',
-          icon: 'https://res.cloudinary.com/dltehevwk/image/upload/v1690910281/pools-logo.png',
+          icon: 'https://res.cloudinary.com/dltehevwk/image/upload/v1694105316/degen_lab/logo/512/logo_light_full_transparent.png',
         },
         redirectTo: '/',
         onFinish: () => {
@@ -44,7 +44,6 @@ const mainReducer = (state = initialState, action: IreduxAction) => {
       return state;
     case DISCONNECT_USER_SESSION:
       state.userState.userSession.signUserOut('/dashboard');
-      console.log('Disconnect');
       return state;
     case UPDATE_USER_ROLE_MINING:
       return { ...state, userState: { ...state.userState, miningUserRole: action.payload } };

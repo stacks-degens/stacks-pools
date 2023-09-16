@@ -18,17 +18,28 @@ import { bytesToHex, hexToBytes } from 'micro-stacks/common';
 
 export const electrumClient = () => {
   const envConfig = getElectrumConfig();
+  console.log('envConfig:', envConfig);
   const electrumConfig = {
     ...envConfig,
   };
-  return new ElectrumClient(electrumConfig.host, electrumConfig.port, electrumConfig.protocol);
+  const elClient = new ElectrumClient(
+    electrumConfig.host,
+    electrumConfig.port,
+    electrumConfig.protocol
+  );
+  console.log('electrum CLIENT:', elClient);
+
+  return elClient;
 };
 
 export async function withElectrumClient<T = void>(
   cb: (client: ElectrumClient) => Promise<T>
 ): Promise<T> {
   const client = electrumClient();
+  console.log('before connect');
   await client.connect();
+  console.log('after connect');
+
   try {
     const res = await cb(client);
     await client.close();
@@ -221,6 +232,34 @@ export async function getBtcBalance() {
   return balances;
 }
 
+// export async function getBtcBalance() {
+//   let retryCount = 0;
+//   const maxRetries = 3; // You can adjust the number of retries as needed.
+
+//   async function tryGetBalance() {
+//     try {
+//       const balances = await withElectrumClient(async client => {
+//         // ... (your existing code)
+//       });
+//       return balances;
+//     } catch (error) {
+//       if (retryCount < maxRetries) {
+//         console.error(
+//           `Error connecting to Electrum server. Retrying (attempt ${retryCount + 1})...`
+//         );
+//         retryCount++;
+//         // Add a delay before retrying to avoid overloading the server.
+//         await new Promise(resolve => setTimeout(resolve, 5000)); // Wait for 5 seconds before retrying.
+//         return tryGetBalance(); // Retry the operation.
+//       } else {
+//         throw error; // If max retries are reached, rethrow the error.
+//       }
+//     }
+//   }
+
+//   return tryGetBalance();
+// }
+
 export async function getStxBalance() {
   const network = getStxNetwork();
   const stxAddress = getStxAddress();
@@ -255,6 +294,10 @@ export async function getXbtcFunds() {
 }
 
 export async function getBalances() {
+  console.log('STX BALANCE', await getStxBalance());
+  console.log('BTC BALANCE', await getBtcBalance());
+  console.log('BTC BALANCE', await getXbtcFunds());
+
   const [stx, btc, xbtc] = await Promise.all([getStxBalance(), getBtcBalance(), getXbtcFunds()]);
   return {
     stx,

@@ -28,11 +28,12 @@ interface ConnectWalletProps {
 }
 
 const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
+  const userSession = useAppSelector(selectUserSessionState);
   const [finalStatusMining, setFinalStatusMining] = useState<string>('Viewer');
   const [finalStatusStacking, setFinalStatusStacking] = useState<string>('Viewer');
   const [currentLiquidityProvider, setCurrentLiquidityProvider] = useState<string | null>(null);
   const [connectedWallet, setConnectedWallet] = useState<string | null>(null);
-  const userSession = useAppSelector(selectUserSessionState);
+  const [displayLogoutIcon, setDisplayLogoutIcon] = useState<boolean>(userSession.isUserSignedIn());
   const dispatch = useAppDispatch();
   const location = useLocation();
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
@@ -41,12 +42,13 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
   const localNetwork = network === 'devnet' ? 'testnet' : network;
   const [userAddress, setUserAddress] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (userSession.isUserSignedIn()) {
-      const args = userSession.loadUserData().profile.stxAddress[localNetwork];
-      setUserAddress(args);
-    }
-  }, [userAddress]);
+  const disconnect = () => {
+    dispatch(disconnectAction());
+  };
+
+  const authenticate = () => {
+    dispatch(connectAction());
+  };
 
   const controlAccessRoutes = () => {
     if (location.pathname !== '/') {
@@ -58,32 +60,17 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
 
   useEffect(() => {
     if (userSession.isUserSignedIn()) {
+      const args = userSession.loadUserData().profile.stxAddress[localNetwork];
+      setUserAddress(args);
+    }
+  }, [userAddress]);
+
+  useEffect(() => {
+    if (userSession.isUserSignedIn()) {
       const wallet = userSession.loadUserData().profile.stxAddress[localNetwork];
       setConnectedWallet(wallet);
     }
   }, [connectedWallet]);
-
-  // useEffect(() => {
-  //   const fetchStatus = async () => {
-  //     if (userSession.isUserSignedIn()) {
-  //       const args = userSession.loadUserData().profile.stxAddress[localNetwork];
-  //       const statusMining = await readOnlyAddressStatusMining(args);
-  //       setFinalStatusMining(statusMining);
-  //       updateUserRoleActionMining(finalStatusMining);
-  //     }
-  //   };
-
-  //   fetchStatus();
-  // }, [finalStatusMining]);
-
-  // useEffect(() => {
-  //   const getCurrentLiquidityProvider = async () => {
-  //     const liquidityProvider = await readOnlyGetLiquidityProvider();
-  //     setCurrentLiquidityProvider(liquidityProvider);
-  //   };
-
-  //   getCurrentLiquidityProvider();
-  // }, [currentLiquidityProvider]);
 
   useEffect(() => {
     const fetchStatusStacking = async () => {
@@ -96,40 +83,61 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
     };
 
     fetchStatusStacking();
+
+    if (currentRoleStacking === 'Viewer') {
+      dispatch(updateUserRoleActionStacking(finalStatusStacking));
+    }
   }, [finalStatusStacking]);
+
+  useEffect(() => {
+    if (userSession.isUserSignedIn()) {
+      setDisplayLogoutIcon(true);
+    }
+  }, [displayLogoutIcon]);
 
   useEffect(() => {
     controlAccessRoutes();
   }, [location]);
 
-  const disconnect = () => {
-    dispatch(disconnectAction());
-  };
+  // useEffect(() => {
+  //   const fetchStatus = async () => {
+  //     if (userSession.isUserSignedIn()) {
+  //       const args = userSession.loadUserData().profile.stxAddress[localNetwork];
+  //       const statusMining = await readOnlyAddressStatusMining(args);
+  //       setFinalStatusMining(statusMining);
+  //       updateUserRoleActionMining(finalStatusMining);
+  //     }
+  //   };
 
-  const authenticate = () => {
-    dispatch(connectAction());
-  };
+  //   fetchStatus();
 
-  if (userSession.isUserSignedIn()) {
-    if (currentRoleMining === 'Viewer') {
-      dispatch(updateUserRoleActionMining(finalStatusMining));
-    }
-    if (currentRoleStacking === 'Viewer') {
-      dispatch(updateUserRoleActionStacking(finalStatusStacking));
-    }
-    return (
-      <div>
-        <button className="Connect" style={{ backgroundColor: colors[appCurrentTheme].primary }} onClick={disconnect}>
-          <LogoutIcon style={{ color: colors[appCurrentTheme].headerIcon }} fontSize="medium" />
-        </button>
-      </div>
-    );
-  }
+  //   if (currentRoleMining === 'Viewer') {
+  //     dispatch(updateUserRoleActionMining(finalStatusMining));
+  //   }
+  // }, [finalStatusMining]);
+
+  // useEffect(() => {
+  //   const getCurrentLiquidityProvider = async () => {
+  //     const liquidityProvider = await readOnlyGetLiquidityProvider();
+  //     setCurrentLiquidityProvider(liquidityProvider);
+  //   };
+
+  //   getCurrentLiquidityProvider();
+  // }, [currentLiquidityProvider]);
 
   return (
-    <button className="Connect" style={{ backgroundColor: colors[appCurrentTheme].primary }} onClick={authenticate}>
-      <LoginIcon style={{ color: colors[appCurrentTheme].headerIcon }} fontSize="medium" />
-    </button>
+    <div>
+      <button
+        className="Connect"
+        style={{ backgroundColor: colors[appCurrentTheme].primary }}
+        onClick={displayLogoutIcon ? disconnect : authenticate}
+      >
+        {displayLogoutIcon && <LogoutIcon style={{ color: colors[appCurrentTheme].headerIcon }} fontSize="medium" />}
+        {!displayLogoutIcon && (
+          <LoginIcon style={{ color: colors[appCurrentTheme].headerIcon }} fontSize="medium" />
+        )}{' '}
+      </button>
+    </div>
   );
 };
 

@@ -4,6 +4,9 @@ import './styles.css';
 import colors from '../../../consts/colorPallete';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { ContractAllowInPoolPoxScStacking, ContractJoinPoolStacking } from '../../../consts/smartContractFunctions';
+import { GlobalStyles, Paper } from '@mui/material';
+import { StackingVisualArts } from '../StackingVIsualArts';
+import { numberWithCommas } from '../../../consts/converter';
 
 interface DashboardStackingInfoProps {
   currentRole: UserRoleStacking;
@@ -12,9 +15,13 @@ interface DashboardStackingInfoProps {
   blocksRewarded: number | null; //this is for the slots won
   bitcoinRewards: number | null;
   stacksAmountThisCycle: number | null;
+  reservedAmount: number | null;
   returnCovered: number | null;
   minimumDepositProvider: number | null;
   userAddress: string | null;
+  currentBurnBlockHeight: number;
+  preparePhaseStartBlockHeight: number;
+  rewardPhaseStartBlockHeight: number;
 }
 
 const DashboardStackingInfo = ({
@@ -24,15 +31,18 @@ const DashboardStackingInfo = ({
   blocksRewarded,
   bitcoinRewards,
   stacksAmountThisCycle,
+  reservedAmount,
   returnCovered,
   minimumDepositProvider,
   userAddress,
+  currentBurnBlockHeight,
+  preparePhaseStartBlockHeight,
+  rewardPhaseStartBlockHeight,
 }: DashboardStackingInfoProps) => {
   //TODO: see what is returning the readOnlyGetAllowanceStacking(userAddress) ->
   //null is false (so ALert comes up) and
   //some value for true, but I don't know the type of that value ->
   //see if I have to change the type of aloowanceStatus
-  console.log(currentRole);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
   const allowPoolInPoxSc = () => {
@@ -61,6 +71,26 @@ const DashboardStackingInfo = ({
           <div className="title-info-container">INFO</div>
         </div>
       </div>
+
+      <div
+        style={{
+          backgroundColor: colors[appCurrentTheme].infoContainers,
+          color: colors[appCurrentTheme].colorWriting,
+          borderBottom: `1px solid ${colors[appCurrentTheme].colorWriting}`,
+          height: 'auto',
+        }}
+        className="heading-info-container"
+      >
+        <StackingVisualArts
+          reservedAmount={reservedAmount}
+          stacksAmountThisCycle={stacksAmountThisCycle}
+          returnCovered={returnCovered}
+          currentBurnBlockHeight={currentBurnBlockHeight}
+          preparePhaseStartBlockHeight={preparePhaseStartBlockHeight}
+          rewardPhaseStartBlockHeight={rewardPhaseStartBlockHeight}
+        />
+      </div>
+
       <div
         style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting }}
         className="content-info-container-normal-user"
@@ -71,27 +101,59 @@ const DashboardStackingInfo = ({
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">List of stackers: </span>
-          {stackersList.length !== 0 &&
-            stackersList.map((data: string, index: number) => (
-              <div className="result-of-content-section" key={index}>
-                {data}
-              </div>
-            ))}
+          <Paper
+            style={{
+              backgroundColor: colors[appCurrentTheme].infoContainers,
+              color: colors[appCurrentTheme].colorWriting,
+              maxHeight: 70,
+              overflow: 'auto',
+            }}
+            elevation={0}
+          >
+            <GlobalStyles
+              styles={{
+                '*::-webkit-scrollbar': { width: '0.1em' },
+                '*::-webkit-scrollbar-thumb': { backgroundColor: colors[appCurrentTheme].colorWriting },
+              }}
+            />
+            {stackersList.length !== 0 &&
+              stackersList.map((data: string, index: number) => (
+                <div className="result-of-content-section" key={index}>
+                  {data}
+                </div>
+              ))}
+          </Paper>
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Number of Slots Won: </span>
-          <span className="result-of-content-section">{blocksRewarded !== null ? blocksRewarded : ''}</span>
+          <span className="result-of-content-section">
+            {blocksRewarded !== null ? numberWithCommas(blocksRewarded) : ''}
+          </span>
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Bitcoin Rewards: </span>
           <span className="result-of-content-section">
-            {bitcoinRewards !== null ? bitcoinRewards / 1000000 + ' BTC' : ''}
+            {bitcoinRewards !== null ? numberWithCommas(bitcoinRewards) + ' BTC' : ''}
           </span>
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Total stacked this cycle: </span>
           <span className="result-of-content-section">
-            {stacksAmountThisCycle !== null ? stacksAmountThisCycle / 1000000 + ' STX' : ''}
+            {stacksAmountThisCycle !== null ? numberWithCommas(stacksAmountThisCycle) + ' STX' : ''}
+          </span>
+        </div>
+        <div className="content-sections-title-info-container">
+          <span className="bold-font">Total guaranteed: </span>
+          <span className="result-of-content-section">
+            {reservedAmount !== null ? numberWithCommas(reservedAmount) + ' STX' : ''}
+          </span>
+        </div>
+        <div className="content-sections-title-info-container">
+          <span className="bold-font">Stacked amount covered by the pool: </span>
+          <span className="result-of-content-section">
+            {reservedAmount !== null && returnCovered !== null
+              ? numberWithCommas(reservedAmount * returnCovered) + ' STX'
+              : ''}
           </span>
         </div>
         <div className="content-sections-title-info-container">
@@ -101,9 +163,9 @@ const DashboardStackingInfo = ({
           </span>
         </div>
         <div className="content-sections-title-info-container">
-          <span className="bold-font">Minimum return Liquidity Provider: </span>
+          <span className="bold-font">Minimum Required Liquidity: </span>
           <span className="result-of-content-section">
-            {minimumDepositProvider !== null ? minimumDepositProvider / 1000000 + ' STX' : ''}
+            {minimumDepositProvider !== null ? numberWithCommas(minimumDepositProvider) + ' STX' : ''}
           </span>
         </div>
       </div>

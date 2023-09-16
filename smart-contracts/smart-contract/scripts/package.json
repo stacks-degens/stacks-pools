@@ -1,0 +1,18 @@
+{
+  "name": "scripts",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "auto-redeem.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@stacks/network": "^6.5.5",
+    "@stacks/transactions": "^6.7.0",
+    "dotenv": "^16.3.1",
+    "fs": "^0.0.1-security"
+  }
+}

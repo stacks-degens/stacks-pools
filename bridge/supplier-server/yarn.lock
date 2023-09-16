@@ -2869,10 +2869,10 @@ electron-to-chromium@^1.4.411:
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.414.tgz#f9eedb6fb01b50439d8228d8ee3a6fa5e0108437"
   integrity sha512-RRuCvP6ekngVh2SAJaOKT/hxqc9JAsK+Pe0hP5tGQIfonU2Zy9gMGdJ+mBdyl/vNucMG6gkXYtuM4H/1giws5w==
 
-electrum-client-sl@0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/electrum-client-sl/-/electrum-client-sl-0.1.2.tgz#237d2df8925fecd5b9f65c60e826851fe6c8ed6b"
-  integrity sha512-sbfrE7cZ0NSu3jAd0A1B2s62lrkoFU9DyiWx609604G3ocb5mqrFP2eyZ6+EZyUJJE0bdhnjr7nFynrYXUl67g==
+electrum-client-sl@0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/electrum-client-sl/-/electrum-client-sl-0.1.4.tgz#efc84c12c33565925dca02fc3833239233a6fc8f"
+  integrity sha512-tnBNbMvIJ6uCglby93i0JIOfWyr7Ch/MYXtCX4X4me+axS85fBwX8L4AKhLRslaAw4fUwnL0IE8fdLPhKABKQQ==
   dependencies:
     websocket "^1.0.29"
 
