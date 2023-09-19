@@ -78,7 +78,9 @@ const ActionsContainerStacking = ({
   const numberOfBlocksPerCycle = numberOfBlocksPreparePhase + numberOfBlocksRewardPhase;
 
   const messageDelegate = `Remaining blocks to delegate for cycle ${currentCycle + 1}: ${
-    preparePhaseStartBlockHeight - currentBurnBlockHeight - 1
+    preparePhaseStartBlockHeight - currentBurnBlockHeight - 1 < 0
+      ? 0
+      : preparePhaseStartBlockHeight - currentBurnBlockHeight - 1
   } blocks`;
 
   let messageUpdateBalances = '';
@@ -231,7 +233,6 @@ const ActionsContainerStacking = ({
   const toggleCheckboxValue = () => {
     setDelegateCheckboxClicked(!delegateCheckboxClicked);
   };
-
   return (
     <div
       style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting }}
@@ -342,7 +343,9 @@ const ActionsContainerStacking = ({
                     (reservedAmount * returnCovered <
                       stacksAmountThisCycle + (delegateAmountInput === null ? 0 : delegateAmountInput) &&
                       showAlertCanSafelyDelegate &&
-                      !delegateCheckboxClicked)
+                      !delegateCheckboxClicked) ||
+                    (preparePhaseStartBlockHeight <= currentBurnBlockHeight &&
+                      currentBurnBlockHeight <= preparePhaseStartBlockHeight + numberOfBlocksPreparePhase)
                   }
                   onClick={() => {
                     if (delegateAmountInput !== null) delegateAmount(delegateAmountInput);

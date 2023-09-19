@@ -5,6 +5,8 @@ import colors from '../../../consts/colorPallete';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { ContractAllowInPoolPoxScStacking, ContractJoinPoolStacking } from '../../../consts/smartContractFunctions';
 import { GlobalStyles, Paper } from '@mui/material';
+import { StackingVisualArts } from '../StackingVIsualArts';
+import { numberWithCommas } from '../../../consts/converter';
 
 interface DashboardStackingInfoProps {
   currentRole: UserRoleStacking;
@@ -17,6 +19,9 @@ interface DashboardStackingInfoProps {
   returnCovered: number | null;
   minimumDepositProvider: number | null;
   userAddress: string | null;
+  currentBurnBlockHeight: number;
+  preparePhaseStartBlockHeight: number;
+  rewardPhaseStartBlockHeight: number;
 }
 
 const DashboardStackingInfo = ({
@@ -30,6 +35,9 @@ const DashboardStackingInfo = ({
   returnCovered,
   minimumDepositProvider,
   userAddress,
+  currentBurnBlockHeight,
+  preparePhaseStartBlockHeight,
+  rewardPhaseStartBlockHeight,
 }: DashboardStackingInfoProps) => {
   //TODO: see what is returning the readOnlyGetAllowanceStacking(userAddress) ->
   //null is false (so ALert comes up) and
@@ -63,6 +71,26 @@ const DashboardStackingInfo = ({
           <div className="title-info-container">INFO</div>
         </div>
       </div>
+
+      <div
+        style={{
+          backgroundColor: colors[appCurrentTheme].infoContainers,
+          color: colors[appCurrentTheme].colorWriting,
+          borderBottom: `1px solid ${colors[appCurrentTheme].colorWriting}`,
+          height: 'auto',
+        }}
+        className="heading-info-container"
+      >
+        <StackingVisualArts
+          reservedAmount={reservedAmount}
+          stacksAmountThisCycle={stacksAmountThisCycle}
+          returnCovered={returnCovered}
+          currentBurnBlockHeight={currentBurnBlockHeight}
+          preparePhaseStartBlockHeight={preparePhaseStartBlockHeight}
+          rewardPhaseStartBlockHeight={rewardPhaseStartBlockHeight}
+        />
+      </div>
+
       <div
         style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting }}
         className="content-info-container-normal-user"
@@ -98,26 +126,34 @@ const DashboardStackingInfo = ({
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Number of Slots Won: </span>
-          <span className="result-of-content-section">{blocksRewarded !== null ? blocksRewarded : ''}</span>
+          <span className="result-of-content-section">
+            {blocksRewarded !== null ? numberWithCommas(blocksRewarded) : ''}
+          </span>
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Bitcoin Rewards: </span>
-          <span className="result-of-content-section">{bitcoinRewards !== null ? bitcoinRewards + ' BTC' : ''}</span>
+          <span className="result-of-content-section">
+            {bitcoinRewards !== null ? numberWithCommas(bitcoinRewards) + ' BTC' : ''}
+          </span>
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Total stacked this cycle: </span>
           <span className="result-of-content-section">
-            {stacksAmountThisCycle !== null ? stacksAmountThisCycle + ' STX' : ''}
+            {stacksAmountThisCycle !== null ? numberWithCommas(stacksAmountThisCycle) + ' STX' : ''}
           </span>
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Total guaranteed: </span>
-          <span className="result-of-content-section">{reservedAmount !== null ? reservedAmount + ' STX' : ''}</span>
+          <span className="result-of-content-section">
+            {reservedAmount !== null ? numberWithCommas(reservedAmount) + ' STX' : ''}
+          </span>
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Stacked amount covered by the pool: </span>
           <span className="result-of-content-section">
-            {reservedAmount !== null && returnCovered !== null ? reservedAmount * returnCovered + ' STX' : ''}
+            {reservedAmount !== null && returnCovered !== null
+              ? numberWithCommas(reservedAmount * returnCovered) + ' STX'
+              : ''}
           </span>
         </div>
         <div className="content-sections-title-info-container">
@@ -127,9 +163,9 @@ const DashboardStackingInfo = ({
           </span>
         </div>
         <div className="content-sections-title-info-container">
-          <span className="bold-font">Minimum return Liquidity Provider: </span>
+          <span className="bold-font">Minimum Required Liquidity: </span>
           <span className="result-of-content-section">
-            {minimumDepositProvider !== null ? minimumDepositProvider + ' STX' : ''}
+            {minimumDepositProvider !== null ? numberWithCommas(minimumDepositProvider) + ' STX' : ''}
           </span>
         </div>
       </div>

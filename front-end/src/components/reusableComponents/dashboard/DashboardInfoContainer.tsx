@@ -57,7 +57,7 @@ const DashboardInfoContainer = ({
         className="content-info-container-normal-user"
       >
         <div className="content-sections-title-info-container">
-          <span className="bold-font">Current Burn Block Height: </span>
+          <span className="bold-font">Current Bitcoin Block Height: </span>
           <div className="result-of-content-section">
             {currentBurnBlockHeight !== null ? numberWithCommas(currentBurnBlockHeight) : ''}
           </div>

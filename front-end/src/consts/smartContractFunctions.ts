@@ -115,7 +115,6 @@ export const ContractTryEnterPoolMining = () => {
 
 export const ContractAskToJoinMining = (pubKey: string) => {
   const type = 'mining';
-
   // To remove the next line after public key is successfully parsed
   pubKey = '02e8f7dc91e49a577ce9ea8989c7184aea8886fe5250f02120dc6f98e3619679b0';
 

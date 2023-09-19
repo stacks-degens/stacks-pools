@@ -1,33 +1,13 @@
 import { CallMade, ExpandMore } from '@mui/icons-material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import LinearProgress from '@mui/material/LinearProgress';
-import { ExpandLess } from '@mui/icons-material';
 import './styles.css';
 import colors from '../../../consts/colorPallete';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 import { useEffect, useRef, useState } from 'react';
-import {
-  Box,
-  Button,
-  CardHeader,
-  Dialog,
-  Divider,
-  FormControlLabel,
-  GlobalStyles,
-  Grid,
-  List,
-  ListItem,
-  ListItemButton,
-  Table,
-  TableCell,
-  TableHead,
-  TableRow,
-} from '@mui/material';
-import { convertDigits } from '../../../consts/converter';
-import { HighlightScope, BarChart } from '@mui/x-charts';
-import CloseIcon from '@mui/icons-material/Close';
 
+import { convertDigits } from '../../../consts/converter';
+import { StackingVisualArts } from '../StackingVIsualArts';
 interface IAboutContainerStackingProps {
   currentRole: string;
   connectedWallet: string | null;
@@ -64,47 +44,6 @@ const AboutContainerStacking = ({
   rewardPhaseStartBlockHeight,
 }: IAboutContainerStackingProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
-  const divRef = useRef(null);
-  const [divWidth, setDivWidth] = useState(0);
-
-  useEffect(() => {
-    if (divRef.current && divRef.current['offsetWidth'] > 100) {
-      setDivWidth(divRef.current['offsetWidth']);
-    }
-  }, []);
-
-  const [isProgressExpandButtonClicked, setIsProgressExpandButtonClicked] = useState<boolean>(false);
-  const [btcBlockRetrieved, setBtcBlockRetrieved] = useState(false);
-  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-
-  const numberOfBlocksPreparePhase = (preparePhaseStartBlockHeight - rewardPhaseStartBlockHeight) / 20;
-  const numberOfBlocksRewardPhase = numberOfBlocksPreparePhase * 20;
-  const numberOfBlocksPerCycle = numberOfBlocksPreparePhase + numberOfBlocksRewardPhase;
-  console.log();
-
-  const currentBlockHeight = ((currentBurnBlockHeight - rewardPhaseStartBlockHeight) * 100) / numberOfBlocksPerCycle;
-  const preparePhase = ((preparePhaseStartBlockHeight - rewardPhaseStartBlockHeight) * 100) / numberOfBlocksPerCycle;
-
-  const barChartsParams = {
-    series: [
-      { data: [reservedAmount !== null ? reservedAmount * 2.5 : 0], label: 'Some Reward', color: '#eeeeee' }, // TODO: delete the * 2.5
-      {
-        data: [stacksAmountThisCycle !== null ? stacksAmountThisCycle : 0],
-        label: 'Other Reward',
-        color: '#777777',
-      },
-      {
-        data: [returnCovered !== null && reservedAmount !== null ? returnCovered * reservedAmount : 0],
-        label: 'Some Type Of Reward',
-        color: '#444444',
-      },
-    ],
-    height: window.screen.height * 0.7,
-  };
-
-  const changeDialogOpen = (isDialogOpen: boolean) => {
-    setDialogOpen(isDialogOpen);
-  };
 
   return (
     <div
@@ -136,272 +75,14 @@ const AboutContainerStacking = ({
         }}
         className="heading-info-container"
       >
-        <div>
-          <Box>
-            <div
-              ref={divRef}
-              style={{
-                marginTop: '10px',
-                marginLeft:
-                  currentBlockHeight >= (divWidth - 50) / (divWidth / 100)
-                    ? (divWidth - 50) / (divWidth / 100) + '%'
-                    : currentBlockHeight < 50 / (divWidth / 100)
-                    ? '0%'
-                    : currentBlockHeight - 50 / (divWidth / 100) + '%',
-              }}
-            >
-              Current Block
-            </div>
-            <LinearProgress
-              variant="buffer"
-              value={preparePhase < currentBlockHeight ? preparePhase : currentBlockHeight}
-              valueBuffer={preparePhase < currentBlockHeight ? currentBlockHeight : preparePhase}
-              sx={{
-                '& .MuiLinearProgress-bar1Buffer': {
-                  // Prepare phase
-                  backgroundColor: currentBlockHeight <= preparePhase ? '#444444' : '#777777',
-                  borderRight: currentBlockHeight < preparePhase ? divWidth / 150 + 'px solid red' : 'none',
-                },
-
-                '& .MuiLinearProgress-bar2Buffer': {
-                  // Current block
-                  backgroundColor: currentBlockHeight <= preparePhase ? '#777777' : '#444444',
-                  borderRight: currentBlockHeight > preparePhase ? divWidth / 150 + 'px solid red' : 'none',
-                },
-
-                '& .MuiLinearProgress-dashed': {
-                  // Reward phase
-                  animation: 'none',
-                  backgroundColor: '#eeeeee',
-                  backgroundImage: 'none',
-                },
-
-                height: 20,
-                borderRadius: 3,
-                marginTop: '15px',
-              }}
-            />
-            <div style={{ marginRight: '-15px', marginTop: '-5px', marginBottom: '-20px' }}>
-              <TableCell style={{ borderBottom: 'none' }} align="center">
-                Reward Phase
-              </TableCell>
-              <TableCell style={{ borderBottom: 'none', width: 100 - preparePhase + '%' }} align="left">
-                Prepare Phase
-              </TableCell>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
-              <ListItem
-                sx={{ marginTop: '10px', width: '50%' }}
-                onClick={() => setIsProgressExpandButtonClicked(!isProgressExpandButtonClicked)}
-              >
-                <ListItemButton
-                  sx={{ display: 'flex', alignContent: 'center', justifyContent: 'center', borderRadius: 4 }}
-                >
-                  <Button size="large" sx={{ color: colors[appCurrentTheme].colorWriting }} disableRipple>
-                    Blocks Details
-                  </Button>
-                </ListItemButton>
-              </ListItem>
-              <ListItem sx={{ marginTop: '10px', width: '50%' }}>
-                <ListItemButton
-                  sx={{ display: 'flex', alignContent: 'center', justifyContent: 'center', borderRadius: 4 }}
-                  onClick={() => changeDialogOpen(true)}
-                >
-                  <Button
-                    size="large"
-                    sx={{ color: colors[appCurrentTheme].colorWriting, width: '100%' }}
-                    disableRipple
-                  >
-                    Reward Details
-                  </Button>
-                </ListItemButton>
-                <GlobalStyles
-                  styles={{
-                    '*::-webkit-scrollbar': { width: '0.1em', backgroundColor: colors[appCurrentTheme].primary },
-                    '*::-webkit-scrollbar-thumb': { backgroundColor: colors[appCurrentTheme].defaultOrange },
-                  }}
-                />
-                <Dialog open={dialogOpen}>
-                  <Box
-                    sx={{ width: 310, height: '100%' }}
-                    role="presentation"
-                    style={{
-                      backgroundColor: colors[appCurrentTheme].accent2,
-                      color: colors[appCurrentTheme].colorWriting,
-                    }}
-                  >
-                    <List style={{ backgroundColor: colors[appCurrentTheme].primary }}>
-                      <ListItem disablePadding>
-                        <div
-                          style={{
-                            width: 'auto',
-                            marginLeft: 'auto',
-                            marginRight: 'auto',
-                            marginTop: 2,
-                            marginBottom: 2,
-                          }}
-                        >
-                          <ListItemButton disableRipple onClick={() => changeDialogOpen(false)}>
-                            <CloseIcon fontSize="medium" style={{ color: '#ff0000' }} />
-                          </ListItemButton>
-                        </div>
-                      </ListItem>
-                    </List>
-
-                    <List style={{ backgroundColor: colors[appCurrentTheme].accent2 }}>
-                      <div>
-                        <div style={{ marginBottom: '-100px' }}>
-                          <TableRow>
-                            <TableCell style={{ borderBottom: 'none', width: '70%' }}>
-                              <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <div
-                                  style={{
-                                    backgroundColor: '#ffffff',
-                                    height: '12px',
-                                    width: '7%',
-                                    marginRight: '10px',
-                                  }}
-                                />
-                                <div style={{ fontSize: '16px' }}>Rewards Guaraneed</div>
-                              </div>
-                            </TableCell>
-                            <TableCell style={{ borderBottom: 'none' }}>
-                              <div style={{ fontSize: '16px' }}>
-                                {reservedAmount !== null ? numberWithCommas(reservedAmount) : 0}
-                              </div>
-                            </TableCell>
-                          </TableRow>
-                          <TableRow>
-                            <TableCell style={{ borderBottom: 'none', width: '70%' }}>
-                              <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <div
-                                  style={{
-                                    backgroundColor: '#777777',
-                                    height: '12px',
-                                    width: '7%',
-                                    marginRight: '10px',
-                                  }}
-                                />
-                                <div style={{ fontSize: '16px' }}>Stacked This Cycle</div>
-                              </div>
-                            </TableCell>
-                            <TableCell style={{ borderBottom: 'none' }}>
-                              <div style={{ fontSize: '16px' }}>
-                                {stacksAmountThisCycle !== null ? numberWithCommas(stacksAmountThisCycle) : 0}
-                              </div>
-                            </TableCell>
-                          </TableRow>
-                          <TableRow>
-                            <TableCell style={{ borderBottom: 'none', width: '70%' }}>
-                              <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <div
-                                  style={{
-                                    backgroundColor: '#444444',
-                                    height: '12px',
-                                    width: '7%',
-                                    marginRight: '10px',
-                                  }}
-                                />
-                                <div style={{ fontSize: '16px' }}>Amount Covered</div>
-                              </div>
-                            </TableCell>
-                            <TableCell style={{ borderBottom: 'none' }}>
-                              <div style={{ fontSize: '16px' }}>
-                                {returnCovered !== null && reservedAmount !== null
-                                  ? numberWithCommas(returnCovered * reservedAmount)
-                                  : 0}
-                              </div>
-                            </TableCell>
-                          </TableRow>
-                        </div>
-                        <BarChart
-                          {...barChartsParams}
-                          series={barChartsParams.series.map((series) => ({
-                            ...series,
-                            highlightScope: {
-                              highlighted: 'item',
-                              faded: 'global',
-                            } as HighlightScope,
-                          }))}
-                          bottomAxis={null}
-                          leftAxis={null}
-                          legend={{ hidden: true }}
-                          tooltip={{ trigger: 'none' }}
-                        />
-                      </div>
-                    </List>
-                  </Box>
-                </Dialog>
-              </ListItem>
-            </div>
-            {isProgressExpandButtonClicked && (
-              <div>
-                <TableRow>
-                  <TableCell style={{ borderBottom: 'none', width: '60%' }}>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                      <div
-                        style={{
-                          backgroundColor: '#777777',
-                          height: '20px',
-                          width: '7%',
-                          marginRight: '10px',
-                          borderRadius: 4,
-                        }}
-                      />
-                      <div style={{ fontSize: '16px' }}>Reward Phase</div>
-                    </div>
-                  </TableCell>
-                  <TableCell style={{ borderBottom: 'none' }}>
-                    <div style={{ fontSize: '16px' }}>
-                      {numberWithCommas(rewardPhaseStartBlockHeight)} - {numberWithCommas(preparePhaseStartBlockHeight)}
-                    </div>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell style={{ borderBottom: 'none', width: '60%' }}>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                      <div
-                        style={{
-                          backgroundColor: '#444444',
-                          height: '20px',
-                          width: '7%',
-                          marginRight: '10px',
-                          borderRadius: 4,
-                        }}
-                      />
-                      <div style={{ fontSize: '16px' }}>Current Block</div>
-                    </div>
-                  </TableCell>
-                  <TableCell style={{ borderBottom: 'none' }}>
-                    <div style={{ fontSize: '16px' }}>{numberWithCommas(currentBurnBlockHeight)}</div>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell style={{ borderBottom: 'none', width: '60%' }}>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                      <div
-                        style={{
-                          backgroundColor: '#eeeeee',
-                          height: '20px',
-                          width: '7%',
-                          marginRight: '10px',
-                          borderRadius: 4,
-                        }}
-                      />
-                      <div style={{ fontSize: '16px' }}>Prepare Phase</div>
-                    </div>
-                  </TableCell>
-                  <TableCell style={{ borderBottom: 'none' }}>
-                    <div style={{ fontSize: '16px' }}>
-                      {numberWithCommas(preparePhaseStartBlockHeight)} -{' '}
-                      {numberWithCommas(rewardPhaseStartBlockHeight + numberOfBlocksPerCycle)}
-                    </div>
-                  </TableCell>
-                </TableRow>
-              </div>
-            )}
-          </Box>
-        </div>
+        <StackingVisualArts
+          reservedAmount={reservedAmount}
+          stacksAmountThisCycle={stacksAmountThisCycle}
+          returnCovered={returnCovered}
+          currentBurnBlockHeight={currentBurnBlockHeight}
+          preparePhaseStartBlockHeight={preparePhaseStartBlockHeight}
+          rewardPhaseStartBlockHeight={rewardPhaseStartBlockHeight}
+        />
       </div>
 
       <div
@@ -416,32 +97,14 @@ const AboutContainerStacking = ({
         }
       >
         <div className="content-sections-title-info-container bottom-margins">
-          <span className="bold-font">Current Bitcoin Block:</span>
-          <div className="write-just-on-one-line result-of-content-section">
-            {currentBurnBlockHeight !== null ? currentBurnBlockHeight : ''}
-          </div>
-        </div>
-        <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Current Stacking Cycle:</span>
           <div className="write-just-on-one-line result-of-content-section">
-            {currentCycle !== null ? currentCycle : ''}
-          </div>
-        </div>
-        <div className="content-sections-title-info-container bottom-margins">
-          <span className="bold-font">First Bitcoin Block Height of the reward phase:</span>
-          <div className="write-just-on-one-line result-of-content-section">
-            {rewardPhaseStartBlockHeight !== null ? rewardPhaseStartBlockHeight : ''}
-          </div>
-        </div>
-        <div className="content-sections-title-info-container bottom-margins">
-          <span className="bold-font">First Bitcoin Block Height of the prepare phase:</span>
-          <div className="write-just-on-one-line result-of-content-section">
-            {preparePhaseStartBlockHeight !== null ? preparePhaseStartBlockHeight : ''}
+            {currentCycle !== null ? numberWithCommas(currentCycle) : ''}
           </div>
         </div>
         <div className="content-sections-title-info-container bottom-margins">
           <span className="bold-font">Connected wallet:</span>
-          <div className="write-just-on-one-line result-of-content-section">
+          <div className="write-just-on-one-line result-of-content-section connected-walled">
             {connectedWallet !== null ? connectedWallet : ''}
           </div>
         </div>
@@ -471,12 +134,16 @@ const AboutContainerStacking = ({
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Total guaranteed: </span>
-          <div className="result-of-content-section">{reservedAmount !== null ? reservedAmount + ' STX' : ''}</div>
+          <div className="result-of-content-section">
+            {reservedAmount !== null ? numberWithCommas(reservedAmount) + ' STX' : ''}
+          </div>
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Stacked amount covered by the pool: </span>
           <div className="result-of-content-section">
-            {reservedAmount !== null && returnCovered !== null ? reservedAmount * returnCovered + ' STX' : ''}
+            {reservedAmount !== null && returnCovered !== null
+              ? numberWithCommas(reservedAmount * returnCovered) + ' STX'
+              : ''}
           </div>
         </div>
         <div className="content-sections-title-info-container bottom-margins">

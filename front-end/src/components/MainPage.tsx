@@ -14,23 +14,55 @@ import MinerProfileDetails from './appMenuSections/profile/MinerProfileDetails';
 import DashboardStacking from './stacking/dashboard/DashboardStacking';
 import ProfileStacking from './stacking/profile/ProfileStacking';
 import { useEffect, useState } from 'react';
-import { apiMapping } from '../consts/network';
+import { apiMapping, getExplorerUrl, network } from '../consts/network';
+import { UserRoleStacking, selectCurrentUserRoleStacking, userSession } from '../redux/reducers/user-state';
+import { useAppSelector } from '../redux/store';
+import {
+  ReadOnlyGetStackersList,
+  readOnlyGetBitcoinRewardsStacking,
+  readOnlyGetBlocksRewardedStacking,
+  readOnlyGetLiquidityProvider,
+  readOnlyGetMinimumDepositLiquidityProviderStacking,
+  readOnlyGetReturnStacking,
+  readOnlyGetSCLockedBalance,
+  readOnlyGetSCReservedBalance,
+  readOnlyLockedBalanceUser,
+} from '../consts/readOnly';
+import { convertDigits } from '../consts/converter';
+import { contractMapping } from '../consts/contract';
+
 
 const RedirectToDashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
     navigate('/stacking/dashboard');
-  }, [navigate]);
+  }, []);
 
   return null;
 };
 
 const MainPage = () => {
-  const [currentBurnBlockHeight, setCurrentBurnBlockHeight] = useState<number | null>(null);
+  const [currentBurnBlockHeight, setCurrentBurnBlockHeight] = useState<number>(0);
   const [currentCycle, setCurrentCycle] = useState<number>(0);
   const [preparePhaseStartBlockHeight, setPreparePhaseStartBlockHeight] = useState<number>(0);
   const [rewardPhaseStartBlockHeight, setRewardPhaseStartBlockHeigh] = useState<number>(0);
+  const [userAddress, setUserAddress] = useState<string | null>(null);
+  const [connectedWallet, setConnectedWallet] = useState<string | null>(null);
+  const [explorerLink, setExplorerLink] = useState<string | undefined>(undefined);
+  const [stacksAmountThisCycle, setStacksAmountThisCycle] = useState<number | null>(null);
+  const [lockedInPool, setLockedInPool] = useState<number>(0);
+  const [delegatedToPool, setDelegatedToPool] = useState<number>(0);
+  const [userUntilBurnHt, setUserUntilBurnHt] = useState<number>(0);
+  const [reservedAmount, setReservedAmount] = useState<number | null>(null);
+  const [returnCovered, setReturnCovered] = useState<number | null>(null);
+  const [currentLiquidityProvider, setCurrentLiquidityProvider] = useState<string | null>(null);
+  const [stackersList, setStackersList] = useState<Array<string>>([]);
+  const [blocksRewarded, setBlocksRewarded] = useState<number | null>(null);
+  const [bitcoinRewards, setBitcoinRewards] = useState<number | null>(null);
+  const [minimumDepositProvider, setMinimumDepositProvider] = useState<number | null>(null);
+  const currentRole: UserRoleStacking = useAppSelector(selectCurrentUserRoleStacking);
+  const localNetwork = network === 'devnet' ? 'testnet' : network;
 
   useEffect(() => {
     const getCurrentBlockInfo = async () => {
@@ -50,6 +82,132 @@ const MainPage = () => {
     };
     getCurrentBlockInfo();
   }, [setCurrentBurnBlockHeight, setCurrentCycle, setPreparePhaseStartBlockHeight, setRewardPhaseStartBlockHeigh]);
+
+  useEffect(() => {
+    if (userSession.isUserSignedIn()) {
+      const args = userSession.loadUserData().profile.stxAddress[localNetwork];
+      setConnectedWallet(args);
+    }
+  }, [connectedWallet]);
+
+  useEffect(() => {
+    if (userAddress !== null) {
+      setExplorerLink(getExplorerUrl(userAddress).explorerUrl);
+    }
+  }, [explorerLink, userAddress]);
+
+  useEffect(() => {
+    const getLockedBalance = async () => {
+      if (userSession.isUserSignedIn() && (currentRole === 'Stacker' || currentRole === 'Provider')) {
+        const wallet = userSession.loadUserData().profile.stxAddress[localNetwork];
+        const userLockedData = await readOnlyLockedBalanceUser(wallet, 'locked-balance');
+        const userDelegatedData = await readOnlyLockedBalanceUser(wallet, 'delegated-balance');
+        const userUntilBurnHtData = await readOnlyLockedBalanceUser(wallet, 'until-burn-ht');
+        setLockedInPool(userLockedData);
+        setDelegatedToPool(userDelegatedData);
+        setUserUntilBurnHt(userUntilBurnHtData);
+      }
+    };
+
+    getLockedBalance();
+  }, [userAddress]);
+
+  useEffect(() => {
+    const getReturnCovered = async () => {
+      if (userAddress) {
+        const returnValue = await readOnlyGetReturnStacking();
+        setReturnCovered(parseFloat(returnValue));
+      }
+    };
+
+    getReturnCovered();
+  }, [userAddress]);
+
+  useEffect(() => {
+    const getReservedAmount = async () => {
+      if (userAddress) {
+        const stacks = await readOnlyGetSCReservedBalance();
+        setReservedAmount(convertDigits(stacks));
+      }
+    };
+    getReservedAmount();
+  }, [reservedAmount, userAddress]);
+
+  useEffect(() => {
+    if (userSession.isUserSignedIn()) {
+      const args = userSession.loadUserData().profile.stxAddress[localNetwork];
+      setUserAddress(args);
+    } else {
+      const defaultAddressWhenUserNotLoggedIn = contractMapping.stacking[network].owner;
+      setUserAddress(defaultAddressWhenUserNotLoggedIn);
+    }
+  }, []);
+
+  useEffect(() => {
+    const getCurrentLiquidityProvider = async () => {
+      if (userAddress) {
+        const liquidityProvider = await readOnlyGetLiquidityProvider();
+        setCurrentLiquidityProvider(liquidityProvider);
+      }
+    };
+
+    getCurrentLiquidityProvider();
+  }, [currentLiquidityProvider, userAddress]);
+
+  useEffect(() => {
+    const getMinimumDepositProvider = async () => {
+      if (userAddress) {
+        const minimum = await readOnlyGetMinimumDepositLiquidityProviderStacking();
+        setMinimumDepositProvider(convertDigits(minimum));
+      }
+    };
+
+    getMinimumDepositProvider();
+  }, [userAddress]);
+
+  useEffect(() => {
+    const getStackersList = async () => {
+      if (userAddress) {
+        const { value } = await ReadOnlyGetStackersList();
+        const parsedStackersList =
+          value.length !== 0 ? value.map((stacker: { type: string; value: string }) => stacker.value) : [];
+        setStackersList(parsedStackersList);
+      }
+    };
+
+    getStackersList();
+  }, [userAddress]);
+
+  useEffect(() => {
+    const getBlocksRewarded = async () => {
+      if (userAddress) {
+        const blocks = await readOnlyGetBlocksRewardedStacking();
+        setBlocksRewarded(blocks);
+      }
+    };
+    getBlocksRewarded();
+  }, [blocksRewarded, userAddress]);
+
+  useEffect(() => {
+    const getBitcoinRewards = async () => {
+      if (userAddress) {
+        const bitcoin = await readOnlyGetBitcoinRewardsStacking();
+        setBitcoinRewards(convertDigits(bitcoin));
+      }
+    };
+    getBitcoinRewards();
+  }, [bitcoinRewards, userAddress]);
+
+  useEffect(() => {
+    const getSCLockedBalance = async () => {
+      if (userAddress) {
+        const stacks = await readOnlyGetSCLockedBalance();
+        setStacksAmountThisCycle(convertDigits(stacks));
+      }
+    };
+    getSCLockedBalance();
+  }, [stacksAmountThisCycle, userAddress]);
+
   return (
     <div
       style={{
@@ -71,15 +229,44 @@ const MainPage = () => {
         <Route path="/mining/voting/notifier" element={<VotingNotifier />} />
         <Route path="/profile/:address" element={<MinerProfileDetails />} />
         <Route path="/stacking" element={<RedirectToDashboard />} />
-        <Route path="/stacking/dashboard" element={<DashboardStacking />} />
+        <Route
+          path="/stacking/dashboard"
+          element={
+            <DashboardStacking
+              currentLiquidityProvider={currentLiquidityProvider}
+              stackersList={stackersList}
+              blocksRewarded={blocksRewarded}
+              bitcoinRewards={bitcoinRewards}
+              stacksAmountThisCycle={stacksAmountThisCycle}
+              reservedAmount={reservedAmount}
+              returnCovered={returnCovered}
+              minimumDepositProvider={minimumDepositProvider}
+              userAddress={userAddress}
+              currentBurnBlockHeight={currentBurnBlockHeight}
+              preparePhaseStartBlockHeight={preparePhaseStartBlockHeight}
+              rewardPhaseStartBlockHeight={rewardPhaseStartBlockHeight}
+              currentRole={currentRole}
+            />
+          }
+        />
         <Route
           path="/stacking/myProfile"
           element={
             <ProfileStacking
-              currentBurnBlockHeight={currentBurnBlockHeight}
-              currentCycle={currentCycle}
-              preparePhaseStartBlockHeight={preparePhaseStartBlockHeight}
-              rewardPhaseStartBlockHeight={rewardPhaseStartBlockHeight}
+              currentBurnBlockHeight={currentBurnBlockHeight !== null ? currentBurnBlockHeight : 0}
+              currentCycle={currentCycle !== null ? currentCycle : 0}
+              preparePhaseStartBlockHeight={preparePhaseStartBlockHeight !== null ? preparePhaseStartBlockHeight : 0}
+              rewardPhaseStartBlockHeight={rewardPhaseStartBlockHeight !== null ? rewardPhaseStartBlockHeight : 0}
+              connectedWallet={connectedWallet !== null ? connectedWallet : ''}
+              explorerLink={explorerLink !== null ? explorerLink : ''}
+              userAddress={userAddress !== null ? userAddress : ''}
+              lockedInPool={lockedInPool !== null ? lockedInPool : 0}
+              stacksAmountThisCycle={stacksAmountThisCycle !== null ? stacksAmountThisCycle : 0}
+              delegatedToPool={delegatedToPool !== null ? delegatedToPool : 0}
+              reservedAmount={reservedAmount !== null ? reservedAmount : 0}
+              returnCovered={returnCovered !== null ? returnCovered : 0}
+              userUntilBurnHt={userUntilBurnHt !== null ? userUntilBurnHt : 0}
+              currentRole={currentRole !== null ? currentRole : 'Viewer'}
             />
           }
         />
