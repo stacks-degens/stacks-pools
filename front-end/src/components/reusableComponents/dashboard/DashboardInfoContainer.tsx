@@ -6,6 +6,7 @@ import colors from '../../../consts/colorPallete';
 import { ContractAskToJoinMining } from '../../../consts/smartContractFunctions';
 import { selectCurrentTheme, UserRoleMining } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
+import { numberWithCommas } from '../../../consts/converter';
 
 interface DashboardInfoContainerProps {
   notifier: string | null;
@@ -15,6 +16,8 @@ interface DashboardInfoContainerProps {
   userAddress: string | null;
   currentRole: UserRoleMining;
   currentBurnBlockHeight: number | null;
+  minersNumber: number | null;
+  poolTotalSpendPerBlock: number | null;
 }
 const DashboardInfoContainer = ({
   notifier,
@@ -24,6 +27,8 @@ const DashboardInfoContainer = ({
   userAddress,
   currentRole,
   currentBurnBlockHeight,
+  minersNumber,
+  poolTotalSpendPerBlock,
 }: DashboardInfoContainerProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
@@ -54,12 +59,16 @@ const DashboardInfoContainer = ({
         <div className="content-sections-title-info-container">
           <span className="bold-font">Current Bitcoin Block Height: </span>
           <div className="result-of-content-section">
-            {currentBurnBlockHeight !== null ? currentBurnBlockHeight : ''}
+            {currentBurnBlockHeight !== null ? numberWithCommas(currentBurnBlockHeight) : ''}
           </div>
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Current Notifier: </span>
           <div className="result-of-content-section">{notifier !== null ? notifier : ''}</div>
+        </div>
+        <div className="content-sections-title-info-container">
+          <span className="bold-font">Number of Miners in the Pool: </span>
+          <div className="result-of-content-section">{minersNumber !== null ? minersNumber : 0}</div>
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Miners List: </span>
@@ -71,13 +80,19 @@ const DashboardInfoContainer = ({
             ))}
         </div>
         <div className="content-sections-title-info-container">
+          <span className="bold-font">Pool total spend per block: </span>
+          <div className="result-of-content-section">
+            {poolTotalSpendPerBlock !== null ? numberWithCommas(poolTotalSpendPerBlock / 1_000_000) : 0} sats
+          </div>
+        </div>
+        <div className="content-sections-title-info-container">
           <span className="bold-font">Number of Blocks Won: </span>
-          <span className="result-of-content-section">{blocksWon !== null ? blocksWon : ''}</span>
+          <span className="result-of-content-section">{blocksWon !== null ? numberWithCommas(blocksWon) : ''}</span>
         </div>
         <div className="content-sections-title-info-container">
           <span className="bold-font">Stacks Rewards: </span>
           <span className="result-of-content-section">
-            {stacksRewards !== null ? stacksRewards / 1000000 + ' STX' : ''}
+            {stacksRewards !== null ? numberWithCommas(stacksRewards / 1000000) + ' STX' : ''}
           </span>
         </div>
       </div>

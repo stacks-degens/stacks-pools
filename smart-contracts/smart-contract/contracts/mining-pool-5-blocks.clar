@@ -97,6 +97,8 @@
 (define-data-var reward-change-funds uint u0)
 (define-data-var temp-distributed-change-funds uint u0)
 (define-data-var temp-change-after-flushing uint u0)
+;; equivalent to 70 USD in sats * 1_000_000
+(define-data-var pool-spend-amount-sats-per-block uint u3730000000)
 
 (map-set map-is-miner {address: tx-sender} {value: true})
 (map-set map-block-joined {address: tx-sender} {block-height: block-height})
@@ -1010,6 +1012,9 @@
 (define-read-only (get-k) 
 (var-get k))
 
+(define-read-only (get-n) 
+(var-get n))
+
 (define-read-only (get-notifier) 
 (var-get notifier))
 
@@ -1065,3 +1070,7 @@
 (not (is-eq  
   (var-get proposed-removal-list-miner-to-remove) 
   miner)))
+
+;; returns the sats amount the whole pool has to send to the FROST in order to confirm the block (multiplied by ONE_6)
+(define-read-only (get-pool-total-spend-per-block)
+(var-get pool-spend-amount-sats-per-block))

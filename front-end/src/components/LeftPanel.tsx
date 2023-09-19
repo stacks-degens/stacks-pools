@@ -79,7 +79,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
     setOpenMiningMenu(!openMiningMenu);
   };
 
-  // const currentRoleMining: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
+  const currentRoleMining: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
   const currentRoleStacking: UserRoleStacking = useAppSelector(selectCurrentUserRoleStacking);
 
   const toggleDrawer = (anchor: Anchor, open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -250,7 +250,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
           <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
         </div>
         <div>
-          {/* <ListItem
+          <ListItem
             className={
               location.pathname === '/mining/myProfile' ||
               location.pathname === '/mining/dashboard' ||
@@ -269,8 +269,10 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
           >
             <ListItemButton onClick={handleClickMiningMenu}>
               <ListItemIcon>
-                {!openMiningMenu && (<KeyboardDoubleArrowDownIcon style={{ color: colors[appCurrentTheme].secondary }} />)}
-                {openMiningMenu && (<KeyboardDoubleArrowUpIcon style={{ color: colors[appCurrentTheme].secondary }} />)}
+                {!openMiningMenu && (
+                  <KeyboardDoubleArrowDownIcon style={{ color: colors[appCurrentTheme].secondary }} />
+                )}
+                {openMiningMenu && <KeyboardDoubleArrowUpIcon style={{ color: colors[appCurrentTheme].secondary }} />}
               </ListItemIcon>
               <ListItemText
                 className="navbar-sections-font-size"
@@ -278,7 +280,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                 primary="Mining"
               />
             </ListItemButton>
-          </ListItem> */}
+          </ListItem>
           <Collapse in={openMiningMenu} timeout="auto" unmountOnExit>
             <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
             <div>
@@ -304,7 +306,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
               </ListItem>
               <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
             </div>
-            {/* {currentRoleMining !== 'Viewer' && (
+            {currentRoleMining !== 'Viewer' && (
               <div>
                 <ListItem
                   className={location.pathname === '/mining/myProfile' ? 'active-custom' : ''}
@@ -522,11 +524,11 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                   </ListItem>
                 </div>
               </>
-            )} */}
+            )}
           </Collapse>
           <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
           <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
-          {/* <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} /> */}
+          <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
         </div>
       </List>
     </Box>

@@ -31,6 +31,7 @@ import {
 import { convertDigits } from '../consts/converter';
 import { contractMapping } from '../consts/contract';
 
+
 const RedirectToDashboard = () => {
   const navigate = useNavigate();
 
@@ -132,24 +133,6 @@ const MainPage = () => {
     getReservedAmount();
   }, [reservedAmount, userAddress]);
 
-  // useEffect(() => {
-  //   const getCurrentBlockInfo = async () => {
-  //     const blockInfoResult = await fetch(`${apiMapping.stackingInfo}`)
-  //       .then((res) => res.json())
-  //       .then((res) => res);
-  //     if (await blockInfoResult) {
-  //       let cycleBlockNr =
-  //         (blockInfoResult['next_cycle']['reward_phase_start_block_height'] -
-  //           blockInfoResult['next_cycle']['prepare_phase_start_block_height']) *
-  //         21;
-  //       setCurrentBurnBlockHeight(blockInfoResult['current_burnchain_block_height']);
-  //       setPreparePhaseStartBlockHeight(blockInfoResult['next_cycle']['prepare_phase_start_block_height']);
-  //       setRewardPhaseStartBlockHeigh(blockInfoResult['next_cycle']['reward_phase_start_block_height'] - cycleBlockNr);
-  //     }
-  //   };
-  //   getCurrentBlockInfo();
-  // }, [setCurrentBurnBlockHeight, setPreparePhaseStartBlockHeight, setRewardPhaseStartBlockHeigh]);
-
   useEffect(() => {
     if (userSession.isUserSignedIn()) {
       const args = userSession.loadUserData().profile.stxAddress[localNetwork];
@@ -236,14 +219,14 @@ const MainPage = () => {
       </div>
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="mining/dashboard" index element={<Dashboard />} />
+        <Route path="mining/dashboard" index element={<Dashboard currentBurnBlockHeight={currentBurnBlockHeight} />} />
         <Route path="/mining/pool/miners" element={<MiningPool />} />
         <Route path="/mining/voting" element={<Voting />} />
         <Route path="mining/myProfile" element={<Profile />} />
         <Route path="/mining/pool/status" element={<MiningPoolStatus />} />
         <Route path="/mining/voting/joiners" element={<VotingJoiners />} />
         <Route path="/mining/voting/removals" element={<VotingRemovals />} />
-        <Route path="/mining/voting/notifier" element={<VotingNotifier />} /> */}
+        <Route path="/mining/voting/notifier" element={<VotingNotifier />} />
         <Route path="/profile/:address" element={<MinerProfileDetails />} />
         <Route path="/stacking" element={<RedirectToDashboard />} />
         <Route

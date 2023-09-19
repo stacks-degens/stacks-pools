@@ -17,7 +17,7 @@ import {
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import {
-  // readOnlyAddressStatusMining,
+  readOnlyAddressStatusMining,
   readOnlyAddressStatusStacking,
   readOnlyGetLiquidityProvider,
 } from '../consts/readOnly';
@@ -73,6 +73,7 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
   }, [connectedWallet]);
 
   useEffect(() => {
+
     const fetchStatusStacking = async () => {
       if (userSession.isUserSignedIn()) {
         const args = userSession.loadUserData().profile.stxAddress[localNetwork];
@@ -98,32 +99,6 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
   useEffect(() => {
     controlAccessRoutes();
   }, [location]);
-
-  // useEffect(() => {
-  //   const fetchStatus = async () => {
-  //     if (userSession.isUserSignedIn()) {
-  //       const args = userSession.loadUserData().profile.stxAddress[localNetwork];
-  //       const statusMining = await readOnlyAddressStatusMining(args);
-  //       setFinalStatusMining(statusMining);
-  //       updateUserRoleActionMining(finalStatusMining);
-  //     }
-  //   };
-
-  //   fetchStatus();
-
-  //   if (currentRoleMining === 'Viewer') {
-  //     dispatch(updateUserRoleActionMining(finalStatusMining));
-  //   }
-  // }, [finalStatusMining]);
-
-  // useEffect(() => {
-  //   const getCurrentLiquidityProvider = async () => {
-  //     const liquidityProvider = await readOnlyGetLiquidityProvider();
-  //     setCurrentLiquidityProvider(liquidityProvider);
-  //   };
-
-  //   getCurrentLiquidityProvider();
-  // }, [currentLiquidityProvider]);
 
   return (
     <div>

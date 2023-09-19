@@ -9,7 +9,9 @@ import { useAppSelector } from '../../../redux/store';
 import {
   readOnlyGetBlocksWonMining,
   ReadOnlyGetMinersList,
+  ReadOnlyGetMinersNumber,
   readOnlyGetNotifier,
+  readOnlyGetPoolSpendPerBlock,
   readOnlyGetStacksRewardsMining,
 } from '../../../consts/readOnly';
 import DashboardInfoContainer from '../../reusableComponents/dashboard/DashboardInfoContainer';
@@ -23,7 +25,9 @@ interface IDashboardProps {
 
 const Dashboard = ({ currentBurnBlockHeight }: IDashboardProps) => {
   const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);
+  const [poolSpendPerBlock, setPoolSpendPerBlock] = useState<number | null>(null);
   const [minersList, setMinersList] = useState<Array<string>>([]);
+  const [minersNumber, setMinersNumber] = useState<number | null>(null);
   const currentRole: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
   const [userAddress, setUserAddress] = useState<string | null>(null);
   const [blocksWon, setBlocksWon] = useState<number | null>(null);
@@ -40,6 +44,15 @@ const Dashboard = ({ currentBurnBlockHeight }: IDashboardProps) => {
 
     getCurrentNotifier();
   }, [currentNotifier]);
+
+  useEffect(() => {
+    const getSpendPerBlock = async () => {
+      const notifier = await readOnlyGetPoolSpendPerBlock();
+      setPoolSpendPerBlock(notifier);
+    };
+
+    getSpendPerBlock();
+  }, [poolSpendPerBlock]);
 
   useEffect(() => {
     if (userSession.isUserSignedIn()) {
@@ -75,6 +88,14 @@ const Dashboard = ({ currentBurnBlockHeight }: IDashboardProps) => {
     getStacksRewards();
   }, [stacksRewards]);
 
+  useEffect(() => {
+    const getMinersNumber = async () => {
+      const minersNumber = await ReadOnlyGetMinersNumber();
+      setMinersNumber(minersNumber);
+    };
+    getMinersNumber();
+  }, [minersNumber]);
+
   return (
     <div className="dashboard-page-main-container">
       <div style={{ color: colors[appCurrentTheme].colorWriting }} className="page-heading-title">
@@ -91,6 +112,8 @@ const Dashboard = ({ currentBurnBlockHeight }: IDashboardProps) => {
             userAddress={userAddress}
             currentRole={currentRole}
             currentBurnBlockHeight={currentBurnBlockHeight}
+            minersNumber={minersNumber}
+            poolTotalSpendPerBlock={poolSpendPerBlock}
           />
         </div>
       </div>
