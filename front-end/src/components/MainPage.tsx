@@ -30,7 +30,7 @@ import {
 } from '../consts/readOnly';
 import { convertDigits } from '../consts/converter';
 import { contractMapping } from '../consts/contract';
-
+import { cvToJSON } from '@stacks/transactions';
 
 const RedirectToDashboard = () => {
   const navigate = useNavigate();
@@ -61,6 +61,7 @@ const MainPage = () => {
   const [blocksRewarded, setBlocksRewarded] = useState<number | null>(null);
   const [bitcoinRewards, setBitcoinRewards] = useState<number | null>(null);
   const [minimumDepositProvider, setMinimumDepositProvider] = useState<number | null>(null);
+  const [mempoolTxs, setMempoolTxs] = useState([]);
   const currentRole: UserRoleStacking = useAppSelector(selectCurrentUserRoleStacking);
   const localNetwork = network === 'devnet' ? 'testnet' : network;
 
@@ -82,6 +83,32 @@ const MainPage = () => {
     };
     getCurrentBlockInfo();
   }, [setCurrentBurnBlockHeight, setCurrentCycle, setPreparePhaseStartBlockHeight, setRewardPhaseStartBlockHeigh]);
+
+  useEffect(() => {
+    const getCurrentMempoolInfo = async () => {
+      let mempoolInfoResult;
+      console.log('connected wallet', connectedWallet);
+      if (connectedWallet !== null) {
+        mempoolInfoResult = await fetch(`${apiMapping.mempoolInfo(connectedWallet)}`)
+          .then((res) => res.json())
+          .then((res) => res);
+      }
+      console.log('mempool', mempoolInfoResult);
+      if (mempoolInfoResult && (await mempoolInfoResult.length) > 0) {
+        console.log('mempoolInfoResult', mempoolInfoResult);
+        setMempoolTxs(mempoolInfoResult);
+        // let cycleBlockNr =
+        //   (mempoolInfoResult['next_cycle']['reward_phase_start_block_height'] -
+        //     mempoolInfoResult['next_cycle']['prepare_phase_start_block_height']) *
+        //   21;
+        // setCurrentBurnBlockHeight(mempoolInfoResult['current_burnchain_block_height']);
+        // setCurrentCycle(mempoolInfoResult['current_cycle']['id']);
+        // setPreparePhaseStartBlockHeight(mempoolInfoResult['next_cycle']['prepare_phase_start_block_height']);
+        // setRewardPhaseStartBlockHeigh(mempoolInfoResult['next_cycle']['reward_phase_start_block_height'] - cycleBlockNr);
+      }
+    };
+    getCurrentMempoolInfo();
+  }, [mempoolTxs, connectedWallet]);
 
   useEffect(() => {
     if (userSession.isUserSignedIn()) {

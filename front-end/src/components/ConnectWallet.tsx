@@ -73,13 +73,12 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
   }, [connectedWallet]);
 
   useEffect(() => {
-
     const fetchStatusStacking = async () => {
       if (userSession.isUserSignedIn()) {
         const args = userSession.loadUserData().profile.stxAddress[localNetwork];
         const statusStacking = await readOnlyAddressStatusStacking(args);
         setFinalStatusStacking(statusStacking);
-        updateUserRoleActionStacking(finalStatusStacking);
+        dispatch(updateUserRoleActionStacking(finalStatusStacking));
       }
     };
 
@@ -89,6 +88,24 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
       dispatch(updateUserRoleActionStacking(finalStatusStacking));
     }
   }, [finalStatusStacking]);
+
+  useEffect(() => {
+    const fetchStatusMining = async () => {
+      if (userSession.isUserSignedIn()) {
+        const args = userSession.loadUserData().profile.stxAddress[localNetwork];
+        const statusMining = await readOnlyAddressStatusMining(args);
+        console.log('status:', statusMining);
+        setFinalStatusMining(statusMining);
+        dispatch(updateUserRoleActionMining(finalStatusMining));
+      }
+    };
+
+    fetchStatusMining();
+
+    if (currentRoleMining === 'Viewer') {
+      dispatch(updateUserRoleActionStacking(finalStatusStacking));
+    }
+  }, [finalStatusMining]);
 
   useEffect(() => {
     if (userSession.isUserSignedIn()) {

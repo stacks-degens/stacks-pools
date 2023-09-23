@@ -58,7 +58,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
   const [openMiningPoolMenu, setOpenMiningPoolMenu] = useState<boolean>(false);
   const [openVotingMenu, setOpenVotingMenu] = useState<boolean>(false);
-  const [openStackingMenu, setOpenStackingMenu] = useState<boolean>(true);
+  const [openStackingMenu, setOpenStackingMenu] = useState<boolean>(false);
   const [openMiningMenu, setOpenMiningMenu] = useState<boolean>(false);
 
   const location = useLocation();
@@ -81,6 +81,8 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
 
   const currentRoleMining: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
   const currentRoleStacking: UserRoleStacking = useAppSelector(selectCurrentUserRoleStacking);
+
+  console.log(currentRoleMining);
 
   const toggleDrawer = (anchor: Anchor, open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
     if (

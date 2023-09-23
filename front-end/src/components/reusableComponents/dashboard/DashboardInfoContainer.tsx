@@ -97,7 +97,20 @@ const DashboardInfoContainer = ({
         </div>
       </div>
       {currentRole === 'NormalUser' && (
-        <div className="footer-join-button-container">
+        <div style={{ alignContent: 'center', textAlign: 'center' }}>
+          <div>
+            <label className="custom-label">Insert your Bitcoin public key</label>
+            <div className="bottom-margins" style={{ width: '20vw', margin: 'auto' }}>
+              <input
+                className="custom-input"
+                type="text"
+                // TODO: add onChange for publicKey input and operate join operation with it
+                // onChange={(e) => setBtcAddress(e.target.value)}
+              ></input>
+            </div>
+          </div>
+          <br />
+          <br />
           <button
             className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
             onClick={() => {

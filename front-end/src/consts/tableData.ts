@@ -76,24 +76,35 @@ export const waitingColumns: WaitingColumnData[] = [
 ];
 
 export const GetWaitingRows = () => {
-  const [waitingList, setWaitingList] = useState<ClarityValue[]>([]);
-  const [addressList, setAddressList] = useState<ClarityValue[]>([]);
+  // const [waitingList, setWaitingList] = useState<ClarityValue[]>([]);
+  // const [addressList, setAddressList] = useState<ClarityValue[]>([]);
+  const [waitingList, setWaitingList] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
       const fullWaitingList = await ReadOnlyGetWaitingList();
+      console.log('fullWaitingList', fullWaitingList);
       const newWaitingList = await ReadOnlyAllDataWaitingMiners(fullWaitingList);
-      setWaitingList(newWaitingList.newResultList);
-      setAddressList(newWaitingList.newAddressList);
+      console.log('newWaitingList', newWaitingList);
+
+      if (newWaitingList) {
+        setWaitingList({ resultList: newWaitingList.newResultList, addressList: newWaitingList.newAddressList });
+        // setWaitingList(newWaitingList.newResultList);
+        // setAddressList(newWaitingList.newAddressList);
+      }
+      // console.log('addressList', addressList);
     };
     fetchData();
   }, []);
 
   const rows =
-    waitingList.length !== 0
-      ? waitingList.map((miner: ClarityValue, index: number) => {
+    Object.keys(waitingList).length !== 0
+      ? waitingList.resultList.map((miner: ClarityValue, index: number) => {
+          console.log('miner', cvToJSON(miner));
+          console.log('index', index);
+          // console.log('waitingAddress', addressList);
           const waitingValue = cvToJSON(miner).value[0].value.value;
-          const waitingAddress = cvToJSON(addressList[index]).value[0].value;
+          const waitingAddress = cvToJSON(waitingList.addressList[index]).value[0].value;
           return createWaitingData(
             index,
             waitingAddress,

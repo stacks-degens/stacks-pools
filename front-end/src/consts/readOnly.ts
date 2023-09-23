@@ -102,6 +102,7 @@ export const ReadOnlyAllDataWaitingMiners = async (fullWaitingList: ClarityValue
     currentIndex = currentIndex + step
   ) {
     const newWaitingList = fromResultToList(fullWaitingList, currentIndex, currentIndex + step);
+    console.log('newWaitingList', newWaitingList);
     const newResult = await ReadOnlyFunctions(
       type,
       [newWaitingList],

@@ -38,9 +38,11 @@ export const fromResultToList = (result: ClarityValue, start: number, end: numbe
 
   (result as ListCV).list.forEach((x: ClarityValue) => {
     listArg.push(x);
+    console.log('address: ', x);
   });
   listArg.slice(start, end).forEach((x: ClarityValue) => convertedArg.push(x));
 
+  console.log('convertedArg', convertedArg);
   return listCV(convertedArg);
 };
 

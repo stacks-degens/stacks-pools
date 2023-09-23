@@ -14,7 +14,7 @@ export type developmentType = 'prod' | 'local';
 export const network: networkType = process.env.REACT_APP_NETWORK || 'devnet';
 export const development: developmentType = process.env.REACT_APP_DEVELOPMENT || 'local';
 
-type ApiMapping = { blockInfo: string; stackingInfo: string };
+type ApiMapping = { blockInfo: string; stackingInfo: string; mempoolInfo: (address: string) => string };
 type ApiUrl = Record<networkType, string>;
 type ExplorerUrl = Record<networkType, [string, string]>;
 type TransactionMapping = (txId: string) => { apiUrl: string; explorerUrl: string; explorerUrlAddress: string };
@@ -44,6 +44,7 @@ export const apiUrl: Record<developmentType, ApiUrl> = {
 export const apiMapping: ApiMapping = {
   blockInfo: `${apiUrl[development][network]}/extended/v1/block`,
   stackingInfo: `${apiUrl[development][network]}/v2/pox`,
+  mempoolInfo: (address: string) => `${apiUrl[development][network]}/extended/v1/address/${address}/mempool?limit=50`,
 };
 
 export const transactionUrl: TransactionMapping = (txId: string) => ({
