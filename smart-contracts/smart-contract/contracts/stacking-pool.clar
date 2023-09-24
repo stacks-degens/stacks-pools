@@ -250,6 +250,31 @@
             (var-get calc-delegated-balance) 
             user-delegated-balance)))))))
 
+;; batch public function to distribute rewards for multiple blocks at a time
+(define-public (batch-reward-distribution (burn-block-list (list 300 uint)))
+(ok (map batch-reward-distribution-one-block burn-block-list)))
+
+;; private tool function for the batch rewards distribution function
+(define-private (batch-reward-distribution-one-block (rewarded-burn-block uint))
+(let ((reward-cycle 
+        (contract-call? 'ST000000000000000000002AMW42H.pox-3 burn-height-to-reward-cycle rewarded-burn-block))
+      (stackers-list-for-reward-cycle 
+        (default-to (list ) (get stackers-list (map-get? updated-sc-balances {reward-cycle: reward-cycle})))))
+          (if 
+            (and 
+              (< rewarded-burn-block burn-block-height)
+              (check-won-block-rewards rewarded-burn-block) 
+              (is-none (map-get? already-rewarded {burn-block-height: rewarded-burn-block}))
+              (var-set amount-rewarded (+ (var-get amount-rewarded) (default-to u0 (get reward (map-get? burn-block-rewards { burn-height: rewarded-burn-block})))))
+              (var-set blocks-rewarded (+ (var-get blocks-rewarded) u1))
+              (map-set already-rewarded {burn-block-height: rewarded-burn-block} {value: true})
+              (var-set reward-cycle-to-distribute-rewards reward-cycle)
+              (var-set burn-block-to-distribute-rewards rewarded-burn-block)
+              (default-to false (get calculated (map-get? calculated-weights-reward-cycles {reward-cycle: reward-cycle})))
+              (is-ok (transfer-rewards-all-stackers stackers-list-for-reward-cycle)))
+            burn-block-height
+            u0)))
+
 ;; The rewards will be distributed. At that moment, the SC balance should have been updated and the stackers' weights calculated
 (define-public (reward-distribution (rewarded-burn-block uint))
 (let ((reward-cycle 
@@ -577,6 +602,19 @@
       (register-block-reward burn-height)
       true) 
     false)))
+
+;; batch read-only to check the burn blocks reward status
+(define-read-only (check-won-block-rewards-batch (burn-blocks-list (list 300 uint))) 
+(ok (map check-won-block-rewards-one-block burn-blocks-list)))
+
+;; check if pool pox address has won the rewards for a given burn height and store the reward if true
+(define-private (check-won-block-rewards-one-block (burn-height uint)) 
+(let ((reward-pox-addr-list (default-to (list ) (get addrs (get-burn-block-info? pox-addrs burn-height))))) 
+  (if   
+    (is-some 
+      (index-of? reward-pox-addr-list (var-get pool-pox-address))) 
+    burn-height 
+    u0)))
 
 ;; store the reward for a given block using a map
 (define-private (register-block-reward (burn-height uint)) 
