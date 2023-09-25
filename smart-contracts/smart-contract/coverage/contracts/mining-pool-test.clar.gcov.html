@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2023-08-18 21:53:02</td>
+            <td class="headerValue">2023-09-25 18:11:37</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
@@ -169,9 +169,9 @@
 <a name="98"><span class="lineNum">      98 </span>                :            : (define-data-var temp-distributed-change-funds uint u0)</a>
 <a name="99"><span class="lineNum">      99 </span>                :            : (define-data-var temp-change-after-flushing uint u0)</a>
 <a name="100"><span class="lineNum">     100 </span>                :            : </a>
-<a name="101"><span class="lineNum">     101 </span>                :<span class="lineCov">         41 : (map-set map-is-miner {address: tx-sender} {value: true})</span></a>
-<a name="102"><span class="lineNum">     102 </span>                :<span class="lineCov">         41 : (map-set map-block-joined {address: tx-sender} {block-height: block-height})</span></a>
-<a name="103"><span class="lineNum">     103 </span>                :<span class="lineCov">         41 : (map-set balance tx-sender u0)</span></a>
+<a name="101"><span class="lineNum">     101 </span>                :<span class="lineCov">         40 : (map-set map-is-miner {address: tx-sender} {value: true})</span></a>
+<a name="102"><span class="lineNum">     102 </span>                :<span class="lineCov">         40 : (map-set map-block-joined {address: tx-sender} {block-height: block-height})</span></a>
+<a name="103"><span class="lineNum">     103 </span>                :<span class="lineCov">         40 : (map-set balance tx-sender u0)</span></a>
 <a name="104"><span class="lineNum">     104 </span>                :            : ;; at new join -&gt; block height - last-join-done &gt;= 100 !</a>
 <a name="105"><span class="lineNum">     105 </span>                :            : </a>
 <a name="106"><span class="lineNum">     106 </span>                :            : ;; READ ONLY FE UTILS</a>
@@ -340,22 +340,22 @@
 <a name="269"><span class="lineNum">     269 </span>                :<span class="lineNoCov">          0 :   (map-get? btc-address {address: miner-address}))</span></a>
 <a name="270"><span class="lineNum">     270 </span>                :            : </a>
 <a name="271"><span class="lineNum">     271 </span>                :            : (define-public (set-my-btc-address (new-btc-address (string-ascii 41))) </a>
-<a name="272"><span class="lineNum">     272 </span>                :<span class="lineNoCov">          0 :   (ok (map-set btc-address {address: tx-sender} {btc-address: new-btc-address})))</span></a>
+<a name="272"><span class="lineNum">     272 </span>                :<span class="lineNoCov">          0 :   (ok (map-set btc-address {address: contract-caller} {btc-address: new-btc-address})))</span></a>
 <a name="273"><span class="lineNum">     273 </span>                :            : </a>
 <a name="274"><span class="lineNum">     274 </span>                :            : ;; deposit funds</a>
 <a name="275"><span class="lineNum">     275 </span>                :            : (define-public (deposit-stx (amount uint))</a>
-<a name="276"><span class="lineNum">     276 </span>                :<span class="lineNoCov">          0 : (let ((sender tx-sender)</span></a>
+<a name="276"><span class="lineNum">     276 </span>                :<span class="lineNoCov">          0 : (let ((sender contract-caller)</span></a>
 <a name="277"><span class="lineNum">     277 </span>                :<span class="lineNoCov">          0 :       (balance-sender (map-get? balance sender)))</span></a>
-<a name="278"><span class="lineNum">     278 </span>                :<span class="lineNoCov">          0 :   (try! (stx-transfer? amount tx-sender (as-contract tx-sender)))</span></a>
+<a name="278"><span class="lineNum">     278 </span>                :<span class="lineNoCov">          0 :   (try! (stx-transfer? amount contract-caller (as-contract tx-sender)))</span></a>
 <a name="279"><span class="lineNum">     279 </span>                :<span class="lineNoCov">          0 :   (if (is-none balance-sender) </span></a>
 <a name="280"><span class="lineNum">     280 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (ok (map-set balance sender amount))</span></a>
 <a name="281"><span class="lineNum">     281 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (ok (map-set balance sender (+ (unwrap! balance-sender err-missing-balance) amount))))))</span></a>
 <a name="282"><span class="lineNum">     282 </span>                :            : </a>
 <a name="283"><span class="lineNum">     283 </span>                :            : ;; withdraw funds</a>
 <a name="284"><span class="lineNum">     284 </span>                :            : (define-public (withdraw-stx (amount uint)) </a>
-<a name="285"><span class="lineNum">     285 </span>                :<span class="lineNoCov">          0 : (let ((receiver tx-sender)) </span></a>
+<a name="285"><span class="lineNum">     285 </span>                :<span class="lineNoCov">          0 : (let ((receiver contract-caller)) </span></a>
 <a name="286"><span class="lineNum">     286 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (asserts! (&gt;= (unwrap! (map-get? balance receiver) err-missing-balance) amount) err-insufficient-balance)</span></a>
-<a name="287"><span class="lineNum">     287 </span>                :<span class="lineNoCov">          0 :   (try! (as-contract (stx-transfer? amount (as-contract tx-sender) receiver)))</span></a>
+<a name="287"><span class="lineNum">     287 </span>                :<span class="lineNoCov">          0 :   (try! (as-contract (stx-transfer? amount tx-sender receiver)))</span></a>
 <a name="288"><span class="lineNum">     288 </span>                :<span class="lineNoCov">          0 :   (if </span></a>
 <a name="289"><span class="lineNum">     289 </span>                :<span class="lineNoCov">          0 :     (is-some (get value (map-get? map-total-withdraw {address: receiver}))) </span></a>
 <a name="290"><span class="lineNum">     290 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (map-set map-total-withdraw {address: receiver} {value: (+ (unwrap-panic (get value (map-get? map-total-withdraw {address: receiver}))) amount)}) </span></a>
@@ -364,7 +364,7 @@
 <a name="293"><span class="lineNum">     293 </span>                :            : </a>
 <a name="294"><span class="lineNum">     294 </span>                :            : ;; exchange funds</a>
 <a name="295"><span class="lineNum">     295 </span>                :            : (define-public (set-auto-exchange (new-value bool)) </a>
-<a name="296"><span class="lineNum">     296 </span>                :<span class="lineNoCov">          0 :   (ok (map-set auto-exchange {address: tx-sender} {value: new-value})))</span></a>
+<a name="296"><span class="lineNum">     296 </span>                :<span class="lineNoCov">          0 :   (ok (map-set auto-exchange {address: contract-caller} {value: new-value})))</span></a>
 <a name="297"><span class="lineNum">     297 </span>                :            : </a>
 <a name="298"><span class="lineNum">     298 </span>                :            : (define-read-only (get-auto-exchange (address principal)) </a>
 <a name="299"><span class="lineNum">     299 </span>                :<span class="lineNoCov">          0 :   (map-get? auto-exchange {address: address}))</span></a>
@@ -417,10 +417,10 @@
 <a name="346"><span class="lineNum">     346 </span>                :<span class="lineNoCov">          0 : (begin </span></a>
 <a name="347"><span class="lineNum">     347 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (asserts! (not (check-is-miner-now contract-caller)) err-already-joined) </span></a>
 <a name="348"><span class="lineNum">     348 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (asserts! (not (check-is-waiting-now contract-caller)) err-already-asked-to-join) </span></a>
-<a name="349"><span class="lineNum">     349 </span>                :<span class="lineNoCov">          0 :   (map-set map-block-asked-to-join {address: tx-sender} {value: block-height})</span></a>
-<a name="350"><span class="lineNum">     350 </span>                :<span class="lineNoCov">          0 :   (map-set btc-address {address: tx-sender} {btc-address: my-btc-address})</span></a>
-<a name="351"><span class="lineNum">     351 </span>                :<span class="lineNoCov">          0 :   (var-set waiting-list (unwrap-panic (as-max-len? (concat (var-get waiting-list) (list tx-sender)) u300)))</span></a>
-<a name="352"><span class="lineNum">     352 </span>                :<span class="lineNoCov">          0 :   (map-set map-is-waiting {address: tx-sender} {value: true})</span></a>
+<a name="349"><span class="lineNum">     349 </span>                :<span class="lineNoCov">          0 :   (map-set map-block-asked-to-join {address: contract-caller} {value: block-height})</span></a>
+<a name="350"><span class="lineNum">     350 </span>                :<span class="lineNoCov">          0 :   (map-set btc-address {address: contract-caller} {btc-address: my-btc-address})</span></a>
+<a name="351"><span class="lineNum">     351 </span>                :<span class="lineNoCov">          0 :   (var-set waiting-list (unwrap-panic (as-max-len? (concat (var-get waiting-list) (list contract-caller)) u300)))</span></a>
+<a name="352"><span class="lineNum">     352 </span>                :<span class="lineNoCov">          0 :   (map-set map-is-waiting {address: contract-caller} {value: true})</span></a>
 <a name="353"><span class="lineNum">     353 </span>                :<span class="lineNoCov">          0 :   (ok true)))</span></a>
 <a name="354"><span class="lineNum">     354 </span>                :            : </a>
 <a name="355"><span class="lineNum">     355 </span>                :            : (define-public (vote-positive-join-request (miner-to-vote principal))</a>
@@ -429,7 +429,7 @@
 <a name="358"><span class="lineNum">     358 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (unwrap! (check-is-miner-when-requested-join miner-to-vote) err-cant-unwrap-check-miner) err-no-vote-permission)</span></a>
 <a name="359"><span class="lineNum">     359 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (has-voted-join miner-to-vote) err-already-voted) ;; O(1)</span></a>
 <a name="360"><span class="lineNum">     360 </span>                :<span class="lineNoCov">          0 :     (map-set map-join-request-voter </span></a>
-<a name="361"><span class="lineNum">     361 </span>                :<span class="lineNoCov">          0 :       {miner-to-vote: miner-to-vote, voter: tx-sender} </span></a>
+<a name="361"><span class="lineNum">     361 </span>                :<span class="lineNoCov">          0 :       {miner-to-vote: miner-to-vote, voter: contract-caller} </span></a>
 <a name="362"><span class="lineNum">     362 </span>                :<span class="lineNoCov">          0 :       {value: true})</span></a>
 <a name="363"><span class="lineNum">     363 </span>                :<span class="lineNoCov">          0 :     (if (is-some (get value (map-get? map-votes-accept-join {address: miner-to-vote}))) </span></a>
 <a name="364"><span class="lineNum">     364 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (map-set map-votes-accept-join {address: miner-to-vote} {value: (+ (unwrap-panic (get value (map-get? map-votes-accept-join {address: miner-to-vote}))) u1)})</span></a>
@@ -442,7 +442,7 @@
 <a name="371"><span class="lineNum">     371 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (unwrap! (check-is-miner-when-requested-join miner-to-vote) err-cant-unwrap-check-miner) err-no-vote-permission)</span></a>
 <a name="372"><span class="lineNum">     372 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (has-voted-join miner-to-vote) err-already-voted)    </span></a>
 <a name="373"><span class="lineNum">     373 </span>                :<span class="lineNoCov">          0 :     (map-set map-join-request-voter </span></a>
-<a name="374"><span class="lineNum">     374 </span>                :<span class="lineNoCov">          0 :       {miner-to-vote: miner-to-vote, voter: tx-sender} </span></a>
+<a name="374"><span class="lineNum">     374 </span>                :<span class="lineNoCov">          0 :       {miner-to-vote: miner-to-vote, voter: contract-caller} </span></a>
 <a name="375"><span class="lineNum">     375 </span>                :<span class="lineNoCov">          0 :       {value: true})</span></a>
 <a name="376"><span class="lineNum">     376 </span>                :<span class="lineNoCov">          0 :     (if (is-some (get value (map-get? map-votes-reject-join {address: miner-to-vote}))) </span></a>
 <a name="377"><span class="lineNum">     377 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (map-set map-votes-reject-join {address: miner-to-vote} {value: (+ (unwrap-panic (get value (map-get? map-votes-reject-join {address: miner-to-vote}))) u1)})</span></a>
@@ -507,15 +507,15 @@
 <a name="436"><span class="lineNum">     436 </span>                :<span class="lineNoCov">          0 : (is-some (index-of? voters-list miner)))</span></a>
 <a name="437"><span class="lineNum">     437 </span>                :            : </a>
 <a name="438"><span class="lineNum">     438 </span>                :            : (define-private (has-voted-join (miner principal)) </a>
-<a name="439"><span class="lineNum">     439 </span>                :<span class="lineNoCov">          0 : (not (if (is-some (get value (map-get? map-join-request-voter {miner-to-vote: miner, voter: tx-sender})))</span></a>
-<a name="440"><span class="lineNum">     440 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :           (unwrap-panic (get value (map-get? map-join-request-voter {miner-to-vote: miner, voter: tx-sender})))</span></a>
+<a name="439"><span class="lineNum">     439 </span>                :<span class="lineNoCov">          0 : (not (if (is-some (get value (map-get? map-join-request-voter {miner-to-vote: miner, voter: contract-caller})))</span></a>
+<a name="440"><span class="lineNum">     440 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :           (unwrap-panic (get value (map-get? map-join-request-voter {miner-to-vote: miner, voter: contract-caller})))</span></a>
 <a name="441"><span class="lineNum">     441 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :           false)))</span></a>
 <a name="442"><span class="lineNum">     442 </span>                :            : </a>
 <a name="443"><span class="lineNum">     443 </span>                :            : (define-public (try-enter-pool)</a>
 <a name="444"><span class="lineNum">     444 </span>                :<span class="lineNoCov">          0 : (begin </span></a>
-<a name="445"><span class="lineNum">     445 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (asserts! (is-some (get value (map-get? map-votes-accept-join {address: tx-sender}))) err-not-asked-to-join)</span></a>
-<a name="446"><span class="lineNum">     446 </span>                :<span class="lineNoCov">          0 :   (if (is-vote-accepted (unwrap-panic (get value (map-get? map-votes-accept-join {address: tx-sender}))) (unwrap-panic (get-k-at-block-asked-to-join tx-sender)))</span></a>
-<a name="447"><span class="lineNum">     447 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (accept-miner-in-pool tx-sender) </span></a>
+<a name="445"><span class="lineNum">     445 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (asserts! (is-some (get value (map-get? map-votes-accept-join {address: contract-caller}))) err-not-asked-to-join)</span></a>
+<a name="446"><span class="lineNum">     446 </span>                :<span class="lineNoCov">          0 :   (if (is-vote-accepted (unwrap-panic (get value (map-get? map-votes-accept-join {address: contract-caller}))) (unwrap-panic (get-k-at-block-asked-to-join contract-caller)))</span></a>
+<a name="447"><span class="lineNum">     447 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (accept-miner-in-pool contract-caller) </span></a>
 <a name="448"><span class="lineNum">     448 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (ok false))))</span></a>
 <a name="449"><span class="lineNum">     449 </span>                :            : </a>
 <a name="450"><span class="lineNum">     450 </span>                :            : (define-public (add-pending-miners-to-pool) </a>
@@ -588,15 +588,15 @@
 <a name="517"><span class="lineNum">     517 </span>                :<span class="lineNoCov">          0 : (begin </span></a>
 <a name="518"><span class="lineNum">     518 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (asserts! (check-is-miner-now contract-caller) err-not-in-miner-map)</span></a>
 <a name="519"><span class="lineNum">     519 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (asserts! (not (is-eq (var-get notifier) contract-caller)) err-currently-notifier)</span></a>
-<a name="520"><span class="lineNum">     520 </span>                :<span class="lineNoCov">          0 :   (let ((remove-result (unwrap-panic (remove-principal-miners-list tx-sender)))</span></a>
+<a name="520"><span class="lineNum">     520 </span>                :<span class="lineNoCov">          0 :   (let ((remove-result (unwrap-panic (remove-principal-miners-list contract-caller)))</span></a>
 <a name="521"><span class="lineNum">     521 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :         (new-k-percentage (if (&gt; (var-get n) u2) (/ (* (var-get k) u100) (- (var-get n) u2)) u100))) </span></a>
 <a name="522"><span class="lineNum">     522 </span>                :            :         ;; if n&lt;=2, set a value for new-k-percentage &gt; k-critical to make sure threshold is updated</a>
 <a name="523"><span class="lineNum">     523 </span>                :<span class="lineNoCov">          0 :     (some (var-set miners-list remove-result))</span></a>
 <a name="524"><span class="lineNum">     524 </span>                :<span class="lineNoCov">          0 :     (var-set n (- (var-get n) u1))</span></a>
-<a name="525"><span class="lineNum">     525 </span>                :<span class="lineNoCov">          0 :     (map-set map-is-miner {address: tx-sender} {value: false})</span></a>
+<a name="525"><span class="lineNum">     525 </span>                :<span class="lineNoCov">          0 :     (map-set map-is-miner {address: contract-caller} {value: false})</span></a>
 <a name="526"><span class="lineNum">     526 </span>                :<span class="lineNoCov">          0 :     (if </span></a>
-<a name="527"><span class="lineNum">     527 </span>                :<span class="lineNoCov">          0 :       (is-some (index-of? (var-get proposed-removal-list) tx-sender)) </span></a>
-<a name="528"><span class="lineNum">     528 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (var-set proposed-removal-list (unwrap-panic (remove-principal-proposed-removal-list tx-sender))) </span></a>
+<a name="527"><span class="lineNum">     527 </span>                :<span class="lineNoCov">          0 :       (is-some (index-of? (var-get proposed-removal-list) contract-caller)) </span></a>
+<a name="528"><span class="lineNum">     528 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (var-set proposed-removal-list (unwrap-panic (remove-principal-proposed-removal-list contract-caller))) </span></a>
 <a name="529"><span class="lineNum">     529 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :       true)</span></a>
 <a name="530"><span class="lineNum">     530 </span>                :<span class="lineNoCov">          0 :     (if </span></a>
 <a name="531"><span class="lineNum">     531 </span>                :<span class="lineNoCov">          0 :       (&gt;= new-k-percentage (var-get k-critical)) </span></a>
@@ -631,7 +631,7 @@
 <a name="560"><span class="lineNum">     560 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (unwrap! (check-is-miner-when-requested-remove miner-to-vote) err-cant-unwrap-check-miner) err-no-vote-permission)</span></a>
 <a name="561"><span class="lineNum">     561 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (asserts! (has-voted-remove miner-to-vote) err-already-voted) ;; O(1)</span></a>
 <a name="562"><span class="lineNum">     562 </span>                :<span class="lineNoCov">          0 :     (map-set map-remove-request-voter </span></a>
-<a name="563"><span class="lineNum">     563 </span>                :<span class="lineNoCov">          0 :       {miner-to-vote: miner-to-vote, voter: tx-sender} </span></a>
+<a name="563"><span class="lineNum">     563 </span>                :<span class="lineNoCov">          0 :       {miner-to-vote: miner-to-vote, voter: contract-caller} </span></a>
 <a name="564"><span class="lineNum">     564 </span>                :<span class="lineNoCov">          0 :       {value: true})</span></a>
 <a name="565"><span class="lineNum">     565 </span>                :<span class="lineNoCov">          0 :     (if (is-some (get value (map-get? map-votes-accept-removal {address: miner-to-vote}))) </span></a>
 <a name="566"><span class="lineNum">     566 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :       (map-set map-votes-accept-removal {address: miner-to-vote} {value: (+ (unwrap-panic (get value (map-get? map-votes-accept-removal  {address: miner-to-vote}))) u1)})</span></a>
@@ -650,7 +650,7 @@
 <a name="579"><span class="lineNum">     579 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (asserts! (unwrap! (check-is-miner-when-requested-remove miner-to-vote) err-cant-unwrap-check-miner) err-no-vote-permission)</span></a>
 <a name="580"><span class="lineNum">     580 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (asserts! (has-voted-remove miner-to-vote) err-already-voted) ;; O(1)</span></a>
 <a name="581"><span class="lineNum">     581 </span>                :<span class="lineNoCov">          0 :   (map-set map-remove-request-voter </span></a>
-<a name="582"><span class="lineNum">     582 </span>                :<span class="lineNoCov">          0 :     {miner-to-vote: miner-to-vote, voter: tx-sender} </span></a>
+<a name="582"><span class="lineNum">     582 </span>                :<span class="lineNoCov">          0 :     {miner-to-vote: miner-to-vote, voter: contract-caller} </span></a>
 <a name="583"><span class="lineNum">     583 </span>                :<span class="lineNoCov">          0 :     {value: true})</span></a>
 <a name="584"><span class="lineNum">     584 </span>                :<span class="lineNoCov">          0 :   (if (is-some (get value (map-get? map-votes-reject-removal {address: miner-to-vote}))) </span></a>
 <a name="585"><span class="lineNum">     585 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (map-set map-votes-reject-removal {address: miner-to-vote} {value: (+ (unwrap-panic (get value (map-get? map-votes-reject-removal {address: miner-to-vote}))) u1)})</span></a>
@@ -706,8 +706,8 @@
 <a name="635"><span class="lineNum">     635 </span>                :<span class="lineNoCov">          0 :   (ok true)))</span></a>
 <a name="636"><span class="lineNum">     636 </span>                :            : </a>
 <a name="637"><span class="lineNum">     637 </span>                :            : (define-private (has-voted-remove (miner principal)) </a>
-<a name="638"><span class="lineNum">     638 </span>                :<span class="lineNoCov">          0 : (not (if (is-some (get value (map-get? map-remove-request-voter {miner-to-vote: miner, voter: tx-sender})))</span></a>
-<a name="639"><span class="lineNum">     639 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :           (unwrap-panic (get value (map-get? map-remove-request-voter {miner-to-vote: miner, voter: tx-sender})))</span></a>
+<a name="638"><span class="lineNum">     638 </span>                :<span class="lineNoCov">          0 : (not (if (is-some (get value (map-get? map-remove-request-voter {miner-to-vote: miner, voter: contract-caller})))</span></a>
+<a name="639"><span class="lineNum">     639 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :           (unwrap-panic (get value (map-get? map-remove-request-voter {miner-to-vote: miner, voter: contract-caller})))</span></a>
 <a name="640"><span class="lineNum">     640 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :           false</span></a>
 <a name="641"><span class="lineNum">     641 </span>                :            :   )))</a>
 <a name="642"><span class="lineNum">     642 </span>                :            : </a>
@@ -829,8 +829,8 @@
 <a name="758"><span class="lineNum">     758 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (asserts! (var-get notifier-vote-active) err-not-voting-period)</span></a>
 <a name="759"><span class="lineNum">     759 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (asserts! (not (is-eq contract-caller voted-notifier)) err-cant-vote-himself)</span></a>
 <a name="760"><span class="lineNum">     760 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (asserts! (&lt; block-height (var-get notifier-vote-end-block)) err-not-voting-period)</span></a>
-<a name="761"><span class="lineNum">     761 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (asserts! (is-none (get miner-voted (map-get? map-voted-update-notifier {miner-who-voted: tx-sender}))) err-already-voted)</span></a>
-<a name="762"><span class="lineNum">     762 </span>                :<span class="lineNoCov">          0 :   (map-set map-voted-update-notifier {miner-who-voted: tx-sender} {miner-voted: voted-notifier})</span></a>
+<a name="761"><span class="lineNum">     761 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :   (asserts! (is-none (get miner-voted (map-get? map-voted-update-notifier {miner-who-voted: contract-caller}))) err-already-voted)</span></a>
+<a name="762"><span class="lineNum">     762 </span>                :<span class="lineNoCov">          0 :   (map-set map-voted-update-notifier {miner-who-voted: contract-caller} {miner-voted: voted-notifier})</span></a>
 <a name="763"><span class="lineNum">     763 </span>                :<span class="lineNoCov">          0 :   (if (is-none (get votes-number (map-get? map-votes-notifier {voted-notifier: voted-notifier}))) </span></a>
 <a name="764"><span class="lineNum">     764 </span>           [<span class="branchNoCov" title="Branch 0 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (map-set map-votes-notifier {voted-notifier: voted-notifier} {votes-number: u1}) </span></a>
 <a name="765"><span class="lineNum">     765 </span>           [<span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :     (map-set map-votes-notifier {voted-notifier: voted-notifier} {votes-number: (+ (unwrap-panic (get votes-number (map-get? map-votes-notifier {voted-notifier: voted-notifier}))) u1)}))</span></a>
@@ -1076,7 +1076,7 @@
 <a name="1005"><span class="lineNum">    1005 </span>                :            : ;; READ-ONLY UTILS</a>
 <a name="1006"><span class="lineNum">    1006 </span>                :            : </a>
 <a name="1007"><span class="lineNum">    1007 </span>                :            : ;; (define-read-only (check-vote-accepted) ;; to check the vote status inside FE</a>
-<a name="1008"><span class="lineNum">    1008 </span>                :            : ;; (is-vote-accepted (unwrap-panic (get value (map-get? map-votes-accept-join {address: tx-sender})))))</a>
+<a name="1008"><span class="lineNum">    1008 </span>                :            : ;; (is-vote-accepted (unwrap-panic (get value (map-get? map-votes-accept-join {address: contract-caller})))))</a>
 <a name="1009"><span class="lineNum">    1009 </span>                :            : </a>
 <a name="1010"><span class="lineNum">    1010 </span>                :            : (define-read-only (get-k) </a>
 <a name="1011"><span class="lineNum">    1011 </span>                :<span class="lineNoCov">          0 : (var-get k))</span></a>
