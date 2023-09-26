@@ -82,8 +82,6 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
   const currentRoleMining: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
   const currentRoleStacking: UserRoleStacking = useAppSelector(selectCurrentUserRoleStacking);
 
-  console.log(currentRoleMining);
-
   const toggleDrawer = (anchor: Anchor, open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
     if (
       event.type === 'keydown' &&

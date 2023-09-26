@@ -3,6 +3,7 @@ import {
   readOnlyGetAllTotalWithdrawalsMining,
   ReadOnlyAllDataWaitingMiners,
   readOnlyGetRemainingBlocksJoinMining,
+  ReadOnlyGetWaitingList,
 } from '../../../consts/readOnly';
 import { selectCurrentUserRoleMining, selectUserSessionState } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
@@ -12,6 +13,7 @@ import RoleIntro from '../../reusableComponents/profile/RoleIntro';
 import { principalCV, ClarityValue, listCV, cvToJSON } from '@stacks/transactions';
 import './styles.css';
 import { network } from '../../../consts/network';
+import { convertListToListCV } from '../../../consts/converter';
 
 interface IMinerProfileProps {
   connectedWallet: string | null;
@@ -61,15 +63,24 @@ const MinerProfile = ({
 
   useEffect(() => {
     const fetchData = async () => {
-      const waitingList = await ReadOnlyAllDataWaitingMiners(userAddressAsCV);
-      const newWaitingList = cvToJSON(waitingList.newResultList[0]);
-      setPositiveVotes(newWaitingList.value[0].value.value['pos-votes'].value);
-      setPositiveVotesThreshold(newWaitingList.value[0].value.value['pos-thr'].value);
-      setNegativeVotes(newWaitingList.value[0].value.value['neg-votes'].value);
-      setNegativeVotesThreshold(newWaitingList.value[0].value.value['neg-thr'].value);
+      const waitingListResult = await ReadOnlyGetWaitingList();
+      const waitingListJson = cvToJSON(waitingListResult).value;
+
+      let waitingList: Array<string> = [];
+      waitingListJson.forEach((listItem: Record<string, string>) => waitingList.push(listItem.value));
+      const convertedWaitingList = convertListToListCV(waitingList);
+      const allDataWaiting = await ReadOnlyAllDataWaitingMiners(convertedWaitingList);
+
+      if (allDataWaiting.newResultList.length > 0) {
+        const newWaitingList = cvToJSON(allDataWaiting.newResultList[0]);
+        setPositiveVotes(newWaitingList.value[0].value.value['pos-votes'].value);
+        setPositiveVotesThreshold(newWaitingList.value[0].value.value['pos-thr'].value);
+        setNegativeVotes(newWaitingList.value[0].value.value['neg-votes'].value);
+        setNegativeVotesThreshold(newWaitingList.value[0].value.value['neg-thr'].value);
+      }
     };
     fetchData();
-  }, [userAddressAsCV]);
+  }, [positiveVotes, negativeVotes, positiveVotesThreshold, negativeVotesThreshold]);
 
   return (
     <div>

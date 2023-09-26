@@ -83,9 +83,9 @@ export const GetWaitingRows = () => {
   useEffect(() => {
     const fetchData = async () => {
       const fullWaitingList = await ReadOnlyGetWaitingList();
-      console.log('fullWaitingList', fullWaitingList);
+      console.log('fullWaitingList: ', fullWaitingList);
       const newWaitingList = await ReadOnlyAllDataWaitingMiners(fullWaitingList);
-      console.log('newWaitingList', newWaitingList);
+      console.log('newWaitingList: ', newWaitingList);
 
       if (newWaitingList) {
         setWaitingList({ resultList: newWaitingList.newResultList, addressList: newWaitingList.newAddressList });
@@ -95,7 +95,7 @@ export const GetWaitingRows = () => {
       // console.log('addressList', addressList);
     };
     fetchData();
-  }, []);
+  }, [setWaitingList]);
 
   const rows =
     Object.keys(waitingList).length !== 0

@@ -94,7 +94,6 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
       if (userSession.isUserSignedIn()) {
         const args = userSession.loadUserData().profile.stxAddress[localNetwork];
         const statusMining = await readOnlyAddressStatusMining(args);
-        console.log('status:', statusMining);
         setFinalStatusMining(statusMining);
         dispatch(updateUserRoleActionMining(finalStatusMining));
       }
