@@ -64,6 +64,19 @@ export function batchRewardsDistribution(burnBlocksList: Account[], user: Accoun
   );
 }
 
+export function batchStackStx(burnBlocksList: Account[], user: Account) {
+  return Tx.contractCall(
+    'stacking-pool-test',
+    'delegate-stack-stx-many',
+    [types.list(burnBlocksList.map((s) => types.principal(s)))],
+    user.address
+  );
+}
+
+export function stackStx(who: Account, user: Account) {
+  return Tx.contractCall('stacking-pool-test', 'delegate-stack-stx', [types.principal(who.address)], user.address);
+}
+
 // // admin functions
 
 // export function setActive(active: boolean, user: Account) {

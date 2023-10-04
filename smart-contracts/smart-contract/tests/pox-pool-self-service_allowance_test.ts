@@ -2,6 +2,7 @@ import { allowContractCaller, disallowContractCaller, getStackerInfo } from './c
 import {
   batchCheckRewards,
   batchRewardsDistribution,
+  batchStackStx,
   delegateStackStx,
   delegateStx,
   fpDelegationAllowContractCaller,
@@ -9,6 +10,7 @@ import {
   getUserData,
   joinStackingPool,
   quitStackingPool,
+  stackStx,
 } from './client/stacking-pool-client.ts';
 import { Clarinet, Chain, Account, Tx, types, assertEquals } from './deps.ts';
 import { Errors, PoxErrors, poxAddrFP, poxAddrPool1, poxAddrPool2 } from './constants.ts';
@@ -552,8 +554,82 @@ Clarinet.test({
 
     block.receipts[0].result.expectOk();
     console.log('batch block rewards distribution: ', block.receipts[0].result);
+  },
+});
 
-    assertEquals(block.height, 600);
+Clarinet.test({
+  name: 'delegate-stack-stx-many',
+
+  async fn(chain: Chain, accounts: Map<string, Account>) {
+    const mainDelegateStx = (amountUstx: number, user: Account) => {
+      return Tx.contractCall('stacking-pool-test', 'delegate-stx', [types.uint(amountUstx)], user.address);
+    };
+    const deployer = accounts.get('deployer')!;
+    const wallet_4 = accounts.get('wallet_4')!;
+    const wallet_8 = accounts.get('wallet_8')!;
+    const wallet_299 = accounts.get('wallet_299')!;
+    const mainContract = deployer.address + '.stacking-pool-test';
+
+    let batchCheckedBlocks = [];
+
+    for (let i = 100; i < 115; i++) batchCheckedBlocks.push(i);
+
+    let stackersList = [deployer.address];
+    for (let i = 1; i <= 299; i++) stackersList.push(accounts.get(`wallet_${i}`)!.address);
+
+    // Allow pool SC in pox-2, join stacking pool and delegate with 300 wallets
+    let block: any;
+
+    for (let i = 1; i <= 298; i++) {
+      let stacker = accounts.get(`wallet_${i}`)!;
+      block = chain.mineBlock([
+        allowContractCaller(mainContract, undefined, stacker),
+        joinStackingPool(stacker),
+        mainDelegateStx(1_000_000_000, stacker),
+      ]);
+      block.receipts[0].result.expectOk().expectBool(true);
+      block.receipts[1].result.expectOk().expectBool(true);
+      block.receipts[2].result.expectOk();
+    }
+
+    // Allow pool SC in pox-2, join stacking pool and delegate with wallet_300
+    block = chain.mineBlock([
+      allowContractCaller(mainContract, undefined, wallet_299),
+      joinStackingPool(wallet_299),
+      mainDelegateStx(3_780_000_000_000, wallet_299), // approximate threshold
+    ]);
+    block.receipts[0].result.expectOk().expectBool(true);
+    block.receipts[1].result.expectOk().expectBool(true);
+    block.receipts[2].result.expectOk().expectBool(true);
+
+    assertEquals(block.height, 300);
+
+    block = chain.callReadOnlyFn(mainContract, 'get-pool-members', [], deployer.address);
+    console.log('pool members: ', block);
+    // for (let i = 1; i <= 350; i++) block = chain.mineBlock([]);
+
+    block = chain.callReadOnlyFn(mainContract, 'get-stx-account', [], wallet_8.address);
+    console.log('wallet 8 stx account: ', block);
+
+    // block = chain.callReadOnlyFn(mainContract, 'get-reward-phase-length', [], wallet_299.address);
+    // console.log(block);
+    // block = chain.callReadOnlyFn(mainContract, 'get-prepare-phase-length', [], wallet_299.address);
+    // console.log(block);
+
+    // for (let i = 1; i <= 2326; i++) block = chain.mineBlock([]);
+
+    // for (let i = 1; i <= 298; i++) {
+    //   let stacker = accounts.get(`wallet_${i}`)!;
+    //   block = chain.callReadOnlyFn(mainContract, 'get-stx-account', [], stacker.address);
+    //   console.log('get-stx-account: ', block);
+    //   block = chain.mineBlock([stackStx(stacker, stacker)]);
+    //   console.log(block.receipts[0]);
+    // }
+
+    for (let i = 1; i <= 2350; i++) block = chain.mineBlock([]);
+
+    block = chain.mineBlock([batchStackStx(stackersList.slice(1, 99), deployer)]);
+    block.receipts[0].result.expectOk();
   },
 });
 

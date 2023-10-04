@@ -12,7 +12,7 @@
 ;; + In prepare phase, calculate weight of the stackers inside the pool (Notion)
 
 ;; Default length of the PoX registration window, in burnchain blocks.
-;;TODO: pox-2 mainnet address: 'SP000000000000000000002Q6VF78
+;;TODO: pox-3 mainnet address: 'SP000000000000000000002Q6VF78
 (define-constant PREPARE_CYCLE_LENGTH (get prepare-cycle-length (unwrap-panic (contract-call? 'ST000000000000000000002AMW42H.pox-3 get-pox-info))))
 
 ;; Default length of the PoX reward cycle, in burnchain blocks.
@@ -31,10 +31,10 @@
 (define-constant err-liquidity-provider-not-permitted (err u103))
 (define-constant err-wrong-moment-to-update-balances (err u123))
 (define-constant err-allow-pool-in-SC-first (err u195))
-(define-constant err-allow-pool-in-pox-2-first (err u199))
+(define-constant err-allow-pool-in-pox-3-first (err u199))
 (define-constant err-insufficient-funds (err u200))
 (define-constant err-revoke-delegation-in-pox-first (err u201))
-(define-constant err-disallow-pool-in-pox-2-first (err u299))
+(define-constant err-disallow-pool-in-pox-3-first (err u299))
 (define-constant err-full-stacking-pool (err u300))
 (define-constant err-same-value (err u325))
 (define-constant err-future-reward-not-covered (err u333))
@@ -60,7 +60,7 @@
 (define-constant first-deposit u0)
 (define-constant list-max-len u300)
 (define-constant pool-contract (as-contract tx-sender))
-(define-constant pox-2-contract (as-contract 'ST000000000000000000002AMW42H.pox-3))
+(define-constant pox-contract (as-contract 'ST000000000000000000002AMW42H.pox-3))
 (define-constant blocks-to-pass-until-reward u101)
 (define-constant max-return-div-accepted u333)
 (define-constant ONE-6 u1000000)
@@ -172,7 +172,7 @@
 
 (define-public (join-stacking-pool)
 (begin
-  (asserts! (check-pool-SC-pox-2-allowance) err-allow-pool-in-pox-2-first)
+  (asserts! (check-pool-SC-pox-allowance) err-allow-pool-in-pox-3-first)
   (asserts! (is-none (map-get? user-data {address: contract-caller})) err-already-in-pool)
   (var-set stackers-list (unwrap! (as-max-len? (concat (var-get stackers-list) (list contract-caller )) u300) err-full-stacking-pool)) 
   (map-set user-data {address: contract-caller} {is-in-pool: true, delegated-balance: u0, locked-balance: u0, until-burn-ht: none})
@@ -194,7 +194,7 @@
 (define-public (quit-stacking-pool)
 (begin
   (asserts! (is-none (get-check-delegation contract-caller)) err-revoke-delegation-in-pox-first)
-  (asserts! (not (check-pool-SC-pox-2-allowance)) err-disallow-pool-in-pox-2-first)
+  (asserts! (not (check-pool-SC-pox-allowance)) err-disallow-pool-in-pox-3-first)
   (asserts! (is-some (map-get? user-data {address: contract-caller})) err-not-in-pool)
   (asserts! (not (is-eq contract-caller (var-get liquidity-provider))) err-liquidity-provider-not-permitted)
     (try! (disallow-contract-caller pool-contract))
@@ -299,7 +299,7 @@
       (current-cycle (contract-call? 'ST000000000000000000002AMW42H.pox-3 current-pox-reward-cycle))
       (next-reward-cycle-first-block (contract-call? 'ST000000000000000000002AMW42H.pox-3 reward-cycle-to-burn-height (+ u1 current-cycle))))
   (asserts! (check-caller-allowed) err-stacking-permission-denied)
-  (asserts! (check-pool-SC-pox-2-allowance) err-allow-pool-in-pox-2-first)
+  (asserts! (check-pool-SC-pox-allowance) err-allow-pool-in-pox-3-first)
   (asserts! (is-in-pool) err-not-in-pool)
 
   (asserts! (not (is-prepare-phase next-reward-cycle-first-block)) err-too-late)
@@ -489,12 +489,16 @@
                                       (default-to u0 (get locked-balance (map-get? user-data {address: user})))))
                                   (ok {lock-amount: (get total-locked success-increase),
                                       stacker: user,
-                                      unlock-burn-height: (get unlock-burn-height success)}))
+                                      ;; unlock-burn-height: (get unlock-burn-height success)}
+                                      unlock-burn-height: u10000}
+                                      ))
                 error-increase (begin (print "error-increase") (err (* u1000000000 (to-uint error-increase)))))
               (ok {
                     lock-amount: (get locked status),
                     stacker: user,
-                    unlock-burn-height: (get unlock-burn-height success)})))
+                    ;; unlock-burn-height: (get unlock-burn-height success)
+                    unlock-burn-height: u10000
+                    })))
     error (err (* u1000000 (to-uint error))))))
 
 ;; Rewards transferring functions
@@ -703,7 +707,7 @@
 (define-read-only (get-user-data (user principal)) 
 (map-get? user-data {address: user}))
 
-(define-read-only (check-pool-SC-pox-2-allowance)
+(define-read-only (check-pool-SC-pox-allowance)
 (is-some (contract-call? 'ST000000000000000000002AMW42H.pox-3 get-allowance-contract-callers contract-caller pool-contract)))
 
 (define-read-only (get-check-delegation (stacker principal))
@@ -781,3 +785,9 @@ minimum-deposit-amount-liquidity-provider)
 
 (define-read-only (updated-balances-given-cycle (given-cycle uint))
 (default-to false (get updated (map-get? updated-sc-balances { reward-cycle: given-cycle }))))
+
+(define-read-only (get-reward-phase-length) 
+REWARD_CYCLE_LENGTH)
+
+(define-read-only (get-prepare-phase-length) 
+PREPARE_CYCLE_LENGTH)
