@@ -295,7 +295,7 @@ describe('testing stacking under epoch 2.4', () => {
 
     // Check the Total Stacked STX
 
-    expect(poxAddrInfo?.['total-ustx']).toEqual(uintCV(50_536_942_145_278));
+    expect(poxAddrInfo?.['total-ustx']).toEqual(uintCV(50_536_939_145_278));
 
     // Check balances
 
@@ -353,7 +353,7 @@ describe('testing stacking under epoch 2.4', () => {
     }
 
     let scLockedBalance = await getScLockedBalance(network);
-    expect(scLockedBalance.value as any).toBe('50536942145278');
+    expect(scLockedBalance.value as any).toBe('50536939145278');
 
     // Check weights
 
@@ -463,7 +463,7 @@ describe('testing stacking under epoch 2.4', () => {
     poxInfo = await getPoxInfo(network);
     chainUpdate = await waitForRewardCycleId(network, orchestrator, poxInfo.next_cycle.id);
 
-    for (let i = 1; i <= 6; i++) chainUpdate = await orchestrator.waitForNextStacksBlock();
+    for (let i = 1; i <= 5; i++) chainUpdate = await orchestrator.waitForNextStacksBlock();
 
     console.log(
       '** BEFORE DELEGATE STACK ' +
@@ -543,7 +543,7 @@ describe('testing stacking under epoch 2.4', () => {
 
     // Check total stacked ustx
 
-    expect(poxAddrInfo?.['total-ustx']).toEqual(uintCV(50_536_942_145_278));
+    expect(poxAddrInfo?.['total-ustx']).toEqual(uintCV(50_536_939_145_278));
 
     // Check balances
 
@@ -568,7 +568,7 @@ describe('testing stacking under epoch 2.4', () => {
     poxInfo = await getPoxInfo(network);
     chainUpdate = await waitForRewardCycleId(network, orchestrator, poxInfo.next_cycle.id);
 
-    for (let i = 1; i <= 6; i++) chainUpdate = await orchestrator.waitForNextStacksBlock();
+    for (let i = 1; i <= 5; i++) chainUpdate = await orchestrator.waitForNextStacksBlock();
 
     let usersAddressesList = [];
     usersList.forEach((user) => {
@@ -604,6 +604,7 @@ describe('testing stacking under epoch 2.4', () => {
           expect(txMethod as any).toBe('delegate-stack-stx-many');
           // expect((txMetadata as any)['result']).toBe('(ok ((ok false) (ok true) (ok true) (err u9000)))');
           console.log('Delegate Stack Many Result: ', txMetadata['result']);
+          console.log('Delegate Stack Many Receipt: ', txMetadata['receipt']);
           console.log(`Delegate Stack STX Metadata ${delegateStackManyTxIndex}, block index ${blockIndex}`, txMetadata);
 
           expect((txMetadata as any)['success']).toBe(true);
@@ -638,6 +639,6 @@ describe('testing stacking under epoch 2.4', () => {
 
     // Check the Total Stacked STX
 
-    expect(poxAddrInfo?.['total-ustx']).toEqual(uintCV(50_536_942_145_278));
+    expect(poxAddrInfo?.['total-ustx']).toEqual(uintCV(50_536_939_145_278));
   });
 });

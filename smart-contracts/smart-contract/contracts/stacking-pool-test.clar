@@ -42,6 +42,7 @@
 (define-constant err-no-locked-funds (err u456))
 (define-constant err-too-early (err u500))
 (define-constant err-too-late (err u501))
+(define-constant err-not-delegated-before (err u502))
 (define-constant err-decrease-forbidden (err u503))
 (define-constant err-no-reward-yet (err u576))
 (define-constant err-not-enough-reserved-balance (err u579))
@@ -321,7 +322,12 @@
     (ok (maybe-stack-aggregation-commit current-cycle))))
 
 (define-public (delegate-stack-stx-many (stackers-lock-list (list 100 principal))) 
-(ok (map delegate-stack-stx stackers-lock-list)))
+(ok (map check-and-delegate-stack-stx stackers-lock-list)))
+
+(define-private (check-and-delegate-stack-stx (user principal)) 
+(if (> (get unlock-height (stx-account user)) u0) 
+    (delegate-stack-stx user)
+    err-not-delegated-before))
 
 (define-public (multiple-blocks-check-won-rewards (burn-heights-list (list 100 uint))) 
 (ok (map check-won-block-rewards burn-heights-list)))
@@ -720,7 +726,7 @@
 (ok (get-burn-block-info? pox-addrs burn-height)))
 
 (define-read-only (can-lock-now (cycle uint))
-(> burn-block-height (+ (contract-call? 'ST000000000000000000002AMW42H.pox-3 reward-cycle-to-burn-height cycle) half-cycle-length)))
+(>= burn-block-height (+ (contract-call? 'ST000000000000000000002AMW42H.pox-3 reward-cycle-to-burn-height cycle) half-cycle-length)))
 
 (define-read-only (get-delegated-amount (user principal))
 (default-to u0 (get amount-ustx (contract-call? 'ST000000000000000000002AMW42H.pox-3 get-delegation-info user))))
