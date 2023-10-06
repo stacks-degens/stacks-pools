@@ -7,6 +7,8 @@ import { ContractAskToJoinMining } from '../../../consts/smartContractFunctions'
 import { selectCurrentTheme, UserRoleMining } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
 import { numberWithCommas } from '../../../consts/converter';
+import { useState } from 'react';
+import MouseOverPopover from '../../stacking/profile/MouseOverPopover';
 
 interface DashboardInfoContainerProps {
   notifier: string | null;
@@ -31,7 +33,11 @@ const DashboardInfoContainer = ({
   poolTotalSpendPerBlock,
 }: DashboardInfoContainerProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
-
+  const [userPubKey, setUserPubKey] = useState<string>('');
+  const legacyBtcAddressInstructions =
+    'How to create a Bitcoin legacy address?' +
+    '\n' +
+    ' electrum create new wallet → standard wallet → create a new seed → copy seed → back → i already have a seed → paste seed and click options → BIP39 seed → next → legacy';
   return (
     <div
       style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting }}
@@ -99,28 +105,44 @@ const DashboardInfoContainer = ({
       {currentRole === 'NormalUser' && (
         <div style={{ alignContent: 'center', textAlign: 'center' }}>
           <div>
-            <label className="custom-label">Insert your Bitcoin public key</label>
+            <label className="custom-label">Insert your legacy Bitcoin address' public key</label>{' '}
+            <span
+              style={{
+                margin: 'auto',
+                textAlign: 'center',
+                justifyContent: 'center',
+                fontSize: '10px',
+                display: 'flex',
+                marginTop: 'auto',
+              }}
+            >
+              <MouseOverPopover severityType="info" text={legacyBtcAddressInstructions} />
+            </span>
             <div className="bottom-margins" style={{ width: '20vw', margin: 'auto' }}>
               <input
                 className="custom-input"
                 type="text"
-                // TODO: add onChange for publicKey input and operate join operation with it
-                // onChange={(e) => setBtcAddress(e.target.value)}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setUserPubKey(e.target.value);
+                }}
               ></input>
             </div>
           </div>
-          <br />
           <br />
           <button
             className={appCurrentTheme === 'light' ? 'customButton' : 'customDarkButton'}
             onClick={() => {
               if (userAddress !== null) {
-                ContractAskToJoinMining(`${userAddress}`);
+                ContractAskToJoinMining(userPubKey);
               }
             }}
+            disabled={userPubKey === ''}
           >
             Join Pool
           </button>
+          <br />
+          <br />
         </div>
       )}
     </div>

@@ -11,7 +11,7 @@ interface VotingNotifierInfoContainerProps {
   votedFor: string | null;
   blocksRemaining: number | null;
   electedNotifier: string | null;
-  voteStatus: boolean | null;
+  voteStatus: string | null;
 }
 const VotingNotifierInfoContainer = ({
   votedFor,
@@ -46,7 +46,11 @@ const VotingNotifierInfoContainer = ({
         className="content-info-container-normal-user"
       >
         <div className="content-sections-title-info-container">
-          <span className="bold-font">Who I voted for: </span>
+          <span className="bold-font">Current Notifier: </span>
+          <div className="result-of-content-section">{electedNotifier !== null ? electedNotifier : ''}</div>
+        </div>
+        <div className="content-sections-title-info-container">
+          <span className="bold-font">My current vote: </span>
           <span className="result-of-content-section">{votedFor !== null ? votedFor : ''}</span>
         </div>
         <div className="content-sections-title-info-container">
@@ -54,12 +58,16 @@ const VotingNotifierInfoContainer = ({
           <span className="result-of-content-section">{blocksRemaining !== null ? blocksRemaining : ''}</span>
         </div>
         <div className="content-sections-title-info-container">
+          <span className="bold-font">Notifier Voting Status: </span>
+          <span className="result-of-content-section">{voteStatus !== null ? voteStatus : ''}</span>
+        </div>
+        {/* <div className="content-sections-title-info-container">
           <span className="bold-font">Elected Notifier: </span>
-          {voteStatus && <span>Voting is still open!</span>}
-          {!voteStatus && (
+          {voteStatus === 'Elections on-going!' && <span>Voting is still open!</span>}
+          {voteStatus !== 'Elections on-going!' && (
             <div className="result-of-content-section">{electedNotifier !== null ? electedNotifier : ''}</div>
           )}
-        </div>
+        </div> */}
       </div>
       {blocksRemaining === 0 && (
         <div className="footer-end-vote-button-container">

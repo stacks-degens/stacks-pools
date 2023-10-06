@@ -13,7 +13,12 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 
-const MiningPool = () => {
+interface IMiningPoolProps {
+  userAddress: string;
+}
+
+const MiningPool = (props: IMiningPoolProps) => {
+  const { userAddress } = props;
   const navigate = useNavigate();
   const minersRows = GetMinersRows();
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
@@ -44,8 +49,17 @@ const MiningPool = () => {
           >
             {column.dataKey === 'proposeRemoval' ? (
               <Box>
-                <Button sx={{ marginRight: 3 }} onClick={() => handleMinerRemoveButtonClick(minersRow['address'])}>
-                  <PersonRemoveIcon fontSize="small" sx={{ color: colors[appCurrentTheme].defaultOrange }} />
+                <Button
+                  sx={{ marginRight: 3 }}
+                  onClick={() => handleMinerRemoveButtonClick(minersRow['address'])}
+                  disabled={minersRow['address'] === userAddress}
+                >
+                  <PersonRemoveIcon
+                    fontSize="small"
+                    sx={{
+                      color: minersRow['address'] === userAddress ? 'grey' : colors[appCurrentTheme].defaultOrange,
+                    }}
+                  />
                 </Button>
               </Box>
             ) : (

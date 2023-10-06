@@ -65,14 +65,17 @@ const MinerProfile = ({
     const fetchData = async () => {
       const waitingListResult = await ReadOnlyGetWaitingList();
       const waitingListJson = cvToJSON(waitingListResult).value;
-
       let waitingList: Array<string> = [];
+      let addressListIndex = 0;
+
       waitingListJson.forEach((listItem: Record<string, string>) => waitingList.push(listItem.value));
+      for (let addressIndex = 0; addressIndex < waitingList.length; addressIndex++) {
+        if (waitingList[addressIndex] == userAddress) addressListIndex = addressIndex;
+      }
       const convertedWaitingList = convertListToListCV(waitingList);
       const allDataWaiting = await ReadOnlyAllDataWaitingMiners(convertedWaitingList);
-
-      if (allDataWaiting.newResultList.length > 0) {
-        const newWaitingList = cvToJSON(allDataWaiting.newResultList[0]);
+      if (allDataWaiting.newResultList.length > 0 && addressListIndex) {
+        const newWaitingList = cvToJSON(allDataWaiting.newResultList[addressListIndex]);
         setPositiveVotes(newWaitingList.value[0].value.value['pos-votes'].value);
         setPositiveVotesThreshold(newWaitingList.value[0].value.value['pos-thr'].value);
         setNegativeVotes(newWaitingList.value[0].value.value['neg-votes'].value);

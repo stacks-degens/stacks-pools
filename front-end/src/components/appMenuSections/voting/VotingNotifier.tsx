@@ -26,7 +26,7 @@ const VotingNotifier = () => {
   const [userAddress, setUserAddress] = useState<string | null>(null);
   const [electionBlocksRemaining, setElectionBlocksRemaining] = useState<number | null>(null);
   const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);
-  const [notifierVoteStatus, setNotifierVoteStatus] = useState<boolean | null>(null);
+  const [notifierVoteStatus, setNotifierVoteStatus] = useState<string | null>(null);
   const [votedNotifier, setVotedNotifier] = useState<string | null>(null);
   const userSession = useAppSelector(selectUserSessionState);
   const [notifiersRows, setNotifiersRows] = useState<{ id: number; address: string; notifierVotes: string }[]>([]);
@@ -128,7 +128,14 @@ const VotingNotifier = () => {
   useEffect(() => {
     const getNotifierStatus = async () => {
       const notifier = await readOnlyGetNotifierElectionProcessData();
-      setNotifierVoteStatus(notifier['vote-status'].value);
+      // setNotifierVoteStatus(notifier['vote-status'].value);
+      setNotifierVoteStatus(
+        notifier['vote-status'].value === false
+          ? 'Elections ended!'
+          : parseInt(notifier['election-blocks-remaining'].value) > 0
+          ? 'Elections on-going!'
+          : 'Ended by time!'
+      );
       setElectionBlocksRemaining(parseInt(notifier['election-blocks-remaining'].value));
     };
     getNotifierStatus();
@@ -189,6 +196,8 @@ const VotingNotifier = () => {
             tableId="notifier"
             customTableWidth="75%"
           />
+          <br />
+          <br />
         </div>
       )}
     </div>

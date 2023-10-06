@@ -11,6 +11,7 @@ interface VotingStatusContainerProps {
   notifier: string | null;
   votingStatus: string | null;
 }
+// TODO: remove this
 const VotingStatusContainer = ({ notifier, votingStatus }: VotingStatusContainerProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 

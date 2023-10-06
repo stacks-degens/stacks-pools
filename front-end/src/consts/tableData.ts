@@ -83,9 +83,7 @@ export const GetWaitingRows = () => {
   useEffect(() => {
     const fetchData = async () => {
       const fullWaitingList = await ReadOnlyGetWaitingList();
-      console.log('fullWaitingList: ', fullWaitingList);
       const newWaitingList = await ReadOnlyAllDataWaitingMiners(fullWaitingList);
-      console.log('newWaitingList: ', newWaitingList);
 
       if (newWaitingList) {
         setWaitingList({ resultList: newWaitingList.newResultList, addressList: newWaitingList.newAddressList });
@@ -100,9 +98,6 @@ export const GetWaitingRows = () => {
   const rows =
     Object.keys(waitingList).length !== 0
       ? waitingList.resultList.map((miner: ClarityValue, index: number) => {
-          console.log('miner', cvToJSON(miner));
-          console.log('index', index);
-          // console.log('waitingAddress', addressList);
           const waitingValue = cvToJSON(miner).value[0].value.value;
           const waitingAddress = cvToJSON(waitingList.addressList[index]).value[0].value;
           return createWaitingData(
@@ -209,13 +204,13 @@ export const removalsColumns: RemovalsColumnData[] = [
   },
   {
     width: 130,
-    label: 'Negative Votes',
+    label: 'Reject Removal',
     dataKey: 'negativeVotes',
     numeric: true,
   },
   {
     width: 120,
-    label: 'Positive Votes',
+    label: 'Accept Removal',
     dataKey: 'positiveVotes',
     numeric: true,
   },
@@ -260,7 +255,7 @@ export const GetRemovalsRows = () => {
   }, []);
 
   const rows =
-    removalsList.length !== 0
+    removalsList.length !== 0 && addressList.length !== 0
       ? removalsList.map((miner: RemovalsListProps, index: number) => {
           const removalsValue = miner.value[0].value.value;
           return createRemovalsData(
@@ -298,7 +293,7 @@ const createNotifiersData = (id: number, address: string, notifierVotes: string)
 
 export const notifierColumns: NotifiersColumnData[] = [
   {
-    width: 280,
+    width: 150,
     label: 'Address',
     dataKey: 'address',
   },
