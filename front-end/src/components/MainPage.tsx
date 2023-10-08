@@ -31,7 +31,6 @@ import {
 import { convertDigits } from '../consts/converter';
 import { contractMapping } from '../consts/contract';
 
-
 const RedirectToDashboard = () => {
   const navigate = useNavigate();
 
@@ -219,14 +218,14 @@ const MainPage = () => {
       </div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="mining/dashboard" index element={<Dashboard currentBurnBlockHeight={currentBurnBlockHeight} />} />
-        <Route path="/mining/pool/miners" element={<MiningPool />} />
-        <Route path="/mining/voting" element={<Voting />} />
-        <Route path="mining/myProfile" element={<Profile />} />
-        <Route path="/mining/pool/status" element={<MiningPoolStatus />} />
-        <Route path="/mining/voting/joiners" element={<VotingJoiners />} />
-        <Route path="/mining/voting/removals" element={<VotingRemovals />} />
-        <Route path="/mining/voting/notifier" element={<VotingNotifier />} />
+        {/* <Route path="mining/dashboard" index element={<Dashboard currentBurnBlockHeight={currentBurnBlockHeight} />} /> */}
+        {/* <Route path="/mining/pool/miners" element={<MiningPool />} /> */}
+        {/* <Route path="/mining/voting" element={<Voting />} /> */}
+        {/* <Route path="mining/myProfile" element={<Profile />} /> */}
+        {/* <Route path="/mining/pool/status" element={<MiningPoolStatus />} /> */}
+        {/* <Route path="/mining/voting/joiners" element={<VotingJoiners />} /> */}
+        {/* <Route path="/mining/voting/removals" element={<VotingRemovals />} /> */}
+        {/* <Route path="/mining/voting/notifier" element={<VotingNotifier />} /> */}
         <Route path="/profile/:address" element={<MinerProfileDetails />} />
         <Route path="/stacking" element={<RedirectToDashboard />} />
         <Route
