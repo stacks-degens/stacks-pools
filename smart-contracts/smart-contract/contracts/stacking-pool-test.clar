@@ -301,8 +301,8 @@
       (next-reward-cycle-first-block (contract-call? 'ST000000000000000000002AMW42H.pox-3 reward-cycle-to-burn-height (+ u1 current-cycle))))
   (asserts! (check-caller-allowed) err-stacking-permission-denied)
   (asserts! (check-pool-SC-pox-allowance) err-allow-pool-in-pox-3-first)
+  
   (asserts! (is-in-pool) err-not-in-pool)
-
   (asserts! (not (is-prepare-phase next-reward-cycle-first-block)) err-too-late)
   (try! (delegate-stx-inner amount-ustx (as-contract tx-sender) none))
   (try! (as-contract (lock-delegated-stx user)))
@@ -420,7 +420,7 @@
       (pox-address (var-get pool-pox-address))
       (buffer-amount u0) 
       (user-account (stx-account user))
-      (allowed-amount (- (min (get-delegated-amount user) (+ (get locked user-account) (get unlocked user-account))) u1000000))
+      (allowed-amount (- (min (get-delegated-amount user) (+ (get locked user-account) (get unlocked user-account))) ONE-6))
       (amount-ustx (if (> allowed-amount buffer-amount) (- allowed-amount buffer-amount) allowed-amount)))
   (asserts! (var-get active) err-pox-address-deactivated)
   (match (contract-call? 'ST000000000000000000002AMW42H.pox-3 delegate-stack-stx
@@ -495,16 +495,12 @@
                                       (default-to u0 (get locked-balance (map-get? user-data {address: user})))))
                                   (ok {lock-amount: (get total-locked success-increase),
                                       stacker: user,
-                                      ;; unlock-burn-height: (get unlock-burn-height success)}
-                                      unlock-burn-height: u10000}
-                                      ))
+                                      unlock-burn-height: (get unlock-burn-height success)}))
                 error-increase (begin (print "error-increase") (err (* u1000000000 (to-uint error-increase)))))
               (ok {
                     lock-amount: (get locked status),
                     stacker: user,
-                    ;; unlock-burn-height: (get unlock-burn-height success)
-                    unlock-burn-height: u10000
-                    })))
+                    unlock-burn-height: (get unlock-burn-height success)})))
     error (err (* u1000000 (to-uint error))))))
 
 ;; Rewards transferring functions
