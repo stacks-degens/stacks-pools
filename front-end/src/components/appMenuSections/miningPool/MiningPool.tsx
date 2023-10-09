@@ -14,7 +14,7 @@ import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
 
 interface IMiningPoolProps {
-  userAddress: string;
+  userAddress: string | null;
 }
 
 const MiningPool = (props: IMiningPoolProps) => {

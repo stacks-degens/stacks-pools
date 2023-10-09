@@ -38,6 +38,7 @@ const DashboardInfoContainer = ({
     'How to create a Bitcoin legacy address?' +
     '\n' +
     ' electrum create new wallet → standard wallet → create a new seed → copy seed → back → i already have a seed → paste seed and click options → BIP39 seed → next → legacy';
+
   return (
     <div
       style={{ backgroundColor: colors[appCurrentTheme].infoContainers, color: colors[appCurrentTheme].colorWriting }}

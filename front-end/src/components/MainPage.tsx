@@ -2,11 +2,9 @@ import '../App.css';
 import HeaderBar from './HeaderBar';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import MiningPool from './appMenuSections/miningPool/MiningPool';
-import Voting from './appMenuSections/voting/Voting';
 import Home from '../components/appMenuSections/home/Home';
 import Dashboard from './appMenuSections/dashboard/Dashboard';
 import Profile from './appMenuSections/profile/Profile';
-import MiningPoolStatus from './appMenuSections/miningPool/MiningPoolStatus';
 import VotingJoiners from './appMenuSections/voting/VotingJoiners';
 import VotingRemovals from './appMenuSections/voting/VotingRemovals';
 import VotingNotifier from './appMenuSections/voting/VotingNotifier';
@@ -18,19 +16,26 @@ import { apiMapping, getExplorerUrl, network } from '../consts/network';
 import { UserRoleStacking, selectCurrentUserRoleStacking, userSession } from '../redux/reducers/user-state';
 import { useAppSelector } from '../redux/store';
 import {
+  ReadOnlyGetMinersList,
+  ReadOnlyGetMinersNumber,
   ReadOnlyGetStackersList,
+  readOnlyGetAllTotalWithdrawalsMining,
+  readOnlyGetBalanceMining,
   readOnlyGetBitcoinRewardsStacking,
   readOnlyGetBlocksRewardedStacking,
+  readOnlyGetBlocksWonMining,
   readOnlyGetLiquidityProvider,
   readOnlyGetMinimumDepositLiquidityProviderStacking,
+  readOnlyGetNotifier,
+  readOnlyGetPoolSpendPerBlock,
   readOnlyGetReturnStacking,
   readOnlyGetSCLockedBalance,
   readOnlyGetSCReservedBalance,
+  readOnlyGetStacksRewardsMining,
   readOnlyLockedBalanceUser,
 } from '../consts/readOnly';
 import { convertDigits } from '../consts/converter';
 import { contractMapping } from '../consts/contract';
-import { cvToJSON } from '@stacks/transactions';
 
 const RedirectToDashboard = () => {
   const navigate = useNavigate();
@@ -43,27 +48,70 @@ const RedirectToDashboard = () => {
 };
 
 const MainPage = () => {
-  const [currentBurnBlockHeight, setCurrentBurnBlockHeight] = useState<number>(0);
-  const [currentCycle, setCurrentCycle] = useState<number>(0);
-  const [preparePhaseStartBlockHeight, setPreparePhaseStartBlockHeight] = useState<number>(0);
-  const [rewardPhaseStartBlockHeight, setRewardPhaseStartBlockHeigh] = useState<number>(0);
+  // GENERAL State Hooks
+
+  const localNetwork = network === 'devnet' ? 'testnet' : network;
   const [userAddress, setUserAddress] = useState<string | null>(null);
   const [connectedWallet, setConnectedWallet] = useState<string | null>(null);
   const [explorerLink, setExplorerLink] = useState<string | undefined>(undefined);
+  const [currentBurnBlockHeight, setCurrentBurnBlockHeight] = useState<number>(0);
+  const [mempoolTxs, setMempoolTxs] = useState([]);
+
+  // STACKING State Hooks
+
+  const currentRole: UserRoleStacking = useAppSelector(selectCurrentUserRoleStacking);
+  const [currentLiquidityProvider, setCurrentLiquidityProvider] = useState<string | null>(null);
+  const [currentCycle, setCurrentCycle] = useState<number>(0);
+  const [preparePhaseStartBlockHeight, setPreparePhaseStartBlockHeight] = useState<number>(0);
+  const [rewardPhaseStartBlockHeight, setRewardPhaseStartBlockHeigh] = useState<number>(0);
   const [stacksAmountThisCycle, setStacksAmountThisCycle] = useState<number | null>(null);
   const [lockedInPool, setLockedInPool] = useState<number>(0);
   const [delegatedToPool, setDelegatedToPool] = useState<number>(0);
   const [userUntilBurnHt, setUserUntilBurnHt] = useState<number>(0);
   const [reservedAmount, setReservedAmount] = useState<number | null>(null);
   const [returnCovered, setReturnCovered] = useState<number | null>(null);
-  const [currentLiquidityProvider, setCurrentLiquidityProvider] = useState<string | null>(null);
   const [stackersList, setStackersList] = useState<Array<string>>([]);
   const [blocksRewarded, setBlocksRewarded] = useState<number | null>(null);
   const [bitcoinRewards, setBitcoinRewards] = useState<number | null>(null);
   const [minimumDepositProvider, setMinimumDepositProvider] = useState<number | null>(null);
-  const [mempoolTxs, setMempoolTxs] = useState([]);
-  const currentRole: UserRoleStacking = useAppSelector(selectCurrentUserRoleStacking);
-  const localNetwork = network === 'devnet' ? 'testnet' : network;
+
+  // MINING State Hooks
+
+  const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);
+  const [poolSpendPerBlock, setPoolSpendPerBlock] = useState<number | null>(null);
+  const [minersList, setMinersList] = useState<Array<string>>([]);
+  const [minersNumber, setMinersNumber] = useState<number | null>(null);
+  const [blocksWon, setBlocksWon] = useState<number | null>(null);
+  const [stacksRewards, setStacksRewards] = useState<number | null>(null);
+  const [currentBalance, setCurrentBalance] = useState<number>(0);
+  const [totalWithdrawals, setTotalWithdrawals] = useState<number | null>(null);
+
+  // GENERAL Effect Hooks
+
+  useEffect(() => {
+    if (userSession.isUserSignedIn()) {
+      const args = userSession.loadUserData().profile.stxAddress[localNetwork];
+      setConnectedWallet(args);
+    }
+  }, [connectedWallet]);
+
+  useEffect(() => {
+    if (userSession.isUserSignedIn()) {
+      const args = userSession.loadUserData().profile.stxAddress[localNetwork];
+      setUserAddress(args);
+    } else {
+      const defaultAddressWhenUserNotLoggedIn = contractMapping.stacking[network].owner;
+      setUserAddress(defaultAddressWhenUserNotLoggedIn);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (userAddress !== null) {
+      setExplorerLink(getExplorerUrl(userAddress).explorerUrl);
+    }
+  }, [explorerLink, userAddress]);
+
+  // STACKING Effect Hooks
 
   useEffect(() => {
     const getCurrentBlockInfo = async () => {
@@ -83,44 +131,6 @@ const MainPage = () => {
     };
     getCurrentBlockInfo();
   }, [setCurrentBurnBlockHeight, setCurrentCycle, setPreparePhaseStartBlockHeight, setRewardPhaseStartBlockHeigh]);
-
-  // MEMPOOL STACKS API
-  // useEffect(() => {
-  //   const getCurrentMempoolInfo = async () => {
-  //     let mempoolInfoResult;
-  //     if (connectedWallet !== null) {
-  //       mempoolInfoResult = await fetch(`${apiMapping.mempoolInfo(connectedWallet)}`)
-  //         .then((res) => res.json())
-  //         .then((res) => res);
-  //     }
-  //     if (mempoolInfoResult && (await mempoolInfoResult.length) > 0) {
-  //       console.log('mempoolInfoResult', mempoolInfoResult);
-  //       setMempoolTxs(mempoolInfoResult);
-  //       // let cycleBlockNr =
-  //       //   (mempoolInfoResult['next_cycle']['reward_phase_start_block_height'] -
-  //       //     mempoolInfoResult['next_cycle']['prepare_phase_start_block_height']) *
-  //       //   21;
-  //       // setCurrentBurnBlockHeight(mempoolInfoResult['current_burnchain_block_height']);
-  //       // setCurrentCycle(mempoolInfoResult['current_cycle']['id']);
-  //       // setPreparePhaseStartBlockHeight(mempoolInfoResult['next_cycle']['prepare_phase_start_block_height']);
-  //       // setRewardPhaseStartBlockHeigh(mempoolInfoResult['next_cycle']['reward_phase_start_block_height'] - cycleBlockNr);
-  //     }
-  //   };
-  //   getCurrentMempoolInfo();
-  // }, [mempoolTxs, connectedWallet]);
-
-  useEffect(() => {
-    if (userSession.isUserSignedIn()) {
-      const args = userSession.loadUserData().profile.stxAddress[localNetwork];
-      setConnectedWallet(args);
-    }
-  }, [connectedWallet]);
-
-  useEffect(() => {
-    if (userAddress !== null) {
-      setExplorerLink(getExplorerUrl(userAddress).explorerUrl);
-    }
-  }, [explorerLink, userAddress]);
 
   useEffect(() => {
     const getLockedBalance = async () => {
@@ -158,16 +168,6 @@ const MainPage = () => {
     };
     getReservedAmount();
   }, [reservedAmount, userAddress]);
-
-  useEffect(() => {
-    if (userSession.isUserSignedIn()) {
-      const args = userSession.loadUserData().profile.stxAddress[localNetwork];
-      setUserAddress(args);
-    } else {
-      const defaultAddressWhenUserNotLoggedIn = contractMapping.stacking[network].owner;
-      setUserAddress(defaultAddressWhenUserNotLoggedIn);
-    }
-  }, []);
 
   useEffect(() => {
     const getCurrentLiquidityProvider = async () => {
@@ -234,6 +234,100 @@ const MainPage = () => {
     getSCLockedBalance();
   }, [stacksAmountThisCycle, userAddress]);
 
+  // MINING Effect Hooks
+
+  useEffect(() => {
+    const getCurrentNotifier = async () => {
+      const notifier = await readOnlyGetNotifier();
+      setCurrentNotifier(notifier);
+    };
+
+    getCurrentNotifier();
+  }, [currentNotifier]);
+
+  useEffect(() => {
+    const getSpendPerBlock = async () => {
+      const notifier = await readOnlyGetPoolSpendPerBlock();
+      setPoolSpendPerBlock(notifier);
+    };
+
+    getSpendPerBlock();
+  }, [poolSpendPerBlock]);
+
+  useEffect(() => {
+    const getMinersList = async () => {
+      const { value } = await ReadOnlyGetMinersList();
+      const parsedMinersList =
+        value.length !== 0 ? value.map((miner: { type: string; value: string }) => miner.value) : [];
+      setMinersList(parsedMinersList);
+    };
+
+    getMinersList();
+  }, []);
+
+  useEffect(() => {
+    const getBlocksWon = async () => {
+      const blocks = await readOnlyGetBlocksWonMining();
+      setBlocksWon(blocks);
+    };
+    getBlocksWon();
+  }, [blocksWon]);
+
+  useEffect(() => {
+    const getStacksRewards = async () => {
+      const stacks = await readOnlyGetStacksRewardsMining();
+      setStacksRewards(stacks);
+    };
+    getStacksRewards();
+  }, [stacksRewards]);
+
+  useEffect(() => {
+    const getMinersNumber = async () => {
+      const minersNumber = await ReadOnlyGetMinersNumber();
+      setMinersNumber(minersNumber);
+    };
+    getMinersNumber();
+  }, [minersNumber]);
+
+  useEffect(() => {
+    const getUserBalance = async () => {
+      const principalAddress = userSession.loadUserData().profile.stxAddress[localNetwork];
+      const getTotalWithdrawals = await readOnlyGetAllTotalWithdrawalsMining(principalAddress);
+      const balance = await readOnlyGetBalanceMining(principalAddress);
+      setTotalWithdrawals(getTotalWithdrawals);
+      setCurrentBalance(balance);
+    };
+
+    getUserBalance();
+  }, [currentBalance, totalWithdrawals]);
+
+  // MEMPOOL STACKS API
+  // useEffect(() => {
+  //   const getCurrentMempoolInfo = async () => {
+  //     let mempoolInfoResult;
+  //     if (connectedWallet !== null) {
+  //       mempoolInfoResult = await fetch(`${apiMapping.mempoolInfo(connectedWallet)}`)
+  //         .then((res) => res.json())
+  //         .then((res) => res);
+  //     }
+  //     if (mempoolInfoResult && (await mempoolInfoResult.length) > 0) {
+  //       console.log('mempoolInfoResult', mempoolInfoResult);
+  //       setMempoolTxs(mempoolInfoResult);
+  //       // let cycleBlockNr =
+  //       //   (mempoolInfoResult['next_cycle']['reward_phase_start_block_height'] -
+  //       //     mempoolInfoResult['next_cycle']['prepare_phase_start_block_height']) *
+  //       //   21;
+  //       // setCurrentBurnBlockHeight(mempoolInfoResult['current_burnchain_block_height']);
+  //       // setCurrentCycle(mempoolInfoResult['current_cycle']['id']);
+  //       // setPreparePhaseStartBlockHeight(mempoolInfoResult['next_cycle']['prepare_phase_start_block_height']);
+  //       // setRewardPhaseStartBlockHeigh(mempoolInfoResult['next_cycle']['reward_phase_start_block_height'] - cycleBlockNr);
+  //     }
+  //   };
+  //   getCurrentMempoolInfo();
+  // }, [mempoolTxs, connectedWallet]);
+
+  // Mining Dashboard
+
   return (
     <div
       style={{
@@ -245,11 +339,35 @@ const MainPage = () => {
       </div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="mining/dashboard" index element={<Dashboard currentBurnBlockHeight={currentBurnBlockHeight} />} />
+        <Route
+          path="mining/dashboard"
+          index
+          element={
+            <Dashboard
+              currentBurnBlockHeight={currentBurnBlockHeight}
+              currentNotifier={currentNotifier}
+              minersList={minersList}
+              blocksWon={blocksWon}
+              stacksRewards={stacksRewards}
+              userAddress={userAddress}
+              minersNumber={minersNumber}
+              poolSpendPerBlock={poolSpendPerBlock}
+            />
+          }
+        />
         <Route path="/mining/pool/miners" element={<MiningPool userAddress={userAddress} />} />
-        {/* <Route path="/mining/voting" element={<Voting />} /> */}
-        <Route path="mining/myProfile" element={<Profile />} />
-        {/* <Route path="/mining/pool/status" element={<MiningPoolStatus />} /> */}
+        <Route
+          path="mining/myProfile"
+          element={
+            <Profile
+              connectedWallet={connectedWallet}
+              explorerLink={explorerLink}
+              currentBalance={currentBalance}
+              currentNotifier={currentNotifier}
+              userAddress={userAddress}
+            />
+          }
+        />
         <Route path="/mining/voting/joiners" element={<VotingJoiners />} />
         <Route path="/mining/voting/removals" element={<VotingRemovals />} />
         <Route path="/mining/voting/notifier" element={<VotingNotifier />} />

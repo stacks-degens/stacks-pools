@@ -4,34 +4,22 @@ import '../../../css/helpers/styles.css';
 import '../../../css/inputs/styles.css';
 import '../../../css/links/styles.css';
 import '../../../css/common-page-alignments/styles.css';
-import {
-  selectCurrentTheme,
-  selectCurrentUserRoleMining,
-  selectUserSessionState,
-  UserRoleMining,
-} from '../../../redux/reducers/user-state';
+import { selectCurrentTheme, selectCurrentUserRoleMining, UserRoleMining } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
 import MinerProfile from './MinerProfile';
 import colors from '../../../consts/colorPallete';
-import { useEffect, useState } from 'react';
-import { network, getExplorerUrl } from '../../../consts/network';
-import {
-  readOnlyGetAllTotalWithdrawalsMining,
-  readOnlyGetBalanceMining,
-  readOnlyGetNotifier,
-} from '../../../consts/readOnly';
 
-const Profile = () => {
+interface IProfileProps {
+  connectedWallet: string | null;
+  explorerLink: string | undefined;
+  currentBalance: number;
+  currentNotifier: string | null;
+  userAddress: string | null;
+}
+
+const Profile = ({ connectedWallet, explorerLink, currentBalance, currentNotifier, userAddress }: IProfileProps) => {
   const currentRole: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
-  const [connectedWallet, setConnectedWallet] = useState<string | null>(null);
-  const [explorerLink, setExplorerLink] = useState<string | undefined>(undefined);
-  const [userAddress, setUserAddress] = useState<string | null>(null);
-  const [currentBalance, setCurrentBalance] = useState<number>(0);
-  const [totalWithdrawals, setTotalWithdrawals] = useState<number | null>(null);
-  const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);
-  const userSession = useAppSelector(selectUserSessionState);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
-  const localNetwork = network === 'devnet' ? 'testnet' : network;
 
   const profileMapping: Record<UserRoleMining, React.ReactElement> = {
     Viewer: <div></div>,
@@ -72,47 +60,6 @@ const Profile = () => {
       />
     ),
   };
-
-  useEffect(() => {
-    const getCurrentNotifier = async () => {
-      const notifier = await readOnlyGetNotifier();
-      setCurrentNotifier(notifier);
-    };
-
-    getCurrentNotifier();
-  }, [currentNotifier]);
-
-  useEffect(() => {
-    if (userSession.isUserSignedIn()) {
-      const wallet = userSession.loadUserData().profile.stxAddress[localNetwork];
-      setConnectedWallet(wallet);
-    }
-  }, [connectedWallet]);
-
-  useEffect(() => {
-    if (userSession.isUserSignedIn()) {
-      const args = userSession.loadUserData().profile.stxAddress[localNetwork];
-      setUserAddress(args);
-    }
-  }, [userAddress]);
-
-  useEffect(() => {
-    if (userAddress !== null) {
-      setExplorerLink(getExplorerUrl(userAddress).explorerUrl);
-    }
-  }, [explorerLink, userAddress]);
-
-  useEffect(() => {
-    const getUserBalance = async () => {
-      const principalAddress = userSession.loadUserData().profile.stxAddress[localNetwork];
-      const getTotalWithdrawals = await readOnlyGetAllTotalWithdrawalsMining(principalAddress);
-      const balance = await readOnlyGetBalanceMining(principalAddress);
-      setTotalWithdrawals(getTotalWithdrawals);
-      setCurrentBalance(balance);
-    };
-
-    getUserBalance();
-  }, [currentBalance, totalWithdrawals]);
 
   return (
     <div
