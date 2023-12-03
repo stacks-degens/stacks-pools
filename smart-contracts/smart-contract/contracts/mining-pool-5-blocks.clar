@@ -359,7 +359,7 @@
 (begin
   (asserts! (check-is-waiting-now miner-to-vote) err-not-asked-to-join) ;; map_is_waiting
     (asserts! (unwrap! (check-is-miner-when-requested-join miner-to-vote) err-cant-unwrap-check-miner) err-no-vote-permission)
-    (asserts! (not (has-voted-join miner-to-vote)) err-already-voted) ;; O(1)
+    (asserts! (not-voted-join miner-to-vote) err-already-voted) ;; O(1)
     (map-set map-join-request-voter 
       {miner-to-vote: miner-to-vote, voter: contract-caller} 
       {value: true})
@@ -372,7 +372,7 @@
 (begin
   (asserts! (check-is-waiting-now miner-to-vote) err-not-asked-to-join)
     (asserts! (unwrap! (check-is-miner-when-requested-join miner-to-vote) err-cant-unwrap-check-miner) err-no-vote-permission)
-    (asserts! (not (has-voted-join miner-to-vote)) err-already-voted)    
+    (asserts! (not-voted-join miner-to-vote) err-already-voted)    
     (map-set map-join-request-voter 
       {miner-to-vote: miner-to-vote, voter: contract-caller} 
       {value: true})
@@ -434,10 +434,10 @@
 (define-private (is-in-voters-list (miner principal) (voters-list (list 300 principal))) 
 (is-some (index-of? voters-list miner)))
 
-(define-private (has-voted-join (miner principal)) 
-(if (is-some (get value (map-get? map-join-request-voter {miner-to-vote: miner, voter: contract-caller})))
-      (unwrap-panic (get value (map-get? map-join-request-voter {miner-to-vote: miner, voter: contract-caller})))
-      false))
+(define-private (not-voted-join (miner principal)) 
+(not (if (is-some (get value (map-get? map-join-request-voter {miner-to-vote: miner, voter: contract-caller})))
+          (unwrap-panic (get value (map-get? map-join-request-voter {miner-to-vote: miner, voter: contract-caller})))
+          false)))
 
 (define-public (try-enter-pool)
 (begin 

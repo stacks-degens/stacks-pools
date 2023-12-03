@@ -20,6 +20,13 @@ export const convertPrincipalToArg = (principal: string) => {
   return principalCV(principal);
 };
 
+export const convertListToListCV = (principalList: Array<string>) => {
+  let principalCvList: Array<ClarityValue> = [];
+  principalList.forEach((address) => principalCvList.push(convertPrincipalToArg(address)));
+
+  return listCV(principalCvList);
+};
+
 export const convertPrincipalToList = (principal: string) => {
   return listCV([principalCV(principal)]);
 };

@@ -76,24 +76,30 @@ export const waitingColumns: WaitingColumnData[] = [
 ];
 
 export const GetWaitingRows = () => {
-  const [waitingList, setWaitingList] = useState<ClarityValue[]>([]);
-  const [addressList, setAddressList] = useState<ClarityValue[]>([]);
+  // const [waitingList, setWaitingList] = useState<ClarityValue[]>([]);
+  // const [addressList, setAddressList] = useState<ClarityValue[]>([]);
+  const [waitingList, setWaitingList] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
       const fullWaitingList = await ReadOnlyGetWaitingList();
       const newWaitingList = await ReadOnlyAllDataWaitingMiners(fullWaitingList);
-      setWaitingList(newWaitingList.newResultList);
-      setAddressList(newWaitingList.newAddressList);
+
+      if (newWaitingList) {
+        setWaitingList({ resultList: newWaitingList.newResultList, addressList: newWaitingList.newAddressList });
+        // setWaitingList(newWaitingList.newResultList);
+        // setAddressList(newWaitingList.newAddressList);
+      }
+      // console.log('addressList', addressList);
     };
     fetchData();
-  }, []);
+  }, [setWaitingList]);
 
   const rows =
-    waitingList.length !== 0
-      ? waitingList.map((miner: ClarityValue, index: number) => {
+    Object.keys(waitingList).length !== 0
+      ? waitingList.resultList.map((miner: ClarityValue, index: number) => {
           const waitingValue = cvToJSON(miner).value[0].value.value;
-          const waitingAddress = cvToJSON(addressList[index]).value[0].value;
+          const waitingAddress = cvToJSON(waitingList.addressList[index]).value[0].value;
           return createWaitingData(
             index,
             waitingAddress,
@@ -198,13 +204,13 @@ export const removalsColumns: RemovalsColumnData[] = [
   },
   {
     width: 130,
-    label: 'Negative Votes',
+    label: 'Reject Removal',
     dataKey: 'negativeVotes',
     numeric: true,
   },
   {
     width: 120,
-    label: 'Positive Votes',
+    label: 'Accept Removal',
     dataKey: 'positiveVotes',
     numeric: true,
   },
@@ -249,7 +255,7 @@ export const GetRemovalsRows = () => {
   }, []);
 
   const rows =
-    removalsList.length !== 0
+    removalsList.length !== 0 && addressList.length !== 0
       ? removalsList.map((miner: RemovalsListProps, index: number) => {
           const removalsValue = miner.value[0].value.value;
           return createRemovalsData(
@@ -287,7 +293,7 @@ const createNotifiersData = (id: number, address: string, notifierVotes: string)
 
 export const notifierColumns: NotifiersColumnData[] = [
   {
-    width: 280,
+    width: 150,
     label: 'Address',
     dataKey: 'address',
   },

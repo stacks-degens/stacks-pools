@@ -58,7 +58,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
   const [openMiningPoolMenu, setOpenMiningPoolMenu] = useState<boolean>(false);
   const [openVotingMenu, setOpenVotingMenu] = useState<boolean>(false);
-  const [openStackingMenu, setOpenStackingMenu] = useState<boolean>(true);
+  const [openStackingMenu, setOpenStackingMenu] = useState<boolean>(false);
   const [openMiningMenu, setOpenMiningMenu] = useState<boolean>(false);
 
   const location = useLocation();
@@ -254,14 +254,15 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
             className={
               location.pathname === '/mining/myProfile' ||
               location.pathname === '/mining/dashboard' ||
-              location.pathname === '/mining/pool/status' ||
+              // location.pathname === '/mining/pool/status' ||
               location.pathname === '/mining/pool/miners' ||
               location.pathname.slice(0, 8) === '/profile' ||
               location.pathname === '/mining/voting/joiners' ||
               location.pathname === '/mining/voting/removals' ||
-              location.pathname === '/mining/voting/notifier' ||
-              location.pathname === '/mining/voting'
-                ? 'active-custom'
+              location.pathname === '/mining/voting/notifier'
+                ? // ||
+                  // location.pathname === '/mining/voting'
+                  'active-custom'
                 : ''
             }
             // onClick={toggleDrawer(anchor, false)}
@@ -361,7 +362,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                       timeout="auto"
                       unmountOnExit
                     >
-                      <List
+                      {/* <List
                         className={location.pathname === '/mining/pool/status' ? 'active-custom' : ''}
                         component="div"
                         disablePadding
@@ -381,7 +382,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                             primary="Status"
                           />
                         </ListItemButton>
-                      </List>
+                      </List> */}
                       <List
                         className={
                           location.pathname === '/mining/pool/miners' || location.pathname.slice(0, 8) === '/profile'
@@ -436,7 +437,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                       timeout="auto"
                       unmountOnExit
                     >
-                      <List
+                      {/* <List
                         className={location.pathname === '/mining/voting' ? 'active-custom' : ''}
                         component="div"
                         disablePadding
@@ -456,7 +457,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                             primary="Status"
                           />
                         </ListItemButton>
-                      </List>
+                      </List> */}
                       <List
                         className={location.pathname === '/mining/voting/joiners' ? 'active-custom' : ''}
                         component="div"

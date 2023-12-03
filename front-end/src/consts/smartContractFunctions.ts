@@ -116,12 +116,16 @@ export const ContractTryEnterPoolMining = () => {
 export const ContractAskToJoinMining = (pubKey: string) => {
   const type = 'mining';
   // To remove the next line after public key is successfully parsed
-  pubKey = '02e8f7dc91e49a577ce9ea8989c7184aea8886fe5250f02120dc6f98e3619679b0';
+  // pubKey = '02e8f7dc91e49a577ce9ea8989c7184aea8886fe5250f02120dc6f98e3619679b0';
 
+  console.log('public key inside ask to join: ', pubKey);
   const version = '00';
   const versionBuffer = Buffer.from(version, 'hex');
   const pubKeyBuffer = Buffer.from(pubKey, 'hex');
+  console.log('pub key buffer inside ask to join fn: ', pubKeyBuffer);
   const pKhash160 = crypto.hash160(pubKeyBuffer);
+
+  console.log('pkhash160 inside ask to join fn: ', pKhash160);
   const functionArgs = [tupleCV({ hashbytes: bufferCV(pKhash160), version: bufferCV(versionBuffer) })];
   console.log(functionArgs);
   CallFunctions(type, functionArgs, functionMapping[type].publicFunctions.askToJoin, []);

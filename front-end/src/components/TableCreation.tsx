@@ -47,9 +47,31 @@ const TableCreation = ({ rows, rowContent, columns, tableId, customTableWidth }:
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState<number>(5);
   const [orderBy, setOrderBy] = React.useState<keyof AllTableData>();
+  const [sortDirection, setSortDirection] = React.useState<'asc' | 'desc'>();
+  const [sortedColumn, setSortedColumn] = React.useState<keyof AllTableData>();
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
-
   const totalRows = rows.length;
+
+  const handleSortClick = (column: keyof AllTableData) => {
+    if (column === sortedColumn) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortedColumn(column);
+      setSortDirection('asc');
+      setOrderBy(column);
+    }
+  };
+  React.useEffect(() => {
+    if (tableId === 'notifier' && !orderBy && !sortDirection && !sortedColumn) {
+      setOrderBy('notifierVotes');
+      setSortedColumn('notifierVotes');
+      setSortDirection('desc');
+    } else if ((tableId === 'waiting' || tableId === 'removals') && !orderBy && !sortDirection && !sortedColumn) {
+      setOrderBy('positiveVotes');
+      setSortedColumn('positiveVotes');
+      setSortDirection('desc');
+    }
+  }, [orderBy, sortedColumn, sortDirection, setOrderBy]);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -59,9 +81,6 @@ const TableCreation = ({ rows, rowContent, columns, tableId, customTableWidth }:
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
-  const [sortDirection, setSortDirection] = React.useState<'asc' | 'desc'>('asc');
-  const [sortedColumn, setSortedColumn] = React.useState<keyof AllTableData>('id');
 
   const fixedHeaderContent = () => {
     return (
@@ -99,16 +118,6 @@ const TableCreation = ({ rows, rowContent, columns, tableId, customTableWidth }:
         ))}
       </TableRow>
     );
-  };
-
-  const handleSortClick = (column: keyof AllTableData) => {
-    if (column === sortedColumn) {
-      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
-    } else {
-      setSortedColumn(column);
-      setSortDirection('asc');
-      setOrderBy(column);
-    }
   };
 
   const sortedRows = React.useMemo(() => {

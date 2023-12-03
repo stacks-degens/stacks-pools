@@ -1,100 +1,32 @@
-import { useEffect, useState } from 'react';
-import {
-  selectCurrentTheme,
-  selectCurrentUserRoleMining,
-  selectUserSessionState,
-  UserRoleMining,
-} from '../../../redux/reducers/user-state';
+import { selectCurrentTheme, selectCurrentUserRoleMining, UserRoleMining } from '../../../redux/reducers/user-state';
 import { useAppSelector } from '../../../redux/store';
-import {
-  readOnlyGetBlocksWonMining,
-  ReadOnlyGetMinersList,
-  ReadOnlyGetMinersNumber,
-  readOnlyGetNotifier,
-  readOnlyGetPoolSpendPerBlock,
-  readOnlyGetStacksRewardsMining,
-} from '../../../consts/readOnly';
 import DashboardInfoContainer from '../../reusableComponents/dashboard/DashboardInfoContainer';
 import colors from '../../../consts/colorPallete';
 import './styles.css';
-import { network } from '../../../consts/network';
 
 interface IDashboardProps {
   currentBurnBlockHeight: number | null;
+  currentNotifier: string | null;
+  minersList: Array<string>;
+  blocksWon: number | null;
+  stacksRewards: number | null;
+  userAddress: string | null;
+  minersNumber: number | null;
+  poolSpendPerBlock: number | null;
 }
 
-const Dashboard = ({ currentBurnBlockHeight }: IDashboardProps) => {
-  const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);
-  const [poolSpendPerBlock, setPoolSpendPerBlock] = useState<number | null>(null);
-  const [minersList, setMinersList] = useState<Array<string>>([]);
-  const [minersNumber, setMinersNumber] = useState<number | null>(null);
+const Dashboard = ({
+  currentBurnBlockHeight,
+  currentNotifier,
+  minersList,
+  blocksWon,
+  stacksRewards,
+  userAddress,
+  minersNumber,
+  poolSpendPerBlock,
+}: IDashboardProps) => {
   const currentRole: UserRoleMining = useAppSelector(selectCurrentUserRoleMining);
-  const [userAddress, setUserAddress] = useState<string | null>(null);
-  const [blocksWon, setBlocksWon] = useState<number | null>(null);
-  const [stacksRewards, setStacksRewards] = useState<number | null>(null);
-  const userSession = useAppSelector(selectUserSessionState);
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
-  const localNetwork = network === 'devnet' ? 'testnet' : network;
-
-  useEffect(() => {
-    const getCurrentNotifier = async () => {
-      const notifier = await readOnlyGetNotifier();
-      setCurrentNotifier(notifier);
-    };
-
-    getCurrentNotifier();
-  }, [currentNotifier]);
-
-  useEffect(() => {
-    const getSpendPerBlock = async () => {
-      const notifier = await readOnlyGetPoolSpendPerBlock();
-      setPoolSpendPerBlock(notifier);
-    };
-
-    getSpendPerBlock();
-  }, [poolSpendPerBlock]);
-
-  useEffect(() => {
-    if (userSession.isUserSignedIn()) {
-      const args = userSession.loadUserData().profile.stxAddress[localNetwork];
-      setUserAddress(args);
-    }
-  }, [userAddress]);
-
-  useEffect(() => {
-    const getMinersList = async () => {
-      const { value } = await ReadOnlyGetMinersList();
-      const parsedMinersList =
-        value.length !== 0 ? value.map((miner: { type: string; value: string }) => miner.value) : [];
-      setMinersList(parsedMinersList);
-    };
-
-    getMinersList();
-  }, []);
-
-  useEffect(() => {
-    const getBlocksWon = async () => {
-      const blocks = await readOnlyGetBlocksWonMining();
-      setBlocksWon(blocks);
-    };
-    getBlocksWon();
-  }, [blocksWon]);
-
-  useEffect(() => {
-    const getStacksRewards = async () => {
-      const stacks = await readOnlyGetStacksRewardsMining();
-      setStacksRewards(stacks);
-    };
-    getStacksRewards();
-  }, [stacksRewards]);
-
-  useEffect(() => {
-    const getMinersNumber = async () => {
-      const minersNumber = await ReadOnlyGetMinersNumber();
-      setMinersNumber(minersNumber);
-    };
-    getMinersNumber();
-  }, [minersNumber]);
 
   return (
     <div className="dashboard-page-main-container">
