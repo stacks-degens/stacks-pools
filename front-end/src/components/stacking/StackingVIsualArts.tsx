@@ -236,7 +236,7 @@ export const StackingVisualArts = ({
                   : 'none',
               }}
             >
-              <Button size="large" sx={{ color: colors[appCurrentTheme].colorWriting }} disableRipple>
+              <Button size="large" sx={{ color: colors[appCurrentTheme].colorWriting, width: '100%' }} disableRipple>
                 Cycle Details
               </Button>
             </ListItemButton>

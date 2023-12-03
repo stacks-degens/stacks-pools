@@ -382,7 +382,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                             primary="Status"
                           />
                         </ListItemButton>
-                      </List> */}
+                      </List>
                       <List
                         className={
                           location.pathname === '/mining/pool/miners' || location.pathname.slice(0, 8) === '/profile'
@@ -457,7 +457,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                             primary="Status"
                           />
                         </ListItemButton>
-                      </List> */}
+                      </List>
                       <List
                         className={location.pathname === '/mining/voting/joiners' ? 'active-custom' : ''}
                         component="div"

@@ -6,8 +6,6 @@ use bitcoin_wallet::{
     input_data::regtest_call::RegtestCall,
 };
 
-use bitcoin_wallet::z_development::this_tap_script_with_tap::Test_tap_with_tap;
-
 use electrum_client::{Client, ElectrumApi};
 use simple_wallet::{p2tr_key::p2tr, p2wpkh::p2wpkh};
 
