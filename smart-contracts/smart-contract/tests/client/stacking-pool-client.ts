@@ -42,6 +42,41 @@ export function getUserData(stacker: Account, user: Account) {
   return Tx.contractCall('stacking-pool-test', 'get-user-data', [types.principal(stacker.address)], user.address);
 }
 
+export function getPoolMembers(user: Account) {
+  return Tx.callReadOnlyFn('stacking-pool-test', 'get-pool-members', [], user.address);
+}
+
+export function batchCheckRewards(burnBlocksList: Account[], user: Account) {
+  return Tx.contractCall(
+    'stacking-pool-test',
+    'check-won-block-rewards-batch',
+    [types.list(burnBlocksList.map((s) => types.uint(s)))],
+    user.address
+  );
+}
+
+export function batchRewardsDistribution(burnBlocksList: Account[], user: Account) {
+  return Tx.contractCall(
+    'stacking-pool-test',
+    'batch-reward-distribution',
+    [types.list(burnBlocksList.map((s) => types.uint(s)))],
+    user.address
+  );
+}
+
+export function batchStackStx(burnBlocksList: Account[], user: Account) {
+  return Tx.contractCall(
+    'stacking-pool-test',
+    'delegate-stack-stx-many',
+    [types.list(burnBlocksList.map((s) => types.principal(s)))],
+    user.address
+  );
+}
+
+export function stackStx(who: Account, user: Account) {
+  return Tx.contractCall('stacking-pool-test', 'delegate-stack-stx', [types.principal(who.address)], user.address);
+}
+
 // // admin functions
 
 // export function setActive(active: boolean, user: Account) {

@@ -56,7 +56,7 @@
 (define-map map-block-joined { address: principal } { block-height: uint })
 (define-map map-balance-xBTC { address: principal } { value: uint })
 (define-map auto-exchange { address: principal } { value: bool })
-(define-map btc-address { address: principal } { btc-address: {hashbytes: (buff 20), version: (buff 1)} })
+(define-map btc-address { address: principal } { btc-address: {hashbytes: (buff 32), version: (buff 1)} })
 
 (define-map map-votes-accept-join { address: principal } { value: uint })
 (define-map map-votes-reject-join { address: principal } { value: uint })
@@ -74,6 +74,7 @@
 (define-data-var notifier principal tx-sender)
 (define-data-var waiting-list (list 300 principal) (list ))
 (define-data-var miners-list (list 300 principal) (list (var-get notifier)))
+(define-data-var miners-list-bitcoin (list 300 {hashbytes: (buff 32), version: (buff 1)}) (list ))
 (define-data-var pending-accept-list (list 300 principal) (list ))
 (define-data-var proposed-removal-list (list 300 principal) (list ))
 (define-data-var n uint u1)
@@ -97,6 +98,9 @@
 (define-data-var reward-change-funds uint u0)
 (define-data-var temp-distributed-change-funds uint u0)
 (define-data-var temp-change-after-flushing uint u0)
+(define-data-var temp-miners-bitcoin-lists (list 300 {hashbytes: (buff 32), version: (buff 1)}) (list ))
+;; equivalent to 70 USD in sats * 1_000_000
+(define-data-var pool-spend-amount-sats-per-block uint u3730000000)
 
 (map-set map-is-miner {address: tx-sender} {value: true})
 (map-set map-block-joined {address: tx-sender} {block-height: block-height})
@@ -267,7 +271,7 @@
 (define-read-only (get-miner-btc-address (miner-address principal))
   (map-get? btc-address {address: miner-address}))
 
-(define-public (set-my-btc-address (new-btc-address {hashbytes: (buff 20), version: (buff 1)})) 
+(define-public (set-my-btc-address (new-btc-address {hashbytes: (buff 32), version: (buff 1)})) 
   (ok (map-set btc-address {address: contract-caller} {btc-address: new-btc-address})))
 
 ;; deposit funds
@@ -341,13 +345,13 @@
 
 ;; JOINING FLOW
 
-(define-public (ask-to-join (my-btc-address {hashbytes: (buff 20), version: (buff 1)}))
+(define-public (ask-to-join (my-btc-address {hashbytes: (buff 32), version: (buff 1)}))
 (begin 
   (asserts! (not (check-is-miner-now contract-caller)) err-already-joined) 
   (asserts! (not (check-is-waiting-now contract-caller)) err-already-asked-to-join) 
   (map-set map-block-asked-to-join {address: contract-caller} {value: block-height})
   (map-set btc-address {address: contract-caller} {btc-address: my-btc-address})
-  (var-set waiting-list (unwrap-panic (as-max-len? (append (var-get waiting-list) contract-caller) u300)))
+  (var-set waiting-list (unwrap-panic (as-max-len? (append (var-get waiting-list) tx-sender) u300)))
   (map-set map-is-waiting {address: contract-caller} {value: true})
   (ok true)))
 
@@ -489,6 +493,20 @@
       (get-block-info? id-header-hash 
         (unwrap-panic block-asked-to-join))) 
           (ok (var-get k))))))
+
+(define-private (get-block-number-asked-to-join (miner-to-vote principal))
+(let ((block-asked-to-join (get value (map-get? map-block-asked-to-join {address: miner-to-vote}))))
+  (if (not (is-some block-asked-to-join)) u0
+  (if
+    (is-eq
+      (unwrap-panic block-asked-to-join)
+      block-height)
+    (var-get k)
+    (at-block
+    (unwrap-panic
+      (get-block-info? id-header-hash
+        (unwrap-panic block-asked-to-join)))
+          (var-get k))))))
 
 (define-private (get-n-at-block-asked-to-join (miner-to-vote principal)) 
 (let ((block-asked-to-join (get value (map-get? map-block-asked-to-join {address: miner-to-vote}))))
@@ -706,29 +724,6 @@
 (define-private (get-max-votes-number-notifier) 
 (ok (map compare-votes-number-notifier (var-get miners-list))))
 
-;; (define-private (compare-votes-number-notifier (proposed-notifier principal)) 
-;; (ok 
-;; (if (is-some (get votes-number (map-get? map-votes-notifier {voted-notifier: proposed-notifier})))
-;;     (if (> (unwrap-panic (get votes-number (map-get? map-votes-notifier {voted-notifier: proposed-notifier}))) (/ (var-get k) u2))
-;;       (if 
-;;         (> (unwrap-panic (get votes-number (map-get? map-votes-notifier {voted-notifier: proposed-notifier}))) (var-get max-votes-notifier)) 
-;;         (begin 
-;;           (var-set max-votes-notifier (unwrap-panic (get votes-number (map-get? map-votes-notifier {voted-notifier: proposed-notifier})))) 
-;;           (var-set max-voted-proposed-notifier proposed-notifier))
-;;         (if 
-;;           (is-eq (unwrap-panic (get votes-number (map-get? map-votes-notifier {voted-notifier: proposed-notifier}))) (var-get max-votes-notifier)) 
-;;           (if 
-;;             (< 
-;;               (unwrap-panic (get block-height (map-get? map-block-joined {address: proposed-notifier}))) 
-;;               (unwrap-panic (get block-height (map-get? map-block-joined {address: (var-get max-voted-proposed-notifier)})))) 
-;;             (begin 
-;;                 (var-set max-voted-proposed-notifier proposed-notifier))
-;;             false)
-;;         false))
-;;       false)
-;;     false)))
-
-
 (define-private (compare-votes-number-notifier (proposed-notifier principal))
   (let ((proposed-notifier-votes (default-to u0 (get votes-number (map-get? map-votes-notifier {voted-notifier: proposed-notifier})))))
   (ok
@@ -806,7 +801,7 @@
 
 (define-private (is-vote-accepted (votes-number uint) (k-local uint))
 (if 
-  (is-eq k-local u0) ;; k is 0 for n=1, n=2 
+  (is-eq k-local u0) ;; k is 0 for n=1, n=2
     (>= votes-number u1) 
     (>= votes-number k-local)))
 
@@ -982,11 +977,11 @@ claimer: (get-block-info? miner-address block-number)})
 
 ;; READ-ONLY UTILS
 
-;; (define-read-only (check-vote-accepted) ;; to check the vote status inside FE
-;; (is-vote-accepted (unwrap-panic (get value (map-get? map-votes-accept-join {address: contract-caller})))))
-
 (define-read-only (get-k) 
 (var-get k))
+
+(define-read-only (get-n) 
+(var-get n))
 
 (define-read-only (get-notifier) 
 (var-get notifier))
@@ -1000,20 +995,50 @@ claimer: (get-block-info? miner-address block-number)})
 (define-read-only (get-waiting-list) 
 (var-get waiting-list))
 
+(define-read-only (get-waiting-list-positions (index1 uint) (index2 uint)) 
+(default-to (list ) (slice? (var-get waiting-list) index1 index2)))
+
+(define-read-only (get-pending-accept-list) 
+(var-get pending-accept-list))
+
+(define-read-only (get-pending-accept-list-positions (index1 uint) (index2 uint)) 
+(default-to (list ) (slice? (var-get pending-accept-list) index1 index2)))
+
 (define-read-only (get-miners-list) 
 (var-get miners-list))
 
-(define-read-only (get-pending-accept-list) 
-(var-get pending-accept-list ))
+(define-read-only (get-miners-list-positions (index1 uint) (index2 uint)) 
+(default-to (list ) (slice? (var-get miners-list) index1 index2)))
+
+;; (define-private (concat-us (b {hashbytes: (buff 32), version: (buff 1)}))
+;;   (let ((miner-bitcoin (unwrap-panic (get btc-address (map-get? btc-address {address: a})))))
+;;   (default-to (list ) (as-max-len? (append (list miner-bitcoin) b) u50))))
+
+;; write required
+;; (define-read-only (get-miners-list-bitcoin (index1 uint) (index2 uint))
+;;   ;; for each value starting from index1 to index2 -> map append value[map-bitcoin(address)] to list
+;;   (let ((current-list (default-to (list ) (slice? (var-get miners-list) index1 index2))))
+;;     (var-set temp-miners-bitcoin-lists (list ))
+;;     (map concat-us current-list (list ))))
+
 
 (define-read-only (get-proposed-removal-list) 
-(var-get proposed-removal-list ))
+(var-get proposed-removal-list))
 
 (define-read-only (get-notifier-vote-status) 
 (var-get notifier-vote-active))
 
 (define-read-only (get-notifier-vote-number (voted-notifier principal)) 
 (get votes-number (map-get? map-votes-notifier {voted-notifier: voted-notifier})))
+
+(define-read-only (get-warnings-user (user principal)) 
+(default-to u0 (get value (map-get? map-warnings {address: user}))))
+
+(define-read-only (is-blacklisted (miner principal)) 
+(default-to false (get value (map-get? map-blacklist {address: miner}))))
+
+(define-read-only (is-claimed (block uint)) 
+(default-to false (get claimed (map-get? claimed-rewards {block-number: block}))))
 
 (define-read-only (get-max-voted-notifier) 
 (var-get max-voted-proposed-notifier))
@@ -1023,6 +1048,16 @@ claimer: (get-block-info? miner-address block-number)})
 
 (define-read-only (get-current-block)
 (ok block-height))
+
+(define-read-only (is-user-accepted) 
+(is-vote-accepted
+  (default-to u0 (get value (map-get? map-votes-accept-join {address: tx-sender}))) 
+  (get-block-number-asked-to-join tx-sender)))
+
+(define-read-only (blocks-passed-for-pending-miners)
+(if (>= (- block-height (var-get last-join-done)) blocks-to-pass)
+    true
+    false))
 
 (define-private (is-principal-in-waiting-list (miner principal))
 (not (is-eq 
@@ -1043,3 +1078,7 @@ claimer: (get-block-info? miner-address block-number)})
 (not (is-eq  
   (var-get proposed-removal-list-miner-to-remove) 
   miner)))
+
+;; returns the sats amount the whole pool has to send to the FROST in order to confirm the block (multiplied by ONE_6)
+(define-read-only (get-pool-total-spend-per-block)
+(var-get pool-spend-amount-sats-per-block))

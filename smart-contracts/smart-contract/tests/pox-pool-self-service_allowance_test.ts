@@ -1,13 +1,18 @@
 import { allowContractCaller, disallowContractCaller, getStackerInfo } from './client/pox-2-client.ts';
 import {
+  batchCheckRewards,
+  batchRewardsDistribution,
+  batchStackStx,
   delegateStackStx,
   delegateStx,
   fpDelegationAllowContractCaller,
+  getPoolMembers,
   getUserData,
   joinStackingPool,
   quitStackingPool,
+  stackStx,
 } from './client/stacking-pool-client.ts';
-import { Clarinet, Chain, Account, Tx, types } from './deps.ts';
+import { Clarinet, Chain, Account, Tx, types, assertEquals } from './deps.ts';
 import { Errors, PoxErrors, poxAddrFP, poxAddrPool1, poxAddrPool2 } from './constants.ts';
 
 import { expectPartialStackedByCycle, expectTotalStackedByCycle } from './utils.ts';
@@ -129,7 +134,7 @@ Clarinet.test({
     block = chain.mineBlock([joinStackingPool(wallet_1), mainDelegateStx(20_000_000_000_000, wallet_1)]);
     block.receipts[0].result.expectOk().expectBool(true);
     block.receipts[1].result.expectOk().expectBool(true);
-    expectTotalStackedByCycle(1, 0, 20_000_000_000_000, chain, deployer);
+    expectTotalStackedByCycle(1, 0, 19_999_999_000_000, chain, deployer);
   },
 });
 
@@ -156,9 +161,9 @@ Clarinet.test({
     block.receipts[2].result.expectOk().expectBool(true);
     // 200_000_000_000_000 delegated, 100_000_000_000_000 locked
     block.receipts[3].result.expectSome().expectTuple()['delegated-balance'].expectUint(200_000_000_000_000);
-    block.receipts[3].result.expectSome().expectTuple()['locked-balance'].expectUint(100_000_000_000_000);
+    block.receipts[3].result.expectSome().expectTuple()['locked-balance'].expectUint(99_999_999_000_000);
     // check total to be 100_000_000_000_000 instead of what user has delegated
-    expectTotalStackedByCycle(1, 0, 100_000_000_000_000, chain, deployer);
+    expectTotalStackedByCycle(1, 0, 99_999_999_000_000, chain, deployer);
 
     block = chain.mineBlock([
       allowContractCaller(mainContract, undefined, wallet_2),
@@ -171,9 +176,9 @@ Clarinet.test({
     block.receipts[2].result.expectOk().expectBool(true);
     // 400_000_000_000_000 delegated, 200_000_000_000_000 locked
     block.receipts[3].result.expectSome().expectTuple()['delegated-balance'].expectUint(400_000_000_000_000);
-    block.receipts[3].result.expectSome().expectTuple()['locked-balance'].expectUint(100_000_000_000_000);
+    block.receipts[3].result.expectSome().expectTuple()['locked-balance'].expectUint(99_999_999_000_000);
     // check total to be 200_000_000_000_000 (100_000_000_000_000 + 100_000_000_000_000 already stacked) instead of what user has delegated
-    expectTotalStackedByCycle(1, 0, 200_000_000_000_000, chain, deployer);
+    expectTotalStackedByCycle(1, 0, 199_999_998_000_000, chain, deployer);
   },
 });
 
@@ -206,7 +211,7 @@ Clarinet.test({
 
     // verify delegated-balance==locked-balance==1_000_000_000
     block.receipts[0].result.expectSome().expectTuple()['delegated-balance'].expectUint(1_000_000_000);
-    block.receipts[0].result.expectSome().expectTuple()['locked-balance'].expectUint(1_000_000_000);
+    block.receipts[0].result.expectSome().expectTuple()['locked-balance'].expectUint(999_000_000);
 
     // verify is-none - not in stacking pool yet
     block.receipts[1].result.expectNone();
@@ -225,17 +230,17 @@ Clarinet.test({
     block.receipts[2].result.expectOk().expectBool(true);
 
     expectPartialStackedByCycle(poxAddrFP, 1, 0, chain, deployer); // does not commit partially
-    expectTotalStackedByCycle(1, 0, 10_001_000_000_000, chain, deployer); // commits totally the amount wallet_1 + wallet_2 delegated
+    expectTotalStackedByCycle(1, 0, 10_000_998_000_000, chain, deployer); // commits totally the amount wallet_1 + wallet_2 delegated
 
     block = chain.mineBlock([getUserData(wallet_1, deployer), getUserData(wallet_2, deployer)]);
 
     // verify delegated-balance==locked-balance== 1_000_000_000
     block.receipts[0].result.expectSome().expectTuple()['delegated-balance'].expectUint(1_000_000_000);
-    block.receipts[0].result.expectSome().expectTuple()['locked-balance'].expectUint(1_000_000_000);
+    block.receipts[0].result.expectSome().expectTuple()['locked-balance'].expectUint(999_000_000);
 
     // verify delegated-balance==locked-balance==124_000_000_000
     block.receipts[1].result.expectSome().expectTuple()['delegated-balance'].expectUint(10_000_000_000_000);
-    block.receipts[1].result.expectSome().expectTuple()['locked-balance'].expectUint(10_000_000_000_000);
+    block.receipts[1].result.expectSome().expectTuple()['locked-balance'].expectUint(9_999_999_000_000);
   },
 });
 
@@ -356,7 +361,7 @@ Clarinet.test({
 
       // verify delegated-balance==locked-balance==1_000_000_000
       block.receipts[0].result.expectSome().expectTuple()['delegated-balance'].expectUint(1_000_000_000);
-      block.receipts[0].result.expectSome().expectTuple()['locked-balance'].expectUint(1_000_000_000);
+      block.receipts[0].result.expectSome().expectTuple()['locked-balance'].expectUint(999_000_000);
     }
 
     expectPartialStackedByCycle(poxAddrFP, 1, 0, chain, deployer); // does not commit partially
@@ -401,7 +406,7 @@ Clarinet.test({
 
       // verify delegated-balance==locked-balance==1_000_000_000
       block.receipts[0].result.expectSome().expectTuple()['delegated-balance'].expectUint(1_000_000_000);
-      block.receipts[0].result.expectSome().expectTuple()['locked-balance'].expectUint(1_000_000_000);
+      block.receipts[0].result.expectSome().expectTuple()['locked-balance'].expectUint(999_000_000);
     }
 
     expectPartialStackedByCycle(poxAddrFP, 1, 0, chain, deployer); // does not commit partially
@@ -419,7 +424,7 @@ Clarinet.test({
     // no print, returns ok true => amount commited
 
     expectPartialStackedByCycle(poxAddrFP, 1, 0, chain, deployer); // does not commit partially
-    expectTotalStackedByCycle(1, 0, 3783000000000, chain, deployer); // commits totally the amount wallet_1 + wallet_2 delegated
+    expectTotalStackedByCycle(1, 0, 3_782_996_000_000, chain, deployer); // commits totally the amount wallet_1 + wallet_2 delegated
 
     for (let i = 5; i <= 7; i++) {
       let stacker = accounts.get(`wallet_${i}`)!;
@@ -442,11 +447,11 @@ Clarinet.test({
 
       // verify delegated-balance==locked-balance==1_000_000_000
       block.receipts[0].result.expectSome().expectTuple()['delegated-balance'].expectUint(1_000_000_000);
-      block.receipts[0].result.expectSome().expectTuple()['locked-balance'].expectUint(1_000_000_000);
+      block.receipts[0].result.expectSome().expectTuple()['locked-balance'].expectUint(999_000_000);
     }
 
     expectPartialStackedByCycle(poxAddrFP, 1, 0, chain, deployer); // does not commit partially
-    expectTotalStackedByCycle(1, 0, 3786000000000, chain, deployer); // does not commit totally
+    expectTotalStackedByCycle(1, 0, 3_785_993_000_000, chain, deployer); // does not commit totally
 
     // Allow pool SC in pox-2, join stacking pool and delegate with wallet_8
     block = chain.mineBlock([
@@ -460,13 +465,171 @@ Clarinet.test({
     // no print, returns ok true => amount commited
 
     expectPartialStackedByCycle(poxAddrFP, 1, 0, chain, deployer); // does not commit partially
-    expectTotalStackedByCycle(1, 0, 3908000000000, chain, deployer); // commits totally the amount wallet_1, wallet_2, ... wallet_8 delegated
+    expectTotalStackedByCycle(1, 0, 3_907_992_000_000, chain, deployer); // commits totally the amount wallet_1, wallet_2, ... wallet_8 delegated
 
     block = chain.mineBlock([getUserData(wallet_8, deployer)]);
 
     // verify delegated-balance==locked-balance==122_000_000_000
     block.receipts[0].result.expectSome().expectTuple()['delegated-balance'].expectUint(122_000_000_000);
-    block.receipts[0].result.expectSome().expectTuple()['locked-balance'].expectUint(122_000_000_000);
+    block.receipts[0].result.expectSome().expectTuple()['locked-balance'].expectUint(121_999_000_000);
+  },
+});
+
+Clarinet.test({
+  name: 'Batch rewards check + distribution + get pool members 300 stackers',
+
+  async fn(chain: Chain, accounts: Map<string, Account>) {
+    const mainDelegateStx = (amountUstx: number, user: Account) => {
+      return Tx.contractCall('stacking-pool-test', 'delegate-stx', [types.uint(amountUstx)], user.address);
+    };
+    const deployer = accounts.get('deployer')!;
+    const wallet_4 = accounts.get('wallet_4')!;
+    const wallet_8 = accounts.get('wallet_8')!;
+    const wallet_299 = accounts.get('wallet_299')!;
+    const mainContract = deployer.address + '.stacking-pool-test';
+
+    let batchCheckedBlocks = [];
+
+    for (let i = 100; i < 115; i++) batchCheckedBlocks.push(i);
+
+    let stackersList = [deployer.address];
+    for (let i = 1; i <= 299; i++) stackersList.push(accounts.get(`wallet_${i}`)!.address);
+
+    // Allow pool SC in pox-2, join stacking pool and delegate with 300 wallets
+    let block: any;
+
+    for (let i = 1; i <= 298; i++) {
+      let stacker = accounts.get(`wallet_${i}`)!;
+      block = chain.mineBlock([
+        allowContractCaller(mainContract, undefined, stacker),
+        joinStackingPool(stacker),
+        mainDelegateStx(1_000_000_000, stacker),
+      ]);
+      block.receipts[0].result.expectOk().expectBool(true);
+      block.receipts[1].result.expectOk().expectBool(true);
+      block.receipts[2].result.expectOk();
+    }
+
+    // Check local user data
+    for (let i = 1; i <= 298; i++) {
+      let stacker = accounts.get(`wallet_${i}`)!;
+
+      // Check local user data
+      block = chain.mineBlock([getUserData(stacker, deployer)]);
+
+      // verify delegated-balance==locked-balance==1_000_000_000
+      block.receipts[0].result.expectSome().expectTuple()['delegated-balance'].expectUint(1_000_000_000);
+      block.receipts[0].result.expectSome().expectTuple()['locked-balance'].expectUint(999_000_000);
+    }
+
+    expectPartialStackedByCycle(poxAddrFP, 1, 0, chain, deployer); // does not commit partially
+    expectTotalStackedByCycle(1, 0, 0, chain, deployer); // does not commit totally
+
+    // Allow pool SC in pox-2, join stacking pool and delegate with wallet_300
+    block = chain.mineBlock([
+      allowContractCaller(mainContract, undefined, wallet_299),
+      joinStackingPool(wallet_299),
+      mainDelegateStx(3_780_000_000_000, wallet_299), // approximate threshold
+    ]);
+    block.receipts[0].result.expectOk().expectBool(true);
+    block.receipts[1].result.expectOk().expectBool(true);
+    block.receipts[2].result.expectOk().expectBool(true);
+    assertEquals(block.height, 598);
+
+    expectPartialStackedByCycle(poxAddrFP, 1, 0, chain, deployer); // does not commit partially
+    expectTotalStackedByCycle(1, 0, 4_077_701_000_000, chain, deployer); // commits totally the amount all the 299 wallets delegated
+
+    block = chain.callReadOnlyFn(mainContract, 'get-pool-members', [], deployer.address);
+
+    // Batch check rewards for blocks 100...399 -> 300 blocks at once
+    block = chain.mineBlock([batchCheckRewards(batchCheckedBlocks, deployer)]);
+
+    block.receipts[0].result.expectOk();
+    console.log('batch block rewards checking: ', block.receipts[0].result);
+
+    assertEquals(block.height, 599);
+
+    // Batch distribute rewards for blocks 100...399 -> 300 blocks at once
+    block = chain.mineBlock([batchRewardsDistribution(batchCheckedBlocks, deployer)]);
+
+    block.receipts[0].result.expectOk();
+    console.log('batch block rewards distribution: ', block.receipts[0].result);
+  },
+});
+
+Clarinet.test({
+  name: 'delegate-stack-stx-many',
+
+  async fn(chain: Chain, accounts: Map<string, Account>) {
+    const mainDelegateStx = (amountUstx: number, user: Account) => {
+      return Tx.contractCall('stacking-pool-test', 'delegate-stx', [types.uint(amountUstx)], user.address);
+    };
+    const deployer = accounts.get('deployer')!;
+    const wallet_4 = accounts.get('wallet_4')!;
+    const wallet_8 = accounts.get('wallet_8')!;
+    const wallet_299 = accounts.get('wallet_299')!;
+    const mainContract = deployer.address + '.stacking-pool-test';
+
+    let batchCheckedBlocks = [];
+
+    for (let i = 100; i < 115; i++) batchCheckedBlocks.push(i);
+
+    let stackersList = [deployer.address];
+    for (let i = 1; i <= 299; i++) stackersList.push(accounts.get(`wallet_${i}`)!.address);
+
+    // Allow pool SC in pox-2, join stacking pool and delegate with 300 wallets
+    let block: any;
+
+    for (let i = 1; i <= 298; i++) {
+      let stacker = accounts.get(`wallet_${i}`)!;
+      block = chain.mineBlock([
+        allowContractCaller(mainContract, undefined, stacker),
+        joinStackingPool(stacker),
+        mainDelegateStx(1_000_000_000, stacker),
+      ]);
+      block.receipts[0].result.expectOk().expectBool(true);
+      block.receipts[1].result.expectOk().expectBool(true);
+      block.receipts[2].result.expectOk();
+    }
+
+    // Allow pool SC in pox-2, join stacking pool and delegate with wallet_300
+    block = chain.mineBlock([
+      allowContractCaller(mainContract, undefined, wallet_299),
+      joinStackingPool(wallet_299),
+      mainDelegateStx(3_780_000_000_000, wallet_299), // approximate threshold
+    ]);
+    block.receipts[0].result.expectOk().expectBool(true);
+    block.receipts[1].result.expectOk().expectBool(true);
+    block.receipts[2].result.expectOk().expectBool(true);
+
+    assertEquals(block.height, 300);
+
+    block = chain.callReadOnlyFn(mainContract, 'get-pool-members', [], deployer.address);
+    console.log('pool members: ', block);
+    // for (let i = 1; i <= 350; i++) block = chain.mineBlock([]);
+
+    block = chain.callReadOnlyFn(mainContract, 'get-stx-account', [], wallet_8.address);
+    console.log('wallet 8 stx account: ', block);
+
+    // block = chain.callReadOnlyFn(mainContract, 'get-reward-phase-length', [], wallet_299.address);
+    // console.log(block);
+    // block = chain.callReadOnlyFn(mainContract, 'get-prepare-phase-length', [], wallet_299.address);
+    // console.log(block);
+
+    // for (let i = 1; i <= 2326; i++) block = chain.mineBlock([]);
+
+    // for (let i = 1; i <= 298; i++) {
+    //   let stacker = accounts.get(`wallet_${i}`)!;
+    //   block = chain.callReadOnlyFn(mainContract, 'get-stx-account', [], stacker.address);
+    //   console.log('get-stx-account: ', block);
+    //   block = chain.mineBlock([stackStx(stacker, stacker)]);
+    //   console.log(block.receipts[0]);
+    // }
+
+    for (let i = 1; i <= 2350; i++) block = chain.mineBlock([]);
+
+    block = chain.mineBlock([batchStackStx(stackersList.slice(1, 99), deployer)]);
+    block.receipts[0].result.expectOk();
   },
 });
 

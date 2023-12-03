@@ -116,14 +116,14 @@ plan:
         - contract-publish:
             contract-name: mining-pool
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 476350
+            cost: 489340
             path: contracts/mining-pool.clar
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: mining-pool-5-blocks
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 480660
+            cost: 489320
             path: contracts/mining-pool-5-blocks.clar
             anchor-block-only: true
             clarity-version: 2
@@ -137,14 +137,14 @@ plan:
         - contract-publish:
             contract-name: stacking-pool
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 359810
+            cost: 387430
             path: contracts/stacking-pool.clar
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: stacking-pool-test
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 355670
+            cost: 387610
             path: contracts/stacking-pool-test.clar
             anchor-block-only: true
             clarity-version: 2
