@@ -250,7 +250,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
           <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
         </div>
         <div>
-          {/* <ListItem
+          <ListItem
             className={
               location.pathname === '/mining/myProfile' ||
               location.pathname === '/mining/dashboard' ||
@@ -281,8 +281,8 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                 primary="Mining"
               />
             </ListItemButton>
-          </ListItem> */}
-          {/* <Collapse in={openMiningMenu} timeout="auto" unmountOnExit>
+          </ListItem>
+          <Collapse in={openMiningMenu} timeout="auto" unmountOnExit>
             <Divider variant="middle" style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
             <div>
               <ListItem
@@ -362,7 +362,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                       timeout="auto"
                       unmountOnExit
                     >
-                      {/* <List
+                      <List
                         className={location.pathname === '/mining/pool/status' ? 'active-custom' : ''}
                         component="div"
                         disablePadding
@@ -437,7 +437,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                       timeout="auto"
                       unmountOnExit
                     >
-                      {/* <List
+                      <List
                         className={location.pathname === '/mining/voting' ? 'active-custom' : ''}
                         component="div"
                         disablePadding
@@ -526,10 +526,10 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                 </div>
               </>
             )}
-          </Collapse> */}
+          </Collapse>
           <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
-          {/* <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
-          <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} /> */}
+          <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
+          <Divider style={{ backgroundColor: colors[appCurrentTheme].secondary }} />
         </div>
       </List>
     </Box>
