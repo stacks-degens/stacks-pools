@@ -77,14 +77,14 @@ const MainPage = () => {
 
   // MINING State Hooks
 
-  const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);
-  const [poolSpendPerBlock, setPoolSpendPerBlock] = useState<number | null>(null);
-  const [minersList, setMinersList] = useState<Array<string>>([]);
-  const [minersNumber, setMinersNumber] = useState<number | null>(null);
-  const [blocksWon, setBlocksWon] = useState<number | null>(null);
-  const [stacksRewards, setStacksRewards] = useState<number | null>(null);
-  const [currentBalance, setCurrentBalance] = useState<number>(0);
-  const [totalWithdrawals, setTotalWithdrawals] = useState<number | null>(null);
+  // const [currentNotifier, setCurrentNotifier] = useState<string | null>(null);
+  // const [poolSpendPerBlock, setPoolSpendPerBlock] = useState<number | null>(null);
+  // const [minersList, setMinersList] = useState<Array<string>>([]);
+  // const [minersNumber, setMinersNumber] = useState<number | null>(null);
+  // const [blocksWon, setBlocksWon] = useState<number | null>(null);
+  // const [stacksRewards, setStacksRewards] = useState<number | null>(null);
+  // const [currentBalance, setCurrentBalance] = useState<number>(0);
+  // const [totalWithdrawals, setTotalWithdrawals] = useState<number | null>(null);
 
   // GENERAL Effect Hooks
 
@@ -236,70 +236,70 @@ const MainPage = () => {
 
   // MINING Effect Hooks
 
-  useEffect(() => {
-    const getCurrentNotifier = async () => {
-      const notifier = await readOnlyGetNotifier();
-      setCurrentNotifier(notifier);
-    };
+  // useEffect(() => {
+  //   const getCurrentNotifier = async () => {
+  //     const notifier = await readOnlyGetNotifier();
+  //     setCurrentNotifier(notifier);
+  //   };
 
-    getCurrentNotifier();
-  }, [currentNotifier]);
+  //   getCurrentNotifier();
+  // }, [currentNotifier]);
 
-  useEffect(() => {
-    const getSpendPerBlock = async () => {
-      const notifier = await readOnlyGetPoolSpendPerBlock();
-      setPoolSpendPerBlock(notifier);
-    };
+  // useEffect(() => {
+  //   const getSpendPerBlock = async () => {
+  //     const notifier = await readOnlyGetPoolSpendPerBlock();
+  //     setPoolSpendPerBlock(notifier);
+  //   };
 
-    getSpendPerBlock();
-  }, [poolSpendPerBlock]);
+  //   getSpendPerBlock();
+  // }, [poolSpendPerBlock]);
 
-  useEffect(() => {
-    const getMinersList = async () => {
-      const { value } = await ReadOnlyGetMinersList();
-      const parsedMinersList =
-        value.length !== 0 ? value.map((miner: { type: string; value: string }) => miner.value) : [];
-      setMinersList(parsedMinersList);
-    };
+  // useEffect(() => {
+  //   const getMinersList = async () => {
+  //     const { value } = await ReadOnlyGetMinersList();
+  //     const parsedMinersList =
+  //       value.length !== 0 ? value.map((miner: { type: string; value: string }) => miner.value) : [];
+  //     setMinersList(parsedMinersList);
+  //   };
 
-    getMinersList();
-  }, []);
+  //   getMinersList();
+  // }, []);
 
-  useEffect(() => {
-    const getBlocksWon = async () => {
-      const blocks = await readOnlyGetBlocksWonMining();
-      setBlocksWon(blocks);
-    };
-    getBlocksWon();
-  }, [blocksWon]);
+  // useEffect(() => {
+  //   const getBlocksWon = async () => {
+  //     const blocks = await readOnlyGetBlocksWonMining();
+  //     setBlocksWon(blocks);
+  //   };
+  //   getBlocksWon();
+  // }, [blocksWon]);
 
-  useEffect(() => {
-    const getStacksRewards = async () => {
-      const stacks = await readOnlyGetStacksRewardsMining();
-      setStacksRewards(stacks);
-    };
-    getStacksRewards();
-  }, [stacksRewards]);
+  // useEffect(() => {
+  //   const getStacksRewards = async () => {
+  //     const stacks = await readOnlyGetStacksRewardsMining();
+  //     setStacksRewards(stacks);
+  //   };
+  //   getStacksRewards();
+  // }, [stacksRewards]);
 
-  useEffect(() => {
-    const getMinersNumber = async () => {
-      const minersNumber = await ReadOnlyGetMinersNumber();
-      setMinersNumber(minersNumber);
-    };
-    getMinersNumber();
-  }, [minersNumber]);
+  // useEffect(() => {
+  //   const getMinersNumber = async () => {
+  //     const minersNumber = await ReadOnlyGetMinersNumber();
+  //     setMinersNumber(minersNumber);
+  //   };
+  //   getMinersNumber();
+  // }, [minersNumber]);
 
-  useEffect(() => {
-    const getUserBalance = async () => {
-      const principalAddress = userSession.loadUserData().profile.stxAddress[localNetwork];
-      const getTotalWithdrawals = await readOnlyGetAllTotalWithdrawalsMining(principalAddress);
-      const balance = await readOnlyGetBalanceMining(principalAddress);
-      setTotalWithdrawals(getTotalWithdrawals);
-      setCurrentBalance(balance);
-    };
+  // useEffect(() => {
+  //   const getUserBalance = async () => {
+  //     const principalAddress = userSession.loadUserData().profile.stxAddress[localNetwork];
+  //     const getTotalWithdrawals = await readOnlyGetAllTotalWithdrawalsMining(principalAddress);
+  //     const balance = await readOnlyGetBalanceMining(principalAddress);
+  //     setTotalWithdrawals(getTotalWithdrawals);
+  //     setCurrentBalance(balance);
+  //   };
 
-    getUserBalance();
-  }, [currentBalance, totalWithdrawals]);
+  //   getUserBalance();
+  // }, [currentBalance, totalWithdrawals]);
 
   // MEMPOOL STACKS API
   // useEffect(() => {
@@ -339,7 +339,7 @@ const MainPage = () => {
       </div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route
+        {/* <Route
           path="mining/dashboard"
           index
           element={
@@ -371,7 +371,7 @@ const MainPage = () => {
         <Route path="/mining/voting/joiners" element={<VotingJoiners />} />
         <Route path="/mining/voting/removals" element={<VotingRemovals />} />
         <Route path="/mining/voting/notifier" element={<VotingNotifier />} />
-        <Route path="/profile/:address" element={<MinerProfileDetails />} />
+        <Route path="/profile/:address" element={<MinerProfileDetails />} /> */}
         <Route path="/stacking" element={<RedirectToDashboard />} />
         <Route
           path="/stacking/dashboard"

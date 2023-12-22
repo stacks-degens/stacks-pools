@@ -89,22 +89,22 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
     }
   }, [finalStatusStacking]);
 
-  useEffect(() => {
-    const fetchStatusMining = async () => {
-      if (userSession.isUserSignedIn()) {
-        const args = userSession.loadUserData().profile.stxAddress[localNetwork];
-        const statusMining = await readOnlyAddressStatusMining(args);
-        setFinalStatusMining(statusMining);
-        dispatch(updateUserRoleActionMining(finalStatusMining));
-      }
-    };
+  // useEffect(() => {
+  //   const fetchStatusMining = async () => {
+  //     if (userSession.isUserSignedIn()) {
+  //       const args = userSession.loadUserData().profile.stxAddress[localNetwork];
+  //       const statusMining = await readOnlyAddressStatusMining(args);
+  //       setFinalStatusMining(statusMining);
+  //       dispatch(updateUserRoleActionMining(finalStatusMining));
+  //     }
+  //   };
 
-    fetchStatusMining();
+  //   fetchStatusMining();
 
-    if (currentRoleMining === 'Viewer') {
-      dispatch(updateUserRoleActionStacking(finalStatusStacking));
-    }
-  }, [finalStatusMining]);
+  //   if (currentRoleMining === 'Viewer') {
+  //     dispatch(updateUserRoleActionStacking(finalStatusStacking));
+  //   }
+  // }, [finalStatusMining]);
 
   useEffect(() => {
     if (userSession.isUserSignedIn()) {
