@@ -32,9 +32,9 @@ export const contractMapping: ContractMapping = {
 
   stacking: {
     mainnet: {
-      contractAddress: 'SP02D2KP0630FS1BCJ7YM4TYMDH6NS9QKTNCZR00',
+      contractAddress: 'SP1SCEXE6PMGPAC6B4N5P2MDKX8V4GF9QDE1FNNGJ',
       contractName: 'stacking-pool',
-      owner: 'SP02D2KP0630FS1BCJ7YM4TYMDH6NS9QKTNCZR00',
+      owner: 'SP1SCEXE6PMGPAC6B4N5P2MDKX8V4GF9QDE1FNNGJ',
     },
     testnet: {
       contractAddress: 'ST02D2KP0630FS1BCJ7YM4TYMDH6NS9QKR0B57R3',
