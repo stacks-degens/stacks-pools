@@ -53,7 +53,7 @@
 @media screen and (max-width: 575px) {
   /* the container with the information */
   .dashboard-page-main-container .main-info-container-normal-user {
-    width: 90%;
+    /* width: 90%; */
   }
 
   /* the sections I'm displaying in the main container */
@@ -90,7 +90,8 @@
   }
 
   .dashboard-page-main-container .info-container-dashboard-page {
-    width: 500px;
+    /* width: 500px; */
+    width: 90%;
   }
 
   .dashboard-page-main-container .title-info-container {
@@ -132,7 +133,7 @@
   }
 
   .dashboard-page-main-container .info-container-dashboard-page {
-    width: 560px;
+    width: 90%;
   }
 }
 
@@ -148,10 +149,11 @@
   .dashboard-page-main-container .content-sections-title-info-container span,
   .dashboard-page-main-container .title-info-container,
   .result-of-content-section {
-    font-size: 16px;
+    font-size: 20px;
   }
 
   .dashboard-page-main-container .info-container-dashboard-page {
+    /* width: 900px; */
     width: 90%;
   }
 }

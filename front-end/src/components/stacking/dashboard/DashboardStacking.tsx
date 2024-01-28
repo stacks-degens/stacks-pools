@@ -43,23 +43,25 @@ const DashboardStacking = ({
         <h2>Dashboard</h2>
       </div>
       <div className="principal-content-profile-page">
-        <div className={'main-info-container-normal-user'}>
-          <DashboardStackingInfo
-            currentRole={currentRole}
-            liquidityProvider={currentLiquidityProvider}
-            stackersList={stackersList}
-            blocksRewarded={blocksRewarded}
-            bitcoinRewards={bitcoinRewards}
-            stacksAmountThisCycle={stacksAmountThisCycle}
-            reservedAmount={reservedAmount}
-            returnCovered={returnCovered}
-            minimumDepositProvider={minimumDepositProvider}
-            userAddress={userAddress}
-            currentBurnBlockHeight={currentBurnBlockHeight}
-            preparePhaseStartBlockHeight={preparePhaseStartBlockHeight}
-            rewardPhaseStartBlockHeight={rewardPhaseStartBlockHeight}
-          />
-        </div>
+        <center>
+          <div className={'main-info-container-normal-user'}>
+            <DashboardStackingInfo
+              currentRole={currentRole}
+              liquidityProvider={currentLiquidityProvider}
+              stackersList={stackersList}
+              blocksRewarded={blocksRewarded}
+              bitcoinRewards={bitcoinRewards}
+              stacksAmountThisCycle={stacksAmountThisCycle}
+              reservedAmount={reservedAmount}
+              returnCovered={returnCovered}
+              minimumDepositProvider={minimumDepositProvider}
+              userAddress={userAddress}
+              currentBurnBlockHeight={currentBurnBlockHeight}
+              preparePhaseStartBlockHeight={preparePhaseStartBlockHeight}
+              rewardPhaseStartBlockHeight={rewardPhaseStartBlockHeight}
+            />
+          </div>
+        </center>
       </div>
     </div>
   );

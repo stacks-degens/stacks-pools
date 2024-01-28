@@ -45,7 +45,7 @@
   margin-inline: auto;
 }
 
-.intro-icon-container-stacking {
+.intro-icon-container {
   border-radius: 10% 10% 30% 30% / 10% 10% 45% 45%;
   box-shadow: 1px 1px 4px #ed693c, -1px -1px 4px #ed693c;
   background-color: #fdc60b;
@@ -184,7 +184,7 @@
     font-size: 15px;
   }
 
-  .profile-page-main-container-stacking .intro-icon-container-stacking {
+  .profile-page-main-container-stacking .intro-icon-container {
     width: 90px;
     height: 90px;
   }

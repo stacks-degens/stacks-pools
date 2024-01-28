@@ -1,6 +1,5 @@
 ;; Mainnet Decentralized Stacking Pool Contract
 
-
 ;; Flow
 ;; 1. The liquidity provider deploys the contract 
 ;; 2. He locks into the SC a sum which will be sufficient to cover all the stackers' rewards
@@ -10,6 +9,9 @@
 ;; 6. The stackers will be able to claim the rewards after they are distributed
 
 ;; + In prepare phase, calculate weight of the stackers inside the pool
+
+;; Required traits
+(use-trait ft-trait 'SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-010-trait-ft-standard.sip-010-trait)
 
 ;; Default length of the PoX registration window, in burnchain blocks.
 (define-constant PREPARE_CYCLE_LENGTH (get prepare-cycle-length (unwrap-panic (contract-call? 'SP000000000000000000002Q6VF78.pox-3 get-pox-info))))
