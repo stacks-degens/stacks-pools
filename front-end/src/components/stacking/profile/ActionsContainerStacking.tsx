@@ -12,7 +12,6 @@ import {
 } from '../../../consts/smartContractFunctions';
 import {
   readOnlyAlreadyRewardedBurnBlock,
-  readOnlyClaimedBlockStatusStacking,
   readOnlyGetLiquidityProvider,
   readOnlyHasWonBurnBlock,
 } from '../../../consts/readOnly';
@@ -22,7 +21,6 @@ import { Alert, Checkbox } from '@mui/material';
 import { ElectricBolt } from '@mui/icons-material';
 import ActionsContainerProviderStacking from './ActionsContainerProviderStacking';
 import MouseOverPopover from './MouseOverPopover';
-import { network } from '../../../consts/network';
 
 interface IActionsContainerStackingProps {
   userAddress: string | null;

@@ -1,24 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import LinearProgress from '@mui/material/LinearProgress';
-import { ExpandLess } from '@mui/icons-material';
 import './profile/styles.css';
 import colors from '../../consts/colorPallete';
 import {
   Box,
   Button,
-  CardHeader,
   Dialog,
-  Divider,
   Fade,
-  FormControlLabel,
   GlobalStyles,
-  Grid,
   List,
   ListItem,
   ListItemButton,
-  Table,
   TableCell,
-  TableHead,
   TableRow,
   Tooltip,
 } from '@mui/material';
@@ -27,7 +20,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useAppSelector } from '../../redux/store';
 import { selectCurrentTheme } from '../../redux/reducers/user-state';
 import { numberWithCommas } from '../../consts/converter';
-import { number } from 'bitcoinjs-lib/types/script';
 import { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
 
@@ -126,21 +118,24 @@ export const StackingVisualArts = ({
     // >
     <div>
       <Box>
-        <div
-          className="current-block"
-          ref={divRef}
-          style={{
-            marginTop: '10px',
-            marginLeft:
-              currentBlockHeight >= (divWidth - 50) / (divWidth / 100)
-                ? (divWidth - 50) / (divWidth / 100) + '%'
-                : currentBlockHeight < 50 / (divWidth / 100)
-                ? '0%'
-                : currentBlockHeight - 50 / (divWidth / 100) + '%',
-          }}
-        >
-          Current Block
-        </div>
+        <center>
+          <div
+            className="current-block"
+            ref={divRef}
+            // style={{
+            //   marginTop: '10px',
+            //   marginLeft:
+            //     currentBlockHeight >= (divWidth - 50) / (divWidth / 100)
+            //       ? (divWidth - 50) / (divWidth / 100) + '%'
+            //       : currentBlockHeight < 50 / (divWidth / 100)
+            //       ? '0%'
+            //       : currentBlockHeight - 50 / (divWidth / 100) + '%',
+            // }}
+          >
+            Current Block
+          </div>{' '}
+        </center>
+        {/* </div> */}
         <NoMaxWidthTooltip
           title={
             <div style={{ fontSize: '16px' }}>
@@ -230,7 +225,7 @@ export const StackingVisualArts = ({
                 justifyContent: 'center',
                 borderRadius: 4,
                 backgroundColor: isProgressExpandButtonClicked
-                  ? appCurrentTheme == 'light'
+                  ? appCurrentTheme === 'light'
                     ? '#eeeeee'
                     : '#444444'
                   : 'none',

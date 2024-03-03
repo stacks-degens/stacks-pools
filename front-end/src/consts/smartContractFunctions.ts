@@ -6,7 +6,6 @@ import {
   AnchorMode,
   PostConditionMode,
   ClarityValue,
-  stringCV,
   uintCV,
   boolCV,
   FungibleConditionCode,

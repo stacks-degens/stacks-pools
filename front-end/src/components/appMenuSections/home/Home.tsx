@@ -30,6 +30,7 @@ const Home = () => {
             className="homePageLink"
             href="https://wallet.hiro.so/wallet/install-web"
             target="_blank"
+            rel="noreferrer"
             style={{ color: colors[appCurrentTheme].defaultOrange }}
           >
             https://wallet.hiro.so/wallet/install-web
@@ -52,29 +53,33 @@ const Home = () => {
             to connect your wallet.
           </div>
         </div>
-
-        <div style={{ marginTop: 40 }}>
-          <b>Fund your account with testnet STX:</b>
-        </div>
-        <div style={{ marginTop: 40 }}>
-          <div style={{ marginTop: -30, textAlign: 'match-parent' }}>
-            - In order to fund your account, navigate to{' '}
-            <a
-              className="homePageLink"
-              href="https://explorer.hiro.so/sandbox/faucet?chain=testnet"
-              target="_blank"
-              style={{ color: colors[appCurrentTheme].defaultOrange }}
-            >
-              https://explorer.hiro.so/sandbox/faucet?chain=testnet
-            </a>
-            .<br></br>
-            <div style={{ marginTop: 10 }}></div>- Click the 'Connect Stacks Wallet' button in order to connect to your
-            wallet. If you do not have a wallet, <br></br>follow the previous guide on how to create one.<br></br>
-            <div style={{ marginTop: 10 }}></div>- There, you can click on 'Request STX' in order to receive STX for
-            testing purposes.<br></br>Please note that the transfer requires a few minutes for you to get the STX.
+        {process.env.REACT_APP_NETWORK === 'testnet' && (
+          <div>
+            <div style={{ marginTop: 40 }}>
+              <b>Fund your account with testnet STX:</b>
+            </div>
+            <div style={{ marginTop: 40 }}>
+              <div style={{ marginTop: -30, textAlign: 'match-parent' }}>
+                - In order to fund your account, navigate to{' '}
+                <a
+                  className="homePageLink"
+                  href="https://explorer.hiro.so/sandbox/faucet?chain=testnet"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ color: colors[appCurrentTheme].defaultOrange }}
+                >
+                  https://explorer.hiro.so/sandbox/faucet?chain=testnet
+                </a>
+                .<br></br>
+                <div style={{ marginTop: 10 }}></div>- Click the 'Connect Stacks Wallet' button in order to connect to
+                your wallet. If you do not have a wallet, <br></br>follow the previous guide on how to create one.
+                <br></br>
+                <div style={{ marginTop: 10 }}></div>- There, you can click on 'Request STX' in order to receive STX for
+                testing purposes.<br></br>Please note that the transfer requires a few minutes for you to get the STX.
+              </div>
+            </div>
           </div>
-        </div>
-
+        )}
         <div style={{ marginTop: 40 }}>
           <b>Extra: liquidity-provider testing</b>
         </div>
@@ -85,6 +90,7 @@ const Home = () => {
               className="homePageLink"
               href="https://github.com/stacks-degens/starters-front-end#readme"
               target="_blank"
+              rel="noreferrer"
               style={{ color: colors[appCurrentTheme].defaultOrange }}
             >
               this link

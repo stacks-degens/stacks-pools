@@ -52,13 +52,13 @@ const ProfileStacking = ({
         navigate(`${basePath}`);
       }
     }
-  }, [location.pathname, currentRole]);
+  }, [location.pathname, currentRole, userSession, navigate]);
 
   useEffect(() => {
     if (!userSession.isUserSignedIn()) {
       navigate(`${basePath}`);
     }
-  }, []);
+  }, [userSession, navigate]);
 
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
   return (

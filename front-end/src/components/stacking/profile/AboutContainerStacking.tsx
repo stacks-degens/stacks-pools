@@ -1,10 +1,9 @@
-import { CallMade, ExpandMore } from '@mui/icons-material';
+import { CallMade } from '@mui/icons-material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import './styles.css';
 import colors from '../../../consts/colorPallete';
 import { useAppSelector } from '../../../redux/store';
 import { selectCurrentTheme } from '../../../redux/reducers/user-state';
-import { useEffect, useRef, useState } from 'react';
 
 import { convertDigits } from '../../../consts/converter';
 import { StackingVisualArts } from '../StackingVIsualArts';
