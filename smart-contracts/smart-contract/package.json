@@ -1,8 +1,8 @@
 {
-  "name": "DecentralizedStacksPools",
+  "name": "decentralized-stacks-pools",
   "author": {
     "name": "StacksDegens",
-    "email": "stacksdegensteam_gmail.com"
+    "email": "stacksdegensteam@gmail.com"
   },
   "repository": "https://github.com/stack-sdegens/stacks-pools.git",
   "private": true,
@@ -13,10 +13,19 @@
     "build": "tsc --build",
     "test:dev": "vitest",
     "test:ci": "jest --bail=1 --silent=false",
+    "test:basic": "vitest basic",
+    "test:report": "vitest run -- --coverage --costs",
+    "test:watch": "chokidar \"tests/**/*.ts\" \"contracts/**/*.clar\" -c \"npm run test:report\"",
     "fmt:check": "./node_modules/.bin/prettier --check .",
     "fmt": "./node_modules/.bin/prettier --write ."
   },
+  "license": "ISC",
   "dependencies": {
+    "@hirosystems/clarinet-sdk": "^2.3.1",
+    "chokidar-cli": "^3.0.0",
+    "vite": "^5.1.4",
+    "vitest": "^1.3.1",
+    "vitest-environment-clarinet": "^2.0.0",
     "@hirosystems/stacks-devnet-js": "^1.6.2",
     "@noble/hashes": "^1.1.5",
     "@noble/secp256k1": "^1.7.0",
@@ -34,17 +43,5 @@
     "mocha": "^10.2.0",
     "node-fetch": "^2.6.7",
     "typescript": "^4.9.0"
-  },
-  "license": "ISC",
-  "devDependencies": {
-    "@types/jest": "^27.5.2",
-    "@vitest/ui": "^0.25.8",
-    "jest": "^27.4.5",
-    "jest-github-actions-reporter": "^1.0.3",
-    "prettier": "2.8.1",
-    "ts-jest": "^27.1.2",
-    "vite": "^4.0.4",
-    "vitest": "^0.32.0",
-    "vitest-github-actions-reporter": "^0.9.0"
   }
 }

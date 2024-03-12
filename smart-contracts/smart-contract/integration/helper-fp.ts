@@ -14,10 +14,7 @@ import {
   TxBroadcastResult,
 } from '@stacks/transactions';
 import { StacksNetwork } from '@stacks/network';
-// import { Accounts } from './constants';
-import { HelperContract, mainContract, poxPoolsSelfServiceContract } from './contracts';
-import { decodeBtcAddress } from '@stacks/stacking';
-import { toBytes } from '@stacks/common';
+import { mainContract } from './contracts';
 import { handleContractCall } from './helpers-stacking';
 import { Accounts } from './constants-stacking';
 
@@ -152,62 +149,6 @@ export async function broadcastRewardDistribution({
   };
   return handleContractCall({ txOptions, network });
 }
-
-// export async function broadcastDelegateStackStx({
-//   stacker,
-//   amountUstx,
-//   user,
-//   nonce,
-//   network,
-// }: {
-//   stacker: { stxAddress: string; secretKey: string };
-//   amountUstx: number;
-//   user: { stxAddress: string; secretKey: string };
-//   nonce: number;
-//   network: StacksNetwork;
-// }) {
-//   let txOptions = {
-//     contractAddress: poxPoolsSelfServiceContract.address,
-//     contractName: poxPoolsSelfServiceContract.name,
-//     functionName: poxPoolsSelfServiceContract.Functions.DelegateStackStx.name,
-//     functionArgs: poxPoolsSelfServiceContract.Functions.DelegateStackStx.args({
-//       user: principalCV(stacker.stxAddress),
-//       amountUstx: uintCV(amountUstx),
-//     }),
-//     nonce,
-//     network,
-//     anchorMode: AnchorMode.OnChainOnly,
-//     postConditionMode: PostConditionMode.Allow,
-//     senderKey: user.secretKey,
-//   };
-//   return handleContractCall({ txOptions, network });
-// }
-
-// export const broadcastDepositStxOwner = async (
-//   amountUstx: number,
-//   network: StacksNetwork,
-//   account: Account,
-//   fee: number,
-//   nonce: number
-// ): Promise<TxBroadcastResult> => {
-//   const txOptions = {
-//     contractAddress: Accounts.DEPLOYER.stxAddress,
-//     contractName: mainContract.name,
-//     functionName: 'deposit-stx-liquidity-provider',
-//     functionArgs: [uintCV(amountUstx)],
-//     fee,
-//     nonce,
-//     network,
-//     anchorMode: AnchorMode.OnChainOnly,
-//     postConditionMode: PostConditionMode.Allow,
-//     senderKey: account.secretKey,
-//   };
-//   // @ts-ignore
-//   const tx = await makeContractCall(txOptions);
-//   // Broadcast transaction to our Devnet stacks node
-//   const result = await broadcastTransaction(tx, network);
-//   return result;
-// };
 
 export async function broadcastDepositStxOwner({
   amountUstx,

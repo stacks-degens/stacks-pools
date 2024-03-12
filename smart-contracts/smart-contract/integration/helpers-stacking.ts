@@ -101,7 +101,6 @@ export function buildDevnetNetworkOrchestrator(
     },
   };
   let consolidatedConfig = getIsolatedNetworkConfigUsingNetworkId(networkId, config);
-  console.log('isolated Config!', consolidatedConfig);
   let orchestrator = new DevnetNetworkOrchestrator(consolidatedConfig, 2500);
   return orchestrator;
 }
@@ -249,156 +248,6 @@ export async function handleContractCall({ txOptions, network }: { txOptions: an
   return response;
 }
 
-export const broadcastStackSTX = async (
-  poxVersion: number,
-  network: StacksNetwork,
-  amount: number,
-  account: Account,
-  blockHeight: number,
-  cycles: number,
-  fee: number,
-  nonce: number
-): Promise<TxBroadcastResult> => {
-  const { version, data } = decodeBtcAddress(account.btcAddress);
-  // @ts-ignore
-  const address = {
-    version: bufferCV(toBytes(new Uint8Array([version.valueOf()]))),
-    hashbytes: bufferCV(data),
-  };
-
-  const txOptions = {
-    contractAddress: Contracts.POX_1.address,
-    contractName: poxVersion == 1 ? Contracts.POX_1.name : Contracts.POX_2.name,
-    functionName: 'stack-stx',
-    functionArgs: [uintCV(amount), tupleCV(address), uintCV(blockHeight), uintCV(cycles)],
-    fee,
-    nonce,
-    network,
-    anchorMode: AnchorMode.OnChainOnly,
-    postConditionMode: PostConditionMode.Allow,
-    senderKey: account.secretKey,
-  };
-  // @ts-ignore
-  const tx = await makeContractCall(txOptions);
-  // Broadcast transaction to our Devnet stacks node
-  const response = await broadcastTransaction(tx, network);
-  return response;
-};
-
-export const createVault = async (
-  collateralAmount: number,
-  usda: number,
-  network: StacksNetwork,
-  account: Account,
-  fee: number,
-  nonce: number
-): Promise<TxBroadcastResult> => {
-  const txOptions = {
-    contractAddress: Accounts.DEPLOYER.stxAddress,
-    contractName: 'arkadiko-freddie-v1-1',
-    functionName: 'collateralize-and-mint',
-    functionArgs: [
-      uintCV(collateralAmount * 1000000),
-      uintCV(usda * 1000000),
-      tupleCV({
-        'stack-pox': trueCV(),
-        'auto-payoff': falseCV(),
-      }),
-      stringAsciiCV('STX-A'),
-      contractPrincipalCV(Accounts.DEPLOYER.stxAddress, 'arkadiko-stx-reserve-v1-1'),
-      contractPrincipalCV(Accounts.DEPLOYER.stxAddress, 'arkadiko-token'),
-      contractPrincipalCV(Accounts.DEPLOYER.stxAddress, 'arkadiko-collateral-types-v3-1'),
-      contractPrincipalCV(Accounts.DEPLOYER.stxAddress, 'arkadiko-oracle-v1-1'),
-    ],
-    fee,
-    nonce,
-    network,
-    anchorMode: AnchorMode.OnChainOnly,
-    postConditionMode: PostConditionMode.Allow,
-    senderKey: account.secretKey,
-  };
-  // @ts-ignore
-  const tx = await makeContractCall(txOptions);
-  // Broadcast transaction to our Devnet stacks node
-  const result = await broadcastTransaction(tx, network);
-  return result;
-};
-
-export const initiateStacking = async (
-  network: StacksNetwork,
-  account: Account,
-  blockHeight: number,
-  cycles: number,
-  fee: number,
-  nonce: number
-): Promise<TxBroadcastResult> => {
-  const { version, data } = decodeBtcAddress(account.btcAddress);
-  // @ts-ignore
-  const address = {
-    version: bufferCV(toBytes(new Uint8Array([version.valueOf()]))),
-    hashbytes: bufferCV(data),
-  };
-
-  const txOptions = {
-    contractAddress: Accounts.DEPLOYER.stxAddress,
-    contractName: 'arkadiko-stacker-v2-1',
-    functionName: 'initiate-stacking',
-    functionArgs: [tupleCV(address), uintCV(blockHeight), uintCV(cycles)],
-    fee,
-    nonce,
-    network,
-    anchorMode: AnchorMode.OnChainOnly,
-    postConditionMode: PostConditionMode.Allow,
-    senderKey: account.secretKey,
-  };
-  // @ts-ignore
-  const tx = await makeContractCall(txOptions);
-  // Broadcast transaction to our Devnet stacks node
-  const result = await broadcastTransaction(tx, network);
-  return result;
-};
-
-export const stackIncrease = async (
-  network: StacksNetwork,
-  account: Account,
-  stackerName: string,
-  fee: number,
-  nonce: number
-): Promise<TxBroadcastResult> => {
-  const txOptions = {
-    contractAddress: Accounts.DEPLOYER.stxAddress,
-    contractName: 'arkadiko-stacker-v2-1',
-    functionName: 'stack-increase',
-    functionArgs: [stringAsciiCV(stackerName)],
-    fee,
-    nonce,
-    network,
-    anchorMode: AnchorMode.OnChainOnly,
-    postConditionMode: PostConditionMode.Allow,
-    senderKey: account.secretKey,
-  };
-  // @ts-ignore
-  const tx = await makeContractCall(txOptions);
-  // Broadcast transaction to our Devnet stacks node
-  const result = await broadcastTransaction(tx, network);
-  return result;
-};
-
-export const getStackerInfo = async (network: StacksNetwork) => {
-  const supplyCall = await callReadOnlyFunction({
-    contractAddress: Accounts.DEPLOYER.stxAddress,
-    contractName: 'arkadiko-stacker-v2-1',
-    functionName: 'get-stacker-info',
-    functionArgs: [],
-    senderAddress: Accounts.DEPLOYER.stxAddress,
-    network: network,
-  });
-  const json = cvToJSON(supplyCall);
-  console.log('STACKER INFO JSON:', json);
-
-  return json;
-};
-
 export const getScLockedBalance = async (network: StacksNetwork) => {
   const supplyCall = await callReadOnlyFunction({
     contractAddress: Accounts.DEPLOYER.stxAddress,
@@ -414,6 +263,21 @@ export const getScLockedBalance = async (network: StacksNetwork) => {
   return json;
 };
 
+export const getUserData = async (network: StacksNetwork, user: string) => {
+  const supplyCall = await callReadOnlyFunction({
+    contractAddress: Accounts.DEPLOYER.stxAddress,
+    contractName: 'stacking-pool-test',
+    functionName: 'get-user-data',
+    functionArgs: [principalCV(user)],
+    senderAddress: Accounts.DEPLOYER.stxAddress,
+    network: network,
+  });
+  const json = cvToJSON(supplyCall);
+  console.log('SC user data:', json);
+
+  return json.value.value;
+};
+
 export const getStackerWeight = async (network: StacksNetwork, stacker: string, rewardCycle: number) => {
   const supplyCall = await callReadOnlyFunction({
     contractAddress: mainContract.address,
@@ -426,7 +290,7 @@ export const getStackerWeight = async (network: StacksNetwork, stacker: string, 
   const json = cvToJSON(supplyCall);
   console.log(`Stacker ${stacker} weight:`, json.value ? json.value.value : json);
 
-  return json.value ? json.value.value : json;
+  return json.value && json.value !== null ? json.value.value : json.value === null ? json.value : json;
 };
 
 export const getBlockPoxAddresses = async (network: StacksNetwork, stacker: string, burnHeight: number) => {

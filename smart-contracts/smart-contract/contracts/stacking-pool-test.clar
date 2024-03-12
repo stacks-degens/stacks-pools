@@ -467,7 +467,7 @@
                     locked-balance: 
                       (default-to u0 (get locked-balance (map-get? user-data {address: user}))),
                     until-burn-ht: 
-                      (some (+ (default-to u0 (default-to (some u0) (get until-burn-ht (map-get? user-data {address: user})))) REWARD_CYCLE_LENGTH))
+                      (some (get unlock-burn-height success))
                     })
             (if (> amount-ustx (get locked status))          
               (match (contract-call? 'ST000000000000000000002AMW42H.pox-3 delegate-stack-increase 
@@ -479,6 +479,7 @@
                 success-increase (begin
                                   (print "success-increase")
                                   (print success-increase)
+                                  (print amount-ustx)
                                   (map-set user-data 
                                     {address: user} 
                                     {
@@ -491,8 +492,8 @@
                                       (default-to none (get until-burn-ht (map-get? user-data {address: user})))
                                     })
                                   (increment-sc-locked-balance 
-                                    (- amount-ustx 
-                                      (default-to u0 (get locked-balance (map-get? user-data {address: user})))))
+                                      (- amount-ustx 
+                                        (default-to u0 (get locked-balance (map-get? user-data {address: user})))))
                                   (ok {lock-amount: (get total-locked success-increase),
                                       stacker: user,
                                       unlock-burn-height: (get unlock-burn-height success)}))
