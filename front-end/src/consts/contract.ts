@@ -132,6 +132,7 @@ interface IFunctionMapping {
       hasWonBurnBlock: string;
       alreadyRewardedBurnBlock: string;
       getUserData: string;
+      canDelegateThisCycle: string;
     };
     publicFunctions: {
       delegateStx: string;
@@ -226,6 +227,7 @@ export const functionMapping: IFunctionMapping = {
       hasWonBurnBlock: 'has-won-burn-block',
       alreadyRewardedBurnBlock: 'already-rewarded-burn-block',
       getUserData: 'get-user-data',
+      canDelegateThisCycle: 'can-delegate-this-cycle',
     },
     publicFunctions: {
       delegateStx: 'delegate-stx',

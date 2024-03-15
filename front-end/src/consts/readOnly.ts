@@ -695,3 +695,18 @@ export const readOnlyGetSCReservedBalance = async () => {
   const stacksRewards = await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getSCReservedBalance);
   return cvToJSON(stacksRewards).value;
 };
+
+//can-delegate-this-cycle
+// args: userAddress, nextRewardCycleFirstBlock
+// what does it do: returns true if it hasn't already delegated this cycle, false otherwise
+// returns: boolean
+
+export const readOnlyCanDelegateThisCycle = async (userAddress: string, nextRewardCycleFirstBlock: number) => {
+  const type = 'stacking';
+  const stacksRewards = await ReadOnlyFunctions(type, [principalCV(userAddress), uintCV(nextRewardCycleFirstBlock)], functionMapping[type].readOnlyFunctions.canDelegateThisCycle);
+  console.log(stacksRewards);
+  console.log(cvToJSON(stacksRewards).value);
+  return cvToJSON(stacksRewards).value;
+};
+
+

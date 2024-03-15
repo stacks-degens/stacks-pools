@@ -12,6 +12,7 @@ import {
 } from '../../../consts/smartContractFunctions';
 import {
   readOnlyAlreadyRewardedBurnBlock,
+  readOnlyCanDelegateThisCycle,
   readOnlyClaimedBlockStatusStacking,
   readOnlyGetLiquidityProvider,
   readOnlyHasWonBurnBlock,
@@ -56,8 +57,8 @@ const ActionsContainerStacking = ({
   const [claimRewardsButtonClicked, setClaimRewardsButtonClicked] = useState<boolean>(false);
   const [canCallClaim, setCanCallClaim] = useState<boolean>(true);
   const [showAlertClaimReward, setShowAlertClaimReward] = useState<boolean>(false);
+  const [canDelegate, setCanDelegate] = useState<boolean>(false);
 
-  const [delegateButtonClicked, setDelegateButtonClicked] = useState<boolean>(false);
   // const [canCallClaim, setCanCallClaim] = useState<boolean>(true);
   const [delegateCheckboxClicked, setDelegateCheckboxClicked] = useState<boolean>(false);
   const [showAlertCanSafelyDelegate, setShowAlertCanSafelyDelegate] = useState<boolean>(false);
@@ -128,6 +129,7 @@ const ActionsContainerStacking = ({
   };
 
   const delegateAmount = (amount: number) => {
+    // TODO: add condition here to display already delegated
     if (amount !== null && !isNaN(amount)) {
       if (amount < 0.000001) {
         alert('You need to input more');
@@ -197,6 +199,17 @@ const ActionsContainerStacking = ({
     };
     getAlreadyRewardedBurnBlock();
   }, [claimRewardsInputAmount]);
+
+  useEffect(() => {
+    const getCanDelegateThisCycle = async () => {  
+        console.log(numberOfBlocksPerCycle);
+        console.log(rewardPhaseStartBlockHeight);
+        const canDelegate = await readOnlyCanDelegateThisCycle(userAddress || "", preparePhaseStartBlockHeight);
+        setCanDelegate(canDelegate);
+      }
+    getCanDelegateThisCycle();
+  }, []);
+
 
   const leavePool = () => {
     setLeavePoolButtonClicked(true);

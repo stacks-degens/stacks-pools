@@ -302,13 +302,7 @@
       (next-reward-cycle-first-block (contract-call? 'ST000000000000000000002AMW42H.pox-3 reward-cycle-to-burn-height (+ u1 current-cycle))))
   (asserts! (check-caller-allowed) err-stacking-permission-denied)
   (asserts! (check-pool-SC-pox-allowance) err-allow-pool-in-pox-3-first)
-  (asserts! (< 
-              (default-to burn-block-height 
-                (default-to (some burn-block-height) (get until-burn-ht (get-user-data contract-caller)))) 
-              next-reward-cycle-first-block) 
-  err-one-delegation-per-cycle)
-  ;; if until-burn-ht < next reward first cycle -> ok
-  ;; if until-burn-ht > next reward first cycle -> shit 
+  (asserts! (can-delegate-this-cycle contract-caller next-reward-cycle-first-block) err-one-delegation-per-cycle)
   (asserts! (is-in-pool) err-not-in-pool)
   (asserts! (not (is-prepare-phase next-reward-cycle-first-block)) err-too-late)
   (try! (delegate-stx-inner amount-ustx (as-contract tx-sender) none))
@@ -351,11 +345,11 @@
   (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider)    
   (ok (var-set active is-active))))
 
-;; (define-public (set-liquidity-provider (new-liquidity-provider principal)) 
-;; (begin 
-;;   (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider)
-;;   (asserts! (is-some (map-get? user-data {address: new-liquidity-provider})) err-not-in-pool) ;; new liquidity provider should be in pool
-;;   (ok (var-set liquidity-provider new-liquidity-provider))))
+(define-public (set-liquidity-provider (new-liquidity-provider principal)) 
+(begin 
+  (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider)
+  (asserts! (is-some (map-get? user-data {address: new-liquidity-provider})) err-not-in-pool) ;; new liquidity provider should be in pool
+  (ok (var-set liquidity-provider new-liquidity-provider))))
 
 (define-public (update-return (new-return-value uint)) 
 (begin 
@@ -735,6 +729,9 @@
 (define-read-only (get-delegated-amount (user principal))
 (default-to u0 (get amount-ustx (contract-call? 'ST000000000000000000002AMW42H.pox-3 get-delegation-info user))))
 
+(define-read-only (get-pool-pox-address) 
+(var-get pool-pox-address))
+
 (define-read-only (get-liquidity-provider) 
 (var-get liquidity-provider))
 
@@ -801,3 +798,9 @@ REWARD_CYCLE_LENGTH)
 
 (define-read-only (get-prepare-phase-length) 
 PREPARE_CYCLE_LENGTH)
+
+(define-read-only (can-delegate-this-cycle (user principal) (next-reward-cycle-first-block uint)) 
+(<= 
+  (default-to burn-block-height 
+    (default-to (some burn-block-height) (get until-burn-ht (get-user-data user)))) 
+  next-reward-cycle-first-block))
