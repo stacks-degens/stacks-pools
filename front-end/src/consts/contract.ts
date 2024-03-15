@@ -43,7 +43,7 @@ export const contractMapping: ContractMapping = {
     },
     devnet: {
       contractAddress: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
-      contractName: 'stacking-pool',
+      contractName: 'stacking-pool-test',
       owner: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
     },
   },

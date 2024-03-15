@@ -19,21 +19,21 @@ import {
   principalCV,
   listCV,
 } from '@stacks/transactions';
-import { convertPrincipalToArg, convertStringToArg } from './converter';
+import { convertPrincipalToArg, convertStringToArg, fromAddressToHashbytesAndVersion } from './converter';
 import { crypto } from 'bitcoinjs-lib';
 
 const contractNetwork =
   network === 'mainnet'
     ? new StacksMainnet({ url: apiUrl[development][network] })
     : network === 'testnet'
-    ? new StacksTestnet({ url: apiUrl[development][network] })
-    : new StacksMocknet({ url: apiUrl[development][network] });
+      ? new StacksTestnet({ url: apiUrl[development][network] })
+      : new StacksMocknet({ url: apiUrl[development][network] });
 
 const CallFunctions = (
   type: 'mining' | 'stacking' | 'pox',
   function_args: ClarityValue[],
   contractFunctionName: string,
-  post_condition_args: STXPostCondition[]
+  post_condition_args: STXPostCondition[],
 ) => {
   const options = {
     network: contractNetwork,
@@ -42,7 +42,7 @@ const CallFunctions = (
     contractName: contractMapping[type][network].contractName,
     functionName: contractFunctionName,
     functionArgs: function_args,
-    postConditionMode: PostConditionMode.Deny,
+    postConditionMode: PostConditionMode.Allow,
     postConditions: post_condition_args,
     onFinish: (data: FinishedTxData) => {
       console.log(transactionUrl(data.txId).explorerUrl);
@@ -73,7 +73,7 @@ const createPostConditionSTXTransferFromContract = (conditionAmount: number, typ
     postConditionAddress,
     postConditionContract,
     postConditionCode,
-    postConditionAmount
+    postConditionAmount,
   );
 };
 
@@ -348,13 +348,12 @@ export const ContractSetNewLiquidityProvider = (newProvider: string) => {
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.setLiquidityProvider, []);
 };
 
-export const ContractSetNewBtcPoxAddress = (publicKey: string) => {
+export const ContractSetNewBtcPoxAddress = (address: string) => {
   const type = 'stacking';
-  const version = '00';
-  const versionBuffer = Buffer.from(version, 'hex');
-  const pubKeyBuffer = Buffer.from(publicKey, 'hex');
-  const pKhash160 = crypto.hash160(pubKeyBuffer);
-  const functionArgs = [tupleCV({ hashbytes: bufferCV(pKhash160), version: bufferCV(versionBuffer) })];
+  const poxData = fromAddressToHashbytesAndVersion(address);
+  const hashbytes = Buffer.from(poxData.hash, 'hex');
+  const versionBuffer = Buffer.from(poxData.version, 'hex');
+  const functionArgs = [tupleCV({ hashbytes: bufferCV(hashbytes), version: bufferCV(versionBuffer) })];
   CallFunctions(type, functionArgs, functionMapping[type].publicFunctions.setPoolPoxAddress, []);
 };
 
@@ -386,7 +385,7 @@ export const ContractAllowInPoolPoxScStacking = () => {
   const type = 'pox';
   const convertedArgs = [
     convertPrincipalToArg(
-      `${contractMapping['stacking'][network].contractAddress}.${contractMapping['stacking'][network].contractName}`
+      `${contractMapping['stacking'][network].contractAddress}.${contractMapping['stacking'][network].contractName}`,
     ),
     noneCV(),
   ];

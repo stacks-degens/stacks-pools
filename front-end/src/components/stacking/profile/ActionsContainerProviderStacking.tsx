@@ -318,7 +318,7 @@ const ActionsContainerProviderStacking = ({
             <input
               className="custom-input"
               type="text"
-              placeholder="0 versioned (legacy P2PKH) btc address' public key"
+              placeholder="BTC Address P2PKH, P2SH, P2PWK Format Supported"
               onChange={(e) => {
                 setNewPoolPoxAddressPubKey(e.target.value);
               }}
