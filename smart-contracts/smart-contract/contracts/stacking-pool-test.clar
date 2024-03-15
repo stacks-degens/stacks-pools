@@ -44,6 +44,7 @@
 (define-constant err-too-late (err u501))
 (define-constant err-not-delegated-before (err u502))
 (define-constant err-decrease-forbidden (err u503))
+(define-constant err-one-delegation-per-cycle (err u504))
 (define-constant err-no-reward-yet (err u576))
 (define-constant err-not-enough-reserved-balance (err u579))
 (define-constant err-stacking-permission-denied (err u609))
@@ -301,7 +302,13 @@
       (next-reward-cycle-first-block (contract-call? 'ST000000000000000000002AMW42H.pox-3 reward-cycle-to-burn-height (+ u1 current-cycle))))
   (asserts! (check-caller-allowed) err-stacking-permission-denied)
   (asserts! (check-pool-SC-pox-allowance) err-allow-pool-in-pox-3-first)
-  
+  (asserts! (< 
+              (default-to burn-block-height 
+                (default-to (some burn-block-height) (get until-burn-ht (get-user-data contract-caller)))) 
+              next-reward-cycle-first-block) 
+  err-one-delegation-per-cycle)
+  ;; if until-burn-ht < next reward first cycle -> ok
+  ;; if until-burn-ht > next reward first cycle -> shit 
   (asserts! (is-in-pool) err-not-in-pool)
   (asserts! (not (is-prepare-phase next-reward-cycle-first-block)) err-too-late)
   (try! (delegate-stx-inner amount-ustx (as-contract tx-sender) none))

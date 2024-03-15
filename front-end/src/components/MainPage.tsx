@@ -137,6 +137,7 @@ const MainPage = () => {
       if (userSession.isUserSignedIn() && (currentRole === 'Stacker' || currentRole === 'Provider')) {
         const wallet = userSession.loadUserData().profile.stxAddress[localNetwork];
         const userLockedData = await readOnlyLockedBalanceUser(wallet, 'locked-balance');
+        console.log(userLockedData);
         const userDelegatedData = await readOnlyLockedBalanceUser(wallet, 'delegated-balance');
         const userUntilBurnHtData = await readOnlyLockedBalanceUser(wallet, 'until-burn-ht');
         setLockedInPool(userLockedData);
@@ -146,7 +147,7 @@ const MainPage = () => {
     };
 
     getLockedBalance();
-  }, [userAddress]);
+  }, []);
 
   useEffect(() => {
     const getReturnCovered = async () => {
