@@ -10,7 +10,9 @@ table th {
 
 .css-11xur9t-MuiPaper-root-MuiTableContainer-root {
   border: 1px solid #f9b11c;
-  box-shadow: 1px 3px 4px #ed693c, -1px 0px 4px #fdc60b !important;
+  box-shadow:
+    1px 3px 4px #ed693c,
+    -1px 0px 4px #fdc60b !important;
   background-color: #fef9f7 !important;
 }
 
