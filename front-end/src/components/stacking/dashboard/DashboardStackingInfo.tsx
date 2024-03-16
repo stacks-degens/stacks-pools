@@ -22,6 +22,7 @@ interface DashboardStackingInfoProps {
   currentBurnBlockHeight: number;
   preparePhaseStartBlockHeight: number;
   rewardPhaseStartBlockHeight: number;
+  nextRewardPhaseStartBlockHeight: number;
 }
 
 const DashboardStackingInfo = ({
@@ -38,6 +39,7 @@ const DashboardStackingInfo = ({
   currentBurnBlockHeight,
   preparePhaseStartBlockHeight,
   rewardPhaseStartBlockHeight,
+  nextRewardPhaseStartBlockHeight,
 }: DashboardStackingInfoProps) => {
   //TODO: see what is returning the readOnlyGetAllowanceStacking(userAddress) ->
   //null is false (so ALert comes up) and

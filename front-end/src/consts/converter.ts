@@ -112,7 +112,7 @@ export const fromAddressToHashbytesAndVersion = (btcAddress: string) => {
       throw new Error('Invalid address format');
     }
   }
-  // TODO: add test v5 and v6
+  // TODO: add functionality for v4 testnet, and v5 and v6
   // TESTED: v0, v1 - testnet and mainnet
   // v4 - only working on mainnet
   let hash;
