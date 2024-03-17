@@ -506,7 +506,7 @@
     error (err (* u1000000 (to-uint error))))))
 
 ;; Rewards transferring functions
-
+;; Hardcoded price conversion
 (define-private (transfer-rewards-all-stackers (stackers-list-before-cycle (list 300 principal)))
 (let ((current-reward
         (* u454 ;; conversion rate BTC <-> STX
@@ -518,6 +518,23 @@
   (var-set temp-current-reward distributed-reward)
   (try! (as-contract (stx-transfer? management-maintenance tx-sender (var-get liquidity-provider))))
   (ok (map transfer-reward-one-stacker stackers-list-before-cycle))))
+
+
+;; For exchange price conversion
+;; (define-private (transfer-rewards-all-stackers (stackers-list-before-cycle (list 300 principal)))
+;; (let ((current-reward 
+;;         (unwrap! 
+;;           (preview-exchange-reward 
+;;             (default-to u0 
+;;               (get reward 
+;;                 (map-get? burn-block-rewards { burn-height: (var-get burn-block-to-distribute-rewards)}))) 
+;;             u5) err-cant-unwrap-exchange-preview))
+;;         (management-maintenance (/ (* maintenance current-reward) u100))
+;;         (distributed-reward (- current-reward management-maintenance))) 
+;;   (var-set temp-current-reward distributed-reward)
+;;   (try! (as-contract (stx-transfer? management-maintenance tx-sender (var-get liquidity-provider))))
+;;   (ok (map transfer-reward-one-stacker stackers-list-before-cycle))))
+
 
 (define-private (transfer-reward-one-stacker (stacker principal)) 
 (let (

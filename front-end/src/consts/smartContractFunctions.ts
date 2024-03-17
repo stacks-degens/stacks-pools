@@ -42,7 +42,7 @@ const CallFunctions = (
     contractName: contractMapping[type][network].contractName,
     functionName: contractFunctionName,
     functionArgs: function_args,
-    postConditionMode: PostConditionMode.Allow,
+    postConditionMode: PostConditionMode.Deny,
     postConditions: post_condition_args,
     onFinish: (data: FinishedTxData) => {
       console.log(transactionUrl(data.txId).explorerUrl);
@@ -305,6 +305,7 @@ export const ContractLeavePoolStacking = () => {
 // reward-distribution
 // args: (rewarded-burn-block uint)
 // what does it do: distributes rewards for a given block
+// Doesn't work with postConditionMode === Deny
 
 export const ContractRewardDistributionStacking = (blockHeight: number) => {
   const type = 'stacking';
