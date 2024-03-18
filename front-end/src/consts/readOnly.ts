@@ -704,9 +704,9 @@ export const readOnlyGetSCReservedBalance = async () => {
 export const readOnlyCanDelegateThisCycle = async (userAddress: string, nextRewardCycleFirstBlock: number) => {
   console.log('nextRewardCycleFirstBlock', nextRewardCycleFirstBlock);
   const type = 'stacking';
-  const stacksRewards = await ReadOnlyFunctions(type, [principalCV(userAddress), uintCV(nextRewardCycleFirstBlock)], functionMapping[type].readOnlyFunctions.canDelegateThisCycle);
-  console.log(cvToJSON(stacksRewards).value);
-  return cvToJSON(stacksRewards).value;
+  // const stacksRewards = await ReadOnlyFunctions(type, [principalCV(userAddress), uintCV(nextRewardCycleFirstBlock)], functionMapping[type].readOnlyFunctions.canDelegateThisCycle);
+  // console.log(cvToJSON(stacksRewards).value);
+  // return cvToJSON(stacksRewards).value;
 };
 
 

@@ -23,7 +23,7 @@
 (define-constant half-cycle-length (/ (get reward-cycle-length (unwrap-panic (contract-call? 'SP000000000000000000002Q6VF78.pox-3 get-pox-info))) u2))
 
  ;; minimum amount for the liquidity provider to transfer after deploy in microSTX (STX * 10^-6)
-(define-constant minimum-deposit-amount-liquidity-provider u10000000000)
+(define-constant minimum-deposit-amount-liquidity-provider u500000000)
 (define-constant maintenance u2)
 
 (define-constant err-only-liquidity-provider (err u100))
@@ -45,6 +45,7 @@
 (define-constant err-too-late (err u501))
 (define-constant err-not-delegated-before (err u502))
 (define-constant err-decrease-forbidden (err u503))
+(define-constant err-one-delegation-per-cycle (err u504))
 (define-constant err-no-reward-yet (err u576))
 (define-constant err-not-enough-reserved-balance (err u579))
 (define-constant err-stacking-permission-denied (err u609))
