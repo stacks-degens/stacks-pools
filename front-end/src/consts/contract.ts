@@ -33,7 +33,7 @@ export const contractMapping: ContractMapping = {
   stacking: {
     mainnet: {
       contractAddress: 'SP1SCEXE6PMGPAC6B4N5P2MDKX8V4GF9QDE1FNNGJ',
-      contractName: 'degenlab-stacking-pool',
+      contractName: 'degenlab-stacking-pool-v3',
       owner: 'SP1SCEXE6PMGPAC6B4N5P2MDKX8V4GF9QDE1FNNGJ',
     },
     testnet: {
@@ -199,7 +199,7 @@ export const functionMapping: IFunctionMapping = {
       withdrawStx: 'withdraw-stx',
       rewardDistribution: 'reward-distribution',
       addPendingMinersToPool: 'add-pending-miners-to-pool',
-      leavePool: 'leave-pool',
+      leavePool: 'quit-stacking-pool',
       proposeRemoval: 'propose-removal',
       votePositiveRemoveRequest: 'vote-positive-remove-request',
       voteNegativeRemoveRequest: 'vote-negative-remove-request',
@@ -232,7 +232,7 @@ export const functionMapping: IFunctionMapping = {
     publicFunctions: {
       delegateStx: 'delegate-stx',
       delegateStackStxMany: 'delegate-stack-stx-many',
-      leavePool: 'leave-pool',
+      leavePool: 'quit-stacking-pool',
       rewardDistribution: 'reward-distribution',
       depositStx: 'deposit-stx-liquidity-provider',
       withdrawStx: 'withdraw-stx-liquidity-provider',

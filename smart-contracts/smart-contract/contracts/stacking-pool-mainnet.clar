@@ -315,8 +315,8 @@
           (var-set burn-block-to-distribute-rewards rewarded-burn-block)
           (match (map-get? calculated-weights-reward-cycles {reward-cycle: reward-cycle}) 
             calculated (ok 
-                          (transfer-rewards-all-stackers stackers-list-for-reward-cycle)))
-            err-weights-not-calculated))
+                          (transfer-rewards-all-stackers stackers-list-for-reward-cycle))
+            err-weights-not-calculated)))
 
 ;; delegating stx to the pool SC
 (define-public (delegate-stx (amount-ustx uint))
@@ -532,12 +532,14 @@
 
 (define-private (transfer-rewards-all-stackers (stackers-list-before-cycle (list 300 principal)))
 (let ((current-reward 
-        (unwrap! 
-          (preview-exchange-reward 
-            (default-to u0 
-              (get reward 
-                (map-get? burn-block-rewards { burn-height: (var-get burn-block-to-distribute-rewards)}))) 
-            u5) err-cant-unwrap-exchange-preview))
+        (/
+          (unwrap! 
+            (preview-exchange-reward 
+              (default-to u0 
+                (get reward 
+                  (map-get? burn-block-rewards { burn-height: (var-get burn-block-to-distribute-rewards)}))) 
+              u5) err-cant-unwrap-exchange-preview)
+          u100))
         (management-maintenance (/ (* maintenance current-reward) u100))
         (distributed-reward (- current-reward management-maintenance))) 
   (var-set temp-current-reward distributed-reward)

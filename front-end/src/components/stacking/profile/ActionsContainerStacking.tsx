@@ -62,7 +62,6 @@ const ActionsContainerStacking = ({
   const [canDelegate, setCanDelegate] = useState<boolean>(false);
   const [showAlertAlreadyDelegated, setShowAlertAlreadyDelegated] = useState<boolean>(false);
 
-  // const [canCallClaim, setCanCallClaim] = useState<boolean>(true);
   const [delegateCheckboxClicked, setDelegateCheckboxClicked] = useState<boolean>(false);
   const [showAlertCanSafelyDelegate, setShowAlertCanSafelyDelegate] = useState<boolean>(false);
   // not canSafelyDelegate && checkbox not clicked -> disable button

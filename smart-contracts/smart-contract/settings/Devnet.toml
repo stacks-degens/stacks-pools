@@ -1532,12 +1532,11 @@ balance = 100_000_000_000_000
 # stx_address: STNHKEPYEPJ8ET55ZZ0M5A34J0R3N5FM2CMMMAZ6
 # btc_address: mjSrB3wS4xab3kYqFktwBzfTdPg367ZJ2d
 
+
 [devnet]
-# disable_stacks_explorer = true
-# disable_stacks_api = true
-stacks_node_wait_time_for_microblocks = 1_000
-stacks_node_first_attempt_time_ms = 15_000
-stacks_node_subsequent_attempt_time_ms = 5_000
+disable_stacks_explorer = false
+disable_stacks_api = false
+# disable_subnet_api = false
 # disable_bitcoin_explorer = true
 # working_dir = "tmp/devnet"
 # stacks_node_events_observers = ["host.docker.internal:8002"]
@@ -1551,8 +1550,8 @@ miner_coinbase_recipient = "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.mining-poo
 # bitcoin_node_rpc_port = 18443
 # bitcoin_node_username = "devnet"
 # bitcoin_node_password = "devnet"
+# bitcoin_controller_block_time = 30_000
 bitcoin_controller_automining_disabled = true
-bitcoin_controller_block_time = 1_000
 # stacks_node_rpc_port = 20443
 # stacks_node_p2p_port = 20444
 # stacks_api_port = 3999
@@ -1563,21 +1562,23 @@ bitcoin_controller_block_time = 1_000
 # postgres_username = "postgres"
 # postgres_password = "postgres"
 # postgres_database = "postgres"
-# bitcoin_node_image_url = "quay.io/hirosystems/bitcoind:devnet-v2"
-# stacks_node_image_url = "localhost:5000/stacks-node:devnet-v2"
-stacks_api_image_url = "hirosystems/stacks-blockchain-api:latest"
-stacks_explorer_image_url = "hirosystems/explorer:latest"
+# bitcoin_node_image_url = "quay.io/hirosystems/bitcoind:26.0"
+# stacks_node_image_url = "quay.io/hirosystems/stacks-node:devnet-2.4.0.0.0"
+# stacks_api_image_url = "hirosystems/stacks-blockchain-api:latest"
+# stacks_explorer_image_url = "hirosystems/explorer:latest"
 # bitcoin_explorer_image_url = "quay.io/hirosystems/bitcoin-explorer:devnet"
-# postgres_image_url = "postgres:14"
+# postgres_image_url = "postgres:alpine"
 # enable_subnet_node = true
-# subnet_node_image_url = "hirosystems/hyperchains:0.0.4-stretch"
+# subnet_node_image_url = "hirosystems/stacks-subnets:0.8.1"
 # subnet_leader_mnemonic = "female adjust gallery certain visit token during great side clown fitness like hurt clip knife warm bench start reunion globe detail dream depend fortune"
 # subnet_leader_derivation_path = "m/44'/5757'/0'/0/0"
-# subnet_contract_id = "STXMJXCJDCT4WPF2X1HE42T6ZCCK3TPMBRZ51JEG.hc-alpha"
+# subnet_contract_id = "ST173JK7NZBA4BS05ZRATQH1K89YJMTGEH1Z5J52E.subnet-v3-0-1"
 # subnet_node_rpc_port = 30443
 # subnet_node_p2p_port = 30444
 # subnet_events_ingestion_port = 30445
 # subnet_node_events_observers = ["host.docker.internal:8002"]
+# subnet_api_image_url = "hirosystems/stacks-blockchain-api:latest"
+# subnet_api_postgres_database = "subnet_api"
 
 # For testing in epoch 2.4 / using Clarity2
 epoch_2_0 = 100
