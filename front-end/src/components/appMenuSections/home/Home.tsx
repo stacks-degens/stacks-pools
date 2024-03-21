@@ -62,6 +62,42 @@ const Home = () => {
             button of the Stacking Pool app in order to connect your wallet.
           </div>
         </div>
+
+      <div style={{ marginTop: 40 }}>
+        <div>
+          <b>
+            Join Stacking Pool
+          </b>
+        </div>
+        <div style={{ marginTop: 40 }}>
+          <div style={{ marginTop: -30, textAlign: 'match-parent' }}></div>-
+          In the left menu select Stacking, then Dashboard
+          <br></br>
+          <div style={{ marginTop: 10 }}>
+            - Click `Allow Pool` Button  <br></br>
+          <div style={{ marginTop: 10 }}></div> 
+            - Afterward click `Join Pool` Button <br></br>(can be done in the same block, but in this order)
+          </div>
+        </div>
+      </div>
+
+      <div style={{ marginTop: 40 }}>
+        <div>
+          <b>
+            Delegate STX after joining
+          </b>
+        </div>
+        <div style={{ marginTop: 40 }}>
+          <div style={{ marginTop: -30, textAlign: 'match-parent' }}></div>-
+          In the left menu select Stacking, then Profile
+          <br></br>
+          <div style={{ marginTop: 10 }}>
+            - Insert amount of STX to delegate and then click `Delegate` <br></br>
+          </div>
+        </div>
+      </div>
+
+
         {network !== 'mainnet' && (
           <>
             <div style={{ marginTop: 40 }}>
