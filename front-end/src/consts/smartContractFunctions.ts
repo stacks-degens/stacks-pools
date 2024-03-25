@@ -332,10 +332,10 @@ export const ContractDepositSTXStacking = (amount: number, userAddress: string) 
 // withdraw-stx-liquidity-provider
 // args: (amount uint)
 // what does it do: withdraws stx to user's account
-export const ContractWithdrawSTXStacking = (amount: number, userAddress: string) => {
+export const ContractWithdrawSTXStacking = (amount: number) => {
   const type = 'stacking';
   const convertedArgs = [uintCV(amount * 1000000)];
-  const postConditions = createPostConditionSTXTransferToContract(userAddress, amount * 1000000);
+  const postConditions = createPostConditionSTXTransferFromContract(amount * 1000000, type);
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.withdrawStx, [postConditions]);
 };
 

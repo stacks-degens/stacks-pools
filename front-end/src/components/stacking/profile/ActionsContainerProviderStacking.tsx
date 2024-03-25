@@ -117,7 +117,7 @@ const ActionsContainerProviderStacking = ({
         alert('You need to input more');
       } else {
         if (userAddress !== null) {
-          ContractWithdrawSTXStacking(withdrawAmountInput, userAddress);
+          ContractWithdrawSTXStacking(withdrawAmountInput);
         }
       }
     }
