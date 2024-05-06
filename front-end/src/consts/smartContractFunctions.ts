@@ -19,21 +19,21 @@ import {
   principalCV,
   listCV,
 } from '@stacks/transactions';
-import { convertPrincipalToArg, convertStringToArg } from './converter';
+import { convertPrincipalToArg, convertStringToArg, fromAddressToHashbytesAndVersion } from './converter';
 import { crypto } from 'bitcoinjs-lib';
 
 const contractNetwork =
   network === 'mainnet'
     ? new StacksMainnet({ url: apiUrl[development][network] })
     : network === 'testnet'
-    ? new StacksTestnet({ url: apiUrl[development][network] })
-    : new StacksMocknet({ url: apiUrl[development][network] });
+      ? new StacksTestnet({ url: apiUrl[development][network] })
+      : new StacksMocknet({ url: apiUrl[development][network] });
 
 const CallFunctions = (
   type: 'mining' | 'stacking' | 'pox',
   function_args: ClarityValue[],
   contractFunctionName: string,
-  post_condition_args: STXPostCondition[]
+  post_condition_args: STXPostCondition[],
 ) => {
   const options = {
     network: contractNetwork,
@@ -73,7 +73,7 @@ const createPostConditionSTXTransferFromContract = (conditionAmount: number, typ
     postConditionAddress,
     postConditionContract,
     postConditionCode,
-    postConditionAmount
+    postConditionAmount,
   );
 };
 
@@ -305,6 +305,7 @@ export const ContractLeavePoolStacking = () => {
 // reward-distribution
 // args: (rewarded-burn-block uint)
 // what does it do: distributes rewards for a given block
+// Doesn't work with postConditionMode === Deny
 
 export const ContractRewardDistributionStacking = (blockHeight: number) => {
   const type = 'stacking';
@@ -331,10 +332,10 @@ export const ContractDepositSTXStacking = (amount: number, userAddress: string) 
 // withdraw-stx-liquidity-provider
 // args: (amount uint)
 // what does it do: withdraws stx to user's account
-export const ContractWithdrawSTXStacking = (amount: number, userAddress: string) => {
+export const ContractWithdrawSTXStacking = (amount: number) => {
   const type = 'stacking';
   const convertedArgs = [uintCV(amount * 1000000)];
-  const postConditions = createPostConditionSTXTransferToContract(userAddress, amount * 1000000);
+  const postConditions = createPostConditionSTXTransferFromContract(amount * 1000000, type);
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.withdrawStx, [postConditions]);
 };
 
@@ -348,13 +349,12 @@ export const ContractSetNewLiquidityProvider = (newProvider: string) => {
   CallFunctions(type, convertedArgs, functionMapping[type].publicFunctions.setLiquidityProvider, []);
 };
 
-export const ContractSetNewBtcPoxAddress = (publicKey: string) => {
+export const ContractSetNewBtcPoxAddress = (address: string) => {
   const type = 'stacking';
-  const version = '00';
-  const versionBuffer = Buffer.from(version, 'hex');
-  const pubKeyBuffer = Buffer.from(publicKey, 'hex');
-  const pKhash160 = crypto.hash160(pubKeyBuffer);
-  const functionArgs = [tupleCV({ hashbytes: bufferCV(pKhash160), version: bufferCV(versionBuffer) })];
+  const poxData = fromAddressToHashbytesAndVersion(address);
+  const hashbytes = Buffer.from(poxData.hash, 'hex');
+  const versionBuffer = Buffer.from(poxData.version, 'hex');
+  const functionArgs = [tupleCV({ hashbytes: bufferCV(hashbytes), version: bufferCV(versionBuffer) })];
   CallFunctions(type, functionArgs, functionMapping[type].publicFunctions.setPoolPoxAddress, []);
 };
 
@@ -386,7 +386,7 @@ export const ContractAllowInPoolPoxScStacking = () => {
   const type = 'pox';
   const convertedArgs = [
     convertPrincipalToArg(
-      `${contractMapping['stacking'][network].contractAddress}.${contractMapping['stacking'][network].contractName}`
+      `${contractMapping['stacking'][network].contractAddress}.${contractMapping['stacking'][network].contractName}`,
     ),
     noneCV(),
   ];

@@ -8,5 +8,8 @@
   cursor: pointer;
   color: #da6137 !important;
   text-decoration: underline;
-  transition: font-size 0.5s, color 1s, text-decoration 1s;
+  transition:
+    font-size 0.5s,
+    color 1s,
+    text-decoration 1s;
 }

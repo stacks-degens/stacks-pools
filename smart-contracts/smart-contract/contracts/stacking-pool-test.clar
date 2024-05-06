@@ -44,6 +44,7 @@
 (define-constant err-too-late (err u501))
 (define-constant err-not-delegated-before (err u502))
 (define-constant err-decrease-forbidden (err u503))
+(define-constant err-one-delegation-per-cycle (err u504))
 (define-constant err-no-reward-yet (err u576))
 (define-constant err-not-enough-reserved-balance (err u579))
 (define-constant err-stacking-permission-denied (err u609))
@@ -301,7 +302,7 @@
       (next-reward-cycle-first-block (contract-call? 'ST000000000000000000002AMW42H.pox-3 reward-cycle-to-burn-height (+ u1 current-cycle))))
   (asserts! (check-caller-allowed) err-stacking-permission-denied)
   (asserts! (check-pool-SC-pox-allowance) err-allow-pool-in-pox-3-first)
-  
+  (asserts! (can-delegate-this-cycle contract-caller next-reward-cycle-first-block) err-one-delegation-per-cycle)
   (asserts! (is-in-pool) err-not-in-pool)
   (asserts! (not (is-prepare-phase next-reward-cycle-first-block)) err-too-late)
   (try! (delegate-stx-inner amount-ustx (as-contract tx-sender) none))
@@ -344,11 +345,11 @@
   (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider)    
   (ok (var-set active is-active))))
 
-;; (define-public (set-liquidity-provider (new-liquidity-provider principal)) 
-;; (begin 
-;;   (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider)
-;;   (asserts! (is-some (map-get? user-data {address: new-liquidity-provider})) err-not-in-pool) ;; new liquidity provider should be in pool
-;;   (ok (var-set liquidity-provider new-liquidity-provider))))
+(define-public (set-liquidity-provider (new-liquidity-provider principal)) 
+(begin 
+  (asserts! (is-eq contract-caller (var-get liquidity-provider)) err-only-liquidity-provider)
+  (asserts! (is-some (map-get? user-data {address: new-liquidity-provider})) err-not-in-pool) ;; new liquidity provider should be in pool
+  (ok (var-set liquidity-provider new-liquidity-provider))))
 
 (define-public (update-return (new-return-value uint)) 
 (begin 
@@ -467,7 +468,7 @@
                     locked-balance: 
                       (default-to u0 (get locked-balance (map-get? user-data {address: user}))),
                     until-burn-ht: 
-                      (some (+ (default-to u0 (default-to (some u0) (get until-burn-ht (map-get? user-data {address: user})))) REWARD_CYCLE_LENGTH))
+                      (some (get unlock-burn-height success))
                     })
             (if (> amount-ustx (get locked status))          
               (match (contract-call? 'ST000000000000000000002AMW42H.pox-3 delegate-stack-increase 
@@ -479,6 +480,7 @@
                 success-increase (begin
                                   (print "success-increase")
                                   (print success-increase)
+                                  (print amount-ustx)
                                   (map-set user-data 
                                     {address: user} 
                                     {
@@ -491,8 +493,8 @@
                                       (default-to none (get until-burn-ht (map-get? user-data {address: user})))
                                     })
                                   (increment-sc-locked-balance 
-                                    (- amount-ustx 
-                                      (default-to u0 (get locked-balance (map-get? user-data {address: user})))))
+                                      (- amount-ustx 
+                                        (default-to u0 (get locked-balance (map-get? user-data {address: user})))))
                                   (ok {lock-amount: (get total-locked success-increase),
                                       stacker: user,
                                       unlock-burn-height: (get unlock-burn-height success)}))
@@ -504,7 +506,7 @@
     error (err (* u1000000 (to-uint error))))))
 
 ;; Rewards transferring functions
-
+;; Hardcoded price conversion
 (define-private (transfer-rewards-all-stackers (stackers-list-before-cycle (list 300 principal)))
 (let ((current-reward
         (* u454 ;; conversion rate BTC <-> STX
@@ -516,6 +518,23 @@
   (var-set temp-current-reward distributed-reward)
   (try! (as-contract (stx-transfer? management-maintenance tx-sender (var-get liquidity-provider))))
   (ok (map transfer-reward-one-stacker stackers-list-before-cycle))))
+
+
+;; For exchange price conversion
+;; (define-private (transfer-rewards-all-stackers (stackers-list-before-cycle (list 300 principal)))
+;; (let ((current-reward 
+;;         (unwrap! 
+;;           (preview-exchange-reward 
+;;             (default-to u0 
+;;               (get reward 
+;;                 (map-get? burn-block-rewards { burn-height: (var-get burn-block-to-distribute-rewards)}))) 
+;;             u5) err-cant-unwrap-exchange-preview))
+;;         (management-maintenance (/ (* maintenance current-reward) u100))
+;;         (distributed-reward (- current-reward management-maintenance))) 
+;;   (var-set temp-current-reward distributed-reward)
+;;   (try! (as-contract (stx-transfer? management-maintenance tx-sender (var-get liquidity-provider))))
+;;   (ok (map transfer-reward-one-stacker stackers-list-before-cycle))))
+
 
 (define-private (transfer-reward-one-stacker (stacker principal)) 
 (let (
@@ -727,6 +746,9 @@
 (define-read-only (get-delegated-amount (user principal))
 (default-to u0 (get amount-ustx (contract-call? 'ST000000000000000000002AMW42H.pox-3 get-delegation-info user))))
 
+(define-read-only (get-pool-pox-address) 
+(var-get pool-pox-address))
+
 (define-read-only (get-liquidity-provider) 
 (var-get liquidity-provider))
 
@@ -793,3 +815,9 @@ REWARD_CYCLE_LENGTH)
 
 (define-read-only (get-prepare-phase-length) 
 PREPARE_CYCLE_LENGTH)
+
+(define-read-only (can-delegate-this-cycle (user principal) (next-reward-cycle-first-block uint)) 
+(<= 
+  (default-to burn-block-height 
+    (default-to (some burn-block-height) (get until-burn-ht (get-user-data user)))) 
+  next-reward-cycle-first-block))

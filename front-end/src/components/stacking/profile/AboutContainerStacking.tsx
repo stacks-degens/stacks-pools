@@ -118,10 +118,10 @@ const AboutContainerStacking = ({
             {delegatedToPool !== null && delegatedToPool !== 0 && userUntilBurnHt !== null
               ? `${convertDigits(delegatedToPool)} STX until Bitcoin block ${userUntilBurnHt}.`
               : delegatedToPool !== null && delegatedToPool !== 0 && userUntilBurnHt === null
-              ? 'The last burn block height for delegated funds has been reached, and the delegation has expired.'
-              : delegatedToPool === null || delegatedToPool === 0
-              ? 'No funds delegated to the Stacking Pool'
-              : 'No delegated funds'}
+                ? 'The last burn block height for delegated funds has been reached, and the delegation has expired.'
+                : delegatedToPool === null || delegatedToPool === 0
+                  ? 'No funds delegated to the Stacking Pool'
+                  : 'No delegated funds'}
           </span>
           <span className="result-of-content-section"></span>
         </div>

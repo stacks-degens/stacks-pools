@@ -9,5 +9,7 @@
 .custom-input:focus {
   outline: none;
   border: 0.5px solid #ed693c;
-  box-shadow: 1px 1px 4px #fdc60b, -1px -1px 4px #fdc60b;
+  box-shadow:
+    1px 1px 4px #fdc60b,
+    -1px -1px 4px #fdc60b;
 }

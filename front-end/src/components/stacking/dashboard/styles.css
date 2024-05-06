@@ -30,7 +30,9 @@
   flex-direction: column;
   overflow: hidden;
   border: 2px solid #f9b11c;
-  box-shadow: 1px 1px 4px #ed693c, -1px -1px 4px #fdc60b;
+  box-shadow:
+    1px 1px 4px #ed693c,
+    -1px -1px 4px #fdc60b;
 }
 
 .footer-join-button-container {

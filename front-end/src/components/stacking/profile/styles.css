@@ -17,7 +17,9 @@
   flex-direction: column;
   overflow: hidden;
   border: 2px solid #f9b11c;
-  box-shadow: 1px 1px 4px #ed693c, -1px -1px 4px #fdc60b;
+  box-shadow:
+    1px 1px 4px #ed693c,
+    -1px -1px 4px #fdc60b;
 }
 
 .content-info-container-stacking {
@@ -39,7 +41,9 @@
   border-right: #ed693c;
   border-top: #fdc60b;
   border-bottom: #ed693c;
-  box-shadow: 1px 1px 4px #ed693c, -1px -1px 4px #fdc60b;
+  box-shadow:
+    1px 1px 4px #ed693c,
+    -1px -1px 4px #fdc60b;
   position: relative;
   width: 85%;
   margin-inline: auto;
@@ -47,7 +51,9 @@
 
 .intro-icon-container {
   border-radius: 10% 10% 30% 30% / 10% 10% 45% 45%;
-  box-shadow: 1px 1px 4px #ed693c, -1px -1px 4px #ed693c;
+  box-shadow:
+    1px 1px 4px #ed693c,
+    -1px -1px 4px #ed693c;
   background-color: #fdc60b;
   height: 100px;
   width: 100px;

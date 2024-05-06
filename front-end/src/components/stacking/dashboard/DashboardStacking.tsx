@@ -18,6 +18,7 @@ interface IDashboardProps {
   currentBurnBlockHeight: number;
   preparePhaseStartBlockHeight: number;
   rewardPhaseStartBlockHeight: number;
+  nextRewardPhaseStartBlockHeight: number;
 }
 const DashboardStacking = ({
   currentRole,
@@ -33,6 +34,7 @@ const DashboardStacking = ({
   currentBurnBlockHeight,
   preparePhaseStartBlockHeight,
   rewardPhaseStartBlockHeight,
+  nextRewardPhaseStartBlockHeight,
 }: IDashboardProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
 
@@ -59,6 +61,7 @@ const DashboardStacking = ({
               currentBurnBlockHeight={currentBurnBlockHeight}
               preparePhaseStartBlockHeight={preparePhaseStartBlockHeight}
               rewardPhaseStartBlockHeight={rewardPhaseStartBlockHeight}
+              nextRewardPhaseStartBlockHeight={nextRewardPhaseStartBlockHeight}
             />
           </div>
         </center>

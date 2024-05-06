@@ -123,7 +123,7 @@ plan:
         - contract-publish:
             contract-name: mining-pool-5-blocks
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 489320
+            cost: 489340
             path: contracts/mining-pool-5-blocks.clar
             anchor-block-only: true
             clarity-version: 2
@@ -135,16 +135,23 @@ plan:
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
+            contract-name: pox-3-fake
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 675060
+            path: contracts/pox-3-fake.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
             contract-name: stacking-pool
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 387430
+            cost: 391140
             path: contracts/stacking-pool.clar
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: stacking-pool-test
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 387610
+            cost: 395130
             path: contracts/stacking-pool-test.clar
             anchor-block-only: true
             clarity-version: 2

@@ -64,6 +64,7 @@ const MainPage = () => {
   const [currentCycle, setCurrentCycle] = useState<number>(0);
   const [preparePhaseStartBlockHeight, setPreparePhaseStartBlockHeight] = useState<number>(0);
   const [rewardPhaseStartBlockHeight, setRewardPhaseStartBlockHeigh] = useState<number>(0);
+  const [nextRewardPhaseStartBlockHeight, setNextRewardPhaseStartBlockHeigh] = useState<number>(0);
   const [stacksAmountThisCycle, setStacksAmountThisCycle] = useState<number | null>(null);
   const [lockedInPool, setLockedInPool] = useState<number>(0);
   const [delegatedToPool, setDelegatedToPool] = useState<number>(0);
@@ -118,7 +119,9 @@ const MainPage = () => {
       const blockInfoResult = await fetch(`${apiMapping.stackingInfo}`)
         .then((res) => res.json())
         .then((res) => res);
+      
       if (await blockInfoResult) {
+        console.log(blockInfoResult);
         let cycleBlockNr =
           (blockInfoResult['next_cycle']['reward_phase_start_block_height'] -
             blockInfoResult['next_cycle']['prepare_phase_start_block_height']) *
@@ -127,6 +130,7 @@ const MainPage = () => {
         setCurrentCycle(blockInfoResult['current_cycle']['id']);
         setPreparePhaseStartBlockHeight(blockInfoResult['next_cycle']['prepare_phase_start_block_height']);
         setRewardPhaseStartBlockHeigh(blockInfoResult['next_cycle']['reward_phase_start_block_height'] - cycleBlockNr);
+        setNextRewardPhaseStartBlockHeigh(blockInfoResult['next_cycle']['reward_phase_start_block_height']);
       }
     };
     getCurrentBlockInfo();
@@ -137,6 +141,7 @@ const MainPage = () => {
       if (userSession.isUserSignedIn() && (currentRole === 'Stacker' || currentRole === 'Provider')) {
         const wallet = userSession.loadUserData().profile.stxAddress[localNetwork];
         const userLockedData = await readOnlyLockedBalanceUser(wallet, 'locked-balance');
+        console.log(userLockedData);
         const userDelegatedData = await readOnlyLockedBalanceUser(wallet, 'delegated-balance');
         const userUntilBurnHtData = await readOnlyLockedBalanceUser(wallet, 'until-burn-ht');
         setLockedInPool(userLockedData);
@@ -146,7 +151,7 @@ const MainPage = () => {
     };
 
     getLockedBalance();
-  }, [userAddress]);
+  }, []);
 
   useEffect(() => {
     const getReturnCovered = async () => {
@@ -389,6 +394,7 @@ const MainPage = () => {
               currentBurnBlockHeight={currentBurnBlockHeight}
               preparePhaseStartBlockHeight={preparePhaseStartBlockHeight}
               rewardPhaseStartBlockHeight={rewardPhaseStartBlockHeight}
+              nextRewardPhaseStartBlockHeight={nextRewardPhaseStartBlockHeight}
               currentRole={currentRole}
             />
           }
@@ -401,6 +407,7 @@ const MainPage = () => {
               currentCycle={currentCycle !== null ? currentCycle : 0}
               preparePhaseStartBlockHeight={preparePhaseStartBlockHeight !== null ? preparePhaseStartBlockHeight : 0}
               rewardPhaseStartBlockHeight={rewardPhaseStartBlockHeight !== null ? rewardPhaseStartBlockHeight : 0}
+              nextRewardPhaseStartBlockHeight={nextRewardPhaseStartBlockHeight !== null ? nextRewardPhaseStartBlockHeight : 0}
               connectedWallet={connectedWallet !== null ? connectedWallet : ''}
               explorerLink={explorerLink !== null ? explorerLink : ''}
               userAddress={userAddress !== null ? userAddress : ''}

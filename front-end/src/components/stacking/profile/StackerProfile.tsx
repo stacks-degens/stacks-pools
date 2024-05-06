@@ -18,6 +18,7 @@ interface IStackerProfileProps {
   currentCycle: number | null;
   preparePhaseStartBlockHeight: number | null;
   rewardPhaseStartBlockHeight: number | null;
+  nextRewardPhaseStartBlockHeight: number | null;
 }
 
 const StackerProfile = ({
@@ -35,6 +36,7 @@ const StackerProfile = ({
   currentCycle,
   preparePhaseStartBlockHeight,
   rewardPhaseStartBlockHeight,
+  nextRewardPhaseStartBlockHeight,
 }: IStackerProfileProps) => {
   // console.log('currentRole StackerProfile:', currentRole);
   // console.log(
@@ -59,6 +61,7 @@ const StackerProfile = ({
     currentCycle !== null &&
     preparePhaseStartBlockHeight !== null &&
     rewardPhaseStartBlockHeight !== null &&
+    nextRewardPhaseStartBlockHeight !== null &&
     reservedAmount !== null &&
     returnCovered !== null &&
     stacksAmountThisCycle !== null
@@ -101,6 +104,7 @@ const StackerProfile = ({
                 currentCycle={currentCycle}
                 preparePhaseStartBlockHeight={preparePhaseStartBlockHeight}
                 rewardPhaseStartBlockHeight={rewardPhaseStartBlockHeight}
+                nextRewardPhaseStartBlockHeight={nextRewardPhaseStartBlockHeight}
               />
             )}
           </div>

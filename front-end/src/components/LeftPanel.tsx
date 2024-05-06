@@ -229,7 +229,7 @@ const LeftPanel = ({ currentTheme }: ConnectWalletProps) => {
                 <ListItemButton
                   component={Link}
                   to={
-                    'https://stacksdegens.notion.site/Walkthrough-Decentralized-Stacking-Pool-c1c10e3393324297aa8dcc28c1fe253c?pvs=4'
+                    'https://degenlab.notion.site/Walkthrough-Decentralized-Stacking-Pool-c1c10e3393324297aa8dcc28c1fe253c'
                   }
                   target="_new"
                   className="padding-left-sidebar-main-sections"

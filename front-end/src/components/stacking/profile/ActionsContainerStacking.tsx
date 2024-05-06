@@ -12,6 +12,7 @@ import {
 } from '../../../consts/smartContractFunctions';
 import {
   readOnlyAlreadyRewardedBurnBlock,
+  readOnlyCanDelegateThisCycle,
   readOnlyClaimedBlockStatusStacking,
   readOnlyGetLiquidityProvider,
   readOnlyHasWonBurnBlock,
@@ -35,6 +36,7 @@ interface IActionsContainerStackingProps {
   currentCycle: number;
   preparePhaseStartBlockHeight: number;
   rewardPhaseStartBlockHeight: number;
+  nextRewardPhaseStartBlockHeight: number;
 }
 
 const ActionsContainerStacking = ({
@@ -48,6 +50,7 @@ const ActionsContainerStacking = ({
   currentCycle,
   preparePhaseStartBlockHeight,
   rewardPhaseStartBlockHeight,
+  nextRewardPhaseStartBlockHeight,
 }: IActionsContainerStackingProps) => {
   const [showAlertLeavePool, setShowAlertLeavePool] = useState<boolean>(false);
   const [leavePoolButtonClicked, setLeavePoolButtonClicked] = useState<boolean>(false);
@@ -56,9 +59,9 @@ const ActionsContainerStacking = ({
   const [claimRewardsButtonClicked, setClaimRewardsButtonClicked] = useState<boolean>(false);
   const [canCallClaim, setCanCallClaim] = useState<boolean>(true);
   const [showAlertClaimReward, setShowAlertClaimReward] = useState<boolean>(false);
+  const [canDelegate, setCanDelegate] = useState<boolean>(false);
+  const [showAlertAlreadyDelegated, setShowAlertAlreadyDelegated] = useState<boolean>(false);
 
-  const [delegateButtonClicked, setDelegateButtonClicked] = useState<boolean>(false);
-  // const [canCallClaim, setCanCallClaim] = useState<boolean>(true);
   const [delegateCheckboxClicked, setDelegateCheckboxClicked] = useState<boolean>(false);
   const [showAlertCanSafelyDelegate, setShowAlertCanSafelyDelegate] = useState<boolean>(false);
   // not canSafelyDelegate && checkbox not clicked -> disable button
@@ -128,21 +131,24 @@ const ActionsContainerStacking = ({
   };
 
   const delegateAmount = (amount: number) => {
-    if (amount !== null && !isNaN(amount)) {
-      if (amount < 0.000001) {
-        alert('You need to input more');
-      } else {
-        if (userAddress !== null) {
-          if (
-            reservedAmount * returnCovered <
-              stacksAmountThisCycle + (delegateAmountInput === null ? 0 : delegateAmountInput) &&
-            !delegateCheckboxClicked
-          ) {
-            setShowAlertCanSafelyDelegate(true);
-          } else ContractDelegateSTXStacking(amount, userAddress);
+    // TODO: add condition here to display already delegated
+    if (!canDelegate) {
+      setShowAlertAlreadyDelegated(true); 
+    } else if (amount !== null && !isNaN(amount)) {
+        if (amount < 0.000001) {
+          alert('You need to input more');
+        } else {
+          if (userAddress !== null) {
+            if (
+              reservedAmount * returnCovered <
+                stacksAmountThisCycle + (delegateAmountInput === null ? 0 : delegateAmountInput) &&
+              !delegateCheckboxClicked
+            ) {
+              setShowAlertCanSafelyDelegate(true);
+            } else ContractDelegateSTXStacking(amount, userAddress);
+          }
         }
       }
-    }
   };
 
   const increaseDelegateAmount = (alreadyDelegated: number, amount: number) => {
@@ -197,6 +203,15 @@ const ActionsContainerStacking = ({
     };
     getAlreadyRewardedBurnBlock();
   }, [claimRewardsInputAmount]);
+
+  useEffect(() => {
+    const getCanDelegateThisCycle = async () => {  
+        const canDelegate = await readOnlyCanDelegateThisCycle(userAddress || "", nextRewardPhaseStartBlockHeight);
+        setCanDelegate(canDelegate);
+      }
+    getCanDelegateThisCycle();
+  }, []);
+
 
   const leavePool = () => {
     setLeavePoolButtonClicked(true);
@@ -301,7 +316,9 @@ const ActionsContainerStacking = ({
 
           {delegateAmountInput !== null &&
             reservedAmount * returnCovered < stacksAmountThisCycle + delegateAmountInput &&
-            showAlertCanSafelyDelegate && (
+            showAlertCanSafelyDelegate && 
+            canDelegate &&
+            (
               <div className="block-margins-auto alert-container-stacking-actions-container-stacking">
                 <Alert
                   severity="warning"
@@ -316,6 +333,24 @@ const ActionsContainerStacking = ({
                 </Alert>
               </div>
             )}
+
+          {delegateAmountInput !== null && showAlertAlreadyDelegated && (
+            <div className="block-margins-auto alert-container-stacking-actions-container-stacking">
+              <Alert
+                severity="warning"
+                onClose={() => {setShowAlertAlreadyDelegated(false)}}
+              >
+                You have already delegated for this cycle. 
+                Please wait till the next reward phase start if you want to increase the amount delegated. 
+                {/* TODO: modify this message */}
+                By default the current amount delegated will be automatically delegated for the next cycle in the second half of it.
+              
+                Remaining Blocks: {nextRewardPhaseStartBlockHeight - currentBurnBlockHeight}
+
+              </Alert>
+            </div>
+          )}
+
           <div className="flex-container align-items-center input-line-actions-container-stacking">
             <div className="width-55 label-and-input-container-actions-container">
               <label className="custom-label">Insert amount of STX to delegate</label>
@@ -328,6 +363,8 @@ const ActionsContainerStacking = ({
                     const inputAmountToInt = parseFloat(inputAmount);
                     setDelegateAmountInput(inputAmountToInt);
                   }}
+                  min={1}
+                  max={9000999999}
                 ></input>
               </div>
             </div>

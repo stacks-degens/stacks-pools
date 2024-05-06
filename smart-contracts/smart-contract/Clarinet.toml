@@ -6,12 +6,6 @@ telemetry = false
 cache_dir = '.cache'
 
 [[project.requirements]]
-contract_id = 'SP000000000000000000002Q6VF78.pox-2'
-
-[[project.requirements]]
-contract_id = 'ST000000000000000000002AMW42H.pox-2'
-
-[[project.requirements]]
 contract_id = 'ST000000000000000000002AMW42H.pox-3'
 [contracts.Wrapped-Bitcoin]
 path = 'contracts/Wrapped-Bitcoin.clar'
@@ -117,6 +111,11 @@ epoch = 2.4
 path = 'contracts/trait-sip-010.clar'
 clarity_version = 2
 epoch = 2.4
+
+[repl]
+clarity_wasm_mode = false
+show_timings = false
+
 [repl.analysis]
 passes = []
 

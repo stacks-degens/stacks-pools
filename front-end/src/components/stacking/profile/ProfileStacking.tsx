@@ -11,6 +11,7 @@ interface IProfileStackingProps {
   currentCycle: number | null;
   preparePhaseStartBlockHeight: number | null;
   rewardPhaseStartBlockHeight: number | null;
+  nextRewardPhaseStartBlockHeight: number | null;
   connectedWallet: string | null;
   explorerLink: string | undefined;
   userAddress: string | null;
@@ -28,6 +29,7 @@ const ProfileStacking = ({
   currentCycle,
   preparePhaseStartBlockHeight,
   rewardPhaseStartBlockHeight,
+  nextRewardPhaseStartBlockHeight,
   connectedWallet,
   explorerLink,
   userAddress,
@@ -89,6 +91,7 @@ const ProfileStacking = ({
           currentCycle={currentCycle}
           preparePhaseStartBlockHeight={preparePhaseStartBlockHeight}
           rewardPhaseStartBlockHeight={rewardPhaseStartBlockHeight}
+          nextRewardPhaseStartBlockHeight={nextRewardPhaseStartBlockHeight}
         />
       )}
     </div>

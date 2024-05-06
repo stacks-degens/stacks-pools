@@ -33,17 +33,17 @@ export const contractMapping: ContractMapping = {
   stacking: {
     mainnet: {
       contractAddress: 'SP1SCEXE6PMGPAC6B4N5P2MDKX8V4GF9QDE1FNNGJ',
-      contractName: 'decentralized-stacking-pool',
+      contractName: 'degenlab-stacking-pool-v3',
       owner: 'SP1SCEXE6PMGPAC6B4N5P2MDKX8V4GF9QDE1FNNGJ',
     },
     testnet: {
       contractAddress: 'ST02D2KP0630FS1BCJ7YM4TYMDH6NS9QKR0B57R3',
-      contractName: 'stacking-pool-v5',
+      contractName: 'stacking-pool-v6',
       owner: 'ST02D2KP0630FS1BCJ7YM4TYMDH6NS9QKR0B57R3',
     },
     devnet: {
       contractAddress: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
-      contractName: 'stacking-pool',
+      contractName: 'stacking-pool-test',
       owner: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
     },
   },
@@ -132,6 +132,7 @@ interface IFunctionMapping {
       hasWonBurnBlock: string;
       alreadyRewardedBurnBlock: string;
       getUserData: string;
+      canDelegateThisCycle: string;
     };
     publicFunctions: {
       delegateStx: string;
@@ -198,7 +199,7 @@ export const functionMapping: IFunctionMapping = {
       withdrawStx: 'withdraw-stx',
       rewardDistribution: 'reward-distribution',
       addPendingMinersToPool: 'add-pending-miners-to-pool',
-      leavePool: 'leave-pool',
+      leavePool: 'quit-stacking-pool',
       proposeRemoval: 'propose-removal',
       votePositiveRemoveRequest: 'vote-positive-remove-request',
       voteNegativeRemoveRequest: 'vote-negative-remove-request',
@@ -226,11 +227,12 @@ export const functionMapping: IFunctionMapping = {
       hasWonBurnBlock: 'has-won-burn-block',
       alreadyRewardedBurnBlock: 'already-rewarded-burn-block',
       getUserData: 'get-user-data',
+      canDelegateThisCycle: 'can-delegate-this-cycle',
     },
     publicFunctions: {
       delegateStx: 'delegate-stx',
       delegateStackStxMany: 'delegate-stack-stx-many',
-      leavePool: 'leave-pool',
+      leavePool: 'quit-stacking-pool',
       rewardDistribution: 'reward-distribution',
       depositStx: 'deposit-stx-liquidity-provider',
       withdrawStx: 'withdraw-stx-liquidity-provider',

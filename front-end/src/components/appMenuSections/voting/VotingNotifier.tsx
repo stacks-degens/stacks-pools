@@ -133,8 +133,8 @@ const VotingNotifier = () => {
         notifier['vote-status'].value === false
           ? 'Elections ended!'
           : parseInt(notifier['election-blocks-remaining'].value) > 0
-          ? 'Elections on-going!'
-          : 'Ended by time!'
+            ? 'Elections on-going!'
+            : 'Ended by time!',
       );
       setElectionBlocksRemaining(parseInt(notifier['election-blocks-remaining'].value));
     };

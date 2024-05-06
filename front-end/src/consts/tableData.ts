@@ -104,7 +104,7 @@ export const GetWaitingRows = () => {
             index,
             waitingAddress,
             waitingValue['neg-votes'].value + '/' + waitingValue['neg-thr'].value,
-            waitingValue['pos-votes'].value + '/' + waitingValue['pos-thr'].value
+            waitingValue['pos-votes'].value + '/' + waitingValue['pos-thr'].value,
           );
         })
       : [];
@@ -262,7 +262,7 @@ export const GetRemovalsRows = () => {
             index,
             addressList[index].value[0].value,
             removalsValue['vts-against'].value + '/' + removalsValue['neg-thr'].value,
-            removalsValue['vts-for'].value + '/' + removalsValue['pos-thr'].value
+            removalsValue['vts-for'].value + '/' + removalsValue['pos-thr'].value,
           );
         })
       : [];
@@ -319,7 +319,7 @@ export const notifierColumns: NotifiersColumnData[] = [
 
 export const GetNotifiersRows = async (
   minersList: Array<{ type: string; value: string }>,
-  notifierVoteThreshold: number
+  notifierVoteThreshold: number,
 ) => {
   const getNotifierVotes = async () => {
     const fullInfo =
@@ -329,7 +329,7 @@ export const GetNotifiersRows = async (
               const minerValue = miner.value;
               const votes = await readOnlyGetNotifierVoteNumber(minerValue);
               return { index, minerValue, votes };
-            })
+            }),
           )
         : [];
     return fullInfo;

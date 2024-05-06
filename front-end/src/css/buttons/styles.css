@@ -12,18 +12,26 @@
 }
 
 .customDarkButton:hover {
-  box-shadow: 2px 2px 7px #fdc60b, -2px -2px 7px #fdc60b;
+  box-shadow:
+    2px 2px 7px #fdc60b,
+    -2px -2px 7px #fdc60b;
   background: none;
   background-color: transparent;
-  transition: background-color 2s linear, box-shadow 0.5s;
+  transition:
+    background-color 2s linear,
+    box-shadow 0.5s;
   color: #fdc60b;
 }
 
 .customButton:hover {
-  box-shadow: 2px 2px 7px #fdc60b, -2px -2px 7px #fdc60b;
+  box-shadow:
+    2px 2px 7px #fdc60b,
+    -2px -2px 7px #fdc60b;
   background: none;
   background-color: #fef9f7;
-  transition: background-color 2s linear, box-shadow 0.5s;
+  transition:
+    background-color 2s linear,
+    box-shadow 0.5s;
   color: #5f2a18;
 }
 

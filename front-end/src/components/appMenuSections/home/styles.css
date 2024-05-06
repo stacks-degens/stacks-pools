@@ -6,7 +6,9 @@
 .homePageLink:hover {
   border-bottom: 1px solid #ab4c2b;
   color: #ab4c2b !important;
-  transition: color 0.3s ease-in, border 0.3s ease-in;
+  transition:
+    color 0.3s ease-in,
+    border 0.3s ease-in;
 }
 
 .home-page-main-container {

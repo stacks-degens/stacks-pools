@@ -117,7 +117,7 @@ const ActionsContainerProviderStacking = ({
         alert('You need to input more');
       } else {
         if (userAddress !== null) {
-          ContractWithdrawSTXStacking(withdrawAmountInput, userAddress);
+          ContractWithdrawSTXStacking(withdrawAmountInput);
         }
       }
     }
@@ -162,7 +162,7 @@ const ActionsContainerProviderStacking = ({
     <div>
       <div className="flex-container align-items-center input-line-actions-container-stacking">
         <div className="width-55 label-and-input-container-actions-container">
-          <label className="custom-label">Insert amount of STX</label>
+          <label className="custom-label">Insert amount of STX to deposit into SC</label>
           <div className="bottom-margins">
             <input
               className="custom-input"
@@ -194,7 +194,7 @@ const ActionsContainerProviderStacking = ({
 
       <div className="flex-container align-items-center input-line-actions-container-stacking">
         <div className="width-55 label-and-input-container-actions-container">
-          <label className="custom-label">Insert amount of STX</label>
+          <label className="custom-label">Insert amount of STX to withdraw from the SC</label>
           <div className="bottom-margins">
             <input
               className="custom-input"
@@ -226,7 +226,9 @@ const ActionsContainerProviderStacking = ({
 
       <div className="flex-container align-items-center input-line-actions-container-stacking">
         <div className="width-55 label-and-input-container-actions-container">
-          <label className="custom-label">Insert amount of STX</label>
+          <label className="custom-label">
+            Insert amount of STX to lock into SC for stacking rewards (after deposit)
+          </label>
           <div className="bottom-margins">
             <input
               className="custom-input"
@@ -313,12 +315,12 @@ const ActionsContainerProviderStacking = ({
       </div>
       <div className="flex-container align-items-center input-line-actions-container-stacking">
         <div className="width-55 label-and-input-container-actions-container">
-          <label className="custom-label">Insert the new Pool's PoX address' public key</label>
+          <label className="custom-label">Insert the new Pool PoX address (0/1/4 versioned bitcoin address)</label>
           <div className="bottom-margins">
             <input
               className="custom-input"
               type="text"
-              placeholder="0 versioned (legacy P2PKH) btc address' public key"
+              placeholder="BTC Address P2PKH, P2SH, P2PWK Format Supported"
               onChange={(e) => {
                 setNewPoolPoxAddressPubKey(e.target.value);
               }}

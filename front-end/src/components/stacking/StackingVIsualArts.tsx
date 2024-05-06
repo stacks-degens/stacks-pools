@@ -135,8 +135,8 @@ export const StackingVisualArts = ({
               currentBlockHeight >= (divWidth - 50) / (divWidth / 100)
                 ? (divWidth - 50) / (divWidth / 100) + '%'
                 : currentBlockHeight < 50 / (divWidth / 100)
-                ? '0%'
-                : currentBlockHeight - 50 / (divWidth / 100) + '%',
+                  ? '0%'
+                  : currentBlockHeight - 50 / (divWidth / 100) + '%',
           }}
         >
           Current Block
