@@ -14,7 +14,7 @@ const wallet_7 = 'ST3PF13W7Z0RRM42A8VZRVFQ75SV1K26RXEP8YGKJ';
 const wallet_8 = 'ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP';
 const wallet_299 = accounts.get('wallet_299')!;
 const contract = `${accounts.get('deployer')}.stacking-pool-test`;
-const poxContract = 'ST000000000000000000002AMW42H.pox-3';
+const poxContract = 'ST000000000000000000002AMW42H.pox-4';
 
 function expectPartialStackedByCycle(poxAddr: string, cycle: number, amount: number, user: string) {
   const { result: expectPartialStackedByCycle } = simnet.callReadOnlyFn(
@@ -196,13 +196,28 @@ describe('Can delegate', () => {
       [Cl.uint(20_000_000_000_000)],
       wallet_1
     );
-    expect(delegateStx).toBeOk(Cl.bool(true));
+    // (ok { stacker: stacker,
+    //   lock-amount: amount-ustx,
+    //   unlock-burn-height: unlock-burn-height })
+    expect(delegateStx).toBeOk(
+      Cl.tuple({
+        stacker: Cl.principal(wallet_1),
+        'lock-amount': Cl.uint(19_999_999_000_000),
+        'unlock-burn-height': Cl.uint(2100),
+      })
+    );
 
     expectTotalStackedByCycle('mtyytKMMrd8tEmkdBKGGtUvLxR3YTkMc51', 1, 0, 19_999_999_000_000, deployer);
   });
 
   it('can lock only funds he owns', () => {
-    expect(AllowJoinAndDelegate(wallet_1, 200_000_000_000_000)).toBeOk(Cl.bool(true));
+    expect(AllowJoinAndDelegate(wallet_1, 200_000_000_000_000)).toBeOk(
+      Cl.tuple({
+        stacker: Cl.principal(wallet_1),
+        'lock-amount': Cl.uint(99_999_999_000_000),
+        'unlock-burn-height': Cl.uint(2100),
+      })
+    );
 
     // check if expected values
     expectUserData(wallet_1, wallet_1, 200_000_000_000_000, 99_999_999_000_000, 2100);
@@ -215,7 +230,13 @@ describe('Can delegate', () => {
   });
 
   it('can delegate any amount, it will be locked only when it meets the minimum amount', () => {
-    expect(AllowJoinAndDelegate(wallet_1, 1_000_000_000)).toBeOk(Cl.bool(false));
+    expect(AllowJoinAndDelegate(wallet_1, 1_000_000_000)).toBeOk(
+      Cl.tuple({
+        stacker: Cl.principal(wallet_1),
+        'lock-amount': Cl.uint(999_000_000),
+        'unlock-burn-height': Cl.uint(2100),
+      })
+    );
 
     expectUserData(wallet_1, wallet_1, 1_000_000_000, 999_000_000, 2100);
     expectUserData(wallet_2, wallet_2, 0, 0, 0);
@@ -224,7 +245,13 @@ describe('Can delegate', () => {
     expectPartialStackedByCycle('tb1qs0kkdpsrzh3ngqgth7mkavlwlzr7lms2g22aa2', 1, 0, deployer);
     expectTotalStackedByCycle('', 1, 0, 0, deployer);
 
-    expect(AllowJoinAndDelegate(wallet_2, 10_000_000_000_000)).toBeOk(Cl.bool(true));
+    expect(AllowJoinAndDelegate(wallet_2, 10_000_000_000_000)).toBeOk(
+      Cl.tuple({
+        stacker: Cl.principal(wallet_2),
+        'lock-amount': Cl.uint(9_999_999_000_000),
+        'unlock-burn-height': Cl.uint(2100),
+      })
+    );
 
     expectPartialStackedByCycle('tb1qs0kkdpsrzh3ngqgth7mkavlwlzr7lms2g22aa2', 1, 0, deployer);
     expectTotalStackedByCycle('mtyytKMMrd8tEmkdBKGGtUvLxR3YTkMc51', 1, 0, 10_000_998_000_000, deployer);
@@ -235,9 +262,16 @@ describe('Can delegate', () => {
 
   it('after unlock, no locked amount, no update-sc-balances', () => {
     const { result: stackingMinimum } = simnet.callReadOnlyFn(poxContract, 'get-stacking-minimum', [], wallet_1);
+    console.log('stackingMinimum:::', stackingMinimum);
     assert(isClarityType(stackingMinimum, ClarityType.UInt));
 
-    expect(AllowJoinAndDelegate(wallet_1, Number(cvToValue(stackingMinimum)) + 1 * 1_000_000)).toBeOk(Cl.bool(true));
+    expect(AllowJoinAndDelegate(wallet_1, Number(cvToValue(stackingMinimum)) + 1 * 1_000_000)).toBeOk(
+      Cl.tuple({
+        stacker: Cl.principal(wallet_1),
+        'lock-amount': Cl.uint(Number(cvToValue(stackingMinimum))),
+        'unlock-burn-height': Cl.uint(2100),
+      })
+    );
 
     expectUserData(
       wallet_1,
@@ -258,7 +292,13 @@ describe('Can delegate', () => {
     const { result: stackingMinimum } = simnet.callReadOnlyFn(poxContract, 'get-stacking-minimum', [], wallet_1);
     assert(isClarityType(stackingMinimum, ClarityType.UInt));
 
-    expect(AllowJoinAndDelegate(wallet_1, Number(cvToValue(stackingMinimum)) + 1 * 1_000_000)).toBeOk(Cl.bool(true));
+    expect(AllowJoinAndDelegate(wallet_1, Number(cvToValue(stackingMinimum)) + 1 * 1_000_000)).toBeOk(
+      Cl.tuple({
+        stacker: Cl.principal(wallet_1),
+        'lock-amount': Cl.uint(Number(cvToValue(stackingMinimum))),
+        'unlock-burn-height': Cl.uint(2100),
+      })
+    );
 
     expectUserData(
       wallet_1,
@@ -280,12 +320,48 @@ describe('Can delegate', () => {
   });
 
   it('ignore commit if multiple wallets delegate and total delegated < stackingMinimum', () => {
-    expect(AllowJoinAndDelegate(wallet_1, 1_000_000_000)).toBeOk(Cl.bool(false));
-    expect(AllowJoinAndDelegate(wallet_2, 1_000_000_000)).toBeOk(Cl.bool(false));
-    expect(AllowJoinAndDelegate(wallet_3, 1_000_000_000)).toBeOk(Cl.bool(false));
-    expect(AllowJoinAndDelegate(wallet_4, 1_000_000_000)).toBeOk(Cl.bool(false));
-    expect(AllowJoinAndDelegate(wallet_5, 1_000_000_000)).toBeOk(Cl.bool(false));
-    expect(AllowJoinAndDelegate(wallet_6, 1_000_000_000)).toBeOk(Cl.bool(false));
+    expect(AllowJoinAndDelegate(wallet_1, 1_000_000_000)).toBeOk(
+      Cl.tuple({
+        stacker: Cl.principal(wallet_1),
+        'lock-amount': Cl.uint(999_000_000),
+        'unlock-burn-height': Cl.uint(2100),
+      })
+    );
+    expect(AllowJoinAndDelegate(wallet_2, 1_000_000_000)).toBeOk(
+      Cl.tuple({
+        stacker: Cl.principal(wallet_2),
+        'lock-amount': Cl.uint(999_000_000),
+        'unlock-burn-height': Cl.uint(2100),
+      })
+    );
+    expect(AllowJoinAndDelegate(wallet_3, 1_000_000_000)).toBeOk(
+      Cl.tuple({
+        stacker: Cl.principal(wallet_3),
+        'lock-amount': Cl.uint(999_000_000),
+        'unlock-burn-height': Cl.uint(2100),
+      })
+    );
+    expect(AllowJoinAndDelegate(wallet_4, 1_000_000_000)).toBeOk(
+      Cl.tuple({
+        stacker: Cl.principal(wallet_4),
+        'lock-amount': Cl.uint(999_000_000),
+        'unlock-burn-height': Cl.uint(2100),
+      })
+    );
+    expect(AllowJoinAndDelegate(wallet_5, 1_000_000_000)).toBeOk(
+      Cl.tuple({
+        stacker: Cl.principal(wallet_5),
+        'lock-amount': Cl.uint(999_000_000),
+        'unlock-burn-height': Cl.uint(2100),
+      })
+    );
+    expect(AllowJoinAndDelegate(wallet_6, 1_000_000_000)).toBeOk(
+      Cl.tuple({
+        stacker: Cl.principal(wallet_6),
+        'lock-amount': Cl.uint(999_000_000),
+        'unlock-burn-height': Cl.uint(2100),
+      })
+    );
 
     expectUserData(wallet_1, wallet_1, 1_000_000_000, 999_000_000, 2100);
     expectUserData(wallet_2, wallet_2, 1_000_000_000, 999_000_000, 2100);
@@ -296,9 +372,27 @@ describe('Can delegate', () => {
   });
 
   it('stacker can delegate any amount, it will be locked only when treshold is met', () => {
-    expect(AllowJoinAndDelegate(wallet_1, 1_000_000_000)).toBeOk(Cl.bool(false));
-    expect(AllowJoinAndDelegate(wallet_2, 1_000_000_000)).toBeOk(Cl.bool(false));
-    expect(AllowJoinAndDelegate(wallet_3, 1_000_000_000)).toBeOk(Cl.bool(false));
+    expect(AllowJoinAndDelegate(wallet_1, 1_000_000_000)).toBeOk(
+      Cl.tuple({
+        stacker: Cl.principal(wallet_1),
+        'lock-amount': Cl.uint(999_000_000),
+        'unlock-burn-height': Cl.uint(2100),
+      })
+    );
+    expect(AllowJoinAndDelegate(wallet_2, 1_000_000_000)).toBeOk(
+      Cl.tuple({
+        stacker: Cl.principal(wallet_2),
+        'lock-amount': Cl.uint(999_000_000),
+        'unlock-burn-height': Cl.uint(2100),
+      })
+    );
+    expect(AllowJoinAndDelegate(wallet_3, 1_000_000_000)).toBeOk(
+      Cl.tuple({
+        stacker: Cl.principal(wallet_3),
+        'lock-amount': Cl.uint(999_000_000),
+        'unlock-burn-height': Cl.uint(2100),
+      })
+    );
 
     expectUserData(wallet_1, wallet_1, 1_000_000_000, 999_000_000, 2100);
     expectUserData(wallet_2, wallet_2, 1_000_000_000, 999_000_000, 2100);
@@ -307,7 +401,13 @@ describe('Can delegate', () => {
     expectPartialStackedByCycle('tb1qs0kkdpsrzh3ngqgth7mkavlwlzr7lms2g22aa2', 1, 0, deployer);
     expectTotalStackedByCycle('mtyytKMMrd8tEmkdBKGGtUvLxR3YTkMc51', 1, 0, 0, deployer);
 
-    expect(AllowJoinAndDelegate(wallet_4, 3_780_000_000_000)).toBeOk(Cl.bool(true));
+    expect(AllowJoinAndDelegate(wallet_4, 3_780_000_000_000)).toBeOk(
+      Cl.tuple({
+        stacker: Cl.principal(wallet_4),
+        'lock-amount': Cl.uint(3_779_999_000_000),
+        'unlock-burn-height': Cl.uint(2100),
+      })
+    );
 
     expectPartialStackedByCycle('tb1qs0kkdpsrzh3ngqgth7mkavlwlzr7lms2g22aa2', 1, 0, deployer);
     expectTotalStackedByCycle('mtyytKMMrd8tEmkdBKGGtUvLxR3YTkMc51', 1, 0, 3_782_996_000_000, deployer);
@@ -342,14 +442,26 @@ describe('Can delegate', () => {
 
     for (let i = 1; i <= 298; i++) {
       let stacker = accounts.get(`wallet_${i}`)!;
-      expect(AllowJoinAndDelegate(stacker, 1_000_000_000)).toBeOk(Cl.bool(false));
+      expect(AllowJoinAndDelegate(stacker, 1_000_000_000)).toBeOk(
+        Cl.tuple({
+          stacker: Cl.principal(stacker),
+          'lock-amount': Cl.uint(999_000_000),
+          'unlock-burn-height': Cl.uint(2100),
+        })
+      );
       expectUserData(stacker, stacker, 1_000_000_000, 999_000_000, 2100);
     }
 
     expectPartialStackedByCycle('tb1qs0kkdpsrzh3ngqgth7mkavlwlzr7lms2g22aa2', 1, 0, deployer);
     expectTotalStackedByCycle('mtyytKMMrd8tEmkdBKGGtUvLxR3YTkMc51', 1, 0, 0, deployer);
 
-    expect(AllowJoinAndDelegate(wallet_299, 3_780_000_000_000)).toBeOk(Cl.bool(true));
+    expect(AllowJoinAndDelegate(wallet_299, 3_780_000_000_000)).toBeOk(
+      Cl.tuple({
+        stacker: Cl.principal(wallet_299),
+        'lock-amount': Cl.uint(3_779_999_000_000),
+        'unlock-burn-height': Cl.uint(2100),
+      })
+    );
 
     expect(simnet.blockHeight).toEqual(898);
 
@@ -377,7 +489,13 @@ describe('Can delegate', () => {
     const { result: stackingMinimum } = simnet.callReadOnlyFn(poxContract, 'get-stacking-minimum', [], wallet_1);
     assert(isClarityType(stackingMinimum, ClarityType.UInt));
 
-    AllowJoinAndDelegate(wallet_1, Number(cvToValue(stackingMinimum)) + 1 * 1_000_000);
+    expect(AllowJoinAndDelegate(wallet_1, Number(cvToValue(stackingMinimum)) + 1 * 1_000_000)).toBeOk(
+      Cl.tuple({
+        stacker: Cl.principal(wallet_1),
+        'lock-amount': Cl.uint(Number(cvToValue(stackingMinimum))),
+        'unlock-burn-height': Cl.uint(2100),
+      })
+    );
 
     expectUserData(
       wallet_1,
@@ -395,7 +513,13 @@ describe('Can delegate', () => {
       [Cl.uint(Number(cvToValue(stackingMinimum)) + 1 * 1_000_000)],
       wallet_1
     );
-    expect(delegateStx).toBeOk(Cl.bool(true));
+    expect(delegateStx).toBeOk(
+      Cl.tuple({
+        stacker: Cl.principal(wallet_1),
+        'lock-amount': Cl.uint(Number(cvToValue(stackingMinimum))),
+        'unlock-burn-height': Cl.uint(3150),
+      })
+    );
 
     expectUserData(
       wallet_1,
