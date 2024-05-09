@@ -141,6 +141,9 @@ plan:
             path: contracts/pox-3-fake.clar
             anchor-block-only: true
             clarity-version: 2
+      epoch: "2.4"
+    - id: 1
+      transactions:
         - contract-publish:
             contract-name: stacking-pool
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
@@ -151,8 +154,8 @@ plan:
         - contract-publish:
             contract-name: stacking-pool-test
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 395130
+            cost: 411650
             path: contracts/stacking-pool-test.clar
             anchor-block-only: true
             clarity-version: 2
-      epoch: "2.4"
+      epoch: "2.5"

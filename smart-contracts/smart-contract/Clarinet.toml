@@ -70,12 +70,12 @@ epoch = 2.4
 [contracts.stacking-pool]
 path = 'contracts/stacking-pool.clar'
 clarity_version = 2
-epoch = 2.4
+epoch = 2.5
 
 [contracts.stacking-pool-test]
 path = 'contracts/stacking-pool-test.clar'
 clarity_version = 2
-epoch = 2.4
+epoch = 2.5
 
 [contracts.token-amm-swap-pool-v1-1]
 path = 'contracts/token-amm-swap-pool-v1-1.clar'

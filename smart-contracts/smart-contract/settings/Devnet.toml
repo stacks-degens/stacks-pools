@@ -1580,14 +1580,15 @@ bitcoin_controller_automining_disabled = true
 # subnet_api_image_url = "hirosystems/stacks-blockchain-api:latest"
 # subnet_api_postgres_database = "subnet_api"
 
-# For testing in epoch 2.4 / using Clarity2
+# For testing in epoch 2.1 / using Clarity2
 epoch_2_0 = 100
-epoch_2_05 = 102
-epoch_2_1 = 104
-pox_2_activation = 105
-epoch_2_2 = 106
-epoch_2_3 = 108
-epoch_2_4 = 112
+epoch_2_05 = 100
+epoch_2_1 = 101
+epoch_2_2 = 102
+epoch_2_3 = 103
+epoch_2_4 = 104
+epoch_2_5 = 106
+# epoch_3_0 = 121
 
 # # Send some stacking orders
 # [[devnet.pox_stacking_orders]]
