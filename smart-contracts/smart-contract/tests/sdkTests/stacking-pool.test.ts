@@ -1,6 +1,7 @@
-import { Cl, ClarityType, cvToValue, isClarityType } from '@stacks/transactions';
+import { Cl, ClarityType, createStacksPrivateKey, cvToValue, getPublicKey, isClarityType } from '@stacks/transactions';
 import { assert, describe, expect, it } from 'vitest';
-import { poxAddressToTuple } from '@stacks/stacking';
+import { Pox4SignatureTopic, poxAddressToTuple, StackingClient } from '@stacks/stacking';
+import { StacksTestnet } from '@stacks/network';
 
 const accounts = simnet.getAccounts();
 const deployer = 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM';
@@ -15,6 +16,18 @@ const wallet_8 = 'ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP';
 const wallet_299 = accounts.get('wallet_299')!;
 const contract = `${accounts.get('deployer')}.stacking-pool-test`;
 const poxContract = 'ST000000000000000000002AMW42H.pox-4';
+const testnet = new StacksTestnet();
+const walletsStackingMapping = {
+  deployer: new StackingClient(deployer, testnet),
+  wallet_1: new StackingClient(wallet_1, testnet),
+  wallet_2: new StackingClient(wallet_2, testnet),
+  wallet_3: new StackingClient(wallet_3, testnet),
+  wallet_4: new StackingClient(wallet_4, testnet),
+  wallet_5: new StackingClient(wallet_5, testnet),
+  wallet_6: new StackingClient(wallet_6, testnet),
+  wallet_7: new StackingClient(wallet_7, testnet),
+  wallet_8: new StackingClient(wallet_8, testnet),
+};
 
 function expectPartialStackedByCycle(poxAddr: string, cycle: number, amount: number, user: string) {
   const { result: expectPartialStackedByCycle } = simnet.callReadOnlyFn(
@@ -48,7 +61,14 @@ function AllowJoinAndDelegate(wallet: string, amount: number) {
   const { result: delegateStx } = simnet.callPublicFn(contract, 'delegate-stx', [Cl.uint(amount)], wallet);
   return delegateStx;
 }
-function expectTotalStackedByCycle(poxAddr: string, cycle: number, index: number, amountUstx: number, user: string) {
+function expectTotalStackedByCycle(
+  poxAddr: string,
+  cycle: number,
+  index: number,
+  amountUstx: number,
+  user: string,
+  signerPubKey: Uint8Array
+) {
   const expectTotalStackedByCycle = simnet.callReadOnlyFn(
     poxContract,
     'get-reward-set-pox-address',
@@ -62,6 +82,7 @@ function expectTotalStackedByCycle(poxAddr: string, cycle: number, index: number
         'pox-addr': poxAddressToTuple(poxAddr),
         stacker: Cl.none(),
         'total-ustx': Cl.uint(amountUstx),
+        signer: Cl.buffer(signerPubKey),
       })
     );
   } else {
@@ -196,9 +217,7 @@ describe('Can delegate', () => {
       [Cl.uint(20_000_000_000_000)],
       wallet_1
     );
-    // (ok { stacker: stacker,
-    //   lock-amount: amount-ustx,
-    //   unlock-burn-height: unlock-burn-height })
+
     expect(delegateStx).toBeOk(
       Cl.tuple({
         stacker: Cl.principal(wallet_1),
@@ -207,7 +226,61 @@ describe('Can delegate', () => {
       })
     );
 
-    expectTotalStackedByCycle('mtyytKMMrd8tEmkdBKGGtUvLxR3YTkMc51', 1, 0, 19_999_999_000_000, deployer);
+    // Operator creates a signature and commits the previously locked amount.
+    const operatorSig = walletsStackingMapping.deployer.signPoxSignature({
+      // The signer key being authorized.
+      signerPrivateKey: createStacksPrivateKey('753b7cc01a1a2e86221266a154af739463fce51219d97e4f856cd7200c3bd2a601'),
+      // The reward cycle for which the authorization is valid.
+      // For stack-stx and stack-extend, this refers to the reward cycle
+      // where the transaction is confirmed. For stack-aggregation-commit,
+      // this refers to the reward cycle argument in that function.
+      rewardCycle: 1,
+      // For stack-stx, this refers to lock-period. For stack-extend,
+      // this refers to extend-count. For stack-aggregation-commit, this is
+      // u1.
+      period: 1,
+      // A string representing the function where this authorization is valid.
+      // Either stack-stx, stack-extend, stack-increase or agg-commit.
+      topic: Pox4SignatureTopic.AggregateCommit,
+      // The PoX address that can be used with this signer key.
+      poxAddress: 'mtyytKMMrd8tEmkdBKGGtUvLxR3YTkMc51',
+      // The unique auth-id for this authorization.
+      authId: 0,
+      // The maximum amount of uSTX that can be used (per tx) with this signer
+      // key (we'll use an incredibly high amount :) ).
+      maxAmount: Number.MAX_SAFE_INTEGER,
+    });
+
+    // (current-cycle uint)
+    // (signer-sig (optional (buff 65)))
+    // (signer-pubkey (buff 33))
+    // (max-allowed-amount uint)
+    // (auth-id uint)
+    const { result: aggCommit } = simnet.callPublicFn(
+      contract,
+      'maybe-stack-aggregation-commit',
+      [
+        Cl.uint(0),
+        Cl.some(Cl.bufferFromHex(operatorSig)),
+        Cl.buffer(
+          getPublicKey(createStacksPrivateKey('753b7cc01a1a2e86221266a154af739463fce51219d97e4f856cd7200c3bd2a601'))
+            .data
+        ),
+        Cl.uint(Number.MAX_SAFE_INTEGER),
+        Cl.uint(0),
+      ],
+      wallet_1
+    );
+    expect(aggCommit).toBeOk(Cl.bool(true));
+
+    expectTotalStackedByCycle(
+      'mtyytKMMrd8tEmkdBKGGtUvLxR3YTkMc51',
+      1,
+      0,
+      19_999_999_000_000,
+      deployer,
+      getPublicKey(createStacksPrivateKey('753b7cc01a1a2e86221266a154af739463fce51219d97e4f856cd7200c3bd2a601')).data
+    );
   });
 
   it('can lock only funds he owns', () => {

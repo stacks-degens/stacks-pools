@@ -364,7 +364,7 @@
 
 ;; Pox operative functions
 
-(define-private (maybe-stack-aggregation-commit (current-cycle uint) 
+(define-public (maybe-stack-aggregation-commit (current-cycle uint) 
                                                 (signer-sig (optional (buff 65)))
                                                 (signer-pubkey (buff 33))
                                                 (max-allowed-amount uint)
@@ -375,8 +375,8 @@
           ;; Call stack-aggregate-increase.
           ;; It might fail because called in the same cycle twice.
     index (match (as-contract (contract-call? 'ST000000000000000000002AMW42H.pox-4 stack-aggregation-increase (var-get pool-pox-address) reward-cycle index signer-sig signer-pubkey max-allowed-amount auth-id))
-            success (map-set last-aggregation reward-cycle block-height)
-            error (begin (print {err-increase-ignored: error}) false))
+            success (begin (map-set last-aggregation reward-cycle block-height) (ok true))
+            error (begin (print {err-increase-ignored: error}) (ok false)))
           ;; Total stacked is still below minimum.
           ;; Just try to commit, it might fail because minimum not yet met
     ;; (pox-addr { version: (buff 1), hashbytes: (buff 32) })
@@ -388,9 +388,11 @@
     (match (as-contract (contract-call? 'ST000000000000000000002AMW42H.pox-4 stack-aggregation-commit-indexed (var-get pool-pox-address) reward-cycle signer-sig signer-pubkey max-allowed-amount auth-id))
       index (begin
               (map-set pox-addr-indices reward-cycle index)
-              (map-set last-aggregation reward-cycle block-height))
+              (map-set last-aggregation reward-cycle block-height)
+              (ok true))
       error (begin 
-              (print {err-commit-ignored: error}) false))))) ;; ignore errors
+              (print {err-commit-ignored: error}) 
+              (ok false)))))) ;; ignore errors
 
 (define-private (delegate-stx-inner (amount-ustx uint) (delegate-to principal) (until-burn-ht (optional uint)))
 (let ((result-revoke
