@@ -10,14 +10,16 @@ if (
   throw 'Inexistent networkType';
 if (process.env.DEVELOPMENT !== 'prod' && process.env.DEVELOPMENT !== 'local')
   throw 'Inexistent developmentType';
-if (!process.env.PRIVATE_KEY) throw 'Inexistent Private Key';
+if (!process.env.STX_PRIVATE_KEY) throw 'Inexistent Private Key';
+if (!process.env.POX_ADDRESS) throw 'Inexistent Pox Address';
 
 export type NetworkType = 'mainnet' | 'testnet' | 'devnet';
 export type DevelopmentType = 'prod' | 'local';
 
 export const network: NetworkType = process.env.NETWORK || 'devnet';
 export const development: DevelopmentType = process.env.DEVELOPMENT || 'local';
-export const privateKey: string = process.env.PRIVATE_KEY;
+export const privateKey: string = process.env.STX_PRIVATE_KEY;
+export const poxAddress: string = process.env.POX_ADDRESS;
 
 type ApiMapping = {
   blockInfo: string;
