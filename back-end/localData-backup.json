@@ -1,0 +1,8 @@
+{
+  "current_burn_block_height": 123,
+  "current_prepare_phase": 1,
+  "current_reward_phase": 1,
+  "current_cycle": 23,
+  "updated_balances_this_cycle": true,
+  "commit_agg_this_cycle": true
+}

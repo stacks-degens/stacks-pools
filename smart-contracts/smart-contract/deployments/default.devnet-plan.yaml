@@ -154,7 +154,7 @@ plan:
         - contract-publish:
             contract-name: stacking-pool-test
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 411650
+            cost: 419790
             path: contracts/stacking-pool-test.clar
             anchor-block-only: true
             clarity-version: 2
