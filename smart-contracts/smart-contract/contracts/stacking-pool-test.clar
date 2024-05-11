@@ -652,7 +652,7 @@
     u0)))
 
 ;; batch read-only to check the burn blocks already rewarded
-(define-read-only (check-clarimed-blocks-rewards-batch (burn-blocks-list (list 300 uint))) 
+(define-read-only (check-claimed-blocks-rewards-batch (burn-blocks-list (list 300 uint))) 
 (ok (map check-claimed-block-rewards-one-block burn-blocks-list)))
 
 (define-private (check-claimed-block-rewards-one-block (burn-height uint)) 
@@ -844,12 +844,3 @@ PREPARE_CYCLE_LENGTH)
   (default-to burn-block-height 
     (default-to (some burn-block-height) (get until-burn-ht (get-user-data user)))) 
   next-reward-cycle-first-block))
-
-;; TODO: remove this as it transitioned to api call
-(define-read-only (is-prepare-phase-now)
-(let ((next-reward-cycle-first-block 
-        (contract-call? 'ST000000000000000000002AMW42H.pox-4 reward-cycle-to-burn-height 
-          (+ (contract-call? 'ST000000000000000000002AMW42H.pox-4 current-pox-reward-cycle) u1))))
-(and 
-  (>= burn-block-height (- next-reward-cycle-first-block PREPARE_CYCLE_LENGTH))
-  (< burn-block-height next-reward-cycle-first-block))))

@@ -1,5 +1,6 @@
 import {
   callReadOnlyFunction,
+  Cl,
   ClarityValue,
   cvToJSON,
   cvToString,
@@ -11,13 +12,9 @@ import {
   uintCV,
 } from '@stacks/transactions';
 import { StacksMainnet, StacksTestnet, StacksDevnet } from '@stacks/network';
-import { apiUrl, development, network } from './network';
-import {
-  contractMapping,
-  CVpoxAddress,
-  functionMapping,
-  poxAddress,
-} from './contracts';
+import { apiUrl, development, network, poxAddress } from './network';
+import { contractMapping, functionMapping } from './contracts';
+import { poxAddressToTuple } from '@stacks/stacking';
 
 const contractNetwork =
   network === 'mainnet'
@@ -60,28 +57,38 @@ export const readOnlyGetStackingMinimum = async (): Promise<number> => {
   return cvToValue(stackingMinimum);
 };
 
-// (pox-addr { version: (buff 1), hashbytes: (buff 32) }) (reward-cycle uint) (sender principal)
-/// TODO: should sender be the smart contract?
 export const readOnlyGetPartialStackedByCycle = async (
   rewardCycle: number,
   // sender: string,
-): Promise<any> => {
+): Promise<number> => {
   const contractType = ContractType.pox;
   const partialStackedByCycle: ClarityValue = await readOnlyFunction(
     contractType,
     functionMapping[contractType].readOnlyFunctions.getPartialStackedByCycle,
     [
-      CVpoxAddress,
-      uintCV(rewardCycle),
-      principalCV(
+      poxAddressToTuple(poxAddress),
+      Cl.uint(rewardCycle),
+      Cl.principal(
         contractMapping[contractType][network].contractAddress +
           '.' +
           contractMapping[contractType][network].contractName,
       ),
     ],
   );
-  console.log('partialStackedByCycle? :', partialStackedByCycle);
-  console.log('partialStackedByCycle? val :', cvToValue(partialStackedByCycle));
+  return cvToValue(partialStackedByCycle) || 0;
+};
+
+export const readOnlyGetPoxAddressIndices = async (
+  rewardCycle: number,
+): Promise<boolean> => {
+  const contractType = ContractType.stacking;
+  const partialStackedByCycle: ClarityValue = await readOnlyFunction(
+    contractType,
+    functionMapping[contractType].readOnlyFunctions.getPoxAddrIndices,
+    [Cl.uint(rewardCycle)],
+  );
+  console.log('check if none is empty list', cvToValue(partialStackedByCycle));
+
   return cvToValue(partialStackedByCycle);
 };
 
@@ -115,20 +122,6 @@ export const readOnlyGetPoxInfo = async (): Promise<PoxInfoMap> => {
   return extractPoxData(cvToValue(poxInfo));
 };
 
-// TODO: double check and remove this completely
-// This throws overflow on read_lenght
-// Transitioned to pox api call and read from json
-export const readOnlyIsPreparePhaseNow = async (): Promise<boolean> => {
-  const contractType = ContractType.stacking;
-  const isPreparePhase: ClarityValue = await readOnlyFunction(
-    contractType,
-    functionMapping[contractType].readOnlyFunctions.isPreparePhaseNow,
-    [],
-  );
-  console.log('is it bool? :', cvToValue(isPreparePhase));
-  return cvToValue(isPreparePhase);
-};
-
 // TODO: return directly what we want from it
 export const readOnlyUpdatedBalancesGivenCycle = async (
   givenCycle: number,
@@ -137,7 +130,7 @@ export const readOnlyUpdatedBalancesGivenCycle = async (
   const updatedBalancesGivenCycle: ClarityValue = await readOnlyFunction(
     contractType,
     functionMapping[contractType].readOnlyFunctions.updatedBalancesGivenCycle,
-    [uintCV(givenCycle)],
+    [Cl.uint(givenCycle)],
   );
   console.log('is it bool? :', cvToValue(updatedBalancesGivenCycle));
   return cvToValue(updatedBalancesGivenCycle);
@@ -158,17 +151,20 @@ export const readOnlyCheckWonBlockRewardsBatch = async (
     CVBlockHeights.push(uintCV(blockheight));
   }
 
-  const blockWonResponse: ClarityValue = await readOnlyFunction(
+  const CVblockWonResponse: ClarityValue = await readOnlyFunction(
     contractType,
     functionMapping[contractType].readOnlyFunctions.checkWonBlockRewardsBatch,
     [listCV(CVBlockHeights)],
   );
 
-  // convert the answer, go through the values and only add to list those that are block heights
-
-  console.log('what blocks are won :', blockWonResponse);
-  // return list of block-heights as [number]
-  return [];
+  // add the block heights that aren't 0
+  const blocksWon: number[] = [];
+  const blockWonResponse = cvToValue(CVblockWonResponse);
+  Object.entries(blockWonResponse.value).forEach(([, value]) => {
+    const blockheight = parseInt(value.value);
+    if (blockheight) blocksWon.push(blockheight);
+  });
+  return blocksWon;
 };
 
 /// give list of block-heights
@@ -183,19 +179,25 @@ export const readOnlyCheckClaimedBlocksRewardsBatch = async (
     CVBlockHeights.push(uintCV(blockheight));
   }
 
-  const blockWonResponse: ClarityValue = await readOnlyFunction(
+  const CVblockNotClaimedResponse: ClarityValue = await readOnlyFunction(
     contractType,
     functionMapping[contractType].readOnlyFunctions
       .checkClaimedBlocksRewardsBatch,
     [listCV(CVBlockHeights)],
   );
-
-  // convert the answer, go through the values and only add to list those that are block heights
-
-  console.log('what blocks are won :', blockWonResponse);
-  // return list of block-heights as [number]
-  return [];
+  const blocksNotClaimed: number[] = [];
+  // add the block heights that aren't 0
+  const blockNotClaimedResponse = cvToValue(CVblockNotClaimedResponse);
+  Object.entries(blockNotClaimedResponse.value).forEach(([, value]) => {
+    const blockheight = parseInt(value.value);
+    if (blockheight) blocksNotClaimed.push(blockheight);
+    console.log('block claimed: ', blockheight);
+  });
+  console.log('what blocks are won :', blocksNotClaimed);
+  return blocksNotClaimed;
 };
 
+// readOnlyCheckWonBlockRewardsBatch([140, 141, 142]);
+readOnlyCheckClaimedBlocksRewardsBatch([140, 141, 142]);
 // TODO: distribute rewards
-// when can this be done? - during cycle, can it be done after the cycle
+// when can this be done? -can be done anytime after it was won, even in other new cycles

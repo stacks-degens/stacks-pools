@@ -11,12 +11,14 @@ import {
 import {
   PoxInfoMap,
   readOnlyGetPartialStackedByCycle,
+  readOnlyGetPoxAddressIndices,
   readOnlyGetPoxInfo,
   readOnlyGetStackingMinimum,
   readOnlyUpdatedBalancesGivenCycle,
 } from './functionsReadOnly';
 
 import { readJsonData, writeJsonData } from './fileLocalData';
+import { Pox4SignatureTopic } from '@stacks/stacking';
 
 // based on burn block height
 // 1. prepare phase
@@ -63,7 +65,7 @@ const runtime = async () => {
     if (!alreadyUpdatedBalancesJSON) {
       // 2. from read-only
       const alreadyUpdatedBalancesReadOnly =
-        await readOnlyUpdatedBalancesGivenCycle(rewardCycleId); // TODO: or +1 ?
+        await readOnlyUpdatedBalancesGivenCycle(rewardCycleId + 1);
 
       // TODO: check this returned as boolean
       if (alreadyUpdatedBalancesReadOnly) {
@@ -84,15 +86,38 @@ const runtime = async () => {
     const stackingMinimum = await readOnlyGetStackingMinimum();
     console.log('stacking min: ', stackingMinimum);
 
-    const partialStackedByCycle =
-      await readOnlyGetPartialStackedByCycle(rewardCycleId);
-    console.log(`partial stacked by cycle ${rewardCycleId}: `, stackingMinimum);
+    const partialStackedByCycle = await readOnlyGetPartialStackedByCycle(
+      rewardCycleId + 1,
+    );
+    console.log(
+      `partial stacked by cycle ${rewardCycleId + 1}: `,
+      partialStackedByCycle,
+    );
 
+    const poxAddressIndices = await readOnlyGetPoxAddressIndices(
+      rewardCycleId + 1,
+    );
     // TODO: + triggering moment -> once every 500 blocks or 100 blocks before prepare phase and 10 blocks before prepare phase
     // if local + 500 < current_burn_block_height => do this:
     // also do it with 100 blocks before prepare phase // TODO: how to find the burn block height for the prepare phase
-    if (partialStackedByCycle > stackingMinimum) {
-      contractCallFunctionMaybeStackAggregationCommit(rewardCycleId);
+    // if no indices , do commit
+
+    if (!poxAddressIndices) {
+      if (partialStackedByCycle > stackingMinimum) {
+        contractCallFunctionMaybeStackAggregationCommit(
+          rewardCycleId,
+          Pox4SignatureTopic.AggregateCommit,
+        );
+      }
+    }
+    //  every 500 blocks mainnet, 200 testnet, 4 devnet
+    // and once 10 blocks before prepare phase
+    if (partialStackedByCycle) {
+      // else do increase
+      contractCallFunctionMaybeStackAggregationCommit(
+        rewardCycleId,
+        Pox4SignatureTopic.StackIncrease,
+      );
     }
   }
 };

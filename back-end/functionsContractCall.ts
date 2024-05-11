@@ -11,9 +11,15 @@ import {
   StacksTransaction,
 } from '@stacks/transactions';
 import { StacksMainnet, StacksTestnet, StacksDevnet } from '@stacks/network';
-import { apiUrl, development, network, privateKey } from './network';
+import {
+  apiUrl,
+  development,
+  network,
+  poxAddress,
+  privateKey,
+} from './network';
 import { ContractType } from './functionsReadOnly';
-import { contractMapping, functionMapping, poxAddress } from './contracts';
+import { contractMapping, functionMapping } from './contracts';
 import { Pox4SignatureTopic, StackingClient } from '@stacks/stacking';
 
 const contractNetwork =
@@ -67,13 +73,17 @@ export const contractCallFunctionUpdateSCBalances =
     return response;
   };
 
-const createOperatorSig = (rewardCycle: number, authId: number): string => {
-  // TODO: should be the Stacks' address of the deployer or the liquidity provider of the stacking pool SC?
+const createOperatorSig = (
+  rewardCycle: number,
+  authId: number,
+  topic: Pox4SignatureTopic,
+): string => {
+  // should be the Stacks' address of the deployer, not the liquidity provider of the stacking pool SC
   return stackingClient.signPoxSignature({
     signerPrivateKey: createStacksPrivateKey(privateKey),
     rewardCycle: rewardCycle,
     period: 1,
-    topic: Pox4SignatureTopic.AggregateCommit, // TODO: or aggregateIncrease?
+    topic: topic,
     poxAddress: poxAddress,
     authId: authId,
     maxAmount: Number.MAX_SAFE_INTEGER,
@@ -87,11 +97,12 @@ const createOperatorSig = (rewardCycle: number, authId: number): string => {
 // (auth-id uint))
 export const contractCallFunctionMaybeStackAggregationCommit = async (
   currentCycle: number,
+  topic: Pox4SignatureTopic,
 ): Promise<boolean> => {
   const contractType = ContractType.stacking;
   const postConditions: PostCondition[] = [];
   const authId: number = Date.now() * 10 + Math.floor(Math.random() * 10);
-  const signerSig: string = createOperatorSig(currentCycle, authId);
+  const signerSig: string = createOperatorSig(currentCycle, authId, topic);
   const functionArgs: ClarityValue[] = [
     Cl.uint(currentCycle),
     Cl.some(Cl.bufferFromHex(signerSig)),

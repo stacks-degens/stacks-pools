@@ -1,5 +1,6 @@
-import { Cl } from '@stacks/transactions';
-import { NetworkType } from './network';
+import { Cl, getAddressFromPrivateKey } from '@stacks/transactions';
+import { NetworkType, privateKey } from './network';
+import { poxAddressToTuple } from '@stacks/stacking';
 
 type NetworkTypeMiningAndStacking = Record<
   NetworkType,
@@ -11,10 +12,6 @@ type NetworkTypeMiningAndStacking = Record<
 >;
 type ContractTypes = 'stacking' | 'pox';
 type ContractMapping = Record<ContractTypes, NetworkTypeMiningAndStacking>;
-
-// TODO: add pox address from private key
-export const poxAddress = '';
-export const CVpoxAddress = Cl.tuple(poxAddress as any);
 
 export const contractMapping: ContractMapping = {
   // TODO: complete the rest
@@ -63,6 +60,7 @@ interface IFunctionMapping {
       // calculateExtraReservedFunds: string;
       // canWithdrawExtraReservedNow: string;
       isPreparePhaseNow: string;
+      getPoxAddrIndices: string;
     };
     publicFunctions: {
       updateSCBalances: string;
@@ -90,12 +88,12 @@ export const functionMapping: IFunctionMapping = {
   stacking: {
     readOnlyFunctions: {
       updatedBalancesGivenCycle: 'updated-balances-given-cycle',
-      checkClaimedBlocksRewardsBatch:
-        'check-already-claimed-blocks-rewards-batch',
+      checkClaimedBlocksRewardsBatch: 'check-claimed-blocks-rewards-batch',
       checkWonBlockRewardsBatch: 'check-won-block-rewards-batch', // maximum 12 blocks
       isPreparePhaseNow: 'is-prepare-phase-now',
       // calculateExtraReservedFunds: 'calculate-extra-reserved-funds',
       // canWithdrawExtraReservedNow: 'can-withdraw-extra-reserved-now',
+      getPoxAddrIndices: 'get-pox-addr-indices',
     },
     publicFunctions: {
       updateSCBalances: 'update-sc-balances',
