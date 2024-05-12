@@ -1,14 +1,16 @@
 import { readFileSync, writeFileSync } from 'fs';
-
 const jsonName = 'localData.json';
 
 interface LocalData {
   current_burn_block_height: number;
-  current_prepare_phase: number;
-  current_reward_phase: number;
   current_cycle: number;
+  update_balances_txid: string;
+  update_balances_burn_block_height: number;
   updated_balances_this_cycle: boolean;
+  increase_agg_burn_block_height: number;
+  partial_stacked: number;
   commit_agg_this_cycle: boolean;
+  distribute_rewards_last_burn_block_height: number;
 }
 
 export const readJsonData = (): LocalData => {
@@ -16,6 +18,7 @@ export const readJsonData = (): LocalData => {
   return JSON.parse(rawdata);
 };
 
+// add nice write format for readibility
 export const writeJsonData = (updatedJson: LocalData) => {
   writeFileSync(jsonName, JSON.stringify(updatedJson));
 };

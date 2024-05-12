@@ -1,6 +1,6 @@
 {
   "current_burn_block_height": 123,
-  "current_prepare_phase": 1,
+  "txid_update_balances": "",
   "current_reward_phase": 1,
   "current_cycle": 23,
   "updated_balances_this_cycle": true,
