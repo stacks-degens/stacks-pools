@@ -1,5 +1,12 @@
-import { readFileSync, writeFileSync } from 'fs';
-const jsonName = 'localData.json';
+import { appendFileSync, readFileSync, writeFileSync } from 'fs';
+const jsonFileName = 'localData.json';
+const logFileName = 'log-automation.log';
+
+export enum LogTypeMessage {
+  Err = 'ERROR',
+  Info = 'INFO',
+  Warn = 'WARN',
+}
 
 interface LocalData {
   current_burn_block_height: number;
@@ -14,14 +21,33 @@ interface LocalData {
 }
 
 export const readJsonData = (): LocalData => {
-  const rawdata: string = readFileSync(jsonName, 'utf8');
+  const rawdata: string = readFileSync(jsonFileName, 'utf8');
   return JSON.parse(rawdata);
 };
 
 // add nice write format for readibility
 export const writeJsonData = (updatedJson: LocalData) => {
-  writeFileSync(jsonName, JSON.stringify(updatedJson));
+  writeFileSync(jsonFileName, JSON.stringify(updatedJson, null, 2));
 };
+
+// Function to append logs to a file synchronously
+export const logData = (messageType: LogTypeMessage, message: string) => {
+  const timestamp = new Date().toISOString();
+  const logMessage = `${timestamp} - ${messageType} - ${message}\n`;
+
+  try {
+    appendFileSync(logFileName, logMessage);
+  } catch (err) {
+    console.error('Error writing to log file:', err);
+  }
+};
+
+// writeJsonData(readJsonData());
+logData(LogTypeMessage.Err, 'something');
+
+logData(LogTypeMessage.Warn, 'something');
+
+logData(LogTypeMessage.Info, 'something');
 
 /// test file read - write
 // const testIncrementBurnBlockHeight = (): void => {

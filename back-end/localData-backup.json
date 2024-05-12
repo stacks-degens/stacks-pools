@@ -1,8 +1,11 @@
 {
   "current_burn_block_height": 123,
-  "txid_update_balances": "",
-  "current_reward_phase": 1,
   "current_cycle": 23,
+  "update_balances_txid": "",
+  "update_balances_burn_block_height": 1,
   "updated_balances_this_cycle": true,
-  "commit_agg_this_cycle": true
+  "increase_agg_burn_block_height": 1,
+  "partial_stacked": 2000000,
+  "commit_agg_this_cycle": true,
+  "distribute_rewards_last_burn_block_height": 1
 }

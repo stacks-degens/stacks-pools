@@ -76,7 +76,7 @@ export const contractCallFunctionUpdateSCBalances = async (
     fee,
     nonce,
   );
-  console.log('update sc balance transaction response is: ', response);
+  // console.log('update sc balance transaction response is: ', response);
   return response;
 };
 
@@ -142,6 +142,5 @@ export const contractCallFunctionDistributeRewards = async (
     [Cl.list(CVBlockHeights)],
     [],
   );
-  console.log('update sc balance transaction response is: ', response);
   return response;
 };
