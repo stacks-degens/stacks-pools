@@ -29,10 +29,15 @@ import {
   offsetIncreaseUpdateBalances,
   offsetRewardDistribute,
   thresholdAmounPartialStackedByCycle,
-  triggerNumberOfLastXBlocksRewardPhase,
+  triggerNumberOfLastXBlocksBeforeRewardPhase,
 } from './consts';
 
-import { readJsonData, writeJsonData } from './fileLocalData';
+import {
+  logData,
+  LogTypeMessage,
+  readJsonData,
+  writeJsonData,
+} from './fileLocalData';
 import { Pox4SignatureTopic } from '@stacks/stacking';
 import { network, stxToUstx, transactionUrl } from './network';
 import { StacksTransaction } from '@stacks/transactions';
@@ -60,10 +65,15 @@ const runtime = async () => {
   // start all the flow only after the block changes
   if (localJson.current_burn_block_height < currentBurnBlockHeight || true) {
     const poxInfo: PoxInfoMap = await readOnlyGetPoxInfo();
+    logData(
+      LogTypeMessage.Info,
+      `current burn block height: ${currentBurnBlockHeight}`,
+    );
 
     // if reward-cycle is different between SC and API -> flag it
     const rewardCycleId: number = poxInfo.get('reward-cycle-id') || -1;
     const rewardCycleIdApi: number = getCurrentCycle(poxAPIData);
+    logData(LogTypeMessage.Info, `current cycle: ${rewardCycleId}`);
 
     // would throw this error when in the block when prepare phase end and reward phase starts,
     // The API updates the cycle id 1 block faster (from block 0 in reward phase), the SC waits for the first reward block to update it
@@ -73,21 +83,24 @@ const runtime = async () => {
       getRewardPhaseBlockLength(poxAPIData) !==
         getBlocksUntilPreparePhase(poxAPIData)
     ) {
-      // TODO: add write to file with error handling
-      console.log(
-        `ERR: reward cycles different: SC: ${rewardCycleId} ${typeof rewardCycleId}, API: ${rewardCycleIdApi} ${typeof rewardCycleIdApi} at burn block height: ${currentBurnBlockHeight}`,
+      logData(
+        LogTypeMessage.Warn,
+        `reward cycles different: SC: ${rewardCycleId} ${typeof rewardCycleId}, API: ${rewardCycleIdApi} ${typeof rewardCycleIdApi} at burn block height: ${currentBurnBlockHeight}`,
       );
     }
     // check is prepare phase
     // const isPreparePhase = await readOnlyIsPreparePhaseNow(); // overflow read_legth
     const isPreparePhase = isInPreparePhase(poxAPIData);
-    console.log('is in prepare phase: ', isPreparePhase);
+    logData(LogTypeMessage.Info, `is in prepare phase: ${isPreparePhase}`);
     if (isPreparePhase) {
       // check already updated balances
       // 1. local
 
       localJson.current_cycle = rewardCycleId + 1;
-      console.log('this is', localJson.updated_balances_this_cycle);
+      logData(
+        LogTypeMessage.Info,
+        `updated balances this cycle ${localJson.updated_balances_this_cycle}`,
+      );
       if (
         !localJson.updated_balances_this_cycle &&
         localJson.update_balances_txid === ''
@@ -97,7 +110,10 @@ const runtime = async () => {
           await contractCallFunctionUpdateSCBalances(
             BigInt(feeContractCall.updateBalances * stxToUstx),
           );
-        console.log('update balances tx ', updateBalanceTransaction);
+        logData(
+          LogTypeMessage.Info,
+          `update balances tx ${updateBalanceTransaction}`,
+        );
         localJson.update_balances_burn_block_height = currentBurnBlockHeight;
         localJson.update_balances_txid = updateBalanceTransaction.txid();
         writeJsonData(localJson);
@@ -115,14 +131,15 @@ const runtime = async () => {
             localJson.updated_balances_this_cycle = true;
             writeJsonData(localJson);
           } else {
-            console.log(
-              'ERR: Something went wrong with broadcasted data. The tx is succesfully anchored',
+            logData(
+              LogTypeMessage.Err,
+              `Something went wrong with broadcasted data. The tx is succesfully anchored`,
             );
           }
         } else if (txResponse.tx_status === 'abort_by_response') {
-          console.log(
-            'ERR: Something went wrong with broadcasted data. The tx is aborted by response: ',
-            localJson.update_balances_txid,
+          logData(
+            LogTypeMessage.Err,
+            `Something went wrong with broadcasted data. The tx is aborted by response: ${localJson.update_balances_txid}`,
           );
         } else if (txResponse.tx_status === 'pending') {
           // 4. increase fees update balances as that transaction is not happening after `a` blocks
@@ -152,9 +169,10 @@ const runtime = async () => {
       const partialStackedByCycle = await readOnlyGetPartialStackedByCycle(
         rewardCycleId + 1,
       );
-      console.log(
-        `partial stacked by cycle ${rewardCycleId + 1}: `,
-        partialStackedByCycle,
+
+      logData(
+        LogTypeMessage.Info,
+        `partial stacked by cycle ${rewardCycleId + 1}: ${partialStackedByCycle}`,
       );
 
       const poxAddressIndices = await readOnlyGetPoxAddressIndices(
@@ -164,8 +182,11 @@ const runtime = async () => {
       // if no indices , do commit asap
       if (!poxAddressIndices) {
         const stackingMinimum = await readOnlyGetStackingMinimum();
-        console.log('stacking min: ', stackingMinimum);
 
+        logData(
+          LogTypeMessage.Info,
+          `stacking minimum by cycle ${rewardCycleId + 1}: ${stackingMinimum}`,
+        );
         if (partialStackedByCycle > stackingMinimum) {
           contractCallFunctionMaybeStackAggregationCommit(
             rewardCycleId,
@@ -180,7 +201,7 @@ const runtime = async () => {
         // TODO: wouldn't it be better to just increase it when the threshold is met? we also call increase in the end
         if (
           partialStackedByCycle >
-            thresholdAmounPartialStackedByCycle[network] &&
+            thresholdAmounPartialStackedByCycle[network] * stxToUstx &&
           localJson.increase_agg_burn_block_height +
             blockSpanAggIncrease[network] <
             currentBurnBlockHeight
@@ -197,7 +218,7 @@ const runtime = async () => {
         // if in last X blocks before prepare phase and partial stacked amount has changed through new delegations (optional + previous tx being anchored)
         if (
           getBlocksUntilPreparePhase(poxAPIData) <
-            triggerNumberOfLastXBlocksRewardPhase[network] &&
+            triggerNumberOfLastXBlocksBeforeRewardPhase[network] &&
           partialStackedByCycle > 0 &&
           partialStackedByCycle !== localJson.partial_stacked
         ) {
@@ -277,7 +298,10 @@ const runtime = async () => {
           // if it does, decrease the offset OR something else?
           const txDistribute: StacksTransaction =
             await contractCallFunctionDistributeRewards(blocksToDistribute);
-          console.log(`INFO: distributed rewards: ${txDistribute.txid()}`);
+          logData(
+            LogTypeMessage.Info,
+            `distributed rewards: ${txDistribute.txid()}`,
+          );
         }
         localJson.distribute_rewards_last_burn_block_height =
           localJson.distribute_rewards_last_burn_block_height +
