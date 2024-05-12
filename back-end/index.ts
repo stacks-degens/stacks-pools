@@ -1,24 +1,41 @@
 import {
   getApiPoxData,
+  getBlocksUntilPreparePhase,
   getCurrentBurnchainBlockHeight,
   getCurrentCycle,
+  getRewardPhaseBlockLength,
   isInPreparePhase,
 } from './apiPox';
 import {
+  contractCallFunctionDistributeRewards,
   contractCallFunctionMaybeStackAggregationCommit,
   contractCallFunctionUpdateSCBalances,
 } from './functionsContractCall';
 import {
   PoxInfoMap,
+  readOnlyCheckClaimedBlocksRewardsBatch,
+  readOnlyCheckWonBlockRewardsBatch,
   readOnlyGetPartialStackedByCycle,
   readOnlyGetPoxAddressIndices,
   readOnlyGetPoxInfo,
   readOnlyGetStackingMinimum,
   readOnlyUpdatedBalancesGivenCycle,
 } from './functionsReadOnly';
+import {
+  blockSpanAggIncrease,
+  blockSpanRewardDistribute,
+  feeContractCall,
+  limitPerReadOnly,
+  offsetIncreaseUpdateBalances,
+  offsetRewardDistribute,
+  thresholdAmounPartialStackedByCycle,
+  triggerNumberOfLastXBlocksRewardPhase,
+} from './consts';
 
 import { readJsonData, writeJsonData } from './fileLocalData';
 import { Pox4SignatureTopic } from '@stacks/stacking';
+import { network, stxToUstx, transactionUrl } from './network';
+import { StacksTransaction } from '@stacks/transactions';
 
 // based on burn block height
 // 1. prepare phase
@@ -36,88 +53,237 @@ import { Pox4SignatureTopic } from '@stacks/stacking';
 // at every new block height
 const runtime = async () => {
   // general calls
-  const poxInfo: PoxInfoMap = await readOnlyGetPoxInfo();
+  const localJson = readJsonData();
   const poxAPIData = await getApiPoxData();
-  // if reward-cycle is different between SC and API -> flag it
-  const rewardCycleId: number = poxInfo.get('reward-cycle-id') || -1;
-  const rewardCycleIdApi: number = getCurrentCycle(poxAPIData);
   const currentBurnBlockHeight: number =
     getCurrentBurnchainBlockHeight(poxAPIData);
-  if (rewardCycleId !== rewardCycleIdApi) {
-    // TODO: add write to file with error handling
-    // TODO: throws this error when in the block when prepare phase end and reward phase starts,
-    // The API updates the cycle id, the SC waits for the first reward block to update it
-    console.log(
-      `ERR: reward cycles different: SC: ${rewardCycleId} ${typeof rewardCycleId}, API: ${rewardCycleIdApi} ${typeof rewardCycleIdApi}`,
-    );
-  }
+  // start all the flow only after the block changes
+  if (localJson.current_burn_block_height < currentBurnBlockHeight || true) {
+    const poxInfo: PoxInfoMap = await readOnlyGetPoxInfo();
 
-  // check is prepare phase
-  // const isPreparePhase = await readOnlyIsPreparePhaseNow(); // overflow read_legth
-  const isPreparePhase = isInPreparePhase(poxAPIData);
-  console.log('is in prepare phase: ', isPreparePhase);
-  if (isPreparePhase) {
-    // check already updated balances
-    // 1. local
-    const localJson = readJsonData();
-    const alreadyUpdatedBalancesJSON = localJson.updated_balances_this_cycle;
-    console.log('this is', alreadyUpdatedBalancesJSON);
-    if (!alreadyUpdatedBalancesJSON) {
-      // 2. from read-only
-      const alreadyUpdatedBalancesReadOnly =
-        await readOnlyUpdatedBalancesGivenCycle(rewardCycleId + 1);
+    // if reward-cycle is different between SC and API -> flag it
+    const rewardCycleId: number = poxInfo.get('reward-cycle-id') || -1;
+    const rewardCycleIdApi: number = getCurrentCycle(poxAPIData);
 
-      // TODO: check this returned as boolean
-      if (alreadyUpdatedBalancesReadOnly) {
-        localJson.updated_balances_this_cycle = true;
-        writeJsonData(localJson);
-      } else {
-        // 3. update balances -> update local, set txid, set status: unconfirmed, set burn_block_height_called: current_burn_block_height
-        // TODO: call update balances with fees high
-        const updateBalanceTransaction =
-          await contractCallFunctionUpdateSCBalances();
-        console.log('update balances tx ', updateBalanceTransaction);
-      }
-    }
-  } else {
-    // in reward phase
-    console.log('rewardCycleId: ', rewardCycleId);
-
-    const stackingMinimum = await readOnlyGetStackingMinimum();
-    console.log('stacking min: ', stackingMinimum);
-
-    const partialStackedByCycle = await readOnlyGetPartialStackedByCycle(
-      rewardCycleId + 1,
-    );
-    console.log(
-      `partial stacked by cycle ${rewardCycleId + 1}: `,
-      partialStackedByCycle,
-    );
-
-    const poxAddressIndices = await readOnlyGetPoxAddressIndices(
-      rewardCycleId + 1,
-    );
-    // TODO: + triggering moment -> once every 500 blocks or 100 blocks before prepare phase and 10 blocks before prepare phase
-    // if local + 500 < current_burn_block_height => do this:
-    // also do it with 100 blocks before prepare phase // TODO: how to find the burn block height for the prepare phase
-    // if no indices , do commit
-
-    if (!poxAddressIndices) {
-      if (partialStackedByCycle > stackingMinimum) {
-        contractCallFunctionMaybeStackAggregationCommit(
-          rewardCycleId,
-          Pox4SignatureTopic.AggregateCommit,
-        );
-      }
-    }
-    //  every 500 blocks mainnet, 200 testnet, 4 devnet
-    // and once 10 blocks before prepare phase
-    if (partialStackedByCycle) {
-      // else do increase
-      contractCallFunctionMaybeStackAggregationCommit(
-        rewardCycleId,
-        Pox4SignatureTopic.StackIncrease,
+    // would throw this error when in the block when prepare phase end and reward phase starts,
+    // The API updates the cycle id 1 block faster (from block 0 in reward phase), the SC waits for the first reward block to update it
+    // this block height is when reward phase lenth === blocks until prepare phase
+    if (
+      rewardCycleId !== rewardCycleIdApi &&
+      getRewardPhaseBlockLength(poxAPIData) !==
+        getBlocksUntilPreparePhase(poxAPIData)
+    ) {
+      // TODO: add write to file with error handling
+      console.log(
+        `ERR: reward cycles different: SC: ${rewardCycleId} ${typeof rewardCycleId}, API: ${rewardCycleIdApi} ${typeof rewardCycleIdApi} at burn block height: ${currentBurnBlockHeight}`,
       );
+    }
+    // check is prepare phase
+    // const isPreparePhase = await readOnlyIsPreparePhaseNow(); // overflow read_legth
+    const isPreparePhase = isInPreparePhase(poxAPIData);
+    console.log('is in prepare phase: ', isPreparePhase);
+    if (isPreparePhase) {
+      // check already updated balances
+      // 1. local
+
+      localJson.current_cycle = rewardCycleId + 1;
+      console.log('this is', localJson.updated_balances_this_cycle);
+      if (
+        !localJson.updated_balances_this_cycle &&
+        localJson.update_balances_txid === ''
+      ) {
+        // 2. update balances
+        const updateBalanceTransaction =
+          await contractCallFunctionUpdateSCBalances(
+            BigInt(feeContractCall.updateBalances * stxToUstx),
+          );
+        console.log('update balances tx ', updateBalanceTransaction);
+        localJson.update_balances_burn_block_height = currentBurnBlockHeight;
+        localJson.update_balances_txid = updateBalanceTransaction.txid();
+        writeJsonData(localJson);
+      } else if (!localJson.updated_balances_this_cycle) {
+        const txResponse = await fetch(
+          transactionUrl(localJson.update_balances_txid).apiUrl,
+        ).then((x) => x.json());
+        // 3.a. first check if it is anchored and update json if so
+        if (txResponse.tx_status === 'success') {
+          const alreadyUpdatedBalancesReadOnly =
+            await readOnlyUpdatedBalancesGivenCycle(rewardCycleId + 1);
+          // TODO: check this returned as boolean
+          // 3.b. then from read-only
+          if (alreadyUpdatedBalancesReadOnly) {
+            localJson.updated_balances_this_cycle = true;
+            writeJsonData(localJson);
+          } else {
+            console.log(
+              'ERR: Something went wrong with broadcasted data. The tx is succesfully anchored',
+            );
+          }
+        } else if (txResponse.tx_status === 'abort_by_response') {
+          console.log(
+            'ERR: Something went wrong with broadcasted data. The tx is aborted by response: ',
+            localJson.update_balances_txid,
+          );
+        } else if (txResponse.tx_status === 'pending') {
+          // 4. increase fees update balances as that transaction is not happening after `a` blocks
+          // get nonce from txid
+          if (
+            localJson.update_balances_burn_block_height +
+              offsetIncreaseUpdateBalances[network] <
+            currentBurnBlockHeight
+          ) {
+            const nonce: number = txResponse.nonce;
+            const updateBalanceTransaction =
+              await contractCallFunctionUpdateSCBalances(
+                BigInt(feeContractCall.updateBalancesIncreasedFee * stxToUstx),
+                BigInt(nonce),
+              );
+            localJson.update_balances_burn_block_height =
+              currentBurnBlockHeight;
+            localJson.update_balances_txid = updateBalanceTransaction.txid();
+            writeJsonData(localJson);
+          }
+        }
+      }
+    } else {
+      // is reward phase
+
+      ///// signing part
+      const partialStackedByCycle = await readOnlyGetPartialStackedByCycle(
+        rewardCycleId + 1,
+      );
+      console.log(
+        `partial stacked by cycle ${rewardCycleId + 1}: `,
+        partialStackedByCycle,
+      );
+
+      const poxAddressIndices = await readOnlyGetPoxAddressIndices(
+        rewardCycleId + 1,
+      );
+
+      // if no indices , do commit asap
+      if (!poxAddressIndices) {
+        const stackingMinimum = await readOnlyGetStackingMinimum();
+        console.log('stacking min: ', stackingMinimum);
+
+        if (partialStackedByCycle > stackingMinimum) {
+          contractCallFunctionMaybeStackAggregationCommit(
+            rewardCycleId,
+            Pox4SignatureTopic.AggregateCommit,
+          );
+          localJson.commit_agg_this_cycle = true;
+          localJson.increase_agg_burn_block_height = currentBurnBlockHeight;
+          writeJsonData(localJson);
+        }
+      } else {
+        // there is an amount to be commited > threshold and at least x blocks have passed
+        // TODO: wouldn't it be better to just increase it when the threshold is met? we also call increase in the end
+        if (
+          partialStackedByCycle >
+            thresholdAmounPartialStackedByCycle[network] &&
+          localJson.increase_agg_burn_block_height +
+            blockSpanAggIncrease[network] <
+            currentBurnBlockHeight
+        ) {
+          contractCallFunctionMaybeStackAggregationCommit(
+            rewardCycleId,
+            Pox4SignatureTopic.StackIncrease,
+          );
+          // update partial stacked for checking the continuous flow for last X blocks
+          localJson.partial_stacked = partialStackedByCycle;
+          writeJsonData(localJson);
+        }
+
+        // if in last X blocks before prepare phase and partial stacked amount has changed through new delegations (optional + previous tx being anchored)
+        if (
+          getBlocksUntilPreparePhase(poxAPIData) <
+            triggerNumberOfLastXBlocksRewardPhase[network] &&
+          partialStackedByCycle > 0 &&
+          partialStackedByCycle !== localJson.partial_stacked
+        ) {
+          contractCallFunctionMaybeStackAggregationCommit(
+            rewardCycleId,
+            Pox4SignatureTopic.StackIncrease,
+          );
+          // update partial stacked for checking the continuous flow for last X blocks
+          localJson.partial_stacked = partialStackedByCycle;
+          writeJsonData(localJson);
+        }
+      }
+
+      ///// distributing rewards
+      // it is ok to keep the previous localJSON as it was updated as needed
+      if (
+        localJson.distribute_rewards_last_burn_block_height +
+          blockSpanRewardDistribute[network] <
+        currentBurnBlockHeight - offsetRewardDistribute[network]
+      ) {
+        const nrCalls =
+          blockSpanRewardDistribute[network] / limitPerReadOnly[network];
+        const blocksToDistribute: number[] = [];
+        for (let i = 0; i < nrCalls; i++) {
+          // call win
+          const blocksToBeCalled: number[] = [];
+          for (
+            let j =
+              localJson.distribute_rewards_last_burn_block_height +
+              i * limitPerReadOnly[network];
+            j <= limitPerReadOnly[network];
+            j++
+          ) {
+            blocksToBeCalled.push(j);
+          }
+          const blocksWon =
+            await readOnlyCheckWonBlockRewardsBatch(blocksToBeCalled);
+          if (blocksWon.length > 0) {
+            const localBlocksClaimable: number[] =
+              await readOnlyCheckClaimedBlocksRewardsBatch(blocksWon);
+            if (localBlocksClaimable.length > 0)
+              blocksToDistribute.concat(localBlocksClaimable);
+          }
+        }
+        // add the last blocks that are less than limitPerReadOnly
+        for (
+          let i =
+            currentBurnBlockHeight -
+            offsetRewardDistribute[network] -
+            (blockSpanRewardDistribute[network] % limitPerReadOnly[network]);
+          i < currentBurnBlockHeight - offsetRewardDistribute[network];
+          i++
+        ) {
+          // duplicated body of the function
+          // call win
+          const blocksToBeCalled: number[] = [];
+          for (
+            let j =
+              localJson.distribute_rewards_last_burn_block_height +
+              i * limitPerReadOnly[network];
+            j <= limitPerReadOnly[network];
+            j++
+          ) {
+            blocksToBeCalled.push(j);
+          }
+          const blocksWon =
+            await readOnlyCheckWonBlockRewardsBatch(blocksToBeCalled);
+          if (blocksWon.length > 0) {
+            const localBlocksClaimable: number[] =
+              await readOnlyCheckClaimedBlocksRewardsBatch(blocksWon);
+            if (localBlocksClaimable.length > 0)
+              blocksToDistribute.concat(localBlocksClaimable);
+          }
+        }
+        if (blocksToDistribute.length > 0) {
+          // TODO: make sure this doesn't overflow
+          // if it does, decrease the offset OR something else?
+          const txDistribute: StacksTransaction =
+            await contractCallFunctionDistributeRewards(blocksToDistribute);
+          console.log(`INFO: distributed rewards: ${txDistribute.txid()}`);
+        }
+        localJson.distribute_rewards_last_burn_block_height =
+          localJson.distribute_rewards_last_burn_block_height +
+          blockSpanRewardDistribute[network];
+        writeJsonData(localJson);
+      }
     }
   }
 };

@@ -21,6 +21,10 @@ export const getBlocksUntilPreparePhase = (poxData: any): number => {
   return poxData.next_cycle.blocks_until_prepare_phase;
 };
 
+export const getRewardPhaseBlockLength = (poxData: any): number => {
+  return poxData.reward_phase_block_length;
+};
+
 /// TEST
 // const jsonDataTest = await getApiPoxData();
 // console.log(

@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-/// initial .env checkers
+// initial .env checkers
 if (
   process.env.NETWORK !== 'mainnet' &&
   process.env.NETWORK !== 'testnet' &&
@@ -20,6 +20,8 @@ export const network: NetworkType = process.env.NETWORK || 'devnet';
 export const development: DevelopmentType = process.env.DEVELOPMENT || 'local';
 export const privateKey: string = process.env.STX_PRIVATE_KEY;
 export const poxAddress: string = process.env.POX_ADDRESS;
+
+export const stxToUstx: number = 1000000;
 
 type ApiMapping = {
   blockInfo: string;

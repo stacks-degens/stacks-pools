@@ -9,6 +9,7 @@ import {
   PostConditionMode,
   SignedContractCallOptions,
   StacksTransaction,
+  UIntCV,
 } from '@stacks/transactions';
 import { StacksMainnet, StacksTestnet, StacksDevnet } from '@stacks/network';
 import {
@@ -38,7 +39,8 @@ const contractCallFunction = async (
   functionName: string,
   functionArgs: ClarityValue[],
   postConditions: PostCondition[],
-  fee: number = -1,
+  fee: bigint = -1n,
+  nonce: bigint = -1n,
 ): Promise<StacksTransaction> => {
   const contractAddress = contractMapping[type][network].contractAddress;
   const contractName = contractMapping[type][network].contractName;
@@ -55,23 +57,28 @@ const contractCallFunction = async (
     anchorMode: AnchorMode.Any,
   };
 
-  if (fee !== -1) options.fee = fee;
+  if (fee !== -1n) options.fee = fee;
+  if (nonce !== -1n) options.nonce = nonce;
   return await makeContractCall(options);
 };
 
-export const contractCallFunctionUpdateSCBalances =
-  async (): Promise<StacksTransaction> => {
-    const contractType = ContractType.stacking;
-    const postConditions: PostCondition[] = [];
-    let response: StacksTransaction = await contractCallFunction(
-      contractType,
-      functionMapping[contractType].publicFunctions.updateSCBalances,
-      [],
-      postConditions,
-    );
-    console.log('update sc balance transaction response is: ', response);
-    return response;
-  };
+export const contractCallFunctionUpdateSCBalances = async (
+  fee: bigint = -1n,
+  nonce: bigint = -1n,
+): Promise<StacksTransaction> => {
+  const contractType = ContractType.stacking;
+  const postConditions: PostCondition[] = [];
+  let response: StacksTransaction = await contractCallFunction(
+    contractType,
+    functionMapping[contractType].publicFunctions.updateSCBalances,
+    [],
+    postConditions,
+    fee,
+    nonce,
+  );
+  console.log('update sc balance transaction response is: ', response);
+  return response;
+};
 
 const createOperatorSig = (
   rewardCycle: number,
@@ -98,7 +105,8 @@ const createOperatorSig = (
 export const contractCallFunctionMaybeStackAggregationCommit = async (
   currentCycle: number,
   topic: Pox4SignatureTopic,
-): Promise<boolean> => {
+  fee: bigint = -1n,
+): Promise<StacksTransaction> => {
   const contractType = ContractType.stacking;
   const postConditions: PostCondition[] = [];
   const authId: number = Date.now() * 10 + Math.floor(Math.random() * 10);
@@ -115,15 +123,25 @@ export const contractCallFunctionMaybeStackAggregationCommit = async (
     functionMapping[contractType].publicFunctions.maybeStackAggregationCommit,
     functionArgs,
     postConditions,
+    fee,
   );
-  // TODO: get txid where it's called
-  console.log(
-    'maybe stack aggregation commit transaction response is: ',
-    response,
+  return response;
+};
+
+export const contractCallFunctionDistributeRewards = async (
+  blockheights: number[],
+): Promise<StacksTransaction> => {
+  const contractType = ContractType.stacking;
+  const CVBlockHeights: UIntCV[] = [];
+  for (const blockheight in blockheights) {
+    CVBlockHeights.push(Cl.uint(blockheight));
+  }
+  let response: StacksTransaction = await contractCallFunction(
+    contractType,
+    functionMapping[contractType].publicFunctions.batchRewardDistribution,
+    [Cl.list(CVBlockHeights)],
+    [],
   );
-  console.log(
-    'maybe stack aggregation commit transaction response converted is: ',
-    response,
-  );
-  return true;
+  console.log('update sc balance transaction response is: ', response);
+  return response;
 };
