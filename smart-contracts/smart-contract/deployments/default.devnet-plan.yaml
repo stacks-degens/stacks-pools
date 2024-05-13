@@ -12,133 +12,133 @@ plan:
             contract-name: ft-trait
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 8340
-            path: contracts/ft-trait.clar
+            path: "contracts\\ft-trait.clar"
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: restricted-token-trait
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 5460
-            path: contracts/restricted-token-trait.clar
+            path: "contracts\\restricted-token-trait.clar"
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: Wrapped-Bitcoin
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 104560
-            path: contracts/Wrapped-Bitcoin.clar
+            path: "contracts\\Wrapped-Bitcoin.clar"
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: trait-sip-010
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 13450
-            path: contracts/trait-sip-010.clar
+            path: "contracts\\trait-sip-010.clar"
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: trait-flash-loan-user
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 1700
-            path: contracts/trait-flash-loan-user.clar
+            path: "contracts\\trait-flash-loan-user.clar"
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: trait-semi-fungible
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 16920
-            path: contracts/trait-semi-fungible.clar
+            path: "contracts\\trait-semi-fungible.clar"
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: alex-vault-v1-1
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 63750
-            path: contracts/alex-vault-v1-1.clar
+            path: "contracts\\alex-vault-v1-1.clar"
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: trait-ownable
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 1430
-            path: contracts/trait-ownable.clar
+            path: "contracts\\trait-ownable.clar"
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: token-amm-swap-pool-v1-1
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 117150
-            path: contracts/token-amm-swap-pool-v1-1.clar
+            path: "contracts\\token-amm-swap-pool-v1-1.clar"
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: amm-swap-pool-v1-1
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 467440
-            path: contracts/amm-swap-pool-v1-1.clar
+            path: "contracts\\amm-swap-pool-v1-1.clar"
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: clarity-bitcoin
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 412540
-            path: contracts/clarity-bitcoin.clar
+            path: "contracts\\clarity-bitcoin.clar"
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: token-wbtc
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 52910
-            path: contracts/token-wbtc.clar
+            path: "contracts\\token-wbtc.clar"
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: token-wstx
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 45960
-            path: contracts/token-wstx.clar
+            path: "contracts\\token-wstx.clar"
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: degen-bridge-testnet-v3
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 331790
-            path: contracts/degen-bridge-testnet-v3.clar
+            path: "contracts\\degen-bridge-testnet-v3.clar"
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: bridge-contract
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 42260
-            path: contracts/bridge-contract.clar
+            path: "contracts\\bridge-contract.clar"
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: mining-pool
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 489340
-            path: contracts/mining-pool.clar
+            path: "contracts\\mining-pool.clar"
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: mining-pool-5-blocks
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 489340
-            path: contracts/mining-pool-5-blocks.clar
+            path: "contracts\\mining-pool-5-blocks.clar"
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: mining-pool-test
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 476680
-            path: contracts/mining-pool-test.clar
+            path: "contracts\\mining-pool-test.clar"
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: pox-3-fake
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 675060
-            path: contracts/pox-3-fake.clar
+            path: "contracts\\pox-3-fake.clar"
             anchor-block-only: true
             clarity-version: 2
       epoch: "2.4"
@@ -148,14 +148,14 @@ plan:
             contract-name: stacking-pool
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 391140
-            path: contracts/stacking-pool.clar
+            path: "contracts\\stacking-pool.clar"
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: stacking-pool-test
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 415640
-            path: contracts/stacking-pool-test.clar
+            cost: 424100
+            path: "contracts\\stacking-pool-test.clar"
             anchor-block-only: true
             clarity-version: 2
       epoch: "2.5"
