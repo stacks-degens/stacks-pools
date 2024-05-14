@@ -954,236 +954,252 @@ describe('Can delegate', () => {
     );
   });
 
-  it('check won blocks', () => {
-    // total to be stacked ::: 1_000_000_000_000
-    // wallet_1 stacking 85% ::: 850_000_000_000
-    // wallet_2 stacking 10% ::: 100_000_000_000
-    // wallet_3 stacking 5% ::: 50_000_000_000
-    const operatorSigCommit = walletsStackingMapping.deployer.stackingClient.signPoxSignature({
-      // The signer key being authorized.
-      signerPrivateKey: walletsStackingMapping.deployer.privKey,
-      // The reward cycle for which the authorization is valid.
-      // For stack-stx and stack-extend, this refers to the reward cycle
-      // where the transaction is confirmed. For stack-aggregation-commit,
-      // this refers to the reward cycle argument in that function.
-      rewardCycle: 1,
-      // For stack-stx, this refers to lock-period. For stack-extend,
-      // this refers to extend-count. For stack-aggregation-commit, this is
-      // u1.
-      period: 1,
-      // A string representing the function where this authorization is valid.
-      // Either stack-stx, stack-extend, stack-increase or agg-commit.
-      topic: Pox4SignatureTopic.AggregateCommit,
-      // The PoX address that can be used with this signer key.
-      poxAddress: poxAddress,
-      // The unique auth-id for this authorization.
-      authId: 0,
-      // The maximum amount of uSTX that can be used (per tx) with this signer
-      // key (we'll use an incredibly high amount :) ).
-      maxAmount: Number.MAX_SAFE_INTEGER,
-    });
-    const operatorSigIncrease1 = walletsStackingMapping.deployer.stackingClient.signPoxSignature({
-      // The signer key being authorized.
-      signerPrivateKey: walletsStackingMapping.deployer.privKey,
-      // The reward cycle for which the authorization is valid.
-      // For stack-stx and stack-extend, this refers to the reward cycle
-      // where the transaction is confirmed. For stack-aggregation-commit,
-      // this refers to the reward cycle argument in that function.
-      rewardCycle: 1,
-      // For stack-stx, this refers to lock-period. For stack-extend,
-      // this refers to extend-count. For stack-aggregation-commit, this is
-      // u1.
-      period: 1,
-      // A string representing the function where this authorization is valid.
-      // Either stack-stx, stack-extend, stack-increase or agg-commit.
-      topic: Pox4SignatureTopic.AggregateIncrease,
-      // The PoX address that can be used with this signer key.
-      poxAddress: poxAddress,
-      // The unique auth-id for this authorization.
-      authId: 0,
-      // The maximum amount of uSTX that can be used (per tx) with this signer
-      // key (we'll use an incredibly high amount :) ).
-      maxAmount: Number.MAX_SAFE_INTEGER,
-    });
-    const operatorSigIncrease2 = walletsStackingMapping.deployer.stackingClient.signPoxSignature({
-      // The signer key being authorized.
-      signerPrivateKey: walletsStackingMapping.deployer.privKey,
-      // The reward cycle for which the authorization is valid.
-      // For stack-stx and stack-extend, this refers to the reward cycle
-      // where the transaction is confirmed. For stack-aggregation-commit,
-      // this refers to the reward cycle argument in that function.
-      rewardCycle: 1,
-      // For stack-stx, this refers to lock-period. For stack-extend,
-      // this refers to extend-count. For stack-aggregation-commit, this is
-      // u1.
-      period: 1,
-      // A string representing the function where this authorization is valid.
-      // Either stack-stx, stack-extend, stack-increase or agg-commit.
-      topic: Pox4SignatureTopic.AggregateIncrease,
-      // The PoX address that can be used with this signer key.
-      poxAddress: poxAddress,
-      // The unique auth-id for this authorization.
-      authId: 1,
-      // The maximum amount of uSTX that can be used (per tx) with this signer
-      // key (we'll use an incredibly high amount :) ).
-      maxAmount: Number.MAX_SAFE_INTEGER,
-    });
+  // TODO: remove this as the rewarded addresses can't be checked from simnet
+  // Simnet is not writing the data to the bitcoin node as there isn't a node used
+  // it('check won blocks', () => {
+  //   // total to be stacked ::: 1_000_000_000_000
+  //   // wallet_1 stacking 85% ::: 850_000_000_000
+  //   // wallet_2 stacking 10% ::: 100_000_000_000
+  //   // wallet_3 stacking 5% ::: 50_000_000_000
+  //   const operatorSigCommit = walletsStackingMapping.deployer.stackingClient.signPoxSignature({
+  //     // The signer key being authorized.
+  //     signerPrivateKey: walletsStackingMapping.deployer.privKey,
+  //     // The reward cycle for which the authorization is valid.
+  //     // For stack-stx and stack-extend, this refers to the reward cycle
+  //     // where the transaction is confirmed. For stack-aggregation-commit,
+  //     // this refers to the reward cycle argument in that function.
+  //     rewardCycle: 1,
+  //     // For stack-stx, this refers to lock-period. For stack-extend,
+  //     // this refers to extend-count. For stack-aggregation-commit, this is
+  //     // u1.
+  //     period: 1,
+  //     // A string representing the function where this authorization is valid.
+  //     // Either stack-stx, stack-extend, stack-increase or agg-commit.
+  //     topic: Pox4SignatureTopic.AggregateCommit,
+  //     // The PoX address that can be used with this signer key.
+  //     poxAddress: poxAddress,
+  //     // The unique auth-id for this authorization.
+  //     authId: 0,
+  //     // The maximum amount of uSTX that can be used (per tx) with this signer
+  //     // key (we'll use an incredibly high amount :) ).
+  //     maxAmount: Number.MAX_SAFE_INTEGER,
+  //   });
+  //   const operatorSigIncrease1 = walletsStackingMapping.deployer.stackingClient.signPoxSignature({
+  //     // The signer key being authorized.
+  //     signerPrivateKey: walletsStackingMapping.deployer.privKey,
+  //     // The reward cycle for which the authorization is valid.
+  //     // For stack-stx and stack-extend, this refers to the reward cycle
+  //     // where the transaction is confirmed. For stack-aggregation-commit,
+  //     // this refers to the reward cycle argument in that function.
+  //     rewardCycle: 1,
+  //     // For stack-stx, this refers to lock-period. For stack-extend,
+  //     // this refers to extend-count. For stack-aggregation-commit, this is
+  //     // u1.
+  //     period: 1,
+  //     // A string representing the function where this authorization is valid.
+  //     // Either stack-stx, stack-extend, stack-increase or agg-commit.
+  //     topic: Pox4SignatureTopic.AggregateIncrease,
+  //     // The PoX address that can be used with this signer key.
+  //     poxAddress: poxAddress,
+  //     // The unique auth-id for this authorization.
+  //     authId: 0,
+  //     // The maximum amount of uSTX that can be used (per tx) with this signer
+  //     // key (we'll use an incredibly high amount :) ).
+  //     maxAmount: Number.MAX_SAFE_INTEGER,
+  //   });
+  //   const operatorSigIncrease2 = walletsStackingMapping.deployer.stackingClient.signPoxSignature({
+  //     // The signer key being authorized.
+  //     signerPrivateKey: walletsStackingMapping.deployer.privKey,
+  //     // The reward cycle for which the authorization is valid.
+  //     // For stack-stx and stack-extend, this refers to the reward cycle
+  //     // where the transaction is confirmed. For stack-aggregation-commit,
+  //     // this refers to the reward cycle argument in that function.
+  //     rewardCycle: 1,
+  //     // For stack-stx, this refers to lock-period. For stack-extend,
+  //     // this refers to extend-count. For stack-aggregation-commit, this is
+  //     // u1.
+  //     period: 1,
+  //     // A string representing the function where this authorization is valid.
+  //     // Either stack-stx, stack-extend, stack-increase or agg-commit.
+  //     topic: Pox4SignatureTopic.AggregateIncrease,
+  //     // The PoX address that can be used with this signer key.
+  //     poxAddress: poxAddress,
+  //     // The unique auth-id for this authorization.
+  //     authId: 1,
+  //     // The maximum amount of uSTX that can be used (per tx) with this signer
+  //     // key (we'll use an incredibly high amount :) ).
+  //     maxAmount: Number.MAX_SAFE_INTEGER,
+  //   });
 
-    // wallet_1 delegating block 1
-    let txs = [
-      tx.callPublicFn(poxContract, 'allow-contract-caller', [Cl.principal(contract), Cl.none()], wallet_1),
-      tx.callPublicFn(contract, 'join-stacking-pool', [], wallet_1),
-      tx.callPublicFn(contract, 'delegate-stx', [Cl.uint(850_000_000_000)], wallet_1),
-      tx.callPublicFn(
-        contract,
-        'maybe-stack-aggregation-commit',
-        [
-          Cl.uint(0),
-          Cl.some(Cl.bufferFromHex(operatorSigCommit)),
-          Cl.buffer(walletsStackingMapping.deployer.pubKey.data),
-          Cl.uint(Number.MAX_SAFE_INTEGER),
-          Cl.uint(0),
-        ],
-        wallet_1
-      ),
-    ];
-    const block1 = simnet.mineBlock(txs);
-    expect(block1[0].result).toBeOk(Cl.bool(true));
-    expect(block1[1].result).toBeOk(Cl.bool(true));
-    expect(block1[2].result).toBeOk(
-      Cl.tuple({
-        stacker: Cl.principal(wallet_1),
-        'lock-amount': Cl.uint(849_999_000_000),
-        'unlock-burn-height': Cl.uint(2100),
-      })
-    );
-    expect(block1[3].result).toBeOk(Cl.bool(true));
+  //   // wallet_1 delegating block 1
+  //   let txs = [
+  //     tx.callPublicFn(poxContract, 'allow-contract-caller', [Cl.principal(contract), Cl.none()], wallet_1),
+  //     tx.callPublicFn(contract, 'join-stacking-pool', [], wallet_1),
+  //     tx.callPublicFn(contract, 'delegate-stx', [Cl.uint(850_000_000_000)], wallet_1),
+  //     tx.callPublicFn(
+  //       contract,
+  //       'maybe-stack-aggregation-commit',
+  //       [
+  //         Cl.uint(0),
+  //         Cl.some(Cl.bufferFromHex(operatorSigCommit)),
+  //         Cl.buffer(walletsStackingMapping.deployer.pubKey.data),
+  //         Cl.uint(Number.MAX_SAFE_INTEGER),
+  //         Cl.uint(0),
+  //       ],
+  //       wallet_1
+  //     ),
+  //   ];
+  //   const block1 = simnet.mineBlock(txs);
+  //   expect(block1[0].result).toBeOk(Cl.bool(true));
+  //   expect(block1[1].result).toBeOk(Cl.bool(true));
+  //   expect(block1[2].result).toBeOk(
+  //     Cl.tuple({
+  //       stacker: Cl.principal(wallet_1),
+  //       'lock-amount': Cl.uint(849_999_000_000),
+  //       'unlock-burn-height': Cl.uint(2100),
+  //     })
+  //   );
+  //   expect(block1[3].result).toBeOk(Cl.bool(true));
 
-    // wallet_2 delegating block 2
-    txs = [
-      tx.callPublicFn(poxContract, 'allow-contract-caller', [Cl.principal(contract), Cl.none()], wallet_2),
-      tx.callPublicFn(contract, 'join-stacking-pool', [], wallet_2),
-      tx.callPublicFn(contract, 'delegate-stx', [Cl.uint(100_000_000_000)], wallet_2),
-      tx.callPublicFn(
-        contract,
-        'maybe-stack-aggregation-commit',
-        [
-          Cl.uint(0),
-          Cl.some(Cl.bufferFromHex(operatorSigIncrease1)),
-          Cl.buffer(walletsStackingMapping.deployer.pubKey.data),
-          Cl.uint(Number.MAX_SAFE_INTEGER),
-          Cl.uint(0),
-        ],
-        wallet_2
-      ),
-    ];
-    const block2 = simnet.mineBlock(txs);
-    expect(block2[0].result).toBeOk(Cl.bool(true));
-    expect(block2[1].result).toBeOk(Cl.bool(true));
-    expect(block2[2].result).toBeOk(
-      Cl.tuple({
-        stacker: Cl.principal(wallet_2),
-        'lock-amount': Cl.uint(99_999_000_000),
-        'unlock-burn-height': Cl.uint(2100),
-      })
-    );
+  //   // wallet_2 delegating block 2
+  //   txs = [
+  //     tx.callPublicFn(poxContract, 'allow-contract-caller', [Cl.principal(contract), Cl.none()], wallet_2),
+  //     tx.callPublicFn(contract, 'join-stacking-pool', [], wallet_2),
+  //     tx.callPublicFn(contract, 'delegate-stx', [Cl.uint(100_000_000_000)], wallet_2),
+  //     tx.callPublicFn(
+  //       contract,
+  //       'maybe-stack-aggregation-commit',
+  //       [
+  //         Cl.uint(0),
+  //         Cl.some(Cl.bufferFromHex(operatorSigIncrease1)),
+  //         Cl.buffer(walletsStackingMapping.deployer.pubKey.data),
+  //         Cl.uint(Number.MAX_SAFE_INTEGER),
+  //         Cl.uint(0),
+  //       ],
+  //       wallet_2
+  //     ),
+  //   ];
+  //   const block2 = simnet.mineBlock(txs);
+  //   expect(block2[0].result).toBeOk(Cl.bool(true));
+  //   expect(block2[1].result).toBeOk(Cl.bool(true));
+  //   expect(block2[2].result).toBeOk(
+  //     Cl.tuple({
+  //       stacker: Cl.principal(wallet_2),
+  //       'lock-amount': Cl.uint(99_999_000_000),
+  //       'unlock-burn-height': Cl.uint(2100),
+  //     })
+  //   );
 
-    // wallet_3 delegating block 3
-    txs = [
-      tx.callPublicFn(poxContract, 'allow-contract-caller', [Cl.principal(contract), Cl.none()], wallet_3),
-      tx.callPublicFn(contract, 'join-stacking-pool', [], wallet_3),
-      tx.callPublicFn(contract, 'delegate-stx', [Cl.uint(50_000_000_000)], wallet_3),
-      tx.callPublicFn(
-        contract,
-        'maybe-stack-aggregation-commit',
-        [
-          Cl.uint(0),
-          Cl.some(Cl.bufferFromHex(operatorSigIncrease2)),
-          Cl.buffer(walletsStackingMapping.deployer.pubKey.data),
-          Cl.uint(Number.MAX_SAFE_INTEGER),
-          Cl.uint(1),
-        ],
-        wallet_3
-      ),
-    ];
-    const block3 = simnet.mineBlock(txs);
-    expect(block3[0].result).toBeOk(Cl.bool(true));
-    expect(block3[1].result).toBeOk(Cl.bool(true));
-    expect(block3[2].result).toBeOk(
-      Cl.tuple({
-        stacker: Cl.principal(wallet_3),
-        'lock-amount': Cl.uint(49_999_000_000),
-        'unlock-burn-height': Cl.uint(2100),
-      })
-    );
-    expect(block3[3].result).toBeOk(Cl.bool(true));
+  //   // wallet_3 delegating block 3
+  //   txs = [
+  //     tx.callPublicFn(poxContract, 'allow-contract-caller', [Cl.principal(contract), Cl.none()], wallet_3),
+  //     tx.callPublicFn(contract, 'join-stacking-pool', [], wallet_3),
+  //     tx.callPublicFn(contract, 'delegate-stx', [Cl.uint(50_000_000_000)], wallet_3),
+  //     tx.callPublicFn(
+  //       contract,
+  //       'maybe-stack-aggregation-commit',
+  //       [
+  //         Cl.uint(0),
+  //         Cl.some(Cl.bufferFromHex(operatorSigIncrease2)),
+  //         Cl.buffer(walletsStackingMapping.deployer.pubKey.data),
+  //         Cl.uint(Number.MAX_SAFE_INTEGER),
+  //         Cl.uint(1),
+  //       ],
+  //       wallet_3
+  //     ),
+  //   ];
+  //   const block3 = simnet.mineBlock(txs);
+  //   expect(block3[0].result).toBeOk(Cl.bool(true));
+  //   expect(block3[1].result).toBeOk(Cl.bool(true));
+  //   expect(block3[2].result).toBeOk(
+  //     Cl.tuple({
+  //       stacker: Cl.principal(wallet_3),
+  //       'lock-amount': Cl.uint(49_999_000_000),
+  //       'unlock-burn-height': Cl.uint(2100),
+  //     })
+  //   );
+  //   expect(block3[3].result).toBeOk(Cl.bool(true));
 
-    simnet.mineEmptyBlocks(1000);
+  //   simnet.mineEmptyBlocks(1000);
 
-    const { result: updateSCBalances } = simnet.callPublicFn(contract, 'update-sc-balances', [], deployer);
-    expect(updateSCBalances).toBeOk(Cl.bool(true));
+  //   const { result: updateSCBalances } = simnet.callPublicFn(contract, 'update-sc-balances', [], deployer);
+  //   expect(updateSCBalances).toBeOk(Cl.bool(true));
 
-    simnet.mineEmptyBlocks(1047);
-    console.log(getTotalStackedByCycle(1, 0, deployer).value);
-    // console.log(simnet.getMapEntry(poxContract, 'reward-cycle-total-stacked', Cl.uint(1)));
-    // console.log(simnet.getMapEntry(contract, 'user-data', Cl.principal(wallet_1)));
+  //   simnet.mineEmptyBlocks(1047);
+  //   console.log(getTotalStackedByCycle(1, 0, deployer).value);
+  //   // console.log(simnet.getMapEntry(poxContract, 'reward-cycle-total-stacked', Cl.uint(1)));
+  //   // console.log(simnet.getMapEntry(contract, 'user-data', Cl.principal(wallet_1)));
 
-    // check blocks
-    console.log(simnet.blockHeight);
+  //   // check blocks
+  //   console.log(simnet.blockHeight);
 
-    let blockList: ClarityValue[] = [];
-    for (let i = 1; i <= 999; i++) {
-      blockList.push(Cl.uint(i + 1050));
-    }
-    // let testlist: ClarityValue[] = [];
-    // for (let i = 1051; i <= 1063; i++) {
-    //   testlist.push(Cl.uint(i));
-    // }
-    // const { result: batchCheckedBlocks } = simnet.callReadOnlyFn(
-    //   contract,
-    //   'check-won-block-rewards-batch',
-    //   [Cl.list(testlist)],
-    //   deployer
-    // );
-    // console.log(batchCheckedBlocks.value);
-    let checkBlocksList: ClarityValue[] = [];
-    let rewardBlockList: any[] = [];
-    for (let blocks12 = 0; blocks12 <= 600; blocks12 += 300) {
-      for (let blocks = 1; blocks <= 300; blocks++) {
-        checkBlocksList.push(blockList.at(blocks + blocks12)!);
-        // console.log(blocks + blocks12 + 1050);
-      }
-      const { result: check } = simnet.callReadOnlyFn(
-        contract,
-        'check-addr-won-block-rewards-batch',
-        [Cl.list(checkBlocksList)],
-        deployer
-      );
-      console.log(check.value.list);
-      Object.entries(check.value.list).forEach(([, value]) => {
-        // const blockheight = parseInt((value as any).value);
-        rewardBlockList.push([
-          Buffer.from(value.data.addrs.data.hashbytes.buffer, 'hex'),
-          value.data.addrs.data.version.buffer,
-        ]);
-      });
+  //   let blockList: ClarityValue[] = [];
+  //   for (let i = 1; i <= 999; i++) {
+  //     blockList.push(Cl.uint(i + 1050));
+  //   }
+  //   // let testlist: ClarityValue[] = [];
+  //   // for (let i = 1051; i <= 1063; i++) {
+  //   //   testlist.push(Cl.uint(i));
+  //   // }
+  //   // const { result: batchCheckedBlocks } = simnet.callReadOnlyFn(
+  //   //   contract,
+  //   //   'check-won-block-rewards-batch',
+  //   //   [Cl.list(testlist)],
+  //   //   deployer
+  //   // );
+  //   // console.log(batchCheckedBlocks.value);
+  //   let checkBlocksList: ClarityValue[] = [];
+  //   let rewardBlockList: any[] = [];
+  //   for (let blocks12 = 0; blocks12 <= 600; blocks12 += 300) {
+  //     for (let blocks = 1; blocks <= 300; blocks++) {
+  //       checkBlocksList.push(blockList.at(blocks + blocks12)!);
 
-      const { result: batchCheckedBlocks } = simnet.callReadOnlyFn(
-        contract,
-        'check-won-block-rewards-batch',
-        [Cl.list(checkBlocksList)],
-        deployer
-      );
-      // console.log(batchCheckedBlocks.value);
-      console.log('data ', Buffer.from(simnet.getDataVar(contract, 'pool-pox-address').data.hashbytes.buffer, 'hex'));
-      // console.log('data ', simnet.getDataVar(contract, 'pool-pox-address').data.hashbytes);
-      checkBlocksList = [];
-      // Object.entries(batchCheckedBlocks.value).forEach(([, value]) => {
-      //   const blockheight = parseInt((value as any).value);
-      //   if (blockheight) rewardBlockList.push(blockheight);
-      // });
-    }
-    console.log(rewardBlockList);
-    // 4 blocks left
-  });
+  //       const check = simnet.callReadOnlyFn(
+  //         contract,
+  //         'check-won-block-rewards-one-block',
+  //         [Cl.uint(blocks + blocks12 + 1050)],
+  //         deployer
+  //       );
+  //       console.log('events ', cvToJSON(check.result).value.value)
+  //       // console.log(blocks + blocks12 + 1050);
+  //     }
+  //     const check = simnet.callReadOnlyFn(
+  //       contract,
+  //       'check-won-block-rewards-batch',
+  //       [Cl.list(checkBlocksList)],
+  //       deployer
+  //     );
+  //     console.log("eve", check)
+  //     console.log(check.result.value.list);
+  //     Object.entries(check.result.value.list).forEach(([, value]) => {
+  //       const blockheight = parseInt((value as any).value);
+  //       // console.log('value ', value)
+  //       // console.log("rewardd ", cvToJSON(value).value.addrs.value)
+  //       // rewardBlockList.push([
+  //       //   Buffer.from(value.data.addrs.data.hashbytes.buffer, 'hex'),
+  //       //   value.data.addrs.data.version.buffer,
+  //       // ]);
+  //     });
+
+  //     const { result: batchCheckedBlocks } = simnet.callReadOnlyFn(
+  //       contract,
+  //       'check-won-block-rewards-batch',
+  //       [Cl.list(checkBlocksList)],
+  //       deployer
+  //     );
+  //     // console.log(batchCheckedBlocks.value);
+  //     console.log('data ', Buffer.from(simnet.getDataVar(contract, 'pool-pox-address').data.hashbytes.buffer, 'hex'));
+  //     // console.log('data ', simnet.getDataVar(contract, 'pool-pox-address').data.hashbytes);
+  //     checkBlocksList = [];
+  //     // Object.entries(batchCheckedBlocks.value).forEach(([, value]) => {
+  //     //   const blockheight = parseInt((value as any).value);
+  //     //   if (blockheight) rewardBlockList.push(blockheight);
+  //     // });
+  //   }
+
+
+
+  //   console.log(rewardBlockList);
+  //   // 4 blocks left
+  // });
 });

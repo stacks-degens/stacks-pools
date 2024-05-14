@@ -429,14 +429,19 @@
               (ok success))
     error (err (* u1000 (to-uint error))))))
 
-(define-read-only (check-addr-won-block-rewards-batch (burn-blocks-list (list 300 uint))) 
-(ok (map check-addr-won-block-rewards-one-block burn-blocks-list)))
+;; TODO: remove
+;; (define-read-only (check-addr-won-block-rewards-batch (burn-blocks-list (list 300 uint))) 
+;; (begin 
+;; (print u2)
+;; (ok (map check-addr-won-block-rewards-one-block burn-blocks-list))))
 
-;; check if pool pox address has won the rewards for a given burn height and store the reward if true
-(define-private (check-addr-won-block-rewards-one-block (burn-height uint)) 
-(let ((reward-pox-addr-list (default-to (list ) (get addrs (get-burn-block-info? pox-addrs burn-height))))) 
-;; (var-get pool-pox-address)))
-  (tuple (addrs (var-get pool-pox-address)) (br-height burn-height))))
+;; ;; check if pool pox address has won the rewards for a given burn height and store the reward if true
+;; (define-read-only (check-addr-won-block-rewards-one-block (burn-height uint)) 
+;; (let ((reward-pox-addr-list (default-to (list ) (get addrs (get-burn-block-info? pox-addrs burn-height))))) 
+;; ;; (var-get pool-pox-address)))
+;;   (print reward-pox-addr-list)
+;;   (print u2)
+;;   (var-get pool-pox-address)))
 
 (define-private (lock-delegated-stx (user principal))
 (let ((start-burn-ht (+ burn-block-height u1))

@@ -350,7 +350,7 @@ export const getPoolMembers = async (network: StacksNetwork) => {
 export const getCheckDelegation = async (network: StacksNetwork, stacker: string) => {
   const supplyCall = await callReadOnlyFunction({
     contractAddress: 'ST000000000000000000002AMW42H',
-    contractName: 'pox-3',
+    contractName: 'pox-4',
     functionName: 'get-check-delegation',
     functionArgs: [principalCV(stacker)],
     senderAddress: Accounts.DEPLOYER.stxAddress,
@@ -364,7 +364,7 @@ export const getCheckDelegation = async (network: StacksNetwork, stacker: string
 };
 
 export const readRewardCyclePoxAddressList = async (network: StacksNetwork, cycleId: number) => {
-  const url = network.getMapEntryUrl('ST000000000000000000002AMW42H', 'pox-3', 'reward-cycle-pox-address-list-len');
+  const url = network.getMapEntryUrl('ST000000000000000000002AMW42H', 'pox-4', 'reward-cycle-pox-address-list-len');
   const cycleIdValue = uintCV(cycleId);
   const keyValue = tupleCV({
     'reward-cycle': cycleIdValue,
@@ -405,7 +405,7 @@ export const readRewardCyclePoxAddressList = async (network: StacksNetwork, cycl
 export const readRewardCyclePoxAddressForAddress = async (network: StacksNetwork, cycleId: number, address: string) => {
   // TODO: There might be a better way to do this using the `stacking-state`
   //       map to get the index
-  const url = network.getMapEntryUrl('ST000000000000000000002AMW42H', 'pox-3', 'reward-cycle-pox-address-list-len');
+  const url = network.getMapEntryUrl('ST000000000000000000002AMW42H', 'pox-4', 'reward-cycle-pox-address-list-len');
   const cycleIdValue = uintCV(cycleId);
   const keyValue = tupleCV({
     'reward-cycle': cycleIdValue,
@@ -456,7 +456,7 @@ export const readRewardCyclePoxAddressListAtIndex = async (
   cycleId: number,
   index: number
 ): Promise<RewardCyclePoxAddressMapEntry | null | undefined> => {
-  const url = network.getMapEntryUrl('ST000000000000000000002AMW42H', 'pox-3', 'reward-cycle-pox-address-list');
+  const url = network.getMapEntryUrl('ST000000000000000000002AMW42H', 'pox-4', 'reward-cycle-pox-address-list');
   const cycleIdValue = uintCV(cycleId);
   const indexValue = uintCV(index);
   const keyValue = tupleCV({
