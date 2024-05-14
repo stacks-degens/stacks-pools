@@ -20,7 +20,7 @@ export async function broadcastAllowContractCallerContracCall({
 }) {
   let txOptions = {
     contractAddress: 'ST000000000000000000002AMW42H',
-    contractName: 'pox-3',
+    contractName: 'pox-4',
     functionName: 'allow-contract-caller',
     functionArgs: [contractPrincipalCV(mainContract.address, mainContract.name), noneCV()],
     network,
