@@ -33,7 +33,7 @@ const MinerProfile = ({
   const userSession = useAppSelector(selectUserSessionState);
   const currentRole = useAppSelector(selectCurrentUserRoleMining);
   const [totalWithdrawals, setTotalWithdrawals] = useState<number | null>(null);
-  const localNetwork = network === 'devnet' ? 'testnet' : network;
+  const localNetwork = network === 'devnet' || network === 'nakamotoTestnet' ? 'testnet' : network;
   const userAddressAsCV: ClarityValue = listCV([
     principalCV(userSession.loadUserData().profile.stxAddress[localNetwork]),
   ]);

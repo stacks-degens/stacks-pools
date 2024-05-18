@@ -88,7 +88,7 @@ const ActionsContainerStacking = ({
 
   let messageUpdateBalances = '';
   let canCallUpdateBalances = false;
-  if (currentBurnBlockHeight > preparePhaseStartBlockHeight) {
+  if (currentBurnBlockHeight >= preparePhaseStartBlockHeight) {
     const remaining = rewardPhaseStartBlockHeight + numberOfBlocksPerCycle - currentBurnBlockHeight;
     messageUpdateBalances = `Remaining blocks to update balances for cycle: ${currentCycle}: ${remaining} blocks`;
     canCallUpdateBalances = true;
