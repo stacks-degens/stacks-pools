@@ -26,7 +26,7 @@ import { Pox4SignatureTopic, StackingClient } from '@stacks/stacking';
 const contractNetwork =
   network === 'mainnet'
     ? new StacksMainnet({ url: apiUrl[development][network] })
-    : network === 'testnet'
+    : network === 'testnet' || network === 'nakamotoTestnet'
       ? new StacksTestnet({ url: apiUrl[development][network] })
       : new StacksDevnet({ url: apiUrl[development][network] });
 const stackingClient = new StackingClient(

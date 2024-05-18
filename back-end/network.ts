@@ -5,7 +5,8 @@ dotenv.config();
 if (
   process.env.NETWORK !== 'mainnet' &&
   process.env.NETWORK !== 'testnet' &&
-  process.env.NETWORK !== 'devnet'
+  process.env.NETWORK !== 'devnet' &&
+  process.env.NETWORK !== 'nakamotoTestnet'
 )
   throw 'Inexistent networkType';
 if (process.env.DEVELOPMENT !== 'prod' && process.env.DEVELOPMENT !== 'local')
@@ -13,7 +14,7 @@ if (process.env.DEVELOPMENT !== 'prod' && process.env.DEVELOPMENT !== 'local')
 if (!process.env.STX_PRIVATE_KEY) throw 'Inexistent Private Key';
 if (!process.env.POX_ADDRESS) throw 'Inexistent Pox Address';
 
-export type NetworkType = 'mainnet' | 'testnet' | 'devnet';
+export type NetworkType = 'mainnet' | 'testnet' | 'devnet' | 'nakamotoTestnet';
 export type DevelopmentType = 'prod' | 'local';
 
 export const network: NetworkType = process.env.NETWORK || 'devnet';
@@ -42,6 +43,7 @@ const explorerUrl: ExplorerUrl = {
   mainnet: ['https://explorer.hiro.so', 'mainnet'],
   testnet: ['https://explorer.hiro.so', 'testnet'],
   devnet: ['http://localhost:8000', 'mainnet'],
+  nakamotoTestnet: ['https://explorer.hiro.so', 'testnet&api=https://api.nakamoto.testnet.hiro.so'],
 };
 
 export const apiUrl: Record<DevelopmentType, ApiUrl> = {
@@ -49,11 +51,13 @@ export const apiUrl: Record<DevelopmentType, ApiUrl> = {
     mainnet: process.env.API_KEY_LOCAL_MAINNET || '',
     testnet: process.env.API_KEY_LOCAL_TESTNET || '',
     devnet: process.env.API_KEY_DEVNET || '',
+    nakamotoTestnet: process.env.API_KEY_NAKAMOTO || '',
   },
   prod: {
     mainnet: process.env.API_KEY_LOCAL_MAINNET || '',
     testnet: process.env.API_KEY_LOCAL_TESTNET || '',
     devnet: process.env.API_KEY_DEVNET || '',
+    nakamotoTestnet: process.env.API_KEY_NAKAMOTO || '',
   },
 };
 

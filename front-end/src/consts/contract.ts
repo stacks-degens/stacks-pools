@@ -28,12 +28,17 @@ export const contractMapping: ContractMapping = {
       contractName: 'mining-pool-5-blocks',
       owner: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
     },
+    nakamotoTestnet: {
+      contractAddress: '', // TODO: complete when deployed
+      contractName: '', // TODO: complete when deployed
+      owner: '', // TODO: complete when deployed  
+    },
   },
 
   stacking: {
     mainnet: {
       contractAddress: 'SP1SCEXE6PMGPAC6B4N5P2MDKX8V4GF9QDE1FNNGJ',
-      contractName: 'degenlab-stacking-pool-v3',
+      contractName: 'degenlab-stacking-pool',
       owner: 'SP1SCEXE6PMGPAC6B4N5P2MDKX8V4GF9QDE1FNNGJ',
     },
     testnet: {
@@ -46,21 +51,31 @@ export const contractMapping: ContractMapping = {
       contractName: 'stacking-pool-test',
       owner: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
     },
+    nakamotoTestnet: {
+      contractAddress: 'ST2D033K08AW2TPRTCFP3QD5VHZB7494TY0QXERJ1',
+      contractName: 'stacking-pool-v1',
+      owner: 'ST2D033K08AW2TPRTCFP3QD5VHZB7494TY0QXERJ1',
+    },
   },
   pox: {
     mainnet: {
       contractAddress: 'SP000000000000000000002Q6VF78',
-      contractName: 'pox-3',
+      contractName: 'pox-4',
       owner: 'SP000000000000000000002Q6VF78',
     },
     testnet: {
       contractAddress: 'ST000000000000000000002AMW42H',
-      contractName: 'pox-3',
+      contractName: 'pox-4',
       owner: 'ST000000000000000000002AMW42H',
     },
     devnet: {
       contractAddress: 'ST000000000000000000002AMW42H',
-      contractName: 'pox-3',
+      contractName: 'pox-4',
+      owner: 'ST000000000000000000002AMW42H',
+    },
+    nakamotoTestnet: {
+      contractAddress: 'ST000000000000000000002AMW42H',
+      contractName: 'pox-4',
       owner: 'ST000000000000000000002AMW42H',
     },
   },

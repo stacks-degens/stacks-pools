@@ -25,7 +25,7 @@ import { crypto } from 'bitcoinjs-lib';
 const contractNetwork =
   network === 'mainnet'
     ? new StacksMainnet({ url: apiUrl[development][network] })
-    : network === 'testnet'
+    : network === 'testnet' || network === 'nakamotoTestnet'
       ? new StacksTestnet({ url: apiUrl[development][network] })
       : new StacksMocknet({ url: apiUrl[development][network] });
 

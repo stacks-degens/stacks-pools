@@ -16,11 +16,11 @@ import { userSession } from '../redux/reducers/user-state';
 const contractNetwork =
   network === 'mainnet'
     ? new StacksMainnet({ url: apiUrl[development][network] })
-    : network === 'testnet'
+    : network === 'testnet' || 'nakamotoTestnet'
       ? new StacksTestnet({ url: apiUrl[development][network] })
       : new StacksMocknet({ url: apiUrl[development][network] });
 
-const localNetwork = network === 'devnet' ? 'testnet' : network;
+const localNetwork = network === 'devnet' || network === 'nakamotoTestnet' ? 'testnet' : network;
 
 const ReadOnlyFunctions = async (
   type: 'mining' | 'stacking' | 'pox',
@@ -30,6 +30,7 @@ const ReadOnlyFunctions = async (
   const userAddress = !userSession.isUserSignedIn()
     ? contractMapping[type][network].owner
     : userSession.loadUserData().profile.stxAddress[localNetwork];
+  console.log("user adddress", userAddress)
 
   const readOnlyResults = {
     contractAddress: contractMapping[type][network].contractAddress,
@@ -557,7 +558,10 @@ export const readOnlyGetBitcoinRewardsStacking = async () => {
 export const readOnlyAddressStatusStacking = async (args: string) => {
   const type = 'stacking';
   const statusArgs = convertPrincipalToArg(args);
+  console.log('status args', statusArgs, args)
+  
   const status = await ReadOnlyFunctions(type, [statusArgs], functionMapping[type].readOnlyFunctions.getAddressStatus);
+  console.log('status', status)
   const statusInfo = cvToJSON(status).value.value;
   return statusInfo === 'is-provider' ? 'Provider' : statusInfo === 'is-stacker' ? 'Stacker' : 'NormalUserStacking';
 };

@@ -36,6 +36,7 @@ import {
   logData,
   LogTypeMessage,
   readJsonData,
+  refreshJsonData,
   writeJsonData,
 } from './fileLocalData';
 import { Pox4SignatureTopic } from '@stacks/stacking';
@@ -58,12 +59,17 @@ import { StacksTransaction } from '@stacks/transactions';
 // at every new block height
 const runtime = async () => {
   // general calls
-  const localJson = readJsonData();
+  let localJson = readJsonData();
   const poxAPIData = await getApiPoxData();
   const currentBurnBlockHeight: number =
     getCurrentBurnchainBlockHeight(poxAPIData);
   // start all the flow only after the block changes
   if (localJson.current_burn_block_height < currentBurnBlockHeight || true) {
+    // when cycle changes, update local parameters that are used for checking
+    if (localJson.current_cycle < getCurrentCycle(poxAPIData)) {
+      refreshJsonData()
+    }
+    localJson = readJsonData();
     const poxInfo: PoxInfoMap = await readOnlyGetPoxInfo();
     logData(
       LogTypeMessage.Info,
@@ -312,4 +318,5 @@ const runtime = async () => {
   }
 };
 
+// cron job every 50 seconds
 runtime();

@@ -50,7 +50,7 @@ const RedirectToDashboard = () => {
 const MainPage = () => {
   // GENERAL State Hooks
 
-  const localNetwork = network === 'devnet' ? 'testnet' : network;
+  const localNetwork = network === 'devnet' || network === 'nakamotoTestnet' ? 'testnet' : network;
   const [userAddress, setUserAddress] = useState<string | null>(null);
   const [connectedWallet, setConnectedWallet] = useState<string | null>(null);
   const [explorerLink, setExplorerLink] = useState<string | undefined>(undefined);

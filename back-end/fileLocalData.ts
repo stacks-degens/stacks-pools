@@ -42,6 +42,16 @@ export const logData = (messageType: LogTypeMessage, message: string) => {
   }
 };
 
+// when cycle changes, refresh logData
+export const refreshJsonData = () => {
+  const logData = readJsonData();
+  logData.updated_balances_this_cycle = false;
+  logData.update_balances_txid = "";
+  logData.commit_agg_this_cycle = false;
+  logData.partial_stacked = 0;
+  writeJsonData(logData);
+}
+
 // writeJsonData(readJsonData());
 logData(LogTypeMessage.Err, 'something');
 

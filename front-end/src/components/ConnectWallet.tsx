@@ -39,7 +39,7 @@ const ConnectWallet = ({ currentTheme }: ConnectWalletProps) => {
   const appCurrentTheme = useAppSelector(selectCurrentTheme);
   const currentRoleMining = useAppSelector(selectCurrentUserRoleMining);
   const currentRoleStacking = useAppSelector(selectCurrentUserRoleStacking);
-  const localNetwork = network === 'devnet' ? 'testnet' : network;
+  const localNetwork = network === 'devnet' || network === 'nakamotoTestnet' ? 'testnet' : network;
   const [userAddress, setUserAddress] = useState<string | null>(null);
 
   const disconnect = () => {
