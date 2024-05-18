@@ -18,6 +18,7 @@ import {
   network,
   poxAddress,
   privateKey,
+  signerPrivateKey,
 } from './network';
 import { ContractType } from './functionsReadOnly';
 import { contractMapping, functionMapping } from './contracts';
@@ -87,7 +88,7 @@ const createOperatorSig = (
 ): string => {
   // should be the Stacks' address of the deployer, not the liquidity provider of the stacking pool SC
   return stackingClient.signPoxSignature({
-    signerPrivateKey: createStacksPrivateKey(privateKey),
+    signerPrivateKey: createStacksPrivateKey(signerPrivateKey),
     rewardCycle: rewardCycle,
     period: 1,
     topic: topic,
@@ -114,7 +115,7 @@ export const contractCallFunctionMaybeStackAggregationCommit = async (
   const functionArgs: ClarityValue[] = [
     Cl.uint(currentCycle),
     Cl.some(Cl.bufferFromHex(signerSig)),
-    Cl.buffer(getPublicKey(createStacksPrivateKey(privateKey)).data),
+    Cl.buffer(getPublicKey(createStacksPrivateKey(signerPrivateKey)).data),
     Cl.uint(Number.MAX_SAFE_INTEGER),
     Cl.uint(authId),
   ];

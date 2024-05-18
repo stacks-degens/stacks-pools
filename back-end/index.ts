@@ -42,6 +42,7 @@ import {
 import { Pox4SignatureTopic } from '@stacks/stacking';
 import { network, stxToUstx, transactionUrl } from './network';
 import { StacksTransaction } from '@stacks/transactions';
+import { CronJob } from 'cron';
 
 // based on burn block height
 // 1. prepare phase
@@ -320,3 +321,13 @@ const runtime = async () => {
 
 // cron job every 50 seconds
 runtime();
+
+new CronJob(
+  '0 */1 * * * *', // every minute
+  () => {
+    runtime();
+  }, // onTick
+  null, // onComplete
+  true, // start
+  'America/Los_Angeles', // timeZone
+);

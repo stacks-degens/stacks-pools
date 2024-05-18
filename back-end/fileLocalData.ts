@@ -52,12 +52,10 @@ export const refreshJsonData = () => {
   writeJsonData(logData);
 }
 
-// writeJsonData(readJsonData());
-logData(LogTypeMessage.Err, 'something');
-
-logData(LogTypeMessage.Warn, 'something');
-
-logData(LogTypeMessage.Info, 'something');
+// test logs
+// logData(LogTypeMessage.Err, 'something');
+// logData(LogTypeMessage.Warn, 'something');
+// logData(LogTypeMessage.Info, 'something');
 
 /// test file read - write
 // const testIncrementBurnBlockHeight = (): void => {
@@ -67,3 +65,4 @@ logData(LogTypeMessage.Info, 'something');
 // };
 // testIncrementBurnBlockHeight();
 // testIncrementBurnBlockHeight();
+// writeJsonData(readJsonData());
