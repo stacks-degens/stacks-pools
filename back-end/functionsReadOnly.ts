@@ -54,9 +54,9 @@ export const readOnlyGetStackingMinimum = async (): Promise<number> => {
 
 export const readOnlyGetPartialStackedByCycle = async (
   rewardCycle: number,
-  // sender: string,
 ): Promise<number> => {
   const contractType = ContractType.pox;
+  // TODO: double check it works with sender-address as stacking-pool-sc-address
   const partialStackedByCycle: ClarityValue = await readOnlyFunction(
     contractType,
     functionMapping[contractType].readOnlyFunctions.getPartialStackedByCycle,

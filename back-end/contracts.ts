@@ -30,6 +30,11 @@ export const contractMapping: ContractMapping = {
       contractAddress: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
       contractName: 'stacking-pool-test',
       owner: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
+    }, 
+    nakamotoTestnet: {
+      contractAddress: 'ST2D033K08AW2TPRTCFP3QD5VHZB7494TY0QXERJ1',
+      contractName: 'stacking-pool-v1',
+      owner: 'ST2D033K08AW2TPRTCFP3QD5VHZB7494TY0QXERJ1',
     },
   },
   pox: {
@@ -44,6 +49,11 @@ export const contractMapping: ContractMapping = {
       owner: 'ST000000000000000000002AMW42H',
     },
     devnet: {
+      contractAddress: 'ST000000000000000000002AMW42H',
+      contractName: 'pox-4',
+      owner: 'ST000000000000000000002AMW42H',
+    },
+    nakamotoTestnet: {
       contractAddress: 'ST000000000000000000002AMW42H',
       contractName: 'pox-4',
       owner: 'ST000000000000000000002AMW42H',

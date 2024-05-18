@@ -1,30 +1,35 @@
 export const blockSpanAggIncrease = {
   mainnet: 300,
   testnet: 100,
+  nakamotoTestnet: 100,
   devnet: 3,
 };
 
 export const blockSpanRewardDistribute = {
   mainnet: 400,
   testnet: 200,
+  nakamotoTestnet: 200,
   devnet: 3,
 };
 
 export const offsetRewardDistribute = {
   mainnet: 10,
   testnet: 10,
+  nakamotoTestnet: 10,
   devnet: 4,
 };
 
 export const offsetIncreaseUpdateBalances = {
   mainnet: 10,
   testnet: 10,
+  nakamotoTestnet: 10,
   devnet: 2,
 };
 
 export const triggerNumberOfLastXBlocksBeforeRewardPhase = {
   mainnet: 10,
   testnet: 10,
+  nakamotoTestnet: 10,
   devnet: 5,
 };
 
@@ -38,11 +43,13 @@ export const feeContractCall = {
 export const thresholdAmounPartialStackedByCycle = {
   mainnet: 10,
   testnet: 10,
+  nakamotoTestnet: 10,
   devnet: 1,
 };
 
 export const limitPerReadOnly = {
   mainnet: 12,
   testnet: 12,
+  nakamotoTestnet: 12,
   devnet: 6,
 };
