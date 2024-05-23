@@ -1,0 +1,605 @@
+2024-05-12T13:11:44.204Z - something
+2024-05-12T13:11:51.096Z - something
+2024-05-12T13:14:37.540Z - ERR - something
+2024-05-12T13:14:37.546Z - WARN - something
+2024-05-12T13:14:37.546Z - INFO - something
+2024-05-12T13:14:53.181Z - ERROR - something
+2024-05-12T13:14:53.182Z - WARN - something
+2024-05-12T13:14:53.182Z - INFO - something
+2024-05-18T22:31:19.864Z - INFO - current burn block height: 9107
+2024-05-18T22:31:19.866Z - INFO - current cycle: 9
+2024-05-18T22:31:19.867Z - INFO - is in prepare phase: false
+2024-05-18T22:31:20.028Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:31:20.521Z - INFO - stacking minimum by cycle 10: 16440913595356
+2024-05-18T22:32:00.796Z - INFO - current burn block height: 9107
+2024-05-18T22:32:00.798Z - INFO - current cycle: 9
+2024-05-18T22:32:00.798Z - INFO - is in prepare phase: false
+2024-05-18T22:32:00.966Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:32:01.333Z - INFO - stacking minimum by cycle 10: 16440913595356
+2024-05-18T22:33:00.545Z - INFO - current burn block height: 9108
+2024-05-18T22:33:00.548Z - INFO - current cycle: 9
+2024-05-18T22:33:00.548Z - INFO - is in prepare phase: false
+2024-05-18T22:33:00.709Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:33:01.195Z - INFO - stacking minimum by cycle 10: 16440913726494
+2024-05-18T22:34:00.421Z - INFO - current burn block height: 9108
+2024-05-18T22:34:00.424Z - INFO - current cycle: 9
+2024-05-18T22:34:00.424Z - INFO - is in prepare phase: false
+2024-05-18T22:34:00.620Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:34:01.149Z - INFO - stacking minimum by cycle 10: 16440913726494
+2024-05-18T22:35:00.547Z - INFO - current burn block height: 9108
+2024-05-18T22:35:00.549Z - INFO - current cycle: 9
+2024-05-18T22:35:00.549Z - INFO - is in prepare phase: false
+2024-05-18T22:35:00.713Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:35:01.064Z - INFO - stacking minimum by cycle 10: 16440913726494
+2024-05-18T22:36:00.438Z - INFO - current burn block height: 9108
+2024-05-18T22:36:00.439Z - INFO - current cycle: 9
+2024-05-18T22:36:00.439Z - INFO - is in prepare phase: false
+2024-05-18T22:36:00.595Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:36:01.060Z - INFO - stacking minimum by cycle 10: 16440913726494
+2024-05-18T22:37:00.409Z - INFO - current burn block height: 9109
+2024-05-18T22:37:00.412Z - INFO - current cycle: 9
+2024-05-18T22:37:00.412Z - INFO - is in prepare phase: false
+2024-05-18T22:37:00.605Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:37:00.957Z - INFO - stacking minimum by cycle 10: 16440913857631
+2024-05-18T22:38:00.405Z - INFO - current burn block height: 9109
+2024-05-18T22:38:00.406Z - INFO - current cycle: 9
+2024-05-18T22:38:00.406Z - INFO - is in prepare phase: false
+2024-05-18T22:38:00.597Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:38:01.076Z - INFO - stacking minimum by cycle 10: 16440913857631
+2024-05-18T22:39:00.627Z - INFO - current burn block height: 9109
+2024-05-18T22:39:00.627Z - INFO - current cycle: 9
+2024-05-18T22:39:00.627Z - INFO - is in prepare phase: false
+2024-05-18T22:39:00.784Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:39:01.126Z - INFO - stacking minimum by cycle 10: 16440913857631
+2024-05-18T22:40:00.626Z - INFO - current burn block height: 9110
+2024-05-18T22:40:00.627Z - INFO - current cycle: 9
+2024-05-18T22:40:00.627Z - INFO - is in prepare phase: false
+2024-05-18T22:40:00.779Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:40:01.146Z - INFO - stacking minimum by cycle 10: 16440913988769
+2024-05-18T22:41:00.423Z - INFO - current burn block height: 9110
+2024-05-18T22:41:00.424Z - INFO - current cycle: 9
+2024-05-18T22:41:00.425Z - INFO - is in prepare phase: false
+2024-05-18T22:41:00.587Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:41:01.085Z - INFO - stacking minimum by cycle 10: 16440913988769
+2024-05-18T22:42:00.570Z - INFO - current burn block height: 9110
+2024-05-18T22:42:00.571Z - INFO - current cycle: 9
+2024-05-18T22:42:00.571Z - INFO - is in prepare phase: false
+2024-05-18T22:42:00.733Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:42:01.272Z - INFO - stacking minimum by cycle 10: 16440913988769
+2024-05-18T22:43:00.528Z - INFO - current burn block height: 9111
+2024-05-18T22:43:00.530Z - INFO - current cycle: 9
+2024-05-18T22:43:00.530Z - INFO - is in prepare phase: false
+2024-05-18T22:43:00.689Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:43:01.162Z - INFO - stacking minimum by cycle 10: 16440914119906
+2024-05-18T22:44:00.547Z - INFO - current burn block height: 9111
+2024-05-18T22:44:00.549Z - INFO - current cycle: 9
+2024-05-18T22:44:00.549Z - INFO - is in prepare phase: false
+2024-05-18T22:44:00.730Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:44:01.098Z - INFO - stacking minimum by cycle 10: 16440914119906
+2024-05-18T22:45:00.556Z - INFO - current burn block height: 9111
+2024-05-18T22:45:00.557Z - INFO - current cycle: 9
+2024-05-18T22:45:00.557Z - INFO - is in prepare phase: false
+2024-05-18T22:45:00.721Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:45:01.072Z - INFO - stacking minimum by cycle 10: 16440914119906
+2024-05-18T22:46:00.464Z - INFO - current burn block height: 9112
+2024-05-18T22:46:00.465Z - INFO - current cycle: 9
+2024-05-18T22:46:00.465Z - INFO - is in prepare phase: false
+2024-05-18T22:46:00.622Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:46:01.097Z - INFO - stacking minimum by cycle 10: 16440914251044
+2024-05-18T22:47:00.584Z - INFO - current burn block height: 9112
+2024-05-18T22:47:00.586Z - INFO - current cycle: 9
+2024-05-18T22:47:00.586Z - INFO - is in prepare phase: false
+2024-05-18T22:47:00.743Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:47:01.213Z - INFO - stacking minimum by cycle 10: 16440914251044
+2024-05-18T22:48:00.508Z - INFO - current burn block height: 9112
+2024-05-18T22:48:00.509Z - INFO - current cycle: 9
+2024-05-18T22:48:00.509Z - INFO - is in prepare phase: false
+2024-05-18T22:48:00.662Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:48:01.021Z - INFO - stacking minimum by cycle 10: 16440914251044
+2024-05-18T22:49:00.411Z - INFO - current burn block height: 9113
+2024-05-18T22:49:00.412Z - INFO - current cycle: 9
+2024-05-18T22:49:00.412Z - INFO - is in prepare phase: false
+2024-05-18T22:49:00.574Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:49:01.079Z - INFO - stacking minimum by cycle 10: 16440914382181
+2024-05-18T22:50:00.555Z - INFO - current burn block height: 9113
+2024-05-18T22:50:00.556Z - INFO - current cycle: 9
+2024-05-18T22:50:00.556Z - INFO - is in prepare phase: false
+2024-05-18T22:50:00.710Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:50:01.054Z - INFO - stacking minimum by cycle 10: 16440914382181
+2024-05-18T22:51:00.409Z - INFO - current burn block height: 9114
+2024-05-18T22:51:00.412Z - INFO - current cycle: 9
+2024-05-18T22:51:00.412Z - INFO - is in prepare phase: false
+2024-05-18T22:51:00.574Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:51:00.932Z - INFO - stacking minimum by cycle 10: 16440914513319
+2024-05-18T22:52:00.520Z - INFO - current burn block height: 9114
+2024-05-18T22:52:00.523Z - INFO - current cycle: 9
+2024-05-18T22:52:00.523Z - INFO - is in prepare phase: false
+2024-05-18T22:52:00.675Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:52:01.152Z - INFO - stacking minimum by cycle 10: 16440914513319
+2024-05-18T22:53:00.527Z - INFO - current burn block height: 9114
+2024-05-18T22:53:00.528Z - INFO - current cycle: 9
+2024-05-18T22:53:00.529Z - INFO - is in prepare phase: false
+2024-05-18T22:53:00.683Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:53:01.185Z - INFO - stacking minimum by cycle 10: 16440914513319
+2024-05-18T22:54:00.525Z - INFO - current burn block height: 9115
+2024-05-18T22:54:00.529Z - INFO - current cycle: 9
+2024-05-18T22:54:00.530Z - INFO - is in prepare phase: false
+2024-05-18T22:54:00.698Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:54:01.186Z - INFO - stacking minimum by cycle 10: 16440914644456
+2024-05-18T22:55:00.377Z - INFO - current burn block height: 9115
+2024-05-18T22:55:00.379Z - INFO - current cycle: 9
+2024-05-18T22:55:00.379Z - INFO - is in prepare phase: false
+2024-05-18T22:55:00.531Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:55:00.891Z - INFO - stacking minimum by cycle 10: 16440914644456
+2024-05-18T22:56:00.549Z - INFO - current burn block height: 9115
+2024-05-18T22:56:00.550Z - INFO - current cycle: 9
+2024-05-18T22:56:00.550Z - INFO - is in prepare phase: false
+2024-05-18T22:56:00.709Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:56:01.200Z - INFO - stacking minimum by cycle 10: 16440914644456
+2024-05-18T22:57:01.157Z - INFO - current burn block height: 9116
+2024-05-18T22:57:01.159Z - INFO - current cycle: 9
+2024-05-18T22:57:01.159Z - INFO - is in prepare phase: false
+2024-05-18T22:57:01.338Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:57:01.694Z - INFO - stacking minimum by cycle 10: 16440914775594
+2024-05-18T22:58:00.516Z - INFO - current burn block height: 9116
+2024-05-18T22:58:00.518Z - INFO - current cycle: 9
+2024-05-18T22:58:00.519Z - INFO - is in prepare phase: false
+2024-05-18T22:58:00.677Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:58:01.159Z - INFO - stacking minimum by cycle 10: 16440914775594
+2024-05-18T22:59:00.536Z - INFO - current burn block height: 9116
+2024-05-18T22:59:00.537Z - INFO - current cycle: 9
+2024-05-18T22:59:00.537Z - INFO - is in prepare phase: false
+2024-05-18T22:59:00.695Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T22:59:01.067Z - INFO - stacking minimum by cycle 10: 16440914775594
+2024-05-18T23:00:00.673Z - INFO - current burn block height: 9117
+2024-05-18T23:00:00.675Z - INFO - current cycle: 9
+2024-05-18T23:00:00.675Z - INFO - is in prepare phase: false
+2024-05-18T23:00:00.825Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:00:01.292Z - INFO - stacking minimum by cycle 10: 16440914906731
+2024-05-18T23:01:00.551Z - INFO - current burn block height: 9117
+2024-05-18T23:01:00.552Z - INFO - current cycle: 9
+2024-05-18T23:01:00.552Z - INFO - is in prepare phase: false
+2024-05-18T23:01:00.721Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:01:01.073Z - INFO - stacking minimum by cycle 10: 16440914906731
+2024-05-18T23:02:00.519Z - INFO - current burn block height: 9117
+2024-05-18T23:02:00.520Z - INFO - current cycle: 9
+2024-05-18T23:02:00.521Z - INFO - is in prepare phase: false
+2024-05-18T23:02:00.686Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:02:01.059Z - INFO - stacking minimum by cycle 10: 16440914906731
+2024-05-18T23:03:00.592Z - INFO - current burn block height: 9117
+2024-05-18T23:03:00.594Z - INFO - current cycle: 9
+2024-05-18T23:03:00.594Z - INFO - is in prepare phase: false
+2024-05-18T23:03:00.749Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:03:01.225Z - INFO - stacking minimum by cycle 10: 16440914906731
+2024-05-18T23:04:00.385Z - INFO - current burn block height: 9118
+2024-05-18T23:04:00.387Z - INFO - current cycle: 9
+2024-05-18T23:04:00.387Z - INFO - is in prepare phase: false
+2024-05-18T23:04:00.545Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:04:01.037Z - INFO - stacking minimum by cycle 10: 16440915037869
+2024-05-18T23:05:00.441Z - INFO - current burn block height: 9118
+2024-05-18T23:05:00.444Z - INFO - current cycle: 9
+2024-05-18T23:05:00.444Z - INFO - is in prepare phase: false
+2024-05-18T23:05:00.614Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:05:00.974Z - INFO - stacking minimum by cycle 10: 16440915037869
+2024-05-18T23:06:00.531Z - INFO - current burn block height: 9118
+2024-05-18T23:06:00.533Z - INFO - current cycle: 9
+2024-05-18T23:06:00.533Z - INFO - is in prepare phase: false
+2024-05-18T23:06:00.696Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:06:01.041Z - INFO - stacking minimum by cycle 10: 16440915037869
+2024-05-18T23:07:00.516Z - INFO - current burn block height: 9119
+2024-05-18T23:07:00.518Z - INFO - current cycle: 9
+2024-05-18T23:07:00.518Z - INFO - is in prepare phase: false
+2024-05-18T23:07:00.680Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:07:01.046Z - INFO - stacking minimum by cycle 10: 16440915169006
+2024-05-18T23:08:00.400Z - INFO - current burn block height: 9119
+2024-05-18T23:08:00.403Z - INFO - current cycle: 9
+2024-05-18T23:08:00.403Z - INFO - is in prepare phase: false
+2024-05-18T23:08:00.562Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:08:00.923Z - INFO - stacking minimum by cycle 10: 16440915169006
+2024-05-18T23:09:00.618Z - INFO - current burn block height: 9119
+2024-05-18T23:09:00.619Z - INFO - current cycle: 9
+2024-05-18T23:09:00.619Z - INFO - is in prepare phase: false
+2024-05-18T23:09:00.778Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:09:01.137Z - INFO - stacking minimum by cycle 10: 16440915169006
+2024-05-18T23:10:00.402Z - INFO - current burn block height: 9120
+2024-05-18T23:10:00.405Z - INFO - current cycle: 9
+2024-05-18T23:10:00.405Z - INFO - is in prepare phase: false
+2024-05-18T23:10:00.574Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:10:01.115Z - INFO - stacking minimum by cycle 10: 16440915300144
+2024-05-18T23:11:00.516Z - INFO - current burn block height: 9120
+2024-05-18T23:11:00.517Z - INFO - current cycle: 9
+2024-05-18T23:11:00.517Z - INFO - is in prepare phase: false
+2024-05-18T23:11:00.673Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:11:01.033Z - INFO - stacking minimum by cycle 10: 16440915300144
+2024-05-18T23:12:00.666Z - INFO - current burn block height: 9120
+2024-05-18T23:12:00.667Z - INFO - current cycle: 9
+2024-05-18T23:12:00.667Z - INFO - is in prepare phase: false
+2024-05-18T23:12:00.820Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:12:01.199Z - INFO - stacking minimum by cycle 10: 16440915300144
+2024-05-18T23:13:00.535Z - INFO - current burn block height: 9121
+2024-05-18T23:13:00.537Z - INFO - current cycle: 9
+2024-05-18T23:13:00.537Z - INFO - is in prepare phase: false
+2024-05-18T23:13:00.691Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:13:01.061Z - INFO - stacking minimum by cycle 10: 16440915431281
+2024-05-18T23:14:00.415Z - INFO - current burn block height: 9121
+2024-05-18T23:14:00.417Z - INFO - current cycle: 9
+2024-05-18T23:14:00.417Z - INFO - is in prepare phase: false
+2024-05-18T23:14:00.580Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:14:01.080Z - INFO - stacking minimum by cycle 10: 16440915431281
+2024-05-18T23:15:00.520Z - INFO - current burn block height: 9121
+2024-05-18T23:15:00.521Z - INFO - current cycle: 9
+2024-05-18T23:15:00.522Z - INFO - is in prepare phase: false
+2024-05-18T23:15:00.676Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:15:01.147Z - INFO - stacking minimum by cycle 10: 16440915431281
+2024-05-18T23:16:00.542Z - INFO - current burn block height: 9122
+2024-05-18T23:16:00.544Z - INFO - current cycle: 9
+2024-05-18T23:16:00.545Z - INFO - is in prepare phase: false
+2024-05-18T23:16:00.704Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:16:01.187Z - INFO - stacking minimum by cycle 10: 16440915562419
+2024-05-18T23:17:00.399Z - INFO - current burn block height: 9122
+2024-05-18T23:17:00.401Z - INFO - current cycle: 9
+2024-05-18T23:17:00.401Z - INFO - is in prepare phase: false
+2024-05-18T23:17:00.563Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:17:01.034Z - INFO - stacking minimum by cycle 10: 16440915562419
+2024-05-18T23:18:00.397Z - INFO - current burn block height: 9123
+2024-05-18T23:18:00.399Z - INFO - current cycle: 9
+2024-05-18T23:18:00.399Z - INFO - is in prepare phase: false
+2024-05-18T23:18:00.568Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:18:01.070Z - INFO - stacking minimum by cycle 10: 16440915693556
+2024-05-18T23:19:00.534Z - INFO - current burn block height: 9123
+2024-05-18T23:19:00.535Z - INFO - current cycle: 9
+2024-05-18T23:19:00.535Z - INFO - is in prepare phase: false
+2024-05-18T23:19:00.691Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:19:01.164Z - INFO - stacking minimum by cycle 10: 16440915693556
+2024-05-18T23:20:00.520Z - INFO - current burn block height: 9123
+2024-05-18T23:20:00.523Z - INFO - current cycle: 9
+2024-05-18T23:20:00.523Z - INFO - is in prepare phase: false
+2024-05-18T23:20:00.691Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:20:01.046Z - INFO - stacking minimum by cycle 10: 16440915693556
+2024-05-18T23:21:00.534Z - INFO - current burn block height: 9124
+2024-05-18T23:21:00.538Z - INFO - current cycle: 9
+2024-05-18T23:21:00.538Z - INFO - is in prepare phase: false
+2024-05-18T23:21:00.710Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:21:01.189Z - INFO - stacking minimum by cycle 10: 16440915824694
+2024-05-18T23:22:00.516Z - INFO - current burn block height: 9124
+2024-05-18T23:22:00.518Z - INFO - current cycle: 9
+2024-05-18T23:22:00.518Z - INFO - is in prepare phase: false
+2024-05-18T23:22:00.823Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:22:01.197Z - INFO - stacking minimum by cycle 10: 16440915824694
+2024-05-18T23:23:00.435Z - INFO - current burn block height: 9124
+2024-05-18T23:23:00.438Z - INFO - current cycle: 9
+2024-05-18T23:23:00.438Z - INFO - is in prepare phase: false
+2024-05-18T23:23:00.604Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:23:00.951Z - INFO - stacking minimum by cycle 10: 16440915824694
+2024-05-18T23:24:00.630Z - INFO - current burn block height: 9125
+2024-05-18T23:24:00.632Z - INFO - current cycle: 9
+2024-05-18T23:24:00.632Z - INFO - is in prepare phase: false
+2024-05-18T23:24:00.788Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:24:01.337Z - INFO - stacking minimum by cycle 10: 16440915955831
+2024-05-18T23:25:00.403Z - INFO - current burn block height: 9125
+2024-05-18T23:25:00.405Z - INFO - current cycle: 9
+2024-05-18T23:25:00.405Z - INFO - is in prepare phase: false
+2024-05-18T23:25:00.560Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:25:01.070Z - INFO - stacking minimum by cycle 10: 16440915955831
+2024-05-18T23:26:00.637Z - INFO - current burn block height: 9125
+2024-05-18T23:26:00.639Z - INFO - current cycle: 9
+2024-05-18T23:26:00.640Z - INFO - is in prepare phase: false
+2024-05-18T23:26:00.794Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:26:01.279Z - INFO - stacking minimum by cycle 10: 16440915955831
+2024-05-18T23:27:00.594Z - INFO - current burn block height: 9126
+2024-05-18T23:27:00.596Z - INFO - current cycle: 9
+2024-05-18T23:27:00.596Z - INFO - is in prepare phase: false
+2024-05-18T23:27:00.755Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:27:01.332Z - INFO - stacking minimum by cycle 10: 16440916086969
+2024-05-18T23:28:00.512Z - INFO - current burn block height: 9126
+2024-05-18T23:28:00.514Z - INFO - current cycle: 9
+2024-05-18T23:28:00.514Z - INFO - is in prepare phase: false
+2024-05-18T23:28:00.672Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:28:01.144Z - INFO - stacking minimum by cycle 10: 16440916086969
+2024-05-18T23:29:00.431Z - INFO - current burn block height: 9126
+2024-05-18T23:29:00.434Z - INFO - current cycle: 9
+2024-05-18T23:29:00.434Z - INFO - is in prepare phase: false
+2024-05-18T23:29:00.589Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:29:00.954Z - INFO - stacking minimum by cycle 10: 16440916086969
+2024-05-18T23:30:00.381Z - INFO - current burn block height: 9126
+2024-05-18T23:30:00.382Z - INFO - current cycle: 9
+2024-05-18T23:30:00.382Z - INFO - is in prepare phase: false
+2024-05-18T23:30:00.552Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:30:00.901Z - INFO - stacking minimum by cycle 10: 16440916086969
+2024-05-18T23:31:00.387Z - INFO - current burn block height: 9127
+2024-05-18T23:31:00.393Z - INFO - current cycle: 9
+2024-05-18T23:31:00.393Z - INFO - is in prepare phase: false
+2024-05-18T23:31:00.547Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:31:00.905Z - INFO - stacking minimum by cycle 10: 16440916218106
+2024-05-18T23:32:00.509Z - INFO - current burn block height: 9127
+2024-05-18T23:32:00.511Z - INFO - current cycle: 9
+2024-05-18T23:32:00.512Z - INFO - is in prepare phase: false
+2024-05-18T23:32:00.667Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:32:01.011Z - INFO - stacking minimum by cycle 10: 16440916218106
+2024-05-18T23:33:00.711Z - INFO - current burn block height: 9128
+2024-05-18T23:33:00.712Z - INFO - current cycle: 9
+2024-05-18T23:33:00.712Z - INFO - is in prepare phase: false
+2024-05-18T23:33:00.858Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:33:01.338Z - INFO - stacking minimum by cycle 10: 16440916349244
+2024-05-18T23:34:00.520Z - INFO - current burn block height: 9128
+2024-05-18T23:34:00.522Z - INFO - current cycle: 9
+2024-05-18T23:34:00.522Z - INFO - is in prepare phase: false
+2024-05-18T23:34:00.675Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:34:01.033Z - INFO - stacking minimum by cycle 10: 16440916349244
+2024-05-18T23:35:00.674Z - INFO - current burn block height: 9128
+2024-05-18T23:35:00.676Z - INFO - current cycle: 9
+2024-05-18T23:35:00.676Z - INFO - is in prepare phase: false
+2024-05-18T23:35:00.871Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:35:01.645Z - INFO - stacking minimum by cycle 10: 16440916349244
+2024-05-18T23:36:00.509Z - INFO - current burn block height: 9128
+2024-05-18T23:36:00.510Z - INFO - current cycle: 9
+2024-05-18T23:36:00.511Z - INFO - is in prepare phase: false
+2024-05-18T23:36:00.676Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:36:01.050Z - INFO - stacking minimum by cycle 10: 16440916349244
+2024-05-18T23:37:00.392Z - INFO - current burn block height: 9129
+2024-05-18T23:37:00.393Z - INFO - current cycle: 9
+2024-05-18T23:37:00.393Z - INFO - is in prepare phase: false
+2024-05-18T23:37:00.546Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:37:01.018Z - INFO - stacking minimum by cycle 10: 16440916480381
+2024-05-18T23:38:00.507Z - INFO - current burn block height: 9129
+2024-05-18T23:38:00.508Z - INFO - current cycle: 9
+2024-05-18T23:38:00.508Z - INFO - is in prepare phase: false
+2024-05-18T23:38:00.667Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:38:01.124Z - INFO - stacking minimum by cycle 10: 16440916480381
+2024-05-18T23:39:00.408Z - INFO - current burn block height: 9129
+2024-05-18T23:39:00.410Z - INFO - current cycle: 9
+2024-05-18T23:39:00.410Z - INFO - is in prepare phase: false
+2024-05-18T23:39:00.560Z - INFO - partial stacked by cycle 10: 0
+2024-05-18T23:39:00.916Z - INFO - stacking minimum by cycle 10: 16440916480381
+2024-05-18T23:40:00.391Z - INFO - current burn block height: 9130
+2024-05-18T23:40:00.392Z - INFO - current cycle: 9
+2024-05-18T23:40:00.393Z - INFO - is in prepare phase: true
+2024-05-18T23:40:00.393Z - INFO - updated balances this cycle false
+2024-05-18T23:40:01.005Z - INFO - update balances tx [object Object]
+2024-05-18T23:41:00.576Z - INFO - current burn block height: 9130
+2024-05-18T23:41:00.578Z - INFO - current cycle: 9
+2024-05-18T23:41:00.578Z - INFO - is in prepare phase: true
+2024-05-18T23:41:00.578Z - INFO - updated balances this cycle false
+2024-05-18T23:42:00.577Z - INFO - current burn block height: 9130
+2024-05-18T23:42:00.578Z - INFO - current cycle: 9
+2024-05-18T23:42:00.578Z - INFO - is in prepare phase: true
+2024-05-18T23:42:00.578Z - INFO - updated balances this cycle false
+2024-05-18T23:43:00.412Z - INFO - current burn block height: 9131
+2024-05-18T23:43:00.413Z - INFO - current cycle: 9
+2024-05-18T23:43:00.413Z - INFO - is in prepare phase: true
+2024-05-18T23:43:00.414Z - INFO - updated balances this cycle false
+2024-05-18T23:44:00.556Z - INFO - current burn block height: 9131
+2024-05-18T23:44:00.557Z - INFO - current cycle: 9
+2024-05-18T23:44:00.558Z - INFO - is in prepare phase: true
+2024-05-18T23:44:00.558Z - INFO - updated balances this cycle false
+2024-05-18T23:45:00.510Z - INFO - current burn block height: 9132
+2024-05-18T23:45:00.511Z - INFO - current cycle: 9
+2024-05-18T23:45:00.511Z - INFO - is in prepare phase: true
+2024-05-18T23:45:00.511Z - INFO - updated balances this cycle false
+2024-05-18T23:46:00.531Z - INFO - current burn block height: 9132
+2024-05-18T23:46:00.532Z - INFO - current cycle: 9
+2024-05-18T23:46:00.533Z - INFO - is in prepare phase: true
+2024-05-18T23:46:00.533Z - INFO - updated balances this cycle false
+2024-05-18T23:47:00.480Z - INFO - current burn block height: 9132
+2024-05-18T23:47:00.482Z - INFO - current cycle: 9
+2024-05-18T23:47:00.482Z - INFO - is in prepare phase: true
+2024-05-18T23:47:00.482Z - INFO - updated balances this cycle false
+2024-05-18T23:48:00.527Z - INFO - current burn block height: 9133
+2024-05-18T23:48:00.530Z - INFO - current cycle: 9
+2024-05-18T23:48:00.530Z - INFO - is in prepare phase: true
+2024-05-18T23:48:00.530Z - INFO - updated balances this cycle false
+2024-05-18T23:49:00.539Z - INFO - current burn block height: 9133
+2024-05-18T23:49:00.540Z - INFO - current cycle: 9
+2024-05-18T23:49:00.540Z - INFO - is in prepare phase: true
+2024-05-18T23:49:00.540Z - INFO - updated balances this cycle false
+2024-05-18T23:50:00.555Z - INFO - current burn block height: 9133
+2024-05-18T23:50:00.557Z - INFO - current cycle: 9
+2024-05-18T23:50:00.557Z - INFO - is in prepare phase: true
+2024-05-18T23:50:00.557Z - INFO - updated balances this cycle false
+2024-05-18T23:51:00.426Z - INFO - current burn block height: 9134
+2024-05-18T23:51:00.427Z - INFO - current cycle: 9
+2024-05-18T23:51:00.427Z - INFO - is in prepare phase: true
+2024-05-18T23:51:00.428Z - INFO - updated balances this cycle false
+2024-05-18T23:52:00.550Z - INFO - current burn block height: 9134
+2024-05-18T23:52:00.552Z - INFO - current cycle: 9
+2024-05-18T23:52:00.552Z - INFO - is in prepare phase: true
+2024-05-18T23:52:00.552Z - INFO - updated balances this cycle false
+2024-05-18T23:53:00.436Z - INFO - current burn block height: 9134
+2024-05-18T23:53:00.439Z - INFO - current cycle: 9
+2024-05-18T23:53:00.439Z - INFO - is in prepare phase: true
+2024-05-18T23:53:00.439Z - INFO - updated balances this cycle false
+2024-05-18T23:54:00.560Z - INFO - current burn block height: 9135
+2024-05-18T23:54:00.562Z - INFO - current cycle: 9
+2024-05-18T23:54:00.562Z - INFO - is in prepare phase: true
+2024-05-18T23:54:00.562Z - INFO - updated balances this cycle false
+2024-05-18T23:55:00.460Z - INFO - current burn block height: 9135
+2024-05-18T23:55:00.462Z - INFO - current cycle: 9
+2024-05-18T23:55:00.462Z - INFO - is in prepare phase: true
+2024-05-18T23:55:00.462Z - INFO - updated balances this cycle false
+2024-05-18T23:56:00.507Z - INFO - current burn block height: 9135
+2024-05-18T23:56:00.509Z - INFO - current cycle: 9
+2024-05-18T23:56:00.509Z - INFO - is in prepare phase: true
+2024-05-18T23:56:00.509Z - INFO - updated balances this cycle false
+2024-05-18T23:57:00.402Z - INFO - current burn block height: 9136
+2024-05-18T23:57:00.405Z - INFO - current cycle: 9
+2024-05-18T23:57:00.405Z - INFO - is in prepare phase: true
+2024-05-18T23:57:00.405Z - INFO - updated balances this cycle false
+2024-05-18T23:58:00.410Z - INFO - current burn block height: 9136
+2024-05-18T23:58:00.412Z - INFO - current cycle: 9
+2024-05-18T23:58:00.413Z - INFO - is in prepare phase: true
+2024-05-18T23:58:00.413Z - INFO - updated balances this cycle false
+2024-05-18T23:59:00.505Z - INFO - current burn block height: 9136
+2024-05-18T23:59:00.506Z - INFO - current cycle: 9
+2024-05-18T23:59:00.507Z - INFO - is in prepare phase: true
+2024-05-18T23:59:00.507Z - INFO - updated balances this cycle false
+2024-05-19T00:00:00.390Z - INFO - current burn block height: 9137
+2024-05-19T00:00:00.393Z - INFO - current cycle: 9
+2024-05-19T00:00:00.393Z - INFO - is in prepare phase: true
+2024-05-19T00:00:00.394Z - INFO - updated balances this cycle false
+2024-05-19T00:01:00.485Z - INFO - current burn block height: 9137
+2024-05-19T00:01:00.487Z - INFO - current cycle: 9
+2024-05-19T00:01:00.487Z - INFO - is in prepare phase: true
+2024-05-19T00:01:00.487Z - INFO - updated balances this cycle false
+2024-05-19T00:02:00.598Z - INFO - current burn block height: 9137
+2024-05-19T00:02:00.601Z - INFO - current cycle: 9
+2024-05-19T00:02:00.601Z - INFO - is in prepare phase: true
+2024-05-19T00:02:00.601Z - INFO - updated balances this cycle false
+2024-05-19T00:03:01.417Z - INFO - current burn block height: 9137
+2024-05-19T00:03:01.422Z - INFO - current cycle: 9
+2024-05-19T00:03:01.422Z - INFO - is in prepare phase: true
+2024-05-19T00:03:01.423Z - INFO - updated balances this cycle false
+2024-05-19T00:04:00.407Z - INFO - current burn block height: 9138
+2024-05-19T00:04:00.409Z - INFO - current cycle: 9
+2024-05-19T00:04:00.409Z - INFO - is in prepare phase: true
+2024-05-19T00:04:00.413Z - INFO - updated balances this cycle false
+2024-05-19T00:05:00.394Z - INFO - current burn block height: 9138
+2024-05-19T00:05:00.399Z - INFO - current cycle: 9
+2024-05-19T00:05:00.400Z - INFO - is in prepare phase: true
+2024-05-19T00:05:00.400Z - INFO - updated balances this cycle false
+2024-05-19T00:06:00.967Z - INFO - current burn block height: 9138
+2024-05-19T00:06:00.970Z - INFO - current cycle: 9
+2024-05-19T00:06:00.970Z - INFO - is in prepare phase: true
+2024-05-19T00:06:00.970Z - INFO - updated balances this cycle false
+2024-05-19T00:07:00.545Z - INFO - current burn block height: 9139
+2024-05-19T00:07:00.547Z - INFO - current cycle: 9
+2024-05-19T00:07:00.547Z - INFO - is in prepare phase: true
+2024-05-19T00:07:00.547Z - INFO - updated balances this cycle false
+2024-05-19T00:08:00.461Z - INFO - current burn block height: 9139
+2024-05-19T00:08:00.467Z - INFO - current cycle: 9
+2024-05-19T00:08:00.467Z - INFO - is in prepare phase: true
+2024-05-19T00:08:00.467Z - INFO - updated balances this cycle false
+2024-05-20T14:11:36.634Z - INFO - current burn block height: 9901
+2024-05-20T14:11:36.961Z - INFO - current cycle: 10
+2024-05-20T14:11:36.962Z - INFO - is in reward phase
+2024-05-20T14:11:37.168Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:11:37.680Z - INFO - stacking minimum by cycle 11: 16441017718531
+2024-05-20T14:11:40.076Z - INFO - current burn block height: 9901
+2024-05-20T14:11:40.265Z - INFO - current cycle: 10
+2024-05-20T14:11:40.266Z - INFO - is in reward phase
+2024-05-20T14:11:40.572Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:11:40.962Z - INFO - stacking minimum by cycle 11: 16441017718531
+2024-05-20T14:14:52.135Z - INFO - current burn block height: 9902
+2024-05-20T14:14:52.593Z - INFO - current cycle: 10
+2024-05-20T14:14:52.593Z - INFO - is in reward phase
+2024-05-20T14:14:53.066Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:14:53.734Z - INFO - stacking minimum by cycle 11: 16441017849669
+2024-05-20T14:15:00.107Z - INFO - current burn block height: 9902
+2024-05-20T14:15:00.338Z - INFO - current cycle: 10
+2024-05-20T14:15:00.339Z - INFO - is in reward phase
+2024-05-20T14:15:00.583Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:15:00.997Z - INFO - stacking minimum by cycle 11: 16441017849669
+2024-05-20T14:15:10.219Z - INFO - current burn block height: 9902
+2024-05-20T14:15:10.493Z - INFO - current cycle: 10
+2024-05-20T14:15:10.493Z - INFO - is in reward phase
+2024-05-20T14:15:10.727Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:15:11.148Z - INFO - stacking minimum by cycle 11: 16441017849669
+2024-05-20T14:15:20.079Z - INFO - current burn block height: 9902
+2024-05-20T14:15:20.310Z - INFO - current cycle: 10
+2024-05-20T14:15:20.311Z - INFO - is in reward phase
+2024-05-20T14:15:20.500Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:15:20.927Z - INFO - stacking minimum by cycle 11: 16441017849669
+2024-05-20T14:15:30.366Z - INFO - current burn block height: 9902
+2024-05-20T14:15:30.962Z - INFO - current cycle: 10
+2024-05-20T14:15:30.963Z - INFO - is in reward phase
+2024-05-20T14:15:31.233Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:15:32.078Z - INFO - stacking minimum by cycle 11: 16441017849669
+2024-05-20T14:24:59.152Z - INFO - current burn block height: 9905
+2024-05-20T14:24:59.480Z - INFO - current cycle: 10
+2024-05-20T14:24:59.480Z - INFO - is in reward phase
+2024-05-20T14:24:59.714Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:25:00.094Z - INFO - current burn block height: 9905
+2024-05-20T14:25:00.302Z - INFO - current cycle: 10
+2024-05-20T14:25:00.302Z - INFO - is in reward phase
+2024-05-20T14:25:00.498Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:25:00.614Z - INFO - stacking minimum by cycle 11: 16441018243081
+2024-05-20T14:25:00.932Z - INFO - stacking minimum by cycle 11: 16441018243081
+2024-05-20T14:25:10.576Z - INFO - current burn block height: 9906
+2024-05-20T14:25:10.806Z - INFO - current cycle: 10
+2024-05-20T14:25:10.806Z - INFO - is in reward phase
+2024-05-20T14:25:11.013Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:25:11.663Z - INFO - stacking minimum by cycle 11: 16441018374219
+2024-05-20T14:25:20.219Z - INFO - current burn block height: 9906
+2024-05-20T14:25:20.403Z - INFO - current cycle: 10
+2024-05-20T14:25:20.404Z - INFO - is in reward phase
+2024-05-20T14:25:20.603Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:25:21.095Z - INFO - stacking minimum by cycle 11: 16441018374219
+2024-05-20T14:25:30.382Z - INFO - current burn block height: 9906
+2024-05-20T14:25:30.583Z - INFO - current cycle: 10
+2024-05-20T14:25:30.584Z - INFO - is in reward phase
+2024-05-20T14:25:30.775Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:25:31.287Z - INFO - stacking minimum by cycle 11: 16441018374219
+2024-05-20T14:35:23.386Z - INFO - current burn block height: 9909
+2024-05-20T14:35:23.611Z - INFO - current cycle: 10
+2024-05-20T14:35:23.612Z - INFO - is in reward phase
+2024-05-20T14:35:23.873Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:35:24.558Z - INFO - stacking minimum by cycle 11: 16441018767631
+2024-05-20T14:35:30.184Z - INFO - current burn block height: 9909
+2024-05-20T14:35:30.403Z - INFO - current cycle: 10
+2024-05-20T14:35:30.403Z - INFO - is in reward phase
+2024-05-20T14:35:30.593Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:35:31.114Z - INFO - stacking minimum by cycle 11: 16441018767631
+2024-05-20T14:35:40.358Z - INFO - current burn block height: 9909
+2024-05-20T14:35:40.589Z - INFO - current cycle: 10
+2024-05-20T14:35:40.590Z - INFO - is in reward phase
+2024-05-20T14:35:40.786Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:35:41.270Z - INFO - stacking minimum by cycle 11: 16441018767631
+2024-05-20T14:35:50.191Z - INFO - current burn block height: 9909
+2024-05-20T14:35:50.390Z - INFO - current cycle: 10
+2024-05-20T14:35:50.390Z - INFO - is in reward phase
+2024-05-20T14:35:50.580Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:35:51.142Z - INFO - stacking minimum by cycle 11: 16441018767631
+2024-05-20T14:36:00.317Z - INFO - current burn block height: 9909
+2024-05-20T14:36:00.534Z - INFO - current cycle: 10
+2024-05-20T14:36:00.535Z - INFO - is in reward phase
+2024-05-20T14:36:00.728Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:36:01.435Z - INFO - stacking minimum by cycle 11: 16441018767631
+2024-05-20T14:36:10.176Z - INFO - current burn block height: 9909
+2024-05-20T14:36:10.510Z - INFO - current cycle: 10
+2024-05-20T14:36:10.511Z - INFO - is in reward phase
+2024-05-20T14:36:10.711Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:36:11.214Z - INFO - stacking minimum by cycle 11: 16441018767631
+2024-05-20T14:36:20.317Z - INFO - current burn block height: 9909
+2024-05-20T14:36:20.515Z - INFO - current cycle: 10
+2024-05-20T14:36:20.516Z - INFO - is in reward phase
+2024-05-20T14:36:20.776Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:36:21.261Z - INFO - stacking minimum by cycle 11: 16441018767631
+2024-05-20T14:36:30.388Z - INFO - current burn block height: 9909
+2024-05-20T14:36:30.645Z - INFO - current cycle: 10
+2024-05-20T14:36:30.645Z - INFO - is in reward phase
+2024-05-20T14:36:30.846Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:36:31.343Z - INFO - stacking minimum by cycle 11: 16441018767631
+2024-05-20T14:36:40.377Z - INFO - current burn block height: 9909
+2024-05-20T14:36:40.591Z - INFO - current cycle: 10
+2024-05-20T14:36:40.592Z - INFO - is in reward phase
+2024-05-20T14:36:40.819Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:36:41.521Z - INFO - stacking minimum by cycle 11: 16441018767631
+2024-05-20T14:36:50.189Z - INFO - current burn block height: 9909
+2024-05-20T14:36:50.380Z - INFO - current cycle: 10
+2024-05-20T14:36:50.381Z - INFO - is in reward phase
+2024-05-20T14:36:50.589Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:36:51.073Z - INFO - stacking minimum by cycle 11: 16441018767631
+2024-05-20T14:37:00.356Z - INFO - current burn block height: 9909
+2024-05-20T14:37:00.553Z - INFO - current cycle: 10
+2024-05-20T14:37:00.555Z - INFO - is in reward phase
+2024-05-20T14:37:00.774Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:37:01.453Z - INFO - stacking minimum by cycle 11: 16441018767631
+2024-05-20T14:37:10.293Z - INFO - current burn block height: 9909
+2024-05-20T14:37:10.563Z - INFO - current cycle: 10
+2024-05-20T14:37:10.563Z - INFO - is in reward phase
+2024-05-20T14:37:10.786Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:37:11.328Z - INFO - stacking minimum by cycle 11: 16441018767631
+2024-05-20T14:37:20.383Z - INFO - current burn block height: 9909
+2024-05-20T14:37:20.631Z - INFO - current cycle: 10
+2024-05-20T14:37:20.632Z - INFO - is in reward phase
+2024-05-20T14:37:21.097Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:37:21.842Z - INFO - stacking minimum by cycle 11: 16441018767631
+2024-05-20T14:37:30.320Z - INFO - current burn block height: 9909
+2024-05-20T14:37:30.582Z - INFO - current cycle: 10
+2024-05-20T14:37:30.583Z - INFO - is in reward phase
+2024-05-20T14:37:30.818Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:37:31.409Z - INFO - stacking minimum by cycle 11: 16441018767631
+2024-05-20T14:37:40.358Z - INFO - current burn block height: 9909
+2024-05-20T14:37:40.585Z - INFO - current cycle: 10
+2024-05-20T14:37:40.586Z - INFO - is in reward phase
+2024-05-20T14:37:40.785Z - INFO - partial stacked by cycle 11: 0
+2024-05-20T14:37:41.293Z - INFO - stacking minimum by cycle 11: 16441018767631

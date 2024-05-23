@@ -1,3 +1,5 @@
+export const maxAmount = 90000000000000;
+
 export const blockSpanAggIncrease = {
   mainnet: 300,
   testnet: 100,
@@ -23,7 +25,7 @@ export const offsetIncreaseUpdateBalances = {
   mainnet: 10,
   testnet: 10,
   nakamotoTestnet: 10,
-  devnet: 2,
+  devnet: 1,
 };
 
 export const triggerNumberOfLastXBlocksBeforeRewardPhase = {

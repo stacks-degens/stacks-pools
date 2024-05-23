@@ -1,11 +1,13 @@
 {
-  "current_burn_block_height": 127,
-  "current_cycle": 23,
-  "updated_balances_this_cycle": true,
+  "current_burn_block_height": 9940,
+  "current_cycle": 10,
+  "updated_balances_this_cycle": false,
   "update_balances_txid": "",
-  "update_balances_burn_block_height": 1,
+  "update_balances_burn_block_height": 9130,
   "commit_agg_this_cycle": true,
-  "increase_agg_burn_block_height": 1,
-  "partial_stacked": 2000000,
-  "distribute_rewards_last_burn_block_height": 1
+  "commit_agg_burn_block_height": 10,
+  "increase_agg_burn_block_height": 9940,
+  "partial_stacked": 0,
+  "distribute_rewards_last_burn_block_height": 9801,
+  "commit_agg_txid": "cefda7ea243294d95173d1d16f94a6f8efb8fd9f138cb421b350d6d008ba0653"
 }

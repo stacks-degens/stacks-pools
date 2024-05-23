@@ -2,6 +2,7 @@ import {
   callReadOnlyFunction,
   Cl,
   ClarityValue,
+  cvToJSON,
   cvToValue,
   principalCV,
   UIntCV,
@@ -10,6 +11,7 @@ import { StacksMainnet, StacksTestnet, StacksDevnet } from '@stacks/network';
 import { apiUrl, development, network, poxAddress } from './network';
 import { contractMapping, functionMapping } from './contracts';
 import { poxAddressToTuple } from '@stacks/stacking';
+import { logData, LogTypeMessage } from './fileLocalData';
 
 const contractNetwork =
   network === 'mainnet'
@@ -33,12 +35,12 @@ const readOnlyFunction = async (
   const senderAddress = contractMapping[type][network].owner;
 
   return await callReadOnlyFunction({
-    contractName,
-    contractAddress,
-    functionName,
-    functionArgs,
+    contractName: contractName,
+    contractAddress: contractAddress,
+    functionName: functionName,
+    functionArgs: functionArgs,
     network: contractNetwork,
-    senderAddress,
+    senderAddress: senderAddress,
   });
 };
 
@@ -55,25 +57,36 @@ export const readOnlyGetStackingMinimum = async (): Promise<number> => {
 export const readOnlyGetPartialStackedByCycle = async (
   rewardCycle: number,
 ): Promise<number> => {
-  const contractType = ContractType.pox;
-  // TODO: double check it works with sender-address as stacking-pool-sc-address
   const partialStackedByCycle: ClarityValue = await readOnlyFunction(
-    contractType,
-    functionMapping[contractType].readOnlyFunctions.getPartialStackedByCycle,
+    ContractType.pox,
+    functionMapping[ContractType.pox].readOnlyFunctions
+      .getPartialStackedByCycle,
     [
       poxAddressToTuple(poxAddress),
       Cl.uint(rewardCycle),
       Cl.principal(
-        contractMapping[contractType][network].contractAddress +
+        contractMapping[ContractType.stacking][network].contractAddress +
           '.' +
-          contractMapping[contractType][network].contractName,
+          contractMapping[ContractType.stacking][network].contractName,
       ),
     ],
   );
-  return cvToValue(partialStackedByCycle) || 0;
+  let partialStackedAMount = 0;
+  try {
+    partialStackedAMount = cvToJSON(partialStackedByCycle).value.value[
+      'stacked-amount'
+    ].value;
+  } catch (err) {
+    logData(
+      LogTypeMessage.Err,
+      `failed to get partial stacked by cycle: ${err}`,
+    );
+  }
+  return partialStackedAMount;
 };
 
 // TODO: update function return type from any
+// TODO: find what it returns in the some format, only have none right now
 export const readOnlyGetPoxAddressIndices = async (
   rewardCycle: number,
 ): Promise<any> => {
@@ -83,8 +96,10 @@ export const readOnlyGetPoxAddressIndices = async (
     functionMapping[contractType].readOnlyFunctions.getPoxAddrIndices,
     [Cl.uint(rewardCycle)],
   );
-  return cvToValue(poxAddressIndices);
+  // console.log('inner', cvToJSON(poxAddressIndices).value);
+  return cvToJSON(poxAddressIndices).value;
 };
+// console.log('something', await readOnlyGetPoxAddressIndices(11));
 
 export interface PoxInfo {
   'first-burnchain-block-height': number;
@@ -128,6 +143,7 @@ export const readOnlyUpdatedBalancesGivenCycle = async (
   return cvToValue(updatedBalancesGivenCycle);
 };
 
+// TODO: also test after we win blocks on nakamoto testnet
 /// give list of block-heights
 /// returns list of block-heights that are won
 export const readOnlyCheckWonBlockRewardsBatch = async (
@@ -153,6 +169,7 @@ export const readOnlyCheckWonBlockRewardsBatch = async (
   return blocksWon;
 };
 
+// TODO: also test after we win blocks on nakamoto testnet
 /// give list of block-heights
 /// returns list of block-heights that are not claimed
 export const readOnlyCheckClaimedBlocksRewardsBatch = async (
