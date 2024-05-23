@@ -8,7 +8,7 @@ export enum LogTypeMessage {
   Warn = 'WARN',
 }
 
-interface LocalData {
+export interface LocalData {
   current_burn_block_height: number;
   current_cycle: number;
   update_balances_txid: string;
@@ -17,6 +17,7 @@ interface LocalData {
   increase_agg_burn_block_height: number;
   partial_stacked: number;
   commit_agg_this_cycle: boolean;
+  commit_agg_txid: string;
   distribute_rewards_last_burn_block_height: number;
 }
 
@@ -43,12 +44,14 @@ export const logData = (messageType: LogTypeMessage, message: string) => {
 };
 
 // when cycle changes, refresh logData
-export const refreshJsonData = () => {
+export const refreshJsonData = (newCurrentCycle: number) => {
   const logData = readJsonData();
+  logData.current_cycle = newCurrentCycle;
   logData.updated_balances_this_cycle = false;
   logData.update_balances_txid = "";
   logData.commit_agg_this_cycle = false;
   logData.partial_stacked = 0;
+  logData.commit_agg_txid = "";
   writeJsonData(logData);
 }
 
