@@ -30,7 +30,7 @@ export const contractMapping: ContractMapping = {
       contractAddress: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
       contractName: 'stacking-pool-test',
       owner: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
-    }, 
+    },
     nakamotoTestnet: {
       contractAddress: 'ST2D033K08AW2TPRTCFP3QD5VHZB7494TY0QXERJ1',
       contractName: 'stacking-pool-v1',
@@ -71,11 +71,13 @@ interface IFunctionMapping {
       // canWithdrawExtraReservedNow: string;
       isPreparePhaseNow: string;
       getPoxAddrIndices: string;
+      getStackersList: string;
     };
     publicFunctions: {
       updateSCBalances: string;
       maybeStackAggregationCommit: string;
       batchRewardDistribution: string;
+      delegateStackStxMany: string;
       // TODO: increase amount stacked when given threshold is met
       // unlockExtraReservedFunds: string; // if worthy, unlock extra amount
     };
@@ -104,12 +106,14 @@ export const functionMapping: IFunctionMapping = {
       // calculateExtraReservedFunds: 'calculate-extra-reserved-funds',
       // canWithdrawExtraReservedNow: 'can-withdraw-extra-reserved-now',
       getPoxAddrIndices: 'get-pox-addr-indices',
+      getStackersList: 'get-pool-members',
     },
     publicFunctions: {
       updateSCBalances: 'update-sc-balances',
       maybeStackAggregationCommit: 'maybe-stack-aggregation-commit',
       // unlockExtraReservedFunds: 'unlock-extra-reserved-funds',
       batchRewardDistribution: 'batch-reward-distribution',
+      delegateStackStxMany: 'delegate-stack-stx-many',
     },
   },
   pox: {
