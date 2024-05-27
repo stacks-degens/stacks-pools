@@ -10,6 +10,7 @@ import {
   contractCallFunctionDistributeRewards,
   contractCallFunctionMaybeStackAggregationCommit,
   contractCallFunctionUpdateSCBalances,
+  logContractCallBroadcast,
 } from './functionsContractCall';
 import {
   PoxInfoMap,
@@ -42,8 +43,8 @@ import {
 } from './fileLocalData';
 import { Pox4SignatureTopic } from '@stacks/stacking';
 import { network, stxToUstx, transactionUrl } from './network';
-import { StacksTransaction } from '@stacks/transactions';
 import { CronJob } from 'cron';
+import { TxBroadcastResult } from '@stacks/transactions';
 
 // based on burn block height
 // 1. prepare phase
@@ -77,7 +78,7 @@ const runtime = async () => {
         `current cycle changed from ${localJson.current_cycle} to: ${getCurrentCycle(poxAPIData)}`,
       );
 
-      refreshJsonData(getCurrentCycle(poxAPIData))
+      refreshJsonData(getCurrentCycle(poxAPIData));
     }
     localJson = readJsonData();
     logData(
@@ -98,7 +99,7 @@ const runtime = async () => {
     if (
       rewardCycleId !== currentCycleIdApi &&
       getRewardPhaseBlockLength(poxAPIData) !==
-      getBlocksUntilPreparePhase(poxAPIData)
+        getBlocksUntilPreparePhase(poxAPIData)
     ) {
       logData(
         LogTypeMessage.Warn,
@@ -108,14 +109,11 @@ const runtime = async () => {
         at burn block height: ${currentBurnBlockHeight}`,
       );
     } else {
-
       // check is prepare phase
       // const isPreparePhase = await readOnlyIsPreparePhaseNow(); // overflow read_legth
       const isPreparePhase = isInPreparePhase(poxAPIData);
-      if (isPreparePhase)
-        logData(LogTypeMessage.Info, `is in prepare phase`);
-      else
-        logData(LogTypeMessage.Info, `is in reward phase`);
+      if (isPreparePhase) logData(LogTypeMessage.Info, `is in prepare phase`);
+      else logData(LogTypeMessage.Info, `is in reward phase`);
 
       if (isPreparePhase) {
         // check already updated balances
@@ -128,16 +126,14 @@ const runtime = async () => {
         if (!localJson.updated_balances_this_cycle) {
           if (localJson.update_balances_txid === '') {
             // 2. update balances
-            const updateBalanceTransaction =
+            const updateBalanceTransaction: TxBroadcastResult =
               await contractCallFunctionUpdateSCBalances(
                 BigInt(feeContractCall.updateBalances * stxToUstx),
               );
-            logData(
-              LogTypeMessage.Info,
-              `update balances tx ${updateBalanceTransaction.txid()}`,
-            );
-            localJson.update_balances_burn_block_height = currentBurnBlockHeight;
-            localJson.update_balances_txid = updateBalanceTransaction.txid();
+            logContractCallBroadcast(updateBalanceTransaction);
+            localJson.update_balances_burn_block_height =
+              currentBurnBlockHeight;
+            localJson.update_balances_txid = updateBalanceTransaction.txid;
             writeJsonData(localJson);
           } else {
             // we have txid broadcasted
@@ -157,7 +153,7 @@ const runtime = async () => {
                 } else {
                   logData(
                     LogTypeMessage.Err,
-                    `Something went wrong with broadcasted data. The tx is succesfully anchored`,
+                    `Something went wrong with broadcasted data. The tx is succesfully anchored ${localJson.update_balances_txid}`,
                   );
                 }
                 break;
@@ -172,23 +168,30 @@ const runtime = async () => {
                 // get nonce from txid
                 if (
                   localJson.update_balances_burn_block_height +
-                  offsetIncreaseUpdateBalances[network] <
+                    offsetIncreaseUpdateBalances[network] <
                   currentBurnBlockHeight
                 ) {
                   const nonce: number = txResponse.nonce;
-                  const updateBalanceTransaction =
+                  const updateBalanceTransaction: TxBroadcastResult =
                     await contractCallFunctionUpdateSCBalances(
-                      BigInt(feeContractCall.updateBalancesIncreasedFee * stxToUstx),
+                      BigInt(
+                        feeContractCall.updateBalancesIncreasedFee * stxToUstx,
+                      ),
                       BigInt(nonce),
                     );
-                  localJson.update_balances_burn_block_height =
-                    currentBurnBlockHeight;
-                  localJson.update_balances_txid = updateBalanceTransaction.txid();
-                  logData(
-                    LogTypeMessage.Info,
-                    `update balances increased fees tx ${updateBalanceTransaction.txid()}`,
-                  );
-                  writeJsonData(localJson);
+                  // succesful broadcast
+                  if (updateBalanceTransaction.reason === undefined) {
+                    localJson.update_balances_burn_block_height =
+                      currentBurnBlockHeight;
+                    localJson.update_balances_txid =
+                      updateBalanceTransaction.txid;
+                    writeJsonData(localJson);
+                    logData(
+                      LogTypeMessage.Info,
+                      `update balances increased fees tx`,
+                    );
+                  }
+                  logContractCallBroadcast(updateBalanceTransaction);
                 }
                 break;
               // Add more cases if needed
@@ -228,61 +231,75 @@ const runtime = async () => {
             `stacking minimum by cycle ${rewardCycleId + 1}: ${stackingMinimum}`,
           );
           if (partialStackedByCycle > stackingMinimum) {
-            const txResponse = await contractCallFunctionMaybeStackAggregationCommit(
-              rewardCycleId,
-              Pox4SignatureTopic.AggregateCommit,
-            );
-            console.log('txResponse, ', txResponse);
-            localJson.commit_agg_txid = txResponse.txid();
-            localJson.commit_agg_this_cycle = true;
-            localJson.increase_agg_burn_block_height = currentBurnBlockHeight;
-            logData(
-              LogTypeMessage.Info,
-              `partial stacked enough, performed agg-commit ${txResponse.txid()}`,
-            );
-            writeJsonData(localJson);
+            const txResponse: TxBroadcastResult =
+              await contractCallFunctionMaybeStackAggregationCommit(
+                rewardCycleId,
+                Pox4SignatureTopic.AggregateCommit,
+              );
+            if (txResponse.reason === undefined) {
+              console.log('txResponse, ', txResponse);
+              localJson.commit_agg_txid = txResponse.txid;
+              localJson.commit_agg_this_cycle = true;
+              localJson.increase_agg_burn_block_height = currentBurnBlockHeight;
+              writeJsonData(localJson);
+              logData(
+                LogTypeMessage.Info,
+                `partial stacked enough, performed agg-commit`,
+              );
+            }
+            logContractCallBroadcast(txResponse);
           }
         } else {
           // there is an amount to be commited > threshold and at least x blocks have passed
           // TODO: wouldn't it be better to just increase it when the threshold is met? we also call increase in the end
           if (
             partialStackedByCycle >
-            thresholdAmounPartialStackedByCycle[network] * stxToUstx &&
+              thresholdAmounPartialStackedByCycle[network] * stxToUstx &&
             localJson.increase_agg_burn_block_height +
-            blockSpanAggIncrease[network] <
-            currentBurnBlockHeight
+              blockSpanAggIncrease[network] <
+              currentBurnBlockHeight
           ) {
-            const txResponse = await contractCallFunctionMaybeStackAggregationCommit(
-              rewardCycleId,
-              Pox4SignatureTopic.StackIncrease,
-            );
+            const txResponse: TxBroadcastResult =
+              await contractCallFunctionMaybeStackAggregationCommit(
+                rewardCycleId,
+                Pox4SignatureTopic.StackIncrease,
+              );
             // update partial stacked for checking the continuous flow for last X blocks
-            localJson.partial_stacked = partialStackedByCycle;
-            logData(
-              LogTypeMessage.Info,
-              `partial stacked enough and offset passed, performed agg-increase ${txResponse}`,
-            );
-            writeJsonData(localJson);
+            if (txResponse.reason === undefined) {
+              localJson.partial_stacked = partialStackedByCycle;
+              logData(
+                LogTypeMessage.Info,
+                `partial stacked enough and offset passed, performed agg-increase`,
+              );
+              writeJsonData(localJson);
+            }
+            logContractCallBroadcast(txResponse);
           }
 
           // if in last X blocks before prepare phase and partial stacked amount has changed through new delegations (optional + previous tx being anchored)
           if (
             getBlocksUntilPreparePhase(poxAPIData) <
-            triggerNumberOfLastXBlocksBeforeRewardPhase[network] &&
+              triggerNumberOfLastXBlocksBeforeRewardPhase[network] &&
             partialStackedByCycle > 0 &&
             partialStackedByCycle !== localJson.partial_stacked
           ) {
-            const txResponse = await contractCallFunctionMaybeStackAggregationCommit(
-              rewardCycleId,
-              Pox4SignatureTopic.StackIncrease,
-            );
+            const txResponse: TxBroadcastResult =
+              await contractCallFunctionMaybeStackAggregationCommit(
+                rewardCycleId,
+                Pox4SignatureTopic.StackIncrease,
+              );
             // update partial stacked for checking the continuous flow for last X blocks
             localJson.partial_stacked = partialStackedByCycle;
-            logData(
-              LogTypeMessage.Info,
-              `partial stacked enough and offset passed, performed agg-increase ${txResponse}`,
-            );
-            writeJsonData(localJson);
+
+            if (txResponse.reason === undefined) {
+              localJson.partial_stacked = partialStackedByCycle;
+              logData(
+                LogTypeMessage.Info,
+                `partial stacked enough and offset passed, performed agg-increase`,
+              );
+              writeJsonData(localJson);
+            }
+            logContractCallBroadcast(txResponse);
           }
         }
 
@@ -290,7 +307,7 @@ const runtime = async () => {
         // it is ok to keep the previous localJSON as it was updated as needed
         if (
           localJson.distribute_rewards_last_burn_block_height +
-          blockSpanRewardDistribute[network] <
+            blockSpanRewardDistribute[network] <
           currentBurnBlockHeight - offsetRewardDistribute[network]
         ) {
           const nrCalls =
@@ -350,12 +367,12 @@ const runtime = async () => {
           if (blocksToDistribute.length > 0) {
             // TODO: make sure this doesn't overflow
             // if it does, decrease the offset OR something else?
-            const txDistribute: StacksTransaction =
+            const txDistribute: TxBroadcastResult =
               await contractCallFunctionDistributeRewards(blocksToDistribute);
-            logData(
-              LogTypeMessage.Info,
-              `distributed rewards: ${txDistribute.txid()}`,
-            );
+            if (txDistribute.reason === undefined) {
+              logData(LogTypeMessage.Info, `distributed rewards.`);
+            }
+            logContractCallBroadcast(txDistribute);
           }
           localJson.distribute_rewards_last_burn_block_height =
             localJson.distribute_rewards_last_burn_block_height +
@@ -389,3 +406,7 @@ new CronJob(
   true, // start
   'America/Los_Angeles', // timeZone
 );
+
+// TODO: call stacks extend for current addresses
+// can it be called if someone is no longer stacker? it should remove that person from the pool list
+// even if he didn't call revoke and leave stacking-pool

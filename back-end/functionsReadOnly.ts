@@ -4,7 +4,6 @@ import {
   ClarityValue,
   cvToJSON,
   cvToValue,
-  principalCV,
   UIntCV,
 } from '@stacks/transactions';
 import { StacksMainnet, StacksTestnet, StacksDevnet } from '@stacks/network';
@@ -35,8 +34,8 @@ const readOnlyFunction = async (
   const senderAddress = contractMapping[type][network].owner;
 
   return await callReadOnlyFunction({
-    contractName: contractName,
     contractAddress: contractAddress,
+    contractName: contractName,
     functionName: functionName,
     functionArgs: functionArgs,
     network: contractNetwork,
@@ -152,6 +151,8 @@ export const readOnlyCheckWonBlockRewardsBatch = async (
   const contractType = ContractType.stacking;
   const CVBlockHeights: UIntCV[] = [];
   for (const blockheight in blockheights) {
+    // TODO: check it takes value from list, not the indexes
+    console.log('blockheight: ', blockheight);
     CVBlockHeights.push(Cl.uint(blockheight));
   }
   const CVblockWonResponse: ClarityValue = await readOnlyFunction(
@@ -194,6 +195,20 @@ export const readOnlyCheckClaimedBlocksRewardsBatch = async (
     if (blockheight) blocksNotClaimed.push(blockheight);
   });
   return blocksNotClaimed;
+};
+
+export const readOnlyGetStackersList = async (): Promise<string[]> => {
+  const contractType = ContractType.stacking;
+  const CVstackersList: ClarityValue = await readOnlyFunction(
+    contractType,
+    functionMapping[contractType].readOnlyFunctions.getStackersList,
+    [],
+  );
+  const stackersList: string[] = [];
+  for (const stacker of cvToJSON(CVstackersList).value) {
+    stackersList.push(stacker.value);
+  }
+  return stackersList;
 };
 
 /// TESTS
