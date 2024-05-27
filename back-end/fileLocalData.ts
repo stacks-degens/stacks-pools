@@ -19,6 +19,8 @@ export interface LocalData {
   commit_agg_this_cycle: boolean;
   commit_agg_txid: string;
   distribute_rewards_last_burn_block_height: number;
+  delegated_stack_stx_many_this_cycle: boolean;
+  delegated_stack_stx_many_txid: string;
 }
 
 export const readJsonData = (): LocalData => {
@@ -48,12 +50,14 @@ export const refreshJsonData = (newCurrentCycle: number) => {
   const logData = readJsonData();
   logData.current_cycle = newCurrentCycle;
   logData.updated_balances_this_cycle = false;
-  logData.update_balances_txid = "";
+  logData.update_balances_txid = '';
   logData.commit_agg_this_cycle = false;
   logData.partial_stacked = 0;
-  logData.commit_agg_txid = "";
+  logData.commit_agg_txid = '';
+  logData.delegated_stack_stx_many_this_cycle = false;
+  logData.delegated_stack_stx_many_txid = '';
   writeJsonData(logData);
-}
+};
 
 // test logs
 // logData(LogTypeMessage.Err, 'something');
