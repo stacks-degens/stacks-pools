@@ -195,3 +195,13 @@
 2024-05-23T16:59:30.938Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
 2024-05-23T16:59:31.441Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
 2024-05-23T16:59:31.614Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T22:16:36.080Z - INFO - current cycle changed from 14 to: 14
+2024-05-27T22:16:36.082Z - INFO - current burn block height: 13421
+2024-05-27T22:16:36.262Z - INFO - current cycle: 14
+2024-05-27T22:16:36.263Z - INFO - is in reward phase
+2024-05-27T22:19:00.255Z - INFO - current burn block height: 13422
+2024-05-27T22:19:00.559Z - INFO - current cycle: 14
+2024-05-27T22:19:00.559Z - INFO - is in reward phase
+2024-05-27T22:19:00.720Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T22:19:00.720Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T22:19:01.214Z - INFO - stacking minimum by cycle 15: 16444954804302
