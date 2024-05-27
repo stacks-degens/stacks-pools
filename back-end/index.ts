@@ -428,7 +428,3 @@ new CronJob(
   true, // start
   'America/Los_Angeles', // timeZone
 );
-
-// TODO: call stacks extend for current addresses
-// can it be called if someone is no longer stacker? it should remove that person from the pool list
-// even if he didn't call revoke and leave stacking-pool

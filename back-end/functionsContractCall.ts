@@ -1,5 +1,6 @@
 import {
   AnchorMode,
+  broadcastTransaction,
   Cl,
   ClarityValue,
   createStacksPrivateKey,
@@ -7,8 +8,9 @@ import {
   makeContractCall,
   PostCondition,
   PostConditionMode,
+  PrincipalCV,
   SignedContractCallOptions,
-  StacksTransaction,
+  TxBroadcastResult,
   UIntCV,
 } from '@stacks/transactions';
 import { StacksMainnet, StacksTestnet, StacksDevnet } from '@stacks/network';
@@ -19,11 +21,13 @@ import {
   poxAddress,
   privateKey,
   signerPrivateKey,
+  transactionUrl,
 } from './network';
-import { ContractType } from './functionsReadOnly';
+import { ContractType, readOnlyGetStackersList } from './functionsReadOnly';
 import { contractMapping, functionMapping } from './contracts';
 import { Pox4SignatureTopic, StackingClient } from '@stacks/stacking';
 import { maxAmount } from './consts';
+import { logData, LogTypeMessage } from './fileLocalData';
 
 const contractNetwork =
   network === 'mainnet'
@@ -43,7 +47,7 @@ const contractCallFunction = async (
   postConditions: PostCondition[],
   fee: bigint = -1n,
   nonce: bigint = -1n,
-): Promise<StacksTransaction> => {
+): Promise<TxBroadcastResult> => {
   const contractAddress = contractMapping[type][network].contractAddress;
   const contractName = contractMapping[type][network].contractName;
   // TODO: change to deny
@@ -60,22 +64,26 @@ const contractCallFunction = async (
     senderKey: privateKey,
     validateWithAbi: true,
     network: contractNetwork,
-    postConditions: postConditions,
     postConditionMode: postConditionMode,
+    postConditions: postConditions,
     anchorMode: AnchorMode.Any,
   };
 
   if (fee !== -1n) options.fee = fee;
   if (nonce !== -1n) options.nonce = nonce;
-  return await makeContractCall(options);
+  console.log('options', options);
+  const tx = await makeContractCall(options);
+  console.log('make contract call txid: ', tx.txid());
+
+  return await broadcastTransaction(tx, contractNetwork);
 };
 
 export const contractCallFunctionUpdateSCBalances = async (
   fee: bigint = -1n,
   nonce: bigint = -1n,
-): Promise<StacksTransaction> => {
+): Promise<TxBroadcastResult> => {
   const contractType = ContractType.stacking;
-  let response: StacksTransaction = await contractCallFunction(
+  let response: TxBroadcastResult = await contractCallFunction(
     contractType,
     functionMapping[contractType].publicFunctions.updateSCBalances,
     [],
@@ -83,13 +91,13 @@ export const contractCallFunctionUpdateSCBalances = async (
     fee,
     nonce,
   );
-  // TODO: see why it never broadcasts
-  // console.log('update sc balance transaction response is: ', response);
+  console.log('update sc balance transaction response is: ', response);
   return response;
 };
-const tx = await contractCallFunctionUpdateSCBalances();
-console.log('tx', tx);
-console.log('tx id', tx.txid());
+// TODO: try in prepare phase
+// const tx = await contractCallFunctionUpdateSCBalances();
+// console.log('tx', tx);
+// console.log('tx id', tx.txid);
 
 const createOperatorSig = (
   rewardCycle: number,
@@ -117,7 +125,7 @@ export const contractCallFunctionMaybeStackAggregationCommit = async (
   currentCycle: number,
   topic: Pox4SignatureTopic,
   fee: bigint = -1n,
-): Promise<StacksTransaction> => {
+): Promise<TxBroadcastResult> => {
   const contractType = ContractType.stacking;
   const postConditions: PostCondition[] = [];
   const authId: number = Date.now() * 10 + Math.floor(Math.random() * 10);
@@ -136,31 +144,46 @@ export const contractCallFunctionMaybeStackAggregationCommit = async (
     Cl.uint(maxAmount),
     Cl.uint(authId),
   ];
-  let response: StacksTransaction = await contractCallFunction(
+  let response: TxBroadcastResult = await contractCallFunction(
     contractType,
     functionMapping[contractType].publicFunctions.maybeStackAggregationCommit,
     functionArgs,
     postConditions,
     fee,
   );
-  // return '' as any;
   return response;
 };
 
 export const contractCallFunctionDistributeRewards = async (
   blockheights: number[],
-): Promise<StacksTransaction> => {
+): Promise<TxBroadcastResult> => {
   const contractType = ContractType.stacking;
   const CVBlockHeights: UIntCV[] = [];
   // TODO: add a lot of postConditions from SC to each address STX will be sent to (and the amount)
-  const postConditions: PostCondition[] = [];
   for (const blockheight in blockheights) {
     CVBlockHeights.push(Cl.uint(blockheight));
   }
-  let response: StacksTransaction = await contractCallFunction(
+  let response: TxBroadcastResult = await contractCallFunction(
     contractType,
     functionMapping[contractType].publicFunctions.batchRewardDistribution,
     [Cl.list(CVBlockHeights)],
+    [],
+  );
+  return response;
+};
+
+export const contractCallFunctionDelegateStackStxMany = async (
+  stackersAddresses: string[],
+): Promise<TxBroadcastResult> => {
+  const contractType = ContractType.stacking;
+  const CVPrincipalStackersAddresses: PrincipalCV[] = [];
+  for (const address of stackersAddresses) {
+    CVPrincipalStackersAddresses.push(Cl.principal(address));
+  }
+  let response: TxBroadcastResult = await contractCallFunction(
+    contractType,
+    functionMapping[contractType].publicFunctions.delegateStackStxMany,
+    [Cl.list(CVPrincipalStackersAddresses)],
     [],
   );
   return response;
@@ -180,3 +203,33 @@ export const contractCallFunctionDistributeRewards = async (
 
 // console.log('response is ', txResponse);
 // console.log('txid is ', txResponse.txid());
+
+// write to file data when succesful broadcast
+const logSuccesfulBroadcast = (txBroadcastResult: TxBroadcastResult) => {
+  logData(
+    LogTypeMessage.Info,
+    `update balances tx ${txBroadcastResult.txid} \n
+      api link: ${transactionUrl(txBroadcastResult.txid).apiUrl} \n
+      explorer link: ${transactionUrl(txBroadcastResult.txid).explorerUrl}`,
+  );
+};
+
+const logRejectedBroadcast = (txBroadcastResult: TxBroadcastResult) => {
+  logData(
+    LogTypeMessage.Err,
+    `failed broadcast tx ${txBroadcastResult.txid} \n
+        error: ${txBroadcastResult.error} \n
+        reason: ${txBroadcastResult.reason} \n
+        reason data: ${txBroadcastResult.reason_data}`,
+  );
+};
+
+export const logContractCallBroadcast = (
+  txBroadcastResult: TxBroadcastResult,
+) => {
+  if (txBroadcastResult.reason !== undefined) {
+    logRejectedBroadcast(txBroadcastResult);
+  } else {
+    logSuccesfulBroadcast(txBroadcastResult);
+  }
+};
