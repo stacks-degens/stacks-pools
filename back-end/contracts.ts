@@ -72,6 +72,7 @@ interface IFunctionMapping {
       isPreparePhaseNow: string;
       getPoxAddrIndices: string;
       getStackersList: string;
+      checkCanDelegateAgainNow: string;
     };
     publicFunctions: {
       updateSCBalances: string;
@@ -107,6 +108,7 @@ export const functionMapping: IFunctionMapping = {
       // canWithdrawExtraReservedNow: 'can-withdraw-extra-reserved-now',
       getPoxAddrIndices: 'get-pox-addr-indices',
       getStackersList: 'get-pool-members',
+      checkCanDelegateAgainNow: 'can-lock-now',
     },
     publicFunctions: {
       updateSCBalances: 'update-sc-balances',

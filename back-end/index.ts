@@ -7,6 +7,7 @@ import {
   isInPreparePhase,
 } from './apiPox';
 import {
+  contractCallFunctionDelegateStackStxMany,
   contractCallFunctionDistributeRewards,
   contractCallFunctionMaybeStackAggregationCommit,
   contractCallFunctionUpdateSCBalances,
@@ -14,11 +15,13 @@ import {
 } from './functionsContractCall';
 import {
   PoxInfoMap,
+  readOnlyCheckCanDelegateAgainNow,
   readOnlyCheckClaimedBlocksRewardsBatch,
   readOnlyCheckWonBlockRewardsBatch,
   readOnlyGetPartialStackedByCycle,
   readOnlyGetPoxAddressIndices,
   readOnlyGetPoxInfo,
+  readOnlyGetStackersList,
   readOnlyGetStackingMinimum,
   readOnlyUpdatedBalancesGivenCycle,
 } from './functionsReadOnly';
@@ -52,6 +55,7 @@ import { TxBroadcastResult } from '@stacks/transactions';
 //   b. if it didn't call update balances -> set that txid somewhere to check its status, the block height when it was called and nonce
 //      if after 10 blocks it didn't confirmed, increase the fee and call it with same nonce
 // 2. reward phase
+//   extend stacking current users
 //   create signature
 //   check partial stacked from pox-4 (you need pox-address and reward cycle), if partial stacked > min threshold (also from pox-4)
 //     call maybe-commit-aggregate
@@ -95,7 +99,7 @@ const runtime = async () => {
     // would throw this error when in the block when prepare phase end and reward phase starts,
     // The API updates the cycle id 1 block faster (from block 0 in reward phase), the SC waits for the first reward block to update it
     // this block height is when reward phase lenth === blocks until prepare phase
-    // TODO: is the same when on prepare phase?
+    // added conditional so no unexpected behavior happens when getting this case
     if (
       rewardCycleId !== currentCycleIdApi &&
       getRewardPhaseBlockLength(poxAPIData) !==
@@ -110,7 +114,6 @@ const runtime = async () => {
       );
     } else {
       // check is prepare phase
-      // const isPreparePhase = await readOnlyIsPreparePhaseNow(); // overflow read_legth
       const isPreparePhase = isInPreparePhase(poxAPIData);
       if (isPreparePhase) logData(LogTypeMessage.Info, `is in prepare phase`);
       else logData(LogTypeMessage.Info, `is in reward phase`);
@@ -206,6 +209,25 @@ const runtime = async () => {
         }
       } else {
         // is reward phase
+
+        // check when possible to call delegate-stack-stx-many from stacking-pool
+        // when possible, call it and save it to json file
+        if (!localJson.delegated_stack_stx_many_this_cycle) {
+          const checkCanDelegateAgainNow =
+            await readOnlyCheckCanDelegateAgainNow(rewardCycleId);
+          if (checkCanDelegateAgainNow) {
+            // TODO: maybe overflow here
+            const stackersAddresses = await readOnlyGetStackersList();
+            const txResponse: TxBroadcastResult =
+              await contractCallFunctionDelegateStackStxMany(stackersAddresses);
+            if (txResponse.reason === undefined) {
+              localJson.delegated_stack_stx_many_this_cycle = true;
+              localJson.delegated_stack_stx_many_txid = txResponse.txid;
+              writeJsonData(localJson);
+            }
+            logContractCallBroadcast(txResponse);
+          }
+        }
 
         ///// signing part
         const partialStackedByCycle = await readOnlyGetPartialStackedByCycle(

@@ -6,8 +6,10 @@
   "update_balances_burn_block_height": 9130,
   "commit_agg_this_cycle": true,
   "commit_agg_burn_block_height": 10,
+  "commit_agg_txid": "cefda7ea243294d95173d1d16f94a6f8efb8fd9f138cb421b350d6d008ba0653",
   "increase_agg_burn_block_height": 9940,
   "partial_stacked": 0,
   "distribute_rewards_last_burn_block_height": 9801,
-  "commit_agg_txid": "cefda7ea243294d95173d1d16f94a6f8efb8fd9f138cb421b350d6d008ba0653"
+  "delegated_stack_stx_many_this_cycle": true,
+  "delegated_stack_stx_many_txid": "something"
 }
