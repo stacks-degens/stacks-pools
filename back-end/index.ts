@@ -409,18 +409,8 @@ const runtime = async () => {
 // cron job every 50 seconds
 runtime();
 
-// new CronJob(
-//   '0 */1 * * * *', // every minute
-//   () => {
-//     runtime();
-//   }, // onTick
-//   null, // onComplete
-//   true, // start
-//   'America/Los_Angeles', // timeZone
-// );
-
 new CronJob(
-  '*/10 * * * * *', // every minute
+  '0 */1 * * * *', // every minute
   () => {
     runtime();
   }, // onTick
@@ -428,3 +418,13 @@ new CronJob(
   true, // start
   'America/Los_Angeles', // timeZone
 );
+
+// new CronJob(
+//   '*/10 * * * * *', // every minute
+//   () => {
+//     runtime();
+//   }, // onTick
+//   null, // onComplete
+//   true, // start
+//   'America/Los_Angeles', // timeZone
+// );
