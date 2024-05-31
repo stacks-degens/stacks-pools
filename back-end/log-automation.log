@@ -787,3 +787,91 @@
 2024-05-28T13:43:00.311Z - INFO - current burn block height: 13730
 2024-05-28T13:43:00.505Z - INFO - current cycle: 14
 2024-05-28T13:43:00.507Z - INFO - is in reward phase
+2024-05-31T19:31:22.948Z - INFO - current cycle changed from 16 to: 16
+2024-05-31T19:34:34.247Z - INFO - current burn block height: 15285
+2024-05-31T20:10:01.060Z - INFO - current burn block height: 15299
+2024-05-31T20:10:19.307Z - INFO - current cycle: 16
+2024-05-31T20:10:45.626Z - INFO - is in reward phase
+2024-05-31T20:12:01.830Z - INFO - current burn block height: 15299
+2024-05-31T20:12:02.298Z - INFO - current cycle: 16
+2024-05-31T20:12:02.298Z - INFO - is in reward phase
+2024-05-31T20:12:35.300Z - INFO - current burn block height: 15300
+2024-05-31T20:12:35.504Z - INFO - current cycle: 16
+2024-05-31T20:12:35.505Z - INFO - is in reward phase
+2024-05-31T20:13:07.914Z - INFO - current burn block height: 15300
+2024-05-31T20:13:08.225Z - INFO - current cycle: 16
+2024-05-31T20:13:08.225Z - INFO - is in reward phase
+2024-05-31T20:17:00.741Z - INFO - update balances tx 34818e2bcaf80a3f623620d3e25526017d5bd4c711f10e68940630007bea004e 
+
+      api link: https://api.nakamoto.testnet.hiro.so/extended/v1/tx/34818e2bcaf80a3f623620d3e25526017d5bd4c711f10e68940630007bea004e 
+
+      explorer link: https://explorer.hiro.so/txid/34818e2bcaf80a3f623620d3e25526017d5bd4c711f10e68940630007bea004e?chain=testnet&api=https://api.nakamoto.testnet.hiro.so
+2024-05-31T20:17:33.673Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-31T20:17:35.937Z - INFO - partial stacked by cycle 17: 0
+2024-05-31T20:18:08.906Z - INFO - stacking minimum by cycle 17: 16445189296302
+2024-05-31T20:35:24.765Z - INFO - current burn block height: 15307
+2024-05-31T20:35:25.052Z - INFO - current cycle: 16
+2024-05-31T20:35:25.053Z - INFO - is in reward phase
+2024-05-31T20:35:25.245Z - INFO - partial stacked by cycle 17: 3999999989000000
+2024-05-31T20:35:25.629Z - INFO - stacking minimum by cycle 17: 16445190046302
+2024-05-31T20:35:26.476Z - INFO - partial stacked enough, performed agg-commit
+2024-05-31T20:35:26.477Z - INFO - update balances tx 595334465a26f11c543b2adcb19d133d2fb2bd292487e8e8b756c591758793d7 
+
+      api link: https://api.nakamoto.testnet.hiro.so/extended/v1/tx/595334465a26f11c543b2adcb19d133d2fb2bd292487e8e8b756c591758793d7 
+
+      explorer link: https://explorer.hiro.so/txid/595334465a26f11c543b2adcb19d133d2fb2bd292487e8e8b756c591758793d7?chain=testnet&api=https://api.nakamoto.testnet.hiro.so
+2024-05-31T20:54:30.056Z - INFO - current burn block height: 15314
+2024-05-31T20:54:30.358Z - INFO - current cycle: 16
+2024-05-31T20:54:30.359Z - INFO - is in reward phase
+2024-05-31T20:54:30.540Z - INFO - partial stacked by cycle 17: 3999999989000000
+2024-05-31T20:54:31.059Z - INFO - stacking minimum by cycle 17: 16445190921302
+2024-05-31T20:56:10.971Z - INFO - current burn block height: 15314
+2024-05-31T20:56:11.257Z - INFO - current cycle: 16
+2024-05-31T20:56:11.257Z - INFO - is in reward phase
+2024-05-31T20:56:11.445Z - INFO - partial stacked by cycle 17: 3999999989000000
+2024-05-31T20:56:11.925Z - INFO - stacking minimum by cycle 17: 16445190921302
+2024-05-31T20:56:12.915Z - INFO - partial stacked enough, performed agg-commit
+2024-05-31T20:56:12.915Z - INFO - maybe-stack-aggregation-commit > agg-commit tx 199da1be714d951037af6d44b63fb4e6819ccd166dd1c9bcdaef9706a426e86b 
+
+      api link: https://api.nakamoto.testnet.hiro.so/extended/v1/tx/199da1be714d951037af6d44b63fb4e6819ccd166dd1c9bcdaef9706a426e86b 
+
+      explorer link: https://explorer.hiro.so/txid/199da1be714d951037af6d44b63fb4e6819ccd166dd1c9bcdaef9706a426e86b?chain=testnet&api=https://api.nakamoto.testnet.hiro.so
+2024-05-31T21:07:34.404Z - INFO - current burn block height: 15318
+2024-05-31T21:07:34.708Z - INFO - current cycle: 16
+2024-05-31T21:07:34.709Z - INFO - is in reward phase
+2024-05-31T21:07:34.888Z - INFO - partial stacked by cycle 17: 3999999989000000
+2024-05-31T21:07:35.431Z - INFO - stacking minimum by cycle 17: 16445191421302
+2024-05-31T21:07:47.063Z - INFO - partial stacked enough, performed agg-commit
+2024-05-31T21:07:48.098Z - INFO - maybe-stack-aggregation-commit > agg-commit tx d48bfd29d6829c38c4169c82ba25bb5f7f465c0b23f371bdbd9570d7dfde2ac3       api link: https://api.nakamoto.testnet.hiro.so/extended/v1/tx/d48bfd29d6829c38c4169c82ba25bb5f7f465c0b23f371bdbd9570d7dfde2ac3       explorer link: https://explorer.hiro.so/txid/d48bfd29d6829c38c4169c82ba25bb5f7f465c0b23f371bdbd9570d7dfde2ac3?chain=testnet&api=https://api.nakamoto.testnet.hiro.so
+2024-05-31T21:21:35.778Z - INFO - current burn block height: 15322
+2024-05-31T21:21:36.093Z - INFO - current cycle: 16
+2024-05-31T21:21:36.093Z - INFO - is in reward phase
+2024-05-31T21:21:36.279Z - INFO - partial stacked by cycle 17: 24659981994000
+2024-05-31T21:22:08.270Z - INFO - current burn block height: 15323
+2024-05-31T21:22:08.459Z - INFO - current cycle: 16
+2024-05-31T21:22:08.459Z - INFO - is in reward phase
+2024-05-31T21:22:08.644Z - INFO - partial stacked by cycle 17: 24659981994000
+2024-05-31T21:22:51.693Z - INFO - current burn block height: 15323
+2024-05-31T21:22:51.988Z - INFO - current cycle: 16
+2024-05-31T21:22:51.988Z - INFO - is in reward phase
+2024-05-31T21:22:52.175Z - INFO - partial stacked by cycle 17: 24659981994000
+2024-05-31T21:23:44.956Z - INFO - current burn block height: 15323
+2024-05-31T21:23:45.258Z - INFO - current cycle: 16
+2024-05-31T21:23:45.258Z - INFO - is in reward phase
+2024-05-31T21:23:45.441Z - INFO - partial stacked by cycle 17: 24659981994000
+2024-05-31T21:27:16.315Z - INFO - current burn block height: 15324
+2024-05-31T21:27:16.620Z - INFO - current cycle: 16
+2024-05-31T21:27:16.620Z - INFO - is in reward phase
+2024-05-31T21:27:16.816Z - INFO - partial stacked by cycle 17: 24659981994000
+2024-05-31T21:27:19.546Z - INFO - partial stacked enough and offset passed, performed agg-increase
+2024-05-31T21:27:19.547Z - INFO - maybe-stack-aggregation-commit > agg-increase tx 99bd65109013efde0d7fb7d31c250e216bff1b8d78fcc913745e32998af59010
+      api link: https://api.nakamoto.testnet.hiro.so/extended/v1/tx/99bd65109013efde0d7fb7d31c250e216bff1b8d78fcc913745e32998af59010
+      explorer link: https://explorer.hiro.so/txid/99bd65109013efde0d7fb7d31c250e216bff1b8d78fcc913745e32998af59010?chain=testnet&api=https://api.nakamoto.testnet.hiro.so
+2024-05-31T21:33:20.175Z - INFO - current burn block height: 15327
+2024-05-31T21:33:20.487Z - INFO - current cycle: 16
+2024-05-31T21:33:20.487Z - INFO - is in reward phase
+2024-05-31T21:33:20.670Z - INFO - partial stacked by cycle 17: 24659981994000
+2024-05-31T21:33:23.005Z - INFO - partial stacked enough and offset passed, performed agg-increase
+2024-05-31T21:33:23.006Z - INFO - maybe-stack-aggregation-commit > agg-increase tx bc64f4af5c0049d8c06895f28196e6232b6b9fe2636da04b08131c2b2a301732
+      api link: https://api.nakamoto.testnet.hiro.so/extended/v1/tx/bc64f4af5c0049d8c06895f28196e6232b6b9fe2636da04b08131c2b2a301732
+      explorer link: https://explorer.hiro.so/txid/bc64f4af5c0049d8c06895f28196e6232b6b9fe2636da04b08131c2b2a301732?chain=testnet&api=https://api.nakamoto.testnet.hiro.so

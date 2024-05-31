@@ -1,4 +1,4 @@
-export const maxAmount = 90000000000000;
+export const maxAmount = 9000000000000000;
 
 export const blockSpanAggIncrease = {
   mainnet: 300,
