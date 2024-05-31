@@ -205,3 +205,585 @@
 2024-05-27T22:19:00.720Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
 2024-05-27T22:19:00.720Z - INFO - partial stacked by cycle 15: 0
 2024-05-27T22:19:01.214Z - INFO - stacking minimum by cycle 15: 16444954804302
+2024-05-27T22:21:20.207Z - INFO - current burn block height: 13423
+2024-05-27T22:21:20.516Z - INFO - current cycle: 14
+2024-05-27T22:21:20.516Z - INFO - is in reward phase
+2024-05-27T22:21:20.681Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T22:21:20.681Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T22:21:21.165Z - INFO - stacking minimum by cycle 15: 16444954929302
+2024-05-27T22:24:20.215Z - INFO - current burn block height: 13424
+2024-05-27T22:24:20.505Z - INFO - current cycle: 14
+2024-05-27T22:24:20.506Z - INFO - is in reward phase
+2024-05-27T22:24:20.677Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T22:24:20.677Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T22:24:21.175Z - INFO - stacking minimum by cycle 15: 16444955179302
+2024-05-27T22:27:20.230Z - INFO - current burn block height: 13425
+2024-05-27T22:27:20.569Z - INFO - current cycle: 14
+2024-05-27T22:27:20.570Z - INFO - is in reward phase
+2024-05-27T22:27:20.851Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T22:27:20.852Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T22:27:21.346Z - INFO - stacking minimum by cycle 15: 16444955304302
+2024-05-27T22:30:20.200Z - INFO - current burn block height: 13426
+2024-05-27T22:30:20.483Z - INFO - current cycle: 14
+2024-05-27T22:30:20.484Z - INFO - is in reward phase
+2024-05-27T22:30:20.649Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T22:30:20.649Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T22:30:21.158Z - INFO - stacking minimum by cycle 15: 16444955429302
+2024-05-27T22:33:20.223Z - INFO - current burn block height: 13427
+2024-05-27T22:33:20.612Z - INFO - current cycle: 14
+2024-05-27T22:33:20.613Z - INFO - is in reward phase
+2024-05-27T22:33:20.775Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T22:33:20.776Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T22:33:21.386Z - INFO - stacking minimum by cycle 15: 16444955554302
+2024-05-27T22:37:00.230Z - INFO - current burn block height: 13428
+2024-05-27T22:37:00.511Z - INFO - current cycle: 14
+2024-05-27T22:37:00.511Z - INFO - is in reward phase
+2024-05-27T22:37:00.667Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T22:37:00.668Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T22:37:01.228Z - INFO - stacking minimum by cycle 15: 16444955679302
+2024-05-27T22:40:00.249Z - INFO - current burn block height: 13429
+2024-05-27T22:40:00.595Z - INFO - current cycle: 14
+2024-05-27T22:40:00.596Z - INFO - is in reward phase
+2024-05-27T22:40:00.759Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T22:40:00.759Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T22:40:01.262Z - INFO - stacking minimum by cycle 15: 16444955804302
+2024-05-27T22:43:00.245Z - INFO - current burn block height: 13430
+2024-05-27T22:43:00.529Z - INFO - current cycle: 14
+2024-05-27T22:43:00.529Z - INFO - is in reward phase
+2024-05-27T22:43:00.692Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T22:43:00.693Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T22:43:01.193Z - INFO - stacking minimum by cycle 15: 16444955929302
+2024-05-27T22:46:00.258Z - INFO - current burn block height: 13431
+2024-05-27T22:46:00.554Z - INFO - current cycle: 14
+2024-05-27T22:46:00.555Z - INFO - is in reward phase
+2024-05-27T22:46:00.716Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T22:46:00.717Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T22:46:01.212Z - INFO - stacking minimum by cycle 15: 16444956054302
+2024-05-27T22:48:20.268Z - INFO - current burn block height: 13432
+2024-05-27T22:48:20.624Z - INFO - current cycle: 14
+2024-05-27T22:48:20.624Z - INFO - is in reward phase
+2024-05-27T22:48:20.784Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T22:48:20.784Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T22:48:21.291Z - INFO - stacking minimum by cycle 15: 16444956179302
+2024-05-27T22:51:20.227Z - INFO - current burn block height: 13433
+2024-05-27T22:51:20.543Z - INFO - current cycle: 14
+2024-05-27T22:51:20.543Z - INFO - is in reward phase
+2024-05-27T22:51:20.705Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T22:51:20.705Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T22:51:21.232Z - INFO - stacking minimum by cycle 15: 16444956304302
+2024-05-27T22:54:20.231Z - INFO - current burn block height: 13434
+2024-05-27T22:54:20.573Z - INFO - current cycle: 14
+2024-05-27T22:54:20.574Z - INFO - is in reward phase
+2024-05-27T22:54:20.731Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T22:54:20.731Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T22:54:21.088Z - INFO - stacking minimum by cycle 15: 16444956429302
+2024-05-27T22:57:20.227Z - INFO - current burn block height: 13435
+2024-05-27T22:57:20.588Z - INFO - current cycle: 14
+2024-05-27T22:57:20.589Z - INFO - is in reward phase
+2024-05-27T22:57:20.747Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T22:57:20.748Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T22:57:21.125Z - INFO - stacking minimum by cycle 15: 16444956554302
+2024-05-27T23:00:20.210Z - INFO - current burn block height: 13436
+2024-05-27T23:00:20.483Z - INFO - current cycle: 14
+2024-05-27T23:00:20.483Z - INFO - is in reward phase
+2024-05-27T23:00:20.643Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T23:00:20.644Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T23:00:21.111Z - INFO - stacking minimum by cycle 15: 16444956679302
+2024-05-27T23:03:40.241Z - INFO - current burn block height: 13437
+2024-05-27T23:03:40.525Z - INFO - current cycle: 14
+2024-05-27T23:03:40.526Z - INFO - is in reward phase
+2024-05-27T23:03:40.695Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T23:03:40.695Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T23:03:41.284Z - INFO - stacking minimum by cycle 15: 16444956804302
+2024-05-27T23:06:20.201Z - INFO - current burn block height: 13438
+2024-05-27T23:06:20.557Z - INFO - current cycle: 14
+2024-05-27T23:06:20.558Z - INFO - is in reward phase
+2024-05-27T23:06:20.714Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T23:06:20.715Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T23:06:21.181Z - INFO - stacking minimum by cycle 15: 16444956929302
+2024-05-27T23:10:00.231Z - INFO - current burn block height: 13439
+2024-05-27T23:10:00.519Z - INFO - current cycle: 14
+2024-05-27T23:10:00.519Z - INFO - is in reward phase
+2024-05-27T23:10:00.696Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T23:10:00.697Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T23:10:01.081Z - INFO - stacking minimum by cycle 15: 16444957054302
+2024-05-27T23:13:00.254Z - INFO - current burn block height: 13440
+2024-05-27T23:13:00.536Z - INFO - current cycle: 14
+2024-05-27T23:13:00.537Z - INFO - is in reward phase
+2024-05-27T23:13:00.713Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T23:13:00.714Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T23:13:01.316Z - INFO - stacking minimum by cycle 15: 16444957179302
+2024-05-27T23:16:00.243Z - INFO - current burn block height: 13441
+2024-05-27T23:16:00.529Z - INFO - current cycle: 14
+2024-05-27T23:16:00.530Z - INFO - is in reward phase
+2024-05-27T23:16:00.695Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T23:16:00.696Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T23:16:01.218Z - INFO - stacking minimum by cycle 15: 16444957304302
+2024-05-27T23:19:00.242Z - INFO - current burn block height: 13442
+2024-05-27T23:19:00.537Z - INFO - current cycle: 14
+2024-05-27T23:19:00.537Z - INFO - is in reward phase
+2024-05-27T23:19:00.711Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T23:19:00.711Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T23:19:01.263Z - INFO - stacking minimum by cycle 15: 16444957429302
+2024-05-27T23:22:00.249Z - INFO - current burn block height: 13443
+2024-05-27T23:22:00.413Z - INFO - current cycle: 14
+2024-05-27T23:22:00.414Z - INFO - is in reward phase
+2024-05-27T23:22:00.570Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T23:22:00.570Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T23:22:01.062Z - INFO - stacking minimum by cycle 15: 16444957554302
+2024-05-27T23:25:00.261Z - INFO - current burn block height: 13444
+2024-05-27T23:25:00.563Z - INFO - current cycle: 14
+2024-05-27T23:25:00.563Z - INFO - is in reward phase
+2024-05-27T23:25:00.732Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T23:25:00.732Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T23:25:01.324Z - INFO - stacking minimum by cycle 15: 16444957679302
+2024-05-27T23:28:00.240Z - INFO - current burn block height: 13445
+2024-05-27T23:28:00.550Z - INFO - current cycle: 14
+2024-05-27T23:28:00.550Z - INFO - is in reward phase
+2024-05-27T23:28:00.705Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T23:28:00.706Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T23:28:01.204Z - INFO - stacking minimum by cycle 15: 16444957804302
+2024-05-27T23:31:00.242Z - INFO - current burn block height: 13446
+2024-05-27T23:31:00.538Z - INFO - current cycle: 14
+2024-05-27T23:31:00.539Z - INFO - is in reward phase
+2024-05-27T23:31:00.701Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T23:31:00.701Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T23:31:01.243Z - INFO - stacking minimum by cycle 15: 16444957929302
+2024-05-27T23:36:00.233Z - INFO - current burn block height: 13447
+2024-05-27T23:36:00.609Z - INFO - current cycle: 14
+2024-05-27T23:36:00.609Z - INFO - is in reward phase
+2024-05-27T23:36:00.770Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T23:36:00.770Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T23:36:01.237Z - INFO - stacking minimum by cycle 15: 16444958054302
+2024-05-27T23:39:00.245Z - INFO - current burn block height: 13448
+2024-05-27T23:39:00.538Z - INFO - current cycle: 14
+2024-05-27T23:39:00.539Z - INFO - is in reward phase
+2024-05-27T23:39:00.697Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T23:39:00.697Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T23:39:01.212Z - INFO - stacking minimum by cycle 15: 16444958179302
+2024-05-27T23:42:00.247Z - INFO - current burn block height: 13449
+2024-05-27T23:42:00.555Z - INFO - current cycle: 14
+2024-05-27T23:42:00.555Z - INFO - is in reward phase
+2024-05-27T23:42:00.726Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T23:42:00.726Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T23:42:01.218Z - INFO - stacking minimum by cycle 15: 16444958304302
+2024-05-27T23:44:00.222Z - INFO - current burn block height: 13450
+2024-05-27T23:44:00.502Z - INFO - current cycle: 14
+2024-05-27T23:44:00.503Z - INFO - is in reward phase
+2024-05-27T23:44:00.665Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T23:44:00.665Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T23:44:01.152Z - INFO - stacking minimum by cycle 15: 16444958429302
+2024-05-27T23:46:00.250Z - INFO - current burn block height: 13451
+2024-05-27T23:46:00.537Z - INFO - current cycle: 14
+2024-05-27T23:46:00.538Z - INFO - is in reward phase
+2024-05-27T23:46:00.717Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T23:46:00.717Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T23:46:01.224Z - INFO - stacking minimum by cycle 15: 16444958554302
+2024-05-27T23:49:00.227Z - INFO - current burn block height: 13452
+2024-05-27T23:49:00.552Z - INFO - current cycle: 14
+2024-05-27T23:49:00.553Z - INFO - is in reward phase
+2024-05-27T23:49:00.710Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T23:49:00.710Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T23:49:01.295Z - INFO - stacking minimum by cycle 15: 16444958679302
+2024-05-27T23:52:00.236Z - INFO - current burn block height: 13453
+2024-05-27T23:52:00.400Z - INFO - current cycle: 14
+2024-05-27T23:52:00.400Z - INFO - is in reward phase
+2024-05-27T23:52:00.554Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T23:52:00.554Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T23:52:01.096Z - INFO - stacking minimum by cycle 15: 16444958804302
+2024-05-27T23:55:00.243Z - INFO - current burn block height: 13454
+2024-05-27T23:55:00.525Z - INFO - current cycle: 14
+2024-05-27T23:55:00.526Z - INFO - is in reward phase
+2024-05-27T23:55:00.691Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T23:55:00.691Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T23:55:01.186Z - INFO - stacking minimum by cycle 15: 16444958929302
+2024-05-27T23:58:00.245Z - INFO - current burn block height: 13455
+2024-05-27T23:58:00.574Z - INFO - current cycle: 14
+2024-05-27T23:58:00.574Z - INFO - is in reward phase
+2024-05-27T23:58:00.730Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-27T23:58:00.730Z - INFO - partial stacked by cycle 15: 0
+2024-05-27T23:58:01.241Z - INFO - stacking minimum by cycle 15: 16444959054302
+2024-05-28T00:01:00.245Z - INFO - current burn block height: 13456
+2024-05-28T00:01:00.548Z - INFO - current cycle: 14
+2024-05-28T00:01:00.549Z - INFO - is in reward phase
+2024-05-28T00:01:00.711Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T00:01:00.711Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T00:01:01.268Z - INFO - stacking minimum by cycle 15: 16444959179302
+2024-05-28T00:05:00.231Z - INFO - current burn block height: 13457
+2024-05-28T00:05:00.529Z - INFO - current cycle: 14
+2024-05-28T00:05:00.530Z - INFO - is in reward phase
+2024-05-28T00:05:00.686Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T00:05:00.686Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T00:05:01.208Z - INFO - stacking minimum by cycle 15: 16444959304302
+2024-05-28T00:07:00.273Z - INFO - current burn block height: 13458
+2024-05-28T00:07:00.545Z - INFO - current cycle: 14
+2024-05-28T00:07:00.546Z - INFO - is in reward phase
+2024-05-28T00:07:00.698Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T00:07:00.698Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T00:07:01.215Z - INFO - stacking minimum by cycle 15: 16444959429302
+2024-05-28T00:10:00.232Z - INFO - current burn block height: 13459
+2024-05-28T00:10:00.521Z - INFO - current cycle: 14
+2024-05-28T00:10:00.521Z - INFO - is in reward phase
+2024-05-28T00:10:00.679Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T00:10:00.679Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T00:10:01.231Z - INFO - stacking minimum by cycle 15: 16444959554302
+2024-05-28T00:13:00.244Z - INFO - current burn block height: 13460
+2024-05-28T00:13:00.525Z - INFO - current cycle: 14
+2024-05-28T00:13:00.525Z - INFO - is in reward phase
+2024-05-28T00:13:00.700Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T00:13:00.700Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T00:13:01.188Z - INFO - stacking minimum by cycle 15: 16444959679302
+2024-05-28T00:16:00.222Z - INFO - current burn block height: 13461
+2024-05-28T00:16:00.613Z - INFO - current cycle: 14
+2024-05-28T00:16:00.614Z - INFO - is in reward phase
+2024-05-28T00:16:00.775Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T00:16:00.775Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T00:16:01.293Z - INFO - stacking minimum by cycle 15: 16444959804302
+2024-05-28T00:19:00.437Z - INFO - current burn block height: 13462
+2024-05-28T00:19:00.721Z - INFO - current cycle: 14
+2024-05-28T00:19:00.725Z - INFO - is in reward phase
+2024-05-28T00:19:00.879Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T00:19:00.879Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T00:19:01.419Z - INFO - stacking minimum by cycle 15: 16444959929302
+2024-05-28T00:22:00.252Z - INFO - current burn block height: 13463
+2024-05-28T00:22:00.554Z - INFO - current cycle: 14
+2024-05-28T00:22:00.555Z - INFO - is in reward phase
+2024-05-28T00:22:00.721Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T00:22:00.721Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T00:22:01.225Z - INFO - stacking minimum by cycle 15: 16444960054302
+2024-05-28T00:25:00.249Z - INFO - current burn block height: 13464
+2024-05-28T00:25:00.578Z - INFO - current cycle: 14
+2024-05-28T00:25:00.578Z - INFO - is in reward phase
+2024-05-28T00:25:00.742Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T00:25:00.742Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T00:25:01.253Z - INFO - stacking minimum by cycle 15: 16444960179302
+2024-05-28T00:28:00.219Z - INFO - current burn block height: 13465
+2024-05-28T00:28:00.579Z - INFO - current cycle: 14
+2024-05-28T00:28:00.580Z - INFO - is in reward phase
+2024-05-28T00:28:00.745Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T00:28:00.745Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T00:28:01.217Z - INFO - stacking minimum by cycle 15: 16444960304302
+2024-05-28T00:31:00.305Z - INFO - current burn block height: 13466
+2024-05-28T00:31:00.612Z - INFO - current cycle: 14
+2024-05-28T00:31:00.612Z - INFO - is in reward phase
+2024-05-28T00:31:00.788Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T00:31:00.789Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T00:31:01.300Z - INFO - stacking minimum by cycle 15: 16444960429302
+2024-05-28T00:34:00.249Z - INFO - current burn block height: 13467
+2024-05-28T00:34:00.539Z - INFO - current cycle: 14
+2024-05-28T00:34:00.539Z - INFO - is in reward phase
+2024-05-28T00:34:00.696Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T00:34:00.697Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T00:34:01.213Z - INFO - stacking minimum by cycle 15: 16444960554302
+2024-05-28T00:37:00.242Z - INFO - current burn block height: 13468
+2024-05-28T00:37:00.564Z - INFO - current cycle: 14
+2024-05-28T00:37:00.564Z - INFO - is in reward phase
+2024-05-28T00:37:00.725Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T00:37:00.725Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T00:37:01.244Z - INFO - stacking minimum by cycle 15: 16444960679302
+2024-05-28T00:40:00.234Z - INFO - current burn block height: 13469
+2024-05-28T00:40:00.526Z - INFO - current cycle: 14
+2024-05-28T00:40:00.527Z - INFO - is in reward phase
+2024-05-28T00:40:00.687Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T00:40:00.687Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T00:40:01.043Z - INFO - stacking minimum by cycle 15: 16444960804302
+2024-05-28T00:43:00.257Z - INFO - current burn block height: 13470
+2024-05-28T00:43:00.613Z - INFO - current cycle: 14
+2024-05-28T00:43:00.614Z - INFO - is in reward phase
+2024-05-28T00:43:00.774Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T00:43:00.774Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T00:43:01.214Z - INFO - stacking minimum by cycle 15: 16444960929302
+2024-05-28T00:46:00.253Z - INFO - current burn block height: 13471
+2024-05-28T00:46:00.534Z - INFO - current cycle: 14
+2024-05-28T00:46:00.534Z - INFO - is in reward phase
+2024-05-28T00:46:00.695Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T00:46:00.695Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T00:46:01.203Z - INFO - stacking minimum by cycle 15: 16444961054302
+2024-05-28T00:49:00.249Z - INFO - current burn block height: 13472
+2024-05-28T00:49:00.555Z - INFO - current cycle: 14
+2024-05-28T00:49:00.556Z - INFO - is in reward phase
+2024-05-28T00:49:00.717Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T00:49:00.717Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T00:49:01.230Z - INFO - stacking minimum by cycle 15: 16444961179302
+2024-05-28T00:52:00.222Z - INFO - current burn block height: 13473
+2024-05-28T00:52:00.582Z - INFO - current cycle: 14
+2024-05-28T00:52:00.583Z - INFO - is in reward phase
+2024-05-28T00:52:00.739Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T00:52:00.740Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T00:52:01.247Z - INFO - stacking minimum by cycle 15: 16444961304302
+2024-05-28T00:55:00.240Z - INFO - current burn block height: 13474
+2024-05-28T00:55:00.528Z - INFO - current cycle: 14
+2024-05-28T00:55:00.528Z - INFO - is in reward phase
+2024-05-28T00:55:00.685Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T00:55:00.685Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T00:55:01.272Z - INFO - stacking minimum by cycle 15: 16444961429302
+2024-05-28T00:58:00.258Z - INFO - current burn block height: 13475
+2024-05-28T00:58:00.433Z - INFO - current cycle: 14
+2024-05-28T00:58:00.433Z - INFO - is in reward phase
+2024-05-28T00:58:00.600Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T00:58:00.600Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T00:58:01.088Z - INFO - stacking minimum by cycle 15: 16444961554302
+2024-05-28T01:01:00.624Z - INFO - current burn block height: 13476
+2024-05-28T01:01:00.954Z - INFO - current cycle: 14
+2024-05-28T01:01:00.954Z - INFO - is in reward phase
+2024-05-28T01:01:01.110Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T01:01:01.110Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T01:01:01.641Z - INFO - stacking minimum by cycle 15: 16444961679302
+2024-05-28T01:04:00.245Z - INFO - current burn block height: 13477
+2024-05-28T01:04:00.422Z - INFO - current cycle: 14
+2024-05-28T01:04:00.422Z - INFO - is in reward phase
+2024-05-28T01:04:00.576Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T01:04:00.576Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T01:04:01.132Z - INFO - stacking minimum by cycle 15: 16444961804302
+2024-05-28T01:07:00.237Z - INFO - current burn block height: 13478
+2024-05-28T01:07:00.594Z - INFO - current cycle: 14
+2024-05-28T01:07:00.595Z - INFO - is in reward phase
+2024-05-28T01:07:00.764Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T01:07:00.764Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T01:07:01.326Z - INFO - stacking minimum by cycle 15: 16444961929302
+2024-05-28T01:10:00.286Z - INFO - current burn block height: 13479
+2024-05-28T01:10:00.618Z - INFO - current cycle: 14
+2024-05-28T01:10:00.619Z - INFO - is in reward phase
+2024-05-28T01:10:00.780Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T01:10:00.780Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T01:10:01.293Z - INFO - stacking minimum by cycle 15: 16444962054302
+2024-05-28T01:13:00.235Z - INFO - current burn block height: 13480
+2024-05-28T01:13:00.542Z - INFO - current cycle: 14
+2024-05-28T01:13:00.543Z - INFO - is in reward phase
+2024-05-28T01:13:00.700Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T01:13:00.701Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T01:13:01.214Z - INFO - stacking minimum by cycle 15: 16444962179302
+2024-05-28T01:16:00.243Z - INFO - current burn block height: 13481
+2024-05-28T01:16:00.560Z - INFO - current cycle: 14
+2024-05-28T01:16:00.560Z - INFO - is in reward phase
+2024-05-28T01:16:00.718Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T01:16:00.718Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T01:16:01.230Z - INFO - stacking minimum by cycle 15: 16444962304302
+2024-05-28T01:20:00.250Z - INFO - current burn block height: 13482
+2024-05-28T01:20:00.595Z - INFO - current cycle: 14
+2024-05-28T01:20:00.596Z - INFO - is in reward phase
+2024-05-28T01:20:00.769Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T01:20:00.769Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T01:20:01.203Z - INFO - stacking minimum by cycle 15: 16444962429302
+2024-05-28T01:22:00.224Z - INFO - current burn block height: 13483
+2024-05-28T01:22:00.507Z - INFO - current cycle: 14
+2024-05-28T01:22:00.508Z - INFO - is in reward phase
+2024-05-28T01:22:00.665Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T01:22:00.665Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T01:22:01.128Z - INFO - stacking minimum by cycle 15: 16444962554302
+2024-05-28T01:25:00.250Z - INFO - current burn block height: 13484
+2024-05-28T01:25:00.414Z - INFO - current cycle: 14
+2024-05-28T01:25:00.415Z - INFO - is in reward phase
+2024-05-28T01:25:00.572Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T01:25:00.573Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T01:25:01.091Z - INFO - stacking minimum by cycle 15: 16444962679302
+2024-05-28T01:28:00.258Z - INFO - current burn block height: 13485
+2024-05-28T01:28:00.548Z - INFO - current cycle: 14
+2024-05-28T01:28:00.548Z - INFO - is in reward phase
+2024-05-28T01:28:00.729Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T01:28:00.729Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T01:28:01.220Z - INFO - stacking minimum by cycle 15: 16444962804302
+2024-05-28T01:31:00.248Z - INFO - current burn block height: 13486
+2024-05-28T01:31:00.546Z - INFO - current cycle: 14
+2024-05-28T01:31:00.547Z - INFO - is in reward phase
+2024-05-28T01:31:00.704Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T01:31:00.704Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T01:31:01.188Z - INFO - stacking minimum by cycle 15: 16444962929302
+2024-05-28T01:34:00.252Z - INFO - current burn block height: 13487
+2024-05-28T01:34:00.594Z - INFO - current cycle: 14
+2024-05-28T01:34:00.594Z - INFO - is in reward phase
+2024-05-28T01:34:00.753Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T01:34:00.754Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T01:34:01.218Z - INFO - stacking minimum by cycle 15: 16444963054302
+2024-05-28T01:37:00.222Z - INFO - current burn block height: 13488
+2024-05-28T01:37:00.617Z - INFO - current cycle: 14
+2024-05-28T01:37:00.617Z - INFO - is in reward phase
+2024-05-28T01:37:00.775Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T01:37:00.775Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T01:37:01.289Z - INFO - stacking minimum by cycle 15: 16444963179302
+2024-05-28T01:40:00.249Z - INFO - current burn block height: 13489
+2024-05-28T01:40:00.529Z - INFO - current cycle: 14
+2024-05-28T01:40:00.529Z - INFO - is in reward phase
+2024-05-28T01:40:00.698Z - ERROR - failed to get partial stacked by cycle: TypeError: Cannot read properties of null (reading 'value')
+2024-05-28T01:40:00.698Z - INFO - partial stacked by cycle 15: 0
+2024-05-28T11:35:14.001Z - INFO - current burn block height: 13687
+2024-05-28T11:35:14.302Z - INFO - current cycle: 14
+2024-05-28T11:35:14.302Z - INFO - is in prepare phase
+2024-05-28T11:35:14.302Z - INFO - updated balances this cycle false
+2024-05-28T11:35:15.077Z - INFO - update balances tx bdf9df9565b7455d12c44a6ccbb65c05f6ca079994b84b73add16ff152114bf6 
+
+      api link: https://api.nakamoto.testnet.hiro.so/extended/v1/tx/bdf9df9565b7455d12c44a6ccbb65c05f6ca079994b84b73add16ff152114bf6 
+
+      explorer link: https://explorer.hiro.so/txid/bdf9df9565b7455d12c44a6ccbb65c05f6ca079994b84b73add16ff152114bf6?chain=testnet&api=https://api.nakamoto.testnet.hiro.so
+2024-05-28T11:37:00.248Z - INFO - current burn block height: 13688
+2024-05-28T11:37:00.549Z - INFO - current cycle: 14
+2024-05-28T11:37:00.550Z - INFO - is in prepare phase
+2024-05-28T11:37:00.550Z - INFO - updated balances this cycle false
+2024-05-28T11:40:00.264Z - INFO - current burn block height: 13689
+2024-05-28T11:40:00.607Z - INFO - current cycle: 14
+2024-05-28T11:40:00.609Z - INFO - is in prepare phase
+2024-05-28T11:40:00.609Z - INFO - updated balances this cycle false
+2024-05-28T11:43:00.244Z - INFO - current burn block height: 13690
+2024-05-28T11:43:00.551Z - INFO - current cycle: 14
+2024-05-28T11:43:00.552Z - INFO - is in prepare phase
+2024-05-28T11:43:00.552Z - INFO - updated balances this cycle true
+2024-05-28T11:46:00.252Z - INFO - current burn block height: 13691
+2024-05-28T11:46:00.678Z - INFO - current cycle: 14
+2024-05-28T11:46:00.679Z - INFO - is in prepare phase
+2024-05-28T11:46:00.680Z - INFO - updated balances this cycle true
+2024-05-28T11:49:00.332Z - INFO - current burn block height: 13692
+2024-05-28T11:49:00.636Z - INFO - current cycle: 14
+2024-05-28T11:49:00.636Z - INFO - is in prepare phase
+2024-05-28T11:49:00.638Z - INFO - updated balances this cycle true
+2024-05-28T11:52:00.245Z - INFO - current burn block height: 13693
+2024-05-28T11:52:00.621Z - INFO - current cycle: 14
+2024-05-28T11:52:00.621Z - INFO - is in prepare phase
+2024-05-28T11:52:00.622Z - INFO - updated balances this cycle true
+2024-05-28T11:55:00.248Z - INFO - current burn block height: 13694
+2024-05-28T11:55:00.647Z - INFO - current cycle: 14
+2024-05-28T11:55:00.648Z - INFO - is in prepare phase
+2024-05-28T11:55:00.649Z - INFO - updated balances this cycle true
+2024-05-28T11:58:00.269Z - INFO - current burn block height: 13695
+2024-05-28T11:58:00.679Z - INFO - current cycle: 14
+2024-05-28T11:58:00.680Z - INFO - is in prepare phase
+2024-05-28T11:58:00.680Z - INFO - updated balances this cycle true
+2024-05-28T12:01:00.251Z - INFO - current burn block height: 13696
+2024-05-28T12:01:00.551Z - INFO - current cycle: 14
+2024-05-28T12:01:00.551Z - INFO - is in prepare phase
+2024-05-28T12:01:00.551Z - INFO - updated balances this cycle true
+2024-05-28T12:04:00.241Z - INFO - current burn block height: 13697
+2024-05-28T12:04:00.609Z - INFO - current cycle: 14
+2024-05-28T12:04:00.610Z - INFO - is in prepare phase
+2024-05-28T12:04:00.610Z - INFO - updated balances this cycle true
+2024-05-28T12:07:00.254Z - INFO - current burn block height: 13698
+2024-05-28T12:07:00.642Z - INFO - current cycle: 14
+2024-05-28T12:07:00.643Z - INFO - is in prepare phase
+2024-05-28T12:07:00.643Z - INFO - updated balances this cycle true
+2024-05-28T12:11:00.304Z - INFO - current burn block height: 13699
+2024-05-28T12:11:00.592Z - INFO - current cycle: 14
+2024-05-28T12:11:00.594Z - INFO - is in prepare phase
+2024-05-28T12:11:00.594Z - INFO - updated balances this cycle true
+2024-05-28T12:14:00.246Z - INFO - current burn block height: 13700
+2024-05-28T12:14:00.550Z - INFO - current cycle: 14
+2024-05-28T12:14:00.551Z - INFO - is in prepare phase
+2024-05-28T12:14:00.552Z - INFO - updated balances this cycle true
+2024-05-28T12:17:00.274Z - INFO - current burn block height: 13701
+2024-05-28T12:17:00.611Z - INFO - current cycle: 14
+2024-05-28T12:17:00.613Z - INFO - is in prepare phase
+2024-05-28T12:17:00.613Z - INFO - updated balances this cycle true
+2024-05-28T12:19:00.401Z - INFO - current burn block height: 13702
+2024-05-28T12:19:00.729Z - INFO - current cycle: 14
+2024-05-28T12:19:00.730Z - INFO - is in prepare phase
+2024-05-28T12:19:00.731Z - INFO - updated balances this cycle true
+2024-05-28T12:22:00.239Z - INFO - current burn block height: 13703
+2024-05-28T12:22:00.540Z - INFO - current cycle: 14
+2024-05-28T12:22:00.540Z - INFO - is in prepare phase
+2024-05-28T12:22:00.540Z - INFO - updated balances this cycle true
+2024-05-28T12:25:00.280Z - INFO - current burn block height: 13704
+2024-05-28T12:25:00.673Z - INFO - current cycle: 14
+2024-05-28T12:25:00.674Z - INFO - is in prepare phase
+2024-05-28T12:25:00.675Z - INFO - updated balances this cycle true
+2024-05-28T12:28:00.261Z - INFO - current burn block height: 13705
+2024-05-28T12:28:00.561Z - INFO - current cycle: 14
+2024-05-28T12:28:00.563Z - INFO - is in prepare phase
+2024-05-28T12:28:00.563Z - INFO - updated balances this cycle true
+2024-05-28T12:31:00.248Z - INFO - current burn block height: 13706
+2024-05-28T12:31:00.552Z - INFO - current cycle: 14
+2024-05-28T12:31:00.553Z - INFO - is in prepare phase
+2024-05-28T12:31:00.553Z - INFO - updated balances this cycle true
+2024-05-28T12:34:00.252Z - INFO - current burn block height: 13707
+2024-05-28T12:34:00.634Z - INFO - current cycle: 14
+2024-05-28T12:34:00.635Z - INFO - is in prepare phase
+2024-05-28T12:34:00.635Z - INFO - updated balances this cycle true
+2024-05-28T12:37:00.246Z - INFO - current burn block height: 13708
+2024-05-28T12:37:00.557Z - INFO - current cycle: 14
+2024-05-28T12:37:00.557Z - INFO - is in prepare phase
+2024-05-28T12:37:00.558Z - INFO - updated balances this cycle true
+2024-05-28T12:40:00.273Z - INFO - current burn block height: 13709
+2024-05-28T12:40:00.609Z - INFO - current cycle: 14
+2024-05-28T12:40:00.610Z - INFO - is in prepare phase
+2024-05-28T12:40:00.611Z - INFO - updated balances this cycle true
+2024-05-28T12:43:00.293Z - INFO - current burn block height: 13710
+2024-05-28T12:43:00.625Z - INFO - current cycle: 14
+2024-05-28T12:43:00.625Z - INFO - is in prepare phase
+2024-05-28T12:43:00.626Z - INFO - updated balances this cycle true
+2024-05-28T12:46:00.264Z - INFO - current burn block height: 13711
+2024-05-28T12:46:00.627Z - INFO - current cycle: 14
+2024-05-28T12:46:00.628Z - INFO - is in prepare phase
+2024-05-28T12:46:00.629Z - INFO - updated balances this cycle true
+2024-05-28T12:49:00.251Z - INFO - current burn block height: 13712
+2024-05-28T12:49:00.650Z - INFO - current cycle: 14
+2024-05-28T12:49:00.651Z - INFO - is in prepare phase
+2024-05-28T12:49:00.652Z - INFO - updated balances this cycle true
+2024-05-28T12:52:00.308Z - INFO - current burn block height: 13713
+2024-05-28T12:52:00.630Z - INFO - current cycle: 14
+2024-05-28T12:52:00.631Z - INFO - is in prepare phase
+2024-05-28T12:52:00.632Z - INFO - updated balances this cycle true
+2024-05-28T12:55:00.260Z - INFO - current burn block height: 13714
+2024-05-28T12:55:00.593Z - INFO - current cycle: 14
+2024-05-28T12:55:00.594Z - INFO - is in prepare phase
+2024-05-28T12:55:00.595Z - INFO - updated balances this cycle true
+2024-05-28T12:58:00.256Z - INFO - current burn block height: 13715
+2024-05-28T12:58:00.445Z - INFO - current cycle: 14
+2024-05-28T12:58:00.446Z - INFO - is in prepare phase
+2024-05-28T12:58:00.446Z - INFO - updated balances this cycle true
+2024-05-28T13:02:00.237Z - INFO - current burn block height: 13716
+2024-05-28T13:02:00.538Z - INFO - current cycle: 14
+2024-05-28T13:02:00.539Z - INFO - is in prepare phase
+2024-05-28T13:02:00.540Z - INFO - updated balances this cycle true
+2024-05-28T13:05:00.266Z - INFO - current burn block height: 13717
+2024-05-28T13:05:00.591Z - INFO - current cycle: 14
+2024-05-28T13:05:00.592Z - INFO - is in prepare phase
+2024-05-28T13:05:00.593Z - INFO - updated balances this cycle true
+2024-05-28T13:08:00.277Z - INFO - current burn block height: 13718
+2024-05-28T13:08:00.609Z - INFO - current cycle: 14
+2024-05-28T13:08:00.610Z - INFO - is in prepare phase
+2024-05-28T13:08:00.610Z - INFO - updated balances this cycle true
+2024-05-28T13:11:00.270Z - INFO - current burn block height: 13719
+2024-05-28T13:11:00.567Z - INFO - current cycle: 14
+2024-05-28T13:11:00.567Z - INFO - is in prepare phase
+2024-05-28T13:11:00.568Z - INFO - updated balances this cycle true
+2024-05-28T13:14:00.303Z - INFO - current burn block height: 13720
+2024-05-28T13:14:00.616Z - INFO - current cycle: 14
+2024-05-28T13:14:00.617Z - INFO - is in prepare phase
+2024-05-28T13:14:00.617Z - INFO - updated balances this cycle true
+2024-05-28T13:16:00.267Z - INFO - current burn block height: 13721
+2024-05-28T13:16:00.652Z - INFO - current cycle: 14
+2024-05-28T13:16:00.653Z - INFO - is in prepare phase
+2024-05-28T13:16:00.654Z - INFO - updated balances this cycle true
+2024-05-28T13:19:00.366Z - INFO - current burn block height: 13722
+2024-05-28T13:19:00.879Z - INFO - current cycle: 14
+2024-05-28T13:19:00.880Z - INFO - is in prepare phase
+2024-05-28T13:19:00.881Z - INFO - updated balances this cycle true
+2024-05-28T13:22:00.305Z - INFO - current burn block height: 13723
+2024-05-28T13:22:00.652Z - INFO - current cycle: 14
+2024-05-28T13:22:00.652Z - INFO - is in prepare phase
+2024-05-28T13:22:00.653Z - INFO - updated balances this cycle true
+2024-05-28T13:25:00.298Z - INFO - current burn block height: 13724
+2024-05-28T13:25:00.721Z - INFO - current cycle: 14
+2024-05-28T13:25:00.723Z - INFO - is in prepare phase
+2024-05-28T13:25:00.723Z - INFO - updated balances this cycle true
+2024-05-28T13:28:00.271Z - INFO - current burn block height: 13725
+2024-05-28T13:28:00.643Z - INFO - current cycle: 14
+2024-05-28T13:28:00.644Z - INFO - is in prepare phase
+2024-05-28T13:28:00.644Z - INFO - updated balances this cycle true
+2024-05-28T13:32:00.279Z - INFO - current burn block height: 13726
+2024-05-28T13:32:00.618Z - INFO - current cycle: 14
+2024-05-28T13:32:00.619Z - INFO - is in prepare phase
+2024-05-28T13:32:00.619Z - INFO - updated balances this cycle true
+2024-05-28T13:35:00.289Z - INFO - current burn block height: 13727
+2024-05-28T13:35:00.696Z - INFO - current cycle: 14
+2024-05-28T13:35:00.696Z - INFO - is in prepare phase
+2024-05-28T13:35:00.697Z - INFO - updated balances this cycle true
+2024-05-28T13:38:00.277Z - INFO - current burn block height: 13728
+2024-05-28T13:38:00.610Z - INFO - current cycle: 14
+2024-05-28T13:38:00.610Z - INFO - is in prepare phase
+2024-05-28T13:38:00.610Z - INFO - updated balances this cycle true
+2024-05-28T13:41:00.258Z - INFO - current burn block height: 13729
+2024-05-28T13:41:00.568Z - INFO - current cycle: 14
+2024-05-28T13:41:00.568Z - INFO - is in prepare phase
+2024-05-28T13:41:00.569Z - INFO - updated balances this cycle true
+2024-05-28T13:43:00.309Z - INFO - current cycle changed from 15 to: 15
+2024-05-28T13:43:00.311Z - INFO - current burn block height: 13730
+2024-05-28T13:43:00.505Z - INFO - current cycle: 14
+2024-05-28T13:43:00.507Z - INFO - is in reward phase

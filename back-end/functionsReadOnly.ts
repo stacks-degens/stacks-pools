@@ -80,6 +80,7 @@ export const readOnlyGetPartialStackedByCycle = async (
       LogTypeMessage.Err,
       `failed to get partial stacked by cycle: ${err}`,
     );
+    return 0;
   }
   return partialStackedAMount;
 };
