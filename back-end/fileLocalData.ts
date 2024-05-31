@@ -18,6 +18,7 @@ export interface LocalData {
   partial_stacked: number;
   commit_agg_this_cycle: boolean;
   commit_agg_txid: string;
+  commit_agg_burn_block_height: number;
   distribute_rewards_last_burn_block_height: number;
   delegated_stack_stx_many_this_cycle: boolean;
   delegated_stack_stx_many_txid: string;
@@ -46,9 +47,10 @@ export const logData = (messageType: LogTypeMessage, message: string) => {
 };
 
 // when cycle changes, refresh logData
-export const refreshJsonData = (newCurrentCycle: number) => {
+export const refreshJsonData = (newLocalJson: LocalData) => {
   const logData = readJsonData();
-  logData.current_cycle = newCurrentCycle;
+  logData.current_burn_block_height = newLocalJson.current_burn_block_height;
+  logData.current_cycle = newLocalJson.current_cycle;
   logData.updated_balances_this_cycle = false;
   logData.update_balances_txid = '';
   logData.commit_agg_this_cycle = false;
@@ -57,6 +59,11 @@ export const refreshJsonData = (newCurrentCycle: number) => {
   logData.delegated_stack_stx_many_this_cycle = false;
   logData.delegated_stack_stx_many_txid = '';
   writeJsonData(logData);
+};
+
+export const saveErrorLog = (errorContent: string) => {
+  const timestamp = new Date().toISOString();
+  writeFileSync('./errors/' + timestamp + '.log', errorContent);
 };
 
 // test logs

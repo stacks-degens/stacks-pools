@@ -25,6 +25,20 @@ export const getRewardPhaseBlockLength = (poxData: any): number => {
   return poxData.reward_phase_block_length;
 };
 
+export const getCheckCanDelegateAgainNow = (poxData: any): boolean => {
+  // bigger than first half of the cycle, not in prepare phase
+  const cycleLength: number =
+    poxData.prepare_phase_block_length + poxData.reward_phase_block_length;
+  const rewardPhaseFirstBlock: number =
+    poxData.next_cycle.reward_phase_start_block_height - cycleLength;
+  const isInPreparePhase: boolean =
+    poxData.next_cycle.blocks_until_prepare_phase < 0;
+  return (
+    poxData.current_burnchain_block_height >
+      rewardPhaseFirstBlock + cycleLength / 2 && !isInPreparePhase
+  );
+};
+
 /// TEST
 // const jsonDataTest = await getApiPoxData();
 // console.log(

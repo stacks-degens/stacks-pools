@@ -212,18 +212,6 @@ export const readOnlyGetStackersList = async (): Promise<string[]> => {
   return stackersList;
 };
 
-export const readOnlyCheckCanDelegateAgainNow = async (
-  givenCycle: number,
-): Promise<boolean> => {
-  const contractType = ContractType.stacking;
-  const checkCanDelegateGivenCycle: ClarityValue = await readOnlyFunction(
-    contractType,
-    functionMapping[contractType].readOnlyFunctions.checkCanDelegateAgainNow,
-    [Cl.uint(givenCycle)],
-  );
-  return cvToValue(checkCanDelegateGivenCycle);
-};
-
 /// TESTS
 // readOnlyCheckWonBlockRewardsBatch([140, 141, 142]);
 // readOnlyCheckClaimedBlocksRewardsBatch([140, 141, 142]);

@@ -107,7 +107,7 @@ const createOperatorSig = (
   // has to be the Stacks' address of the deployer, not the liquidity provider of the stacking pool SC
   return stackingClient.signPoxSignature({
     signerPrivateKey: createStacksPrivateKey(signerPrivateKey),
-    rewardCycle: rewardCycle,
+    rewardCycle: rewardCycle + 1,
     period: 1,
     topic: topic,
     poxAddress: poxAddress,
@@ -205,31 +205,38 @@ export const contractCallFunctionDelegateStackStxMany = async (
 // console.log('txid is ', txResponse.txid());
 
 // write to file data when succesful broadcast
-const logSuccesfulBroadcast = (txBroadcastResult: TxBroadcastResult) => {
+const logSuccesfulBroadcast = (
+  txBroadcastResult: TxBroadcastResult,
+  functionName: string,
+) => {
   logData(
     LogTypeMessage.Info,
-    `update balances tx ${txBroadcastResult.txid} \n
-      api link: ${transactionUrl(txBroadcastResult.txid).apiUrl} \n
+    `${functionName} tx ${txBroadcastResult.txid}
+      api link: ${transactionUrl(txBroadcastResult.txid).apiUrl}
       explorer link: ${transactionUrl(txBroadcastResult.txid).explorerUrl}`,
   );
 };
 
-const logRejectedBroadcast = (txBroadcastResult: TxBroadcastResult) => {
+const logRejectedBroadcast = (
+  txBroadcastResult: TxBroadcastResult,
+  functionName: string,
+) => {
   logData(
     LogTypeMessage.Err,
-    `failed broadcast tx ${txBroadcastResult.txid} \n
-        error: ${txBroadcastResult.error} \n
-        reason: ${txBroadcastResult.reason} \n
+    `${functionName} failed broadcast tx ${txBroadcastResult.txid}
+        error: ${txBroadcastResult.error}
+        reason: ${txBroadcastResult.reason}
         reason data: ${txBroadcastResult.reason_data}`,
   );
 };
 
 export const logContractCallBroadcast = (
   txBroadcastResult: TxBroadcastResult,
+  functionName: string,
 ) => {
   if (txBroadcastResult.reason !== undefined) {
-    logRejectedBroadcast(txBroadcastResult);
+    logRejectedBroadcast(txBroadcastResult, functionName);
   } else {
-    logSuccesfulBroadcast(txBroadcastResult);
+    logSuccesfulBroadcast(txBroadcastResult, functionName);
   }
 };

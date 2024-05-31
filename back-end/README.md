@@ -1,6 +1,5 @@
 ### run path
 
-// TODO: specify block heights when to execute these  
 0. add deployer as signer
 
 1. client
@@ -9,3 +8,11 @@
 2. server
    a. run server npm and see it performs alright the data
    b. mine block and see rewards getting distributed
+
+### Flows checked nakamoto testnet
+
+- [x] update balance
+- [x] commit agg
+- [x] increase agg
+- [x] delegate stack stx many
+- [ ] distribute rewards

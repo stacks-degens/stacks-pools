@@ -1,6 +1,7 @@
 import {
   getApiPoxData,
   getBlocksUntilPreparePhase,
+  getCheckCanDelegateAgainNow,
   getCurrentBurnchainBlockHeight,
   getCurrentCycle,
   getRewardPhaseBlockLength,
@@ -15,7 +16,6 @@ import {
 } from './functionsContractCall';
 import {
   PoxInfoMap,
-  readOnlyCheckCanDelegateAgainNow,
   readOnlyCheckClaimedBlocksRewardsBatch,
   readOnlyCheckWonBlockRewardsBatch,
   readOnlyGetPartialStackedByCycle,
@@ -42,6 +42,7 @@ import {
   LogTypeMessage,
   readJsonData,
   refreshJsonData,
+  saveErrorLog,
   writeJsonData,
 } from './fileLocalData';
 import { Pox4SignatureTopic } from '@stacks/stacking';
@@ -63,8 +64,11 @@ import { TxBroadcastResult } from '@stacks/transactions';
 //    also 10 blocks before ->
 //    with 15 blocks block before prepare-phase from front-end the possibility to delegate
 
+// as there might be server failings, we could run this and update the json only at the end of different flows
+// this way if there was any progress, such smart contract calls, it would track the ones that were broadcasted and not do them again
+
 // at every new block height
-const runtime = async () => {
+const runtimeLogic = async () => {
   // general calls
   let localJson: LocalData = readJsonData();
   const poxAPIData = await getApiPoxData();
@@ -73,7 +77,6 @@ const runtime = async () => {
   // start all the flow only after the block changes
   if (localJson.current_burn_block_height < currentBurnBlockHeight) {
     localJson.current_burn_block_height = currentBurnBlockHeight;
-    writeJsonData(localJson);
     // when cycle changes, update local parameters that are used for checking
     if (localJson.current_cycle < getCurrentCycle(poxAPIData)) {
       localJson.current_cycle = getCurrentCycle(poxAPIData);
@@ -82,9 +85,8 @@ const runtime = async () => {
         `current cycle changed from ${localJson.current_cycle} to: ${getCurrentCycle(poxAPIData)}`,
       );
 
-      refreshJsonData(getCurrentCycle(poxAPIData));
+      refreshJsonData(localJson);
     }
-    localJson = readJsonData();
     logData(
       LogTypeMessage.Info,
       `current burn block height: ${currentBurnBlockHeight}`,
@@ -133,7 +135,10 @@ const runtime = async () => {
               await contractCallFunctionUpdateSCBalances(
                 BigInt(feeContractCall.updateBalances * stxToUstx),
               );
-            logContractCallBroadcast(updateBalanceTransaction);
+            logContractCallBroadcast(
+              updateBalanceTransaction,
+              'update-sc-balances',
+            );
             localJson.update_balances_burn_block_height =
               currentBurnBlockHeight;
             localJson.update_balances_txid = updateBalanceTransaction.txid;
@@ -153,6 +158,10 @@ const runtime = async () => {
                 if (alreadyUpdatedBalancesReadOnly) {
                   localJson.updated_balances_this_cycle = true;
                   writeJsonData(localJson);
+                  logData(
+                    LogTypeMessage.Info,
+                    `Updated balances is confirmed. The tx is succesfully anchored ${localJson.update_balances_txid}`,
+                  );
                 } else {
                   logData(
                     LogTypeMessage.Err,
@@ -194,7 +203,10 @@ const runtime = async () => {
                       `update balances increased fees tx`,
                     );
                   }
-                  logContractCallBroadcast(updateBalanceTransaction);
+                  logContractCallBroadcast(
+                    updateBalanceTransaction,
+                    'update-sc-balances',
+                  );
                 }
                 break;
               // Add more cases if needed
@@ -214,7 +226,7 @@ const runtime = async () => {
         // when possible, call it and save it to json file
         if (!localJson.delegated_stack_stx_many_this_cycle) {
           const checkCanDelegateAgainNow =
-            await readOnlyCheckCanDelegateAgainNow(rewardCycleId);
+            getCheckCanDelegateAgainNow(poxAPIData);
           if (checkCanDelegateAgainNow) {
             // TODO: maybe overflow here
             const stackersAddresses = await readOnlyGetStackersList();
@@ -225,7 +237,7 @@ const runtime = async () => {
               localJson.delegated_stack_stx_many_txid = txResponse.txid;
               writeJsonData(localJson);
             }
-            logContractCallBroadcast(txResponse);
+            logContractCallBroadcast(txResponse, 'delegate-stack-stx-many');
           }
         }
 
@@ -243,16 +255,19 @@ const runtime = async () => {
           rewardCycleId + 1,
         );
 
+        const stackingMinimum = await readOnlyGetStackingMinimum();
         // if no indices , do commit asap
         if (!poxAddressIndices) {
           // TODO: should also be on json false for this cycle and txid empty?
-          const stackingMinimum = await readOnlyGetStackingMinimum();
 
           logData(
             LogTypeMessage.Info,
             `stacking minimum by cycle ${rewardCycleId + 1}: ${stackingMinimum}`,
           );
-          if (partialStackedByCycle > stackingMinimum) {
+          if (
+            partialStackedByCycle > stackingMinimum &&
+            !localJson.commit_agg_this_cycle
+          ) {
             const txResponse: TxBroadcastResult =
               await contractCallFunctionMaybeStackAggregationCommit(
                 rewardCycleId,
@@ -262,21 +277,23 @@ const runtime = async () => {
               console.log('txResponse, ', txResponse);
               localJson.commit_agg_txid = txResponse.txid;
               localJson.commit_agg_this_cycle = true;
-              localJson.increase_agg_burn_block_height = currentBurnBlockHeight;
+              localJson.commit_agg_burn_block_height = currentBurnBlockHeight;
               writeJsonData(localJson);
               logData(
                 LogTypeMessage.Info,
                 `partial stacked enough, performed agg-commit`,
               );
             }
-            logContractCallBroadcast(txResponse);
+            logContractCallBroadcast(
+              txResponse,
+              'maybe-stack-aggregation-commit > agg-commit',
+            );
           }
         } else {
           // there is an amount to be commited > threshold and at least x blocks have passed
           // TODO: wouldn't it be better to just increase it when the threshold is met? we also call increase in the end
           if (
-            partialStackedByCycle >
-              thresholdAmounPartialStackedByCycle[network] * stxToUstx &&
+            partialStackedByCycle > stackingMinimum &&
             localJson.increase_agg_burn_block_height +
               blockSpanAggIncrease[network] <
               currentBurnBlockHeight
@@ -284,18 +301,22 @@ const runtime = async () => {
             const txResponse: TxBroadcastResult =
               await contractCallFunctionMaybeStackAggregationCommit(
                 rewardCycleId,
-                Pox4SignatureTopic.StackIncrease,
+                Pox4SignatureTopic.AggregateIncrease,
               );
             // update partial stacked for checking the continuous flow for last X blocks
             if (txResponse.reason === undefined) {
               localJson.partial_stacked = partialStackedByCycle;
+              localJson.increase_agg_burn_block_height = currentBurnBlockHeight;
               logData(
                 LogTypeMessage.Info,
                 `partial stacked enough and offset passed, performed agg-increase`,
               );
               writeJsonData(localJson);
             }
-            logContractCallBroadcast(txResponse);
+            logContractCallBroadcast(
+              txResponse,
+              'maybe-stack-aggregation-commit > agg-increase',
+            );
           }
 
           // if in last X blocks before prepare phase and partial stacked amount has changed through new delegations (optional + previous tx being anchored)
@@ -321,7 +342,10 @@ const runtime = async () => {
               );
               writeJsonData(localJson);
             }
-            logContractCallBroadcast(txResponse);
+            logContractCallBroadcast(
+              txResponse,
+              'maybe-stack-aggregation-commit > agg-increase',
+            );
           }
         }
 
@@ -394,7 +418,10 @@ const runtime = async () => {
             if (txDistribute.reason === undefined) {
               logData(LogTypeMessage.Info, `distributed rewards.`);
             }
-            logContractCallBroadcast(txDistribute);
+            logContractCallBroadcast(
+              txDistribute,
+              'maybe-stack-aggregation-commit > agg-increase',
+            );
           }
           localJson.distribute_rewards_last_burn_block_height =
             localJson.distribute_rewards_last_burn_block_height +
@@ -406,23 +433,32 @@ const runtime = async () => {
   }
 };
 
-// cron job every 50 seconds
-runtime();
+const main = async () => {
+  try {
+    await runtimeLogic();
+  } catch (error) {
+    console.log('Error:', error);
+    saveErrorLog(error.message);
+  }
+};
 
-new CronJob(
-  '0 */1 * * * *', // every minute
-  () => {
-    runtime();
-  }, // onTick
-  null, // onComplete
-  true, // start
-  'America/Los_Angeles', // timeZone
-);
+// cron job every 50 seconds
+main();
+
+// new CronJob(
+//   '0 */1 * * * *', // every minute
+//   () => {
+//     main();
+//   }, // onTick
+//   null, // onComplete
+//   true, // start
+//   'America/Los_Angeles', // timeZone
+// );
 
 // new CronJob(
 //   '*/10 * * * * *', // every minute
 //   () => {
-//     runtime();
+//     main();
 //   }, // onTick
 //   null, // onComplete
 //   true, // start
