@@ -1,15 +1,15 @@
 {
-  "current_burn_block_height": 15327,
+  "current_burn_block_height": 15432,
   "current_cycle": 16,
-  "updated_balances_this_cycle": false,
-  "update_balances_txid": "",
-  "update_balances_burn_block_height": 13687,
+  "updated_balances_this_cycle": true,
+  "update_balances_txid": "545cde1cd94d1ff98d25401508f9082cfdc050feb44b2ef52d765700b87096bf",
+  "update_balances_burn_block_height": 15430,
   "commit_agg_this_cycle": true,
   "commit_agg_burn_block_height": 15318,
   "commit_agg_txid": "d48bfd29d6829c38c4169c82ba25bb5f7f465c0b23f371bdbd9570d7dfde2ac3",
   "increase_agg_burn_block_height": 15327,
   "partial_stacked": "24659981994000",
-  "distribute_rewards_last_burn_block_height": 13801,
+  "distribute_rewards_last_burn_block_height": 15401,
   "delegated_stack_stx_many_this_cycle": true,
   "delegated_stack_stx_many_txid": "34818e2bcaf80a3f623620d3e25526017d5bd4c711f10e68940630007bea004e"
 }

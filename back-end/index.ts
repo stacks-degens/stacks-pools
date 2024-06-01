@@ -152,8 +152,7 @@ const runtimeLogic = async () => {
             switch (txResponse.tx_status) {
               case 'success':
                 const alreadyUpdatedBalancesReadOnly =
-                  await readOnlyUpdatedBalancesGivenCycle(rewardCycleId + 1);
-                // TODO: check this returned as boolean
+                  await readOnlyUpdatedBalancesGivenCycle(rewardCycleId + 1);                
                 // 3.b. then from read-only
                 if (alreadyUpdatedBalancesReadOnly) {
                   localJson.updated_balances_this_cycle = true;
@@ -258,8 +257,6 @@ const runtimeLogic = async () => {
         const stackingMinimum = await readOnlyGetStackingMinimum();
         // if no indices , do commit asap
         if (!poxAddressIndices) {
-          // TODO: should also be on json false for this cycle and txid empty?
-
           logData(
             LogTypeMessage.Info,
             `stacking minimum by cycle ${rewardCycleId + 1}: ${stackingMinimum}`,
@@ -445,15 +442,15 @@ const main = async () => {
 // cron job every 50 seconds
 main();
 
-// new CronJob(
-//   '0 */1 * * * *', // every minute
-//   () => {
-//     main();
-//   }, // onTick
-//   null, // onComplete
-//   true, // start
-//   'America/Los_Angeles', // timeZone
-// );
+new CronJob(
+  '0 */1 * * * *', // every minute
+  () => {
+    main();
+  }, // onTick
+  null, // onComplete
+  true, // start
+  'America/Los_Angeles', // timeZone
+);
 
 // new CronJob(
 //   '*/10 * * * * *', // every minute

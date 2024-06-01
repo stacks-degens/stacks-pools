@@ -76,17 +76,12 @@ export const readOnlyGetPartialStackedByCycle = async (
       'stacked-amount'
     ].value;
   } catch (err) {
-    logData(
-      LogTypeMessage.Err,
-      `failed to get partial stacked by cycle: ${err}`,
-    );
+    // the catch case is when there is 0 partial stacked
     return 0;
   }
   return partialStackedAMount;
 };
 
-// TODO: update function return type from any
-// TODO: find what it returns in the some format, only have none right now
 export const readOnlyGetPoxAddressIndices = async (
   rewardCycle: number,
 ): Promise<any> => {
@@ -96,10 +91,8 @@ export const readOnlyGetPoxAddressIndices = async (
     functionMapping[contractType].readOnlyFunctions.getPoxAddrIndices,
     [Cl.uint(rewardCycle)],
   );
-  // console.log('inner', cvToJSON(poxAddressIndices).value);
   return cvToJSON(poxAddressIndices).value;
 };
-// console.log('something', await readOnlyGetPoxAddressIndices(11));
 
 export interface PoxInfo {
   'first-burnchain-block-height': number;
