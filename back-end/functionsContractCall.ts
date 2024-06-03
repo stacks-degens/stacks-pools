@@ -160,7 +160,7 @@ export const contractCallFunctionDistributeRewards = async (
   const contractType = ContractType.stacking;
   const CVBlockHeights: UIntCV[] = [];
   // TODO: add a lot of postConditions from SC to each address STX will be sent to (and the amount)
-  for (const blockheight in blockheights) {
+  for (const blockheight of blockheights) {
     CVBlockHeights.push(Cl.uint(blockheight));
   }
   let response: TxBroadcastResult = await contractCallFunction(

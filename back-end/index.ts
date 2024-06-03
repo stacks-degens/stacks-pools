@@ -152,7 +152,7 @@ const runtimeLogic = async () => {
             switch (txResponse.tx_status) {
               case 'success':
                 const alreadyUpdatedBalancesReadOnly =
-                  await readOnlyUpdatedBalancesGivenCycle(rewardCycleId + 1);                
+                  await readOnlyUpdatedBalancesGivenCycle(rewardCycleId + 1);
                 // 3.b. then from read-only
                 if (alreadyUpdatedBalancesReadOnly) {
                   localJson.updated_balances_this_cycle = true;
@@ -345,87 +345,76 @@ const runtimeLogic = async () => {
             );
           }
         }
+      }
+      ///// distributing rewards
+      // it is ok to keep the previous localJSON as it was updated as needed
+      if (
+        localJson.distribute_rewards_first_burn_block_height_to_check +
+          blockSpanRewardDistribute[network] <
+        currentBurnBlockHeight - offsetRewardDistribute[network]
+      ) {
+        const blocksToDistribute: number[] = [];
+        // only call it till given block height
+        let finalBlockHeight =
+          currentBurnBlockHeight - offsetRewardDistribute[network];
+        let iterativeCurrentBlockHeight =
+          localJson.distribute_rewards_first_burn_block_height_to_check;
 
-        ///// distributing rewards
-        // it is ok to keep the previous localJSON as it was updated as needed
-        if (
-          localJson.distribute_rewards_last_burn_block_height +
-            blockSpanRewardDistribute[network] <
-          currentBurnBlockHeight - offsetRewardDistribute[network]
-        ) {
-          const nrCalls =
-            blockSpanRewardDistribute[network] / limitPerReadOnly[network];
-          const blocksToDistribute: number[] = [];
-          for (let i = 0; i < nrCalls; i++) {
-            // call win
-            const blocksToBeCalled: number[] = [];
-            for (
-              let j =
-                localJson.distribute_rewards_last_burn_block_height +
-                i * limitPerReadOnly[network];
-              j <= limitPerReadOnly[network];
-              j++
-            ) {
-              blocksToBeCalled.push(j);
-            }
-            const blocksWon =
-              await readOnlyCheckWonBlockRewardsBatch(blocksToBeCalled);
-            if (blocksWon.length > 0) {
-              const localBlocksClaimable: number[] =
-                await readOnlyCheckClaimedBlocksRewardsBatch(blocksWon);
-              if (localBlocksClaimable.length > 0)
-                blocksToDistribute.concat(localBlocksClaimable);
-            }
-          }
-          // add the last blocks that are less than limitPerReadOnly
-          for (
-            let i =
-              currentBurnBlockHeight -
-              offsetRewardDistribute[network] -
-              (blockSpanRewardDistribute[network] % limitPerReadOnly[network]);
-            i < currentBurnBlockHeight - offsetRewardDistribute[network];
-            i++
+        while (iterativeCurrentBlockHeight < finalBlockHeight) {
+          let currentNumbers = 0;
+          const blocksToBeCalled: number[] = [];
+          while (
+            iterativeCurrentBlockHeight < finalBlockHeight &&
+            currentNumbers <= limitPerReadOnly[network]
           ) {
-            // duplicated body of the function
-            // call win
-            const blocksToBeCalled: number[] = [];
-            for (
-              let j =
-                localJson.distribute_rewards_last_burn_block_height +
-                i * limitPerReadOnly[network];
-              j <= limitPerReadOnly[network];
-              j++
-            ) {
-              blocksToBeCalled.push(j);
-            }
+            blocksToBeCalled.push(iterativeCurrentBlockHeight);
+            console.log(
+              'iterative current block height: ',
+              iterativeCurrentBlockHeight,
+            );
+            iterativeCurrentBlockHeight++;
+            currentNumbers++;
+          }
+          if (currentNumbers > 0) {
             const blocksWon =
               await readOnlyCheckWonBlockRewardsBatch(blocksToBeCalled);
+            console.log('blocks won: ', blocksWon);
             if (blocksWon.length > 0) {
-              const localBlocksClaimable: number[] =
-                await readOnlyCheckClaimedBlocksRewardsBatch(blocksWon);
-              if (localBlocksClaimable.length > 0)
-                blocksToDistribute.concat(localBlocksClaimable);
+              logData(LogTypeMessage.Info, `blocks won: ${blocksWon}`);
+              // TODO: remove this in final release
+              blocksToDistribute.push(...blocksWon);
+              // TODO: uncomment this in final release
+              // const localBlocksClaimable: number[] =
+              //   await readOnlyCheckClaimedBlocksRewardsBatch(blocksWon);
+              // logData(LogTypeMessage.Info, `blocks claimable: ${blocksWon}`);
+              // if (localBlocksClaimable.length > 0)
+              //   blocksToDistribute.push(...localBlocksClaimable);
             }
           }
-          if (blocksToDistribute.length > 0) {
-            // TODO: make sure this doesn't overflow
-            // if it does, decrease the offset OR something else?
-            const txDistribute: TxBroadcastResult =
-              await contractCallFunctionDistributeRewards(blocksToDistribute);
-            if (txDistribute.reason === undefined) {
-              logData(LogTypeMessage.Info, `distributed rewards.`);
-            }
-            logContractCallBroadcast(
-              txDistribute,
-              'maybe-stack-aggregation-commit > agg-increase',
+
+          localJson.distribute_rewards_first_burn_block_height_to_check =
+            iterativeCurrentBlockHeight + 1;
+          writeJsonData(localJson);
+          if (iterativeCurrentBlockHeight === finalBlockHeight - 1) break;
+        }
+
+        if (blocksToDistribute.length > 0) {
+          const txDistribute: TxBroadcastResult =
+            await contractCallFunctionDistributeRewards(blocksToDistribute);
+          if (txDistribute.reason === undefined) {
+            logData(
+              LogTypeMessage.Info,
+              `blocks rewards distributed: ${blocksToDistribute}`,
             );
           }
-          localJson.distribute_rewards_last_burn_block_height =
-            localJson.distribute_rewards_last_burn_block_height +
-            blockSpanRewardDistribute[network];
-          writeJsonData(localJson);
+          logContractCallBroadcast(txDistribute, 'distribute-rewards');
         }
+        localJson.distribute_rewards_first_burn_block_height_to_check =
+          localJson.distribute_rewards_first_burn_block_height_to_check +
+          blockSpanRewardDistribute[network];
+        writeJsonData(localJson);
       }
+      writeJsonData(localJson);
     }
   }
 };
@@ -443,7 +432,7 @@ const main = async () => {
 main();
 
 new CronJob(
-  '0 */1 * * * *', // every minute
+  '0 */2 * * * *', // every minute
   () => {
     main();
   }, // onTick

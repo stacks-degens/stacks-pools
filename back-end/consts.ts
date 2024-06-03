@@ -8,7 +8,7 @@ export const blockSpanAggIncrease = {
 };
 
 export const blockSpanRewardDistribute = {
-  mainnet: 400,
+  mainnet: 290,
   testnet: 200,
   nakamotoTestnet: 200,
   devnet: 3,

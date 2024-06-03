@@ -19,7 +19,7 @@ export interface LocalData {
   commit_agg_this_cycle: boolean;
   commit_agg_txid: string;
   commit_agg_burn_block_height: number;
-  distribute_rewards_last_burn_block_height: number;
+  distribute_rewards_first_burn_block_height_to_check: number;
   delegated_stack_stx_many_this_cycle: boolean;
   delegated_stack_stx_many_txid: string;
 }

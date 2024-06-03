@@ -144,7 +144,7 @@ export const readOnlyCheckWonBlockRewardsBatch = async (
 ): Promise<number[]> => {
   const contractType = ContractType.stacking;
   const CVBlockHeights: UIntCV[] = [];
-  for (const blockheight in blockheights) {
+  for (const blockheight of blockheights) {
     // TODO: check it takes value from list, not the indexes
     console.log('blockheight: ', blockheight);
     CVBlockHeights.push(Cl.uint(blockheight));
@@ -164,7 +164,7 @@ export const readOnlyCheckWonBlockRewardsBatch = async (
   return blocksWon;
 };
 
-// TODO: also test after we win blocks on nakamoto testnet
+// TODO: to test with new deployment where it is is-none instead of is-some
 /// give list of block-heights
 /// returns list of block-heights that are not claimed
 export const readOnlyCheckClaimedBlocksRewardsBatch = async (
@@ -183,6 +183,11 @@ export const readOnlyCheckClaimedBlocksRewardsBatch = async (
   );
 
   const blocksNotClaimed: number[] = [];
+  // TODO: remove this as it is testing on nakamoto
+  // console.log(
+  //   'CVblockNotClaimedResponse ',
+  //   cvToValue(CVblockNotClaimedResponse).value,
+  // );
   const blockNotClaimedResponse = cvToValue(CVblockNotClaimedResponse);
   Object.entries(blockNotClaimedResponse.value).forEach(([, value]) => {
     const blockheight = parseInt((value as any).value);
@@ -190,6 +195,11 @@ export const readOnlyCheckClaimedBlocksRewardsBatch = async (
   });
   return blocksNotClaimed;
 };
+// TODO: remove this as it is testing on nakamoto
+// const claimable = await readOnlyCheckClaimedBlocksRewardsBatch([
+//   15517, 15533, 15534, 15535, 15536, 15537,
+// ]);
+// console.log('claimable ', claimable);
 
 export const readOnlyGetStackersList = async (): Promise<string[]> => {
   const contractType = ContractType.stacking;
