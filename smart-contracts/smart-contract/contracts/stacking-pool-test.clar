@@ -665,13 +665,13 @@
     burn-height 
     u0)))
 
-;; batch read-only to check the burn blocks already rewarded
-(define-read-only (check-claimed-blocks-rewards-batch (burn-blocks-list (list 300 uint))) 
-(ok (map check-claimed-block-rewards-one-block burn-blocks-list)))
+;; batch read-only to check the burn blocks not already rewarded
+(define-read-only (check-not-claimed-blocks-rewards-batch (burn-blocks-list (list 300 uint))) 
+(ok (map check-not-claimed-block-rewards-one-block burn-blocks-list)))
 
-(define-private (check-claimed-block-rewards-one-block (burn-height uint)) 
+(define-private (check-not-claimed-block-rewards-one-block (burn-height uint)) 
 (if   
-  (is-some (map-get? already-rewarded {burn-block-height: burn-height}))
+  (is-none (map-get? already-rewarded {burn-block-height: burn-height}))
   burn-height 
   u0))
 
