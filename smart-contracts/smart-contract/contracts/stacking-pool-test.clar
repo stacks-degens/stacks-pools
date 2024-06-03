@@ -9,10 +9,9 @@
 ;; 5. When the total amount commited is enough to be stacked, it will be auto committed
 ;; 6. The stackers will be able to claim the rewards after they are distributed
 
-;; + In prepare phase, calculate weight of the stackers inside the pool (Notion)
+;; + In prepare phase, calculate weight of the stackers inside the pool
 
 ;; Default length of the PoX registration window, in burnchain blocks.
-;;TODO: pox-4 mainnet address: 'SP000000000000000000002Q6VF78
 (define-constant PREPARE_CYCLE_LENGTH (get prepare-cycle-length (unwrap-panic (contract-call? 'ST000000000000000000002AMW42H.pox-4 get-pox-info))))
 
 ;; Default length of the PoX reward cycle, in burnchain blocks.
@@ -67,8 +66,6 @@
 (define-constant max-return-div-accepted u333)
 (define-constant ONE-6 u1000000)
 ;; liquidity provider data vars
-(define-data-var operator-pubkey (buff 33) 0x00)
-(define-data-var max-amount uint u0)
 (define-data-var sc-total-balance uint u0)
 (define-data-var sc-owned-balance uint u0)
 (define-data-var sc-reserved-balance uint u0)
@@ -93,7 +90,6 @@
 (define-data-var active bool true)
 (define-data-var blocks-rewarded uint u0)
 (define-data-var amount-rewarded uint u0)
-;; (define-data-var auth-id uint u0)
 
 ;; liqidity provider reward bitcoin address
 (define-data-var pool-pox-address {hashbytes: (buff 32), version: (buff 1)}
@@ -321,7 +317,6 @@
     (asserts! (can-lock-now current-cycle) err-too-early)
     ;; Do 3.
     (as-contract (lock-delegated-stx user))))
-    ;; Do 4.
 
 (define-public (delegate-stack-stx-many (stackers-lock-list (list 100 principal))) 
 (ok (map check-and-delegate-stack-stx stackers-lock-list)))
@@ -379,12 +374,6 @@
             error (begin (print {err-increase-ignored: error}) (ok false)))
           ;; Total stacked is still below minimum.
           ;; Just try to commit, it might fail because minimum not yet met
-    ;; (pox-addr { version: (buff 1), hashbytes: (buff 32) })
-    ;; (reward-cycle uint)
-    ;; (signer-sig (optional (buff 65)))
-    ;; (signer-key (buff 33))
-    ;; (max-amount uint)
-    ;; (auth-id uint)
     (match (as-contract (contract-call? 'ST000000000000000000002AMW42H.pox-4 stack-aggregation-commit-indexed (var-get pool-pox-address) reward-cycle signer-sig signer-pubkey max-allowed-amount auth-id))
       index (begin
               (map-set pox-addr-indices reward-cycle index)
@@ -428,20 +417,6 @@
               (print (var-get sc-delegated-balance))
               (ok success))
     error (err (* u1000 (to-uint error))))))
-
-;; TODO: remove
-;; (define-read-only (check-addr-won-block-rewards-batch (burn-blocks-list (list 300 uint))) 
-;; (begin 
-;; (print u2)
-;; (ok (map check-addr-won-block-rewards-one-block burn-blocks-list))))
-
-;; ;; check if pool pox address has won the rewards for a given burn height and store the reward if true
-;; (define-read-only (check-addr-won-block-rewards-one-block (burn-height uint)) 
-;; (let ((reward-pox-addr-list (default-to (list ) (get addrs (get-burn-block-info? pox-addrs burn-height))))) 
-;; ;; (var-get pool-pox-address)))
-;;   (print reward-pox-addr-list)
-;;   (print u2)
-;;   (var-get pool-pox-address)))
 
 (define-private (lock-delegated-stx (user principal))
 (let ((start-burn-ht (+ burn-block-height u1))
@@ -520,8 +495,8 @@
                                       (default-to none (get until-burn-ht (map-get? user-data {address: user})))
                                     })
                                   (increment-sc-locked-balance 
-                                      (- amount-ustx 
-                                        (default-to u0 (get locked-balance (map-get? user-data {address: user})))))
+                                    (- amount-ustx 
+                                      (default-to u0 (get locked-balance (map-get? user-data {address: user})))))
                                   (ok {lock-amount: (get total-locked success-increase),
                                       stacker: user,
                                       unlock-burn-height: (get unlock-burn-height success)}))
@@ -546,23 +521,6 @@
   (try! (as-contract (stx-transfer? management-maintenance tx-sender (var-get liquidity-provider))))
   (ok (map transfer-reward-one-stacker stackers-list-before-cycle))))
 
-
-;; For exchange price conversion
-;; (define-private (transfer-rewards-all-stackers (stackers-list-before-cycle (list 300 principal)))
-;; (let ((current-reward 
-;;         (unwrap! 
-;;           (preview-exchange-reward 
-;;             (default-to u0 
-;;               (get reward 
-;;                 (map-get? burn-block-rewards { burn-height: (var-get burn-block-to-distribute-rewards)}))) 
-;;             u5) err-cant-unwrap-exchange-preview))
-;;         (management-maintenance (/ (* maintenance current-reward) u100))
-;;         (distributed-reward (- current-reward management-maintenance))) 
-;;   (var-set temp-current-reward distributed-reward)
-;;   (try! (as-contract (stx-transfer? management-maintenance tx-sender (var-get liquidity-provider))))
-;;   (ok (map transfer-reward-one-stacker stackers-list-before-cycle))))
-
-
 (define-private (transfer-reward-one-stacker (stacker principal)) 
 (let (
       ;; hardcoded reward for testnet
@@ -583,10 +541,6 @@
           (ok true))
       error (err error))
     (ok false))))
-
-
-(define-private (preview-exchange-reward (sats-amount uint) (slippeage uint)) 
-(contract-call? .bridge-contract swap-preview .token-wbtc .token-wstx sats-amount slippeage))
 
 ;; Weight calculation functions
 
@@ -843,6 +797,9 @@ minimum-deposit-amount-liquidity-provider)
 
 (define-read-only (already-rewarded-burn-block (burn-height uint))
 (is-some (map-get? burn-block-rewards {burn-height: burn-height})))
+
+(define-read-only (amount-rewarded-burn-block-optional (burn-height uint))
+(map-get? burn-block-rewards {burn-height: burn-height}))
 
 (define-read-only (updated-balances-given-cycle (given-cycle uint))
 (default-to false (get updated (map-get? updated-sc-balances { reward-cycle: given-cycle }))))

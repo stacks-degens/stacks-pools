@@ -6,7 +6,7 @@ telemetry = false
 cache_dir = '.cache'
 
 [[project.requirements]]
-contract_id = 'ST000000000000000000002AMW42H.pox-3'
+contract_id = 'ST000000000000000000002AMW42H.pox-4'
 [contracts.Wrapped-Bitcoin]
 path = 'contracts/Wrapped-Bitcoin.clar'
 clarity_version = 2

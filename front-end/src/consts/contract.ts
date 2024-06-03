@@ -38,7 +38,7 @@ export const contractMapping: ContractMapping = {
   stacking: {
     mainnet: {
       contractAddress: 'SP1SCEXE6PMGPAC6B4N5P2MDKX8V4GF9QDE1FNNGJ',
-      contractName: 'degenlab-stacking-pool',
+      contractName: 'degenlab-stacking-pool-pox4',
       owner: 'SP1SCEXE6PMGPAC6B4N5P2MDKX8V4GF9QDE1FNNGJ',
     },
     testnet: {
