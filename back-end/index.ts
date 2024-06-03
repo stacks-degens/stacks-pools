@@ -271,7 +271,6 @@ const runtimeLogic = async () => {
                 Pox4SignatureTopic.AggregateCommit,
               );
             if (txResponse.reason === undefined) {
-              console.log('txResponse, ', txResponse);
               localJson.commit_agg_txid = txResponse.txid;
               localJson.commit_agg_this_cycle = true;
               localJson.commit_agg_burn_block_height = currentBurnBlockHeight;
@@ -368,17 +367,12 @@ const runtimeLogic = async () => {
             currentNumbers <= limitPerReadOnly[network]
           ) {
             blocksToBeCalled.push(iterativeCurrentBlockHeight);
-            console.log(
-              'iterative current block height: ',
-              iterativeCurrentBlockHeight,
-            );
             iterativeCurrentBlockHeight++;
             currentNumbers++;
           }
           if (currentNumbers > 0) {
             const blocksWon =
               await readOnlyCheckWonBlockRewardsBatch(blocksToBeCalled);
-            console.log('blocks won: ', blocksWon);
             if (blocksWon.length > 0) {
               logData(LogTypeMessage.Info, `blocks won: ${blocksWon}`);
               // TODO: remove this in final release

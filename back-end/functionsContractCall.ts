@@ -4,6 +4,7 @@ import {
   Cl,
   ClarityValue,
   createStacksPrivateKey,
+  estimateTransactionFeeWithFallback,
   getPublicKey,
   makeContractCall,
   PostCondition,
@@ -56,7 +57,7 @@ const contractCallFunction = async (
     functionMapping.stacking.publicFunctions.batchRewardDistribution
       ? PostConditionMode.Allow
       : PostConditionMode.Deny;
-  const options: SignedContractCallOptions = {
+  let options: SignedContractCallOptions = {
     contractAddress: contractAddress,
     contractName: contractName,
     functionName: functionName,
@@ -69,12 +70,18 @@ const contractCallFunction = async (
     anchorMode: AnchorMode.Any,
   };
 
-  if (fee !== -1n) options.fee = fee;
-  if (nonce !== -1n) options.nonce = nonce;
-  console.log('options', options);
-  const tx = await makeContractCall(options);
-  console.log('make contract call txid: ', tx.txid());
+  let tx = await makeContractCall(options);
+  const feeEstimate = await estimateTransactionFeeWithFallback(
+    tx,
+    contractNetwork,
+  );
 
+  if (fee !== -1n) options.fee = fee;
+  else if (feeEstimate < 500000n) options.fee = feeEstimate;
+  else options.fee = 100001n;
+  if (nonce !== -1n) options.nonce = nonce;
+
+  tx = await makeContractCall(options);
   return await broadcastTransaction(tx, contractNetwork);
 };
 
@@ -91,13 +98,8 @@ export const contractCallFunctionUpdateSCBalances = async (
     fee,
     nonce,
   );
-  console.log('update sc balance transaction response is: ', response);
   return response;
 };
-// TODO: try in prepare phase
-// const tx = await contractCallFunctionUpdateSCBalances();
-// console.log('tx', tx);
-// console.log('tx id', tx.txid);
 
 const createOperatorSig = (
   rewardCycle: number,
@@ -130,13 +132,13 @@ export const contractCallFunctionMaybeStackAggregationCommit = async (
   const postConditions: PostCondition[] = [];
   const authId: number = Date.now() * 10 + Math.floor(Math.random() * 10);
   const signerSig: string = createOperatorSig(currentCycle, authId, topic);
-  console.log('signer sig ', signerSig);
-  console.log(
-    'signer pubkey ',
-    Cl.buffer(getPublicKey(createStacksPrivateKey(signerPrivateKey)).data),
-  );
-  console.log('max amount ', maxAmount);
-  console.log('auth id ', authId);
+  // console.log('signer sig ', signerSig);
+  // console.log(
+  //   'signer pubkey ',
+  //   Cl.buffer(getPublicKey(createStacksPrivateKey(signerPrivateKey)).data),
+  // );
+  // console.log('max amount ', maxAmount);
+  // console.log('auth id ', authId);
   const functionArgs: ClarityValue[] = [
     Cl.uint(currentCycle),
     Cl.some(Cl.bufferFromHex(signerSig)),

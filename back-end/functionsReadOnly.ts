@@ -136,17 +136,12 @@ export const readOnlyUpdatedBalancesGivenCycle = async (
   return cvToValue(updatedBalancesGivenCycle);
 };
 
-// TODO: also test after we win blocks on nakamoto testnet
-/// give list of block-heights
-/// returns list of block-heights that are won
 export const readOnlyCheckWonBlockRewardsBatch = async (
   blockheights: number[],
 ): Promise<number[]> => {
   const contractType = ContractType.stacking;
   const CVBlockHeights: UIntCV[] = [];
   for (const blockheight of blockheights) {
-    // TODO: check it takes value from list, not the indexes
-    console.log('blockheight: ', blockheight);
     CVBlockHeights.push(Cl.uint(blockheight));
   }
   const CVblockWonResponse: ClarityValue = await readOnlyFunction(
