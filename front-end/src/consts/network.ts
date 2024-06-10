@@ -38,8 +38,8 @@ export const apiUrl: Record<developmentType, ApiUrl> = {
     nakamotoTestnet: process.env.REACT_APP_API_KEY_NAKAMOTO || '',
   },
   prod: {
-    mainnet: process.env.REACT_APP_API_KEY_LOCAL_MAINNET || '',
-    testnet: process.env.REACT_APP_API_KEY_LOCAL_TESTNET || '',
+    mainnet: process.env.REACT_APP_API_KEY_LOCAL_MAINNET || 'https://api.mainnet.hiro.so',
+    testnet: process.env.REACT_APP_API_KEY_LOCAL_TESTNET || 'https://api.testnet.hiro.so',
     devnet: process.env.REACT_APP_API_KEY_DEVNET || '',
     nakamotoTestnet: process.env.REACT_APP_API_KEY_NAKAMOTO || '',
   },
