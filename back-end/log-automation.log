@@ -6261,3 +6261,2210 @@
 2024-06-03T00:06:00.542Z - INFO - current cycle: 17
 2024-06-03T00:06:00.543Z - INFO - is in prepare phase
 2024-06-03T00:06:00.543Z - INFO - updated balances this cycle true
+2024-06-03T13:04:06.891Z - INFO - current cycle changed from 18 to: 18
+2024-06-03T13:04:06.892Z - INFO - current burn block height: 16596
+2024-06-03T13:04:07.100Z - INFO - current cycle: 18
+2024-06-03T13:04:07.101Z - INFO - is in reward phase
+2024-06-03T13:04:07.288Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T13:04:07.857Z - INFO - stacking minimum by cycle 19: 16445351294802
+2024-06-03T13:08:00.374Z - INFO - current burn block height: 16597
+2024-06-03T13:08:00.732Z - INFO - current cycle: 18
+2024-06-03T13:08:00.733Z - INFO - is in reward phase
+2024-06-03T13:08:00.919Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T13:08:01.439Z - INFO - stacking minimum by cycle 19: 16445351419802
+2024-06-03T13:10:00.368Z - INFO - current burn block height: 16598
+2024-06-03T13:10:00.657Z - INFO - current cycle: 18
+2024-06-03T13:10:00.657Z - INFO - is in reward phase
+2024-06-03T13:10:00.857Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T13:10:01.461Z - INFO - stacking minimum by cycle 19: 16445351544802
+2024-06-03T13:14:00.384Z - INFO - current burn block height: 16599
+2024-06-03T13:14:00.684Z - INFO - current cycle: 18
+2024-06-03T13:14:00.684Z - INFO - is in reward phase
+2024-06-03T13:14:00.882Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T13:14:01.433Z - INFO - stacking minimum by cycle 19: 16445351669802
+2024-06-03T13:18:00.369Z - INFO - current burn block height: 16600
+2024-06-03T13:18:00.671Z - INFO - current cycle: 18
+2024-06-03T13:18:00.671Z - INFO - is in reward phase
+2024-06-03T13:18:00.919Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T13:18:01.442Z - INFO - stacking minimum by cycle 19: 16445351794802
+2024-06-03T13:20:00.372Z - INFO - current burn block height: 16601
+2024-06-03T13:20:00.681Z - INFO - current cycle: 18
+2024-06-03T13:20:00.681Z - INFO - is in reward phase
+2024-06-03T13:20:00.853Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T13:20:01.394Z - INFO - stacking minimum by cycle 19: 16445351919802
+2024-06-03T13:24:00.367Z - INFO - current burn block height: 16602
+2024-06-03T13:24:00.540Z - INFO - current cycle: 18
+2024-06-03T13:24:00.540Z - INFO - is in reward phase
+2024-06-03T13:24:00.712Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T13:24:01.343Z - INFO - stacking minimum by cycle 19: 16445352044802
+2024-06-03T13:26:00.387Z - INFO - current burn block height: 16603
+2024-06-03T13:26:00.696Z - INFO - current cycle: 18
+2024-06-03T13:26:00.696Z - INFO - is in reward phase
+2024-06-03T13:26:00.874Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T13:26:01.400Z - INFO - stacking minimum by cycle 19: 16445352169802
+2024-06-03T13:30:00.364Z - INFO - current burn block height: 16604
+2024-06-03T13:30:00.660Z - INFO - current cycle: 18
+2024-06-03T13:30:00.661Z - INFO - is in reward phase
+2024-06-03T13:30:00.836Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T13:30:01.368Z - INFO - stacking minimum by cycle 19: 16445352294802
+2024-06-03T13:32:00.366Z - INFO - current burn block height: 16605
+2024-06-03T13:32:00.650Z - INFO - current cycle: 18
+2024-06-03T13:32:00.651Z - INFO - is in reward phase
+2024-06-03T13:32:00.830Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T13:32:01.358Z - INFO - stacking minimum by cycle 19: 16445352419802
+2024-06-03T13:34:00.261Z - INFO - current burn block height: 16606
+2024-06-03T13:34:00.588Z - INFO - current cycle: 18
+2024-06-03T13:34:00.588Z - INFO - is in reward phase
+2024-06-03T13:34:00.769Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T13:34:01.294Z - INFO - stacking minimum by cycle 19: 16445352544802
+2024-06-03T13:38:00.458Z - INFO - current burn block height: 16607
+2024-06-03T13:38:00.744Z - INFO - current cycle: 18
+2024-06-03T13:38:00.744Z - INFO - is in reward phase
+2024-06-03T13:38:00.909Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T13:38:01.410Z - INFO - stacking minimum by cycle 19: 16445352669802
+2024-06-03T13:40:00.362Z - INFO - current burn block height: 16608
+2024-06-03T13:40:00.654Z - INFO - current cycle: 18
+2024-06-03T13:40:00.655Z - INFO - is in reward phase
+2024-06-03T13:40:00.848Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T13:40:01.388Z - INFO - stacking minimum by cycle 19: 16445352794802
+2024-06-03T13:44:00.367Z - INFO - current burn block height: 16609
+2024-06-03T13:44:00.655Z - INFO - current cycle: 18
+2024-06-03T13:44:00.655Z - INFO - is in reward phase
+2024-06-03T13:44:00.831Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T13:44:01.359Z - INFO - stacking minimum by cycle 19: 16445352919802
+2024-06-03T13:46:00.355Z - INFO - current burn block height: 16610
+2024-06-03T13:46:00.724Z - INFO - current cycle: 18
+2024-06-03T13:46:00.724Z - INFO - is in reward phase
+2024-06-03T13:46:00.894Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T13:46:01.314Z - INFO - stacking minimum by cycle 19: 16445353044802
+2024-06-03T13:50:00.490Z - INFO - current burn block height: 16611
+2024-06-03T13:50:00.680Z - INFO - current cycle: 18
+2024-06-03T13:50:00.680Z - INFO - is in reward phase
+2024-06-03T13:50:00.852Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T13:50:01.477Z - INFO - stacking minimum by cycle 19: 16445353169802
+2024-06-03T13:52:00.399Z - INFO - current burn block height: 16612
+2024-06-03T13:52:00.770Z - INFO - current cycle: 18
+2024-06-03T13:52:00.771Z - INFO - is in reward phase
+2024-06-03T13:52:00.938Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T13:52:01.492Z - INFO - stacking minimum by cycle 19: 16445353294802
+2024-06-03T13:56:00.115Z - INFO - current burn block height: 16613
+2024-06-03T13:56:00.416Z - INFO - current cycle: 18
+2024-06-03T13:56:00.416Z - INFO - is in reward phase
+2024-06-03T13:56:00.606Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T13:56:01.180Z - INFO - stacking minimum by cycle 19: 16445353419802
+2024-06-03T13:58:00.329Z - INFO - current burn block height: 16614
+2024-06-03T13:58:00.508Z - INFO - current cycle: 18
+2024-06-03T13:58:00.509Z - INFO - is in reward phase
+2024-06-03T13:58:00.697Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T13:58:01.226Z - INFO - stacking minimum by cycle 19: 16445353544802
+2024-06-03T14:02:00.385Z - INFO - current burn block height: 16615
+2024-06-03T14:02:00.578Z - INFO - current cycle: 18
+2024-06-03T14:02:00.578Z - INFO - is in reward phase
+2024-06-03T14:02:00.869Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T14:02:01.456Z - INFO - stacking minimum by cycle 19: 16445353669802
+2024-06-03T14:04:00.355Z - INFO - current burn block height: 16616
+2024-06-03T14:04:00.537Z - INFO - current cycle: 18
+2024-06-03T14:04:00.538Z - INFO - is in reward phase
+2024-06-03T14:04:00.698Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T14:04:01.100Z - INFO - stacking minimum by cycle 19: 16445353794802
+2024-06-03T14:08:00.275Z - INFO - current burn block height: 16617
+2024-06-03T14:08:00.451Z - INFO - current cycle: 18
+2024-06-03T14:08:00.453Z - INFO - is in reward phase
+2024-06-03T14:08:00.632Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T14:08:01.188Z - INFO - stacking minimum by cycle 19: 16445353919802
+2024-06-03T14:10:00.430Z - INFO - current burn block height: 16618
+2024-06-03T14:10:00.732Z - INFO - current cycle: 18
+2024-06-03T14:10:00.732Z - INFO - is in reward phase
+2024-06-03T14:10:00.910Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T14:10:01.448Z - INFO - stacking minimum by cycle 19: 16445354044802
+2024-06-03T14:14:00.369Z - INFO - current burn block height: 16619
+2024-06-03T14:14:00.556Z - INFO - current cycle: 18
+2024-06-03T14:14:00.556Z - INFO - is in reward phase
+2024-06-03T14:14:00.723Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T14:14:01.238Z - INFO - stacking minimum by cycle 19: 16445354169802
+2024-06-03T14:18:00.494Z - INFO - current burn block height: 16620
+2024-06-03T14:18:00.804Z - INFO - current cycle: 18
+2024-06-03T14:18:00.806Z - INFO - is in reward phase
+2024-06-03T14:18:00.979Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T14:18:01.694Z - INFO - stacking minimum by cycle 19: 16445354294802
+2024-06-03T14:20:00.407Z - INFO - current burn block height: 16621
+2024-06-03T14:20:00.710Z - INFO - current cycle: 18
+2024-06-03T14:20:00.711Z - INFO - is in reward phase
+2024-06-03T14:20:00.886Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T14:20:01.307Z - INFO - stacking minimum by cycle 19: 16445354419802
+2024-06-03T14:22:00.423Z - INFO - current burn block height: 16622
+2024-06-03T14:22:00.614Z - INFO - current cycle: 18
+2024-06-03T14:22:00.615Z - INFO - is in reward phase
+2024-06-03T14:22:00.795Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T14:22:01.433Z - INFO - stacking minimum by cycle 19: 16445354544802
+2024-06-03T14:26:00.553Z - INFO - current burn block height: 16623
+2024-06-03T14:26:00.737Z - INFO - current cycle: 18
+2024-06-03T14:26:00.738Z - INFO - is in reward phase
+2024-06-03T14:26:00.922Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T14:26:01.321Z - INFO - stacking minimum by cycle 19: 16445354669802
+2024-06-03T14:28:00.395Z - INFO - current burn block height: 16624
+2024-06-03T14:28:00.700Z - INFO - current cycle: 18
+2024-06-03T14:28:00.702Z - INFO - is in reward phase
+2024-06-03T14:28:00.878Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T14:28:01.332Z - INFO - stacking minimum by cycle 19: 16445354794802
+2024-06-03T14:32:00.389Z - INFO - current burn block height: 16625
+2024-06-03T14:32:00.765Z - INFO - current cycle: 18
+2024-06-03T14:32:00.766Z - INFO - is in reward phase
+2024-06-03T14:32:00.946Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T14:32:01.487Z - INFO - stacking minimum by cycle 19: 16445354919802
+2024-06-03T14:34:00.379Z - INFO - current burn block height: 16626
+2024-06-03T14:34:00.687Z - INFO - current cycle: 18
+2024-06-03T14:34:00.688Z - INFO - is in reward phase
+2024-06-03T14:34:00.877Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T14:34:01.385Z - INFO - stacking minimum by cycle 19: 16445355044802
+2024-06-03T14:38:00.367Z - INFO - current burn block height: 16627
+2024-06-03T14:38:00.748Z - INFO - current cycle: 18
+2024-06-03T14:38:00.749Z - INFO - is in reward phase
+2024-06-03T14:38:00.926Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T14:38:01.461Z - INFO - stacking minimum by cycle 19: 16445355169802
+2024-06-03T14:40:00.461Z - INFO - current burn block height: 16628
+2024-06-03T14:40:00.775Z - INFO - current cycle: 18
+2024-06-03T14:40:00.776Z - INFO - is in reward phase
+2024-06-03T14:40:00.962Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T14:40:01.544Z - INFO - stacking minimum by cycle 19: 16445355294802
+2024-06-03T14:44:00.264Z - INFO - current burn block height: 16629
+2024-06-03T14:44:00.570Z - INFO - current cycle: 18
+2024-06-03T14:44:00.571Z - INFO - is in reward phase
+2024-06-03T14:44:00.742Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T14:44:01.209Z - INFO - stacking minimum by cycle 19: 16445355419802
+2024-06-03T14:46:00.351Z - INFO - current burn block height: 16630
+2024-06-03T14:46:00.709Z - INFO - current cycle: 18
+2024-06-03T14:46:00.710Z - INFO - is in reward phase
+2024-06-03T14:46:00.902Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T14:46:01.494Z - INFO - stacking minimum by cycle 19: 16445355544802
+2024-06-03T14:50:00.425Z - INFO - current burn block height: 16631
+2024-06-03T14:50:00.773Z - INFO - current cycle: 18
+2024-06-03T14:50:00.773Z - INFO - is in reward phase
+2024-06-03T14:50:00.956Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T14:50:01.523Z - INFO - stacking minimum by cycle 19: 16445355669802
+2024-06-03T14:52:00.444Z - INFO - current burn block height: 16632
+2024-06-03T14:52:00.756Z - INFO - current cycle: 18
+2024-06-03T14:52:00.761Z - INFO - is in reward phase
+2024-06-03T14:52:00.933Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T14:52:01.544Z - INFO - stacking minimum by cycle 19: 16445355794802
+2024-06-03T14:56:00.475Z - INFO - current burn block height: 16633
+2024-06-03T14:56:00.772Z - INFO - current cycle: 18
+2024-06-03T14:56:00.773Z - INFO - is in reward phase
+2024-06-03T14:56:00.952Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T14:56:01.563Z - INFO - stacking minimum by cycle 19: 16445355919802
+2024-06-03T14:58:00.384Z - INFO - current burn block height: 16634
+2024-06-03T14:58:00.692Z - INFO - current cycle: 18
+2024-06-03T14:58:00.694Z - INFO - is in reward phase
+2024-06-03T14:58:00.882Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T14:58:01.474Z - INFO - stacking minimum by cycle 19: 16445356044802
+2024-06-03T15:02:00.538Z - INFO - current burn block height: 16635
+2024-06-03T15:02:01.060Z - INFO - current cycle: 18
+2024-06-03T15:02:01.061Z - INFO - is in reward phase
+2024-06-03T15:02:01.236Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T15:02:02.046Z - INFO - stacking minimum by cycle 19: 16445356169802
+2024-06-03T15:04:00.378Z - INFO - current burn block height: 16636
+2024-06-03T15:04:00.686Z - INFO - current cycle: 18
+2024-06-03T15:04:00.687Z - INFO - is in reward phase
+2024-06-03T15:04:00.867Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T15:04:01.470Z - INFO - stacking minimum by cycle 19: 16445356294802
+2024-06-03T15:08:00.413Z - INFO - current burn block height: 16637
+2024-06-03T15:08:00.774Z - INFO - current cycle: 18
+2024-06-03T15:08:00.775Z - INFO - is in reward phase
+2024-06-03T15:08:00.964Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T15:08:01.533Z - INFO - stacking minimum by cycle 19: 16445356419802
+2024-06-03T15:10:00.427Z - INFO - current burn block height: 16638
+2024-06-03T15:10:00.725Z - INFO - current cycle: 18
+2024-06-03T15:10:00.725Z - INFO - is in reward phase
+2024-06-03T15:10:00.902Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T15:10:01.489Z - INFO - stacking minimum by cycle 19: 16445356544802
+2024-06-03T15:14:00.456Z - INFO - current burn block height: 16639
+2024-06-03T15:14:00.771Z - INFO - current cycle: 18
+2024-06-03T15:14:00.772Z - INFO - is in reward phase
+2024-06-03T15:14:00.948Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T15:14:01.367Z - INFO - stacking minimum by cycle 19: 16445356669802
+2024-06-03T15:16:00.469Z - INFO - current burn block height: 16640
+2024-06-03T15:16:00.761Z - INFO - current cycle: 18
+2024-06-03T15:16:00.762Z - INFO - is in reward phase
+2024-06-03T15:16:00.934Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T15:16:01.949Z - INFO - stacking minimum by cycle 19: 16445356794802
+2024-06-03T15:20:00.399Z - INFO - current burn block height: 16641
+2024-06-03T15:20:00.577Z - INFO - current cycle: 18
+2024-06-03T15:20:00.578Z - INFO - is in reward phase
+2024-06-03T15:20:00.752Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T15:20:01.390Z - INFO - stacking minimum by cycle 19: 16445356919802
+2024-06-03T15:22:00.415Z - INFO - current burn block height: 16642
+2024-06-03T15:22:00.719Z - INFO - current cycle: 18
+2024-06-03T15:22:00.720Z - INFO - is in reward phase
+2024-06-03T15:22:00.899Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T15:22:01.505Z - INFO - stacking minimum by cycle 19: 16445357044802
+2024-06-03T15:26:00.249Z - INFO - current burn block height: 16643
+2024-06-03T15:26:00.646Z - INFO - current cycle: 18
+2024-06-03T15:26:00.647Z - INFO - is in reward phase
+2024-06-03T15:26:00.815Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T15:26:01.227Z - INFO - stacking minimum by cycle 19: 16445357169802
+2024-06-03T15:28:00.594Z - INFO - current burn block height: 16644
+2024-06-03T15:28:00.790Z - INFO - current cycle: 18
+2024-06-03T15:28:00.791Z - INFO - is in reward phase
+2024-06-03T15:28:00.986Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T15:28:01.969Z - INFO - stacking minimum by cycle 19: 16445357294802
+2024-06-03T15:32:00.489Z - INFO - current burn block height: 16645
+2024-06-03T15:32:00.795Z - INFO - current cycle: 18
+2024-06-03T15:32:00.796Z - INFO - is in reward phase
+2024-06-03T15:32:00.967Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T15:32:01.475Z - INFO - stacking minimum by cycle 19: 16445357419802
+2024-06-03T15:34:00.402Z - INFO - current burn block height: 16646
+2024-06-03T15:34:00.767Z - INFO - current cycle: 18
+2024-06-03T15:34:00.767Z - INFO - is in reward phase
+2024-06-03T15:34:00.958Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T15:34:01.353Z - INFO - stacking minimum by cycle 19: 16445357544802
+2024-06-03T15:38:00.521Z - INFO - current burn block height: 16647
+2024-06-03T15:38:00.720Z - INFO - current cycle: 18
+2024-06-03T15:38:00.721Z - INFO - is in reward phase
+2024-06-03T15:38:01.050Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T15:38:01.569Z - INFO - stacking minimum by cycle 19: 16445357669802
+2024-06-03T15:40:00.377Z - INFO - current burn block height: 16648
+2024-06-03T15:40:00.576Z - INFO - current cycle: 18
+2024-06-03T15:40:00.577Z - INFO - is in reward phase
+2024-06-03T15:40:00.749Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T15:40:01.191Z - INFO - stacking minimum by cycle 19: 16445357794802
+2024-06-03T15:44:00.477Z - INFO - current burn block height: 16649
+2024-06-03T15:44:00.781Z - INFO - current cycle: 18
+2024-06-03T15:44:00.782Z - INFO - is in reward phase
+2024-06-03T15:44:00.968Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T15:44:01.474Z - INFO - stacking minimum by cycle 19: 16445357919802
+2024-06-03T15:46:00.347Z - INFO - current burn block height: 16650
+2024-06-03T15:46:00.630Z - INFO - current cycle: 18
+2024-06-03T15:46:00.631Z - INFO - is in reward phase
+2024-06-03T15:46:00.835Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T15:46:01.277Z - INFO - stacking minimum by cycle 19: 16445358044802
+2024-06-03T15:50:00.464Z - INFO - current burn block height: 16651
+2024-06-03T15:50:00.807Z - INFO - current cycle: 18
+2024-06-03T15:50:00.808Z - INFO - is in reward phase
+2024-06-03T15:50:00.990Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T15:50:01.637Z - INFO - stacking minimum by cycle 19: 16445358169802
+2024-06-03T15:52:00.524Z - INFO - current burn block height: 16652
+2024-06-03T15:52:00.819Z - INFO - current cycle: 18
+2024-06-03T15:52:00.820Z - INFO - is in reward phase
+2024-06-03T15:52:01.082Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T15:52:01.603Z - INFO - stacking minimum by cycle 19: 16445358294802
+2024-06-03T15:56:00.388Z - INFO - current burn block height: 16653
+2024-06-03T15:56:00.690Z - INFO - current cycle: 18
+2024-06-03T15:56:00.691Z - INFO - is in reward phase
+2024-06-03T15:56:00.907Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T15:56:01.463Z - INFO - stacking minimum by cycle 19: 16445358419802
+2024-06-03T16:00:00.426Z - INFO - current burn block height: 16654
+2024-06-03T16:00:00.631Z - INFO - current cycle: 18
+2024-06-03T16:00:00.632Z - INFO - is in reward phase
+2024-06-03T16:00:00.808Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T16:00:01.392Z - INFO - stacking minimum by cycle 19: 16445358544802
+2024-06-03T16:02:00.380Z - INFO - current burn block height: 16655
+2024-06-03T16:02:00.773Z - INFO - current cycle: 18
+2024-06-03T16:02:00.774Z - INFO - is in reward phase
+2024-06-03T16:02:00.958Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T16:02:01.372Z - INFO - stacking minimum by cycle 19: 16445358669802
+2024-06-03T16:06:00.363Z - INFO - current burn block height: 16656
+2024-06-03T16:06:00.551Z - INFO - current cycle: 18
+2024-06-03T16:06:00.551Z - INFO - is in reward phase
+2024-06-03T16:06:00.733Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T16:06:01.280Z - INFO - stacking minimum by cycle 19: 16445358794802
+2024-06-03T16:08:00.369Z - INFO - current burn block height: 16657
+2024-06-03T16:08:00.756Z - INFO - current cycle: 18
+2024-06-03T16:08:00.757Z - INFO - is in reward phase
+2024-06-03T16:08:00.931Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T16:08:01.569Z - INFO - stacking minimum by cycle 19: 16445358919802
+2024-06-03T16:12:00.381Z - INFO - current burn block height: 16658
+2024-06-03T16:12:00.766Z - INFO - current cycle: 18
+2024-06-03T16:12:00.767Z - INFO - is in reward phase
+2024-06-03T16:12:00.939Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T16:12:01.491Z - INFO - stacking minimum by cycle 19: 16445359044802
+2024-06-03T16:14:00.370Z - INFO - current burn block height: 16659
+2024-06-03T16:14:00.552Z - INFO - current cycle: 18
+2024-06-03T16:14:00.553Z - INFO - is in reward phase
+2024-06-03T16:14:00.724Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T16:14:01.288Z - INFO - stacking minimum by cycle 19: 16445359169802
+2024-06-03T16:16:00.389Z - INFO - current burn block height: 16660
+2024-06-03T16:16:00.569Z - INFO - current cycle: 18
+2024-06-03T16:16:00.569Z - INFO - is in reward phase
+2024-06-03T16:16:00.739Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T16:16:01.292Z - INFO - stacking minimum by cycle 19: 16445359294802
+2024-06-03T16:20:00.394Z - INFO - current burn block height: 16661
+2024-06-03T16:20:00.700Z - INFO - current cycle: 18
+2024-06-03T16:20:00.701Z - INFO - is in reward phase
+2024-06-03T16:20:00.879Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T16:20:01.274Z - INFO - stacking minimum by cycle 19: 16445359419802
+2024-06-03T16:22:00.357Z - INFO - current burn block height: 16662
+2024-06-03T16:22:00.595Z - INFO - current cycle: 18
+2024-06-03T16:22:00.596Z - INFO - is in reward phase
+2024-06-03T16:22:00.786Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T16:22:01.192Z - INFO - stacking minimum by cycle 19: 16445359544802
+2024-06-03T16:26:00.375Z - INFO - current burn block height: 16663
+2024-06-03T16:26:00.743Z - INFO - current cycle: 18
+2024-06-03T16:26:00.744Z - INFO - is in reward phase
+2024-06-03T16:26:00.926Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T16:26:01.439Z - INFO - stacking minimum by cycle 19: 16445359669802
+2024-06-03T16:28:00.456Z - INFO - current burn block height: 16664
+2024-06-03T16:28:00.767Z - INFO - current cycle: 18
+2024-06-03T16:28:00.768Z - INFO - is in reward phase
+2024-06-03T16:28:00.936Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T16:28:01.468Z - INFO - stacking minimum by cycle 19: 16445359794802
+2024-06-03T16:32:00.485Z - INFO - current burn block height: 16665
+2024-06-03T16:32:00.780Z - INFO - current cycle: 18
+2024-06-03T16:32:00.780Z - INFO - is in reward phase
+2024-06-03T16:32:00.967Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T16:32:01.598Z - INFO - stacking minimum by cycle 19: 16445359919802
+2024-06-03T16:34:00.405Z - INFO - current burn block height: 16666
+2024-06-03T16:34:00.695Z - INFO - current cycle: 18
+2024-06-03T16:34:00.696Z - INFO - is in reward phase
+2024-06-03T16:34:00.952Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T16:34:01.510Z - INFO - stacking minimum by cycle 19: 16445360044802
+2024-06-03T16:38:00.425Z - INFO - current burn block height: 16667
+2024-06-03T16:38:00.730Z - INFO - current cycle: 18
+2024-06-03T16:38:00.731Z - INFO - is in reward phase
+2024-06-03T16:38:00.902Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T16:38:01.433Z - INFO - stacking minimum by cycle 19: 16445360169802
+2024-06-03T16:40:00.437Z - INFO - current burn block height: 16668
+2024-06-03T16:40:00.747Z - INFO - current cycle: 18
+2024-06-03T16:40:00.748Z - INFO - is in reward phase
+2024-06-03T16:40:00.933Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T16:40:01.529Z - INFO - stacking minimum by cycle 19: 16445360294802
+2024-06-03T16:44:00.375Z - INFO - current burn block height: 16669
+2024-06-03T16:44:00.552Z - INFO - current cycle: 18
+2024-06-03T16:44:00.553Z - INFO - is in reward phase
+2024-06-03T16:44:00.728Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T16:44:01.273Z - INFO - stacking minimum by cycle 19: 16445360419802
+2024-06-03T16:46:00.355Z - INFO - current burn block height: 16670
+2024-06-03T16:46:00.690Z - INFO - current cycle: 18
+2024-06-03T16:46:00.692Z - INFO - is in reward phase
+2024-06-03T16:46:00.872Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T16:46:01.399Z - INFO - stacking minimum by cycle 19: 16445360544802
+2024-06-03T16:50:00.419Z - INFO - current burn block height: 16671
+2024-06-03T16:50:00.771Z - INFO - current cycle: 18
+2024-06-03T16:50:00.772Z - INFO - is in reward phase
+2024-06-03T16:50:00.942Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T16:50:01.479Z - INFO - stacking minimum by cycle 19: 16445360669802
+2024-06-03T16:52:00.430Z - INFO - current burn block height: 16672
+2024-06-03T16:52:00.740Z - INFO - current cycle: 18
+2024-06-03T16:52:00.740Z - INFO - is in reward phase
+2024-06-03T16:52:00.904Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T16:52:01.459Z - INFO - stacking minimum by cycle 19: 16445360794802
+2024-06-03T16:56:00.458Z - INFO - current burn block height: 16673
+2024-06-03T16:56:00.752Z - INFO - current cycle: 18
+2024-06-03T16:56:00.752Z - INFO - is in reward phase
+2024-06-03T16:56:00.923Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T16:56:01.547Z - INFO - stacking minimum by cycle 19: 16445360919802
+2024-06-03T16:58:00.494Z - INFO - current burn block height: 16674
+2024-06-03T16:58:00.791Z - INFO - current cycle: 18
+2024-06-03T16:58:00.792Z - INFO - is in reward phase
+2024-06-03T16:58:00.959Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T16:58:01.571Z - INFO - stacking minimum by cycle 19: 16445361044802
+2024-06-03T17:02:00.383Z - INFO - current burn block height: 16675
+2024-06-03T17:02:00.694Z - INFO - current cycle: 18
+2024-06-03T17:02:00.694Z - INFO - is in reward phase
+2024-06-03T17:02:00.864Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T17:02:01.316Z - INFO - stacking minimum by cycle 19: 16445361169802
+2024-06-03T17:06:00.434Z - INFO - current burn block height: 16676
+2024-06-03T17:06:00.738Z - INFO - current cycle: 18
+2024-06-03T17:06:00.738Z - INFO - is in reward phase
+2024-06-03T17:06:00.928Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T17:06:01.525Z - INFO - stacking minimum by cycle 19: 16445361294802
+2024-06-03T17:08:00.270Z - INFO - current burn block height: 16677
+2024-06-03T17:08:00.463Z - INFO - current cycle: 18
+2024-06-03T17:08:00.463Z - INFO - is in reward phase
+2024-06-03T17:08:00.635Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T17:08:01.122Z - INFO - stacking minimum by cycle 19: 16445361419802
+2024-06-03T17:10:00.280Z - INFO - current burn block height: 16678
+2024-06-03T17:10:00.457Z - INFO - current cycle: 18
+2024-06-03T17:10:00.457Z - INFO - is in reward phase
+2024-06-03T17:10:00.634Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T17:10:01.326Z - INFO - stacking minimum by cycle 19: 16445361544802
+2024-06-03T17:14:00.256Z - INFO - current burn block height: 16679
+2024-06-03T17:14:00.562Z - INFO - current cycle: 18
+2024-06-03T17:14:00.563Z - INFO - is in reward phase
+2024-06-03T17:14:00.731Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T17:14:01.312Z - INFO - stacking minimum by cycle 19: 16445361669802
+2024-06-03T17:16:00.498Z - INFO - current burn block height: 16680
+2024-06-03T17:16:00.788Z - INFO - current cycle: 18
+2024-06-03T17:16:00.789Z - INFO - is in reward phase
+2024-06-03T17:16:00.972Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T17:16:01.391Z - INFO - stacking minimum by cycle 19: 16445361794802
+2024-06-03T17:20:00.377Z - INFO - current burn block height: 16681
+2024-06-03T17:20:00.685Z - INFO - current cycle: 18
+2024-06-03T17:20:00.685Z - INFO - is in reward phase
+2024-06-03T17:20:00.862Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T17:20:01.415Z - INFO - stacking minimum by cycle 19: 16445361919802
+2024-06-03T17:22:00.653Z - INFO - current burn block height: 16682
+2024-06-03T17:22:00.946Z - INFO - current cycle: 18
+2024-06-03T17:22:00.946Z - INFO - is in reward phase
+2024-06-03T17:22:01.119Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T17:22:01.686Z - INFO - stacking minimum by cycle 19: 16445362044802
+2024-06-03T17:26:00.363Z - INFO - current burn block height: 16683
+2024-06-03T17:26:00.683Z - INFO - current cycle: 18
+2024-06-03T17:26:00.684Z - INFO - is in reward phase
+2024-06-03T17:26:00.868Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T17:26:01.394Z - INFO - stacking minimum by cycle 19: 16445362169802
+2024-06-03T17:28:00.369Z - INFO - current burn block height: 16684
+2024-06-03T17:28:00.666Z - INFO - current cycle: 18
+2024-06-03T17:28:00.668Z - INFO - is in reward phase
+2024-06-03T17:28:00.841Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T17:28:01.525Z - INFO - stacking minimum by cycle 19: 16445362294802
+2024-06-03T17:32:00.530Z - INFO - current burn block height: 16685
+2024-06-03T17:32:01.003Z - INFO - current cycle: 18
+2024-06-03T17:32:01.003Z - INFO - is in reward phase
+2024-06-03T17:32:01.189Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T17:32:01.705Z - INFO - stacking minimum by cycle 19: 16445362419802
+2024-06-03T17:36:00.361Z - INFO - current burn block height: 16686
+2024-06-03T17:36:00.809Z - INFO - current cycle: 18
+2024-06-03T17:36:00.810Z - INFO - is in reward phase
+2024-06-03T17:36:00.979Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T17:36:01.682Z - INFO - stacking minimum by cycle 19: 16445362544802
+2024-06-03T17:38:00.298Z - INFO - current burn block height: 16687
+2024-06-03T17:38:00.625Z - INFO - current cycle: 18
+2024-06-03T17:38:00.626Z - INFO - is in reward phase
+2024-06-03T17:38:00.812Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T17:38:01.427Z - INFO - stacking minimum by cycle 19: 16445362669802
+2024-06-03T17:40:00.405Z - INFO - current burn block height: 16688
+2024-06-03T17:40:00.699Z - INFO - current cycle: 18
+2024-06-03T17:40:00.699Z - INFO - is in reward phase
+2024-06-03T17:40:00.870Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T17:40:01.262Z - INFO - stacking minimum by cycle 19: 16445362794802
+2024-06-03T17:44:00.402Z - INFO - current burn block height: 16689
+2024-06-03T17:44:00.576Z - INFO - current cycle: 18
+2024-06-03T17:44:00.577Z - INFO - is in reward phase
+2024-06-03T17:44:00.744Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T17:44:01.140Z - INFO - stacking minimum by cycle 19: 16445362919802
+2024-06-03T17:48:00.401Z - INFO - current burn block height: 16690
+2024-06-03T17:48:00.584Z - INFO - current cycle: 18
+2024-06-03T17:48:00.584Z - INFO - is in reward phase
+2024-06-03T17:48:00.749Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T17:48:01.283Z - INFO - stacking minimum by cycle 19: 16445363044802
+2024-06-03T17:50:00.396Z - INFO - current burn block height: 16691
+2024-06-03T17:50:00.693Z - INFO - current cycle: 18
+2024-06-03T17:50:00.693Z - INFO - is in reward phase
+2024-06-03T17:50:00.920Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T17:50:01.460Z - INFO - stacking minimum by cycle 19: 16445363169802
+2024-06-03T17:52:00.357Z - INFO - current burn block height: 16692
+2024-06-03T17:52:00.531Z - INFO - current cycle: 18
+2024-06-03T17:52:00.531Z - INFO - is in reward phase
+2024-06-03T17:52:00.697Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T17:52:01.110Z - INFO - stacking minimum by cycle 19: 16445363294802
+2024-06-03T17:56:00.259Z - INFO - current burn block height: 16693
+2024-06-03T17:56:00.462Z - INFO - current cycle: 18
+2024-06-03T17:56:00.463Z - INFO - is in reward phase
+2024-06-03T17:56:00.693Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T17:56:01.124Z - INFO - stacking minimum by cycle 19: 16445363419802
+2024-06-03T17:58:00.373Z - INFO - current burn block height: 16694
+2024-06-03T17:58:00.556Z - INFO - current cycle: 18
+2024-06-03T17:58:00.556Z - INFO - is in reward phase
+2024-06-03T17:58:00.726Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T17:58:01.402Z - INFO - stacking minimum by cycle 19: 16445363544802
+2024-06-03T18:02:00.365Z - INFO - current burn block height: 16695
+2024-06-03T18:02:00.663Z - INFO - current cycle: 18
+2024-06-03T18:02:00.664Z - INFO - is in reward phase
+2024-06-03T18:02:00.846Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T18:02:01.243Z - INFO - stacking minimum by cycle 19: 16445363669802
+2024-06-03T18:04:00.375Z - INFO - current burn block height: 16696
+2024-06-03T18:04:00.666Z - INFO - current cycle: 18
+2024-06-03T18:04:00.666Z - INFO - is in reward phase
+2024-06-03T18:04:00.878Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T18:04:01.401Z - INFO - stacking minimum by cycle 19: 16445363794802
+2024-06-03T18:08:00.368Z - INFO - current burn block height: 16697
+2024-06-03T18:08:00.680Z - INFO - current cycle: 18
+2024-06-03T18:08:00.682Z - INFO - is in reward phase
+2024-06-03T18:08:00.863Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T18:08:01.424Z - INFO - stacking minimum by cycle 19: 16445363919802
+2024-06-03T18:10:00.259Z - INFO - current burn block height: 16698
+2024-06-03T18:10:00.576Z - INFO - current cycle: 18
+2024-06-03T18:10:00.577Z - INFO - is in reward phase
+2024-06-03T18:10:00.751Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T18:10:01.139Z - INFO - stacking minimum by cycle 19: 16445364044802
+2024-06-03T18:14:00.308Z - INFO - current burn block height: 16699
+2024-06-03T18:14:00.724Z - INFO - current cycle: 18
+2024-06-03T18:14:00.725Z - INFO - is in reward phase
+2024-06-03T18:14:00.927Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T18:14:01.550Z - INFO - stacking minimum by cycle 19: 16445364169802
+2024-06-03T18:16:00.378Z - INFO - current burn block height: 16700
+2024-06-03T18:16:00.679Z - INFO - current cycle: 18
+2024-06-03T18:16:00.682Z - INFO - is in reward phase
+2024-06-03T18:16:00.854Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T18:16:01.362Z - INFO - stacking minimum by cycle 19: 16445364294802
+2024-06-03T18:20:00.820Z - INFO - current burn block height: 16701
+2024-06-03T18:20:01.204Z - INFO - current cycle: 18
+2024-06-03T18:20:01.204Z - INFO - is in reward phase
+2024-06-03T18:20:01.601Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T18:20:02.251Z - INFO - stacking minimum by cycle 19: 16445364419802
+2024-06-03T18:22:00.407Z - INFO - current burn block height: 16702
+2024-06-03T18:22:00.696Z - INFO - current cycle: 18
+2024-06-03T18:22:00.697Z - INFO - is in reward phase
+2024-06-03T18:22:00.857Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T18:22:01.372Z - INFO - stacking minimum by cycle 19: 16445364544802
+2024-06-03T18:26:00.389Z - INFO - current burn block height: 16703
+2024-06-03T18:26:00.737Z - INFO - current cycle: 18
+2024-06-03T18:26:00.738Z - INFO - is in reward phase
+2024-06-03T18:26:00.909Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T18:26:01.490Z - INFO - stacking minimum by cycle 19: 16445364669802
+2024-06-03T18:28:00.408Z - INFO - current burn block height: 16704
+2024-06-03T18:28:00.708Z - INFO - current cycle: 18
+2024-06-03T18:28:00.708Z - INFO - is in reward phase
+2024-06-03T18:28:00.881Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T18:28:01.287Z - INFO - stacking minimum by cycle 19: 16445364794802
+2024-06-03T18:32:00.436Z - INFO - current burn block height: 16705
+2024-06-03T18:32:00.771Z - INFO - current cycle: 18
+2024-06-03T18:32:00.771Z - INFO - is in reward phase
+2024-06-03T18:32:00.964Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T18:32:01.492Z - INFO - stacking minimum by cycle 19: 16445364919802
+2024-06-03T18:34:00.347Z - INFO - current burn block height: 16706
+2024-06-03T18:34:00.678Z - INFO - current cycle: 18
+2024-06-03T18:34:00.678Z - INFO - is in reward phase
+2024-06-03T18:34:00.877Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T18:34:01.395Z - INFO - stacking minimum by cycle 19: 16445365044802
+2024-06-03T18:38:00.393Z - INFO - current burn block height: 16707
+2024-06-03T18:38:00.688Z - INFO - current cycle: 18
+2024-06-03T18:38:00.691Z - INFO - is in reward phase
+2024-06-03T18:38:00.877Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T18:38:01.436Z - INFO - stacking minimum by cycle 19: 16445365169802
+2024-06-03T18:40:00.314Z - INFO - current burn block height: 16708
+2024-06-03T18:40:00.510Z - INFO - current cycle: 18
+2024-06-03T18:40:00.510Z - INFO - is in reward phase
+2024-06-03T18:40:00.682Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T18:40:01.224Z - INFO - stacking minimum by cycle 19: 16445365294802
+2024-06-03T18:44:00.371Z - INFO - current burn block height: 16709
+2024-06-03T18:44:00.550Z - INFO - current cycle: 18
+2024-06-03T18:44:00.550Z - INFO - is in reward phase
+2024-06-03T18:44:00.717Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T18:44:01.121Z - INFO - stacking minimum by cycle 19: 16445365419802
+2024-06-03T18:46:00.396Z - INFO - current burn block height: 16710
+2024-06-03T18:46:00.700Z - INFO - current cycle: 18
+2024-06-03T18:46:00.700Z - INFO - is in reward phase
+2024-06-03T18:46:00.894Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T18:46:01.401Z - INFO - stacking minimum by cycle 19: 16445365544802
+2024-06-03T18:50:00.289Z - INFO - current burn block height: 16711
+2024-06-03T18:50:00.582Z - INFO - current cycle: 18
+2024-06-03T18:50:00.583Z - INFO - is in reward phase
+2024-06-03T18:50:00.756Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T18:50:01.313Z - INFO - stacking minimum by cycle 19: 16445365669802
+2024-06-03T18:54:00.253Z - INFO - current burn block height: 16712
+2024-06-03T18:54:00.550Z - INFO - current cycle: 18
+2024-06-03T18:54:00.551Z - INFO - is in reward phase
+2024-06-03T18:54:00.719Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T18:54:01.126Z - INFO - stacking minimum by cycle 19: 16445365794802
+2024-06-03T18:56:00.250Z - INFO - current burn block height: 16713
+2024-06-03T18:56:00.539Z - INFO - current cycle: 18
+2024-06-03T18:56:00.540Z - INFO - is in reward phase
+2024-06-03T18:56:00.710Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T18:56:01.196Z - INFO - stacking minimum by cycle 19: 16445365919802
+2024-06-03T18:58:00.346Z - INFO - current burn block height: 16714
+2024-06-03T18:58:00.652Z - INFO - current cycle: 18
+2024-06-03T18:58:00.652Z - INFO - is in reward phase
+2024-06-03T18:58:00.845Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T18:58:01.355Z - INFO - stacking minimum by cycle 19: 16445366044802
+2024-06-03T19:02:00.299Z - INFO - current burn block height: 16715
+2024-06-03T19:02:00.596Z - INFO - current cycle: 18
+2024-06-03T19:02:00.596Z - INFO - is in reward phase
+2024-06-03T19:02:00.782Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T19:02:01.300Z - INFO - stacking minimum by cycle 19: 16445366169802
+2024-06-03T19:04:00.369Z - INFO - current burn block height: 16716
+2024-06-03T19:04:00.545Z - INFO - current cycle: 18
+2024-06-03T19:04:00.546Z - INFO - is in reward phase
+2024-06-03T19:04:00.723Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T19:04:01.126Z - INFO - stacking minimum by cycle 19: 16445366294802
+2024-06-03T19:08:00.394Z - INFO - current burn block height: 16717
+2024-06-03T19:08:00.704Z - INFO - current cycle: 18
+2024-06-03T19:08:00.705Z - INFO - is in reward phase
+2024-06-03T19:08:00.881Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T19:08:01.390Z - INFO - stacking minimum by cycle 19: 16445366419802
+2024-06-03T19:10:00.260Z - INFO - current burn block height: 16718
+2024-06-03T19:10:00.452Z - INFO - current cycle: 18
+2024-06-03T19:10:00.453Z - INFO - is in reward phase
+2024-06-03T19:10:00.634Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T19:10:01.034Z - INFO - stacking minimum by cycle 19: 16445366544802
+2024-06-03T19:14:00.267Z - INFO - current burn block height: 16719
+2024-06-03T19:14:00.577Z - INFO - current cycle: 18
+2024-06-03T19:14:00.577Z - INFO - is in reward phase
+2024-06-03T19:14:00.760Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T19:14:01.282Z - INFO - stacking minimum by cycle 19: 16445366669802
+2024-06-03T19:16:00.295Z - INFO - current burn block height: 16720
+2024-06-03T19:16:00.597Z - INFO - current cycle: 18
+2024-06-03T19:16:00.598Z - INFO - is in reward phase
+2024-06-03T19:16:00.808Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T19:16:01.195Z - INFO - stacking minimum by cycle 19: 16445366794802
+2024-06-03T22:15:06.037Z - INFO - current burn block height: 16779
+2024-06-03T22:15:06.330Z - INFO - current cycle: 18
+2024-06-03T22:15:06.330Z - INFO - is in reward phase
+2024-06-03T22:15:06.506Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T22:15:07.029Z - INFO - stacking minimum by cycle 19: 16445374169802
+2024-06-03T22:15:07.220Z - INFO - blocks won: 16526,16527,16528,16529,16530,16531,16532,16533
+2024-06-03T22:15:11.729Z - INFO - blocks rewards distributed: 16526,16527,16528,16529,16530,16531,16532,16533
+2024-06-03T22:15:11.729Z - INFO - distribute-rewards tx 62703616d93240fc1e399dc501c74b56f82af20889a01f02e46da13024f51fa9
+      api link: https://api.nakamoto.testnet.hiro.so/extended/v1/tx/62703616d93240fc1e399dc501c74b56f82af20889a01f02e46da13024f51fa9
+      explorer link: https://explorer.hiro.so/txid/62703616d93240fc1e399dc501c74b56f82af20889a01f02e46da13024f51fa9?chain=testnet&api=https://api.nakamoto.testnet.hiro.so
+2024-06-03T22:16:00.239Z - INFO - current burn block height: 16780
+2024-06-03T22:16:00.427Z - INFO - current cycle: 18
+2024-06-03T22:16:00.428Z - INFO - is in reward phase
+2024-06-03T22:16:00.627Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T22:16:01.062Z - INFO - stacking minimum by cycle 19: 16445374294802
+2024-06-03T22:16:51.714Z - INFO - current burn block height: 16780
+2024-06-03T22:16:51.906Z - INFO - current cycle: 18
+2024-06-03T22:16:51.906Z - INFO - is in reward phase
+2024-06-03T22:16:52.078Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T22:16:52.455Z - INFO - stacking minimum by cycle 19: 16445374294802
+2024-06-03T22:16:52.650Z - INFO - blocks won: 16527,16528,16529,16530,16531,16532,16533
+2024-06-03T22:16:57.117Z - ERROR - distribute-rewards failed broadcast tx d000a760577815aaf5b4d8de8aecb9680444c259231c014357fba4281e6335a6
+        error: transaction rejected
+        reason: SignatureValidation
+        reason data: [object Object]
+2024-06-03T22:19:25.609Z - INFO - current burn block height: 16781
+2024-06-03T22:19:25.932Z - INFO - current cycle: 18
+2024-06-03T22:19:25.932Z - INFO - is in reward phase
+2024-06-03T22:19:26.103Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T22:19:26.477Z - INFO - stacking minimum by cycle 19: 16445374419802
+2024-06-03T22:19:26.656Z - INFO - blocks won: 16526,16527,16528,16529,16530,16531,16532,16533
+2024-06-03T22:19:31.215Z - ERROR - distribute-rewards failed broadcast tx 71d301a1e8df13f45b35a81fda4d691075d7dcbeef312d2ebdf482a48f5bc337
+        error: transaction rejected
+        reason: SignatureValidation
+        reason data: [object Object]
+2024-06-03T22:20:51.076Z - INFO - current burn block height: 16781
+2024-06-03T22:20:51.383Z - INFO - current cycle: 18
+2024-06-03T22:20:51.383Z - INFO - is in reward phase
+2024-06-03T22:20:51.691Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T22:20:52.395Z - INFO - stacking minimum by cycle 19: 16445374419802
+2024-06-03T22:20:52.578Z - INFO - blocks won: 16526,16527,16528,16529,16530,16531,16532,16533
+2024-06-03T22:20:57.475Z - ERROR - distribute-rewards failed broadcast tx 71d301a1e8df13f45b35a81fda4d691075d7dcbeef312d2ebdf482a48f5bc337
+        error: transaction rejected
+        reason: SignatureValidation
+        reason data: [object Object]
+2024-06-03T22:22:00.304Z - INFO - current burn block height: 16782
+2024-06-03T22:22:00.486Z - INFO - current cycle: 18
+2024-06-03T22:22:00.487Z - INFO - is in reward phase
+2024-06-03T22:22:00.781Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T22:22:01.191Z - INFO - stacking minimum by cycle 19: 16445374544802
+2024-06-03T22:22:14.746Z - INFO - current burn block height: 16782
+2024-06-03T22:22:15.043Z - INFO - current cycle: 18
+2024-06-03T22:22:15.044Z - INFO - is in reward phase
+2024-06-03T22:22:15.215Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T22:22:15.622Z - INFO - stacking minimum by cycle 19: 16445374544802
+2024-06-03T22:22:15.809Z - INFO - blocks won: 16526,16527,16528,16529,16530,16531,16532,16533
+2024-06-03T22:22:20.853Z - ERROR - distribute-rewards failed broadcast tx 71d301a1e8df13f45b35a81fda4d691075d7dcbeef312d2ebdf482a48f5bc337
+        error: transaction rejected
+        reason: SignatureValidation
+        reason data: [object Object]
+2024-06-03T22:26:00.364Z - INFO - current burn block height: 16783
+2024-06-03T22:26:00.536Z - INFO - current cycle: 18
+2024-06-03T22:26:00.537Z - INFO - is in reward phase
+2024-06-03T22:26:00.891Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T22:26:01.583Z - INFO - stacking minimum by cycle 19: 16445374669802
+2024-06-03T22:30:00.458Z - INFO - current burn block height: 16784
+2024-06-03T22:30:00.845Z - INFO - current cycle: 18
+2024-06-03T22:30:00.845Z - INFO - is in reward phase
+2024-06-03T22:30:01.042Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T22:30:01.552Z - INFO - stacking minimum by cycle 19: 16445374794802
+2024-06-03T22:32:00.619Z - INFO - current burn block height: 16785
+2024-06-03T22:32:01.446Z - INFO - current cycle: 18
+2024-06-03T22:32:01.446Z - INFO - is in reward phase
+2024-06-03T22:32:01.617Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T22:32:02.982Z - INFO - stacking minimum by cycle 19: 16445374919802
+2024-06-03T22:34:00.427Z - INFO - current burn block height: 16786
+2024-06-03T22:34:00.729Z - INFO - current cycle: 18
+2024-06-03T22:34:00.730Z - INFO - is in reward phase
+2024-06-03T22:34:00.903Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T22:34:01.337Z - INFO - stacking minimum by cycle 19: 16445375044802
+2024-06-03T22:38:00.379Z - INFO - current burn block height: 16787
+2024-06-03T22:38:00.669Z - INFO - current cycle: 18
+2024-06-03T22:38:00.670Z - INFO - is in reward phase
+2024-06-03T22:38:00.843Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T22:38:01.247Z - INFO - stacking minimum by cycle 19: 16445375169802
+2024-06-03T22:40:00.415Z - INFO - current burn block height: 16788
+2024-06-03T22:40:00.798Z - INFO - current cycle: 18
+2024-06-03T22:40:00.799Z - INFO - is in reward phase
+2024-06-03T22:40:00.966Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T22:40:01.493Z - INFO - stacking minimum by cycle 19: 16445375294802
+2024-06-03T22:44:00.389Z - INFO - current burn block height: 16789
+2024-06-03T22:44:00.576Z - INFO - current cycle: 18
+2024-06-03T22:44:00.576Z - INFO - is in reward phase
+2024-06-03T22:44:00.741Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T22:44:01.248Z - INFO - stacking minimum by cycle 19: 16445375419802
+2024-06-03T22:48:00.400Z - INFO - current burn block height: 16790
+2024-06-03T22:48:00.569Z - INFO - current cycle: 18
+2024-06-03T22:48:00.569Z - INFO - is in reward phase
+2024-06-03T22:48:00.743Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T22:48:01.277Z - INFO - stacking minimum by cycle 19: 16445375544802
+2024-06-03T22:50:00.424Z - INFO - current burn block height: 16791
+2024-06-03T22:50:00.772Z - INFO - current cycle: 18
+2024-06-03T22:50:00.772Z - INFO - is in reward phase
+2024-06-03T22:50:00.951Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T22:50:01.459Z - INFO - stacking minimum by cycle 19: 16445375669802
+2024-06-03T22:54:00.547Z - INFO - current burn block height: 16792
+2024-06-03T22:54:00.875Z - INFO - current cycle: 18
+2024-06-03T22:54:00.875Z - INFO - is in reward phase
+2024-06-03T22:54:01.044Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T22:54:01.634Z - INFO - stacking minimum by cycle 19: 16445375794802
+2024-06-03T22:56:00.353Z - INFO - current burn block height: 16793
+2024-06-03T22:56:00.664Z - INFO - current cycle: 18
+2024-06-03T22:56:00.665Z - INFO - is in reward phase
+2024-06-03T22:56:00.834Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T22:56:01.350Z - INFO - stacking minimum by cycle 19: 16445375919802
+2024-06-03T22:58:00.575Z - INFO - current burn block height: 16794
+2024-06-03T22:58:00.899Z - INFO - current cycle: 18
+2024-06-03T22:58:00.899Z - INFO - is in reward phase
+2024-06-03T22:58:01.230Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T22:58:01.807Z - INFO - stacking minimum by cycle 19: 16445376044802
+2024-06-03T23:00:05.210Z - INFO - current burn block height: 16794
+2024-06-03T23:00:05.507Z - INFO - current cycle: 18
+2024-06-03T23:00:05.507Z - INFO - is in reward phase
+2024-06-03T23:00:05.673Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T23:00:06.290Z - INFO - stacking minimum by cycle 19: 16445376044802
+2024-06-03T23:00:06.484Z - INFO - blocks won: 16526,16527,16528,16529,16530,16531,16532,16533
+2024-06-03T23:00:11.157Z - INFO - blocks rewards distributed: 16526,16527,16528,16529,16530,16531,16532,16533
+2024-06-03T23:00:11.158Z - INFO - distribute-rewards tx dddefd57c8586d873de5fe701f91885bb5c49f682e3bbb426b8946f28e84d0cc
+      api link: https://api.nakamoto.testnet.hiro.so/extended/v1/tx/dddefd57c8586d873de5fe701f91885bb5c49f682e3bbb426b8946f28e84d0cc
+      explorer link: https://explorer.hiro.so/txid/dddefd57c8586d873de5fe701f91885bb5c49f682e3bbb426b8946f28e84d0cc?chain=testnet&api=https://api.nakamoto.testnet.hiro.so
+2024-06-03T23:03:53.869Z - INFO - current burn block height: 16796
+2024-06-03T23:03:54.173Z - INFO - current cycle: 18
+2024-06-03T23:03:54.173Z - INFO - is in reward phase
+2024-06-03T23:03:54.341Z - INFO - partial stacked by cycle 19: 0
+2024-06-03T23:03:54.956Z - INFO - stacking minimum by cycle 19: 16445376294802
+2024-06-03T23:03:55.156Z - INFO - blocks won: 16526,16527,16528,16529,16530,16531,16532,16533
+2024-06-03T23:03:59.823Z - INFO - blocks rewards distributed: 16526,16527,16528,16529,16530,16531,16532,16533
+2024-06-03T23:03:59.824Z - INFO - distribute-rewards tx 7e92774a2d2065c7fd69cc7d8812672ee4772b9ed34cac345c91ac3e1854b845
+      api link: https://api.nakamoto.testnet.hiro.so/extended/v1/tx/7e92774a2d2065c7fd69cc7d8812672ee4772b9ed34cac345c91ac3e1854b845
+      explorer link: https://explorer.hiro.so/txid/7e92774a2d2065c7fd69cc7d8812672ee4772b9ed34cac345c91ac3e1854b845?chain=testnet&api=https://api.nakamoto.testnet.hiro.so
+2024-06-04T15:15:10.235Z - INFO - current cycle changed from 85 to: 85
+2024-06-04T15:15:10.236Z - INFO - current burn block height: 846508
+2024-06-04T15:43:32.324Z - INFO - current burn block height: 846509
+2024-06-04T15:45:11.050Z - INFO - current burn block height: 846509
+2024-06-04T15:45:11.337Z - INFO - current cycle: 85
+2024-06-04T15:45:11.337Z - INFO - is in reward phase
+2024-06-04T15:45:13.241Z - INFO - delegate-stack-stx-many tx bc6f5ee2267bd80ffac25b1c28381fee397dbf195a1249f517dccc1924b95dae
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/bc6f5ee2267bd80ffac25b1c28381fee397dbf195a1249f517dccc1924b95dae
+      explorer link: https://explorer.hiro.so/txid/bc6f5ee2267bd80ffac25b1c28381fee397dbf195a1249f517dccc1924b95dae?chain=mainnet
+2024-06-04T15:45:13.405Z - INFO - partial stacked by cycle 86: 128999000000
+2024-06-04T15:45:13.887Z - INFO - stacking minimum by cycle 86: 73134049365
+2024-06-04T15:45:15.282Z - INFO - partial stacked enough, performed agg-commit
+2024-06-04T15:45:15.282Z - INFO - maybe-stack-aggregation-commit > agg-commit tx 5febd83dda4af93f7b486d7a53308806ab31bf0ec4da0a31ff19d01f677cd7e1
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/5febd83dda4af93f7b486d7a53308806ab31bf0ec4da0a31ff19d01f677cd7e1
+      explorer link: https://explorer.hiro.so/txid/5febd83dda4af93f7b486d7a53308806ab31bf0ec4da0a31ff19d01f677cd7e1?chain=mainnet
+2024-06-04T15:46:05.280Z - INFO - current burn block height: 846510
+2024-06-04T15:46:05.564Z - INFO - current cycle: 85
+2024-06-04T15:46:05.564Z - INFO - is in reward phase
+2024-06-04T15:46:07.210Z - ERROR - delegate-stack-stx-many failed broadcast tx bc6f5ee2267bd80ffac25b1c28381fee397dbf195a1249f517dccc1924b95dae
+        error: transaction rejected
+        reason: ConflictingNonceInMempool
+        reason data: undefined
+2024-06-04T15:46:07.382Z - INFO - partial stacked by cycle 86: 128999000000
+2024-06-04T15:46:07.707Z - INFO - stacking minimum by cycle 86: 73134099365
+2024-06-04T15:58:00.429Z - INFO - current burn block height: 846511
+2024-06-04T15:58:00.744Z - INFO - current cycle: 85
+2024-06-04T15:58:00.745Z - INFO - is in reward phase
+2024-06-04T15:58:02.905Z - INFO - delegate-stack-stx-many tx dc15bae1d862f7d39a6e9f1e17cc4877eb9aedb3d80537c1dc1f640c7a85f40d
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/dc15bae1d862f7d39a6e9f1e17cc4877eb9aedb3d80537c1dc1f640c7a85f40d
+      explorer link: https://explorer.hiro.so/txid/dc15bae1d862f7d39a6e9f1e17cc4877eb9aedb3d80537c1dc1f640c7a85f40d?chain=mainnet
+2024-06-04T15:58:03.091Z - INFO - partial stacked by cycle 86: 0
+2024-06-04T16:00:00.351Z - INFO - current burn block height: 846512
+2024-06-04T16:00:00.649Z - INFO - current cycle: 85
+2024-06-04T16:00:00.650Z - INFO - is in reward phase
+2024-06-04T16:00:00.828Z - INFO - partial stacked by cycle 86: 0
+2024-06-04T16:22:00.491Z - INFO - current burn block height: 846513
+2024-06-04T16:22:00.764Z - INFO - current cycle: 85
+2024-06-04T16:22:00.765Z - INFO - is in reward phase
+2024-06-04T16:22:00.926Z - INFO - partial stacked by cycle 86: 0
+2024-06-04T16:32:00.348Z - INFO - current burn block height: 846514
+2024-06-04T16:32:00.630Z - INFO - current cycle: 85
+2024-06-04T16:32:00.630Z - INFO - is in reward phase
+2024-06-04T16:32:00.786Z - INFO - partial stacked by cycle 86: 0
+2024-06-04T16:38:00.356Z - INFO - current burn block height: 846515
+2024-06-04T16:38:00.640Z - INFO - current cycle: 85
+2024-06-04T16:38:00.641Z - INFO - is in reward phase
+2024-06-04T16:38:00.806Z - INFO - partial stacked by cycle 86: 0
+2024-06-04T18:07:08.813Z - INFO - current burn block height: 846517
+2024-06-04T18:07:09.102Z - INFO - current cycle: 85
+2024-06-04T18:07:09.103Z - INFO - is in reward phase
+2024-06-04T18:07:09.268Z - INFO - partial stacked by cycle 86: 0
+2024-06-04T18:22:19.125Z - INFO - current burn block height: 846520
+2024-06-04T18:22:19.415Z - INFO - current cycle: 85
+2024-06-04T18:22:19.416Z - INFO - is in reward phase
+2024-06-04T18:22:19.578Z - INFO - partial stacked by cycle 86: 0
+2024-06-04T19:47:03.668Z - INFO - current burn block height: 846532
+2024-06-04T19:47:03.974Z - INFO - current cycle: 85
+2024-06-04T19:47:03.974Z - INFO - is in reward phase
+2024-06-04T19:47:04.133Z - INFO - partial stacked by cycle 86: 0
+2024-06-04T20:03:07.002Z - INFO - current burn block height: 846534
+2024-06-04T20:03:07.175Z - INFO - current cycle: 85
+2024-06-04T20:03:07.176Z - INFO - is in reward phase
+2024-06-04T20:03:07.336Z - INFO - partial stacked by cycle 86: 0
+2024-06-04T20:12:00.421Z - INFO - current burn block height: 846536
+2024-06-04T20:12:00.719Z - INFO - current cycle: 85
+2024-06-04T20:12:00.720Z - INFO - is in reward phase
+2024-06-04T20:12:00.886Z - INFO - partial stacked by cycle 86: 0
+2024-06-04T20:28:00.236Z - INFO - current burn block height: 846537
+2024-06-04T20:28:00.551Z - INFO - current cycle: 85
+2024-06-04T20:28:00.552Z - INFO - is in reward phase
+2024-06-04T20:28:00.772Z - INFO - partial stacked by cycle 86: 0
+2024-06-04T20:32:00.341Z - INFO - current burn block height: 846538
+2024-06-04T20:32:00.626Z - INFO - current cycle: 85
+2024-06-04T20:32:00.626Z - INFO - is in reward phase
+2024-06-04T20:32:00.791Z - INFO - partial stacked by cycle 86: 0
+2024-06-04T20:40:00.376Z - INFO - current burn block height: 846539
+2024-06-04T20:40:00.547Z - INFO - current cycle: 85
+2024-06-04T20:40:00.547Z - INFO - is in reward phase
+2024-06-04T20:40:00.716Z - INFO - partial stacked by cycle 86: 0
+2024-06-04T20:56:00.485Z - INFO - current burn block height: 846540
+2024-06-04T20:56:00.791Z - INFO - current cycle: 85
+2024-06-04T20:56:00.792Z - INFO - is in reward phase
+2024-06-04T20:56:00.964Z - INFO - partial stacked by cycle 86: 0
+2024-06-04T21:33:16.328Z - INFO - current burn block height: 846544
+2024-06-04T21:33:16.613Z - INFO - current cycle: 85
+2024-06-04T21:33:16.614Z - INFO - is in reward phase
+2024-06-04T21:33:16.779Z - INFO - partial stacked by cycle 86: 0
+2024-06-04T22:09:14.932Z - INFO - current burn block height: 846545
+2024-06-04T22:09:15.212Z - INFO - current cycle: 85
+2024-06-04T22:09:15.213Z - INFO - is in reward phase
+2024-06-04T22:09:15.368Z - INFO - partial stacked by cycle 86: 0
+2024-06-04T22:40:23.778Z - INFO - current burn block height: 846547
+2024-06-04T22:40:24.073Z - INFO - current cycle: 85
+2024-06-04T22:40:24.074Z - INFO - is in reward phase
+2024-06-04T22:40:24.238Z - INFO - partial stacked by cycle 86: 0
+2024-06-04T23:31:15.286Z - INFO - current burn block height: 846551
+2024-06-04T23:31:15.571Z - INFO - current cycle: 85
+2024-06-04T23:31:15.571Z - INFO - is in prepare phase
+2024-06-04T23:31:15.572Z - INFO - updated balances this cycle false
+2024-06-04T23:31:17.262Z - INFO - update-sc-balances tx 4976e3170ff6819154b6d81420821ccb50a0c69e25b4c4e3279e6dd56621bd5d
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/4976e3170ff6819154b6d81420821ccb50a0c69e25b4c4e3279e6dd56621bd5d
+      explorer link: https://explorer.hiro.so/txid/4976e3170ff6819154b6d81420821ccb50a0c69e25b4c4e3279e6dd56621bd5d?chain=mainnet
+2024-06-04T23:46:36.804Z - INFO - current burn block height: 846552
+2024-06-04T23:46:37.087Z - INFO - current cycle: 85
+2024-06-04T23:46:37.088Z - INFO - is in prepare phase
+2024-06-04T23:46:37.088Z - INFO - updated balances this cycle false
+2024-06-05T00:37:20.106Z - INFO - current burn block height: 846558
+2024-06-05T00:37:20.291Z - INFO - current cycle: 85
+2024-06-05T00:37:20.292Z - INFO - is in prepare phase
+2024-06-05T00:37:20.292Z - INFO - updated balances this cycle false
+2024-06-05T00:53:34.933Z - INFO - current burn block height: 846560
+2024-06-05T00:53:35.221Z - INFO - current cycle: 85
+2024-06-05T00:53:35.222Z - INFO - is in prepare phase
+2024-06-05T00:53:35.222Z - INFO - updated balances this cycle false
+2024-06-05T00:53:36.007Z - INFO - Updated balances is confirmed. The tx is succesfully anchored 4976e3170ff6819154b6d81420821ccb50a0c69e25b4c4e3279e6dd56621bd5d
+2024-06-05T01:02:11.913Z - INFO - current burn block height: 846562
+2024-06-05T01:02:12.229Z - INFO - current cycle: 85
+2024-06-05T01:02:12.230Z - INFO - is in prepare phase
+2024-06-05T01:02:12.230Z - INFO - updated balances this cycle true
+2024-06-05T02:34:59.916Z - INFO - current burn block height: 846570
+2024-06-05T02:35:00.202Z - INFO - current cycle: 85
+2024-06-05T02:35:00.202Z - INFO - is in prepare phase
+2024-06-05T02:35:00.203Z - INFO - updated balances this cycle true
+2024-06-05T03:29:52.886Z - INFO - current burn block height: 846577
+2024-06-05T03:29:53.167Z - INFO - current cycle: 85
+2024-06-05T03:29:53.168Z - INFO - is in prepare phase
+2024-06-05T03:29:53.168Z - INFO - updated balances this cycle true
+2024-06-05T03:46:56.920Z - INFO - current burn block height: 846580
+2024-06-05T03:46:57.261Z - INFO - current cycle: 85
+2024-06-05T03:46:57.261Z - INFO - is in prepare phase
+2024-06-05T03:46:57.261Z - INFO - updated balances this cycle true
+2024-06-05T04:31:05.828Z - INFO - current burn block height: 846587
+2024-06-05T04:31:06.109Z - INFO - current cycle: 85
+2024-06-05T04:31:06.109Z - INFO - is in prepare phase
+2024-06-05T04:31:06.110Z - INFO - updated balances this cycle true
+2024-06-05T04:46:28.879Z - INFO - current burn block height: 846588
+2024-06-05T04:46:29.158Z - INFO - current cycle: 85
+2024-06-05T04:46:29.159Z - INFO - is in prepare phase
+2024-06-05T04:46:29.159Z - INFO - updated balances this cycle true
+2024-06-05T05:48:14.094Z - INFO - current burn block height: 846590
+2024-06-05T05:48:14.405Z - INFO - current cycle: 85
+2024-06-05T05:48:14.405Z - INFO - is in prepare phase
+2024-06-05T05:48:14.415Z - INFO - updated balances this cycle true
+2024-06-05T07:21:14.897Z - INFO - current burn block height: 846596
+2024-06-05T07:21:15.185Z - INFO - current cycle: 85
+2024-06-05T07:21:15.185Z - INFO - is in prepare phase
+2024-06-05T07:21:15.186Z - INFO - updated balances this cycle true
+2024-06-05T09:22:29.058Z - INFO - current burn block height: 846607
+2024-06-05T09:22:29.345Z - INFO - current cycle: 85
+2024-06-05T09:22:29.346Z - INFO - is in prepare phase
+2024-06-05T09:22:29.347Z - INFO - updated balances this cycle true
+2024-06-05T10:20:06.502Z - INFO - current burn block height: 846610
+2024-06-05T10:20:06.779Z - INFO - current cycle: 85
+2024-06-05T10:20:06.780Z - INFO - is in prepare phase
+2024-06-05T10:20:06.780Z - INFO - updated balances this cycle true
+2024-06-05T10:35:34.236Z - INFO - current burn block height: 846612
+2024-06-05T10:35:34.558Z - INFO - current cycle: 85
+2024-06-05T10:35:34.558Z - INFO - is in prepare phase
+2024-06-05T10:35:34.558Z - INFO - updated balances this cycle true
+2024-06-05T11:26:00.394Z - INFO - current burn block height: 846613
+2024-06-05T11:26:00.681Z - INFO - current cycle: 85
+2024-06-05T11:26:00.681Z - INFO - is in prepare phase
+2024-06-05T11:26:00.682Z - INFO - updated balances this cycle true
+2024-06-05T12:14:00.649Z - INFO - current burn block height: 846614
+2024-06-05T12:14:00.926Z - INFO - current cycle: 85
+2024-06-05T12:14:00.926Z - INFO - is in prepare phase
+2024-06-05T12:14:00.927Z - INFO - updated balances this cycle true
+2024-06-05T12:30:00.349Z - INFO - current burn block height: 846615
+2024-06-05T12:30:00.638Z - INFO - current cycle: 85
+2024-06-05T12:30:00.640Z - INFO - is in prepare phase
+2024-06-05T12:30:00.640Z - INFO - updated balances this cycle true
+2024-06-05T12:36:00.362Z - INFO - current burn block height: 846616
+2024-06-05T12:36:00.703Z - INFO - current cycle: 85
+2024-06-05T12:36:00.703Z - INFO - is in prepare phase
+2024-06-05T12:36:00.704Z - INFO - updated balances this cycle true
+2024-06-05T12:40:00.392Z - INFO - current burn block height: 846617
+2024-06-05T12:40:00.701Z - INFO - current cycle: 85
+2024-06-05T12:40:00.701Z - INFO - is in prepare phase
+2024-06-05T12:40:00.701Z - INFO - updated balances this cycle true
+2024-06-05T12:44:00.345Z - INFO - current burn block height: 846618
+2024-06-05T12:44:00.730Z - INFO - current cycle: 85
+2024-06-05T12:44:00.730Z - INFO - is in prepare phase
+2024-06-05T12:44:00.731Z - INFO - updated balances this cycle true
+2024-06-05T12:46:00.341Z - INFO - current burn block height: 846619
+2024-06-05T12:46:00.617Z - INFO - current cycle: 85
+2024-06-05T12:46:00.617Z - INFO - is in prepare phase
+2024-06-05T12:46:00.618Z - INFO - updated balances this cycle true
+2024-06-05T13:26:00.385Z - INFO - current burn block height: 846620
+2024-06-05T13:26:00.696Z - INFO - current cycle: 85
+2024-06-05T13:26:00.697Z - INFO - is in prepare phase
+2024-06-05T13:26:00.698Z - INFO - updated balances this cycle true
+2024-06-05T13:30:00.520Z - INFO - current burn block height: 846621
+2024-06-05T13:30:00.829Z - INFO - current cycle: 85
+2024-06-05T13:30:00.830Z - INFO - is in prepare phase
+2024-06-05T13:30:00.831Z - INFO - updated balances this cycle true
+2024-06-05T13:38:00.476Z - INFO - current burn block height: 846622
+2024-06-05T13:38:00.786Z - INFO - current cycle: 85
+2024-06-05T13:38:00.787Z - INFO - is in prepare phase
+2024-06-05T13:38:00.788Z - INFO - updated balances this cycle true
+2024-06-05T13:40:00.395Z - INFO - current burn block height: 846623
+2024-06-05T13:40:00.678Z - INFO - current cycle: 85
+2024-06-05T13:40:00.678Z - INFO - is in prepare phase
+2024-06-05T13:40:00.679Z - INFO - updated balances this cycle true
+2024-06-05T13:42:00.349Z - INFO - current burn block height: 846624
+2024-06-05T13:42:00.713Z - INFO - current cycle: 85
+2024-06-05T13:42:00.713Z - INFO - is in prepare phase
+2024-06-05T13:42:00.714Z - INFO - updated balances this cycle true
+2024-06-05T13:44:00.345Z - INFO - current burn block height: 846625
+2024-06-05T13:44:00.506Z - INFO - current cycle: 85
+2024-06-05T13:44:00.506Z - INFO - is in prepare phase
+2024-06-05T13:44:00.507Z - INFO - updated balances this cycle true
+2024-06-05T14:02:00.379Z - INFO - current burn block height: 846626
+2024-06-05T14:02:00.665Z - INFO - current cycle: 85
+2024-06-05T14:02:00.665Z - INFO - is in prepare phase
+2024-06-05T14:02:00.666Z - INFO - updated balances this cycle true
+2024-06-05T14:04:00.355Z - INFO - current burn block height: 846627
+2024-06-05T14:04:00.635Z - INFO - current cycle: 85
+2024-06-05T14:04:00.635Z - INFO - is in prepare phase
+2024-06-05T14:04:00.635Z - INFO - updated balances this cycle true
+2024-06-05T14:10:00.345Z - INFO - current burn block height: 846628
+2024-06-05T14:10:00.640Z - INFO - current cycle: 85
+2024-06-05T14:10:00.642Z - INFO - is in prepare phase
+2024-06-05T14:10:00.642Z - INFO - updated balances this cycle true
+2024-06-05T14:26:00.233Z - INFO - current burn block height: 846629
+2024-06-05T14:26:00.510Z - INFO - current cycle: 85
+2024-06-05T14:26:00.511Z - INFO - is in prepare phase
+2024-06-05T14:26:00.511Z - INFO - updated balances this cycle true
+2024-06-05T14:34:40.642Z - INFO - current burn block height: 846630
+2024-06-05T14:34:40.915Z - INFO - current cycle: 85
+2024-06-05T14:34:40.915Z - INFO - is in prepare phase
+2024-06-05T14:34:40.915Z - INFO - updated balances this cycle true
+2024-06-05T14:52:00.376Z - INFO - current burn block height: 846632
+2024-06-05T14:52:00.659Z - INFO - current cycle: 85
+2024-06-05T14:52:00.660Z - INFO - is in prepare phase
+2024-06-05T14:52:00.661Z - INFO - updated balances this cycle true
+2024-06-05T15:10:00.353Z - INFO - current burn block height: 846634
+2024-06-05T15:10:00.648Z - INFO - current cycle: 85
+2024-06-05T15:10:00.653Z - INFO - is in prepare phase
+2024-06-05T15:10:00.654Z - INFO - updated balances this cycle true
+2024-06-05T15:14:00.345Z - INFO - current burn block height: 846635
+2024-06-05T15:14:00.633Z - INFO - current cycle: 85
+2024-06-05T15:14:00.634Z - INFO - is in prepare phase
+2024-06-05T15:14:00.634Z - INFO - updated balances this cycle true
+2024-06-05T15:24:00.359Z - INFO - current burn block height: 846636
+2024-06-05T15:24:00.654Z - INFO - current cycle: 85
+2024-06-05T15:24:00.655Z - INFO - is in prepare phase
+2024-06-05T15:24:00.656Z - INFO - updated balances this cycle true
+2024-06-05T15:28:00.346Z - INFO - current burn block height: 846637
+2024-06-05T15:28:00.515Z - INFO - current cycle: 85
+2024-06-05T15:28:00.515Z - INFO - is in prepare phase
+2024-06-05T15:28:00.515Z - INFO - updated balances this cycle true
+2024-06-05T15:46:00.423Z - INFO - current burn block height: 846638
+2024-06-05T15:46:00.719Z - INFO - current cycle: 85
+2024-06-05T15:46:00.720Z - INFO - is in prepare phase
+2024-06-05T15:46:00.721Z - INFO - updated balances this cycle true
+2024-06-05T16:02:00.361Z - INFO - current burn block height: 846639
+2024-06-05T16:02:00.745Z - INFO - current cycle: 85
+2024-06-05T16:02:00.745Z - INFO - is in prepare phase
+2024-06-05T16:02:00.746Z - INFO - updated balances this cycle true
+2024-06-05T16:18:00.256Z - INFO - current burn block height: 846640
+2024-06-05T16:18:00.545Z - INFO - current cycle: 85
+2024-06-05T16:18:00.546Z - INFO - is in prepare phase
+2024-06-05T16:18:00.546Z - INFO - updated balances this cycle true
+2024-06-05T16:26:00.412Z - INFO - current burn block height: 846641
+2024-06-05T16:26:00.688Z - INFO - current cycle: 85
+2024-06-05T16:26:00.688Z - INFO - is in prepare phase
+2024-06-05T16:26:00.688Z - INFO - updated balances this cycle true
+2024-06-05T18:48:57.032Z - INFO - current burn block height: 846649
+2024-06-05T18:48:57.332Z - INFO - current cycle: 85
+2024-06-05T18:48:57.332Z - INFO - is in prepare phase
+2024-06-05T18:48:57.332Z - INFO - updated balances this cycle true
+2024-06-05T19:06:00.341Z - INFO - current cycle changed from 86 to: 86
+2024-06-05T19:06:00.344Z - INFO - current burn block height: 846651
+2024-06-05T19:06:00.628Z - INFO - current cycle: 85
+2024-06-05T19:06:00.628Z - WARN - reward cycles different:         SC: 85 number,         API: 86 number         at burn block height: 846651
+2024-06-05T19:10:00.358Z - INFO - current burn block height: 846652
+2024-06-05T19:10:00.862Z - INFO - current cycle: 86
+2024-06-05T19:10:00.862Z - INFO - is in reward phase
+2024-06-05T19:10:01.026Z - INFO - partial stacked by cycle 87: 128999000000
+2024-06-05T19:10:01.514Z - INFO - stacking minimum by cycle 87: 73140996360
+2024-06-05T19:10:02.846Z - INFO - partial stacked enough, performed agg-commit
+2024-06-05T19:10:02.846Z - INFO - maybe-stack-aggregation-commit > agg-commit tx 5bae2d7ba83373cf0f4b409631ddc5c625e741577257476f0fa7ce8b291a61e5
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/5bae2d7ba83373cf0f4b409631ddc5c625e741577257476f0fa7ce8b291a61e5
+      explorer link: https://explorer.hiro.so/txid/5bae2d7ba83373cf0f4b409631ddc5c625e741577257476f0fa7ce8b291a61e5?chain=mainnet
+2024-06-05T19:14:01.446Z - INFO - current burn block height: 846653
+2024-06-05T19:14:01.728Z - INFO - current cycle: 86
+2024-06-05T19:14:01.729Z - INFO - is in reward phase
+2024-06-05T19:14:01.896Z - INFO - partial stacked by cycle 87: 128999000000
+2024-06-05T19:14:03.440Z - INFO - stacking minimum by cycle 87: 73141046260
+2024-06-05T19:28:00.338Z - INFO - current burn block height: 846654
+2024-06-05T19:28:00.630Z - INFO - current cycle: 86
+2024-06-05T19:28:00.630Z - INFO - is in reward phase
+2024-06-05T19:28:00.788Z - INFO - partial stacked by cycle 87: 0
+2024-06-05T19:48:00.386Z - INFO - current burn block height: 846655
+2024-06-05T19:48:00.769Z - INFO - current cycle: 86
+2024-06-05T19:48:00.770Z - INFO - is in reward phase
+2024-06-05T19:48:00.933Z - INFO - partial stacked by cycle 87: 0
+2024-06-05T20:30:00.471Z - INFO - current burn block height: 846656
+2024-06-05T20:30:00.754Z - INFO - current cycle: 86
+2024-06-05T20:30:00.755Z - INFO - is in reward phase
+2024-06-05T20:30:00.929Z - INFO - partial stacked by cycle 87: 0
+2024-06-05T20:40:00.366Z - INFO - current burn block height: 846657
+2024-06-05T20:40:00.656Z - INFO - current cycle: 86
+2024-06-05T20:40:00.657Z - INFO - is in reward phase
+2024-06-05T20:40:00.814Z - INFO - partial stacked by cycle 87: 0
+2024-06-05T20:56:00.354Z - INFO - current burn block height: 846658
+2024-06-05T20:56:00.643Z - INFO - current cycle: 86
+2024-06-05T20:56:00.643Z - INFO - is in reward phase
+2024-06-05T20:56:00.802Z - INFO - partial stacked by cycle 87: 0
+2024-06-05T21:00:00.373Z - INFO - current burn block height: 846660
+2024-06-05T21:00:00.539Z - INFO - current cycle: 86
+2024-06-05T21:00:00.539Z - INFO - is in reward phase
+2024-06-05T21:00:00.709Z - INFO - partial stacked by cycle 87: 0
+2024-06-05T21:22:00.402Z - INFO - current burn block height: 846661
+2024-06-05T21:22:00.688Z - INFO - current cycle: 86
+2024-06-05T21:22:00.689Z - INFO - is in reward phase
+2024-06-05T21:22:00.855Z - INFO - partial stacked by cycle 87: 0
+2024-06-05T21:26:00.536Z - INFO - current burn block height: 846662
+2024-06-05T21:26:00.817Z - INFO - current cycle: 86
+2024-06-05T21:26:00.818Z - INFO - is in reward phase
+2024-06-05T21:26:00.985Z - INFO - partial stacked by cycle 87: 0
+2024-06-05T21:32:00.376Z - INFO - current burn block height: 846663
+2024-06-05T21:32:00.682Z - INFO - current cycle: 86
+2024-06-05T21:32:00.683Z - INFO - is in reward phase
+2024-06-05T21:32:00.849Z - INFO - partial stacked by cycle 87: 0
+2024-06-05T21:48:00.349Z - INFO - current burn block height: 846664
+2024-06-05T21:48:00.644Z - INFO - current cycle: 86
+2024-06-05T21:48:00.645Z - INFO - is in reward phase
+2024-06-05T21:48:00.811Z - INFO - partial stacked by cycle 87: 0
+2024-06-05T21:58:00.346Z - INFO - current burn block height: 846665
+2024-06-05T21:58:00.623Z - INFO - current cycle: 86
+2024-06-05T21:58:00.623Z - INFO - is in reward phase
+2024-06-05T21:58:00.782Z - INFO - partial stacked by cycle 87: 0
+2024-06-05T22:04:00.348Z - INFO - current burn block height: 846666
+2024-06-05T22:04:00.631Z - INFO - current cycle: 86
+2024-06-05T22:04:00.633Z - INFO - is in reward phase
+2024-06-05T22:04:00.787Z - INFO - partial stacked by cycle 87: 0
+2024-06-05T22:32:00.437Z - INFO - current burn block height: 846667
+2024-06-05T22:32:00.724Z - INFO - current cycle: 86
+2024-06-05T22:32:00.724Z - INFO - is in reward phase
+2024-06-05T22:32:00.887Z - INFO - partial stacked by cycle 87: 0
+2024-06-05T22:50:00.377Z - INFO - current burn block height: 846668
+2024-06-05T22:50:00.659Z - INFO - current cycle: 86
+2024-06-05T22:50:00.659Z - INFO - is in reward phase
+2024-06-05T22:50:00.825Z - INFO - partial stacked by cycle 87: 0
+2024-06-05T22:56:00.349Z - INFO - current burn block height: 846669
+2024-06-05T22:56:00.655Z - INFO - current cycle: 86
+2024-06-05T22:56:00.656Z - INFO - is in reward phase
+2024-06-05T22:56:00.826Z - INFO - partial stacked by cycle 87: 0
+2024-06-05T23:06:00.427Z - INFO - current burn block height: 846670
+2024-06-05T23:06:00.755Z - INFO - current cycle: 86
+2024-06-05T23:06:00.756Z - INFO - is in reward phase
+2024-06-05T23:06:00.918Z - INFO - partial stacked by cycle 87: 0
+2024-06-05T23:14:00.385Z - INFO - current burn block height: 846671
+2024-06-05T23:14:00.694Z - INFO - current cycle: 86
+2024-06-05T23:14:00.695Z - INFO - is in reward phase
+2024-06-05T23:14:00.867Z - INFO - partial stacked by cycle 87: 0
+2024-06-05T23:22:00.361Z - INFO - current burn block height: 846672
+2024-06-05T23:22:00.701Z - INFO - current cycle: 86
+2024-06-05T23:22:00.702Z - INFO - is in reward phase
+2024-06-05T23:22:00.873Z - INFO - partial stacked by cycle 87: 0
+2024-06-05T23:40:00.442Z - INFO - current burn block height: 846673
+2024-06-05T23:40:00.725Z - INFO - current cycle: 86
+2024-06-05T23:40:00.725Z - INFO - is in reward phase
+2024-06-05T23:40:00.897Z - INFO - partial stacked by cycle 87: 0
+2024-06-05T23:42:00.448Z - INFO - current burn block height: 846674
+2024-06-05T23:42:00.727Z - INFO - current cycle: 86
+2024-06-05T23:42:00.728Z - INFO - is in reward phase
+2024-06-05T23:42:00.883Z - INFO - partial stacked by cycle 87: 0
+2024-06-05T23:50:00.343Z - INFO - current burn block height: 846675
+2024-06-05T23:50:00.711Z - INFO - current cycle: 86
+2024-06-05T23:50:00.713Z - INFO - is in reward phase
+2024-06-05T23:50:00.866Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T00:00:00.373Z - INFO - current burn block height: 846676
+2024-06-06T00:00:00.681Z - INFO - current cycle: 86
+2024-06-06T00:00:00.682Z - INFO - is in reward phase
+2024-06-06T00:00:00.841Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T00:06:00.427Z - INFO - current burn block height: 846677
+2024-06-06T00:06:00.727Z - INFO - current cycle: 86
+2024-06-06T00:06:00.727Z - INFO - is in reward phase
+2024-06-06T00:06:00.888Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T00:34:00.459Z - INFO - current burn block height: 846678
+2024-06-06T00:34:00.750Z - INFO - current cycle: 86
+2024-06-06T00:34:00.751Z - INFO - is in reward phase
+2024-06-06T00:34:00.909Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T00:44:00.445Z - INFO - current burn block height: 846679
+2024-06-06T00:44:00.727Z - INFO - current cycle: 86
+2024-06-06T00:44:00.728Z - INFO - is in reward phase
+2024-06-06T00:44:00.889Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T00:56:00.350Z - INFO - current burn block height: 846681
+2024-06-06T00:56:00.632Z - INFO - current cycle: 86
+2024-06-06T00:56:00.633Z - INFO - is in reward phase
+2024-06-06T00:56:00.790Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T01:02:00.494Z - INFO - current burn block height: 846683
+2024-06-06T01:02:00.783Z - INFO - current cycle: 86
+2024-06-06T01:02:00.783Z - INFO - is in reward phase
+2024-06-06T01:02:00.959Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T01:20:00.432Z - INFO - current burn block height: 846684
+2024-06-06T01:20:00.836Z - INFO - current cycle: 86
+2024-06-06T01:20:00.837Z - INFO - is in reward phase
+2024-06-06T01:20:00.992Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T01:26:00.379Z - INFO - current burn block height: 846685
+2024-06-06T01:26:00.701Z - INFO - current cycle: 86
+2024-06-06T01:26:00.702Z - INFO - is in reward phase
+2024-06-06T01:26:00.867Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T02:10:00.359Z - INFO - current burn block height: 846686
+2024-06-06T02:10:00.654Z - INFO - current cycle: 86
+2024-06-06T02:10:00.655Z - INFO - is in reward phase
+2024-06-06T02:10:00.815Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T02:14:00.381Z - INFO - current burn block height: 846687
+2024-06-06T02:14:00.654Z - INFO - current cycle: 86
+2024-06-06T02:14:00.654Z - INFO - is in reward phase
+2024-06-06T02:14:00.809Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T02:20:00.424Z - INFO - current burn block height: 846688
+2024-06-06T02:20:00.703Z - INFO - current cycle: 86
+2024-06-06T02:20:00.703Z - INFO - is in reward phase
+2024-06-06T02:20:00.866Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T03:31:57.729Z - INFO - current burn block height: 846696
+2024-06-06T03:31:58.010Z - INFO - current cycle: 86
+2024-06-06T03:31:58.010Z - INFO - is in reward phase
+2024-06-06T03:31:58.169Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T05:43:35.528Z - INFO - current burn block height: 846708
+2024-06-06T05:43:35.811Z - INFO - current cycle: 86
+2024-06-06T05:43:35.811Z - INFO - is in reward phase
+2024-06-06T05:43:35.981Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T06:03:17.920Z - INFO - current burn block height: 846709
+2024-06-06T06:03:18.197Z - INFO - current cycle: 86
+2024-06-06T06:03:18.197Z - INFO - is in reward phase
+2024-06-06T06:03:18.350Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T06:39:37.241Z - INFO - current burn block height: 846710
+2024-06-06T06:39:37.524Z - INFO - current cycle: 86
+2024-06-06T06:39:37.525Z - INFO - is in reward phase
+2024-06-06T06:39:37.683Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T08:29:30.420Z - INFO - current burn block height: 846718
+2024-06-06T08:29:30.593Z - INFO - current cycle: 86
+2024-06-06T08:29:30.597Z - INFO - is in reward phase
+2024-06-06T08:29:30.755Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T09:30:29.687Z - INFO - current burn block height: 846723
+2024-06-06T09:30:29.960Z - INFO - current cycle: 86
+2024-06-06T09:30:29.961Z - INFO - is in reward phase
+2024-06-06T09:30:30.125Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T11:03:26.080Z - INFO - current burn block height: 846728
+2024-06-06T11:03:26.264Z - INFO - current cycle: 86
+2024-06-06T11:03:26.264Z - INFO - is in reward phase
+2024-06-06T11:03:26.415Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T11:27:06.310Z - INFO - current burn block height: 846730
+2024-06-06T11:27:06.606Z - INFO - current cycle: 86
+2024-06-06T11:27:06.606Z - INFO - is in reward phase
+2024-06-06T11:27:06.764Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T11:32:25.998Z - INFO - current burn block height: 846731
+2024-06-06T11:32:26.278Z - INFO - current cycle: 86
+2024-06-06T11:32:26.278Z - INFO - is in reward phase
+2024-06-06T11:32:26.438Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T12:21:06.113Z - INFO - current burn block height: 846735
+2024-06-06T12:21:06.407Z - INFO - current cycle: 86
+2024-06-06T12:21:06.407Z - INFO - is in reward phase
+2024-06-06T12:21:06.569Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T12:46:47.301Z - INFO - current burn block height: 846736
+2024-06-06T12:46:47.820Z - INFO - current cycle: 86
+2024-06-06T12:46:47.821Z - INFO - is in reward phase
+2024-06-06T12:46:47.987Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T13:57:03.850Z - INFO - current burn block height: 846744
+2024-06-06T13:57:04.135Z - INFO - current cycle: 86
+2024-06-06T13:57:04.137Z - INFO - is in reward phase
+2024-06-06T13:57:04.301Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T13:58:41.823Z - INFO - current burn block height: 846747
+2024-06-06T13:58:42.165Z - INFO - current cycle: 86
+2024-06-06T13:58:42.165Z - INFO - is in reward phase
+2024-06-06T13:58:42.333Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T14:57:39.673Z - INFO - current burn block height: 846754
+2024-06-06T14:57:40.023Z - INFO - current cycle: 86
+2024-06-06T14:57:40.023Z - INFO - is in reward phase
+2024-06-06T14:57:40.191Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T15:04:00.394Z - INFO - current burn block height: 846755
+2024-06-06T15:04:00.685Z - INFO - current cycle: 86
+2024-06-06T15:04:00.686Z - INFO - is in reward phase
+2024-06-06T15:04:00.851Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T15:16:00.355Z - INFO - current burn block height: 846756
+2024-06-06T15:16:00.641Z - INFO - current cycle: 86
+2024-06-06T15:16:00.641Z - INFO - is in reward phase
+2024-06-06T15:16:00.815Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T15:32:00.368Z - INFO - current burn block height: 846757
+2024-06-06T15:32:00.747Z - INFO - current cycle: 86
+2024-06-06T15:32:00.747Z - INFO - is in reward phase
+2024-06-06T15:32:00.901Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T15:34:00.457Z - INFO - current burn block height: 846758
+2024-06-06T15:34:00.761Z - INFO - current cycle: 86
+2024-06-06T15:34:00.762Z - INFO - is in reward phase
+2024-06-06T15:34:00.925Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T15:44:00.233Z - INFO - current burn block height: 846759
+2024-06-06T15:44:00.519Z - INFO - current cycle: 86
+2024-06-06T15:44:00.519Z - INFO - is in reward phase
+2024-06-06T15:44:00.729Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T16:04:00.349Z - INFO - current burn block height: 846760
+2024-06-06T16:04:00.628Z - INFO - current cycle: 86
+2024-06-06T16:04:00.628Z - INFO - is in reward phase
+2024-06-06T16:04:00.796Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T16:12:00.356Z - INFO - current burn block height: 846761
+2024-06-06T16:12:00.644Z - INFO - current cycle: 86
+2024-06-06T16:12:00.644Z - INFO - is in reward phase
+2024-06-06T16:12:00.810Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T16:24:00.358Z - INFO - current burn block height: 846762
+2024-06-06T16:24:00.636Z - INFO - current cycle: 86
+2024-06-06T16:24:00.637Z - INFO - is in reward phase
+2024-06-06T16:24:00.797Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T16:38:00.370Z - INFO - current burn block height: 846763
+2024-06-06T16:38:00.678Z - INFO - current cycle: 86
+2024-06-06T16:38:00.679Z - INFO - is in reward phase
+2024-06-06T16:38:00.836Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T17:04:00.351Z - INFO - current burn block height: 846764
+2024-06-06T17:04:00.647Z - INFO - current cycle: 86
+2024-06-06T17:04:00.648Z - INFO - is in reward phase
+2024-06-06T17:04:00.821Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T17:16:00.460Z - INFO - current burn block height: 846765
+2024-06-06T17:16:00.868Z - INFO - current cycle: 86
+2024-06-06T17:16:00.869Z - INFO - is in reward phase
+2024-06-06T17:16:01.040Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T17:22:00.406Z - INFO - current burn block height: 846766
+2024-06-06T17:22:00.706Z - INFO - current cycle: 86
+2024-06-06T17:22:00.707Z - INFO - is in reward phase
+2024-06-06T17:22:00.879Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T17:30:00.369Z - INFO - current burn block height: 846767
+2024-06-06T17:30:00.724Z - INFO - current cycle: 86
+2024-06-06T17:30:00.724Z - INFO - is in reward phase
+2024-06-06T17:30:00.893Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T17:32:00.516Z - INFO - current burn block height: 846768
+2024-06-06T17:32:00.973Z - INFO - current cycle: 86
+2024-06-06T17:32:00.974Z - INFO - is in reward phase
+2024-06-06T17:32:01.162Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T17:40:00.386Z - INFO - current burn block height: 846769
+2024-06-06T17:40:00.669Z - INFO - current cycle: 86
+2024-06-06T17:40:00.670Z - INFO - is in reward phase
+2024-06-06T17:40:00.834Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T18:06:00.381Z - INFO - current burn block height: 846770
+2024-06-06T18:06:00.687Z - INFO - current cycle: 86
+2024-06-06T18:06:00.688Z - INFO - is in reward phase
+2024-06-06T18:06:00.853Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T18:12:00.379Z - INFO - current burn block height: 846771
+2024-06-06T18:12:00.761Z - INFO - current cycle: 86
+2024-06-06T18:12:00.762Z - INFO - is in reward phase
+2024-06-06T18:12:00.933Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T18:18:00.477Z - INFO - current burn block height: 846772
+2024-06-06T18:18:00.777Z - INFO - current cycle: 86
+2024-06-06T18:18:00.777Z - INFO - is in reward phase
+2024-06-06T18:18:00.934Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T18:32:00.374Z - INFO - current burn block height: 846773
+2024-06-06T18:32:00.662Z - INFO - current cycle: 86
+2024-06-06T18:32:00.663Z - INFO - is in reward phase
+2024-06-06T18:32:00.825Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T18:34:00.348Z - INFO - current burn block height: 846775
+2024-06-06T18:34:00.695Z - INFO - current cycle: 86
+2024-06-06T18:34:00.696Z - INFO - is in reward phase
+2024-06-06T18:34:00.854Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T18:42:00.409Z - INFO - current burn block height: 846776
+2024-06-06T18:42:00.691Z - INFO - current cycle: 86
+2024-06-06T18:42:00.691Z - INFO - is in reward phase
+2024-06-06T18:42:00.846Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T19:16:00.673Z - INFO - current burn block height: 846778
+2024-06-06T19:16:01.363Z - INFO - current cycle: 86
+2024-06-06T19:16:01.363Z - INFO - is in reward phase
+2024-06-06T19:16:01.538Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T19:28:00.350Z - INFO - current burn block height: 846779
+2024-06-06T19:28:00.640Z - INFO - current cycle: 86
+2024-06-06T19:28:00.640Z - INFO - is in reward phase
+2024-06-06T19:28:00.808Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T19:48:00.361Z - INFO - current burn block height: 846780
+2024-06-06T19:48:00.655Z - INFO - current cycle: 86
+2024-06-06T19:48:00.655Z - INFO - is in reward phase
+2024-06-06T19:48:00.827Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T19:58:00.407Z - INFO - current burn block height: 846781
+2024-06-06T19:58:00.581Z - INFO - current cycle: 86
+2024-06-06T19:58:00.581Z - INFO - is in reward phase
+2024-06-06T19:58:00.738Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T20:04:00.346Z - INFO - current burn block height: 846783
+2024-06-06T20:04:00.509Z - INFO - current cycle: 86
+2024-06-06T20:04:00.510Z - INFO - is in reward phase
+2024-06-06T20:04:00.759Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T20:30:00.462Z - INFO - current burn block height: 846784
+2024-06-06T20:30:00.756Z - INFO - current cycle: 86
+2024-06-06T20:30:00.757Z - INFO - is in reward phase
+2024-06-06T20:30:00.918Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T20:32:00.457Z - INFO - current burn block height: 846785
+2024-06-06T20:32:00.740Z - INFO - current cycle: 86
+2024-06-06T20:32:00.741Z - INFO - is in reward phase
+2024-06-06T20:32:00.902Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T20:38:00.402Z - INFO - current burn block height: 846786
+2024-06-06T20:38:00.683Z - INFO - current cycle: 86
+2024-06-06T20:38:00.683Z - INFO - is in reward phase
+2024-06-06T20:38:00.848Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T20:42:00.354Z - INFO - current burn block height: 846787
+2024-06-06T20:42:00.648Z - INFO - current cycle: 86
+2024-06-06T20:42:00.648Z - INFO - is in reward phase
+2024-06-06T20:42:00.804Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T20:48:00.374Z - INFO - current burn block height: 846788
+2024-06-06T20:48:00.662Z - INFO - current cycle: 86
+2024-06-06T20:48:00.663Z - INFO - is in reward phase
+2024-06-06T20:48:00.834Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T20:52:00.404Z - INFO - current burn block height: 846789
+2024-06-06T20:52:00.690Z - INFO - current cycle: 86
+2024-06-06T20:52:00.691Z - INFO - is in reward phase
+2024-06-06T20:52:00.849Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T21:02:00.401Z - INFO - current burn block height: 846790
+2024-06-06T21:02:00.790Z - INFO - current cycle: 86
+2024-06-06T21:02:00.791Z - INFO - is in reward phase
+2024-06-06T21:02:00.966Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T21:06:00.457Z - INFO - current burn block height: 846791
+2024-06-06T21:06:00.764Z - INFO - current cycle: 86
+2024-06-06T21:06:00.764Z - INFO - is in reward phase
+2024-06-06T21:06:00.928Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T21:22:00.364Z - INFO - current burn block height: 846792
+2024-06-06T21:22:00.660Z - INFO - current cycle: 86
+2024-06-06T21:22:00.661Z - INFO - is in reward phase
+2024-06-06T21:22:00.825Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T21:30:00.436Z - INFO - current burn block height: 846793
+2024-06-06T21:30:00.739Z - INFO - current cycle: 86
+2024-06-06T21:30:00.739Z - INFO - is in reward phase
+2024-06-06T21:30:00.894Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T21:34:00.344Z - INFO - current burn block height: 846794
+2024-06-06T21:34:00.636Z - INFO - current cycle: 86
+2024-06-06T21:34:00.636Z - INFO - is in reward phase
+2024-06-06T21:34:00.799Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T21:36:00.377Z - INFO - current burn block height: 846795
+2024-06-06T21:36:00.655Z - INFO - current cycle: 86
+2024-06-06T21:36:00.656Z - INFO - is in reward phase
+2024-06-06T21:36:00.809Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T21:38:00.360Z - INFO - current burn block height: 846797
+2024-06-06T21:38:00.631Z - INFO - current cycle: 86
+2024-06-06T21:38:00.631Z - INFO - is in reward phase
+2024-06-06T21:38:00.788Z - INFO - partial stacked by cycle 87: 0
+2024-06-06T21:58:00.437Z - INFO - current burn block height: 846798
+2024-06-06T21:58:00.715Z - INFO - current cycle: 86
+2024-06-06T21:58:00.716Z - INFO - is in reward phase
+2024-06-06T21:58:00.877Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T03:01:02.468Z - INFO - current burn block height: 846829
+2024-06-07T03:01:02.745Z - INFO - current cycle: 86
+2024-06-07T03:01:02.745Z - INFO - is in reward phase
+2024-06-07T03:01:02.904Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T03:28:53.891Z - INFO - current burn block height: 846831
+2024-06-07T03:28:54.186Z - INFO - current cycle: 86
+2024-06-07T03:28:54.186Z - INFO - is in reward phase
+2024-06-07T03:28:54.342Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T03:44:01.912Z - INFO - current burn block height: 846833
+2024-06-07T03:44:02.207Z - INFO - current cycle: 86
+2024-06-07T03:44:02.208Z - INFO - is in reward phase
+2024-06-07T03:44:02.373Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T04:00:11.905Z - INFO - current burn block height: 846834
+2024-06-07T04:00:12.175Z - INFO - current cycle: 86
+2024-06-07T04:00:12.176Z - INFO - is in reward phase
+2024-06-07T04:00:12.341Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T04:14:00.222Z - INFO - current burn block height: 846835
+2024-06-07T04:14:00.503Z - INFO - current cycle: 86
+2024-06-07T04:14:00.503Z - INFO - is in reward phase
+2024-06-07T04:14:00.659Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T07:16:37.262Z - INFO - current burn block height: 846854
+2024-06-07T07:16:37.548Z - INFO - current cycle: 86
+2024-06-07T07:16:37.549Z - INFO - is in reward phase
+2024-06-07T07:16:37.708Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T08:34:29.676Z - INFO - current burn block height: 846863
+2024-06-07T08:34:29.848Z - INFO - current cycle: 86
+2024-06-07T08:34:29.849Z - INFO - is in reward phase
+2024-06-07T08:34:30.015Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T09:18:21.367Z - INFO - current burn block height: 846864
+2024-06-07T09:18:21.654Z - INFO - current cycle: 86
+2024-06-07T09:18:21.655Z - INFO - is in reward phase
+2024-06-07T09:18:21.824Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T11:53:20.378Z - INFO - current burn block height: 846881
+2024-06-07T11:53:20.673Z - INFO - current cycle: 86
+2024-06-07T11:53:20.674Z - INFO - is in reward phase
+2024-06-07T11:53:20.836Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T12:30:30.181Z - INFO - current burn block height: 846887
+2024-06-07T12:30:30.465Z - INFO - current cycle: 86
+2024-06-07T12:30:30.466Z - INFO - is in reward phase
+2024-06-07T12:30:30.631Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T13:02:00.374Z - INFO - current burn block height: 846889
+2024-06-07T13:02:00.670Z - INFO - current cycle: 86
+2024-06-07T13:02:00.671Z - INFO - is in reward phase
+2024-06-07T13:02:00.829Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T13:12:00.477Z - INFO - current burn block height: 846890
+2024-06-07T13:12:00.768Z - INFO - current cycle: 86
+2024-06-07T13:12:00.769Z - INFO - is in reward phase
+2024-06-07T13:12:00.928Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T13:22:30.903Z - INFO - current burn block height: 846891
+2024-06-07T13:22:31.266Z - INFO - current cycle: 86
+2024-06-07T13:22:31.267Z - INFO - is in reward phase
+2024-06-07T13:22:31.451Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T13:28:00.382Z - INFO - current burn block height: 846893
+2024-06-07T13:28:00.683Z - INFO - current cycle: 86
+2024-06-07T13:28:00.686Z - INFO - is in reward phase
+2024-06-07T13:28:00.859Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T13:36:00.234Z - INFO - current burn block height: 846894
+2024-06-07T13:36:00.418Z - INFO - current cycle: 86
+2024-06-07T13:36:00.418Z - INFO - is in reward phase
+2024-06-07T13:36:00.611Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T13:42:00.491Z - INFO - current burn block height: 846895
+2024-06-07T13:42:00.800Z - INFO - current cycle: 86
+2024-06-07T13:42:00.800Z - INFO - is in reward phase
+2024-06-07T13:42:00.960Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T13:46:00.422Z - INFO - current burn block height: 846896
+2024-06-07T13:46:00.837Z - INFO - current cycle: 86
+2024-06-07T13:46:00.837Z - INFO - is in reward phase
+2024-06-07T13:46:01.011Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T13:54:00.380Z - INFO - current burn block height: 846897
+2024-06-07T13:54:00.688Z - INFO - current cycle: 86
+2024-06-07T13:54:00.689Z - INFO - is in reward phase
+2024-06-07T13:54:00.861Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T14:06:00.399Z - INFO - current burn block height: 846898
+2024-06-07T14:06:00.713Z - INFO - current cycle: 86
+2024-06-07T14:06:00.714Z - INFO - is in reward phase
+2024-06-07T14:06:00.899Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T14:12:00.264Z - INFO - current burn block height: 846899
+2024-06-07T14:12:01.140Z - INFO - current cycle: 86
+2024-06-07T14:12:01.140Z - INFO - is in reward phase
+2024-06-07T14:12:01.310Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T14:14:00.246Z - INFO - current burn block height: 846900
+2024-06-07T14:14:00.422Z - INFO - current cycle: 86
+2024-06-07T14:14:00.422Z - INFO - is in reward phase
+2024-06-07T14:14:00.588Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T14:24:00.453Z - INFO - current burn block height: 846901
+2024-06-07T14:24:00.749Z - INFO - current cycle: 86
+2024-06-07T14:24:00.750Z - INFO - is in reward phase
+2024-06-07T14:24:00.921Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T14:38:00.450Z - INFO - current burn block height: 846902
+2024-06-07T14:38:00.755Z - INFO - current cycle: 86
+2024-06-07T14:38:00.755Z - INFO - is in reward phase
+2024-06-07T14:38:00.917Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T14:42:00.385Z - INFO - current burn block height: 846903
+2024-06-07T14:42:00.691Z - INFO - current cycle: 86
+2024-06-07T14:42:00.692Z - INFO - is in reward phase
+2024-06-07T14:42:00.854Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T14:44:00.256Z - INFO - current burn block height: 846904
+2024-06-07T14:44:00.600Z - INFO - current cycle: 86
+2024-06-07T14:44:00.601Z - INFO - is in reward phase
+2024-06-07T14:44:00.780Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T14:50:00.415Z - INFO - current burn block height: 846905
+2024-06-07T14:50:00.745Z - INFO - current cycle: 86
+2024-06-07T14:50:00.746Z - INFO - is in reward phase
+2024-06-07T14:50:00.908Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T15:04:00.371Z - INFO - current burn block height: 846906
+2024-06-07T15:04:00.658Z - INFO - current cycle: 86
+2024-06-07T15:04:00.659Z - INFO - is in reward phase
+2024-06-07T15:04:00.821Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T15:20:00.357Z - INFO - current burn block height: 846907
+2024-06-07T15:20:00.663Z - INFO - current cycle: 86
+2024-06-07T15:20:00.664Z - INFO - is in reward phase
+2024-06-07T15:20:00.839Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T16:30:46.105Z - INFO - current burn block height: 846911
+2024-06-07T16:30:46.458Z - INFO - current cycle: 86
+2024-06-07T16:30:46.459Z - INFO - is in reward phase
+2024-06-07T16:30:46.634Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T16:40:00.364Z - INFO - current burn block height: 846913
+2024-06-07T16:40:00.648Z - INFO - current cycle: 86
+2024-06-07T16:40:00.648Z - INFO - is in reward phase
+2024-06-07T16:40:00.848Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T16:52:00.372Z - INFO - current burn block height: 846914
+2024-06-07T16:52:00.653Z - INFO - current cycle: 86
+2024-06-07T16:52:00.653Z - INFO - is in reward phase
+2024-06-07T16:52:00.812Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T17:02:00.105Z - INFO - current burn block height: 846915
+2024-06-07T17:02:00.280Z - INFO - current cycle: 86
+2024-06-07T17:02:00.280Z - INFO - is in reward phase
+2024-06-07T17:02:00.522Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T17:06:00.286Z - INFO - current burn block height: 846916
+2024-06-07T17:06:00.464Z - INFO - current cycle: 86
+2024-06-07T17:06:00.464Z - INFO - is in reward phase
+2024-06-07T17:06:00.635Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T17:16:00.274Z - INFO - current burn block height: 846917
+2024-06-07T17:16:00.549Z - INFO - current cycle: 86
+2024-06-07T17:16:00.549Z - INFO - is in reward phase
+2024-06-07T17:16:00.711Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T17:22:00.249Z - INFO - current burn block height: 846918
+2024-06-07T17:22:00.525Z - INFO - current cycle: 86
+2024-06-07T17:22:00.525Z - INFO - is in reward phase
+2024-06-07T17:22:00.690Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T17:26:00.388Z - INFO - current burn block height: 846919
+2024-06-07T17:26:00.662Z - INFO - current cycle: 86
+2024-06-07T17:26:00.664Z - INFO - is in reward phase
+2024-06-07T17:26:00.820Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T17:38:00.272Z - INFO - current burn block height: 846920
+2024-06-07T17:38:00.440Z - INFO - current cycle: 86
+2024-06-07T17:38:00.441Z - INFO - is in reward phase
+2024-06-07T17:38:00.629Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T17:52:00.251Z - INFO - current burn block height: 846921
+2024-06-07T17:52:00.537Z - INFO - current cycle: 86
+2024-06-07T17:52:00.538Z - INFO - is in reward phase
+2024-06-07T17:52:00.711Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T18:08:00.358Z - INFO - current burn block height: 846922
+2024-06-07T18:08:00.690Z - INFO - current cycle: 86
+2024-06-07T18:08:00.690Z - INFO - is in reward phase
+2024-06-07T18:08:00.848Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T18:26:00.355Z - INFO - current burn block height: 846923
+2024-06-07T18:26:00.638Z - INFO - current cycle: 86
+2024-06-07T18:26:00.639Z - INFO - is in reward phase
+2024-06-07T18:26:00.797Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T18:32:00.330Z - INFO - current burn block height: 846924
+2024-06-07T18:32:00.640Z - INFO - current cycle: 86
+2024-06-07T18:32:00.641Z - INFO - is in reward phase
+2024-06-07T18:32:00.806Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T18:58:00.343Z - INFO - current burn block height: 846925
+2024-06-07T18:58:00.623Z - INFO - current cycle: 86
+2024-06-07T18:58:00.624Z - INFO - is in reward phase
+2024-06-07T18:58:00.783Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T19:08:00.385Z - INFO - current burn block height: 846926
+2024-06-07T19:08:00.557Z - INFO - current cycle: 86
+2024-06-07T19:08:00.558Z - INFO - is in reward phase
+2024-06-07T19:08:00.717Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T19:12:00.367Z - INFO - current burn block height: 846927
+2024-06-07T19:12:00.706Z - INFO - current cycle: 86
+2024-06-07T19:12:00.706Z - INFO - is in reward phase
+2024-06-07T19:12:00.869Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T19:30:00.233Z - INFO - current burn block height: 846928
+2024-06-07T19:30:00.535Z - INFO - current cycle: 86
+2024-06-07T19:30:00.536Z - INFO - is in reward phase
+2024-06-07T19:30:00.694Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T19:32:00.254Z - INFO - current burn block height: 846929
+2024-06-07T19:32:00.427Z - INFO - current cycle: 86
+2024-06-07T19:32:00.428Z - INFO - is in reward phase
+2024-06-07T19:32:00.587Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T20:24:22.360Z - INFO - current burn block height: 846933
+2024-06-07T20:24:22.705Z - INFO - current cycle: 86
+2024-06-07T20:24:22.706Z - INFO - is in reward phase
+2024-06-07T20:24:22.866Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T21:32:33.148Z - INFO - current burn block height: 846939
+2024-06-07T21:32:33.501Z - INFO - current cycle: 86
+2024-06-07T21:32:33.503Z - INFO - is in reward phase
+2024-06-07T21:32:33.679Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T22:17:43.274Z - INFO - current burn block height: 846942
+2024-06-07T22:17:43.556Z - INFO - current cycle: 86
+2024-06-07T22:17:43.556Z - INFO - is in reward phase
+2024-06-07T22:17:43.708Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T22:22:00.339Z - INFO - current burn block height: 846943
+2024-06-07T22:22:00.614Z - INFO - current cycle: 86
+2024-06-07T22:22:00.621Z - INFO - is in reward phase
+2024-06-07T22:22:00.780Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T22:41:10.757Z - INFO - current burn block height: 846946
+2024-06-07T22:41:11.036Z - INFO - current cycle: 86
+2024-06-07T22:41:11.036Z - INFO - is in reward phase
+2024-06-07T22:41:11.190Z - INFO - partial stacked by cycle 87: 0
+2024-06-07T22:48:00.461Z - INFO - current burn block height: 846947
+2024-06-07T22:48:00.734Z - INFO - current cycle: 86
+2024-06-07T22:48:00.735Z - INFO - is in reward phase
+2024-06-07T22:48:00.893Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T00:55:20.336Z - INFO - current burn block height: 846960
+2024-06-08T00:55:20.694Z - INFO - current cycle: 86
+2024-06-08T00:55:20.695Z - INFO - is in reward phase
+2024-06-08T00:55:20.860Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T00:57:01.021Z - INFO - current burn block height: 846962
+2024-06-08T00:57:01.297Z - INFO - current cycle: 86
+2024-06-08T00:57:01.298Z - INFO - is in reward phase
+2024-06-08T00:57:01.464Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T01:05:55.450Z - INFO - current burn block height: 846963
+2024-06-08T01:05:55.725Z - INFO - current cycle: 86
+2024-06-08T01:05:55.725Z - INFO - is in reward phase
+2024-06-08T01:05:55.884Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T02:07:00.697Z - INFO - current burn block height: 846974
+2024-06-08T02:07:00.981Z - INFO - current cycle: 86
+2024-06-08T02:07:00.981Z - INFO - is in reward phase
+2024-06-08T02:07:01.138Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T02:58:19.831Z - INFO - current burn block height: 846982
+2024-06-08T02:58:20.115Z - INFO - current cycle: 86
+2024-06-08T02:58:20.116Z - INFO - is in reward phase
+2024-06-08T02:58:20.272Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T04:41:34.301Z - INFO - current burn block height: 846989
+2024-06-08T04:41:34.572Z - INFO - current cycle: 86
+2024-06-08T04:41:34.572Z - INFO - is in reward phase
+2024-06-08T04:41:34.724Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T04:57:10.073Z - INFO - current burn block height: 846993
+2024-06-08T04:57:10.354Z - INFO - current cycle: 86
+2024-06-08T04:57:10.354Z - INFO - is in reward phase
+2024-06-08T04:57:10.550Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T05:10:36.372Z - INFO - current burn block height: 846994
+2024-06-08T05:10:36.652Z - INFO - current cycle: 86
+2024-06-08T05:10:36.653Z - INFO - is in reward phase
+2024-06-08T05:10:36.827Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T05:25:46.101Z - INFO - current burn block height: 846995
+2024-06-08T05:25:46.375Z - INFO - current cycle: 86
+2024-06-08T05:25:46.375Z - INFO - is in reward phase
+2024-06-08T05:25:46.558Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T06:00:59.628Z - INFO - current burn block height: 846997
+2024-06-08T06:00:59.902Z - INFO - current cycle: 86
+2024-06-08T06:00:59.903Z - INFO - is in reward phase
+2024-06-08T06:01:00.058Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T07:01:48.856Z - INFO - current burn block height: 847000
+2024-06-08T07:01:49.126Z - INFO - current cycle: 86
+2024-06-08T07:01:49.127Z - INFO - is in reward phase
+2024-06-08T07:01:49.286Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T07:12:00.366Z - INFO - current burn block height: 847001
+2024-06-08T07:12:00.638Z - INFO - current cycle: 86
+2024-06-08T07:12:00.638Z - INFO - is in reward phase
+2024-06-08T07:12:00.796Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T08:48:46.271Z - INFO - current burn block height: 847010
+2024-06-08T08:48:46.548Z - INFO - current cycle: 86
+2024-06-08T08:48:46.548Z - INFO - is in reward phase
+2024-06-08T08:48:46.706Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T09:04:09.071Z - INFO - current burn block height: 847014
+2024-06-08T09:04:09.351Z - INFO - current cycle: 86
+2024-06-08T09:04:09.351Z - INFO - is in reward phase
+2024-06-08T09:04:09.511Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T09:48:06.610Z - INFO - current burn block height: 847018
+2024-06-08T09:48:06.885Z - INFO - current cycle: 86
+2024-06-08T09:48:06.886Z - INFO - is in reward phase
+2024-06-08T09:48:07.040Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T10:34:10.295Z - INFO - current burn block height: 847028
+2024-06-08T10:34:10.457Z - INFO - current cycle: 86
+2024-06-08T10:34:10.457Z - INFO - is in reward phase
+2024-06-08T10:34:10.625Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T11:16:38.725Z - INFO - current burn block height: 847032
+2024-06-08T11:16:39.013Z - INFO - current cycle: 86
+2024-06-08T11:16:39.014Z - INFO - is in reward phase
+2024-06-08T11:16:39.169Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T11:35:24.984Z - INFO - current burn block height: 847034
+2024-06-08T11:35:25.275Z - INFO - current cycle: 86
+2024-06-08T11:35:25.275Z - INFO - is in reward phase
+2024-06-08T11:35:25.440Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T11:42:00.363Z - INFO - current burn block height: 847035
+2024-06-08T11:42:00.538Z - INFO - current cycle: 86
+2024-06-08T11:42:00.539Z - INFO - is in reward phase
+2024-06-08T11:42:00.699Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T12:02:00.350Z - INFO - current burn block height: 847036
+2024-06-08T12:02:00.626Z - INFO - current cycle: 86
+2024-06-08T12:02:00.626Z - INFO - is in reward phase
+2024-06-08T12:02:00.780Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T12:10:00.362Z - INFO - current burn block height: 847037
+2024-06-08T12:10:00.667Z - INFO - current cycle: 86
+2024-06-08T12:10:00.667Z - INFO - is in reward phase
+2024-06-08T12:10:00.832Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T12:18:00.355Z - INFO - current burn block height: 847038
+2024-06-08T12:18:00.731Z - INFO - current cycle: 86
+2024-06-08T12:18:00.732Z - INFO - is in reward phase
+2024-06-08T12:18:00.901Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T13:04:00.351Z - INFO - current burn block height: 847039
+2024-06-08T13:04:00.691Z - INFO - current cycle: 86
+2024-06-08T13:04:00.692Z - INFO - is in reward phase
+2024-06-08T13:04:00.848Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T13:06:00.351Z - INFO - current burn block height: 847040
+2024-06-08T13:06:00.638Z - INFO - current cycle: 86
+2024-06-08T13:06:00.639Z - INFO - is in reward phase
+2024-06-08T13:06:00.796Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T13:10:00.458Z - INFO - current burn block height: 847041
+2024-06-08T13:10:00.739Z - INFO - current cycle: 86
+2024-06-08T13:10:00.742Z - INFO - is in reward phase
+2024-06-08T13:10:00.906Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T13:12:00.474Z - INFO - current burn block height: 847042
+2024-06-08T13:12:00.750Z - INFO - current cycle: 86
+2024-06-08T13:12:00.751Z - INFO - is in reward phase
+2024-06-08T13:12:00.917Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T13:14:00.353Z - INFO - current burn block height: 847043
+2024-06-08T13:14:00.632Z - INFO - current cycle: 86
+2024-06-08T13:14:00.633Z - INFO - is in reward phase
+2024-06-08T13:14:00.796Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T13:34:00.368Z - INFO - current burn block height: 847045
+2024-06-08T13:34:00.643Z - INFO - current cycle: 86
+2024-06-08T13:34:00.644Z - INFO - is in reward phase
+2024-06-08T13:34:00.802Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T13:36:00.345Z - INFO - current burn block height: 847046
+2024-06-08T13:36:00.625Z - INFO - current cycle: 86
+2024-06-08T13:36:00.626Z - INFO - is in reward phase
+2024-06-08T13:36:00.791Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T13:38:00.351Z - INFO - current burn block height: 847047
+2024-06-08T13:38:00.666Z - INFO - current cycle: 86
+2024-06-08T13:38:00.666Z - INFO - is in reward phase
+2024-06-08T13:38:00.830Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T13:40:00.360Z - INFO - current burn block height: 847048
+2024-06-08T13:40:00.642Z - INFO - current cycle: 86
+2024-06-08T13:40:00.642Z - INFO - is in reward phase
+2024-06-08T13:40:00.803Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T13:44:00.352Z - INFO - current burn block height: 847050
+2024-06-08T13:44:00.633Z - INFO - current cycle: 86
+2024-06-08T13:44:00.634Z - INFO - is in reward phase
+2024-06-08T13:44:00.802Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T13:48:00.366Z - INFO - current burn block height: 847051
+2024-06-08T13:48:00.679Z - INFO - current cycle: 86
+2024-06-08T13:48:00.680Z - INFO - is in reward phase
+2024-06-08T13:48:00.854Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T13:58:00.362Z - INFO - current burn block height: 847053
+2024-06-08T13:58:00.639Z - INFO - current cycle: 86
+2024-06-08T13:58:00.639Z - INFO - is in reward phase
+2024-06-08T13:58:00.794Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T14:06:00.354Z - INFO - current burn block height: 847054
+2024-06-08T14:06:00.633Z - INFO - current cycle: 86
+2024-06-08T14:06:00.635Z - INFO - is in reward phase
+2024-06-08T14:06:00.801Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T14:16:00.395Z - INFO - current burn block height: 847055
+2024-06-08T14:16:00.694Z - INFO - current cycle: 86
+2024-06-08T14:16:00.694Z - INFO - is in reward phase
+2024-06-08T14:16:00.858Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T14:34:00.428Z - INFO - current burn block height: 847056
+2024-06-08T14:34:00.731Z - INFO - current cycle: 86
+2024-06-08T14:34:00.731Z - INFO - is in reward phase
+2024-06-08T14:34:00.887Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T14:44:00.768Z - INFO - current burn block height: 847057
+2024-06-08T14:44:01.896Z - INFO - current cycle: 86
+2024-06-08T14:44:01.897Z - INFO - is in reward phase
+2024-06-08T14:44:02.061Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T14:54:00.360Z - INFO - current burn block height: 847059
+2024-06-08T14:54:00.631Z - INFO - current cycle: 86
+2024-06-08T14:54:00.631Z - INFO - is in reward phase
+2024-06-08T14:54:00.791Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T15:10:00.446Z - INFO - current burn block height: 847061
+2024-06-08T15:10:00.744Z - INFO - current cycle: 86
+2024-06-08T15:10:00.745Z - INFO - is in reward phase
+2024-06-08T15:10:00.906Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T15:12:00.362Z - INFO - current burn block height: 847062
+2024-06-08T15:12:00.670Z - INFO - current cycle: 86
+2024-06-08T15:12:00.671Z - INFO - is in reward phase
+2024-06-08T15:12:00.832Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T15:22:00.346Z - INFO - current burn block height: 847063
+2024-06-08T15:22:00.636Z - INFO - current cycle: 86
+2024-06-08T15:22:00.637Z - INFO - is in reward phase
+2024-06-08T15:22:00.801Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T15:24:00.342Z - INFO - current burn block height: 847064
+2024-06-08T15:24:00.633Z - INFO - current cycle: 86
+2024-06-08T15:24:00.634Z - INFO - is in reward phase
+2024-06-08T15:24:00.789Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T15:28:00.255Z - INFO - current burn block height: 847065
+2024-06-08T15:28:00.421Z - INFO - current cycle: 86
+2024-06-08T15:28:00.421Z - INFO - is in reward phase
+2024-06-08T15:28:00.583Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T15:43:33.048Z - INFO - current burn block height: 847066
+2024-06-08T15:43:33.203Z - INFO - current cycle: 86
+2024-06-08T15:43:33.204Z - INFO - is in reward phase
+2024-06-08T15:43:33.362Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T15:44:00.214Z - INFO - current burn block height: 847067
+2024-06-08T15:44:00.364Z - INFO - current cycle: 86
+2024-06-08T15:44:00.365Z - INFO - is in reward phase
+2024-06-08T15:44:00.517Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T15:48:00.223Z - INFO - current burn block height: 847068
+2024-06-08T15:48:00.395Z - INFO - current cycle: 86
+2024-06-08T15:48:00.395Z - INFO - is in reward phase
+2024-06-08T15:48:00.554Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T17:19:39.671Z - INFO - current burn block height: 847077
+2024-06-08T17:19:39.955Z - INFO - current cycle: 86
+2024-06-08T17:19:39.955Z - INFO - is in reward phase
+2024-06-08T17:33:28.481Z - INFO - current burn block height: 847080
+2024-06-08T17:33:28.778Z - INFO - current cycle: 86
+2024-06-08T17:33:28.779Z - INFO - is in reward phase
+2024-06-08T17:33:29.005Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T17:49:35.896Z - INFO - current burn block height: 847081
+2024-06-08T17:49:36.214Z - INFO - current cycle: 86
+2024-06-08T17:49:36.214Z - INFO - is in reward phase
+2024-06-08T17:49:36.364Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T18:09:03.714Z - INFO - current burn block height: 847085
+2024-06-08T18:09:03.999Z - INFO - current cycle: 86
+2024-06-08T18:09:04.000Z - INFO - is in reward phase
+2024-06-08T18:09:04.167Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T19:02:28.310Z - INFO - current burn block height: 847096
+2024-06-08T19:02:28.461Z - INFO - current cycle: 86
+2024-06-08T19:02:28.462Z - INFO - is in reward phase
+2024-06-08T19:02:28.617Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T19:35:29.061Z - INFO - current burn block height: 847097
+2024-06-08T19:35:29.256Z - INFO - current cycle: 86
+2024-06-08T19:35:29.256Z - INFO - is in reward phase
+2024-06-08T19:35:29.407Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T20:11:16.019Z - INFO - current burn block height: 847099
+2024-06-08T20:11:16.181Z - INFO - current cycle: 86
+2024-06-08T20:11:16.182Z - INFO - is in reward phase
+2024-06-08T20:11:16.336Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T20:27:22.811Z - INFO - current burn block height: 847100
+2024-06-08T20:27:23.092Z - INFO - current cycle: 86
+2024-06-08T20:27:23.093Z - INFO - is in reward phase
+2024-06-08T20:27:23.246Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T21:08:06.205Z - INFO - current burn block height: 847106
+2024-06-08T21:08:06.523Z - INFO - current cycle: 86
+2024-06-08T21:08:06.523Z - INFO - is in reward phase
+2024-06-08T21:08:06.692Z - INFO - partial stacked by cycle 87: 0
+2024-06-08T23:55:35.813Z - INFO - current burn block height: 847123
+2024-06-08T23:55:36.088Z - INFO - current cycle: 86
+2024-06-08T23:55:36.088Z - INFO - is in reward phase
+2024-06-08T23:55:36.243Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T00:27:33.031Z - INFO - current burn block height: 847125
+2024-06-09T00:27:33.374Z - INFO - current cycle: 86
+2024-06-09T00:27:33.375Z - INFO - is in reward phase
+2024-06-09T00:27:33.531Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T00:56:41.013Z - INFO - current burn block height: 847126
+2024-06-09T00:56:41.285Z - INFO - current cycle: 86
+2024-06-09T00:56:41.285Z - INFO - is in reward phase
+2024-06-09T00:56:41.447Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T01:26:54.447Z - INFO - current burn block height: 847128
+2024-06-09T01:26:54.612Z - INFO - current cycle: 86
+2024-06-09T01:26:54.613Z - INFO - is in reward phase
+2024-06-09T01:26:54.769Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T01:50:28.058Z - INFO - current burn block height: 847130
+2024-06-09T01:50:28.333Z - INFO - current cycle: 86
+2024-06-09T01:50:28.334Z - INFO - is in reward phase
+2024-06-09T01:50:28.494Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T02:32:29.673Z - INFO - current burn block height: 847132
+2024-06-09T02:32:30.029Z - INFO - current cycle: 86
+2024-06-09T02:32:30.030Z - INFO - is in reward phase
+2024-06-09T02:32:30.184Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T03:30:34.273Z - INFO - current burn block height: 847138
+2024-06-09T03:30:34.446Z - INFO - current cycle: 86
+2024-06-09T03:30:34.446Z - INFO - is in reward phase
+2024-06-09T03:30:34.676Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T03:58:36.038Z - INFO - current burn block height: 847141
+2024-06-09T03:58:36.320Z - INFO - current cycle: 86
+2024-06-09T03:58:36.320Z - INFO - is in reward phase
+2024-06-09T03:58:36.486Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T04:33:34.218Z - INFO - current burn block height: 847144
+2024-06-09T04:48:53.093Z - INFO - current burn block height: 847146
+2024-06-09T04:48:53.367Z - INFO - current cycle: 86
+2024-06-09T04:48:53.367Z - INFO - is in reward phase
+2024-06-09T04:48:53.525Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T06:17:39.728Z - INFO - current burn block height: 847147
+2024-06-09T06:17:40.009Z - INFO - current cycle: 86
+2024-06-09T06:17:40.010Z - INFO - is in reward phase
+2024-06-09T06:17:40.165Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T06:42:12.622Z - INFO - current burn block height: 847151
+2024-06-09T06:42:12.781Z - INFO - current cycle: 86
+2024-06-09T06:42:12.782Z - INFO - is in reward phase
+2024-06-09T06:42:12.950Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T07:01:35.920Z - INFO - current burn block height: 847152
+2024-06-09T07:01:36.074Z - INFO - current cycle: 86
+2024-06-09T07:01:36.075Z - INFO - is in reward phase
+2024-06-09T07:01:36.242Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T07:18:23.984Z - INFO - current burn block height: 847154
+2024-06-09T07:18:26.406Z - INFO - current cycle: 86
+2024-06-09T07:18:26.407Z - INFO - is in reward phase
+2024-06-09T07:18:26.568Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T08:02:46.374Z - INFO - current burn block height: 847160
+2024-06-09T08:02:46.659Z - INFO - current cycle: 86
+2024-06-09T08:02:46.660Z - INFO - is in reward phase
+2024-06-09T08:02:46.821Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T08:45:05.032Z - INFO - current burn block height: 847164
+2024-06-09T08:45:05.199Z - INFO - current cycle: 86
+2024-06-09T08:45:05.200Z - INFO - is in reward phase
+2024-06-09T08:45:05.366Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T09:19:49.053Z - INFO - current burn block height: 847167
+2024-06-09T09:19:49.329Z - INFO - current cycle: 86
+2024-06-09T09:19:49.329Z - INFO - is in reward phase
+2024-06-09T09:19:49.493Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T10:21:02.986Z - INFO - current burn block height: 847172
+2024-06-09T10:21:03.328Z - INFO - current cycle: 86
+2024-06-09T10:21:03.329Z - INFO - is in reward phase
+2024-06-09T10:21:03.506Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T10:46:39.956Z - INFO - current burn block height: 847175
+2024-06-09T10:46:40.110Z - INFO - current cycle: 86
+2024-06-09T10:46:40.110Z - INFO - is in reward phase
+2024-06-09T10:46:40.281Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T11:05:56.986Z - INFO - current burn block height: 847176
+2024-06-09T11:05:57.346Z - INFO - current cycle: 86
+2024-06-09T11:05:57.347Z - INFO - is in reward phase
+2024-06-09T11:05:57.506Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T11:22:49.986Z - INFO - current burn block height: 847178
+2024-06-09T11:22:50.273Z - INFO - current cycle: 86
+2024-06-09T11:22:50.273Z - INFO - is in reward phase
+2024-06-09T11:22:50.441Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T11:58:03.059Z - INFO - current burn block height: 847184
+2024-06-09T11:58:03.337Z - INFO - current cycle: 86
+2024-06-09T11:58:03.338Z - INFO - is in reward phase
+2024-06-09T11:58:03.498Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T13:05:06.510Z - INFO - current burn block height: 847190
+2024-06-09T13:05:06.673Z - INFO - current cycle: 86
+2024-06-09T13:05:06.673Z - INFO - is in reward phase
+2024-06-09T13:05:06.840Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T15:27:08.148Z - INFO - current burn block height: 847205
+2024-06-09T15:27:08.428Z - INFO - current cycle: 86
+2024-06-09T15:27:08.429Z - INFO - is in reward phase
+2024-06-09T15:27:08.594Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T15:42:11.686Z - INFO - current burn block height: 847210
+2024-06-09T15:42:11.975Z - INFO - current cycle: 86
+2024-06-09T15:42:11.975Z - INFO - is in reward phase
+2024-06-09T15:42:12.142Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T17:44:10.670Z - INFO - current burn block height: 847226
+2024-06-09T17:44:10.951Z - INFO - current cycle: 86
+2024-06-09T17:44:10.952Z - INFO - is in reward phase
+2024-06-09T17:44:11.118Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T18:15:09.515Z - INFO - current burn block height: 847227
+2024-06-09T18:15:09.801Z - INFO - current cycle: 86
+2024-06-09T18:15:09.801Z - INFO - is in reward phase
+2024-06-09T18:15:09.965Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T19:06:15.046Z - INFO - current burn block height: 847234
+2024-06-09T19:06:15.331Z - INFO - current cycle: 86
+2024-06-09T19:06:15.332Z - INFO - is in reward phase
+2024-06-09T19:06:15.486Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T19:35:27.682Z - INFO - current burn block height: 847238
+2024-06-09T19:35:28.059Z - INFO - current cycle: 86
+2024-06-09T19:35:28.059Z - INFO - is in reward phase
+2024-06-09T19:35:28.222Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T19:42:00.257Z - INFO - current burn block height: 847239
+2024-06-09T19:42:00.545Z - INFO - current cycle: 86
+2024-06-09T19:42:00.546Z - INFO - is in reward phase
+2024-06-09T19:42:00.705Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T19:48:00.268Z - INFO - current burn block height: 847240
+2024-06-09T19:48:00.549Z - INFO - current cycle: 86
+2024-06-09T19:48:00.550Z - INFO - is in reward phase
+2024-06-09T19:48:00.716Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T19:50:40.177Z - INFO - current burn block height: 847241
+2024-06-09T19:50:40.558Z - INFO - current cycle: 86
+2024-06-09T19:50:40.558Z - INFO - is in reward phase
+2024-06-09T19:50:40.723Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T20:14:24.673Z - INFO - current burn block height: 847245
+2024-06-09T20:14:24.964Z - INFO - current cycle: 86
+2024-06-09T20:14:24.965Z - INFO - is in reward phase
+2024-06-09T20:14:25.132Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T21:18:20.108Z - INFO - current burn block height: 847255
+2024-06-09T21:18:20.401Z - INFO - current cycle: 86
+2024-06-09T21:18:20.402Z - INFO - is in reward phase
+2024-06-09T21:18:20.560Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T21:24:00.225Z - INFO - current burn block height: 847257
+2024-06-09T21:24:00.386Z - INFO - current cycle: 86
+2024-06-09T21:24:00.387Z - INFO - is in reward phase
+2024-06-09T21:24:00.542Z - INFO - partial stacked by cycle 87: 0
+2024-06-09T23:54:50.107Z - INFO - current burn block height: 847276
+2024-06-09T23:54:50.383Z - INFO - current cycle: 86
+2024-06-09T23:54:50.383Z - INFO - is in reward phase
+2024-06-09T23:54:50.544Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T00:16:00.229Z - INFO - current burn block height: 847277
+2024-06-10T00:16:00.504Z - INFO - current cycle: 86
+2024-06-10T00:16:00.504Z - INFO - is in reward phase
+2024-06-10T00:16:00.667Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T00:20:00.228Z - INFO - current burn block height: 847278
+2024-06-10T00:20:00.430Z - INFO - current cycle: 86
+2024-06-10T00:20:00.431Z - INFO - is in reward phase
+2024-06-10T00:20:00.594Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T01:11:01.859Z - INFO - current burn block height: 847281
+2024-06-10T01:11:02.145Z - INFO - current cycle: 86
+2024-06-10T01:11:02.146Z - INFO - is in reward phase
+2024-06-10T01:11:02.303Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T01:28:57.480Z - INFO - current burn block height: 847282
+2024-06-10T01:28:57.651Z - INFO - current cycle: 86
+2024-06-10T01:28:57.651Z - INFO - is in reward phase
+2024-06-10T01:28:57.809Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T02:38:15.026Z - INFO - current burn block height: 847288
+2024-06-10T02:38:15.299Z - INFO - current cycle: 86
+2024-06-10T02:38:15.300Z - INFO - is in reward phase
+2024-06-10T02:38:15.463Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T04:29:09.525Z - INFO - current burn block height: 847301
+2024-06-10T04:29:09.808Z - INFO - current cycle: 86
+2024-06-10T04:29:09.808Z - INFO - is in reward phase
+2024-06-10T04:29:09.969Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T05:14:24.333Z - INFO - current burn block height: 847308
+2024-06-10T05:14:24.610Z - INFO - current cycle: 86
+2024-06-10T05:14:24.612Z - INFO - is in reward phase
+2024-06-10T05:14:24.769Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T07:29:13.810Z - INFO - current burn block height: 847321
+2024-06-10T07:29:14.086Z - INFO - current cycle: 86
+2024-06-10T07:29:14.086Z - INFO - is in reward phase
+2024-06-10T07:29:14.252Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T08:16:18.206Z - INFO - current burn block height: 847324
+2024-06-10T08:16:18.491Z - INFO - current cycle: 86
+2024-06-10T08:16:18.491Z - INFO - is in reward phase
+2024-06-10T08:16:18.645Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T09:44:24.135Z - INFO - current burn block height: 847333
+2024-06-10T09:44:24.406Z - INFO - current cycle: 86
+2024-06-10T09:44:24.407Z - INFO - is in reward phase
+2024-06-10T09:44:24.564Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T10:32:07.092Z - INFO - current burn block height: 847337
+2024-06-10T10:32:07.394Z - INFO - current cycle: 86
+2024-06-10T10:32:07.394Z - INFO - is in reward phase
+2024-06-10T10:32:07.561Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T11:26:00.240Z - INFO - current burn block height: 847338
+2024-06-10T11:26:00.699Z - INFO - current cycle: 86
+2024-06-10T11:26:00.700Z - INFO - is in reward phase
+2024-06-10T11:26:00.871Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T11:30:00.248Z - INFO - current burn block height: 847339
+2024-06-10T11:30:00.535Z - INFO - current cycle: 86
+2024-06-10T11:30:00.536Z - INFO - is in reward phase
+2024-06-10T11:30:00.704Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T11:34:00.259Z - INFO - current burn block height: 847340
+2024-06-10T11:34:00.457Z - INFO - current cycle: 86
+2024-06-10T11:34:00.457Z - INFO - is in reward phase
+2024-06-10T11:34:00.625Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T11:36:00.249Z - INFO - current burn block height: 847341
+2024-06-10T11:36:00.420Z - INFO - current cycle: 86
+2024-06-10T11:36:00.420Z - INFO - is in reward phase
+2024-06-10T11:36:00.574Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T11:44:00.248Z - INFO - current burn block height: 847342
+2024-06-10T11:44:00.423Z - INFO - current cycle: 86
+2024-06-10T11:44:00.423Z - INFO - is in reward phase
+2024-06-10T11:44:00.592Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T11:46:00.239Z - INFO - current burn block height: 847343
+2024-06-10T11:46:00.407Z - INFO - current cycle: 86
+2024-06-10T11:46:00.408Z - INFO - is in reward phase
+2024-06-10T11:46:00.569Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T11:48:00.264Z - INFO - current burn block height: 847344
+2024-06-10T11:48:00.541Z - INFO - current cycle: 86
+2024-06-10T11:48:00.542Z - INFO - is in reward phase
+2024-06-10T11:48:00.699Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T11:52:00.225Z - INFO - current burn block height: 847345
+2024-06-10T11:52:00.404Z - INFO - current cycle: 86
+2024-06-10T11:52:00.404Z - INFO - is in reward phase
+2024-06-10T11:52:00.576Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T12:06:00.227Z - INFO - current burn block height: 847346
+2024-06-10T12:06:00.514Z - INFO - current cycle: 86
+2024-06-10T12:06:00.515Z - INFO - is in reward phase
+2024-06-10T12:06:00.673Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T12:10:00.274Z - INFO - current burn block height: 847347
+2024-06-10T12:10:00.441Z - INFO - current cycle: 86
+2024-06-10T12:10:00.442Z - INFO - is in reward phase
+2024-06-10T12:10:00.620Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T12:46:00.276Z - INFO - current burn block height: 847348
+2024-06-10T12:46:00.445Z - INFO - current cycle: 86
+2024-06-10T12:46:00.445Z - INFO - is in reward phase
+2024-06-10T12:46:00.608Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T13:02:00.238Z - INFO - current burn block height: 847349
+2024-06-10T13:02:00.568Z - INFO - current cycle: 86
+2024-06-10T13:02:00.569Z - INFO - is in reward phase
+2024-06-10T13:02:00.746Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T13:10:00.226Z - INFO - current burn block height: 847350
+2024-06-10T13:10:00.534Z - INFO - current cycle: 86
+2024-06-10T13:10:00.534Z - INFO - is in reward phase
+2024-06-10T13:10:00.697Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T13:50:00.306Z - INFO - current burn block height: 847351
+2024-06-10T13:50:00.596Z - INFO - current cycle: 86
+2024-06-10T13:50:00.597Z - INFO - is in reward phase
+2024-06-10T13:50:00.763Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T13:54:00.342Z - INFO - current burn block height: 847352
+2024-06-10T13:54:00.548Z - INFO - current cycle: 86
+2024-06-10T13:54:00.549Z - INFO - is in reward phase
+2024-06-10T13:54:00.722Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T14:15:11.548Z - INFO - current burn block height: 847353
+2024-06-10T14:15:11.831Z - INFO - current cycle: 86
+2024-06-10T14:15:11.831Z - INFO - is in reward phase
+2024-06-10T14:15:11.992Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T14:41:55.891Z - INFO - current burn block height: 847359
+2024-06-10T14:41:56.259Z - INFO - current cycle: 86
+2024-06-10T14:41:56.259Z - INFO - is in reward phase
+2024-06-10T14:41:56.565Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T15:14:00.271Z - INFO - current burn block height: 847360
+2024-06-10T15:14:00.606Z - INFO - current cycle: 86
+2024-06-10T15:14:00.608Z - INFO - is in reward phase
+2024-06-10T15:14:00.768Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T15:18:00.237Z - INFO - current burn block height: 847361
+2024-06-10T15:18:00.630Z - INFO - current cycle: 86
+2024-06-10T15:18:00.630Z - INFO - is in reward phase
+2024-06-10T15:18:00.782Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T15:24:00.270Z - INFO - current burn block height: 847362
+2024-06-10T15:24:00.582Z - INFO - current cycle: 86
+2024-06-10T15:24:00.583Z - INFO - is in reward phase
+2024-06-10T15:24:00.758Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T15:26:00.252Z - INFO - current burn block height: 847363
+2024-06-10T15:26:00.410Z - INFO - current cycle: 86
+2024-06-10T15:26:00.411Z - INFO - is in reward phase
+2024-06-10T15:26:00.572Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T15:28:00.236Z - INFO - current burn block height: 847364
+2024-06-10T15:28:00.411Z - INFO - current cycle: 86
+2024-06-10T15:28:00.411Z - INFO - is in reward phase
+2024-06-10T15:28:00.604Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T15:38:00.275Z - INFO - current burn block height: 847365
+2024-06-10T15:38:00.440Z - INFO - current cycle: 86
+2024-06-10T15:38:00.441Z - INFO - is in reward phase
+2024-06-10T15:38:00.606Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T15:44:00.258Z - INFO - current burn block height: 847366
+2024-06-10T15:44:00.544Z - INFO - current cycle: 86
+2024-06-10T15:44:00.547Z - INFO - is in reward phase
+2024-06-10T15:44:00.709Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T15:48:00.263Z - INFO - current burn block height: 847367
+2024-06-10T15:48:00.587Z - INFO - current cycle: 86
+2024-06-10T15:48:00.591Z - INFO - is in reward phase
+2024-06-10T15:48:00.760Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T15:52:00.249Z - INFO - current burn block height: 847368
+2024-06-10T15:52:00.412Z - INFO - current cycle: 86
+2024-06-10T15:52:00.413Z - INFO - is in reward phase
+2024-06-10T15:52:00.567Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T16:04:00.256Z - INFO - current burn block height: 847369
+2024-06-10T16:04:00.545Z - INFO - current cycle: 86
+2024-06-10T16:04:00.545Z - INFO - is in reward phase
+2024-06-10T16:04:00.718Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T16:06:00.263Z - INFO - current burn block height: 847370
+2024-06-10T16:06:00.430Z - INFO - current cycle: 86
+2024-06-10T16:06:00.430Z - INFO - is in reward phase
+2024-06-10T16:06:00.592Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T16:28:00.243Z - INFO - current burn block height: 847372
+2024-06-10T16:28:00.426Z - INFO - current cycle: 86
+2024-06-10T16:28:00.427Z - INFO - is in reward phase
+2024-06-10T16:28:00.596Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T16:30:00.233Z - INFO - current burn block height: 847373
+2024-06-10T16:30:00.530Z - INFO - current cycle: 86
+2024-06-10T16:30:00.531Z - INFO - is in reward phase
+2024-06-10T16:30:00.696Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T16:38:00.222Z - INFO - current burn block height: 847374
+2024-06-10T16:38:00.502Z - INFO - current cycle: 86
+2024-06-10T16:38:00.502Z - INFO - is in reward phase
+2024-06-10T16:38:00.662Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T16:48:00.237Z - INFO - current burn block height: 847375
+2024-06-10T16:48:00.518Z - INFO - current cycle: 86
+2024-06-10T16:48:00.522Z - INFO - is in reward phase
+2024-06-10T16:48:00.680Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T16:58:00.213Z - INFO - current burn block height: 847376
+2024-06-10T16:58:00.529Z - INFO - current cycle: 86
+2024-06-10T16:58:00.529Z - INFO - is in reward phase
+2024-06-10T16:58:00.717Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T17:06:00.264Z - INFO - current burn block height: 847377
+2024-06-10T17:06:00.457Z - INFO - current cycle: 86
+2024-06-10T17:06:00.458Z - INFO - is in reward phase
+2024-06-10T17:06:00.629Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T17:12:00.282Z - INFO - current burn block height: 847378
+2024-06-10T17:12:00.593Z - INFO - current cycle: 86
+2024-06-10T17:12:00.593Z - INFO - is in reward phase
+2024-06-10T17:12:00.762Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T17:16:00.245Z - INFO - current burn block height: 847379
+2024-06-10T17:16:00.562Z - INFO - current cycle: 86
+2024-06-10T17:16:00.563Z - INFO - is in reward phase
+2024-06-10T17:16:00.743Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T17:22:00.381Z - INFO - current burn block height: 847380
+2024-06-10T17:22:00.702Z - INFO - current cycle: 86
+2024-06-10T17:22:00.703Z - INFO - is in reward phase
+2024-06-10T17:22:00.879Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T17:24:00.249Z - INFO - current burn block height: 847381
+2024-06-10T17:24:00.569Z - INFO - current cycle: 86
+2024-06-10T17:24:00.570Z - INFO - is in reward phase
+2024-06-10T17:24:00.749Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T17:34:00.229Z - INFO - current burn block height: 847382
+2024-06-10T17:34:00.509Z - INFO - current cycle: 86
+2024-06-10T17:34:00.509Z - INFO - is in reward phase
+2024-06-10T17:34:00.680Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T17:40:00.287Z - INFO - current burn block height: 847383
+2024-06-10T17:40:00.472Z - INFO - current cycle: 86
+2024-06-10T17:40:00.472Z - INFO - is in reward phase
+2024-06-10T17:40:00.642Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T18:24:00.254Z - INFO - current burn block height: 847384
+2024-06-10T18:24:00.541Z - INFO - current cycle: 86
+2024-06-10T18:24:00.542Z - INFO - is in reward phase
+2024-06-10T18:24:00.701Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T18:38:00.242Z - INFO - current burn block height: 847385
+2024-06-10T18:38:00.416Z - INFO - current cycle: 86
+2024-06-10T18:38:00.416Z - INFO - is in reward phase
+2024-06-10T18:38:00.585Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T18:42:00.238Z - INFO - current burn block height: 847386
+2024-06-10T18:42:00.543Z - INFO - current cycle: 86
+2024-06-10T18:42:00.544Z - INFO - is in reward phase
+2024-06-10T18:42:00.724Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T18:48:00.245Z - INFO - current burn block height: 847387
+2024-06-10T18:48:00.560Z - INFO - current cycle: 86
+2024-06-10T18:48:00.560Z - INFO - is in reward phase
+2024-06-10T18:48:00.739Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T18:50:00.249Z - INFO - current burn block height: 847388
+2024-06-10T18:50:00.426Z - INFO - current cycle: 86
+2024-06-10T18:50:00.426Z - INFO - is in reward phase
+2024-06-10T18:50:00.602Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T19:14:00.252Z - INFO - current burn block height: 847389
+2024-06-10T19:14:00.567Z - INFO - current cycle: 86
+2024-06-10T19:14:00.568Z - INFO - is in reward phase
+2024-06-10T19:14:00.750Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T19:30:00.235Z - INFO - current burn block height: 847390
+2024-06-10T19:30:00.548Z - INFO - current cycle: 86
+2024-06-10T19:30:00.549Z - INFO - is in reward phase
+2024-06-10T19:30:00.724Z - INFO - partial stacked by cycle 87: 0
+2024-06-10T19:36:00.253Z - INFO - current burn block height: 847391
+2024-06-10T19:36:00.436Z - INFO - current cycle: 86
+2024-06-10T19:36:00.436Z - INFO - is in reward phase
+2024-06-10T19:36:00.613Z - INFO - partial stacked by cycle 87: 0

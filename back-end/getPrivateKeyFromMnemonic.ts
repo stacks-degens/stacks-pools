@@ -2,15 +2,17 @@ import {
   getAddressFromPrivateKey,
   TransactionVersion,
 } from '@stacks/transactions';
-import { generateWallet } from '@stacks/wallet-sdk';
+import {
+  generateNewAccount,
+  generateWallet,
+  getStxAddress,
+} from '@stacks/wallet-sdk';
 import dotenv from 'dotenv';
 import { network } from './network';
 dotenv.config();
 
 if (!process.env.PASSWORD) throw 'Invalid empty password env variable';
 if (!process.env.MNEMONIC) throw 'Invalid empty mnemonic env variable';
-if (!process.env.STX_PRIVATE_KEY)
-  throw 'Invalid empty stx-private-key env variable';
 
 const transactionVersion: TransactionVersion =
   network === 'mainnet'
@@ -20,16 +22,27 @@ const transactionVersion: TransactionVersion =
 const password = process.env.PASSWORD;
 const secretKey = process.env.MNEMONIC;
 
-const wallet = await generateWallet({
+let wallet = await generateWallet({
   secretKey,
   password,
 });
+wallet = generateNewAccount(wallet);
+const account = wallet.accounts[0];
+const address = getStxAddress({
+  account,
+  transactionVersion: transactionVersion,
+});
 
-console.log('wallet', wallet);
+console.log('private key: ', account.stxPrivateKey);
+console.log('account: ', address);
 
-const stacksAddress = getAddressFromPrivateKey(
-  process.env.STX_PRIVATE_KEY,
-  transactionVersion,
-);
+// console.log('wallet', wallet);
+// if (!process.env.STX_PRIVATE_KEY)
+//   throw 'Invalid empty stx-private-key env variable';
 
-console.log(stacksAddress);
+// const stacksAddress = getAddressFromPrivateKey(
+//   process.env.STX_PRIVATE_KEY,
+//   transactionVersion,
+// );
+
+// console.log(stacksAddress);

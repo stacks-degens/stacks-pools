@@ -17,9 +17,9 @@ export const contractMapping: ContractMapping = {
   // TODO: complete the rest
   stacking: {
     mainnet: {
-      contractAddress: '',
-      contractName: '',
-      owner: '',
+      contractAddress: 'SP1SCEXE6PMGPAC6B4N5P2MDKX8V4GF9QDE1FNNGJ',
+      contractName: 'degenlab-stacking-pool-pox4',
+      owner: 'SP1SCEXE6PMGPAC6B4N5P2MDKX8V4GF9QDE1FNNGJ',
     },
     testnet: {
       contractAddress: '',
@@ -39,9 +39,9 @@ export const contractMapping: ContractMapping = {
   },
   pox: {
     mainnet: {
-      contractAddress: '',
-      contractName: '',
-      owner: '',
+      contractAddress: 'SP000000000000000000002Q6VF78',
+      contractName: 'pox-4',
+      owner: 'SP000000000000000000002Q6VF78',
     },
     testnet: {
       contractAddress: 'ST000000000000000000002AMW42H',

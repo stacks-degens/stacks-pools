@@ -1,15 +1,15 @@
 {
-  "current_burn_block_height": 16335,
-  "current_cycle": 17,
-  "updated_balances_this_cycle": true,
-  "update_balances_txid": "2628c0eb447578afc23530ebf95e2d829c46262b631cb01b0442346478263b4b",
-  "update_balances_burn_block_height": 16331,
+  "current_burn_block_height": 847391,
+  "current_cycle": 86,
+  "updated_balances_this_cycle": false,
+  "update_balances_txid": "",
+  "update_balances_burn_block_height": 846551,
   "commit_agg_this_cycle": true,
-  "commit_agg_burn_block_height": 15997,
-  "commit_agg_txid": "78200053c0fc7a7ab8f16667bab3c4299a189724016f1d5f09ddf4698a4caa1a",
+  "commit_agg_burn_block_height": 846652,
+  "commit_agg_txid": "5bae2d7ba83373cf0f4b409631ddc5c625e741577257476f0fa7ce8b291a61e5",
   "increase_agg_burn_block_height": 15327,
   "partial_stacked": 0,
-  "distribute_rewards_first_burn_block_height_to_check": 16526,
-  "delegated_stack_stx_many_this_cycle": true,
-  "delegated_stack_stx_many_txid": "20af143797dfb56b292efed8e1cc65efcd37aed5ad2a53357546c269f5b09a5f"
+  "distribute_rewards_first_burn_block_height_to_check": 847336,
+  "delegated_stack_stx_many_this_cycle": false,
+  "delegated_stack_stx_many_txid": ""
 }
