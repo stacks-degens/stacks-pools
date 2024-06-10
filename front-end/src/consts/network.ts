@@ -13,7 +13,7 @@ export type networkType = 'mainnet' | 'testnet' | 'devnet' | 'nakamotoTestnet';
 export type developmentType = 'prod' | 'local';
 
 export const network: networkType = process.env.REACT_APP_NETWORK || 'devnet';
-export const development: developmentType = process.env.REACT_APP_DEVELOPMENT || 'local';
+export const development: developmentType = process.env.REACT_APP_DEVELOPMENT || 'prod';
 
 type ApiMapping = { blockInfo: string; stackingInfo: string; mempoolInfo: (address: string) => string };
 type ApiUrl = Record<networkType, string>;
@@ -32,8 +32,8 @@ const explorerUrl: ExplorerUrl = {
 
 export const apiUrl: Record<developmentType, ApiUrl> = {
   local: {
-    mainnet: process.env.REACT_APP_API_KEY_LOCAL_MAINNET || '',
-    testnet: process.env.REACT_APP_API_KEY_LOCAL_TESTNET || '',
+    mainnet: process.env.REACT_APP_API_KEY_LOCAL_MAINNET || 'https://api.mainnet.hiro.so',
+    testnet: process.env.REACT_APP_API_KEY_LOCAL_TESTNET || 'https://api.testnet.hiro.so',
     devnet: process.env.REACT_APP_API_KEY_DEVNET || '',
     nakamotoTestnet: process.env.REACT_APP_API_KEY_NAKAMOTO || '',
   },
@@ -44,8 +44,6 @@ export const apiUrl: Record<developmentType, ApiUrl> = {
     nakamotoTestnet: process.env.REACT_APP_API_KEY_NAKAMOTO || '',
   },
 };
-
-console.log('api url: ', apiUrl)
 
 export const apiMapping: ApiMapping = {
   blockInfo: `${apiUrl[development][network]}/extended/v1/block`,
