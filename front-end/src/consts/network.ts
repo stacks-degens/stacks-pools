@@ -45,6 +45,8 @@ export const apiUrl: Record<developmentType, ApiUrl> = {
   },
 };
 
+console.log('api url: ', apiUrl)
+
 export const apiMapping: ApiMapping = {
   blockInfo: `${apiUrl[development][network]}/extended/v1/block`,
   stackingInfo: `${apiUrl[development][network]}/v2/pox`,
