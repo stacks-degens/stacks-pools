@@ -8488,3 +8488,70 @@
 2024-06-10T20:54:00.532Z - INFO - current cycle: 86
 2024-06-10T20:54:00.532Z - INFO - is in reward phase
 2024-06-10T20:54:00.698Z - INFO - partial stacked by cycle 87: 0
+2024-06-18T12:42:18.385Z - INFO - current burn block height: 848474
+2024-06-18T12:42:18.633Z - INFO - current cycle: 86
+2024-06-18T12:42:18.633Z - INFO - is in reward phase
+2024-06-18T12:42:19.828Z - INFO - delegate-stack-stx-many tx 4b313f9eb9fd57c3e37058193e743d45d4310619e35efc0f6d7c6b696ddbd434
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/4b313f9eb9fd57c3e37058193e743d45d4310619e35efc0f6d7c6b696ddbd434
+      explorer link: https://explorer.hiro.so/txid/4b313f9eb9fd57c3e37058193e743d45d4310619e35efc0f6d7c6b696ddbd434?chain=mainnet
+2024-06-18T12:42:19.967Z - INFO - partial stacked by cycle 87: 0
+2024-06-18T12:42:28.077Z - INFO - blocks won: 847916
+2024-06-18T12:45:19.672Z - INFO - current burn block height: 848475
+2024-06-18T12:45:19.904Z - INFO - current cycle: 86
+2024-06-18T12:45:19.905Z - INFO - is in reward phase
+2024-06-18T12:45:20.037Z - INFO - partial stacked by cycle 87: 0
+2024-06-18T12:45:27.475Z - INFO - blocks won: 847916
+2024-06-18T12:48:00.278Z - INFO - current burn block height: 848476
+2024-06-18T12:48:00.593Z - INFO - current cycle: 86
+2024-06-18T12:48:00.593Z - INFO - is in reward phase
+2024-06-18T12:48:00.730Z - INFO - partial stacked by cycle 87: 0
+2024-06-18T12:48:08.464Z - INFO - blocks won: 847916
+2024-06-18T13:02:00.214Z - INFO - current burn block height: 848477
+2024-06-18T13:02:00.357Z - INFO - current cycle: 86
+2024-06-18T13:02:00.360Z - INFO - is in reward phase
+2024-06-18T13:02:00.497Z - INFO - partial stacked by cycle 87: 0
+2024-06-18T13:12:00.208Z - INFO - current burn block height: 848478
+2024-06-18T13:12:00.434Z - INFO - current cycle: 86
+2024-06-18T13:12:00.434Z - INFO - is in reward phase
+2024-06-18T13:12:00.600Z - INFO - partial stacked by cycle 87: 0
+2024-06-18T13:22:11.401Z - INFO - current burn block height: 848479
+2024-06-18T13:22:11.545Z - INFO - current cycle: 86
+2024-06-18T13:22:11.546Z - INFO - is in reward phase
+2024-06-18T13:22:11.728Z - INFO - partial stacked by cycle 87: 0
+2024-06-18T13:25:31.623Z - INFO - current burn block height: 848479
+2024-06-18T13:25:31.945Z - INFO - current cycle: 86
+2024-06-18T13:25:31.946Z - INFO - is in reward phase
+2024-06-18T13:25:32.156Z - INFO - partial stacked by cycle 87: 0
+2024-06-18T13:25:41.010Z - INFO - blocks won: 847916
+2024-06-18T13:25:48.802Z - INFO - blocks rewards distributed: 847916
+2024-06-18T13:25:48.803Z - INFO - distribute-rewards tx 70bb489539a5636dfdc277c8174665502157b22b3f5d2bcdbde3904a07729391
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/70bb489539a5636dfdc277c8174665502157b22b3f5d2bcdbde3904a07729391
+      explorer link: https://explorer.hiro.so/txid/70bb489539a5636dfdc277c8174665502157b22b3f5d2bcdbde3904a07729391?chain=mainnet
+2024-06-18T15:12:21.855Z - INFO - current burn block height: 848492
+2024-06-18T15:12:22.013Z - INFO - current cycle: 86
+2024-06-18T15:12:22.014Z - INFO - is in reward phase
+2024-06-18T15:12:22.156Z - INFO - partial stacked by cycle 87: 0
+2024-06-18T15:16:00.209Z - INFO - current burn block height: 848493
+2024-06-18T15:16:00.435Z - INFO - current cycle: 86
+2024-06-18T15:16:00.436Z - INFO - is in reward phase
+2024-06-18T15:16:00.581Z - INFO - partial stacked by cycle 87: 0
+2024-06-18T15:30:00.338Z - INFO - current burn block height: 848494
+2024-06-18T15:30:00.724Z - INFO - current cycle: 86
+2024-06-18T15:30:00.724Z - INFO - is in reward phase
+2024-06-18T15:30:00.860Z - INFO - partial stacked by cycle 87: 0
+2024-06-18T15:42:00.280Z - INFO - current burn block height: 848495
+2024-06-18T15:42:00.618Z - INFO - current cycle: 86
+2024-06-18T15:42:00.619Z - INFO - is in reward phase
+2024-06-18T15:42:01.119Z - INFO - partial stacked by cycle 87: 0
+2024-06-18T15:48:00.305Z - INFO - current burn block height: 848496
+2024-06-18T15:48:00.554Z - INFO - current cycle: 86
+2024-06-18T15:48:00.555Z - INFO - is in reward phase
+2024-06-18T15:48:00.730Z - INFO - partial stacked by cycle 87: 0
+2024-06-18T22:38:00.605Z - INFO - current burn block height: 848535
+2024-06-18T22:38:00.925Z - INFO - current cycle: 86
+2024-06-18T22:38:00.926Z - INFO - is in reward phase
+2024-06-18T22:38:01.154Z - INFO - partial stacked by cycle 87: 0
+2024-06-18T22:42:00.599Z - INFO - current burn block height: 848536
+2024-06-18T22:42:00.815Z - INFO - current cycle: 86
+2024-06-18T22:42:00.816Z - INFO - is in reward phase
+2024-06-18T22:42:01.064Z - INFO - partial stacked by cycle 87: 0

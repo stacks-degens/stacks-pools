@@ -6,18 +6,34 @@ import {
   cvToValue,
   UIntCV,
 } from '@stacks/transactions';
-import { StacksMainnet, StacksTestnet, StacksDevnet } from '@stacks/network';
-import { apiUrl, development, network, poxAddress } from './network';
+import {
+  StacksMainnet,
+  StacksTestnet,
+  StacksDevnet,
+  createApiKeyMiddleware,
+  createFetchFn,
+} from '@stacks/network';
+import { apiKey, apiUrl, development, network, poxAddress } from './network';
 import { contractMapping, functionMapping } from './contracts';
 import { poxAddressToTuple } from '@stacks/stacking';
 import { logData, LogTypeMessage } from './fileLocalData';
 
+const myApiMiddleware = createApiKeyMiddleware({ apiKey: apiKey });
+const myFetchFn = createFetchFn(myApiMiddleware); // middlewares can be used to create a new fetch function
+
 const contractNetwork =
   network === 'mainnet'
-    ? new StacksMainnet({ url: apiUrl[development][network] })
+    ? new StacksMainnet({
+        url: apiUrl[development][network],
+        fetchFn: myFetchFn,
+      })
     : network === 'testnet' || network === 'nakamotoTestnet'
-      ? new StacksTestnet({ url: apiUrl[development][network] })
-      : new StacksDevnet({ url: apiUrl[development][network] });
+      ? new StacksTestnet({
+          url: apiUrl[development][network],
+        })
+      : new StacksDevnet({
+          url: apiUrl[development][network],
+        });
 
 export enum ContractType {
   stacking = 'stacking',

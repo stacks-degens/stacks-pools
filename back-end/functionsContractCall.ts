@@ -14,8 +14,15 @@ import {
   TxBroadcastResult,
   UIntCV,
 } from '@stacks/transactions';
-import { StacksMainnet, StacksTestnet, StacksDevnet } from '@stacks/network';
 import {
+  StacksMainnet,
+  StacksTestnet,
+  StacksDevnet,
+  createApiKeyMiddleware,
+  createFetchFn,
+} from '@stacks/network';
+import {
+  apiKey,
   apiUrl,
   development,
   network,
@@ -30,9 +37,15 @@ import { Pox4SignatureTopic, StackingClient } from '@stacks/stacking';
 import { maxAmount } from './consts';
 import { logData, LogTypeMessage } from './fileLocalData';
 
+const myApiMiddleware = createApiKeyMiddleware({ apiKey: apiKey });
+const myFetchFn = createFetchFn(myApiMiddleware);
+
 const contractNetwork =
   network === 'mainnet'
-    ? new StacksMainnet({ url: apiUrl[development][network] })
+    ? new StacksMainnet({
+        url: apiUrl[development][network],
+        fetchFn: myFetchFn,
+      })
     : network === 'testnet' || network === 'nakamotoTestnet'
       ? new StacksTestnet({ url: apiUrl[development][network] })
       : new StacksDevnet({ url: apiUrl[development][network] });

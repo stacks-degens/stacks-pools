@@ -8,7 +8,7 @@ export const blockSpanAggIncrease = {
 };
 
 export const blockSpanRewardDistribute = {
-  mainnet: 290,
+  mainnet: 300,
   testnet: 200,
   nakamotoTestnet: 200,
   devnet: 3,
@@ -35,13 +35,11 @@ export const triggerNumberOfLastXBlocksBeforeRewardPhase = {
   devnet: 5,
 };
 
-// TODO: what fees do we want?
 export const feeContractCall = {
   updateBalances: 1,
   updateBalancesIncreasedFee: 2,
 };
 
-// TODO: add STX amount values
 export const thresholdAmounPartialStackedByCycle = {
   mainnet: 10,
   testnet: 10,

@@ -14,6 +14,7 @@ if (process.env.DEVELOPMENT !== 'prod' && process.env.DEVELOPMENT !== 'local')
 if (!process.env.STX_PRIVATE_KEY) throw 'Inexistent Private Key';
 if (!process.env.STX_SIGNER_PRIVATE_KEY) throw 'Inexistent Signer Private Key';
 if (!process.env.POX_ADDRESS) throw 'Inexistent Pox Address';
+if (!process.env.API_KEY_MAINNET) throw 'Inexistent API Key';
 
 export type NetworkType = 'mainnet' | 'testnet' | 'devnet' | 'nakamotoTestnet';
 export type DevelopmentType = 'prod' | 'local';
@@ -23,6 +24,7 @@ export const development: DevelopmentType = process.env.DEVELOPMENT || 'local';
 export const privateKey: string = process.env.STX_PRIVATE_KEY;
 export const signerPrivateKey: string = process.env.STX_SIGNER_PRIVATE_KEY;
 export const poxAddress: string = process.env.POX_ADDRESS;
+export const apiKey: string = process.env.API_KEY_MAINNET;
 
 export const stxToUstx: number = 1000000;
 
@@ -45,7 +47,10 @@ const explorerUrl: ExplorerUrl = {
   mainnet: ['https://explorer.hiro.so', 'mainnet'],
   testnet: ['https://explorer.hiro.so', 'testnet'],
   devnet: ['http://localhost:8000', 'mainnet'],
-  nakamotoTestnet: ['https://explorer.hiro.so', 'testnet&api=https://api.nakamoto.testnet.hiro.so'],
+  nakamotoTestnet: [
+    'https://explorer.hiro.so',
+    'testnet&api=https://api.nakamoto.testnet.hiro.so',
+  ],
 };
 
 export const apiUrl: Record<DevelopmentType, ApiUrl> = {
