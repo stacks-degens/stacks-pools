@@ -59,7 +59,29 @@ export const convertDigits = (n: number) => {
   return Math.floor((n / toStx) * Math.pow(10, numberOfDigits)) / Math.pow(10, numberOfDigits);
 };
 
+export const convertBitcoinDigits = (n: number) => {
+  const toBtc = 100000000;
+  let numberOfDigits = 0;
+  if (n < 1000000 )
+    numberOfDigits = 5;
+  else if (n < 10000000 )
+    numberOfDigits = 4;
+  else if (n < 100000000 )
+    numberOfDigits = 3;
+  else if (n < 1000000000 )
+    numberOfDigits = 2;
+  else if (n < 10000000000 )
+    numberOfDigits = 1;
+  else if (n < 100000000000 )
+    numberOfDigits = 0;
+
+  return Math.floor((n * Math.pow(10, numberOfDigits))/ toBtc) / Math.pow(10, numberOfDigits);
+};
+
+
 export const numberWithCommas = (x: number) => {
+  if (x.toString().includes("."))
+    return x.toString();
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 

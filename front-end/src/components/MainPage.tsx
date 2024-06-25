@@ -34,7 +34,7 @@ import {
   readOnlyGetStacksRewardsMining,
   readOnlyLockedBalanceUser,
 } from '../consts/readOnly';
-import { convertDigits } from '../consts/converter';
+import { convertBitcoinDigits, convertDigits } from '../consts/converter';
 import { contractMapping } from '../consts/contract';
 
 const RedirectToDashboard = () => {
@@ -223,7 +223,7 @@ const MainPage = () => {
     const getBitcoinRewards = async () => {
       if (userAddress) {
         const bitcoin = await readOnlyGetBitcoinRewardsStacking();
-        setBitcoinRewards(convertDigits(bitcoin));
+        setBitcoinRewards(convertBitcoinDigits(bitcoin));
       }
     };
     getBitcoinRewards();
