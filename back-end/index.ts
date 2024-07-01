@@ -4,6 +4,7 @@ import {
   getCheckCanDelegateAgainNow,
   getCurrentBurnchainBlockHeight,
   getCurrentCycle,
+  getNonceData,
   getRewardPhaseBlockLength,
   isInPreparePhase,
 } from './apiPox';
@@ -37,6 +38,7 @@ import {
 } from './consts';
 
 import {
+  eventData,
   LocalData,
   logData,
   LogTypeMessage,
@@ -76,16 +78,18 @@ const runtimeLogic = async () => {
     getCurrentBurnchainBlockHeight(poxAPIData);
   // start all the flow only after the block changes
   if (localJson.current_burn_block_height < currentBurnBlockHeight) {
+    localJson.nonce_to_use = await getNonceData();
+
     localJson.current_burn_block_height = currentBurnBlockHeight;
     // when cycle changes, update local parameters that are used for checking
     if (localJson.current_cycle < getCurrentCycle(poxAPIData)) {
-      localJson.current_cycle = getCurrentCycle(poxAPIData);
-      logData(
+      eventData(
         LogTypeMessage.Info,
         `current cycle changed from ${localJson.current_cycle} to: ${getCurrentCycle(poxAPIData)}`,
       );
-
+      localJson.current_cycle = getCurrentCycle(poxAPIData);
       refreshJsonData(localJson);
+      localJson = readJsonData();
     }
     logData(
       LogTypeMessage.Info,
@@ -107,7 +111,7 @@ const runtimeLogic = async () => {
       getRewardPhaseBlockLength(poxAPIData) !==
         getBlocksUntilPreparePhase(poxAPIData)
     ) {
-      logData(
+      eventData(
         LogTypeMessage.Warn,
         `reward cycles different: \
         SC: ${rewardCycleId} ${typeof rewardCycleId}, \
@@ -142,6 +146,7 @@ const runtimeLogic = async () => {
             localJson.update_balances_burn_block_height =
               currentBurnBlockHeight;
             localJson.update_balances_txid = updateBalanceTransaction.txid;
+            localJson.nonce_to_use++;
             writeJsonData(localJson);
           } else {
             // we have txid broadcasted
@@ -157,19 +162,19 @@ const runtimeLogic = async () => {
                 if (alreadyUpdatedBalancesReadOnly) {
                   localJson.updated_balances_this_cycle = true;
                   writeJsonData(localJson);
-                  logData(
+                  eventData(
                     LogTypeMessage.Info,
                     `Updated balances is confirmed. The tx is succesfully anchored ${localJson.update_balances_txid}`,
                   );
                 } else {
-                  logData(
+                  eventData(
                     LogTypeMessage.Err,
                     `Something went wrong with broadcasted data. The tx is succesfully anchored ${localJson.update_balances_txid}`,
                   );
                 }
                 break;
               case 'abort_by_response':
-                logData(
+                eventData(
                   LogTypeMessage.Err,
                   `Something went wrong with broadcasted data. The tx is aborted by response: ${localJson.update_balances_txid}`,
                 );
@@ -197,7 +202,7 @@ const runtimeLogic = async () => {
                     localJson.update_balances_txid =
                       updateBalanceTransaction.txid;
                     writeJsonData(localJson);
-                    logData(
+                    eventData(
                       LogTypeMessage.Info,
                       `update balances increased fees tx`,
                     );
@@ -210,7 +215,7 @@ const runtimeLogic = async () => {
                 break;
               // Add more cases if needed
               default:
-                logData(
+                eventData(
                   LogTypeMessage.Err,
                   `Unhandled transaction status: ${txResponse.tx_status}`,
                 );
@@ -234,6 +239,7 @@ const runtimeLogic = async () => {
             if (txResponse.reason === undefined) {
               localJson.delegated_stack_stx_many_this_cycle = true;
               localJson.delegated_stack_stx_many_txid = txResponse.txid;
+              localJson.nonce_to_use++;
               writeJsonData(localJson);
             }
             logContractCallBroadcast(txResponse, 'delegate-stack-stx-many');
@@ -274,8 +280,9 @@ const runtimeLogic = async () => {
               localJson.commit_agg_txid = txResponse.txid;
               localJson.commit_agg_this_cycle = true;
               localJson.commit_agg_burn_block_height = currentBurnBlockHeight;
+              localJson.nonce_to_use++;
               writeJsonData(localJson);
-              logData(
+              eventData(
                 LogTypeMessage.Info,
                 `partial stacked enough, performed agg-commit`,
               );
@@ -303,7 +310,8 @@ const runtimeLogic = async () => {
             if (txResponse.reason === undefined) {
               localJson.partial_stacked = partialStackedByCycle;
               localJson.increase_agg_burn_block_height = currentBurnBlockHeight;
-              logData(
+              localJson.nonce_to_use++;
+              eventData(
                 LogTypeMessage.Info,
                 `partial stacked enough and offset passed, performed agg-increase`,
               );
@@ -329,10 +337,11 @@ const runtimeLogic = async () => {
               );
             // update partial stacked for checking the continuous flow for last X blocks
             localJson.partial_stacked = partialStackedByCycle;
+            localJson.nonce_to_use++;
 
             if (txResponse.reason === undefined) {
               localJson.partial_stacked = partialStackedByCycle;
-              logData(
+              eventData(
                 LogTypeMessage.Info,
                 `partial stacked enough and offset passed, performed agg-increase`,
               );
@@ -374,15 +383,16 @@ const runtimeLogic = async () => {
             const blocksWon =
               await readOnlyCheckWonBlockRewardsBatch(blocksToBeCalled);
             if (blocksWon.length > 0) {
-              logData(LogTypeMessage.Info, `blocks won: ${blocksWon}`);
+              eventData(LogTypeMessage.Info, `blocks won: ${blocksWon}`);
+              // TODO: remove the below comments after it gets the rewards accordingly from this flow
               // TODO: remove this in final release
-              blocksToDistribute.push(...blocksWon);
+              // blocksToDistribute.push(...blocksWon);
               // TODO: uncomment this in final release
-              // const localBlocksClaimable: number[] =
-              //   await readOnlyCheckClaimedBlocksRewardsBatch(blocksWon);
-              // logData(LogTypeMessage.Info, `blocks claimable: ${blocksWon}`);
-              // if (localBlocksClaimable.length > 0)
-              //   blocksToDistribute.push(...localBlocksClaimable);
+              const localBlocksClaimable: number[] =
+                await readOnlyCheckClaimedBlocksRewardsBatch(blocksWon);
+              eventData(LogTypeMessage.Info, `blocks claimable: ${blocksWon}`);
+              if (localBlocksClaimable.length > 0)
+                blocksToDistribute.push(...localBlocksClaimable);
             }
           }
 
@@ -395,8 +405,9 @@ const runtimeLogic = async () => {
         if (blocksToDistribute.length > 0) {
           const txDistribute: TxBroadcastResult =
             await contractCallFunctionDistributeRewards(blocksToDistribute);
+          localJson.nonce_to_use++;
           if (txDistribute.reason === undefined) {
-            logData(
+            eventData(
               LogTypeMessage.Info,
               `blocks rewards distributed: ${blocksToDistribute}`,
             );
@@ -422,7 +433,6 @@ const main = async () => {
   }
 };
 
-// cron job every 50 seconds
 main();
 
 new CronJob(

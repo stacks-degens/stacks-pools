@@ -1,6 +1,7 @@
 import { appendFileSync, readFileSync, writeFileSync } from 'fs';
 const jsonFileName = 'localData.json';
 const logFileName = 'log-automation.log';
+const eventsFileName = 'events.log';
 
 export enum LogTypeMessage {
   Err = 'ERROR',
@@ -22,6 +23,7 @@ export interface LocalData {
   distribute_rewards_first_burn_block_height_to_check: number;
   delegated_stack_stx_many_this_cycle: boolean;
   delegated_stack_stx_many_txid: string;
+  nonce_to_use: number;
 }
 
 export const readJsonData = (): LocalData => {
@@ -46,19 +48,31 @@ export const logData = (messageType: LogTypeMessage, message: string) => {
   }
 };
 
+// Function to append events to a file synchronously
+export const eventData = (messageType: LogTypeMessage, message: string) => {
+  const timestamp = new Date().toISOString();
+  const logMessage = `${timestamp} - ${messageType} - ${message}\n`;
+
+  try {
+    appendFileSync(eventsFileName, logMessage);
+  } catch (err) {
+    console.error('Error writing to log file:', err);
+  }
+};
+
 // when cycle changes, refresh logData
 export const refreshJsonData = (newLocalJson: LocalData) => {
-  const logData = readJsonData();
-  logData.current_burn_block_height = newLocalJson.current_burn_block_height;
-  logData.current_cycle = newLocalJson.current_cycle;
-  logData.updated_balances_this_cycle = false;
-  logData.update_balances_txid = '';
-  logData.commit_agg_this_cycle = false;
-  logData.partial_stacked = 0;
-  logData.commit_agg_txid = '';
-  logData.delegated_stack_stx_many_this_cycle = false;
-  logData.delegated_stack_stx_many_txid = '';
-  writeJsonData(logData);
+  const jsonData = readJsonData();
+  jsonData.current_burn_block_height = newLocalJson.current_burn_block_height;
+  jsonData.current_cycle = newLocalJson.current_cycle;
+  jsonData.updated_balances_this_cycle = false;
+  jsonData.update_balances_txid = '';
+  jsonData.commit_agg_this_cycle = false;
+  jsonData.partial_stacked = 0;
+  jsonData.commit_agg_txid = '';
+  jsonData.delegated_stack_stx_many_this_cycle = false;
+  jsonData.delegated_stack_stx_many_txid = '';
+  writeJsonData(jsonData);
 };
 
 export const saveErrorLog = (errorContent: string) => {

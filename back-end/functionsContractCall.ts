@@ -35,7 +35,7 @@ import { ContractType, readOnlyGetStackersList } from './functionsReadOnly';
 import { contractMapping, functionMapping } from './contracts';
 import { Pox4SignatureTopic, StackingClient } from '@stacks/stacking';
 import { maxAmount } from './consts';
-import { logData, LogTypeMessage } from './fileLocalData';
+import { eventData, logData, LogTypeMessage } from './fileLocalData';
 
 const myApiMiddleware = createApiKeyMiddleware({ apiKey: apiKey });
 const myFetchFn = createFetchFn(myApiMiddleware);
@@ -224,7 +224,7 @@ const logSuccesfulBroadcast = (
   txBroadcastResult: TxBroadcastResult,
   functionName: string,
 ) => {
-  logData(
+  eventData(
     LogTypeMessage.Info,
     `${functionName} tx ${txBroadcastResult.txid}
       api link: ${transactionUrl(txBroadcastResult.txid).apiUrl}
@@ -236,7 +236,7 @@ const logRejectedBroadcast = (
   txBroadcastResult: TxBroadcastResult,
   functionName: string,
 ) => {
-  logData(
+  eventData(
     LogTypeMessage.Err,
     `${functionName} failed broadcast tx ${txBroadcastResult.txid}
         error: ${txBroadcastResult.error}

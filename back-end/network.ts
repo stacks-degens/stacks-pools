@@ -1,3 +1,7 @@
+import {
+  getAddressFromPrivateKey,
+  TransactionVersion,
+} from '@stacks/transactions';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -26,12 +30,24 @@ export const signerPrivateKey: string = process.env.STX_SIGNER_PRIVATE_KEY;
 export const poxAddress: string = process.env.POX_ADDRESS;
 export const apiKey: string = process.env.API_KEY_MAINNET;
 
+const transactionVersion: TransactionVersion =
+  network === 'mainnet'
+    ? TransactionVersion.Mainnet
+    : TransactionVersion.Testnet;
+
+export const stxAddress: string = getAddressFromPrivateKey(
+  privateKey,
+  transactionVersion,
+);
+console.log(stxAddress);
+
 export const stxToUstx: number = 1000000;
 
 type ApiMapping = {
   blockInfo: string;
   stackingInfo: string;
   mempoolInfo: (address: string) => string;
+  nonce: (address: string) => string;
 };
 type ApiUrl = Record<NetworkType, string>;
 type ExplorerUrl = Record<NetworkType, [string, string]>;
@@ -73,6 +89,8 @@ export const apiMapping: ApiMapping = {
   stackingInfo: `${apiUrl[development][network]}/v2/pox`,
   mempoolInfo: (address: string) =>
     `${apiUrl[development][network]}/extended/v1/address/${address}/mempool?limit=50`,
+  nonce: (address: string) =>
+    `${apiUrl[development][network]}/extended/v1/address/${address}/nonces`,
 };
 
 export const transactionUrl: TransactionMapping = (txId: string) => ({

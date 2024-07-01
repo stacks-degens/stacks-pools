@@ -1,7 +1,13 @@
-import { apiMapping } from './network';
+import { apiMapping, stxAddress } from './network';
 
 export const getApiPoxData = async () => {
   return await fetch(apiMapping.stackingInfo).then((x) => x.json());
+};
+
+export const getNonceData = async () => {
+  return await fetch(apiMapping.nonce(stxAddress)).then((x) =>
+    x.json().then((x) => Number(x.possible_next_nonce)),
+  );
 };
 
 export const getCurrentBurnchainBlockHeight = (poxData: any): number => {
