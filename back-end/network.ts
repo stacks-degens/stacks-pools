@@ -39,7 +39,6 @@ export const stxAddress: string = getAddressFromPrivateKey(
   privateKey,
   transactionVersion,
 );
-console.log(stxAddress);
 
 export const stxToUstx: number = 1000000;
 
