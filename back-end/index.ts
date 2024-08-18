@@ -111,7 +111,7 @@ const runtimeLogic = async () => {
       getRewardPhaseBlockLength(poxAPIData) !==
         getBlocksUntilPreparePhase(poxAPIData)
     ) {
-      eventData(
+      logData(
         LogTypeMessage.Warn,
         `reward cycles different: \
         SC: ${rewardCycleId} ${typeof rewardCycleId}, \
@@ -284,7 +284,7 @@ const runtimeLogic = async () => {
               writeJsonData(localJson);
               eventData(
                 LogTypeMessage.Info,
-                `partial stacked enough, performed agg-commit`,
+                `partial stacked enough, performed agg-commit for cycle ${rewardCycleId + 1}`,
               );
             }
             logContractCallBroadcast(
@@ -313,7 +313,7 @@ const runtimeLogic = async () => {
               localJson.nonce_to_use++;
               eventData(
                 LogTypeMessage.Info,
-                `partial stacked enough and offset passed, performed agg-increase`,
+                `partial stacked enough and offset passed, performed agg-increase for cycle ${rewardCycleId + 1}`,
               );
               writeJsonData(localJson);
             }
@@ -343,7 +343,7 @@ const runtimeLogic = async () => {
               localJson.partial_stacked = partialStackedByCycle;
               eventData(
                 LogTypeMessage.Info,
-                `partial stacked enough and offset passed, performed agg-increase`,
+                `partial stacked enough and offset passed, performed agg-increase for cycle ${rewardCycleId + 1}`,
               );
               writeJsonData(localJson);
             }
@@ -386,13 +386,13 @@ const runtimeLogic = async () => {
               eventData(LogTypeMessage.Info, `blocks won: ${blocksWon}`);
               // TODO: remove the below comments after it gets the rewards accordingly from this flow
               // TODO: remove this in final release
-              // blocksToDistribute.push(...blocksWon);
+              blocksToDistribute.push(...blocksWon);
               // TODO: uncomment this in final release
-              const localBlocksClaimable: number[] =
-                await readOnlyCheckClaimedBlocksRewardsBatch(blocksWon);
-              eventData(LogTypeMessage.Info, `blocks claimable: ${blocksWon}`);
-              if (localBlocksClaimable.length > 0)
-                blocksToDistribute.push(...localBlocksClaimable);
+              // const localBlocksClaimable: number[] =
+              //   await readOnlyCheckClaimedBlocksRewardsBatch(blocksWon);
+              // eventData(LogTypeMessage.Info, `blocks claimable: ${blocksWon}`);
+              // if (localBlocksClaimable.length > 0)
+              // blocksToDistribute.push(...localBlocksClaimable);
             }
           }
 

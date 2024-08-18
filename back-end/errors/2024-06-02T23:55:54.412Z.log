@@ -1,0 +1,4 @@
+Error calling read-only function. Response 429: Too Many Requests. Attempted to fetch https://api.nakamoto.testnet.hiro.so/v2/contracts/call-read/ST2D033K08AW2TPRTCFP3QD5VHZB7494TY0QXERJ1/stacking-pool-v1/check-won-block-rewards-batch and failed with the message: "{
+  "message":"API rate limit exceeded",
+  "request_id":"be5b141b11e59e0d3c338c5d1f1e0439"
+}"

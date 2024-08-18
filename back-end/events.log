@@ -10,3 +10,79 @@
 2024-06-29T18:52:48.555Z - INFO - maybe-stack-aggregation-commit > agg-commit tx 5c94ff34f5b567e009e592f7c6d24caf01618cd38e1fc1ccde16f421f6936503
       api link: https://api.mainnet.hiro.so/extended/v1/tx/5c94ff34f5b567e009e592f7c6d24caf01618cd38e1fc1ccde16f421f6936503
       explorer link: https://explorer.hiro.so/txid/5c94ff34f5b567e009e592f7c6d24caf01618cd38e1fc1ccde16f421f6936503?chain=mainnet
+2024-07-05T03:10:00.776Z - INFO - update-sc-balances tx bdfa094e0ce046d69929db6c8725d02fbd9f288d23f89f7da68d4a5f15053b1e
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/bdfa094e0ce046d69929db6c8725d02fbd9f288d23f89f7da68d4a5f15053b1e
+      explorer link: https://explorer.hiro.so/txid/bdfa094e0ce046d69929db6c8725d02fbd9f288d23f89f7da68d4a5f15053b1e?chain=mainnet
+2024-07-05T03:34:00.568Z - INFO - Updated balances is confirmed. The tx is succesfully anchored bdfa094e0ce046d69929db6c8725d02fbd9f288d23f89f7da68d4a5f15053b1e
+2024-07-05T22:32:00.349Z - INFO - current cycle changed from 87 to: 88
+2024-07-05T22:50:00.282Z - WARN - reward cycles different:         SC: 87 number,         API: 88 number         at burn block height: 850851
+2024-07-05T22:52:00.525Z - WARN - reward cycles different:         SC: 87 number,         API: 88 number         at burn block height: 850851
+2024-07-05T22:54:00.356Z - WARN - reward cycles different:         SC: 87 number,         API: 88 number         at burn block height: 850851
+2024-07-05T22:56:00.290Z - WARN - reward cycles different:         SC: 87 number,         API: 88 number         at burn block height: 850851
+2024-07-05T22:58:00.365Z - WARN - reward cycles different:         SC: 87 number,         API: 88 number         at burn block height: 850851
+2024-07-05T23:00:00.584Z - WARN - reward cycles different:         SC: 87 number,         API: 88 number         at burn block height: 850851
+2024-07-05T23:02:00.382Z - WARN - reward cycles different:         SC: 87 number,         API: 88 number         at burn block height: 850851
+2024-07-05T23:04:00.275Z - WARN - reward cycles different:         SC: 87 number,         API: 88 number         at burn block height: 850851
+2024-07-05T23:06:00.391Z - WARN - reward cycles different:         SC: 87 number,         API: 88 number         at burn block height: 850851
+2024-07-05T23:08:00.401Z - WARN - reward cycles different:         SC: 87 number,         API: 88 number         at burn block height: 850851
+2024-07-05T23:10:00.534Z - WARN - reward cycles different:         SC: 87 number,         API: 88 number         at burn block height: 850851
+2024-07-05T23:12:00.355Z - WARN - reward cycles different:         SC: 87 number,         API: 88 number         at burn block height: 850851
+2024-07-05T23:14:00.328Z - WARN - reward cycles different:         SC: 87 number,         API: 88 number         at burn block height: 850851
+2024-07-05T23:16:00.350Z - WARN - reward cycles different:         SC: 87 number,         API: 88 number         at burn block height: 850851
+2024-07-05T23:18:00.406Z - WARN - reward cycles different:         SC: 87 number,         API: 88 number         at burn block height: 850851
+2024-07-05T23:20:00.432Z - WARN - reward cycles different:         SC: 87 number,         API: 88 number         at burn block height: 850851
+2024-07-05T23:22:00.363Z - WARN - reward cycles different:         SC: 87 number,         API: 88 number         at burn block height: 850851
+2024-07-05T23:24:00.339Z - WARN - reward cycles different:         SC: 87 number,         API: 88 number         at burn block height: 850851
+2024-07-05T23:26:00.366Z - WARN - reward cycles different:         SC: 87 number,         API: 88 number         at burn block height: 850851
+2024-07-05T23:28:00.337Z - WARN - reward cycles different:         SC: 87 number,         API: 88 number         at burn block height: 850851
+2024-07-05T23:30:00.422Z - WARN - reward cycles different:         SC: 87 number,         API: 88 number         at burn block height: 850851
+2024-07-05T23:32:00.483Z - WARN - reward cycles different:         SC: 87 number,         API: 88 number         at burn block height: 850851
+2024-07-05T23:34:00.308Z - WARN - reward cycles different:         SC: 87 number,         API: 88 number         at burn block height: 850851
+2024-07-05T23:36:00.391Z - WARN - reward cycles different:         SC: 87 number,         API: 88 number         at burn block height: 850851
+2024-07-05T23:38:01.136Z - INFO - partial stacked enough, performed agg-commit
+2024-07-05T23:38:01.137Z - INFO - maybe-stack-aggregation-commit > agg-commit tx 7a9e86e6adb153c81a3198b116b480d03fc175c0e24593b2b9fe50d021667819
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/7a9e86e6adb153c81a3198b116b480d03fc175c0e24593b2b9fe50d021667819
+      explorer link: https://explorer.hiro.so/txid/7a9e86e6adb153c81a3198b116b480d03fc175c0e24593b2b9fe50d021667819?chain=mainnet
+2024-07-09T17:06:01.271Z - INFO - blocks won: 851213
+2024-07-12T16:02:29.057Z - INFO - blocks won: 851213
+2024-07-12T16:02:33.893Z - INFO - blocks rewards distributed: 851213
+2024-07-12T16:02:33.894Z - INFO - distribute-rewards tx ec658574b90e3c9dfa593a5107ef41aef713941305149a1b01b51969695fd704
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/ec658574b90e3c9dfa593a5107ef41aef713941305149a1b01b51969695fd704
+      explorer link: https://explorer.hiro.so/txid/ec658574b90e3c9dfa593a5107ef41aef713941305149a1b01b51969695fd704?chain=mainnet
+2024-07-13T00:04:00.816Z - INFO - delegate-stack-stx-many tx 03220bbdc9816b63ae988b160a0d853ac35a759a48ab1fee9cc03f0556fc1013
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/03220bbdc9816b63ae988b160a0d853ac35a759a48ab1fee9cc03f0556fc1013
+      explorer link: https://explorer.hiro.so/txid/03220bbdc9816b63ae988b160a0d853ac35a759a48ab1fee9cc03f0556fc1013?chain=mainnet
+2024-07-19T05:56:00.740Z - INFO - update-sc-balances tx aac5fc2d3066b4efe9350dccfa9c2ab0d1ecc56365a21829490584e4e30dc8c7
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/aac5fc2d3066b4efe9350dccfa9c2ab0d1ecc56365a21829490584e4e30dc8c7
+      explorer link: https://explorer.hiro.so/txid/aac5fc2d3066b4efe9350dccfa9c2ab0d1ecc56365a21829490584e4e30dc8c7?chain=mainnet
+2024-07-19T06:02:00.609Z - INFO - Updated balances is confirmed. The tx is succesfully anchored aac5fc2d3066b4efe9350dccfa9c2ab0d1ecc56365a21829490584e4e30dc8c7
+2024-07-19T23:08:00.248Z - INFO - current cycle changed from 88 to: 89
+2024-07-19T23:16:00.946Z - INFO - partial stacked enough, performed agg-commit for cycle 90
+2024-07-19T23:16:00.946Z - INFO - maybe-stack-aggregation-commit > agg-commit tx ad7d982f221d4fd9870cb9ffcf4db9aaa146813e21fc4c7274a95da720df6967
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/ad7d982f221d4fd9870cb9ffcf4db9aaa146813e21fc4c7274a95da720df6967
+      explorer link: https://explorer.hiro.so/txid/ad7d982f221d4fd9870cb9ffcf4db9aaa146813e21fc4c7274a95da720df6967?chain=mainnet
+2024-07-26T08:10:00.840Z - INFO - delegate-stack-stx-many tx 99276ef520d7d810afbb125c1d0f3593d1d187506a7a76b080acd395bfc374f1
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/99276ef520d7d810afbb125c1d0f3593d1d187506a7a76b080acd395bfc374f1
+      explorer link: https://explorer.hiro.so/txid/99276ef520d7d810afbb125c1d0f3593d1d187506a7a76b080acd395bfc374f1?chain=mainnet
+2024-07-30T00:02:16.681Z - INFO - blocks won: 854168
+2024-07-30T00:02:20.829Z - INFO - blocks rewards distributed: 854168
+2024-07-30T00:02:21.065Z - INFO - distribute-rewards tx bf2a4de23bc218769c966c8b8b3564d444c8858a7af4c801b9b6d7d2a78eca30
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/bf2a4de23bc218769c966c8b8b3564d444c8858a7af4c801b9b6d7d2a78eca30
+      explorer link: https://explorer.hiro.so/txid/bf2a4de23bc218769c966c8b8b3564d444c8858a7af4c801b9b6d7d2a78eca30?chain=mainnet
+2024-08-01T12:48:00.862Z - INFO - update-sc-balances tx 93e9391b3fbec906a8d33371a80825e9437be9ec0c9382502b23767c146bf192
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/93e9391b3fbec906a8d33371a80825e9437be9ec0c9382502b23767c146bf192
+      explorer link: https://explorer.hiro.so/txid/93e9391b3fbec906a8d33371a80825e9437be9ec0c9382502b23767c146bf192?chain=mainnet
+2024-08-01T13:36:00.683Z - INFO - Updated balances is confirmed. The tx is succesfully anchored 93e9391b3fbec906a8d33371a80825e9437be9ec0c9382502b23767c146bf192
+2024-08-02T06:00:00.224Z - INFO - current cycle changed from 89 to: 90
+2024-08-02T06:10:01.014Z - INFO - partial stacked enough, performed agg-commit for cycle 91
+2024-08-02T06:10:01.014Z - INFO - maybe-stack-aggregation-commit > agg-commit tx ea0a6658c6815f55cbc42960c45388c51d25c02b84c2fbda25e04b3a14ec9bcf
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/ea0a6658c6815f55cbc42960c45388c51d25c02b84c2fbda25e04b3a14ec9bcf
+      explorer link: https://explorer.hiro.so/txid/ea0a6658c6815f55cbc42960c45388c51d25c02b84c2fbda25e04b3a14ec9bcf?chain=mainnet
+2024-08-10T02:24:00.778Z - INFO - delegate-stack-stx-many tx 0d8d41794b2afba368f42fcaab8466702a195f6c9f3bd926757de33ed691523b
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/0d8d41794b2afba368f42fcaab8466702a195f6c9f3bd926757de33ed691523b
+      explorer link: https://explorer.hiro.so/txid/0d8d41794b2afba368f42fcaab8466702a195f6c9f3bd926757de33ed691523b?chain=mainnet
+2024-08-17T20:30:50.776Z - INFO - current cycle changed from 90 to: 91
+2024-08-17T20:30:51.556Z - INFO - partial stacked enough, performed agg-commit for cycle 92
+2024-08-17T20:30:51.557Z - INFO - maybe-stack-aggregation-commit > agg-commit tx c6e5c002f1f9d33f93ae594ceeed3c0ff642380a05759079f520d07874032eba
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/c6e5c002f1f9d33f93ae594ceeed3c0ff642380a05759079f520d07874032eba
+      explorer link: https://explorer.hiro.so/txid/c6e5c002f1f9d33f93ae594ceeed3c0ff642380a05759079f520d07874032eba?chain=mainnet
