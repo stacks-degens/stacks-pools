@@ -154,7 +154,7 @@ const DashboardStackingInfo = ({
           <span className="bold-font">Stacked amount covered by the pool: </span>
           <span className="result-of-content-section">
             {reservedAmount !== null && returnCovered !== null
-              ? numberWithCommas(reservedAmount * returnCovered) + ' STX'
+              ? numberWithCommas(2 * reservedAmount * returnCovered) + ' STX'
               : ''}
           </span>
         </div>

@@ -607,7 +607,7 @@ export const readOnlyClaimedBlockStatusStacking = async (blockHeight: number) =>
 export const readOnlyGetReturnStacking = async () => {
   const type = 'stacking';
   const returnCovered = await ReadOnlyFunctions(type, [], functionMapping[type].readOnlyFunctions.getReturnCovered);
-  return cvToJSON(returnCovered).value * 4;
+  return cvToJSON(returnCovered).value;
 };
 
 //get-minimum-deposit-liquidity-provider

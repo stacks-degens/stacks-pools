@@ -142,7 +142,7 @@ const AboutContainerStacking = ({
           <span className="bold-font">Stacked amount covered by the pool: </span>
           <div className="result-of-content-section">
             {reservedAmount !== null && returnCovered !== null
-              ? numberWithCommas(reservedAmount * returnCovered) + ' STX'
+              ? numberWithCommas(2 * reservedAmount * returnCovered) + ' STX'
               : ''}
           </div>
         </div>
