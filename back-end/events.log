@@ -86,3 +86,123 @@
 2024-08-17T20:30:51.557Z - INFO - maybe-stack-aggregation-commit > agg-commit tx c6e5c002f1f9d33f93ae594ceeed3c0ff642380a05759079f520d07874032eba
       api link: https://api.mainnet.hiro.so/extended/v1/tx/c6e5c002f1f9d33f93ae594ceeed3c0ff642380a05759079f520d07874032eba
       explorer link: https://explorer.hiro.so/txid/c6e5c002f1f9d33f93ae594ceeed3c0ff642380a05759079f520d07874032eba?chain=mainnet
+2024-08-24T06:16:00.869Z - INFO - delegate-stack-stx-many tx 6026b48eeacd4f7814e6f16abce58651b7657063d0c4fc3d99691013efb40d3a
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/6026b48eeacd4f7814e6f16abce58651b7657063d0c4fc3d99691013efb40d3a
+      explorer link: https://explorer.hiro.so/txid/6026b48eeacd4f7814e6f16abce58651b7657063d0c4fc3d99691013efb40d3a?chain=mainnet
+2024-08-30T23:36:00.930Z - INFO - update-sc-balances tx 040552efc5c4d0ca8c86adfa5eecb8fc1b8ce56a91a3af6a609474cd23ff1b6e
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/040552efc5c4d0ca8c86adfa5eecb8fc1b8ce56a91a3af6a609474cd23ff1b6e
+      explorer link: https://explorer.hiro.so/txid/040552efc5c4d0ca8c86adfa5eecb8fc1b8ce56a91a3af6a609474cd23ff1b6e?chain=mainnet
+2024-08-30T23:56:00.851Z - INFO - Updated balances is confirmed. The tx is succesfully anchored 040552efc5c4d0ca8c86adfa5eecb8fc1b8ce56a91a3af6a609474cd23ff1b6e
+2024-08-31T16:20:00.276Z - INFO - current cycle changed from 91 to: 92
+2024-08-31T16:52:01.202Z - INFO - partial stacked enough, performed agg-commit for cycle 93
+2024-08-31T16:52:01.202Z - INFO - maybe-stack-aggregation-commit > agg-commit tx c9d361e1a51598afaaf2e12cc819a05da0cc9737f457507973ed84a5ec2e559a
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/c9d361e1a51598afaaf2e12cc819a05da0cc9737f457507973ed84a5ec2e559a
+      explorer link: https://explorer.hiro.so/txid/c9d361e1a51598afaaf2e12cc819a05da0cc9737f457507973ed84a5ec2e559a?chain=mainnet
+2024-09-07T13:00:00.852Z - INFO - delegate-stack-stx-many tx b99149ed3110979d72086d308e06cc1dc80022d7204dd9c74c1537fc810312cc
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/b99149ed3110979d72086d308e06cc1dc80022d7204dd9c74c1537fc810312cc
+      explorer link: https://explorer.hiro.so/txid/b99149ed3110979d72086d308e06cc1dc80022d7204dd9c74c1537fc810312cc?chain=mainnet
+2024-09-11T05:58:01.239Z - INFO - blocks won: 860621
+2024-09-11T05:58:03.444Z - INFO - blocks rewards distributed: 860621
+2024-09-11T05:58:03.444Z - INFO - distribute-rewards tx bdc5367f0ad54b9533fc4889fb19ae184f3962f200034211ef1f6b0267139aac
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/bdc5367f0ad54b9533fc4889fb19ae184f3962f200034211ef1f6b0267139aac
+      explorer link: https://explorer.hiro.so/txid/bdc5367f0ad54b9533fc4889fb19ae184f3962f200034211ef1f6b0267139aac?chain=mainnet
+2024-09-14T05:42:00.808Z - INFO - partial stacked enough and offset passed, performed agg-increase for cycle 93
+2024-09-14T05:42:00.809Z - INFO - maybe-stack-aggregation-commit > agg-increase tx 36914c1a7e0386c9ebc9ad50357941396541cd08006bd43311a899ccee9af8ed
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/36914c1a7e0386c9ebc9ad50357941396541cd08006bd43311a899ccee9af8ed
+      explorer link: https://explorer.hiro.so/txid/36914c1a7e0386c9ebc9ad50357941396541cd08006bd43311a899ccee9af8ed?chain=mainnet
+2024-09-14T07:04:00.742Z - INFO - update-sc-balances tx 6de39240734e284c8fad688578fa404fa3a97ef73948ea14dbffe79604b24b6b
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/6de39240734e284c8fad688578fa404fa3a97ef73948ea14dbffe79604b24b6b
+      explorer link: https://explorer.hiro.so/txid/6de39240734e284c8fad688578fa404fa3a97ef73948ea14dbffe79604b24b6b?chain=mainnet
+2024-09-14T07:26:00.519Z - ERROR - Something went wrong with broadcasted data. The tx is succesfully anchored 6de39240734e284c8fad688578fa404fa3a97ef73948ea14dbffe79604b24b6b
+2024-09-14T07:32:00.530Z - INFO - Updated balances is confirmed. The tx is succesfully anchored 6de39240734e284c8fad688578fa404fa3a97ef73948ea14dbffe79604b24b6b
+2024-09-15T03:20:00.311Z - INFO - current cycle changed from 92 to: 93
+2024-09-15T03:24:00.954Z - INFO - partial stacked enough, performed agg-commit for cycle 94
+2024-09-15T03:24:00.954Z - INFO - maybe-stack-aggregation-commit > agg-commit tx fe94a6672f10f26c6f1724c12eb3f5def83d45fa0cc05be9c5bb1543b2048064
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/fe94a6672f10f26c6f1724c12eb3f5def83d45fa0cc05be9c5bb1543b2048064
+      explorer link: https://explorer.hiro.so/txid/fe94a6672f10f26c6f1724c12eb3f5def83d45fa0cc05be9c5bb1543b2048064?chain=mainnet
+2024-09-15T03:32:00.982Z - INFO - partial stacked enough and offset passed, performed agg-increase for cycle 94
+2024-09-15T03:32:00.982Z - INFO - maybe-stack-aggregation-commit > agg-increase tx 2db84aea05d7cfd571530eb99c587fe4af756373ef1abf9f6d6b3c739acb1334
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/2db84aea05d7cfd571530eb99c587fe4af756373ef1abf9f6d6b3c739acb1334
+      explorer link: https://explorer.hiro.so/txid/2db84aea05d7cfd571530eb99c587fe4af756373ef1abf9f6d6b3c739acb1334?chain=mainnet
+2024-09-15T16:26:02.408Z - INFO - blocks won: 861402
+2024-09-15T16:26:03.019Z - INFO - blocks rewards distributed: 861402
+2024-09-15T16:26:03.019Z - INFO - distribute-rewards tx 03a5ac0f78692ce9406dd467a35922bba727cce0fbae6dff9de4c2e02e544dbc
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/03a5ac0f78692ce9406dd467a35922bba727cce0fbae6dff9de4c2e02e544dbc
+      explorer link: https://explorer.hiro.so/txid/03a5ac0f78692ce9406dd467a35922bba727cce0fbae6dff9de4c2e02e544dbc?chain=mainnet
+2024-09-22T16:22:00.915Z - INFO - delegate-stack-stx-many tx fabe3046f5814613608b9eb167f0b17b0ea3f2fb66fc09b2c34b9b3d7924a277
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/fabe3046f5814613608b9eb167f0b17b0ea3f2fb66fc09b2c34b9b3d7924a277
+      explorer link: https://explorer.hiro.so/txid/fabe3046f5814613608b9eb167f0b17b0ea3f2fb66fc09b2c34b9b3d7924a277?chain=mainnet
+2024-09-29T09:56:01.201Z - INFO - partial stacked enough and offset passed, performed agg-increase for cycle 94
+2024-09-29T09:56:01.203Z - INFO - maybe-stack-aggregation-commit > agg-increase tx 0bf6e5349eeaf2bcd4c36ba14d8cdc8d56a2f0d0394faf9794a5b19ab55d509b
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/0bf6e5349eeaf2bcd4c36ba14d8cdc8d56a2f0d0394faf9794a5b19ab55d509b
+      explorer link: https://explorer.hiro.so/txid/0bf6e5349eeaf2bcd4c36ba14d8cdc8d56a2f0d0394faf9794a5b19ab55d509b?chain=mainnet
+2024-09-29T11:04:00.657Z - INFO - update-sc-balances tx 73ef6ff5dee1c95061ac60baf41bbb3d74dc5ad35d9c26ee150e53bed72d76b6
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/73ef6ff5dee1c95061ac60baf41bbb3d74dc5ad35d9c26ee150e53bed72d76b6
+      explorer link: https://explorer.hiro.so/txid/73ef6ff5dee1c95061ac60baf41bbb3d74dc5ad35d9c26ee150e53bed72d76b6?chain=mainnet
+2024-09-29T11:20:00.671Z - INFO - Updated balances is confirmed. The tx is succesfully anchored 73ef6ff5dee1c95061ac60baf41bbb3d74dc5ad35d9c26ee150e53bed72d76b6
+2024-09-30T03:42:00.236Z - INFO - current cycle changed from 93 to: 94
+2024-09-30T03:52:01.343Z - INFO - partial stacked enough, performed agg-commit for cycle 95
+2024-09-30T03:52:01.343Z - INFO - maybe-stack-aggregation-commit > agg-commit tx f746850694d493f2041191f74bdfd5ca17614c7f57822013ada763252c560b9b
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/f746850694d493f2041191f74bdfd5ca17614c7f57822013ada763252c560b9b
+      explorer link: https://explorer.hiro.so/txid/f746850694d493f2041191f74bdfd5ca17614c7f57822013ada763252c560b9b?chain=mainnet
+2024-10-06T23:10:00.905Z - INFO - delegate-stack-stx-many tx fbae5ecef71b7497dce4244257a70a1827f9b517824666b1482d230042a001eb
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/fbae5ecef71b7497dce4244257a70a1827f9b517824666b1482d230042a001eb
+      explorer link: https://explorer.hiro.so/txid/fbae5ecef71b7497dce4244257a70a1827f9b517824666b1482d230042a001eb?chain=mainnet
+2024-10-13T09:00:00.695Z - INFO - update-sc-balances tx 9acdf7d893da729d845367e6caa3466254f63362666ed76b1cea7673c3135c79
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/9acdf7d893da729d845367e6caa3466254f63362666ed76b1cea7673c3135c79
+      explorer link: https://explorer.hiro.so/txid/9acdf7d893da729d845367e6caa3466254f63362666ed76b1cea7673c3135c79?chain=mainnet
+2024-10-13T09:12:00.515Z - INFO - Updated balances is confirmed. The tx is succesfully anchored 9acdf7d893da729d845367e6caa3466254f63362666ed76b1cea7673c3135c79
+2024-10-14T04:04:00.191Z - INFO - current cycle changed from 94 to: 95
+2024-10-14T04:04:00.894Z - INFO - partial stacked enough, performed agg-commit for cycle 95
+2024-10-14T04:04:00.894Z - INFO - maybe-stack-aggregation-commit > agg-commit tx 44c0b896d5a9bcee44108bc2da3ceec66b2d5025bc17b9c85c562083d94d331d
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/44c0b896d5a9bcee44108bc2da3ceec66b2d5025bc17b9c85c562083d94d331d
+      explorer link: https://explorer.hiro.so/txid/44c0b896d5a9bcee44108bc2da3ceec66b2d5025bc17b9c85c562083d94d331d?chain=mainnet
+2024-10-20T23:02:00.741Z - INFO - delegate-stack-stx-many tx eed4e38b0f72c8e6fcb0883ef61863de29a86eeaf793a9b5aa4345b1ccb0b397
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/eed4e38b0f72c8e6fcb0883ef61863de29a86eeaf793a9b5aa4345b1ccb0b397
+      explorer link: https://explorer.hiro.so/txid/eed4e38b0f72c8e6fcb0883ef61863de29a86eeaf793a9b5aa4345b1ccb0b397?chain=mainnet
+2024-10-24T18:03:32.271Z - INFO - partial stacked enough, performed agg-commit for cycle 96
+2024-10-24T18:03:32.271Z - INFO - maybe-stack-aggregation-commit > agg-commit tx f310aa4bf36a5626c3c4d8723db276214cc862f255071362543c1bc614b283d3
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/f310aa4bf36a5626c3c4d8723db276214cc862f255071362543c1bc614b283d3
+      explorer link: https://explorer.hiro.so/txid/f310aa4bf36a5626c3c4d8723db276214cc862f255071362543c1bc614b283d3?chain=mainnet
+2024-10-24T18:05:30.808Z - ERROR - maybe-stack-aggregation-commit > agg-commit failed broadcast tx 67e657c9ed529e4f1a958330f6dcdd85e0a5f6f5415c99d82d054cec5acd0f83
+        error: transaction rejected
+        reason: ConflictingNonceInMempool
+        reason data: undefined
+2024-10-24T18:15:42.722Z - ERROR - maybe-stack-aggregation-commit > agg-commit failed broadcast tx ad0ba2bc19e379996971577907d8bc80d9bf307c288c6de3e6dfe99adc816b94
+        error: transaction rejected
+        reason: ConflictingNonceInMempool
+        reason data: undefined
+2024-10-24T18:20:01.127Z - INFO - partial stacked enough, performed agg-commit for cycle 96
+2024-10-24T18:20:01.127Z - INFO - maybe-stack-aggregation-commit > agg-commit tx 092977d16b4f74bb1ba4340be54aaeaf34ed655a0e72d3c3259179b5705bcfd1
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/092977d16b4f74bb1ba4340be54aaeaf34ed655a0e72d3c3259179b5705bcfd1
+      explorer link: https://explorer.hiro.so/txid/092977d16b4f74bb1ba4340be54aaeaf34ed655a0e72d3c3259179b5705bcfd1?chain=mainnet
+2024-10-27T06:30:00.738Z - INFO - update-sc-balances tx 13d0efc824113be5e99e1b5d6ce2189067b1e8f2289ae59ed259814e9e003116
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/13d0efc824113be5e99e1b5d6ce2189067b1e8f2289ae59ed259814e9e003116
+      explorer link: https://explorer.hiro.so/txid/13d0efc824113be5e99e1b5d6ce2189067b1e8f2289ae59ed259814e9e003116?chain=mainnet
+2024-10-27T07:04:00.520Z - INFO - Updated balances is confirmed. The tx is succesfully anchored 13d0efc824113be5e99e1b5d6ce2189067b1e8f2289ae59ed259814e9e003116
+2024-10-27T21:10:00.188Z - INFO - current cycle changed from 95 to: 96
+2024-11-03T15:02:03.419Z - INFO - delegate-stack-stx-many tx bdf4a93429cdec45098f5c13f9dd2eaa88f8f42e0f983c2a82e8b6f3be8ec2b5
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/bdf4a93429cdec45098f5c13f9dd2eaa88f8f42e0f983c2a82e8b6f3be8ec2b5
+      explorer link: https://explorer.hiro.so/txid/bdf4a93429cdec45098f5c13f9dd2eaa88f8f42e0f983c2a82e8b6f3be8ec2b5?chain=mainnet
+2024-11-07T12:30:08.702Z - INFO - blocks won: 869258
+2024-11-07T12:30:10.085Z - INFO - blocks rewards distributed: 869258
+2024-11-07T12:30:10.085Z - INFO - distribute-rewards tx 692b32300b94ff07827d298078d353949503ad57ee45cca6ad23cdbf4d6bfda8
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/692b32300b94ff07827d298078d353949503ad57ee45cca6ad23cdbf4d6bfda8
+      explorer link: https://explorer.hiro.so/txid/692b32300b94ff07827d298078d353949503ad57ee45cca6ad23cdbf4d6bfda8?chain=mainnet
+2024-11-10T03:10:02.373Z - INFO - update-sc-balances tx 9024a32eb07f5bcaf83703963ccee29e8c122c292b06b8513c2b2a4d75b45a84
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/9024a32eb07f5bcaf83703963ccee29e8c122c292b06b8513c2b2a4d75b45a84
+      explorer link: https://explorer.hiro.so/txid/9024a32eb07f5bcaf83703963ccee29e8c122c292b06b8513c2b2a4d75b45a84?chain=mainnet
+2024-11-10T03:12:01.566Z - INFO - Updated balances is confirmed. The tx is succesfully anchored 9024a32eb07f5bcaf83703963ccee29e8c122c292b06b8513c2b2a4d75b45a84
+2024-11-10T19:10:00.702Z - INFO - current cycle changed from 96 to: 97
+2024-11-18T03:02:02.197Z - INFO - delegate-stack-stx-many tx 852897773cd999a22acb798d1e307a819eaac4424246f44c6b441a603610a18e
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/852897773cd999a22acb798d1e307a819eaac4424246f44c6b441a603610a18e
+      explorer link: https://explorer.hiro.so/txid/852897773cd999a22acb798d1e307a819eaac4424246f44c6b441a603610a18e?chain=mainnet
+2024-11-24T12:58:02.882Z - INFO - update-sc-balances tx 5734eadbaf4ebbaa9728ab2dfe086832991240304a33dad41cea881551c84e51
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/5734eadbaf4ebbaa9728ab2dfe086832991240304a33dad41cea881551c84e51
+      explorer link: https://explorer.hiro.so/txid/5734eadbaf4ebbaa9728ab2dfe086832991240304a33dad41cea881551c84e51?chain=mainnet
+2024-11-24T13:26:01.329Z - INFO - Updated balances is confirmed. The tx is succesfully anchored 5734eadbaf4ebbaa9728ab2dfe086832991240304a33dad41cea881551c84e51
+2024-11-25T03:44:00.828Z - INFO - current cycle changed from 97 to: 98
+2024-11-25T04:28:03.228Z - INFO - partial stacked enough, performed agg-commit for cycle 99
+2024-11-25T04:28:03.228Z - INFO - maybe-stack-aggregation-commit > agg-commit tx 8839e3d72a3ea7f24679fed97822f318ff762d44b089a166d8ffd68110f3f93d
+      api link: https://api.mainnet.hiro.so/extended/v1/tx/8839e3d72a3ea7f24679fed97822f318ff762d44b089a166d8ffd68110f3f93d
+      explorer link: https://explorer.hiro.so/txid/8839e3d72a3ea7f24679fed97822f318ff762d44b089a166d8ffd68110f3f93d?chain=mainnet
