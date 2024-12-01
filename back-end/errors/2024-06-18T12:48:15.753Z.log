@@ -1,4 +1,0 @@
-Error fetching nonce. Response 429: Too Many Requests. Attempted to fetch https://api.mainnet.hiro.so/v2/accounts/SP1SCEXE6PMGPAC6B4N5P2MDKX8V4GF9QDE1FNNGJ?proof=0 and failed with the message: "{
-  "message":"API rate limit exceeded",
-  "request_id":"9b003d5274a493284345c00e818a561b"
-}"
